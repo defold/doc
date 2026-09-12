@@ -5,7 +5,7 @@ brief: 이 매뉴얼은 Lua를 사용해 에디터에서 UI 요소를 만드는 
 
 # 에디터 스크립트와 UI {#editor-scripts-and-ui}
 
-이 매뉴얼은 Lua로 작성한 에디터 스크립트를 사용해 에디터에서 상호작용형 UI 요소를 만드는 방법을 설명합니다. 에디터 스크립트를 시작하려면 [Editor Scripts 매뉴얼](/manuals/editor-scripts)을 참고하세요. 전체 editor API reference는 [여기](/ref/stable/editor-lua/)에서 볼 수 있습니다. 현재는 상호작용형 dialog만 만들 수 있지만, 앞으로 UI scripting 지원을 에디터의 나머지 영역으로 확장하려고 합니다.
+이 매뉴얼은 Lua로 작성한 에디터 스크립트를 사용해 에디터에서 상호작용형 대화상자를 만들고 리소스를 여는 방법을 설명합니다. 에디터 스크립트를 시작하려면 [에디터 스크립트 매뉴얼](/manuals/editor-scripts)을 참고하세요. 전체 에디터 API 레퍼런스는 [여기](/ref/stable/editor-lua/)에서 볼 수 있습니다.
 
 ## Hello world {#hello-world}
 
@@ -52,6 +52,32 @@ return M
 ```
 Perform action:	true
 ```
+
+## 리소스 열기 {#opening-resources}
+
+프로젝트 리소스를 열려면 명령의 `run` 함수에서 `editor.ui.open_resource()`를 호출합니다. 경로는 `/`로 시작합니다. 뷰를 생략하면 리소스의 기본 뷰를 선택합니다.
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+`code` 및 `text` 뷰는 세 번째 인자로 커서 위치나 선택 영역을 받습니다. 줄과 열 번호는 `1`부터 시작하며, 열을 생략하면 기본값은 `1`입니다. 이 인자를 전달할 때는 뷰를 지정하세요.
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+범위를 선택하려면 대신 `from` 및 `to` 커서 위치를 지정합니다.
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+설정된 리소스 뷰는 에디터나 외부 어플리케이션에서 열릴 수 있습니다. 내장 Code 및 Text 뷰는 커서와 선택 영역 인자를 지원합니다. 지원되는 뷰 이름은 [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args)를 참고하세요.
 
 ## 기본 개념 {#basic-concepts}
 

@@ -86,8 +86,12 @@ print(data.highscore) -- 100
 ### 如何访问与应用程序捆绑的文件 {#how-to-access-files-bundled-with-the-application}
 您可以使用捆绑资源和自定义资源将文件包含在您的应用程序中。
 
+<a id="custom-resources"></a>
+
 #### 自定义资源
 :[自定义资源](../shared/custom-resources.md)
+
+扩展也可以通过 `ext.properties` 提供这些文件。无论是编辑器构建还是 Bob 归档，这些路径都会与项目的自定义资源合并。请参阅[扩展的自定义资源](/manuals/extensions/#custom-resources)。
 
 ```lua
 -- 将关卡数据加载到字符串中

@@ -16,7 +16,7 @@ brief: 이 매뉴얼은 스크립트 컴포넌트에 커스텀 프로퍼티를 �
 
 ## 스크립트 프로퍼티 정의
 
-스크립트 프로퍼티는 `go.property()` 특수 함수로 정의해 스크립트 컴포넌트에 추가합니다. 이 함수는 `init()`과 `update()` 같은 라이프사이클 함수 바깥의 최상위 레벨에서 사용해야 합니다. 프로퍼티에 제공한 기본값이 프로퍼티의 타입을 결정합니다: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion`, `resource`(아래 참고).
+스크립트 프로퍼티는 `go.property()` 특수 함수로 정의해 스크립트 컴포넌트에 추가합니다. 이 함수는 `init()`과 `update()` 같은 라이프사이클 함수 바깥의 최상위 레벨에서 사용해야 합니다. 프로퍼티에 제공한 기본값이 프로퍼티의 타입을 결정합니다: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion`, `resource`(아래 참고).
 
 ::: important
 해쉬값의 역변환은 디버깅을 돕기 위해 Debug 빌드에서만 동작합니다. Release 빌드에는 역변환된 문자열 값이 존재하지 않으므로, `hash` 값에서 문자열을 추출하려고 `tostring()`을 사용하는 것은 의미가 없습니다.
@@ -62,6 +62,32 @@ end
 스크립트 프로퍼티는 프로젝트를 빌드할 때 파싱됩니다. 값 표현식은 평가되지 않습니다. 즉, `go.property("hp", 3+6)` 같은 코드는 동작하지 않지만 `go.property("hp", 9)`는 동작합니다.
 :::
 
+### 텍스트 프로퍼티 {#text-properties}
+
+Defold 1.13.2부터 문자열 기본값으로 텍스트 프로퍼티를 정의할 수 있습니다. 텍스트 프로퍼티는 UTF-8과 줄바꿈 문자를 지원하며 에디터의 여러 줄 입력 필드에서 편집합니다.
+
+```lua
+go.property("greeting", "Hello!\nWelcome, José!")
+
+function init(self)
+    go.set("#label", "text", self.greeting)
+end
+```
+
+다른 스크립트 프로퍼티와 마찬가지로 게임 오브젝트나 컬렉션에서 스크립트 컴포넌트를 선택하여 텍스트 프로퍼티를 오버라이드할 수 있습니다. 기본값이나 오버라이드 값 안에 NUL 문자를 포함할 수는 없습니다.
+
+다른 스크립트는 스크립트 컴포넌트의 URL을 통해 텍스트 프로퍼티를 읽고 쓸 수 있습니다. 예를 들어 위 스크립트와 라벨을 컬렉션 안의 `speaker`라는 게임 오브젝트에 추가하고, 컴포넌트 id를 `script`와 `label`로 지정합니다. 다른 스크립트의 `init()`에서 다음과 같이 업데이트합니다.
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+스크립트 프로퍼티를 변경해도 라벨은 자동으로 업데이트되지 않습니다. 마지막 줄은 새 값을 라벨의 `text` 프로퍼티로 명시적으로 복사합니다.
+
 ## 스크립트 프로퍼티 액세스
 
 정의된 모든 스크립트 프로퍼티는 스크립트 인스턴스 참조인 `self`에 저장된 멤버로 사용할 수 있습니다:
@@ -78,7 +104,7 @@ function update(self, dt)
 end
 ```
 
-사용자가 정의한 스크립트 프로퍼티도 다른 프로퍼티와 같은 방식으로 `get`, `set`, `animate` 함수를 통해 액세스할 수 있습니다:
+사용자가 정의한 스크립트 프로퍼티도 `go.get()`으로 읽고 `go.set()`으로 쓸 수 있습니다. 벡터와 쿼터니언을 포함한 숫자형 프로퍼티는 `go.animate()`으로 애니메이션할 수 있습니다. 텍스트 프로퍼티는 읽고 쓸 수 있지만 애니메이션할 수는 없습니다:
 
 ```lua
 -- another.script

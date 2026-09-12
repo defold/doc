@@ -61,6 +61,9 @@ Zoom on Scroll
 Auto-insert closing parens
 : 编辑代码时自动插入匹配的右侧字符。此选项默认启用。
 
+Format on save
+: 保存时，对已修改且处于打开状态的代码文件运行语言服务器的格式化工具。默认禁用。语言服务器必须支持格式化；有关如何手动格式化整个文档或选区，请参阅[格式化代码](/manuals/writing-code/#formatting-code)。
+
 
 ### 在Visual Studio Code中打开脚本文件
 

@@ -34,6 +34,8 @@ Podczas budowania i bundlowania aplikacji Defold tworzy drzewo zależności. Sys
 Szybkim sposobem na zmniejszenie rozmiaru silnika jest usunięcie funkcjonalności, z których nie korzystasz. Służy do tego [plik manifestu aplikacji](https://defold.com/manuals/app-manifest/), w którym można usunąć niepotrzebne komponenty silnika. Przykłady:
 
 * Physics - jeśli twoja gra nie korzysta z fizyki Box2D ani Bullet3D, zdecydowanie zaleca się usunięcie tych silników fizyki
+* GUI, efekty cząsteczkowe i mapy kafelków - Te komponenty można wykluczać osobno za pomocą [przełączników komponentów w manifeście aplikacji](/manuals/app-manifest/#exclude-gui). Dla każdej wykluczanej funkcji usuń odwołania do komponentów i wywołania API. Wykluczenie efektów cząsteczkowych usuwa też obsługę węzłów cząsteczkowych w scenach GUI.
+* Tekst formatowany - Wyłącz [Use Rich Text](/manuals/app-manifest/#use-rich-text), jeśli etykiety i tekst GUI wymagają tylko zwykłego tekstu. Usuwa to parsowanie znaczników i efekty stylów, zachowując zwykłe renderowanie tekstu.
 * LiveUpdate - jeśli twoja gra nie korzysta z LiveUpdate, można ją usunąć
 * Image loaded - jeśli twoja gra nie wczytuje i nie dekoduje obrazów ręcznie za pomocą `image.load()`
 * BasisU - jeśli twoja gra ma niewiele tekstur, porównaj rozmiar builda bez BasisU (usuniętego przez app manifest) i bez kompresji tekstur z buildem z BasisU i skompresowanymi teksturami. W przypadku gier z ograniczoną liczbą tekstur bardziej opłacalne może być zmniejszenie rozmiaru binarnego i pominięcie kompresji tekstur. Dodatkowo rezygnacja z transkodera może zmniejszyć ilość pamięci potrzebnej do uruchomienia gry.

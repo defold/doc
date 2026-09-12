@@ -85,6 +85,41 @@ Pour que cette fonctionnalité fonctionne, *ADB* doit être installé et *USB de
 
 Vous pouvez importer un fichier *.aab* sur Google Play via la [console développeur Google Play](https://play.google.com/apps/publish/). Vous pouvez aussi générer un fichier *`.apk`* à partir d'un fichier *.aab* pour l'installer localement avec [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Réduction du code Java avec R8 {#shrinking-java-code-with-r8}
+
+R8 réduit la taille du code Java en supprimant le code inutilisé, en l'optimisant et en l'obfusquant.
+
+### Activation de R8 {#enabling-r8}
+
+Sélectionnez `/builtins/manifests/android/dmengine.keep` dans **Android ▸ R8 Keep Rules** dans *game.project*. Vous utilisez ainsi directement les règles par défaut de Defold :
+
+```ini
+[android]
+r8_keep_rules = /builtins/manifests/android/dmengine.keep
+```
+
+Assurez-vous que chaque extension contenant du code Java fournit un fichier `.keep` pour les classes dont elle a besoin à l'exécution. Les règles des extensions sont combinées aux règles du projet sélectionnées lors du build. Testez un build de publication sur un appareil après avoir activé R8.
+
+Si vous laissez **R8 Keep Rules** vide, D8 est utilisé sans suppression du code inutilisé. L'activation de R8 fait appel au service de build des extensions natives, même pour un projet sans extensions natives.
+
+### Ajout de règles à une extension {#adding-rules-to-an-extension}
+
+Les règles de conservation d'une extension doivent se trouver dans son répertoire `manifests/android`, à côté de `build.gradle`. Consultez les [règles de conservation R8 pour les extensions Android](/manuals/extensions/#r8-keep-rules-for-android) pour savoir comment ajouter un fichier et préserver les classes Java de l'extension.
+
+### Conservation de la table de correspondance d'obfuscation {#keeping-the-obfuscation-mapping}
+
+Activez **Generate debug symbols** dans la boîte de dialogue de création de bundles Android, ou passez `--with-symbols` à Bob, pour conserver le fichier `mapping.txt` de R8 lorsque le build en produit un. Par exemple, depuis le répertoire du projet :
+
+```sh
+java -jar bob.jar --platform arm64-android --variant release \
+  --archive --with-symbols --bundle-output build/android \
+  resolve build bundle
+```
+
+La table de correspondance est enregistrée sous `<binary-name>.apk.symbols/mapping.txt`, à côté de l'APK ou de l'AAB généré. Par exemple, avec le titre de projet `My Game`, la commande ci-dessus produit `build/android/MyGame/MyGame.apk.symbols/mapping.txt`.
+
+Conservez ce fichier avec la version de publication exacte dont il provient. Il permet de retrouver les noms Java d'origine à partir des noms obfusqués pour interpréter les traces de pile ; une table issue d'un autre build peut donner des résultats incorrects.
+
 ## Autorisations {#permissions}
 
 Le moteur Defold nécessite plusieurs autorisations pour que toutes ses fonctionnalités puissent fonctionner. Les autorisations sont définies dans le fichier `AndroidManifest.xml`, indiqué dans le [fichier de paramètres du projet](/manuals/project-settings/#android) *game.project*. Vous trouverez plus d'informations sur les autorisations Android dans [la documentation officielle](https://developer.android.com/guide/topics/permissions/overview). Les autorisations suivantes sont demandées dans le manifeste par défaut :

@@ -79,6 +79,28 @@ Defold の HTML5 バンドルには、WebAssembly をサポートする新しい
 
 <kbd>Create bundle</kbd> ボタンをクリックすると、アプリケーションを作成するフォルダーの選択を求められます。エクスポート処理が完了すると、アプリケーションの実行に必要なすべてのファイルがそのフォルダーに作成されます。
 
+## WebGL コンテキストのバージョン {#webgl-context-version}
+
+[`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint) で要求するグラフィックスコンテキストを選択します。既定値は WebGL 2 です。両方のバージョンをサポートするブラウザーで WebGL 1 をテストまたは対象にする場合は、WebGL 1 を要求します。
+
+## ダウンロードの検証 {#download-verification}
+
+HTML5 ローダーは、既定でダウンロードしたエンジンファイルとアーカイブファイルのサイズを検証します。検証に失敗すると、ローダーがエラーを報告する前にダウンロードを再試行します。
+
+* エンジンの JavaScript または WebAssembly のダウンロードにおけるネットワークエラー、失敗を示す HTTP ステータス、サイズの不一致には、`html5.retry_count` の再試行上限が適用されます。
+* アーカイブファイルの検証には、サイズまたは SHA-1 の不一致に対する独自の再試行上限があります。検証を再試行するたびにファイルの各部分を再度ダウンロードし、各ダウンロードには通常のネットワーク再試行が適用されます。
+
+どちらの場合も、`html5.retry_time` 設定で再試行の間隔を制御します。
+
+サーバー、プロキシ、CDN が配信するファイルを意図的に書き換えてサイズを変更する場合は、*game.project* でサイズ検証を無効にします。
+
+```ini
+[html5]
+verify_downloaded_file_size = 0
+```
+
+**Verify Downloaded File Size** を無効にしても、バンドルに含まれる SHA-1 検証は有効のままです。[HTML5 のプロジェクト設定](/manuals/project-settings/#verify-downloaded-file-size)を参照してください。
+
 ## 既知の問題と制限事項 {#known-issues-and-limitations}
 
 * ホットリロード（hot reload） - HTML5 ビルドではホットリロードは動作しません。Defold アプリケーションは、エディターからの更新を受信するために独自の小型ウェブサーバーを実行する必要がありますが、HTML5 ビルドでは実行できないためです。
@@ -167,6 +189,25 @@ DEFOLD_SPLASH_IMAGE
 
 exe-name
 : 使用できない記号を除いたプロジェクト名です。
+
+
+DEFOLD_ARCHIVE_LOCATION_PREFIX
+: `html5.archive_location_prefix` に基づいて解決された、ローダーが使うアーカイブパスのプレフィックスです。
+
+DEFOLD_ARCHIVE_LOCATION_SUFFIX
+: `html5.archive_location_suffix` に基づいて解決された、アーカイブ URL に追加するサフィックスです。
+
+DEFOLD_HAS_ARCHIVE_ORIGIN
+: アーカイブのプレフィックスが HTTP または HTTPS のオリジンを指定する場合は `true` です。`//cdn.example.com/archive` のようなプロトコル相対 URL も含まれます。相対アーカイブプレフィックスでは `false` です。Defold 1.13.2 以降で利用できます。
+
+DEFOLD_ARCHIVE_ORIGIN
+: スキーム、ホスト、省略可能なポートを含むアーカイブのオリジンです。オリジンが指定されていなければ空文字列です。プロトコル相対プレフィックスからはプロトコル相対オリジンが生成されます。事前接続のヒントに使われ、Defold 1.13.2 以降で利用できます。
+
+DEFOLD_HAS_WASM_ENGINE
+: バンドルに `wasm-web` または `wasm_pthread-web` の WebAssembly エンジンが含まれる場合は `true` です。
+
+DEFOLD_HAS_WASM_PTHREAD_ENGINE
+: バンドルに `wasm_pthread-web` が含まれる場合は `true` です。ローダーが実行時にアーキテクチャを選択するときに、誤ったエンジンバリアントを事前読み込みしないようにするために使います。
 
 
 DEFOLD_CUSTOM_CSS_INLINE

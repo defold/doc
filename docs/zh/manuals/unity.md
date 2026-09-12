@@ -167,7 +167,7 @@ Defold 使用类似 Unity 的 **"Game Objects"**。在两个引擎中，游戏�
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | 在 Defold 中，只能通过代码修改 tint（颜色属性）。 |
 | [Tilemap](/manuals/tilemap/) | Tilemap / Grid | Defold 内置 Tilemap Editor，支持方形网格（也有例如 [Hexagon](https://github.com/selimanac/defold-hexagon/) 的扩展），但没有内置自动铺瓦规则。[Tiled](https://defold.com/assets/tiled/)、[TileSetter](https://defold.com/assets/tilesetter/) 或 [Sprite Fusion](https://defold.com/assets/spritefusion/) 等工具可导出到 Defold。 |
-| [Label](/manuals/label/) | Text / TextMeshPro | Defold 有用于富文本格式的 [RichText 扩展](https://defold.com/assets/richtext/)（类似 TextMeshPro）。 |
+| [Label](/manuals/label/) | Text / TextMeshPro | 自 Defold 1.13.2 起，Label 组件和 GUI 文本节点支持内置[富文本标记](/manuals/font-richtext/)，可使用颜色、渐变、轮廓和动画效果。此外也有独立的 [RichText 扩展](https://defold.com/assets/richtext/)。 |
 | [Sound](/manuals/sound/) | AudioSource | Defold 只有全局声音源（非空间音频）。Defold 有官方 [FMOD 扩展](https://github.com/defold/extension-fmod)。 |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | 在 Defold 中，Factory 是带有特定原型（prefab）的组件。 |
 | [Collection Factory](/manuals/collection-factory/) | -（无直接组件对应物） | Defold 中的 Collection Factory 组件可以一次生成多个带父子关系的 Game Objects。 |

@@ -5,7 +5,7 @@ brief: 本手册解释了如何使用Lua在编辑器中创建UI元素
 
 # 编辑器脚本和UI
 
-本手册解释了如何使用用Lua编写的编辑器脚本在编辑器中创建交互式UI元素。要开始使用编辑器脚本，请参阅[编辑器脚本手册](/manuals/editor-scripts)。您可以找到完整的编辑器API参考[这里](/ref/stable/editor-lua/)。目前，只能创建交互式对话框，尽管我们希望将来将UI脚本支持扩展到编辑器的其余部分。
+本手册解释了如何使用 Lua 编写的编辑器脚本，在编辑器中创建交互式对话框并打开资源。要开始使用编辑器脚本，请参阅[编辑器脚本手册](/manuals/editor-scripts)。完整的编辑器 API 参考可在[这里](/ref/stable/editor-lua/)找到。
 
 ## Hello world
 
@@ -52,6 +52,32 @@ return M
 ```
 Perform action:	true
 ```
+
+## 打开资源 {#opening-resources}
+
+在命令的 `run` 函数中调用 `editor.ui.open_resource()`，即可打开项目资源。路径以 `/` 开头。省略视图参数时会选择资源的主视图：
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+`code` 和 `text` 视图接受第三个参数，用于指定光标位置或选区。行号和列号从 `1` 开始；省略列号时默认为 `1`。传递这些参数时必须指定视图：
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+要选择一个范围，请改为提供 `from` 和 `to` 光标位置：
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+配置的资源视图可能在编辑器或外部应用程序中打开。内置的 Code 和 Text 视图支持光标和选区参数。有关支持的视图名称，请参阅 [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args)。
 
 ## 基本概念
 

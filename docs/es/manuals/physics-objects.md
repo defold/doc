@@ -27,7 +27,7 @@ Un componente de objeto de colisión tiene un conjunto de *Properties* que defin
 Para agregar un componente de objeto de colisión a un objeto de juego:
 
 1. En la vista *Outline*, haz <kbd>click derecho</kbd> en el objeto de juego y selecciona <kbd>Add Component ▸ Collision Object</kbd> en el menú contextual. Esto crea un nuevo componente sin formas.
-2. Haz <kbd>click derecho</kbd> en el nuevo componente y selecciona <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. Esto agrega una nueva forma al componente de objeto de colisión. Puedes agregar cualquier número de formas al componente. También puedes usar un tilemap o un convex hull para definir la forma del objeto de física.
+2. Haz <kbd>click derecho</kbd> en el nuevo componente y selecciona <kbd>Add Shape</kbd>; luego elige una forma: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> o <kbd>Mesh</kbd> en proyectos que usan físicas 3D, o <kbd>Box</kbd> o <kbd>Circle</kbd> en proyectos que usan físicas 2D. Las formas Hull y Mesh están disponibles desde Defold 1.13.2 y usan una malla con nombre de una escena glTF o GLB. Puedes agregar varias formas al componente. También puedes usar un tilemap o un recurso `.convexshape` mediante la propiedad *Collision Shape*.
 3. Usa las herramientas de mover, rotar y escalar para editar las formas.
 4. Selecciona el componente en *Outline* y edita las *Properties* del objeto de colisión.
 
@@ -36,7 +36,7 @@ Para agregar un componente de objeto de colisión a un objeto de juego:
 
 ## Agregar una forma de colisión
 
-Un componente de colisión puede usar varias formas primitivas o una única forma compleja. Aprende más sobre las distintas formas y cómo agregarlas a un componente de colisión en el [manual de Collision Shapes](/manuals/physics-shapes).
+Un componente de colisión puede contener varias formas integradas, incluidas envolventes convexas y mallas de triángulos en físicas 3D, o usar un recurso tilemap o de forma convexa. Aprende más sobre las distintas formas y cómo agregarlas a un componente de colisión en el [manual de formas de colisión](/manuals/physics-shapes).
 
 
 ## Propiedades del objeto de colisión
@@ -45,7 +45,7 @@ Id
 : La identidad del componente.
 
 Collision Shape
-: Esta propiedad se usa para geometría de tile map o formas convexas que no usan formas primitivas. Consulta [Collision Shapes para obtener más información](/manuals/physics-shapes).
+: Un recurso tilemap o `.convexshape`. Para usar una malla glTF o GLB, agrega una forma Hull o Mesh al componente y define las propiedades *Scene* y *Mesh* de esa forma. Consulta [formas de colisión para obtener más información](/manuals/physics-shapes).
 
 Type
 : El tipo de objeto de colisión: `Dynamic`, `Kinematic`, `Static` o `Trigger`. Si defines el objeto como `Dynamic`, _debes_ definir la propiedad *Mass* con un valor distinto de cero. Para objetos `Dynamic` o `Static`, también deberías comprobar que los valores de *Friction* y *Restitution* sean adecuados para tu caso de uso.

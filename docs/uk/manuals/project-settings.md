@@ -102,6 +102,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 Завантаження користувацьких ресурсів докладніше описано в [посібнику з доступу до файлів](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+Шляхи, надані розширеннями через `custom_resources.default` у `ext.properties`, об’єднуються з цим налаштуванням. Приклад наведено в розділі [Користувацькі ресурси розширень](/manuals/extensions/#custom-resources).
+
 #### Bundle Resources
 `bundle_resources`
 :[Ресурси пакета](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Samples
 Кількість вибірок для згладжування методом надлишкової вибірки. Задає підказку вікна `GLFW_FSAA_SAMPLES`. Значення `0` означає, що згладжування вимкнено.
+
+Це налаштування керує вікном. Позаекранні [цілі рендерингу з мультисемплінгом](/manuals/render/#multisampled-render-targets) мають власну кількість вибірок.
 
 #### Fullscreen
 Установіть прапорець, якщо застосунок має запускатися в повноекранному режимі. Якщо прапорець знято, застосунок працює у вікні.
@@ -300,6 +304,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Verify Graphics Calls
 Перевіряє повернене значення після кожного графічного виклику й повідомляє про помилки в журналі.
+
+#### WebGL Version Hint {#webgl-version-hint}
+`graphics.webgl_version_hint` вибирає версію контексту WebGL, яку потрібно запросити для HTML5. Допустимі значення: `1` (WebGL 1) і `2` (WebGL 2, за замовчуванням). Установіть `1`, щоб використовувати або тестувати WebGL 1 навіть у браузері, який підтримує WebGL 2. Для WebGL 1 залиште [Exclude GLES 2.0](#exclude-gles-20) вимкненим, щоб до збірки потрапили потрібні шейдери.
 
 #### OpenGL Version Hint
 Підказка щодо версії контексту OpenGL. Якщо вибрано конкретну версію, вона використовуватиметься як мінімально необхідна (не застосовується до OpenGL ES).
@@ -638,8 +645,16 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Debuggable
 Визначає, чи можна налагоджувати застосунок за допомогою таких інструментів, як [GAPID](https://github.com/google/gapid) або [Android Studio](https://developer.android.com/studio/profile/android-profiler). Це задає прапорець `android:debuggable` у маніфесті Android ([офіційна документація](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Власний файл ProGuard, що допомагає вилучити зайві класи Java з кінцевого APK.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules {#r8-keep-rules}
+`android.r8_keep_rules` вибирає файл `.keep`, який вмикає вилучення невикористаного коду, оптимізацію й обфускацію Java за допомогою R8 у збірках для Android. Залиште налаштування порожнім, щоб використовувати D8 без вилучення невикористаного коду.
+
+Виберіть `/builtins/manifests/android/dmengine.keep`, щоб безпосередньо застосувати стандартні правила Defold. Розширення надають власні [правила збереження](/manuals/extensions/#r8-keep-rules-for-android), які об’єднуються з цим файлом.
+
+Копіюйте вбудований файл до проєкту лише тоді, коли потрібно додати правила саме для проєкту. Збережіть у копії вбудовані правила: вибір власного файлу замінює весь набір правил проєкту.
+
+Про ввімкнення R8 і збереження таблиці відповідностей обфускації разом із пакетом випуску читайте в [посібнику для Android](/manuals/android/#shrinking-java-code-with-r8).
 
 #### Extract Native Libraries
 Визначає, чи розпаковує інсталятор пакета нативні бібліотеки з APK у файлову систему. Якщо задано `false`, нативні бібліотеки зберігаються в APK без стиснення. Хоча APK може бути більшим, застосунок завантажується швидше, оскільки під час виконання бібліотеки завантажуються безпосередньо з APK. Це задає прапорець `android:extractNativeLibs` у маніфесті Android ([офіційна документація](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -716,10 +731,13 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 Визначає спосіб масштабування полотна гри.
 
 #### Retry Count
-Кількість спроб завантажити файл під час запуску рушія (див. `Retry Time`).
+Кількість повторних спроб після невдалого завантаження під час запуску, зокрема через мережеві помилки, невдалі статуси HTTP й невідповідності розміру файлу JavaScript або WebAssembly рушія. Початковий запит рахується окремо. Перевірка файлів архіву має власний ліміт повторних спроб; див. [перевірку завантажень](/manuals/html5/#download-verification) і `Retry Time`.
 
 #### Retry Time
 Кількість секунд очікування між спробами завантажити файл, якщо завантаження не вдалося (див. `Retry Count`).
+
+#### Verify Downloaded File Size {#verify-downloaded-file-size}
+`html5.verify_downloaded_file_size` перевіряє завантажені файли рушія й архівів на відповідність очікуваним розмірам. Увімкнено за замовчуванням (`true`). Установлюйте `false` лише тоді, коли сервер, проксі або CDN навмисно переписує файли й змінює їхні розміри. Невдала перевірка спричиняє повторні спроби завантаження, перш ніж запуск завершиться помилкою. Ліміти повторних спроб відрізняються для завантажень рушія й перевірки файлів архіву; див. [перевірку завантажень](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Установіть прапорець, якщо графічний контекст має мати прозоре тло.

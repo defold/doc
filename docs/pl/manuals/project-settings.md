@@ -99,6 +99,8 @@ Lista adresów URL do projektów będących *Library URL*. Więcej informacji zn
 
 Ładowanie zasobów niestandardowych opisano dokładniej w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+Ścieżki dostarczane przez rozszerzenia za pomocą `custom_resources.default` w pliku `ext.properties` są łączone z tym ustawieniem. Przykład znajdziesz w sekcji [zasoby niestandardowe rozszerzeń](/manuals/extensions/#custom-resources).
+
 #### Bundle Resources
 `bundle_resources`
 :[Zasoby bundla](../shared/bundle-resources.md)
@@ -161,6 +163,8 @@ Tworzy bufor o wysokim DPI na wyświetlaczach, które to obsługują. Zwykle gra
 
 #### Samples
 Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna `GLFW_FSAA_SAMPLES`. Wartość `0` wyłącza antyaliasing.
+
+To ustawienie dotyczy okna. Pozaekranowe [cele renderowania z wielokrotnym próbkowaniem](/manuals/render/#multisampled-render-targets) mają własną liczbę próbek.
 
 #### Fullscreen
 Zaznacz, jeśli aplikacja ma startować w trybie pełnoekranowym. Gdy pole nie jest zaznaczone, aplikacja uruchomi się w oknie.
@@ -297,6 +301,9 @@ Plik profili teksturowania używany przez projekt, domyślnie `/builtins/graphic
 
 #### Verify Graphics Calls
 Sprawdza wartość zwrotną po każdym wywołaniu grafiki i raportuje błędy w logu.
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` wybiera wersję kontekstu WebGL żądaną dla HTML5. Prawidłowe wartości to `1` (WebGL 1) i `2` (WebGL 2, domyślna). Ustaw `1`, aby używać lub testować WebGL 1 nawet w przeglądarce obsługującej WebGL 2. Pozostaw [Exclude GLES 2.0](#exclude-gles-20) wyłączone, jeśli chcesz używać WebGL 1, aby dołączyć wymagane shadery.
 
 #### OpenGL Version Hint
 Podpowiedź dotycząca wersji kontekstu OpenGL. Jeśli wybierzesz konkretną wersję, będzie ona używana jako minimalnie wymagana wersja. Nie dotyczy OpenGL ES.
@@ -633,8 +640,16 @@ Pozwala rozszerzyć obraz na obszar wycięcia ekranu.
 #### Debuggable
 Określa, czy aplikację można debugować narzędziami takimi jak [GAPID](https://github.com/google/gapid) albo [Android Studio](https://developer.android.com/studio/profile/android-profiler). Ustawia flagę `android:debuggable` w Android Manifest. Zobacz [oficjalną dokumentację](https://developer.android.com/guide/topics/manifest/application-element#debug).
 
-#### ProGuard config
-Własny plik ProGuard pomagający usunąć zbędne klasy Java z końcowego APK.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` wybiera plik `.keep`, aby włączyć usuwanie nieużywanego kodu, optymalizację i zaciemnianie nazw Java przez R8 podczas budowania dla Androida. Pozostaw pole puste, aby używać D8 bez usuwania kodu.
+
+Wybierz `/builtins/manifests/android/dmengine.keep`, aby bezpośrednio użyć domyślnych reguł silnika Defold. Rozszerzenia dostarczają własne [reguły zachowywania klas](/manuals/extensions/#r8-keep-rules-for-android), które są łączone z tym plikiem.
+
+Skopiuj wbudowany plik do projektu tylko wtedy, gdy musisz dodać reguły specyficzne dla projektu. Zachowaj w kopii reguły wbudowane: wybranie własnego pliku zastępuje kompletny zestaw reguł projektu.
+
+Włączanie R8 i zachowywanie mapowania zaciemnionych nazw razem z pakietem wydania opisano w [instrukcji Androida](/manuals/android/#shrinking-java-code-with-r8).
 
 #### Extract Native Libraries
 Określa, czy instalator pakietu ma rozpakowywać biblioteki natywne z APK do systemu plików. Jeśli ustawisz `false`, biblioteki będą przechowywane nieskompresowane wewnątrz APK. APK może być wtedy większy, ale aplikacja będzie ładować się szybciej, bo biblioteki będą ładowane bezpośrednio z APK w czasie działania. To ustawienie ustawia flagę `android:extractNativeLibs` w Android Manifest. Zobacz [oficjalną dokumentację](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs).
@@ -711,10 +726,13 @@ Po włączeniu ta opcja wypisuje informacje o silniku i jego wersji w konsoli pr
 Określa metodę skalowania kanwy gry.
 
 #### Retry Count
-Liczba prób pobrania pliku przy uruchamianiu silnika. Zobacz także `Retry Time`.
+Liczba ponowień po nieudanym pobraniu podczas uruchamiania, obejmująca błędy sieci, nieprawidłowe statusy HTTP oraz niezgodności rozmiaru pliku JavaScript lub WebAssembly silnika. Początkowe żądanie jest liczone osobno. Weryfikacja plików archiwum ma własny limit ponowień; zobacz [weryfikację pobierania](/manuals/html5/#download-verification) i `Retry Time`.
 
 #### Retry Time
 Liczba sekund oczekiwania między kolejnymi próbami pobrania pliku po nieudanym pobraniu. Zobacz także `Retry Count`.
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` sprawdza rozmiary pobranych plików silnika i archiwum względem oczekiwanych wartości. Domyślnie włączone (`true`). Ustaw `false` tylko wtedy, gdy serwer, proxy lub CDN celowo przekształca pliki i zmienia ich rozmiary. Nieudana weryfikacja powoduje ponowienia pobierania, zanim uruchomienie zakończy się błędem. Limity ponowień różnią się dla pobierania silnika i weryfikacji plików archiwum; zobacz [weryfikację pobierania](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Zaznacz, jeśli kontekst grafiki ma mieć przezroczyste tło.

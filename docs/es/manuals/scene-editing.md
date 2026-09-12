@@ -7,7 +7,7 @@ brief: El Scene Editor es donde editas colecciones, objetos de juego, GUIs, efec
 
 El **Scene Editor** es el editor visual que se usa para construir y editar escenas como colecciones, objetos de juego y otros assets visuales.
 
-De forma predeterminada, muchas escenas visuales se abren con una vista **2D ortográfica**. Para trabajar en 3D puedes cambiar a una disposición orientada a 3D, activar un plano de Grid 3D y usar una cámara de **perspectiva**.
+La vista inicial de la cámara depende del recurso. Los recursos 3D, como los modelos y las escenas glTF, usan **perspectiva** de forma predeterminada, mientras que los recursos 2D, como los sprites, tilemaps y escenas GUI, usan una vista **ortográfica**. Puedes cambiar la orientación, la proyección y la cuadrícula de la cámara mediante la barra de herramientas de la escena.
 
 ## Abrir el Scene Editor {#opening-the-scene-editor}
 
@@ -19,6 +19,14 @@ Abre el Scene Editor haciendo doble click en un recurso visual en el panel *Asse
 - **UI** — escenas GUI (`.gui`)
 - **Efectos** — efectos de partículas (`.particlefx`)
 - Y otros
+
+## Vistas de escena recordadas {#remembered-scene-views}
+
+El editor recuerda el estado de la cámara de cada recurso de escena cuando se cierra su pestaña o se sale del editor. Volver a abrir el mismo recurso restaura su vista, por lo que distintas colecciones o modelos pueden conservar distintas posiciones, orientaciones y proyecciones de cámara.
+
+Los filtros de visibilidad también se recuerdan por escena. Ocultar modelos o guías de componentes en una escena no obliga a usar los mismos filtros en otra. Estos ajustes de vista del editor no cambian la cámara del juego ni la visibilidad en runtime.
+
+Para los recursos sin un estado de cámara guardado, los recursos Model, Mesh y glTF comienzan en perspectiva. Los objetos de colisión eligen su vista según la configuración de físicas 2D/3D del proyecto; las colecciones y los objetos de juego eligen una vista inicial según la geometría de su escena.
 
 ## Navegación de la vista de escena (controles de cámara) {#scene-view-navigation-camera-controls}
 
@@ -127,6 +135,8 @@ Haz click en el icono de ojo de **Visibility Filters** (`👁`) en la barra de h
 ## Configuración de Grid {#grid-settings}
 
 La cuadrícula se puede personalizar para adaptarse a tu flujo de trabajo (especialmente útil en 3D). Haz click en el botón **Grid Settings** (`▦`) para abrir el popup de configuración de Grid.
+
+El editor mantiene configuraciones de cuadrícula separadas para las vistas 2D y 3D. Define el tamaño, el plano y la apariencia mientras el modo deseado esté activo; al cambiar de modo se restaura la configuración de cuadrícula de ese modo. **Reset to Defaults** restablece la configuración del modo activo.
 
 ![Grid Settings](images/editor/grid_popup.png)
 

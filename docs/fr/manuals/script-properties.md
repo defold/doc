@@ -16,7 +16,7 @@ Les cas d'utilisation courants consistent à définir les points de vie ou la vi
 
 ## Définir une propriété de script {#defining-a-script-property}
 
-Les propriétés de script sont ajoutées à un composant script (script component) en les définissant avec la fonction spéciale `go.property()`. Cette fonction doit être utilisée au niveau supérieur du script---en dehors des fonctions du cycle de vie telles que `init()` et `update()`. La valeur par défaut fournie pour la propriété détermine son type : `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` et `resource` (voir ci-dessous).
+Les propriétés de script sont ajoutées à un composant script en les définissant avec la fonction spéciale `go.property()`. Cette fonction doit être utilisée au niveau supérieur, en dehors de toute fonction du cycle de vie comme `init()` et `update()`. La valeur par défaut fournie détermine le type de la propriété : `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` et `resource` (voir ci-dessous).
 
 ::: important
 Notez que retrouver la chaîne d'origine à partir d'une valeur de hachage n'est possible que dans un build Debug, afin de faciliter le débogage. Dans un build Release, cette chaîne n'existe pas ; utiliser `tostring()` sur une valeur `hash` pour en extraire la chaîne n'a donc aucun sens.
@@ -62,6 +62,32 @@ Toute propriété dont la valeur est remplacée par une nouvelle valeur propre �
 Les propriétés de script sont analysées lors du build du projet. Les expressions utilisées comme valeurs ne sont pas évaluées. Cela signifie qu'une expression telle que `go.property("hp", 3+6)` ne fonctionnera pas, tandis que `go.property("hp", 9)` fonctionnera.
 :::
 
+### Propriétés textuelles {#text-properties}
+
+Depuis Defold 1.13.2, une valeur par défaut de type chaîne définit une propriété textuelle. Les propriétés textuelles prennent en charge UTF-8 et les caractères de saut de ligne et se modifient dans un champ multiligne de l'éditeur :
+
+```lua
+go.property("greeting", "Hello!\nWelcome, José!")
+
+function init(self)
+    go.set("#label", "text", self.greeting)
+end
+```
+
+Sélectionnez un composant script dans un objet de jeu ou une collection pour remplacer les valeurs de ses propriétés textuelles, comme pour les autres propriétés de script. Les caractères NUL intégrés ne sont pas autorisés dans les valeurs par défaut ni dans les valeurs de remplacement.
+
+D'autres scripts peuvent lire et écrire une propriété textuelle via l'URL du composant script. Par exemple, placez le script ci-dessus et un label dans un objet de jeu nommé `speaker` dans la collection, avec les identifiants de composants `script` et `label`. Mettez-les à jour depuis la fonction `init()` d'un autre script :
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+Modifier la propriété du script ne met pas automatiquement le label à jour ; la dernière ligne copie explicitement la nouvelle valeur dans la propriété `text` du label.
+
 ## Accéder aux propriétés de script {#accessing-script-properties}
 
 Toute propriété de script définie est disponible sous la forme d'un membre stocké dans `self`, la référence à l'instance du script :
@@ -78,7 +104,7 @@ function update(self, dt)
 end
 ```
 
-Les propriétés de script définies par l'utilisateur sont également accessibles au moyen des fonctions `get`, `set` et `animate`, de la même manière que toute autre propriété :
+Les propriétés de script définies par l'utilisateur peuvent également être lues avec `go.get()` et écrites avec `go.set()`. Les propriétés numériques, y compris les vecteurs et les quaternions, peuvent être animées avec `go.animate()`. Les propriétés textuelles peuvent être lues et écrites, mais ne peuvent pas être animées :
 
 ```lua
 -- another.script

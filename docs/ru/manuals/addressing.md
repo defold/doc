@@ -13,7 +13,7 @@ Defold ссылается на игровые объекты и компонен
 
 ```lua
 local id = factory.create("#enemy_factory")
-label.set_text("my_gameobject#my_label", "Hello World!")
+go.set("my_gameobject#my_label", "text", "Hello World!")
 
 local pos = go.get_position("my_gameobject")
 go.set_position(pos, "/level/stuff/other_gameobject")

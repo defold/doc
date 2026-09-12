@@ -1,11 +1,11 @@
 ---
 title: 충돌 모양
-brief: 충돌 오브젝트 컴포넌트는 여러 기본 모양 또는 하나의 복잡한 모양을 사용할 수 있습니다.
+brief: 충돌 오브젝트는 기본 모양, hull 또는 삼각형 메쉬를 포함하거나 타일맵 및 convex shape 리소스를 사용할 수 있습니다.
 ---
 
 # 충돌 모양
 
-충돌 오브젝트 컴포넌트는 여러 기본 모양 또는 하나의 복잡한 모양을 사용할 수 있습니다.
+충돌 오브젝트는 여러 내장 모양을 포함할 수 있습니다. 3D 물리에서는 glTF 또는 GLB 파일의 hull과 삼각형 메쉬를 포함할 수 있습니다. 충돌 오브젝트의 *Collision Shape* 프로퍼티로 타일맵이나 convex shape 리소스를 사용할 수도 있습니다.
 
 ### 기본 모양
 기본 모양은 *box*, *sphere*, *capsule*입니다. 충돌 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택하여 기본 모양을 추가합니다:
@@ -32,7 +32,21 @@ Capsule 모양은 3D 물리를 사용할 때만 지원됩니다. 3D 물리는 *g
 :::
 
 ### 복잡한 모양
-복잡한 모양은 타일맵 컴포넌트 또는 convex hull 모양에서 만들 수 있습니다.
+복잡한 모양에는 타일맵 지오메트리나 convex hull 데이터를 사용할 수 있습니다. Defold 1.13.2부터 3D 충돌 오브젝트에서는 glTF 또는 GLB 씬의 메쉬로 hull과 삼각형 메쉬 모양을 만들 수도 있습니다.
+
+## 3D의 Hull 및 Mesh 모양 {#hull-and-mesh-shapes-in-3d}
+
+메쉬를 볼록한 형태로 근사하려면 *Hull* 모양을 사용합니다. 레벨 지오메트리의 구멍 같은 오목한 영역을 포함하여 메쉬의 삼각형을 따라 충돌해야 한다면 *Mesh* 모양을 사용합니다.
+
+1. *game.project*에서 **Physics → Type**을 `3D`로 설정합니다.
+2. *Outline*에서 충돌 오브젝트를 오른쪽 클릭하고 <kbd>Add Shape ▸ Hull</kbd> 또는 <kbd>Add Shape ▸ Mesh</kbd>를 선택합니다.
+3. 새 모양을 선택하고 *Scene* 프로퍼티를 *.gltf* 또는 *.glb* 파일로 설정합니다.
+4. *Mesh* 필드에서 이름 있는 메쉬를 선택합니다. 목록에 없다면 모델링 도구에서 메쉬에 이름을 지정하고 씬을 다시 익스포트하세요.
+5. 모양의 위치와 회전을 조정하여 게임 오브젝트의 보이는 지오메트리에 맞춥니다. 모양을 더 추가해야 한다면 이 단계를 반복합니다.
+
+선택한 메쉬는 로컬 지오메트리를 제공하며 glTF 노드 트랜스폼은 적용되지 않습니다. Mesh 충돌 모양은 정적 및 비정적 충돌 오브젝트를 포함하여 Bullet 3D 백엔드에서 지원됩니다. 2D 물리 백엔드에서는 지원되지 않습니다.
+
+삼각형 메쉬 지오메트리는 런타임 모양 API를 통해 읽기만 할 수 있습니다. 삼각형을 변경하려면 소스 메쉬를 편집하고 다시 빌드하세요. 게임 오브젝트의 스케일은 [충돌 모양 스케일링](#scaling-collision-shapes)을 참고하세요.
 
 ## 타일맵 충돌 모양
 Defold에는 타일 맵에서 사용하는 타일 소스에 대한 물리 모형을 쉽게 생성할 수 있는 기능이 있습니다. [Tilesource 매뉴얼](/manuals/tilesource/#tile-source-collision-shapes)에서는 타일 소스에 충돌 그룹을 추가하고 타일을 충돌 그룹에 할당하는 방법을 설명합니다([예제](/examples/tilemap/collisions/)).
@@ -51,7 +65,7 @@ Defold에는 타일 맵에서 사용하는 타일 소스에 대한 물리 모형
 :::
 
 ## Convex hull 모양
-Defold에는 세 개 이상의 점으로 convex hull 모양을 만들 수 있는 기능이 있습니다.
+3D 물리에서는 [위의 에디터 작업 절차](#hull-and-mesh-shapes-in-3d)를 사용하여 메쉬에서 직접 hull을 만들 수 있습니다. 기존 `.convexshape` 리소스도 지원되며, 외부 에디터를 사용해 점으로부터 생성할 수 있습니다:
 
 1. 외부 에디터를 사용해 convex hull shape 파일(파일 확장자 `.convexshape`)을 생성합니다.
 2. 텍스트 에디터 또는 외부 도구로 파일을 직접 편집합니다(아래 참조).
@@ -98,11 +112,13 @@ data: 0.0
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/)는 convex hull 모양을 만드는 데 사용할 수 있습니다.
 
 
+<a id="scaling-collision-shapes"></a>
+
 # 충돌 모양 스케일링
 충돌 오브젝트와 그 모양은 게임 오브젝트의 스케일을 상속합니다. 이 동작을 비활성화하려면 *game.project*의 Physics 섹션에서 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) 체크박스를 해제합니다. 균일 스케일링만 지원되며, 스케일이 균일하지 않으면 가장 작은 스케일 값이 사용된다는 점에 유의하세요.
 
 # 충돌 모양 크기 변경
-충돌 오브젝트의 모양은 런타임에 `physics.set_shape()`를 사용해 크기를 변경할 수 있습니다. 예:
+기본 모양은 런타임에 `physics.set_shape()`를 사용해 크기를 변경할 수 있습니다. 이 함수는 hull 버텍스나 삼각형 메쉬 지오메트리를 대체하지 않습니다. 예:
 
 ```lua
 -- capsule shape 데이터 설정

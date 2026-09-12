@@ -76,6 +76,21 @@ Incluye soporte para recursos de sonido Ogg Opus. El decodificador Opus se exclu
 Excluye todo el manejo de input del motor.
 
 
+## Excluir GUI (`Exclude GUI`) {#exclude-gui}
+
+Elimina del motor los recursos, componentes y soporte Lua de GUI. Activa esta opción solo si el proyecto no usa escenas ni scripts GUI. Los componentes Label siguen disponibles. Esta opción está desactivada de forma predeterminada.
+
+
+## Excluir efectos de partículas (`Exclude Particle FX`) {#exclude-particle-fx}
+
+Elimina los recursos y componentes de efectos de partículas y el módulo Lua `particlefx`. También elimina el soporte de nodos de partículas en escenas GUI; las escenas GUI sin nodos de partículas siguen siendo compatibles. Elimina las referencias a efectos de partículas y las llamadas a sus APIs antes de activar esta opción. Está desactivada de forma predeterminada.
+
+
+## Excluir tilemaps (`Exclude Tilemaps`) {#exclude-tilemaps}
+
+Elimina los recursos y componentes de tilemap y el módulo Lua `tilemap`. Activa esta opción solo si el proyecto no usa componentes tilemap ni sus APIs. Las tile sources usadas por otros componentes siguen disponibles. Esta opción está desactivada de forma predeterminada.
+
+
 ## Excluir Live Update (`Exclude Live Update`)
 
 Excluye la [funcionalidad Live Update](/manuals/live-update) del motor.
@@ -117,7 +132,12 @@ En Linux ARM64, la opción **OpenGL** usa el backend OpenGL ES. En Android, la o
 
 ## Usar el sistema completo de layout de texto (`Use full text layout system`)
 
-Si está activado (`true`), permite usar la generación en runtime para fuentes de tipo SDF al usar True Type Fonts (`.ttf`) en el proyecto. Lee más detalles en el [manual de fuentes](https://defold.com/manuals/font/#enabling-runtime-fonts).
+Si está activado (`true`), incluye el sistema completo de layout de texto para dar forma al texto, incluidos los idiomas de derecha a izquierda. Activa esta opción junto con `font.runtime_generation` en *game.project* para usar la generación en runtime de fuentes SDF a partir de recursos TrueType (`.ttf`) u OpenType (`.otf`). La generación en runtime a partir de recursos `.otf` está disponible desde Defold 1.13.2. Lee más en el [manual de fuentes](/manuals/font/#enabling-runtime-fonts).
+
+
+## Usar texto enriquecido (`Use Rich Text`) {#use-rich-text}
+
+Incluye el análisis de marcado de texto enriquecido y efectos de estilo para labels y texto GUI. Esta opción está activada de forma predeterminada. Desactívala para reducir el tamaño del motor cuando el proyecto solo necesite texto sin formato. Los labels y el texto GUI siguen siendo compatibles, pero el marcado se muestra como texto sin formato en lugar de aplicar formato o efectos.
 
 
 ## Versiones mínimas del navegador

@@ -76,6 +76,21 @@ Include il supporto per le risorse audio Ogg Opus. Il decodificatore Opus è esc
 Esclude dal motore tutta la gestione dell'input.
 
 
+## Exclude GUI
+
+Rimuove dal motore le risorse GUI, i componenti GUI e il relativo supporto Lua. Abilita questa opzione solo se il progetto non usa scene GUI o script GUI. I componenti Label rimangono disponibili. Questa opzione è disabilitata per impostazione predefinita.
+
+
+## Exclude Particle FX
+
+Rimuove le risorse degli effetti particellari, i relativi componenti e il modulo Lua `particlefx`. Rimuove anche il supporto per i nodi particellari nelle scene GUI; le scene GUI senza nodi particellari rimangono supportate. Prima di abilitare questa opzione, rimuovi i riferimenti agli effetti particellari e le chiamate alle loro API. È disabilitata per impostazione predefinita.
+
+
+## Exclude Tilemaps
+
+Rimuove le risorse tilemap, i relativi componenti e il modulo Lua `tilemap`. Abilita questa opzione solo se il progetto non usa componenti tilemap o le loro API. Le sorgenti di tile usate da altri componenti rimangono disponibili. Questa opzione è disabilitata per impostazione predefinita.
+
+
 ## Exclude Live Update
 
 Esclude dal motore la [funzionalità Live Update](/manuals/live-update).
@@ -117,7 +132,12 @@ Su Linux ARM64, l'opzione **OpenGL** usa il backend OpenGL ES. L'opzione combina
 
 ## Use full text layout system
 
-Se attivata (`true`), consente di generare a runtime caratteri di tipo SDF quando nel progetto si usano caratteri True Type (`.ttf`). Consulta il [manuale sui caratteri](https://defold.com/manuals/font/#enabling-runtime-fonts) per ulteriori dettagli.
+Se abilitata (`true`), include il sistema completo di layout del testo per la composizione dei glifi, anche nelle lingue che si scrivono da destra a sinistra. Abilita questa opzione insieme a `font.runtime_generation` in *game.project* per generare a runtime font SDF da risorse TrueType (`.ttf`) o OpenType (`.otf`). La generazione a runtime da risorse `.otf` è supportata da Defold 1.13.2. Per ulteriori informazioni, consulta il [manuale dei font](/manuals/font/#enabling-runtime-fonts).
+
+
+## Use Rich Text
+
+Include l'analisi del testo formattato e gli effetti di stile per le etichette e il testo GUI. Questa opzione è abilitata per impostazione predefinita. Disabilitala per ridurre le dimensioni del motore quando al progetto serve soltanto testo semplice. Le etichette e il testo GUI rimangono supportati, ma il markup viene visualizzato come testo semplice senza applicare formattazione o effetti.
 
 
 ## Versioni minime dei browser {#minimum-browser-versions}

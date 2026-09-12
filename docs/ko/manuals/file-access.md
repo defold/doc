@@ -87,8 +87,12 @@ print(data.highscore) -- 100
 ### 어플리케이션에 번들된 파일에 액세스하는 방법 {#how-to-access-files-bundled-with-the-application}
 번들 리소스와 커스텀 리소스를 사용해 파일을 어플리케이션에 포함할 수 있습니다.
 
+<a id="custom-resources"></a>
+
 #### 커스텀 리소스
 :[Custom Resources](../shared/custom-resources.md)
+
+익스텐션도 `ext.properties`를 통해 이 파일들을 제공할 수 있습니다. 에디터 빌드와 Bob 아카이브 모두에서 익스텐션의 경로를 프로젝트의 커스텀 리소스와 결합합니다. [익스텐션의 커스텀 리소스](/manuals/extensions/#custom-resources)를 참고하세요.
 
 ```lua
 -- 레벨 데이터를 문자열로 로드합니다

@@ -102,6 +102,8 @@ Un elenco degli URL *Library URL* del progetto. Per ulteriori informazioni, cons
 
 Il caricamento delle risorse personalizzate è descritto più in dettaglio nel [manuale sull'accesso ai file](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+I percorsi forniti dalle estensioni tramite `custom_resources.default` in `ext.properties` vengono combinati con questa impostazione. Consulta [Risorse personalizzate delle estensioni](/manuals/extensions/#custom-resources) per un esempio.
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ Crea un back buffer ad alta densità di pixel sugli schermi che lo supportano. I
 
 #### Samples
 Il numero di campioni da usare per l'antialiasing tramite supercampionamento. Imposta il parametro della finestra `GLFW_FSAA_SAMPLES`. Un valore di `0` indica che l'antialiasing è disattivato.
+
+Questa impostazione controlla la finestra. I [render target multicampionati](/manuals/render/#multisampled-render-targets) fuori schermo hanno un proprio numero di campioni.
 
 #### Fullscreen
 Seleziona questa opzione per avviare l'applicazione a schermo intero. Se non è selezionata, l'applicazione viene eseguita in una finestra.
@@ -300,6 +304,9 @@ Il file dei profili delle texture da usare per questo progetto; il valore predef
 
 #### Verify Graphics Calls
 Verifica il valore restituito da ogni chiamata grafica e segnala eventuali errori nel log.
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` seleziona la versione del contesto WebGL da richiedere per HTML5. I valori validi sono `1` (WebGL 1) e `2` (WebGL 2, il valore predefinito). Impostalo su `1` per usare o provare WebGL 1 anche in un browser che supporta WebGL 2. Mantieni disabilitato [Exclude GLES 2.0](#exclude-gles-20) quando usi WebGL 1, affinché vengano inclusi gli shader necessari.
 
 #### OpenGL Version Hint
 L'indicazione della versione del contesto OpenGL. Se selezioni una versione specifica, viene usata come versione minima richiesta (non si applica a OpenGL ES).
@@ -638,8 +645,16 @@ Estende la visualizzazione all'area del ritaglio dello schermo.
 #### Debuggable
 Indica se è possibile eseguire il debug dell'applicazione con strumenti come [GAPID](https://github.com/google/gapid) o [Android Studio](https://developer.android.com/studio/profile/android-profiler). Imposta il flag `android:debuggable` nel manifest Android ([documentazione ufficiale](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Un file ProGuard personalizzato che aiuta a rimuovere le classi Java ridondanti dall'APK finale.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` seleziona un file `.keep` per abilitare la rimozione del codice inutilizzato, l'ottimizzazione e l'offuscamento del codice Java tramite R8 nelle build Android. Lascia vuota l'impostazione per usare D8 senza rimuovere il codice inutilizzato.
+
+Seleziona `/builtins/manifests/android/dmengine.keep` per usare direttamente le regole predefinite di Defold. Le estensioni forniscono le proprie [regole di conservazione](/manuals/extensions/#r8-keep-rules-for-android), che vengono combinate con questo file.
+
+Copia il file integrato nel progetto solo se devi aggiungere regole specifiche del progetto. Conserva nella copia le regole integrate: selezionare un file personalizzato sostituisce l'intero insieme di regole del progetto.
+
+Consulta il [manuale Android](/manuals/android/#shrinking-java-code-with-r8) per abilitare R8 e conservare la mappatura dell'offuscamento insieme a un bundle di release.
 
 #### Extract Native Libraries
 Specifica se il programma di installazione dei pacchetti estrae le librerie native dall'APK al file system. Se impostata a `false`, le librerie native vengono memorizzate senza compressione nell'APK. Anche se l'APK può risultare più grande, l'applicazione si carica più velocemente perché le librerie vengono caricate direttamente dall'APK durante l'esecuzione. Imposta il flag `android:extractNativeLibs` nel manifest Android ([documentazione ufficiale](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -716,10 +731,13 @@ Se abilitata, questa opzione mostra informazioni sul motore e sulla sua versione
 Specifica il metodo da usare per scalare il canvas del gioco.
 
 #### Retry Count
-Il numero di tentativi di download di un file all'avvio del motore (consulta `Retry Time`).
+Il numero di nuovi tentativi dopo un download fallito durante l'avvio, inclusi errori di rete, stati HTTP di errore e dimensioni non corrispondenti nel file JavaScript o WebAssembly del motore. La richiesta iniziale è separata. La verifica dei file di archivio ha un proprio limite di tentativi; consulta [Verifica dei download](/manuals/html5/#download-verification) e `Retry Time`.
 
 #### Retry Time
 Il numero di secondi di attesa tra i tentativi di download di un file quando il download fallisce (consulta `Retry Count`).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` confronta i file scaricati del motore e dell'archivio con le dimensioni previste. Abilitata per impostazione predefinita (`true`). Impostala su `false` solo se un server, un proxy o una CDN riscrive intenzionalmente i file e ne cambia le dimensioni. Una verifica fallita causa nuovi tentativi di download prima che l'avvio fallisca. I limiti di tentativi sono diversi per i download del motore e la verifica dei file di archivio; consulta [Verifica dei download](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Seleziona questa opzione se vuoi che il contesto grafico abbia uno sfondo trasparente.

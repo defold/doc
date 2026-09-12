@@ -18,12 +18,17 @@ Komponenty modelu tworzy się tak samo jak każdy inny komponent obiektu gry. Mo
 
 Gdy model jest już utworzony, musisz określić kilka właściwości:
 
+<a id="model-properties"></a>
+
 ### Właściwości modelu
 
 Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu:
 
+*Scene*
+: Plik glTF *.gltf* lub *.glb* zawierający geometrię modelu. Jeśli plik zawiera cele morfingu, są one importowane razem ze sceną. Przed wersją Defold 1.13.2 ta właściwość nosiła nazwę *Mesh*.
+
 *Mesh*
-: Ta właściwość powinna wskazywać plik glTF *.gltf* lub *.glb* zawierający siatkę, której chcesz użyć. Jeśli plik zawiera cele morfingu, zostaną one zaimportowane razem z siatką. Jeśli plik zawiera wiele siatek, odczytywana jest tylko pierwsza z nich.
+: Opcjonalna siatka o określonej nazwie z wybranej *Scene*, dostępna od wersji Defold 1.13.2. Pozostaw pole puste, aby renderować całą scenę z zaimportowanymi transformacjami. Wybierz siatkę, aby wyrenderować ją jednokrotnie w jej współrzędnych lokalnych, bez transformacji węzłów glTF. Ustaw pozycję, obrót i skalę komponentu modelu lub jego obiektu gry, aby rozmieścić wybraną siatkę.
 
 *Create GO Bones*
 : Zaznacz tę opcję, aby utworzyć obiekt gry dla każdej kości modelu. Takie obiekty gry możesz wykorzystać do dołączania innych obiektów, na przykład broni do kości dłoni.

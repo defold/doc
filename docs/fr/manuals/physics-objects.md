@@ -27,7 +27,7 @@ Un composant objet de collision possède un ensemble de *Properties* qui défini
 Pour ajouter un composant objet de collision à un objet de jeu :
 
 1. Dans la vue *Outline*, <kbd>faites un clic droit</kbd> sur l'objet de jeu et sélectionnez <kbd>Add Component ▸ Collision Object</kbd> dans le menu contextuel. Cela crée un nouveau composant sans forme.
-2. <kbd>Faites un clic droit</kbd> sur le nouveau composant et sélectionnez <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. Cela ajoute une nouvelle forme au composant objet de collision. Vous pouvez ajouter autant de formes que vous le souhaitez au composant. Vous pouvez également utiliser une tilemap ou une enveloppe convexe pour définir la forme de l'objet physique.
+2. <kbd>Faites un clic droit</kbd> sur le nouveau composant et sélectionnez <kbd>Add Shape</kbd>, puis choisissez une forme : <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> ou <kbd>Mesh</kbd> dans les projets utilisant la physique 3D ; <kbd>Box</kbd> ou <kbd>Circle</kbd> dans les projets utilisant la physique 2D. Les formes Hull et Mesh sont disponibles depuis Defold 1.13.2 et utilisent un maillage nommé provenant d'une scène glTF ou GLB. Vous pouvez ajouter plusieurs formes au composant. Vous pouvez également utiliser une tilemap ou une ressource `.convexshape` via la propriété *Collision Shape*.
 3. Utilisez les outils de déplacement, de rotation et de mise à l'échelle pour modifier les formes.
 4. Sélectionnez le composant dans la vue *Outline* et modifiez les *Properties* de l'objet de collision.
 
@@ -36,7 +36,7 @@ Pour ajouter un composant objet de collision à un objet de jeu :
 
 ## Ajouter une forme de collision {#adding-a-collision-shape}
 
-Un composant de collision peut utiliser soit plusieurs formes primitives, soit une seule forme complexe. Pour en savoir plus sur les différentes formes et la manière de les ajouter à un composant de collision, consultez le [manuel des formes de collision](/manuals/physics-shapes).
+Un composant de collision peut contenir plusieurs formes intégrées, notamment des enveloppes convexes et des maillages triangulés en physique 3D, ou utiliser une ressource tilemap ou de forme convexe. Pour en savoir plus sur les différentes formes et la manière de les ajouter à un composant de collision, consultez le [manuel des formes de collision](/manuals/physics-shapes).
 
 
 ## Propriétés des objets de collision {#collision-object-properties}
@@ -45,7 +45,7 @@ Id
 : L'identité du composant.
 
 Collision Shape
-: Cette propriété est utilisée pour la géométrie d'une tilemap ou les formes convexes qui n'utilisent pas de formes primitives. Consultez le [manuel des formes de collision pour plus d'informations](/manuals/physics-shapes).
+: Une ressource tilemap ou `.convexshape`. Pour utiliser un maillage glTF ou GLB, ajoutez plutôt une forme Hull ou Mesh au composant et définissez les propriétés *Scene* et *Mesh* de cette forme. Consultez [Formes de collision pour plus d'informations](/manuals/physics-shapes).
 
 Type
 : Le type d'objet de collision : `Dynamic`, `Kinematic`, `Static` ou `Trigger`. Si vous définissez l'objet sur `Dynamic`, vous _devez_ attribuer à la propriété *Mass* une valeur non nulle. Pour les objets `Dynamic` ou `Static`, vous devriez également vérifier que les valeurs de *Friction* et de *Restitution* conviennent à votre cas d'utilisation.

@@ -27,6 +27,8 @@ Se il modello deve usare una texture in Defold, importa l'immagine della texture
 ::: sidenote
 A partire da Defold 1.13.0, Defold conserva le posizioni e le trasformazioni del file glTF importato e non ricentra automaticamente il modello durante l'importazione. L'anteprima dell'editor e il runtime usano le trasformazioni importate in modo coerente: le mesh deformate tramite skinning o con un osso come genitore conservano le proprie trasformazioni locali relative allo scheletro, mentre le mesh rigide mantengono la collocazione nello spazio globale risultante dall'appiattimento della gerarchia.
 
+Da Defold 1.13.2, un [componente modello](/manuals/model/#model-properties) può selezionare una singola mesh con nome dalla scena importata. Lasciando vuoto il campo *Mesh*, viene usata l'intera scena e vengono conservate le trasformazioni descritte sopra. Selezionando una mesh, viene usata la sua geometria locale senza le trasformazioni dei nodi glTF: posizionala quindi tramite la trasformazione del componente modello o dell'oggetto di gioco.
+
 Se un modello creato con una versione precedente di Defold cambia posizione o orientamento dopo una nuova importazione, correggi la trasformazione in Blender o in un altro strumento di creazione ed esporta di nuovo il file *.gltf* o *.glb*.
 :::
 
@@ -34,8 +36,8 @@ Se un modello creato con una versione precedente di Defold cambia posizione o or
 Dopo aver importato il modello, usalo in un [componente modello](/manuals/model):
 
 1. Crea un file Model dal pannello *Assets* con <kbd>New... ▸ Model</kbd>, oppure aggiungi un componente modello direttamente a un oggetto di gioco con <kbd>Add Component ▸ Model</kbd>.
-2. Imposta la proprietà *Mesh* sul file *.gltf* o *.glb* importato che contiene la mesh.
-3. Per un modello animato, imposta la proprietà *Skeleton* sul file *.gltf* o *.glb* che contiene lo scheletro. Spesso è lo stesso file usato per *Mesh* quando mesh, scheletro e animazioni vengono esportati insieme.
+2. Imposta la proprietà *Scene* sul file *.gltf* o *.glb* importato. Lascia vuoto *Mesh* per usare l'intera scena oppure seleziona una mesh con nome per usarne soltanto la geometria locale.
+3. Per un modello animato, imposta la proprietà *Skeleton* sul file *.gltf* o *.glb* che contiene lo scheletro. Spesso è lo stesso file usato per *Scene* quando mesh, scheletro e animazioni vengono esportati insieme.
 4. Crea un file *Animation Set* per le animazioni e assegnalo alla proprietà *Animations*. Imposta *Default Animation* se vuoi che un'animazione si avvii automaticamente.
 5. Imposta la proprietà *Material* su un materiale adatto al modello. I file integrati *model.material*, *model_instanced.material*, *model_skinned.material* e *model_skinned_instanced.material* sono utili punti di partenza. I materiali per lo skinning usano lo spazio locale dei vertici affinché lo skinning possa essere eseguito sulla GPU; anche i materiali personalizzati per i modelli con skinning sulla GPU o per i modelli istanziati devono usare lo spazio locale dei vertici. Consulta il [manuale dei modelli](/manuals/model/#material) per il requisito relativo all'adattatore grafico.
 6. Imposta le proprietà delle texture del materiale, come *Texture*, sui file delle immagini delle texture importate. Se il materiale usa più texture, assegna ciascuna texture al campo corrispondente delle texture del materiale.

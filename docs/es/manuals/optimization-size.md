@@ -34,6 +34,8 @@ Defold creará un árbol de dependencias al crear la build y el bundle de tu apl
 Una forma rápida de reducir el tamaño del motor es eliminar funcionalidades del motor que no usas. Esto se hace en el [archivo de manifiesto de la aplicación](https://defold.com/manuals/app-manifest/), donde es posible eliminar componentes del motor que no necesitas. Ejemplos:
 
 * Physics - Si tu juego no usa físicas de Box2D o Bullet3D, se recomienda encarecidamente eliminar los motores de físicas
+* GUI, efectos de partículas y tilemaps - Estos componentes se pueden excluir por separado con las [opciones de componentes de App Manifest](/manuals/app-manifest/#exclude-gui). Elimina las referencias a componentes y las llamadas a APIs de cualquier funcionalidad que excluyas. Excluir efectos de partículas también elimina el soporte de nodos de partículas en escenas GUI.
+* Texto enriquecido - Desactiva [Use Rich Text](/manuals/app-manifest/#use-rich-text) si los labels y el texto GUI solo necesitan texto sin formato. Esto elimina el análisis de marcado de texto enriquecido y los efectos de estilo, conservando el renderizado de texto normal.
 * LiveUpdate - Si tu juego no usa LiveUpdate, se puede eliminar
 * Image loaded - Si tu juego no carga y decodifica imágenes manualmente usando `image.load()`
 * BasisU - Si tu juego tiene pocas texturas, compara el tamaño de build sin BasisU (eliminado mediante el manifiesto de la aplicación) y sin compresión de texturas frente a una build con BasisU y texturas comprimidas. Para juegos con texturas limitadas, puede ser más beneficioso reducir el tamaño del binario y omitir la compresión de texturas. Además, no usar el transcodificador puede reducir la cantidad de memoria necesaria para ejecutar tu juego.

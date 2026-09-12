@@ -22,8 +22,11 @@ Una volta creato il modello, devi specificare alcune proprietà:
 
 Oltre alle proprietà *Id*, *Position* e *Rotation*, sono disponibili le seguenti proprietà specifiche del componente:
 
+*Scene*
+: Il file glTF *.gltf* o *.glb* che contiene la geometria del modello. Se il file contiene forme di destinazione (morph target), queste vengono importate insieme alla scena. Prima di Defold 1.13.2, questa proprietà si chiamava *Mesh*.
+
 *Mesh*
-: Questa proprietà deve fare riferimento al file glTF *.gltf* o *.glb* che contiene la mesh da utilizzare. Se il file contiene forme di destinazione (morph target), queste vengono importate insieme alla mesh. Se il file contiene più mesh, viene letta soltanto la prima.
+: Una mesh con nome facoltativa della *Scene* selezionata, disponibile da Defold 1.13.2. Lascia vuoto questo campo per renderizzare l'intera scena con le sue trasformazioni importate. Seleziona una mesh per renderizzarla una sola volta nelle sue coordinate locali, senza le trasformazioni dei nodi glTF. Sposta, ruota e scala il componente modello o il suo oggetto di gioco per posizionare la mesh selezionata.
 
 *Create GO Bones*
 : Seleziona questa opzione per creare un oggetto di gioco per ogni osso del modello. Puoi utilizzare questi oggetti di gioco per collegare altri oggetti di gioco, per esempio armi alle ossa delle mani e così via. 

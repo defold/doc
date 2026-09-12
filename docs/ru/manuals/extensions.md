@@ -72,12 +72,55 @@ Defold предоставляет точку входа для нативных 
 
 * `android` - В эту папку помещается файл-заглушка манифеста, который будет объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
   * Папка также может содержать файл `build.gradle` с зависимостями, которые должны быть [разрешены Gradle](/manuals/extensions-gradle) ([пример](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)).
-  * Наконец, папка может также содержать ноль или более файлов ProGuard (экспериментально).
+  * Расширения с Java-кодом должны содержать [файл правил сохранения R8](#r8-keep-rules-for-android) (`.keep`) для классов, необходимых во время выполнения.
 * `ios` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
   * Папка также может содержать файл `Podfile` с зависимостями, которые должны быть [разрешены через Cocoapods](/manuals/extensions-cocoapods).
 * `osx` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 * `web` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 
+
+### Правила сохранения R8 для Android {#r8-keep-rules-for-android}
+
+Добавьте файл `.keep` в каталог `manifests/android` расширения, рядом с `build.gradle`. Например, `/myextension/manifests/android/myextension.keep` может сохранять Java-классы расширения с помощью правила:
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+Замените `com.example.myextension` на пакет с Java-классами вашего расширения. Это правило сохраняет классы и их члены, разрешая R8 оптимизировать их код. Добавьте правила для других классов, доступ к которым осуществляется через Java Native Interface (JNI) или рефлексию, поскольку R8 может не обнаружить такое использование автоматически.
+
+Если расширение использует аннотации во время выполнения, также добавьте:
+
+```proguard
+-keepattributes *Annotation*
+```
+
+Эти правила объединяются с выбранным файлом правил проекта, когда [R8 включён](/manuals/android/#enabling-r8).
+
+## Пользовательские ресурсы {#custom-resources}
+
+Расширение может включать данные в архив игры, объявив пользовательские ресурсы в файле `ext.properties` рядом с `ext.manifest`:
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+Например, разместите JSON-файл по пути `/myextension/data/settings.json`. Путь задаётся относительно корня проекта и включает папку расширения. Если расширение распространяется как библиотека, добавьте `myextension` в её [Include Dirs](/manuals/libraries/#setting-up-library-sharing), чтобы использующие её проекты получали расширение вместе с данными.
+
+Эти пути объединяются с `project.custom_resources` из *game.project* и путями, добавленными другими расширениями. Настройка пользовательских ресурсов в проекте не заменяет данные расширений. Файлы включаются как в сборки редактора, так и в архивы Bob; их можно загружать во время выполнения:
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+О различиях между пользовательскими ресурсами и ресурсами бандла см. в разделе [Доступ к файлам](/manuals/file-access/#custom-resources).
 
 ## Совместное использование расширения
 

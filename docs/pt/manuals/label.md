@@ -87,6 +87,9 @@ Ao definir a propriedade *Pivot*, você pode alterar o modo de alinhamento do te
 
 Você pode manipular labels em tempo de execução obtendo e definindo o texto do label, bem como várias outras propriedades.
 
+`text`
+: O conteúdo de texto do label (`string`). Disponível por meio de `go.get()` e `go.set()` desde o Defold 1.13.2.
+
 `color`
 : A cor do label (`vector4`)
 
@@ -104,11 +107,17 @@ Você pode manipular labels em tempo de execução obtendo e definindo o texto d
 
 ```lua
 function init(self)
-    -- Define o texto do componente "my_label" no mesmo objeto de jogo
-    -- que este script.
-    label.set_text("#my_label", "New text")
+    -- Set the text of the "my_label" component in the same game object
+    -- as this script.
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+Desde o Defold 1.13.2, `label.set_text()` e `label.get_text()` estão obsoletos em favor da propriedade `text`. As funções antigas continuam disponíveis por compatibilidade. O setter antigo coloca uma mensagem na fila, enquanto `go.set()` atualiza o texto imediatamente.
+:::
 
 ```lua
 function init(self)

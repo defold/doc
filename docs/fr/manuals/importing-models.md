@@ -27,6 +27,8 @@ Si le modèle doit utiliser une texture dans Defold, importez l'image de la text
 ::: sidenote
 À partir de Defold 1.13.0, Defold conserve les positions et les transformations du fichier glTF importé et ne recentre plus automatiquement le modèle lors de l'importation. L'aperçu de l'éditeur et le moteur à l'exécution utilisent les transformations importées de façon cohérente : les maillages déformés par un squelette ou rattachés à un os conservent leurs transformations locales relatives au squelette, tandis que les maillages rigides conservent leur placement dans l'espace monde obtenu par aplatissement.
 
+Depuis Defold 1.13.2, un [composant Model](/manuals/model/#model-properties) peut sélectionner un seul maillage nommé dans la scène importée. Laisser le champ *Mesh* vide utilise toute la scène et préserve les transformations décrites ci-dessus. Sélectionner un maillage utilise sa géométrie locale sans les transformations des nœuds glTF ; placez-le donc à l'aide de la transformation du composant Model ou de l'objet de jeu.
+
 Si un modèle créé avec une ancienne version de Defold change de position ou d'orientation après avoir été réimporté, corrigez la transformation dans Blender ou un autre outil de création et exportez à nouveau le fichier *.gltf* ou *.glb*.
 :::
 
@@ -34,8 +36,8 @@ Si un modèle créé avec une ancienne version de Defold change de position ou d
 Une fois le modèle importé, utilisez-le dans un [composant Model](/manuals/model) :
 
 1. Créez un fichier Model depuis le volet *Assets* avec <kbd>New... ▸ Model</kbd>, ou ajoutez un composant Model directement à un objet de jeu (game object) avec <kbd>Add Component ▸ Model</kbd>.
-2. Définissez la propriété *Mesh* sur le fichier *.gltf* ou *.glb* importé qui contient le maillage.
-3. Pour un modèle animé, définissez la propriété *Skeleton* sur le fichier *.gltf* ou *.glb* contenant le squelette. Il s'agit souvent du même fichier que celui utilisé pour *Mesh* lorsque le maillage, le squelette et les animations sont exportés ensemble.
+2. Définissez la propriété *Scene* sur le fichier *.gltf* ou *.glb* importé. Laissez *Mesh* vide pour utiliser toute la scène, ou sélectionnez un maillage nommé pour utiliser uniquement sa géométrie locale.
+3. Pour un modèle animé, définissez la propriété *Skeleton* sur le fichier *.gltf* ou *.glb* contenant le squelette. Il s'agit souvent du même fichier que celui utilisé pour *Scene* lorsque le maillage, le squelette et les animations sont exportés ensemble.
 4. Créez un fichier *Animation Set* pour les animations et affectez-le à la propriété *Animations*. Définissez *Default Animation* si vous souhaitez qu'une animation démarre automatiquement.
 5. Définissez la propriété *Material* sur un matériau adapté au modèle. Les fichiers intégrés *model.material*, *model_instanced.material*, *model_skinned.material* et *model_skinned_instanced.material* constituent des points de départ utiles. Les matériaux de déformation par squelette utilisent l'espace local des sommets pour que la déformation puisse s'exécuter sur le GPU ; les matériaux personnalisés pour les modèles déformés par squelette sur le GPU ou rendus par instanciation doivent également utiliser l'espace local des sommets. Consultez le [manuel des modèles](/manuals/model/#material) pour connaître les exigences concernant l'adaptateur graphique.
 6. Définissez les propriétés de texture du matériau, telles que *Texture*, sur les fichiers d'image des textures importés. Si le matériau utilise plusieurs textures, affectez chaque texture au champ de texture du matériau correspondant.

@@ -27,6 +27,8 @@ Si el modelo debe usar una textura en Defold, importa la imagen de textura como 
 ::: sidenote
 A partir de Defold 1.13.0, Defold conserva las posiciones y transformaciones del archivo glTF importado y no vuelve a centrar automáticamente el modelo durante la importación. La vista previa del editor y la ejecución usan las transformaciones importadas de forma coherente: las mallas con skinning o vinculadas a huesos conservan sus transformaciones locales relativas al esqueleto, mientras que las mallas rígidas mantienen su ubicación global aplanada.
 
+Desde Defold 1.13.2, un [componente Model](/manuals/model/#model-properties) puede seleccionar una sola malla con nombre de la escena importada. Dejar su campo *Mesh* vacío usa toda la escena y conserva las transformaciones descritas anteriormente. Seleccionar una malla usa su geometría local sin las transformaciones de los nodos glTF, por lo que debes colocarla mediante la transformación del componente Model o del objeto de juego.
+
 Si un modelo creado con una versión anterior de Defold cambia de posición u orientación después de volver a importarlo, corrige la transformación en Blender u otra herramienta de creación y vuelve a exportar el archivo *.gltf* o *.glb*.
 :::
 
@@ -34,8 +36,8 @@ Si un modelo creado con una versión anterior de Defold cambia de posición u or
 Una vez que hayas importado el modelo, úsalo en un [componente Model](/manuals/model):
 
 1. Crea un archivo Model desde el panel *Assets* con <kbd>New... ▸ Model</kbd>, o agrega un componente Model directamente a un objeto de juego con <kbd>Add Component ▸ Model</kbd>.
-2. Define la propiedad *Mesh* con el archivo *.gltf* o *.glb* importado que contiene la malla.
-3. Para un modelo animado, define la propiedad *Skeleton* con el archivo *.gltf* o *.glb* que contiene el esqueleto. A menudo es el mismo archivo usado para *Mesh* cuando la malla, el esqueleto y las animaciones se exportan juntos.
+2. Define la propiedad *Scene* con el archivo *.gltf* o *.glb* importado. Deja *Mesh* vacío para usar toda la escena, o selecciona una malla con nombre para usar solo su geometría local.
+3. Para un modelo animado, define la propiedad *Skeleton* con el archivo *.gltf* o *.glb* que contiene el esqueleto. A menudo es el mismo archivo usado para *Scene* cuando la malla, el esqueleto y las animaciones se exportan juntos.
 4. Crea un archivo *Animation Set* para las animaciones y asígnalo a la propiedad *Animations*. Define *Default Animation* si quieres que una animación se inicie automáticamente.
 5. Define la propiedad *Material* con un material adecuado para el modelo. Los archivos integrados *model.material*, *model_instanced.material*, *model_skinned.material* y *model_skinned_instanced.material* son puntos de partida útiles. Los materiales skinned usan el espacio local de vértices para que el skinning pueda ejecutarse en la GPU; los materiales personalizados para modelos con skinning por GPU o instanciados también deben usar el espacio local de vértices. Consulta el [manual de modelos](/manuals/model/#material) para conocer los requisitos del adaptador gráfico.
 6. Define las propiedades de textura del material, como *Texture*, con los archivos de imagen de textura importados. Si el material usa varias texturas, asigna cada textura en el campo de textura de material correspondiente.

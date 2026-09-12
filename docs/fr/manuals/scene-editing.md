@@ -7,7 +7,7 @@ brief: L'éditeur de scène permet de modifier les collections, les objets de je
 
 L'**éditeur de scène** est l'éditeur visuel utilisé pour créer et modifier des scènes, telles que les collections, les objets de jeu (game objects) et d'autres ressources visuelles.
 
-Par défaut, de nombreuses scènes visuelles s'ouvrent avec une vue **orthographique 2D**. Pour travailler en 3D, vous pouvez passer à une disposition adaptée à la 3D, activer un plan de grille 3D et utiliser une caméra **en perspective**.
+La vue initiale de la caméra dépend de la ressource. Les ressources 3D telles que les modèles et les scènes glTF utilisent par défaut une projection **en perspective**, tandis que les ressources 2D telles que les sprites, les tilemaps et les scènes GUI utilisent une projection **orthographique**. Vous pouvez modifier l'orientation de la caméra, la projection et la grille depuis la barre d'outils de la scène.
 
 ## Ouvrir l'éditeur de scène {#opening-the-scene-editor}
 
@@ -19,6 +19,14 @@ Ouvrez l'éditeur de scène en double-cliquant sur une ressource visuelle dans l
 - **Interface utilisateur** — scènes GUI (`.gui`)
 - **Effets** — effets de particules (`.particlefx`)
 - Et d'autres ressources
+
+## Mémorisation des vues de scène {#remembered-scene-views}
+
+L'éditeur mémorise l'état de la caméra de chaque ressource de scène lorsque son onglet est fermé ou que vous quittez l'éditeur. Rouvrir la même ressource restaure sa vue ; différentes collections ou différents modèles peuvent donc conserver des positions, orientations et projections de caméra distinctes.
+
+Les filtres de visibilité sont également mémorisés pour chaque scène. Masquer les modèles ou les guides de composants dans une scène n'impose pas les mêmes filtres dans une autre. Ces paramètres concernent l'affichage dans l'éditeur et ne changent ni la caméra du jeu ni la visibilité à l'exécution.
+
+En l'absence d'état de caméra enregistré, les ressources de modèle, de maillage et glTF s'ouvrent en perspective. Les objets de collision choisissent leur vue d'après le paramètre de physique 2D/3D du projet ; les collections et les objets de jeu choisissent une vue initiale d'après la géométrie de leur scène.
 
 ## Navigation dans la vue de scène (commandes de caméra) {#scene-view-navigation-camera-controls}
 
@@ -127,6 +135,8 @@ Cliquez sur l'**icône en forme d'œil** (`👁`) dans la barre d'outils pour af
 ## Paramètres de la grille {#grid-settings}
 
 Vous pouvez personnaliser la grille pour l'adapter à votre flux de travail (particulièrement utile en 3D). Cliquez sur le bouton **Grid Settings** (`▦`) pour ouvrir la fenêtre contextuelle des paramètres de la grille.
+
+L'éditeur conserve des paramètres de grille distincts pour les vues 2D et 3D. Définissez la taille, le plan et l'apparence lorsque le mode voulu est actif ; changer de mode restaure les paramètres de grille de ce mode. **Reset to Defaults** réinitialise les paramètres du mode actif.
 
 ![Paramètres de la grille](images/editor/grid_popup.png)
 

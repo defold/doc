@@ -576,9 +576,13 @@ return M
 
 ## 言語サーバー {#language-servers}
 
-エディターは、[Language Server Protocol](https://microsoft.github.io/language-server-protocol/) の機能の一部をサポートしています。対応するのは、診断（lint）、補完、ホバー情報、Structure ペインのドキュメントシンボル、定義への移動、参照の検索、シンボルの名前変更です。シンボルにマウスポインターを合わせると、言語サーバー（language server）からの情報が表示されます。シンボルにカーソルを置き、<kbd>F2</kbd> で名前を変更し、<kbd>F12</kbd> で定義に移動し、<kbd>Shift+F12</kbd> で参照を検索します。これらの操作は <kbd>Edit</kbd> メニューからも実行できます。
+エディターは、[Language Server Protocol](https://microsoft.github.io/language-server-protocol/) の機能の一部をサポートしています。対応するのは、診断（lint）、補完、ホバー情報、Structure ペインのドキュメントシンボル、定義への移動、参照の検索、シンボルの名前変更、ドキュメントや範囲の整形です。シンボルにマウスポインターを合わせると、言語サーバー（language server）からの情報が表示されます。シンボルにカーソルを置き、<kbd>F2</kbd> で名前を変更し、<kbd>F12</kbd> で定義に移動し、<kbd>Shift+F12</kbd> で参照を検索します。これらの操作は <kbd>Edit</kbd> メニューからも実行できます。
 
-言語サーバーを定義するには、エディタースクリプトの `get_language_servers` 関数を次のように編集する必要があります。
+整形コマンドと保存時の整形の環境設定については、[コードの整形](/manuals/writing-code/#formatting-code)を参照してください。
+
+同梱の Lua 言語サーバーには、ランタイム API とエディタースクリプト API 用の Defold の型アノテーションが含まれます。`.editor_script` ファイルでは、補完と診断が `editor.*` 関数とその引数および戻り値の型を認識します。[コード補完](/manuals/writing-code/#code-completion)を参照してください。
+
+追加の言語サーバーを登録するには、エディタースクリプトの `get_language_servers` 関数を次のように定義します。
 
 ```lua
 function M.get_language_servers()

@@ -102,6 +102,7 @@ gui.set(node, "color.x", 1)
 
 | プロパティ   | 説明                            | 型            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
+| *text* | ラベルのテキスト内容です。Defold 1.13.2 以降で利用できます。 | `string` | `get+set`{.mark} |
 | *scale* | ラベル（label）のスケールです。 | `vector3` | `get+set`{.mark} |
 | *scale.xy* | ラベルの X 軸と Y 軸に沿ったスケールです。 | `vector3` | `get+set`{.mark}|
 | *color*     | ラベルの色です。 | `vector4` | `get+set`{.mark} |

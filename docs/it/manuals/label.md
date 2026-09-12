@@ -87,6 +87,9 @@ Impostando la proprietà *Pivot* puoi cambiare la modalità di allineamento del 
 
 Puoi modificare le etichette durante l'esecuzione leggendo e impostando il testo dell'etichetta e le altre proprietà.
 
+`text`
+: Il contenuto testuale dell'etichetta (`string`). Disponibile tramite `go.get()` e `go.set()` da Defold 1.13.2.
+
 `color`
 : Il colore dell'etichetta (`vector4`)
 
@@ -106,9 +109,15 @@ Puoi modificare le etichette durante l'esecuzione leggendo e impostando il testo
 function init(self)
     -- Set the text of the "my_label" component in the same game object
     -- as this script.
-    label.set_text("#my_label", "New text")
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+Da Defold 1.13.2, `label.set_text()` e `label.get_text()` sono deprecate a favore della proprietà `text`. Le vecchie funzioni rimangono disponibili per compatibilità. La vecchia funzione di scrittura accoda un messaggio, mentre `go.set()` aggiorna il testo immediatamente.
+:::
 
 ```lua
 function init(self)

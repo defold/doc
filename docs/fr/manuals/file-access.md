@@ -90,6 +90,8 @@ Vous pouvez inclure des fichiers dans votre application à l'aide de ressources 
 #### Ressources personnalisées {#custom-resources}
 :[Custom Resources](../shared/custom-resources.md)
 
+Les extensions peuvent également fournir ces fichiers via `ext.properties`. Leurs chemins sont combinés aux ressources personnalisées du projet dans les builds de l'éditeur comme dans les archives de Bob. Consultez [Ressources personnalisées des extensions](/manuals/extensions/#custom-resources).
+
 ```lua
 -- Load level data into a string
 local data, error = sys.load_resource("/assets/level_data.json")

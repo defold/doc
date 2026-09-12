@@ -61,6 +61,9 @@ Zoom on Scroll
 Auto-insert closing parens
 : Insère automatiquement les caractères fermants correspondants lors de la modification du code. Cette option est activée par défaut.
 
+Format on save
+: Exécute l'outil de formatage du serveur de langage sur les fichiers de code ouverts modifiés lors de l'enregistrement. Désactivé par défaut. Le serveur de langage doit prendre en charge le formatage ; consultez [Formatage du code](/manuals/writing-code/#formatting-code) pour formater manuellement un document ou une sélection.
+
 
 ### Ouvrir les fichiers de script dans Visual Studio Code {#open-script-files-in-visual-studio-code}
 

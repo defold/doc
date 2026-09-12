@@ -27,7 +27,7 @@ Komponent obiektu kolizji ma zestaw *Properties*, które określają jego typ i 
 Aby dodać komponent obiektu kolizji do obiektu gry:
 
 1. W widoku *Outline* kliknij prawym przyciskiem myszy obiekt gry i wybierz z menu kontekstowego <kbd>Add Component ▸ Collision Object</kbd>. Spowoduje to utworzenie nowego komponentu bez żadnych kształtów.
-2. Kliknij prawym przyciskiem myszy nowy komponent i wybierz <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. Spowoduje to dodanie nowego kształtu do komponentu obiektu kolizji. Możesz dodać dowolną liczbę kształtów do komponentu. Możesz też użyć mapy kafelków albo wypukłej otoczki, aby zdefiniować kształt obiektu fizycznego.
+2. Kliknij prawym przyciskiem myszy nowy komponent i wybierz <kbd>Add Shape</kbd>, a następnie kształt: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> lub <kbd>Mesh</kbd> w projektach z fizyką 3D, albo <kbd>Box</kbd> lub <kbd>Circle</kbd> w projektach z fizyką 2D. Kształty Hull i Mesh są dostępne od wersji Defold 1.13.2 i używają siatki o określonej nazwie ze sceny glTF lub GLB. Do komponentu możesz dodać kilka kształtów. Możesz też użyć mapy kafelków lub zasobu `.convexshape` przez właściwość *Collision Shape*.
 3. Użyj narzędzi do przesuwania, obracania i skalowania, aby edytować kształty.
 4. Wybierz komponent w widoku *Outline* i edytuj *Properties* obiektu kolizji.
 
@@ -36,7 +36,7 @@ Aby dodać komponent obiektu kolizji do obiektu gry:
 
 ## Dodawanie kształtu kolizji
 
-Komponent kolizji może używać kilku prostych kształtów albo jednego złożonego kształtu. Więcej informacji o różnych kształtach i o tym, jak dodawać je do komponentu kolizji, znajdziesz w [manualu Collision Shapes](/manuals/physics-shapes).
+Komponent kolizji może zawierać kilka osadzonych kształtów, w tym otoczki wypukłe i siatki trójkątów w fizyce 3D, albo używać zasobu mapy kafelków lub kształtu wypukłego. Więcej informacji o kształtach i dodawaniu ich do komponentu kolizji znajdziesz w [instrukcji kształtów kolizji](/manuals/physics-shapes).
 
 
 ## Właściwości obiektu kolizji
@@ -45,7 +45,7 @@ Id
 : Tożsamość komponentu.
 
 Collision Shape
-: Ta właściwość służy do geometrii z mapy kafelków albo do kształtów wypukłych, które nie korzystają z prostych kształtów. Więcej informacji znajdziesz w [Collision Shapes](/manuals/physics-shapes).
+: Zasób mapy kafelków lub `.convexshape`. Aby użyć siatki glTF lub GLB, dodaj do komponentu kształt Hull lub Mesh i ustaw jego właściwości *Scene* oraz *Mesh*. Więcej informacji znajdziesz w [instrukcji kształtów kolizji](/manuals/physics-shapes).
 
 Type
 : Typ obiektu kolizji: `Dynamic`, `Kinematic`, `Static` albo `Trigger`. Jeśli ustawisz obiekt jako `Dynamic`, _musisz_ ustawić właściwość *Mass* na wartość różną od zera. W przypadku obiektów `Dynamic` lub `Static` warto też sprawdzić, czy wartości *Friction* i *Restitution* są odpowiednie dla danego zastosowania.

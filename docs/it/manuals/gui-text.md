@@ -7,6 +7,8 @@ brief: Questo manuale descrive come aggiungere testo alle scene GUI.
 
 Defold supporta un tipo specifico di nodo GUI che permette di visualizzare testo in una scena GUI. Per il rendering dei nodi di testo puoi utilizzare qualsiasi risorsa font aggiunta al progetto.
 
+L'anteprima dell'editor supporta la composizione dei glifi e il layout da destra a sinistra usando il renderer dei font del motore. Consulta [Supporto per il layout del testo](/manuals/font/#text-layout-support-eg-right-to-left) per le impostazioni richieste dei font e dell'App Manifest.
+
 ## Aggiungere nodi di testo {#adding-text-nodes}
 
 I font che vuoi utilizzare nei nodi di testo GUI devono essere aggiunti al componente GUI. Fai clic con il pulsante destro del mouse sulla cartella *Fonts*, utilizza il menu superiore <kbd>GUI</kbd> oppure premi la scorciatoia da tastiera corrispondente.
@@ -55,4 +57,3 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-

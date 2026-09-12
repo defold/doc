@@ -87,6 +87,9 @@ brief: Цей посібник пояснює, як використовуват
 
 Ви можете керувати мітками під час виконання, отримуючи й установлюючи текст мітки та різні інші властивості.
 
+`text`
+: Текстовий вміст напису (`string`). Доступний через `go.get()` і `go.set()` починаючи з Defold 1.13.2.
+
 `color`
 : Колір мітки (`vector4`)
 
@@ -106,9 +109,15 @@ brief: Цей посібник пояснює, як використовуват
 function init(self)
     -- Set the text of the "my_label" component in the same game object
     -- as this script.
-    label.set_text("#my_label", "New text")
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+Починаючи з Defold 1.13.2, `label.set_text()` і `label.get_text()` застаріли на користь властивості `text`. Старі функції залишаються доступними для сумісності. Старий засіб установлення тексту ставить повідомлення в чергу, а `go.set()` оновлює текст негайно.
+:::
 
 ```lua
 function init(self)

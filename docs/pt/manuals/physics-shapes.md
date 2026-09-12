@@ -1,11 +1,11 @@
 ---
 title: Formas de colisão
-brief: Um componente de colisão pode usar várias formas primitivas ou uma única forma complexa.
+brief: Objetos de colisão podem conter formas primitivas, cascos convexos ou malhas de triângulos, ou usar recursos de tilemap e formas convexas.
 ---
 
 # Formas de colisão
 
-Um componente de colisão pode usar várias formas primitivas ou uma única forma complexa.
+Um objeto de colisão pode conter várias formas incorporadas. Na física 3D, elas podem incluir cascos convexos e malhas de triângulos de arquivos glTF ou GLB. Você também pode usar um tilemap ou um recurso de forma convexa pela propriedade *Collision Shape* do objeto de colisão.
 
 ### Formas primitivas
 As formas primitivas são *box*, *sphere* e *capsule*. Você adiciona uma forma primitiva clicando com o botão direito no objeto de colisão e selecionando <kbd>Add Shape</kbd>:
@@ -32,7 +32,21 @@ Formas capsule são suportadas apenas ao usar física 3D (configurada na seção
 :::
 
 ### Formas complexas
-Uma forma complexa pode ser criada a partir de um componente tilemap ou de uma forma de casco convexo.
+Formas complexas podem usar a geometria de tilemaps ou dados de cascos convexos. Desde o Defold 1.13.2, objetos de colisão 3D também podem criar cascos convexos e formas de malhas de triângulos a partir de malhas em cenas glTF ou GLB.
+
+## Formas Hull e Mesh em 3D {#hull-and-mesh-shapes-in-3d}
+
+Use uma forma *Hull* para uma aproximação convexa de uma malha, ou uma forma *Mesh* quando as colisões precisarem seguir seus triângulos, incluindo áreas côncavas como aberturas na geometria de um nível.
+
+1. Defina **Physics → Type** como `3D` no *game.project*.
+2. Clique com o botão direito no objeto de colisão no *Outline* e selecione <kbd>Add Shape ▸ Hull</kbd> ou <kbd>Add Shape ▸ Mesh</kbd>.
+3. Selecione a nova forma e defina sua propriedade *Scene* para um arquivo *.gltf* ou *.glb*.
+4. Selecione uma malha nomeada no campo *Mesh*. Se ela não aparecer na lista, dê um nome à malha na sua ferramenta de modelagem e exporte a cena novamente.
+5. Posicione e gire a forma para alinhá-la à geometria visível do objeto de jogo. Repita esses passos para adicionar mais formas, se necessário.
+
+A malha selecionada fornece sua geometria local; as transformações dos nós glTF não são aplicadas. As formas de colisão Mesh são compatíveis com o backend Bullet 3D, incluindo objetos de colisão estáticos e não estáticos. Elas não são compatíveis com os backends de física 2D.
+
+A geometria da malha de triângulos é somente leitura pelas APIs de formas em tempo de execução. Edite a malha original e faça um novo build para alterar seus triângulos. Consulte [escala de formas de colisão](#scaling-collision-shapes) para saber sobre a escala do objeto de jogo.
 
 ## Forma de colisão de tilemap
 O Defold inclui um recurso que permite gerar facilmente formas de física para o tile source usado por um tile map. O [manual de Tilesource](/manuals/tilesource/#tile-source-collision-shapes) explica como adicionar grupos de colisão a um tile source e atribuir tiles a grupos de colisão ([exemplo](/examples/tilemap/collisions/)).
@@ -51,7 +65,7 @@ Observe que a propriedade *Group* **não** é usada aqui, pois os grupos de coli
 :::
 
 ## Forma de casco convexo
-O Defold inclui um recurso que permite criar uma forma de casco convexo a partir de três ou mais pontos.
+Na física 3D, você pode criar um casco convexo diretamente de uma malha usando o [fluxo de trabalho do editor descrito acima](#hull-and-mesh-shapes-in-3d). O recurso antigo `.convexshape` também é compatível e pode ser criado a partir de pontos usando um editor externo:
 
 1. Crie um arquivo de forma de casco convexo (extensão de arquivo `.convexshape`) usando um editor externo.
 2. Edite o arquivo manualmente usando um editor de texto ou ferramenta externa (veja abaixo)
@@ -98,11 +112,13 @@ Há várias ferramentas externas diferentes que podem ser usadas para criar form
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) pode ser usado para criar formas de casco convexo.
 
 
+<a id="scaling-collision-shapes"></a>
+
 # Escalando formas de colisão
 O objeto de colisão e suas formas herdam a escala do objeto de jogo. Para desabilitar esse comportamento, desmarque a caixa de seleção [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) na seção Physics de *game.project*. Observe que apenas escala uniforme é suportada e que o menor valor de escala será usado se a escala não for uniforme.
 
 # Redimensionando formas de colisão
-As formas de um objeto de colisão podem ser redimensionadas em tempo de execução usando `physics.set_shape()`. Exemplo:
+Formas primitivas podem ser redimensionadas em tempo de execução usando `physics.set_shape()`. Essa função não substitui vértices de cascos convexos nem a geometria de malhas de triângulos. Exemplo:
 
 ```lua
 -- define dados da forma capsule

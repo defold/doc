@@ -76,6 +76,21 @@ Inclut la prise en charge des ressources audio Ogg Opus. Le décodeur Opus est e
 Exclut toute la gestion des entrées du moteur.
 
 
+## Exclude GUI {#exclude-gui}
+
+Retire du moteur les ressources, les composants et la prise en charge Lua des interfaces graphiques. Activez cette option uniquement si le projet n'utilise pas de scènes ni de scripts GUI. Les composants Label restent disponibles. Cette option est désactivée par défaut.
+
+
+## Exclude Particle FX {#exclude-particle-fx}
+
+Retire les ressources et les composants d'effets de particules, ainsi que le module Lua `particlefx`. Cela supprime également la prise en charge des nœuds de particules dans les scènes GUI ; les scènes GUI sans nœuds de particules restent prises en charge. Supprimez les références aux effets de particules et les appels à leurs API avant d'activer cette option. Elle est désactivée par défaut.
+
+
+## Exclude Tilemaps {#exclude-tilemaps}
+
+Retire les ressources et les composants tilemap, ainsi que le module Lua `tilemap`. Activez cette option uniquement si le projet n'utilise pas de composants tilemap ni leurs API. Les sources de tuiles utilisées par d'autres composants restent disponibles. Cette option est désactivée par défaut.
+
+
 ## Exclure Live Update {#exclude-live-update}
 
 Exclut la [fonctionnalité Live Update](/manuals/live-update) du moteur.
@@ -117,7 +132,12 @@ Sur Linux ARM64, le choix **OpenGL** utilise le backend OpenGL ES. Le choix comb
 
 ## Utiliser le système complet de mise en page du texte {#use-full-text-layout-system}
 
-Si cette option est activée (`true`), elle permet de générer à l'exécution des polices de type SDF lorsque le projet utilise des polices True Type (`.ttf`). Consultez le [manuel des polices](https://defold.com/manuals/font/#enabling-runtime-fonts) pour en savoir plus.
+Si cette option est activée (`true`), le système complet de mise en page du texte est inclus pour la mise en forme des glyphes, y compris dans les langues s'écrivant de droite à gauche. Activez cette option ainsi que `font.runtime_generation` dans *game.project* pour générer à l'exécution des polices SDF à partir de ressources TrueType (`.ttf`) ou OpenType (`.otf`). La génération à l'exécution à partir de ressources `.otf` est prise en charge depuis Defold 1.13.2. Pour en savoir plus, consultez le [manuel des polices](/manuals/font/#enabling-runtime-fonts).
+
+
+## Use Rich Text {#use-rich-text}
+
+Inclut l'analyse du balisage de texte enrichi et les effets de style pour les labels et le texte GUI. Cette option est activée par défaut. Désactivez-la pour réduire la taille du moteur si le projet n'a besoin que de texte brut. Les labels et le texte GUI restent pris en charge, mais le balisage s'affiche comme du texte brut au lieu d'appliquer une mise en forme ou des effets.
 
 
 ## Versions minimales des navigateurs {#minimum-browser-versions}

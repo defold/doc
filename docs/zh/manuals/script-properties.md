@@ -16,7 +16,7 @@ brief: 本手册介绍了如何向脚本组件添加自定义属性以及如何�
 
 ## 定义脚本属性
 
-脚本属性是通过使用`go.property()`特殊函数将它们添加到脚本组件中的。该函数必须在顶层使用---在任何生命周期函数（如`init()`和`update()`）之外。为属性提供的默认值决定了属性的类型：`number`、`boolean`、`hash`、`msg.url`、`vmath.vector3`、`vmath.vector4`、`vmath.quaternion`和`resource`（见下文）。
+脚本属性是通过使用`go.property()`特殊函数将它们添加到脚本组件中的。该函数必须在顶层使用---在任何生命周期函数（如`init()`和`update()`）之外。为属性提供的默认值决定了属性的类型：`number`、`boolean`、`string`、`hash`、`msg.url`、`vmath.vector3`、`vmath.vector4`、`vmath.quaternion`和`resource`（见下文）。
 
 ::: important
 请注意，哈希值的反转仅在Debug构建中有效，以方便调试。在Release构建中，反转的字符串值不存在，因此对`hash`值使用`tostring()`来从中提取字符串是没有意义的。
@@ -62,6 +62,32 @@ end
 脚本属性在构建项目时被解析。值表达式不会被计算。这意味着像`go.property("hp", 3+6)`这样的东西不会工作，而`go.property("hp", 9)`会工作。
 :::
 
+### 文本属性 {#text-properties}
+
+自 Defold 1.13.2 起，使用字符串作为默认值可定义文本属性。文本属性支持 UTF-8 和换行符，并在编辑器中使用多行字段编辑：
+
+```lua
+go.property("greeting", "Hello!\nWelcome, José!")
+
+function init(self)
+    go.set("#label", "text", self.greeting)
+end
+```
+
+在游戏对象或集合中选择脚本组件，即可像其他脚本属性一样覆盖其文本属性。默认值和覆盖值中都不允许嵌入 NUL 字符。
+
+其他脚本可以通过脚本组件的 URL 读写文本属性。例如，将上述脚本和一个标签放在集合中名为 `speaker` 的游戏对象上，组件 ID 分别为 `script` 和 `label`。然后在另一个脚本的 `init()` 中更新它们：
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+更改脚本属性不会自动更新标签；最后一行显式地将新值复制到标签的 `text` 属性。
+
 ## 访问脚本属性
 
 任何定义的脚本属性都作为存储的成员在`self`中可用，self是脚本实例引用：
@@ -78,7 +104,7 @@ function update(self, dt)
 end
 ```
 
-用户定义的脚本属性也可以通过`get`、`set`和`animate`函数访问，与任何其他属性一样：
+用户定义的脚本属性也可以通过 `go.get()` 读取，通过 `go.set()` 写入。数值属性（包括向量和四元数）可以使用 `go.animate()` 创建动画。文本属性可以读写，但不能创建动画：
 
 ```lua
 -- another.script

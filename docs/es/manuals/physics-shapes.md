@@ -1,11 +1,11 @@
 ---
 title: Formas de colisión
-brief: Un componente de colisión puede usar varias formas primitivas o una sola forma compleja.
+brief: Los objetos de colisión pueden contener formas primitivas, envolventes convexas o mallas de triángulos, o usar recursos tilemap y de formas convexas.
 ---
 
 # Formas de colisión
 
-Un componente de colisión puede usar varias formas primitivas o una sola forma compleja.
+Un objeto de colisión puede contener varias formas integradas. En físicas 3D, estas pueden incluir envolventes convexas y mallas de triángulos de archivos glTF o GLB. También puedes usar un recurso tilemap o de forma convexa mediante la propiedad *Collision Shape* del objeto de colisión.
 
 ### Formas primitivas
 Las formas primitivas son *box*, *sphere* y *capsule*. Agrega una forma primitiva haciendo <kbd>click derecho</kbd> en el objeto de colisión y seleccionando <kbd>Add Shape</kbd>:
@@ -32,7 +32,21 @@ Las formas de cápsula solo tienen soporte cuando se usan físicas 3D (configura
 :::
 
 ### Formas complejas
-Una forma compleja se puede crear desde un componente tilemap o desde una forma de envolvente convexa.
+Las formas complejas pueden usar geometría de tilemap o datos de una envolvente convexa. Desde Defold 1.13.2, los objetos de colisión 3D también pueden crear envolventes convexas y formas de malla de triángulos a partir de mallas de escenas glTF o GLB.
+
+## Formas Hull y Mesh en 3D {#hull-and-mesh-shapes-in-3d}
+
+Usa una forma *Hull* para obtener una aproximación convexa de una malla, o una forma *Mesh* cuando las colisiones deban seguir sus triángulos, incluidas áreas cóncavas como aberturas en la geometría de un nivel.
+
+1. Define **Physics ▸ Type** como `3D` en *game.project*.
+2. Haz click derecho en el objeto de colisión en *Outline* y selecciona <kbd>Add Shape ▸ Hull</kbd> o <kbd>Add Shape ▸ Mesh</kbd>.
+3. Selecciona la nueva forma y define su propiedad *Scene* con un archivo *.gltf* o *.glb*.
+4. Selecciona una malla con nombre en el campo *Mesh*. Si no aparece en la lista, asigna un nombre a la malla en tu herramienta de modelado y vuelve a exportar la escena.
+5. Posiciona y rota la forma para alinearla con la geometría visible del objeto de juego. Repite estos pasos para agregar más formas si es necesario.
+
+La malla seleccionada aporta su geometría local; no se aplican las transformaciones de los nodos glTF. El backend Bullet 3D admite formas de colisión Mesh, tanto para objetos de colisión estáticos como no estáticos. Los backends de físicas 2D no las admiten.
+
+La geometría de mallas de triángulos es de solo lectura a través de las APIs de formas en runtime. Edita la malla de origen y vuelve a compilar para cambiar sus triángulos. Consulta [escalar formas de colisión](#scaling-collision-shapes) para conocer la escala del objeto de juego.
 
 ## Forma de colisión de tilemap
 Defold incluye una funcionalidad que te permite generar fácilmente formas físicas para el tile source usado por un tile map. El [manual de Tilesource](/manuals/tilesource/#tile-source-collision-shapes) explica cómo agregar grupos de colisión a un tile source y asignar tiles a grupos de colisión ([ejemplo](/examples/tilemap/collisions/)).
@@ -51,7 +65,7 @@ Ten en cuenta que la propiedad *Group* **no** se usa aquí, ya que los grupos de
 :::
 
 ## Forma de envolvente convexa
-Defold incluye una funcionalidad que te permite crear una forma de envolvente convexa a partir de tres o más puntos.
+En físicas 3D puedes crear una envolvente convexa directamente a partir de una malla mediante el [procedimiento del editor descrito arriba](#hull-and-mesh-shapes-in-3d). El recurso heredado `.convexshape` también es compatible y se puede crear a partir de puntos usando un editor externo:
 
 1. Crea un archivo de forma de envolvente convexa (extensión de archivo `.convexshape`) usando un editor externo.
 2. Edita el archivo manualmente con un editor de texto o una herramienta externa (ver abajo).
@@ -98,11 +112,13 @@ Hay varias herramientas externas distintas que se pueden usar para crear formas 
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) se puede usar para crear formas de envolvente convexa.
 
 
+<a id="scaling-collision-shapes"></a>
+
 # Escalar formas de colisión
 El objeto de colisión y sus formas heredan la escala del objeto de juego. Para desactivar este comportamiento, desmarca la casilla [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) en la sección Physics de *game.project*. Ten en cuenta que solo se admite el escalado uniforme y que se usará el valor de escala más pequeño si la escala no es uniforme.
 
 # Redimensionar formas de colisión
-Las formas de un objeto de colisión se pueden redimensionar en tiempo de ejecución usando `physics.set_shape()`. Ejemplo:
+Las formas primitivas se pueden redimensionar en tiempo de ejecución usando `physics.set_shape()`. Esta función no reemplaza los vértices de las envolventes convexas ni la geometría de mallas de triángulos. Ejemplo:
 
 ```lua
 -- definir datos de la forma de cápsula

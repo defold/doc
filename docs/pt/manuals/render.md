@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 No momento, o Defold suporta apenas `Materials` e `Render Targets` como recursos de renderização referenciados, mas com o tempo mais tipos de recurso serão suportados por esse sistema.
 :::
 
+### Alvos de renderização com múltiplas amostras {#multisampled-render-targets}
+
+Alvos de renderização oferecem suporte a antisserrilhamento por múltiplas amostras (MSAA). Isso suaviza as bordas da geometria em uma passagem de renderização fora da tela. A contagem de amostras do alvo é independente de [Display ▸ Samples](/manuals/project-settings/#samples), que controla o antisserrilhamento da janela.
+
+Para um recurso `.render_target`, defina **Sample Count** no editor como `1`, `2`, `4`, `8` ou `16`. O valor `1` desativa a amostragem múltipla. Adicione o recurso à tabela **Render Resources** do arquivo `.render` e use seu nome atribuído com `render.set_render_target()`, como no exemplo acima.
+
+Como alternativa, crie um alvo no `init()` do seu script de renderização. Coloque `sample_count` na tabela externa de parâmetros, junto com os anexos:
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+Este exemplo usa um alvo apenas de cor. Todos os anexos de cor, profundidade e stencil de um alvo compartilham sua contagem de amostras. Adicione um anexo de profundidade e o estado usual do teste de profundidade se a passagem exigir esse teste.
+
+Para o trecho de `update()` a seguir, atribua a tag `scene` aos materiais da cena e a tag `present` ao material de um quadrilátero de tela inteira. O material do quadrilátero deve amostrar a unidade de textura `0`. Defina a visualização e a projeção apropriadas para cada passagem:
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+Mudar para outro alvo conclui a passagem e resolve automaticamente os anexos de cor com múltiplas amostras. `render.enable_texture()` vincula a textura de cor resolvida, de modo que o quadrilátero usa um amostrador comum de textura. Não é necessário um comando separado de resolução.
+
+A contagem de amostras solicitada usa `1` como padrão e deve ser um número inteiro positivo. Os backends gráficos reduzem solicitações não compatíveis a uma contagem compatível que seja potência de dois, recorrendo a `1` se necessário, e registram um aviso quando a contagem muda. Contagens maiores aumentam a memória necessária para os anexos.
+
+Ao usar um recurso de alvo de renderização, inspecione sua contagem efetiva a partir de um `.script` de objeto de jogo com `resource.get_render_target_info()`. Por exemplo, após adicionar `/render/offscreen.render_target` a **Render Resources**:
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+Use essa contagem efetiva ao verificar o suporte do dispositivo, em vez de presumir que a contagem solicitada estava disponível. Consulte [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) e [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) para ver as tabelas completas de parâmetros e resultados.
+
 ## Handles de textura
 
 Texturas no Defold são representadas internamente como um handle, que essencialmente equivale a um número que deve identificar de forma única um objeto de textura em qualquer lugar da engine. Isso significa que você pode conectar o mundo de game objects ao mundo de renderização passando esses handles entre o sistema de renderização e um script de game object. Por exemplo, um script pode criar uma textura dinâmica em um script anexado a um game object e enviá-la ao renderizador para ser usada como textura global em um comando de desenho.

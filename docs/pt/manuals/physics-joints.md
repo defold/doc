@@ -5,7 +5,11 @@ brief: O Defold suporta joints para física 2D. Este manual explica como criar e
 
 # Joints
 
-O Defold suporta joints para física 2D. Um joint conecta dois objetos de colisão usando algum tipo de restrição. Os tipos de joint suportados são:
+Uma junta conecta dois objetos de colisão por meio de uma restrição. O Defold oferece suporte a juntas tanto na física 2D quanto na 3D, por meio de APIs diferentes.
+
+Este manual descreve as juntas 2D expostas pelo módulo `physics`. Desde o Defold 1.13.2, projetos 3D podem criar e controlar restrições por meio de [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), incluindo dobradiças, deslizadores e molas. Use essa API com corpos rígidos obtidos por meio de [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+
+Os tipos de junta compatíveis com a API 2D `physics` são:
 
 * **Fixed (physics.JOINT_TYPE_FIXED)** - Um rope joint que restringe a distância máxima entre dois pontos. No Box2D, é chamado de Rope joint.
 * **Hinge (physics.JOINT_TYPE_HINGE)** - Um hinge joint especifica um ponto de âncora em dois objetos de colisão e os move para que os dois objetos de colisão estejam sempre no mesmo lugar, sem restringir a rotação relativa dos objetos de colisão. O hinge joint pode habilitar um motor com torque máximo e velocidade definidos. No Box2D, é chamado de [Revolute joint](https://box2d.org/documentation/group__revolute__joint.html#details).
@@ -16,7 +20,7 @@ O Defold suporta joints para física 2D. Um joint conecta dois objetos de colis�
 
 ## Criando joints
 
-Atualmente, joints só podem ser criados programaticamente usando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
+As juntas 2D descritas aqui são criadas programaticamente usando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
 Suporte do editor para criar joints está planejado, mas nenhuma data de lançamento foi definida.
 :::

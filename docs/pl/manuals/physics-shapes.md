@@ -1,11 +1,11 @@
 ---
 title: Kształty kolizji
-brief: Komponent obiektu kolizji może używać kilku kształtów podstawowych albo jednego kształtu złożonego.
+brief: Obiekty kolizji mogą zawierać kształty podstawowe, otoczki wypukłe lub siatki trójkątów albo używać zasobów map kafelków i kształtów wypukłych.
 ---
 
 # Kształty kolizji
 
-Komponent obiektu kolizji może używać kilku kształtów podstawowych albo jednego kształtu złożonego.
+Obiekt kolizji może zawierać kilka osadzonych kształtów. W fizyce 3D mogą to być otoczki wypukłe i siatki trójkątów z plików glTF lub GLB. Możesz też używać zasobu mapy kafelków lub kształtu wypukłego przez właściwość *Collision Shape* obiektu kolizji.
 
 ### Kształty podstawowe
 
@@ -37,7 +37,21 @@ Kształty kapsuły są obsługiwane tylko w fizyce 3D, skonfigurowanej w sekcji 
 
 ### Kształty złożone
 
-Kształt złożony można utworzyć albo z komponentu mapy kafelków, albo z kształtu convex hull.
+Kształty złożone mogą korzystać z geometrii mapy kafelków lub danych otoczki wypukłej. Od wersji Defold 1.13.2 obiekty kolizji 3D mogą też tworzyć otoczki wypukłe i kształty siatek trójkątów z siatek w scenach glTF lub GLB.
+
+## Kształty Hull i Mesh w 3D {#hull-and-mesh-shapes-in-3d}
+
+Użyj kształtu *Hull*, aby uzyskać wypukłe przybliżenie siatki, lub kształtu *Mesh*, gdy kolizje mają odpowiadać jej trójkątom, w tym obszarom wklęsłym, takim jak otwory w geometrii poziomu.
+
+1. Ustaw **Physics → Type** na `3D` w pliku *game.project*.
+2. Kliknij prawym przyciskiem myszy obiekt kolizji w *Outline* i wybierz <kbd>Add Shape ▸ Hull</kbd> lub <kbd>Add Shape ▸ Mesh</kbd>.
+3. Wybierz nowy kształt i ustaw jego właściwość *Scene* na plik *.gltf* lub *.glb*.
+4. Wybierz siatkę o określonej nazwie z pola *Mesh*. Jeśli nie ma jej na liście, nadaj siatce nazwę w narzędziu do modelowania i ponownie wyeksportuj scenę.
+5. Ustaw pozycję i obrót kształtu tak, aby dopasować go do widocznej geometrii obiektu gry. W razie potrzeby powtórz te kroki, aby dodać kolejne kształty.
+
+Wybrana siatka dostarcza geometrię lokalną; transformacje węzłów glTF nie są stosowane. Kształty kolizji Mesh są obsługiwane przez backend Bullet 3D, zarówno dla statycznych, jak i niestatycznych obiektów kolizji. Backend fizyki 2D ich nie obsługuje.
+
+Geometria siatki trójkątów jest dostępna tylko do odczytu przez API kształtów w czasie działania. Aby zmienić trójkąty, edytuj siatkę źródłową i ponownie zbuduj projekt. Informacje o skali obiektu gry znajdziesz w sekcji [skalowanie kształtów kolizji](#scaling-collision-shapes).
 
 ## Kształt kolizji mapy kafelków
 
@@ -58,7 +72,7 @@ Zwróć uwagę, że właściwość *Group* **nie** jest tutaj używana, poniewa�
 
 ## Kształt wypukły (convex hull)
 
-Defold zawiera funkcję pozwalającą tworzyć kształt wypukły (convex hull) z trzech lub większej liczby punktów.
+W fizyce 3D możesz utworzyć otoczkę wypukłą bezpośrednio z siatki, korzystając z [opisanego wyżej sposobu pracy w edytorze](#hull-and-mesh-shapes-in-3d). Starszy zasób `.convexshape` jest nadal obsługiwany i można go utworzyć z punktów w zewnętrznym edytorze:
 
 1. Utwórz plik kształtu convex hull o rozszerzeniu `.convexshape` przy użyciu zewnętrznego edytora.
 2. Edytuj plik ręcznie w edytorze tekstu albo przy użyciu zewnętrznego narzędzia, opisanego poniżej.
@@ -106,13 +120,15 @@ Istnieje kilka narzędzi zewnętrznych, których można użyć do tworzenia kszt
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) również można użyć do tworzenia kształtów convex hull.
 
 
+<a id="scaling-collision-shapes"></a>
+
 # Skalowanie kształtów kolizji
 
 Obiekt kolizji i jego kształty dziedziczą skalę obiektu gry. Aby wyłączyć to zachowanie, odznacz pole [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w sekcji Physics pliku *game.project*. Zwróć uwagę, że obsługiwane jest tylko skalowanie jednolite, a jeśli skala nie jest jednolita, użyta zostanie najmniejsza wartość skali.
 
 # Zmienianie rozmiaru kształtów kolizji
 
-Rozmiar kształtów obiektu kolizji można zmieniać w czasie działania przy użyciu `physics.set_shape()`. Przykład:
+Rozmiar kształtów podstawowych można zmieniać w czasie działania za pomocą `physics.set_shape()`. Ta funkcja nie zastępuje wierzchołków otoczki wypukłej ani geometrii siatki trójkątów. Przykład:
 
 ```lua
 -- ustaw dane kształtu kapsuły

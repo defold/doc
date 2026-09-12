@@ -164,7 +164,7 @@ Defold에서 Component는 Unity의 내장 컴포넌트에 해당하는 것만을
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | Defold에서는 코드로만 tint(color 프로퍼티)를 변경할 수 있습니다. |
 | [Tilemap](/manuals/tilemap/) | Tilemap / Grid | Defold에는 정사각형 그리드를 지원하는 내장 Tilemap Editor가 있지만(예: [Hexagon](https://github.com/selimanac/defold-hexagon/)용 익스텐션은 있음), 내장 autotiling 규칙은 없습니다. [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/), [Sprite Fusion](https://defold.com/assets/spritefusion/) 같은 도구는 Defold로 익스포트하는 옵션을 제공합니다. |
-| [Label](/manuals/label/) | Text / TextMeshPro | Defold에는 풍부한 포멧을 위한 [RichText extension](https://defold.com/assets/richtext/)이 있습니다(TextMeshPro와 유사). |
+| [Label](/manuals/label/) | Text / TextMeshPro | Defold 1.13.2부터 Label 컴포넌트와 GUI 텍스트 노드는 색상, 그라디언트, 외곽선, 애니메이션 효과를 위한 내장 [리치 텍스트 마크업](/manuals/font-richtext/)을 지원합니다. 별도의 [RichText 익스텐션](https://defold.com/assets/richtext/)도 사용할 수 있습니다. |
 | [Sound](/manuals/sound/) | AudioSource | Defold에는 전역 사운드 소스만 있으며 공간 사운드는 없습니다. Defold용 공식 [FMOD extension](https://github.com/defold/extension-fmod)이 있습니다. |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | Defold에서 Factory는 특정 프로토타입(prefab)을 가진 컴포넌트입니다. |
 | [Collection Factory](/manuals/collection-factory/) | - (No direct component equivalent) | Defold의 Collection Factory 컴포넌트는 부모-자식 관계를 가진 여러 게임 오브젝트를 한 번에 스폰할 수 있습니다. |

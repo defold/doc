@@ -5,7 +5,11 @@ brief: Defold obsługuje łączenia dla fizyki 2D. Ta instrukcja wyjaśnia, jak 
 
 # Łączenia
 
-Defold obsługuje łączenia w fizyce 2D. Łączenie łączy dwa obiekty kolizji za pomocą określonego ograniczenia. Obsługiwane typy łączeń to:
+Łączenie wiąże dwa obiekty kolizji za pomocą ograniczenia. Defold obsługuje łączenia zarówno w fizyce 2D, jak i 3D, przez różne API.
+
+Ta instrukcja opisuje łączenia 2D udostępniane przez moduł `physics`. Od wersji Defold 1.13.2 projekty 3D mogą tworzyć ograniczenia, w tym zawiasy, suwaki i sprężyny, oraz nimi sterować przez [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/). Używaj tego API z ciałami sztywnymi uzyskanymi przez [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+
+API `physics` dla 2D obsługuje następujące typy łączeń:
 
 * **Fixed (physics.JOINT_TYPE_FIXED)** - Łączenie linowe ograniczające maksymalną odległość między dwoma punktami. W Box2D nazywa się Rope joint.
 * **Hinge (physics.JOINT_TYPE_HINGE)** - Łączenie zawiasowe określa punkt zakotwiczenia na dwóch obiektach kolizji i przesuwa je tak, aby oba obiekty zawsze znajdowały się w tym samym miejscu, przy czym ich względny obrót nie jest ograniczony. Łączenie zawiasowe może włączyć motor o określonym maksymalnym momencie obrotowym i prędkości. W Box2D odpowiada [Revolute joint](https://box2d.org/documentation/group__revolute__joint.html#details).
@@ -16,7 +20,7 @@ Defold obsługuje łączenia w fizyce 2D. Łączenie łączy dwa obiekty kolizji
 
 ## Tworzenie łączeń
 
-Łączenia można obecnie tworzyć tylko programowo za pomocą [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
+Opisane tutaj łączenia 2D tworzy się programowo za pomocą [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
 Obsługa tworzenia łączeń w edytorze jest planowana, ale nie ustalono jeszcze daty wydania.
 :::

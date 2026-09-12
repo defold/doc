@@ -79,6 +79,28 @@ Defold HTML5 번들에는 WebAssembly를 지원하는 최신 브라우저가 필
 
 <kbd>Create bundle</kbd> 버튼을 클릭하면 어플리케이션을 생성할 폴더를 선택하라는 메시지가 표시됩니다. 익스포트 과정이 완료되면 어플리케이션 실행에 필요한 모든 파일을 확인할 수 있습니다.
 
+## WebGL 컨텍스트 버전 {#webgl-context-version}
+
+[`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint)로 요청할 그래픽 컨텍스트를 선택합니다. 기본값은 WebGL 2입니다. 두 버전을 모두 지원하는 브라우저에서 WebGL 1을 테스트하거나 대상으로 삼으려면 WebGL 1을 요청하세요.
+
+## 다운로드 검증 {#download-verification}
+
+HTML5 로더는 기본적으로 다운로드한 엔진 및 아카이브 파일의 크기를 확인합니다. 확인에 실패하면 오류를 보고하기 전에 다운로드를 재시도합니다.
+
+* 엔진의 JavaScript 또는 WebAssembly 다운로드에서 발생한 네트워크 오류, 실패한 HTTP 상태 및 크기 불일치에는 `html5.retry_count`의 재시도 제한을 사용합니다.
+* 아카이브 파일 검증은 크기 또는 SHA-1 불일치에 대해 별도의 재시도 제한을 사용합니다. 검증을 재시도할 때마다 파일의 조각들을 다시 다운로드하며, 각 다운로드에는 일반 네트워크 재시도를 사용할 수 있습니다.
+
+두 경우 모두 재시도 사이의 지연 시간은 `html5.retry_time` 설정으로 제어합니다.
+
+서버, 프록시 또는 CDN이 제공하는 파일을 의도적으로 변경하여 크기가 달라진다면 *game.project*에서 크기 검증을 비활성화합니다.
+
+```ini
+[html5]
+verify_downloaded_file_size = 0
+```
+
+**Verify Downloaded File Size**를 비활성화해도 번들에 포함된 SHA-1 검증은 계속 활성화됩니다. [HTML5 프로젝트 설정](/manuals/project-settings/#verify-downloaded-file-size)을 참고하세요.
+
 ## 알려진 이슈와 제약사항
 
 * 핫 리로드 - HTML5 빌드에서는 핫 리로드가 동작하지 않습니다. Defold 어플리케이션이 에디터에서 업데이트를 받으려면 자체적인 소형 웹 서버를 실행해야 하는데, HTML5 빌드에서는 이것이 불가능합니다.
@@ -167,6 +189,25 @@ DEFOLD_SPLASH_IMAGE
 
 exe-name
 : 허용되지 않는 문자를 제거한 프로젝트 이름입니다.
+
+
+DEFOLD_ARCHIVE_LOCATION_PREFIX
+: 로더가 사용하는 확정된 아카이브 경로 접두어이며, `html5.archive_location_prefix`를 기준으로 합니다.
+
+DEFOLD_ARCHIVE_LOCATION_SUFFIX
+: 아카이브 URL에 덧붙이는 확정된 접미어이며, `html5.archive_location_suffix`를 기준으로 합니다.
+
+DEFOLD_HAS_ARCHIVE_ORIGIN
+: 아카이브 접두어에 HTTP 또는 HTTPS 출처(origin)가 지정되어 있으면 `true`입니다. `//cdn.example.com/archive` 같은 프로토콜 상대 URL도 포함됩니다. 상대 아카이브 접두어의 경우 `false`입니다. Defold 1.13.2부터 사용할 수 있습니다.
+
+DEFOLD_ARCHIVE_ORIGIN
+: 스킴, 호스트, 선택적 포트를 포함하는 아카이브 출처이며, 출처가 지정되지 않았으면 빈 문자열입니다. 프로토콜 상대 접두어는 프로토콜 상대 출처를 생성합니다. preconnect 힌트에 사용되며 Defold 1.13.2부터 사용할 수 있습니다.
+
+DEFOLD_HAS_WASM_ENGINE
+: 번들에 `wasm-web` 또는 `wasm_pthread-web` WebAssembly 엔진이 포함되어 있으면 `true`입니다.
+
+DEFOLD_HAS_WASM_PTHREAD_ENGINE
+: 번들에 `wasm_pthread-web`이 포함되어 있으면 `true`입니다. 로더가 런타임에 아키텍처를 선택할 때 잘못된 엔진 variant를 미리 로드하지 않도록 사용하는 값입니다.
 
 
 DEFOLD_CUSTOM_CSS_INLINE

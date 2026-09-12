@@ -622,9 +622,11 @@ Pamiętaj, że hooki cyklu życia są obecnie funkcją dostępną wyłącznie w 
 
 ## Serwery językowe
 
-Edytor obsługuje podzbiór [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostykę (linty), podpowiedzi, informacje po najechaniu kursorem, symbole dokumentu w panelu Structure, przechodzenie do definicji, wyszukiwanie odwołań i zmianę nazwy symbolu. Najedź kursorem na symbol, aby zobaczyć informacje z serwera językowego. Gdy kursor znajduje się na symbolu, użyj <kbd>F2</kbd>, aby zmienić jego nazwę, <kbd>F12</kbd>, aby przejść do definicji, lub <kbd>Shift+F12</kbd>, aby znaleźć odwołania. Te działania są też dostępne w menu <kbd>Edit</kbd>.
+Edytor obsługuje podzbiór [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostykę (linty), podpowiedzi, informacje po najechaniu kursorem, symbole dokumentu w panelu Structure, przechodzenie do definicji, wyszukiwanie odwołań, zmianę nazwy symbolu oraz formatowanie dokumentu lub zakresu. Najedź kursorem na symbol, aby zobaczyć informacje z serwera językowego. Gdy kursor znajduje się na symbolu, użyj <kbd>F2</kbd>, aby zmienić jego nazwę, <kbd>F12</kbd>, aby przejść do definicji, lub <kbd>Shift+F12</kbd>, aby znaleźć odwołania. Te działania są też dostępne w menu <kbd>Edit</kbd>. Polecenie formatowania i preferencję formatowania przy zapisywaniu opisano w sekcji [formatowanie kodu](/manuals/writing-code/#formatting-code).
 
-Aby zdefiniować serwer językowy, edytuj funkcję `get_language_servers` w swoim skrypcie edytora na przykład tak:
+Dołączony serwer językowy Lua zawiera adnotacje typów Defold dla API środowiska uruchomieniowego i skryptów edytora. W plikach `.editor_script` podpowiedzi i diagnostyka rozpoznają funkcje `editor.*` oraz typy ich argumentów i wartości zwracanych. Zobacz [uzupełnianie kodu](/manuals/writing-code/#code-completion).
+
+Aby zarejestrować dodatkowy serwer językowy, zdefiniuj funkcję `get_language_servers` w swoim skrypcie edytora na przykład tak:
 
 ```lua
 function M.get_language_servers()

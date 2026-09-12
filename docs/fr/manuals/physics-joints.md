@@ -5,7 +5,11 @@ brief: Defold prend en charge les articulations pour la physique en 2D. Ce manue
 
 # Articulations {#joints}
 
-Defold prend en charge les articulations (joints) pour la physique en 2D. Une articulation relie deux objets de collision au moyen d'une contrainte. Les types d'articulations pris en charge sont les suivants :
+Une articulation relie deux objets de collision au moyen d'une contrainte. Defold prend en charge les articulations en physique 2D et 3D, avec des API différentes.
+
+Ce manuel décrit les articulations 2D exposées par le module `physics`. Depuis Defold 1.13.2, les projets 3D peuvent créer et contrôler des contraintes avec [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), notamment des charnières, des glissières et des ressorts. Utilisez cette API avec des corps rigides obtenus via [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+
+Les types d'articulations pris en charge dans l'API 2D `physics` sont les suivants :
 
 * **Fixe (physics.JOINT_TYPE_FIXED)** - Une articulation de type corde qui limite la distance maximale entre deux points. Dans Box2D, elle est appelée articulation de type corde (Rope joint).
 * **Pivot (physics.JOINT_TYPE_HINGE)** - Une articulation pivot définit un point d'ancrage sur deux objets de collision et les déplace de manière que les deux objets de collision restent toujours au même endroit, sans restreindre leur rotation relative. L'articulation pivot peut activer un moteur avec un couple maximal et une vitesse définis. Dans Box2D, elle est appelée [articulation pivot (Revolute joint)](https://box2d.org/documentation/group__revolute__joint.html#details).
@@ -16,7 +20,7 @@ Defold prend en charge les articulations (joints) pour la physique en 2D. Une ar
 
 ## Création d'articulations {#creating-joints}
 
-Pour le moment, les articulations ne peuvent être créées que par programmation à l'aide de [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) :
+Les articulations 2D décrites ici sont créées par programmation avec [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) :
 ::: sidenote
 La prise en charge de la création d'articulations dans l'éditeur est prévue, mais aucune date de sortie n'a été fixée.
 :::

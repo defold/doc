@@ -79,6 +79,28 @@ Defold HTML5 bundle 需要支持 WebAssembly 的现代浏览器。不支持 Inte
 
 当您单击<kbd>Create bundle</kbd>按钮时，系统将提示您选择一个文件夹来创建您的应用程序。导出过程完成后，您将找到运行应用程序所需的所有文件。
 
+## WebGL 上下文版本 {#webgl-context-version}
+
+通过 [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint) 选择请求的图形上下文。默认使用 WebGL 2；请求 WebGL 1 可在同时支持这两个版本的浏览器中测试或面向该上下文。
+
+## 下载验证 {#download-verification}
+
+HTML5 加载器默认会检查下载的引擎和归档文件的大小。检查失败会触发重新下载，然后加载器才会报告错误：
+
+* 引擎 JavaScript 或 WebAssembly 下载中的网络错误、失败的 HTTP 状态和大小不匹配，使用 `html5.retry_count` 指定的重试上限。
+* 归档文件验证对于大小或 SHA-1 不匹配有自己的重试上限。每次验证重试都会重新下载文件的各个分片，每个下载仍可使用常规网络重试。
+
+`html5.retry_time` 设置控制这两种情况下的重试间隔。
+
+如果服务器、代理或 CDN 有意重写提供的文件并改变其大小，请在 *game.project* 中禁用大小验证：
+
+```ini
+[html5]
+verify_downloaded_file_size = 0
+```
+
+禁用 **Verify Downloaded File Size** 后，包中包含的 SHA-1 验证仍然启用。请参阅 [HTML5 项目设置](/manuals/project-settings/#verify-downloaded-file-size)。
+
 ## 已知问题和局限性 {#已知问题和局限性}
 
 * 热重载 - 热重载在HTML5构建中不起作用。Defold应用程序必须运行自己的小型Web服务器才能从编辑器接收更新，这在HTML5构建中是不可能的。
@@ -167,6 +189,24 @@ DEFOLD_SPLASH_IMAGE
 
 exe-name
 : 不包含不可接受符号的项目名称
+
+DEFOLD_ARCHIVE_LOCATION_PREFIX
+: 加载器使用的已解析归档路径前缀，基于 `html5.archive_location_prefix`。
+
+DEFOLD_ARCHIVE_LOCATION_SUFFIX
+: 添加到归档 URL 的已解析后缀，基于 `html5.archive_location_suffix`。
+
+DEFOLD_HAS_ARCHIVE_ORIGIN
+: 当归档前缀指定 HTTP 或 HTTPS 源时为 `true`，包括 `//cdn.example.com/archive` 这样的协议相对 URL。对于相对归档前缀，其值为 `false`。自 Defold 1.13.2 起可用。
+
+DEFOLD_ARCHIVE_ORIGIN
+: 归档的源，包括协议、主机和可选端口；未指定源时为空字符串。协议相对前缀会产生协议相对源。用于预连接提示，自 Defold 1.13.2 起可用。
+
+DEFOLD_HAS_WASM_ENGINE
+: 如果包中包含 WebAssembly 引擎（`wasm-web` 或 `wasm_pthread-web`），则为 `true`。
+
+DEFOLD_HAS_WASM_PTHREAD_ENGINE
+: 如果包中包含 `wasm_pthread-web`，则为 `true`。当加载器在运行时选择架构时，可用此值避免预加载错误的引擎变体。
 
 
 DEFOLD_CUSTOM_CSS_INLINE

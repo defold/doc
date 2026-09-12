@@ -164,7 +164,7 @@ Defold використовує **«ігрові об’єкти»**, подіб
 |---|---|---|
 | [Спрайт](/manuals/sprite/) | Sprite Renderer | У Defold відтінок (властивість кольору) можна змінювати лише через код. |
 | [Карта плиток](/manuals/tilemap/) | Tilemap / Grid | Defold має вбудований редактор карт плиток, який підтримує квадратні сітки (але є розширення, наприклад, для [шестикутників](https://github.com/selimanac/defold-hexagon/)), і не має вбудованих правил автоматичного розміщення плиток. Інструменти на кшталт [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) чи [Sprite Fusion](https://defold.com/assets/spritefusion/) підтримують експорт у Defold. |
-| [Напис](/manuals/label/) | Text / TextMeshPro | Defold має [розширення RichText](https://defold.com/assets/richtext/) для розширеного форматування (подібно до TextMeshPro). |
+| [Напис](/manuals/label/) | Text / TextMeshPro | Починаючи з Defold 1.13.2, компоненти Label і текстові вузли GUI підтримують вбудовану [розмітку форматованого тексту](/manuals/font-richtext/) для кольорів, градієнтів, обведень і анімованих ефектів. Також доступне окреме [розширення RichText](https://defold.com/assets/richtext/). |
 | [Звук](/manuals/sound/) | AudioSource | У Defold є лише глобальне джерело звуку (не просторове). Для Defold є офіційне [розширення FMOD](https://github.com/defold/extension-fmod). |
 | [Фабрика](/manuals/factory/) | Prefab Instantiate() | У Defold фабрика (factory) — це компонент із певним прототипом (префабом). |
 | [Фабрика колекції](/manuals/collection-factory/) | - (Немає прямого відповідника компонента) | Компонент-фабрика колекції в Defold може одночасно створювати кілька ігрових об’єктів із батьківсько-дочірніми зв’язками. |

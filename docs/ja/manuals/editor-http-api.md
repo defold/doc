@@ -34,7 +34,7 @@ Defold エディターは、自動操作のための専用サーバーを起動�
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-エディターはグラフィカルなデスクトップアプリケーションです。ディスプレイにアクセスできる対話型ユーザーセッションで起動してください。画面表示を伴わずに実行するヘッドレス（headless）CI など、グラフィカルなセッションが利用できない場合や、コンパイルのみの自動化、スタンドアロンのバンドル（bundle）の作成には、[Bob](/manuals/bob) を使用してください。
+エディターはグラフィカルなデスクトップアプリケーションです。ディスプレイにアクセスできる対話型ユーザーセッションで起動してください。画面表示を伴わずに実行するヘッドレス（headless）CI など、グラフィカルなセッションが利用できない場合や、スタンドアロンのバンドル（bundle）の作成には、[Bob](/manuals/bob) を使用してください。開いているエディターでも、`/command/compile` を通じてコンパイルのみの自動化を行えます。
 
 エディターを起動したら、プロジェクトが開き、`.internal/editor.port` が作成されるまで待ちます。その後、有効なドキュメントが返されるまで `/openapi.json` をポーリングします。プロセスが作成されたからといって、プロジェクトの準備ができたと判断しないでください。
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-利用可能なエディターコマンドを一覧表示します。
+ドキュメントに記載されているエディターコマンドのパスを一覧表示します。
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+Defold 1.13.2 以降では、OpenAPI ドキュメントに各コマンド専用のパスがあります。それより前のバージョンでは、`/command/{command}` パスとコマンド名の列挙値でコマンドを記述しています。
 
 バージョンの違いに対応する連携では、必要な各操作を確認し、返されたスキーマに基づいてリクエストを設定することをお勧めします。エンドポイント名やコマンド名を網羅していると想定した一覧を別に管理することは、内容が古くなる可能性があるため推奨しません。
 
@@ -97,22 +95,38 @@ curl -sS "$BASE_URL/openapi.json" |
 
 ## エディターコマンドの実行 {#executing-editor-commands}
 
-エディターコマンドは、次の方法で呼び出します。
+エディターコマンドを呼び出すには、ドキュメントに記載されているコマンドのパスに `POST` リクエストを送信します。例:
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-たとえば、現在の `build` コマンドは、プロジェクトをコンパイルして実行します。
+プロジェクトを実行せずにコンパイルするには、次のようにします。
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-ビルドが成功すると、構造化された結果が返されます。
+プロジェクトをコンパイルして実行するには、次のようにします。
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+これらのパイプラインはレスポンス本文を表示します。自動化スクリプトでは、[HTML5 のビルド](#building-html5)のパターンを使い、HTTP ステータスと `success` も確認してください。
+
+::: sidenote
+Defold 1.13.2 以降では、`/command/build` は `/command/run` の非推奨の互換エイリアスで、OpenAPI には記載されません。新しい連携では `/command/run` を使ってください。
+:::
+
+コンパイルが成功すると、HTTP ステータス `200` とともに構造化された結果が返されます。
 
 ```json
 {
@@ -150,7 +164,10 @@ curl -sS \
 
 実行中のエディターの一覧に含まれていれば、次のようなコマンドがよく役立ちます。
 
-`build`
+`compile`
+: プロジェクトを実行せずにコンパイルします。
+
+`run`
 : プロジェクトをコンパイルして実行します。
 
 `clean-build`
@@ -177,7 +194,9 @@ curl -sS \
 
 ### コマンドのレスポンスと非同期処理 {#command-responses-and-asynchronous-work}
 
-コマンド操作のレスポンスコードは、現在の OpenAPI スキーマに記載されています。
+レスポンスはコマンドによって異なります。Defold 1.13.2 以降では、`compile`、`run`、`clean-build`、`build-html5`、`debugger-start`、`hot-reload` はコマンドの完了を待ち、上記のように `success` と `issues` を含む構造化された結果を返します。成功した結果では HTTP `200`、ビルドまたは検証の失敗では `422` が返されます。
+
+`debugger-break` など、他のコマンドは引き続き `202` を返す場合があります。現在の OpenAPI スキーマで操作を調べ、実際の HTTP レスポンスステータスを処理してください。
 
 | ステータス | 意味 |
 | --- | --- |
@@ -192,21 +211,36 @@ HTTP `202` レスポンスは、要求した結果が存在する証拠にはな
 
 ### HTML5 のビルド {#building-html5}
 
-現在の OpenAPI ドキュメントに `build-html5` が記載されている場合は、コマンド操作を通じて呼び出します。
+現在の OpenAPI ドキュメントに `/command/build-html5` が記載されている場合は、そのパスを通じて呼び出します。シェルスクリプトでは、HTTP ステータスをレスポンス本文とは別に取得し、リクエストまたはビルドに失敗したら停止します。
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-このコマンドは非同期で実行され、通常は HTTP `202` を返します。ビルドが完了すると、エディターは次の URL でビルド成果物を配信します。
+Defold 1.13.2 以降では、このリクエストはビルドの完了を待ち、構造化された結果を返します。この例は、ビルドの問題を含むレスポンス本文を出力し、HTTP `200` かつ `success: true` の場合にのみ処理を続けます。ビルドが成功すると、エディターはブラウザーでゲームを開き、次の URL で配信します。
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-ブラウザーテストを開始する前に、この URL が利用可能になるまで待ってください。詳細は、[HTML5 のブラウザーテスト](/manuals/automated-testing/#browser-tests-for-html5) を参照してください。
+ビルドが完了しても、ブラウザーでゲームの読み込みが完了したとは限りません。入力を送信したりゲームプレイを確認したりする前に、キャンバスとアプリケーションの準備が整うまで待ってください。詳細は、[HTML5 のブラウザーテスト](/manuals/automated-testing/#browser-tests-for-html5) を参照してください。
 
 ## API ドキュメントの検索 {#searching-api-documentation}
 

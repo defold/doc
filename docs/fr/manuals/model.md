@@ -22,8 +22,11 @@ Une fois le modèle créé, vous devez définir plusieurs propriétés :
 
 Outre les propriétés *Id*, *Position* et *Rotation*, les propriétés suivantes sont propres à ce composant :
 
+*Scene*
+: Le fichier glTF *.gltf* ou *.glb* qui contient la géométrie du modèle. Si le fichier contient des cibles de morphing, elles sont importées avec la scène. Cette propriété s'appelait *Mesh* avant Defold 1.13.2.
+
 *Mesh*
-: Cette propriété devrait faire référence au fichier glTF *.gltf* ou *.glb* contenant le maillage à utiliser. Si le fichier contient des cibles de morphing, elles sont importées avec le maillage. Si le fichier contient plusieurs maillages, seul le premier est lu.
+: Un maillage nommé facultatif de la *Scene* sélectionnée, disponible depuis Defold 1.13.2. Laissez ce champ vide pour afficher toute la scène avec ses transformations importées. Sélectionnez un maillage pour l'afficher une fois dans ses coordonnées locales, sans les transformations des nœuds glTF. Positionnez, faites pivoter et mettez à l'échelle le composant Model ou son objet de jeu pour placer le maillage sélectionné.
 
 *Create GO Bones*
 : Cochez cette option pour créer un objet de jeu pour chaque os du modèle. Vous pouvez utiliser ces objets de jeu pour y attacher d'autres objets de jeu, par exemple des armes aux os des mains. 

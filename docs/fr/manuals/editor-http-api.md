@@ -34,7 +34,7 @@ L'argument facultatif `--port` ou `-p` sélectionne le port du serveur de l'édi
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-L'éditeur est une application de bureau graphique. Démarrez-la dans une session utilisateur interactive ayant accès à l'affichage. Utilisez [Bob](/manuals/bob) lorsqu'aucune session graphique n'est disponible, par exemple dans un environnement de CI sans interface graphique, ou pour une automatisation limitée à la compilation et pour créer des bundles autonomes.
+L'éditeur est une application de bureau graphique. Démarrez-le dans une session utilisateur interactive ayant accès à l'affichage. Utilisez [Bob](/manuals/bob) lorsqu'aucune session graphique n'est disponible, par exemple dans une CI sans interface graphique, ou pour créer des bundles autonomes. Un éditeur ouvert permet également d'automatiser la compilation seule via `/command/compile`.
 
 Après avoir démarré l'éditeur, attendez que le projet soit ouvert et que `.internal/editor.port` existe. Interrogez ensuite `/openapi.json` jusqu'à ce qu'il renvoie un document valide. Ne supposez pas que la création du processus signifie que le projet est prêt.
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-Listez les commandes disponibles de l'éditeur :
+Listez les chemins documentés des commandes de l'éditeur :
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+Dans Defold 1.13.2 et les versions ultérieures, chaque commande possède son propre chemin dans le document OpenAPI. Les versions antérieures décrivent les commandes au moyen du chemin `/command/{command}` et d'une énumération de noms de commandes.
 
 Une intégration qui tient compte de la version devrait vérifier chaque opération requise et configurer les requêtes à partir du schéma renvoyé. Nous déconseillons de maintenir une copie prétendument exhaustive des noms de points de terminaison ou de commandes, car elle peut devenir obsolète.
 
@@ -97,22 +95,38 @@ Les routes définies par le projet apparaissent également dans `/openapi.json` 
 
 ## Exécuter des commandes de l'éditeur {#executing-editor-commands}
 
-Les commandes de l'éditeur sont appelées au moyen de :
+Appelez les commandes de l'éditeur en envoyant une requête `POST` au chemin documenté de la commande, par exemple :
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-Par exemple, la commande actuelle `build` compile et exécute le projet :
+Pour compiler le projet sans l'exécuter :
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-Un build réussi renvoie un résultat structuré :
+Pour compiler et exécuter le projet :
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+Ces pipelines affichent le corps de la réponse. Dans les scripts d'automatisation, vérifiez aussi le statut HTTP et `success`, en suivant le modèle de la section [Création d'un build HTML5](#building-html5).
+
+::: sidenote
+Depuis Defold 1.13.2, `/command/build` est un alias de compatibilité obsolète de `/command/run` et n'est pas répertorié dans OpenAPI. Utilisez `/command/run` dans les nouvelles intégrations.
+:::
+
+Une compilation réussie renvoie le statut HTTP `200` avec un résultat structuré :
 
 ```json
 {
@@ -150,7 +164,10 @@ Les champs disponibles dépendent de l'erreur. Utilisez le chemin de la ressourc
 
 Les commandes couramment utiles, lorsqu'elles sont répertoriées par l'éditeur en cours d'exécution, comprennent :
 
-`build`
+`compile`
+: Compile le projet sans l'exécuter.
+
+`run`
 : Compiler et exécuter le projet.
 
 `clean-build`
@@ -177,7 +194,9 @@ Les commandes qui agissent sur les ressources du projet synchronisent les modifi
 
 ### Réponses aux commandes et travail asynchrone {#command-responses-and-asynchronous-work}
 
-L'opération de commande documente les codes de réponse dans le schéma OpenAPI actuel.
+Les réponses dépendent de la commande. Dans Defold 1.13.2 et les versions ultérieures, `compile`, `run`, `clean-build`, `build-html5`, `debugger-start` et `hot-reload` attendent la fin de la commande et renvoient un résultat structuré avec `success` et `issues`, comme ci-dessus. Un résultat réussi renvoie HTTP `200` ; un échec de build ou de validation renvoie `422`.
+
+D'autres commandes peuvent encore renvoyer `202`, par exemple `debugger-break`. Examinez l'opération dans le schéma OpenAPI actuel et traitez le statut HTTP effectivement renvoyé :
 
 | État | Signification |
 | --- | --- |
@@ -192,21 +211,36 @@ Une réponse HTTP `202` ne prouve pas que le résultat demandé existe. Attendez
 
 ### Build HTML5 {#building-html5}
 
-Si le document OpenAPI actuel répertorie `build-html5`, appelez cette commande au moyen de l'opération correspondante :
+Si le document OpenAPI actuel répertorie `/command/build-html5`, appelez ce chemin. Dans un script shell, capturez le statut HTTP séparément du corps de la réponse et arrêtez le script si la requête ou le build échoue :
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-La commande s'exécute de manière asynchrone et renvoie normalement l'état HTTP `202`. Une fois le build terminé, l'éditeur le sert à l'adresse suivante :
+Dans Defold 1.13.2 et les versions ultérieures, cette requête attend la fin du build et renvoie un résultat structuré. L'exemple affiche le corps de la réponse, y compris les problèmes de build, et ne poursuit l'exécution qu'avec HTTP `200` et `success: true`. Après un build réussi, l'éditeur ouvre le jeu dans un navigateur et le sert à l'adresse suivante :
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-Attendez que l'URL soit disponible avant de lancer les tests dans le navigateur. Consultez [Tests HTML5 dans un navigateur](/manuals/automated-testing/#browser-tests-for-html5) pour plus de détails.
+La fin du build ne signifie pas que le jeu a terminé son chargement dans le navigateur. Attendez que le canevas et l'application soient prêts avant d'envoyer des entrées ou de vérifier le déroulement du jeu. Consultez [Tests dans un navigateur pour HTML5](/manuals/automated-testing/#browser-tests-for-html5) pour plus de détails.
 
 ## Rechercher dans la documentation de l'API {#searching-api-documentation}
 

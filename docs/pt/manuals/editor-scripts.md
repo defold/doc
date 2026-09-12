@@ -576,9 +576,11 @@ Observe que hooks de ciclo de vida atualmente são um recurso apenas do editor, 
 
 ## Language servers
 
-O editor oferece suporte a um subconjunto do [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnósticos (lints), completions, informações ao passar o mouse, símbolos de documento no painel Structure, ir para a definição, localizar referências e renomear símbolos. Passe o mouse sobre um símbolo para ver informações do language server. Com o cursor sobre um símbolo, use <kbd>F2</kbd> para renomeá-lo, <kbd>F12</kbd> para ir à sua definição ou <kbd>Shift+F12</kbd> para localizar referências. Essas ações também estão disponíveis no menu <kbd>Edit</kbd>.
+O editor oferece suporte a um subconjunto do [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnósticos (lints), preenchimento automático, informações ao passar o mouse, símbolos de documento no painel Structure, ir para a definição, localizar referências, renomear símbolos e formatar documentos ou intervalos. Passe o mouse sobre um símbolo para ver informações do servidor de linguagem. Com o cursor sobre um símbolo, use <kbd>F2</kbd> para renomeá-lo, <kbd>F12</kbd> para ir à sua definição ou <kbd>Shift+F12</kbd> para localizar referências. Essas ações também estão disponíveis no menu <kbd>Edit</kbd>. Consulte [formatação de código](/manuals/writing-code/#formatting-code) para conhecer o comando de formatação e a preferência de formatação ao salvar.
 
-Para definir o language server, você precisa editar a função `get_language_servers` do seu editor script assim:
+O servidor de linguagem Lua incluído contém anotações de tipos do Defold para as APIs de tempo de execução e de scripts do editor. Em arquivos `.editor_script`, o preenchimento automático e os diagnósticos reconhecem funções `editor.*` e os tipos de seus argumentos e valores de retorno. Consulte [preenchimento automático de código](/manuals/writing-code/#code-completion).
+
+Para registrar um servidor de linguagem adicional, defina a função `get_language_servers` do seu script do editor assim:
 
 ```lua
 function M.get_language_servers()

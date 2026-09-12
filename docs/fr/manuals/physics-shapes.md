@@ -1,11 +1,11 @@
 ---
 title: Formes de collision
-brief: Un composant de collision peut utiliser plusieurs formes primitives ou une seule forme complexe.
+brief: Les objets de collision peuvent contenir des formes primitives, des enveloppes convexes ou des maillages triangulés, ou utiliser des ressources tilemap et de forme convexe.
 ---
 
 # Formes de collision {#collision-shapes}
 
-Un composant (component) de collision peut utiliser plusieurs formes primitives ou une seule forme complexe.
+Un objet de collision peut contenir plusieurs formes intégrées. En physique 3D, celles-ci peuvent inclure des enveloppes convexes et des maillages triangulés provenant de fichiers glTF ou GLB. Vous pouvez également utiliser une tilemap ou une ressource de forme convexe via la propriété *Collision Shape* de l'objet de collision.
 
 ### Formes primitives {#primitive-shapes}
 Les formes primitives sont la *boîte*, la *sphère* et la *capsule*. Pour ajouter une forme primitive, <kbd>faites un clic droit</kbd> sur l'objet de collision et sélectionnez <kbd>Add Shape</kbd> :
@@ -32,7 +32,21 @@ Les formes de capsule sont prises en charge uniquement avec la physique 3D (conf
 :::
 
 ### Formes complexes {#complex-shapes}
-Une forme complexe peut être créée à partir d'un composant tilemap ou d'une forme d'enveloppe convexe.
+Les formes complexes peuvent utiliser la géométrie d'une tilemap ou les données d'une enveloppe convexe. Depuis Defold 1.13.2, les objets de collision 3D peuvent également créer des enveloppes convexes et des formes de maillage triangulé à partir des maillages de scènes glTF ou GLB.
+
+## Formes Hull et Mesh en 3D {#hull-and-mesh-shapes-in-3d}
+
+Utilisez une forme *Hull* pour une approximation convexe d'un maillage, ou une forme *Mesh* lorsque les collisions doivent suivre ses triangles, y compris les zones concaves comme les ouvertures dans la géométrie d'un niveau.
+
+1. Définissez **Physics ▸ Type** sur `3D` dans *game.project*.
+2. Faites un clic droit sur l'objet de collision dans l'*Outline* et sélectionnez <kbd>Add Shape ▸ Hull</kbd> ou <kbd>Add Shape ▸ Mesh</kbd>.
+3. Sélectionnez la nouvelle forme et définissez sa propriété *Scene* sur un fichier *.gltf* ou *.glb*.
+4. Sélectionnez un maillage nommé dans le champ *Mesh*. S'il ne figure pas dans la liste, nommez le maillage dans votre outil de modélisation et exportez à nouveau la scène.
+5. Positionnez et faites pivoter la forme pour l'aligner sur la géométrie visible de l'objet de jeu. Répétez ces étapes pour ajouter d'autres formes si nécessaire.
+
+Le maillage sélectionné fournit sa géométrie locale ; les transformations des nœuds glTF ne sont pas appliquées. Les formes de collision Mesh sont prises en charge par le moteur physique Bullet 3D, y compris pour les objets de collision statiques et non statiques. Elles ne sont pas prises en charge par les moteurs physiques 2D.
+
+La géométrie des maillages triangulés est accessible en lecture seule via les API de formes à l'exécution. Modifiez le maillage source et recréez un build pour changer ses triangles. Consultez [Mise à l'échelle des formes de collision](#scaling-collision-shapes) pour l'échelle de l'objet de jeu.
 
 ## Forme de collision de tilemap {#tilemap-collision-shape}
 Defold propose une fonctionnalité qui permet de générer facilement des formes physiques pour la source de tuiles utilisée par une tilemap. Le [manuel des sources de tuiles](/manuals/tilesource/#tile-source-collision-shapes) explique comment ajouter des groupes de collision à une source de tuiles et affecter des tuiles à ces groupes ([exemple](/examples/tilemap/collisions/)).
@@ -51,7 +65,7 @@ Notez que la propriété *Group* n'est **pas** utilisée ici, car les groupes de
 :::
 
 ## Forme d'enveloppe convexe {#convex-hull-shape}
-Defold propose une fonctionnalité qui permet de créer une forme d'enveloppe convexe à partir de trois points ou plus. 
+En physique 3D, vous pouvez créer une enveloppe convexe directement à partir d'un maillage avec le [flux de travail de l'éditeur décrit ci-dessus](#hull-and-mesh-shapes-in-3d). L'ancienne ressource `.convexshape` est également prise en charge et peut être créée à partir de points avec un éditeur externe :
 
 1. Créez un fichier de forme d'enveloppe convexe (extension de fichier `.convexshape`) à l'aide d'un éditeur externe.
 2. Modifiez le fichier manuellement à l'aide d'un éditeur de texte ou d'un outil externe (voir ci-dessous)
@@ -102,7 +116,7 @@ Plusieurs outils externes peuvent être utilisés pour créer des formes de coll
 L'objet de collision et ses formes héritent de l'échelle de l'objet de jeu. Pour désactiver ce comportement, décochez la case [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) dans la section Physics de *game.project*. Notez que seule la mise à l'échelle uniforme est prise en charge et que la plus petite valeur d'échelle sera utilisée si l'échelle n'est pas uniforme.
 
 # Redimensionnement des formes de collision {#resizing-collision-shapes}
-Les formes d'un objet de collision peuvent être redimensionnées à l'exécution à l'aide de `physics.set_shape()`. Exemple :
+Les formes primitives peuvent être redimensionnées à l'exécution avec `physics.set_shape()`. Cette fonction ne remplace ni les sommets des enveloppes convexes ni la géométrie des maillages triangulés. Exemple :
 
 ```lua
 -- set capsule shape data

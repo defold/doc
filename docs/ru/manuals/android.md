@@ -85,6 +85,41 @@ Success
 
 Файл *.aab* можно загрузить в Google Play через [консоль разработчика Google Play](https://play.google.com/apps/publish/). Также можно сгенерировать *`.apk`* файл из *.aab* файла для локальной установки с помощью [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Уменьшение Java-кода с помощью R8 {#shrinking-java-code-with-r8}
+
+R8 уменьшает размер Java-кода посредством удаления неиспользуемого кода, оптимизации и обфускации.
+
+### Включение R8 {#enabling-r8}
+
+Выберите `/builtins/manifests/android/dmengine.keep` в поле **Android ▸ R8 Keep Rules** файла *game.project*. Это позволяет напрямую использовать стандартные правила Defold:
+
+```ini
+[android]
+r8_keep_rules = /builtins/manifests/android/dmengine.keep
+```
+
+Убедитесь, что каждое расширение с Java-кодом предоставляет файл `.keep` для классов, необходимых во время выполнения. При сборке правила расширений объединяются с выбранными правилами проекта. После включения R8 протестируйте релизную сборку на устройстве.
+
+Если оставить поле **R8 Keep Rules** пустым, используется D8 без удаления неиспользуемого кода. При включении R8 используется сервис сборки нативных расширений, даже если проект не содержит таких расширений.
+
+### Добавление правил в расширение {#adding-rules-to-an-extension}
+
+Правила сохранения классов для расширения должны находиться в его каталоге `manifests/android`, рядом с `build.gradle`. О том, как добавить файл и сохранить Java-классы расширения, см. в разделе [Правила сохранения R8 для расширений Android](/manuals/extensions/#r8-keep-rules-for-android).
+
+### Сохранение таблицы соответствий обфускации {#keeping-the-obfuscation-mapping}
+
+Включите **Generate debug symbols** в диалоговом окне создания Android-бандла или передайте Bob параметр `--with-symbols`, чтобы сохранить файл R8 `mapping.txt`, если он создаётся при сборке. Например, выполните из каталога проекта:
+
+```sh
+java -jar bob.jar --platform arm64-android --variant release \
+  --archive --with-symbols --bundle-output build/android \
+  resolve build bundle
+```
+
+Таблица соответствий сохраняется в `<binary-name>.apk.symbols/mapping.txt` рядом с созданным APK или AAB. Например, если название проекта — `My Game`, приведённая выше команда создаёт файл `build/android/MyGame/MyGame.apk.symbols/mapping.txt`.
+
+Храните этот файл вместе с той релизной сборкой, для которой он был создан. Он сопоставляет обфусцированные имена Java с исходными при анализе стеков вызовов; таблица из другой сборки может дать неверные результаты.
+
 ## Разрешения
 
 Движок Defold требует ряд различных разрешений для работы всех функций движка. Разрешения определяются в `AndroidManifest.xml`, указанном в *game.project* [файл настроек проекта](/manuals/project-settings/#android). Подробнее о разрешениях Android можно прочитать в [официальных документах](https://developer.android.com/guide/topics/permissions/overview). В манифесте по умолчанию запрашиваются следующие разрешения:

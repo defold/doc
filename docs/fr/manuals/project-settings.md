@@ -102,6 +102,8 @@ Une liste d'URL correspondant aux *Library URL* du projet. Consultez le [manuel 
 
 Le chargement des ressources personnalisées est présenté plus en détail dans le [manuel d'accès aux fichiers](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+Les chemins fournis par les extensions via `custom_resources.default` dans `ext.properties` sont combinés à ce paramètre. Consultez [Ressources personnalisées des extensions](/manuals/extensions/#custom-resources) pour un exemple.
+
 #### Bundle Resources {#bundle-resources}
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ Crée un tampon arrière à haute densité de pixels sur les écrans compatibles
 
 #### Samples {#samples}
 Le nombre d'échantillons à utiliser pour l'anticrénelage par suréchantillonnage. Ce paramètre définit l'indication de fenêtre `GLFW_FSAA_SAMPLES`. Une valeur de `0` signifie que l'anticrénelage est désactivé.
+
+Ce paramètre contrôle la fenêtre. Les [cibles de rendu multi-échantillonnées](/manuals/render/#multisampled-render-targets) hors écran possèdent leur propre nombre d'échantillons.
 
 #### Fullscreen {#fullscreen}
 Cochez cette option si l'application doit démarrer en plein écran. Si elle est décochée, l'application s'exécute dans une fenêtre.
@@ -300,6 +304,9 @@ Le fichier de profils de texture à utiliser pour ce projet, `/builtins/graphics
 
 #### Verify Graphics Calls {#verify-graphics-calls}
 Vérifie la valeur de retour après chaque appel graphique et signale les éventuelles erreurs dans le journal.
+
+#### WebGL Version Hint {#webgl-version-hint}
+`graphics.webgl_version_hint` sélectionne la version du contexte WebGL à demander pour HTML5. Les valeurs valides sont `1` (WebGL 1) et `2` (WebGL 2, valeur par défaut). Définissez-la sur `1` pour cibler ou tester WebGL 1, même dans un navigateur prenant en charge WebGL 2. Laissez [Exclude GLES 2.0](#exclude-gles-20) désactivé lorsque vous ciblez WebGL 1 afin d'inclure les shaders nécessaires.
 
 #### OpenGL Version Hint {#opengl-version-hint}
 Indication de la version du contexte OpenGL. Si une version précise est sélectionnée, elle sera utilisée comme version minimale requise (ne s'applique pas à OpenGL ES).
@@ -638,8 +645,16 @@ Si cette option est activée, les barres de navigation et d'état sont masquées
 #### Debuggable {#debuggable}
 Détermine si l'application peut être déboguée à l'aide d'outils comme [GAPID](https://github.com/google/gapid) ou [Android Studio](https://developer.android.com/studio/profile/android-profiler). Cela définit l'indicateur `android:debuggable` dans le manifeste Android ([documentation officielle](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config {#proguard-config}
-Fichier ProGuard personnalisé permettant de supprimer les classes Java redondantes de l'APK final.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules {#r8-keep-rules}
+`android.r8_keep_rules` sélectionne un fichier `.keep` pour activer la suppression du code inutilisé, l'optimisation et l'obfuscation du code Java avec R8 dans les builds Android. Laissez ce paramètre vide pour utiliser D8 sans suppression du code inutilisé.
+
+Sélectionnez `/builtins/manifests/android/dmengine.keep` pour utiliser directement les règles par défaut de Defold. Les extensions fournissent leurs propres [règles de conservation](/manuals/extensions/#r8-keep-rules-for-android), qui sont combinées à ce fichier.
+
+Copiez le fichier intégré dans votre projet uniquement si vous devez ajouter des règles propres au projet. Préservez les règles intégrées dans la copie : sélectionner un fichier personnalisé remplace l'ensemble des règles du projet.
+
+Consultez le [manuel Android](/manuals/android/#shrinking-java-code-with-r8) pour activer R8 et conserver sa table de correspondance d'obfuscation avec un bundle de publication.
 
 #### Extract Native Libraries {#extract-native-libraries}
 Définit si le programme d'installation du paquet extrait les bibliothèques natives de l'APK vers le système de fichiers. Si la valeur est `false`, vos bibliothèques natives sont stockées sans compression dans l'APK. Bien que votre APK puisse être plus volumineux, votre application se charge plus vite, car les bibliothèques sont chargées directement depuis l'APK à l'exécution. Cela définit l'indicateur `android:extractNativeLibs` dans le manifeste Android ([documentation officielle](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -716,10 +731,13 @@ Lorsqu'elle est activée, cette option affiche des informations sur le moteur et
 Définit la méthode à utiliser pour mettre le canevas du jeu à l'échelle.
 
 #### Retry Count {#retry-count}
-Le nombre de tentatives de téléchargement d'un fichier au démarrage du moteur (voir `Retry Time`).
+Le nombre de nouvelles tentatives après un échec de téléchargement au démarrage, y compris les erreurs réseau, les statuts HTTP d'échec et les écarts de taille du fichier JavaScript ou WebAssembly du moteur. La requête initiale est comptée séparément. La vérification des fichiers de l'archive possède sa propre limite de tentatives ; consultez [Vérification des téléchargements](/manuals/html5/#download-verification) et `Retry Time`.
 
 #### Retry Time {#retry-time}
 Le nombre de secondes à attendre entre les tentatives de téléchargement d'un fichier après un échec (voir `Retry Count`).
+
+#### Verify Downloaded File Size {#verify-downloaded-file-size}
+`html5.verify_downloaded_file_size` compare la taille des fichiers du moteur et de l'archive téléchargés à leur taille attendue. Activé par défaut (`true`). Définissez-le sur `false` uniquement si un serveur, proxy ou CDN réécrit volontairement les fichiers et modifie leur taille. Un échec de vérification déclenche de nouvelles tentatives de téléchargement avant l'échec du démarrage. Les limites de tentatives diffèrent entre les téléchargements du moteur et la vérification des fichiers de l'archive ; consultez [Vérification des téléchargements](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context {#transparent-graphics-context}
 Cochez cette option si vous souhaitez que le contexte graphique ait un arrière-plan transparent.

@@ -16,7 +16,7 @@ Tra i casi d'uso comuni ci sono l'impostazione della vita o della velocità di u
 
 ## Definire una proprietà di uno script {#defining-a-script-property}
 
-Per aggiungere proprietà a un componente script, definiscile con la funzione speciale `go.property()`. La funzione deve essere usata al livello principale dello script---al di fuori delle funzioni del ciclo di vita come `init()` e `update()`. Il valore predefinito fornito per la proprietà ne determina il tipo: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` e `resource` (vedi sotto).
+Per aggiungere proprietà a un componente script, definiscile con la funzione speciale `go.property()`. La funzione deve essere usata al livello principale dello script---al di fuori delle funzioni del ciclo di vita come `init()` e `update()`. Il valore predefinito fornito per la proprietà ne determina il tipo: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` e `resource` (vedi sotto).
 
 ::: important
 Tieni presente che è possibile risalire alla stringa di un valore hash solo nelle build di debug, per facilitare il debug. Nelle build di release, la stringa corrispondente non è disponibile, quindi usare `tostring()` su un valore `hash` per estrarne la stringa non ha senso.
@@ -62,6 +62,32 @@ Ogni proprietà sovrascritta con un nuovo valore specifico dell'istanza viene ev
 Le proprietà degli script vengono analizzate durante la build del progetto. Le espressioni che definiscono i valori non vengono valutate. Questo significa che un'istruzione come `go.property("hp", 3+6)` non funziona, mentre `go.property("hp", 9)` sì.
 :::
 
+### Proprietà di testo {#text-properties}
+
+Da Defold 1.13.2, un valore predefinito di tipo stringa definisce una proprietà di testo. Le proprietà di testo supportano UTF-8 e i caratteri di nuova riga e si modificano in un campo su più righe nell'editor:
+
+```lua
+go.property("greeting", "Hello!\nWelcome, José!")
+
+function init(self)
+    go.set("#label", "text", self.greeting)
+end
+```
+
+Seleziona un componente script in un oggetto di gioco o in una collezione per sovrascrivere le sue proprietà di testo, come per le altre proprietà degli script. I caratteri NUL incorporati non sono consentiti nei valori predefiniti o nelle sostituzioni.
+
+Altri script possono leggere e scrivere una proprietà di testo tramite l'URL del componente script. Per esempio, inserisci lo script precedente e un'etichetta in un oggetto di gioco chiamato `speaker` nella collezione, con gli ID di componente `script` e `label`. Aggiornali da `init()` di un altro script:
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+Modificare la proprietà dello script non aggiorna automaticamente l'etichetta; l'ultima riga copia esplicitamente il nuovo valore nella proprietà `text` dell'etichetta.
+
 ## Accedere alle proprietà degli script {#accessing-script-properties}
 
 Ogni proprietà definita nello script è disponibile come membro di `self`, il riferimento all'istanza dello script:
@@ -78,7 +104,7 @@ function update(self, dt)
 end
 ```
 
-Puoi accedere alle proprietà degli script definite dall'utente anche tramite le funzioni `get`, `set` e `animate`, come per qualsiasi altra proprietà:
+Puoi anche leggere le proprietà degli script definite dall'utente con `go.get()` e scriverle con `go.set()`. Le proprietà numeriche, inclusi vettori e quaternioni, possono essere animate con `go.animate()`. Le proprietà di testo possono essere lette e scritte, ma non animate:
 
 ```lua
 -- another.script

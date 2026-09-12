@@ -102,6 +102,7 @@ También existen funciones específicas para trabajar con la transformación del
 
 | propiedad  | descripción                            | tipo            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
+| *text* | El contenido de texto del label. Disponible desde Defold 1.13.2. | `string` | `get+set`{.mark} |
 | *scale* | La escala del label. | `vector3` | `get+set`{.mark} |
 | *scale.xy* | La escala del label a lo largo de los ejes X e Y. | `vector3` | `get+set`{.mark}|
 | *color*     | El color del label. | `vector4` | `get+set`{.mark} |

@@ -72,12 +72,56 @@ Defold は、使用制限のないクラウドビルドサーバーを無料で�
 
 * `android` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
   * このフォルダーには、[Gradle で解決する](/manuals/extensions-gradle)依存関係を記述した `build.gradle` ファイルも配置できます。
-  * さらに、このフォルダーには0個以上の ProGuard ファイルを配置できます（実験的な機能です）。
+  * Java コードを持つ拡張には、実行時に必要なクラスの [R8 保持ルールファイル](#r8-keep-rules-for-android)（`.keep`）を含めることをお勧めします。
 * `ios` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
   * このフォルダーには、[Cocoapods で解決する](/manuals/extensions-cocoapods)依存関係を記述した `Podfile` ファイルも配置できます。
 * `osx` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
 * `web` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
 
+
+### Android の R8 保持ルール {#r8-keep-rules-for-android}
+
+拡張の `manifests/android` ディレクトリ内の、`build.gradle` と同じ場所に `.keep` ファイルを追加します。たとえば、`/myextension/manifests/android/myextension.keep` に以下を記述すると、拡張の Java クラスを保持できます。
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+`com.example.myextension` を、拡張の Java クラスが含まれるパッケージに置き換えます。このルールはクラスとそのメンバーを保持しながら、R8 によるコードの最適化を許可します。Java Native Interface（JNI）やリフレクションを通じてアクセスする他のクラスのルールも追加してください。R8 はそれらの使用を自動的に検出できない場合があります。
+
+実行時にアノテーションに依存する拡張では、次も含めます。
+
+```proguard
+-keepattributes *Annotation*
+```
+
+これらのルールは、[R8 が有効な場合](/manuals/android/#enabling-r8)に、プロジェクトで選択した保持ルールファイルと統合されます。
+
+
+## カスタムリソース {#custom-resources}
+
+拡張は、`ext.manifest` と同じ場所にある `ext.properties` ファイルでカスタムリソースを宣言することにより、ゲームのアーカイブにデータを含められます。
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+たとえば、`/myextension/data/settings.json` に JSON ファイルを配置します。パスは拡張フォルダーを含む、プロジェクトルートからの相対パスです。拡張をライブラリとして共有する場合は、ライブラリの [Include Dirs](/manuals/libraries/#setting-up-library-sharing) に `myextension` を含めて、利用するプロジェクトが拡張とそのデータを受け取れるようにします。
+
+これらのパスは、*game.project* の `project.custom_resources` および他の拡張が提供するパスと統合されます。プロジェクトでカスタムリソースを設定しても、拡張が提供する設定は置き換えられません。エディターのビルドと Bob のアーカイブの両方にファイルが含まれ、実行時に読み込めます。
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+カスタムリソースとバンドルリソースの違いについては、[ファイルアクセス](/manuals/file-access/#custom-resources)を参照してください。
 
 ## 拡張の共有 {#sharing-an-extension}
 

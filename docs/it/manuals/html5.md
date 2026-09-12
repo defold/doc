@@ -79,6 +79,28 @@ I bundle HTML5 di Defold richiedono un browser moderno con supporto WebAssembly.
 
 Quando fai clic sul pulsante <kbd>Create bundle</kbd>, ti verrà chiesto di selezionare una cartella in cui creare l'applicazione. Al termine dell'esportazione, troverai tutti i file necessari per eseguirla.
 
+## Versione del contesto WebGL {#webgl-context-version}
+
+Seleziona il contesto grafico da richiedere tramite [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Il valore predefinito è WebGL 2; richiedi WebGL 1 per provarlo o usarlo come destinazione nei browser che supportano entrambe le versioni.
+
+## Verifica dei download {#download-verification}
+
+Per impostazione predefinita, il loader HTML5 verifica le dimensioni dei file scaricati del motore e dell'archivio. Se una verifica fallisce, il download viene ritentato prima che il loader segnali un errore:
+
+* Gli errori di rete, gli stati HTTP di errore e le dimensioni non corrispondenti nel download JavaScript o WebAssembly del motore usano il limite di tentativi di `html5.retry_count`.
+* La verifica dei file di archivio ha un proprio limite di tentativi in caso di dimensioni o SHA-1 non corrispondenti. Ogni nuovo tentativo di verifica scarica nuovamente le parti del file, con i normali tentativi di rete disponibili per ogni download.
+
+L'impostazione `html5.retry_time` controlla l'intervallo tra i tentativi in entrambi i casi.
+
+Se il server, il proxy o la CDN riscrive intenzionalmente i file serviti e ne cambia le dimensioni, disabilita la verifica delle dimensioni in *game.project*:
+
+```ini
+[html5]
+verify_downloaded_file_size = 0
+```
+
+Disabilitando **Verify Downloaded File Size**, le eventuali verifiche SHA-1 incluse nel bundle rimangono attive. Consulta le [impostazioni di progetto HTML5](/manuals/project-settings/#verify-downloaded-file-size).
+
 ## Problemi noti e limitazioni {#known-issues-and-limitations}
 
 * Hot Reload - L'hot reload non funziona nelle build HTML5. Per ricevere aggiornamenti dall'editor, le applicazioni Defold devono eseguire un proprio piccolo server web, cosa che non è possibile in una build HTML5.
@@ -167,6 +189,24 @@ DEFOLD_SPLASH_IMAGE
 
 exe-name
 : Il nome del progetto senza simboli non consentiti
+
+DEFOLD_ARCHIVE_LOCATION_PREFIX
+: Il prefisso risolto del percorso dell'archivio usato dal loader, basato su `html5.archive_location_prefix`.
+
+DEFOLD_ARCHIVE_LOCATION_SUFFIX
+: Il suffisso risolto aggiunto agli URL dell'archivio, basato su `html5.archive_location_suffix`.
+
+DEFOLD_HAS_ARCHIVE_ORIGIN
+: `true` quando il prefisso dell'archivio specifica un'origine HTTP o HTTPS, incluso un URL relativo al protocollo come `//cdn.example.com/archive`. È `false` per i prefissi di archivio relativi. Disponibile da Defold 1.13.2.
+
+DEFOLD_ARCHIVE_ORIGIN
+: L'origine dell'archivio, inclusi schema, host e porta facoltativa, oppure una stringa vuota quando non è specificata alcuna origine. Un prefisso relativo al protocollo produce un'origine relativa al protocollo. Usata per l'indicazione preconnect e disponibile da Defold 1.13.2.
+
+DEFOLD_HAS_WASM_ENGINE
+: `true` se il bundle include un motore WebAssembly, `wasm-web` oppure `wasm_pthread-web`.
+
+DEFOLD_HAS_WASM_PTHREAD_ENGINE
+: `true` se il bundle include `wasm_pthread-web`. Usalo per evitare di precaricare la variante sbagliata del motore quando il loader sceglie l'architettura a runtime.
 
 
 DEFOLD_CUSTOM_CSS_INLINE

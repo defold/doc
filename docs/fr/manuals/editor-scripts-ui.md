@@ -5,7 +5,7 @@ brief: Ce manuel explique comment créer des éléments d'interface utilisateur 
 
 # Scripts de l'éditeur et interface utilisateur {#editor-scripts-and-ui}
 
-Ce manuel explique comment créer des éléments d'interface utilisateur interactifs dans l'éditeur à l'aide de scripts de l'éditeur écrits en Lua. Pour débuter avec les scripts de l'éditeur, consultez le [manuel des scripts de l'éditeur](/manuals/editor-scripts). Vous trouverez la référence complète de l'API de l'éditeur [ici](/ref/stable/editor-lua/). Actuellement, seules les boîtes de dialogue interactives peuvent être créées, mais nous souhaitons étendre à l'avenir la prise en charge des scripts d'interface au reste de l'éditeur.
+Ce manuel explique comment créer des boîtes de dialogue interactives et ouvrir des ressources dans l'éditeur à l'aide de scripts d'éditeur écrits en Lua. Pour commencer avec les scripts d'éditeur, consultez le [manuel des scripts d'éditeur](/manuals/editor-scripts). La référence complète de l'API de l'éditeur se trouve [ici](/ref/stable/editor-lua/).
 
 ## Bonjour tout le monde {#hello-world}
 
@@ -52,6 +52,32 @@ Enfin, après avoir appuyé sur <kbd>Enter</kbd> (ou cliqué sur le bouton `Perf
 ```
 Perform action:	true
 ```
+
+## Ouverture de ressources {#opening-resources}
+
+Appelez `editor.ui.open_resource()` depuis la fonction `run` d'une commande pour ouvrir une ressource du projet. Le chemin commence par `/`. Si vous omettez la vue, la vue principale de la ressource est sélectionnée :
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+Les vues `code` et `text` acceptent une position de curseur ou une sélection en troisième argument. Les numéros de ligne et de colonne commencent à `1` ; une colonne omise vaut `1` par défaut. Précisez la vue lorsque vous passez ces arguments :
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+Pour sélectionner une plage, fournissez plutôt les positions de curseur `from` et `to` :
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+La vue configurée pour la ressource peut s'ouvrir dans l'éditeur ou dans une application externe. Les vues intégrées Code et Text prennent en charge les arguments de curseur et de sélection. Consultez [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args) pour connaître les noms de vues pris en charge.
 
 ## Concepts de base {#basic-concepts}
 

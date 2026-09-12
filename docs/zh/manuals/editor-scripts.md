@@ -578,9 +578,11 @@ return M
 
 ## 语言服务器
 
-编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的一个子集：诊断（lints）、补全、悬停信息、Structure 面板中的文档符号、转到定义、查找引用和符号重命名。将鼠标悬停在符号上可查看语言服务器提供的信息。光标位于符号上时，使用 <kbd>F2</kbd> 重命名，使用 <kbd>F12</kbd> 转到定义，或使用 <kbd>Shift+F12</kbd> 查找引用。这些操作也可从 <kbd>Edit</kbd> 菜单中使用。
+编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的一个子集：诊断（lints）、补全、悬停信息、Structure 面板中的文档符号、转到定义、查找引用、符号重命名，以及文档或范围格式化。将鼠标悬停在符号上可查看语言服务器提供的信息。光标位于符号上时，使用 <kbd>F2</kbd> 重命名，使用 <kbd>F12</kbd> 转到定义，或使用 <kbd>Shift+F12</kbd> 查找引用。这些操作也可从 <kbd>Edit</kbd> 菜单中使用。有关格式化命令和保存时格式化的偏好设置，请参阅[格式化代码](/manuals/writing-code/#formatting-code)。
 
-要定义语言服务器，您需要像这样编辑编辑器脚本的 `get_language_servers` 函数：
+内置 Lua 语言服务器包含 Defold 运行时和编辑器脚本 API 的类型注解。在 `.editor_script` 文件中，补全和诊断可以识别 `editor.*` 函数及其参数和返回类型。请参阅[代码补全](/manuals/writing-code/#code-completion)。
+
+要注册额外的语言服务器，请像这样定义编辑器脚本的 `get_language_servers` 函数：
 
 ```lua
 function M.get_language_servers()

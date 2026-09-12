@@ -5,7 +5,11 @@ brief: Defold підтримує з’єднання для 2D-фізики. У 
 
 # З’єднання {#joints}
 
-Defold підтримує з’єднання (joints) для 2D-фізики. З’єднання сполучає два об’єкти колізій (collision objects) за допомогою певного обмеження. Підтримуються такі типи з’єднань:
+З’єднання (joint) сполучає два об’єкти колізій (collision objects) за допомогою обмеження. Defold підтримує з’єднання як у 2D-, так і в 3D-фізиці через різні API.
+
+Цей посібник описує 2D-з’єднання, які надає модуль `physics`. Починаючи з Defold 1.13.2, у 3D-проєктах можна створювати обмеження й керувати ними через [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), зокрема шарнірами, повзунками й пружинами. Використовуйте цей API з твердими тілами, отриманими через [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+
+В API `physics` для 2D підтримуються такі типи з’єднань:
 
 * **Фіксоване (physics.JOINT_TYPE_FIXED)** — Мотузкове з’єднання, яке обмежує максимальну відстань між двома точками. У Box2D його називають мотузковим з’єднанням (Rope joint).
 * **Шарнірне (physics.JOINT_TYPE_HINGE)** — Шарнірне з’єднання задає точку кріплення на двох об’єктах колізій і переміщує їх так, щоб обидва об’єкти колізій завжди перебували в одному місці, не обмежуючи їхнього відносного обертання. Для шарнірного з’єднання можна ввімкнути двигун із заданими максимальним крутним моментом і швидкістю. У Box2D його називають [обертовим з’єднанням (Revolute joint)](https://box2d.org/documentation/group__revolute__joint.html#details).
@@ -16,7 +20,7 @@ Defold підтримує з’єднання (joints) для 2D-фізики. �
 
 ## Створення з’єднань {#creating-joints}
 
-Наразі з’єднання можна створювати лише програмно за допомогою [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
+Описані тут 2D-з’єднання створюються програмно за допомогою [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
 Підтримка створення з’єднань у редакторі запланована, але дату випуску ще не визначено.
 :::

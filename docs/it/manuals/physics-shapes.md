@@ -1,11 +1,11 @@
 ---
 title: Forme di collisione
-brief: Un componente di collisione può usare più forme primitive oppure una singola forma complessa.
+brief: Gli oggetti di collisione possono contenere forme primitive, inviluppi convessi o mesh triangolari, oppure usare risorse tilemap e di forma convessa.
 ---
 
 # Forme di collisione {#collision-shapes}
 
-Un componente di collisione può usare più forme primitive oppure una singola forma complessa.
+Un oggetto di collisione può contenere più forme incorporate. Nella fisica 3D, queste possono includere inviluppi convessi e mesh triangolari da file glTF o GLB. Puoi anche usare una tilemap o una risorsa di forma convessa tramite la proprietà *Collision Shape* dell'oggetto di collisione.
 
 ### Forme primitive {#primitive-shapes}
 Le forme primitive sono *parallelepipedo*, *sfera* e *capsula*. Per aggiungere una forma primitiva, <kbd>fai clic con il pulsante destro</kbd> sull'oggetto di collisione e seleziona <kbd>Add Shape</kbd>:
@@ -32,7 +32,21 @@ Le forme a capsula sono supportate solo quando si usa la fisica 3D (configurata 
 :::
 
 ### Forme complesse {#complex-shapes}
-Una forma complessa può essere creata da un componente mappa di tile oppure da una forma a inviluppo convesso.
+Le forme complesse possono usare la geometria di una tilemap o dati di inviluppi convessi. Da Defold 1.13.2, gli oggetti di collisione 3D possono anche creare inviluppi convessi e forme a mesh triangolare dalle mesh di scene glTF o GLB.
+
+## Forme Hull e Mesh in 3D {#hull-and-mesh-shapes-in-3d}
+
+Usa una forma *Hull* per un'approssimazione convessa di una mesh oppure una forma *Mesh* quando le collisioni devono seguirne i triangoli, comprese le aree concave come le aperture nella geometria di un livello.
+
+1. Imposta **Physics → Type** su `3D` in *game.project*.
+2. Fai clic con il pulsante destro sull'oggetto di collisione nella vista *Outline* e seleziona <kbd>Add Shape ▸ Hull</kbd> oppure <kbd>Add Shape ▸ Mesh</kbd>.
+3. Seleziona la nuova forma e imposta la sua proprietà *Scene* su un file *.gltf* o *.glb*.
+4. Seleziona una mesh con nome dal campo *Mesh*. Se non è nell'elenco, assegna un nome alla mesh nello strumento di modellazione ed esporta nuovamente la scena.
+5. Sposta e ruota la forma per allinearla alla geometria visibile dell'oggetto di gioco. Ripeti questi passaggi per aggiungere altre forme, se necessario.
+
+La mesh selezionata fornisce la propria geometria locale; le trasformazioni dei nodi glTF non vengono applicate. Le forme di collisione Mesh sono supportate dal backend Bullet 3D, anche per gli oggetti di collisione statici e non statici. Non sono supportate dai backend di fisica 2D.
+
+La geometria delle mesh triangolari è di sola lettura nelle API delle forme a runtime. Per modificarne i triangoli, modifica la mesh sorgente e ricrea la build. Consulta [Scalare le forme di collisione](#scaling-collision-shapes) per la scala dell'oggetto di gioco.
 
 ## Forma di collisione di una mappa di tile {#tilemap-collision-shape}
 Defold include una funzionalità che consente di generare facilmente forme fisiche per la sorgente di tile usata da una mappa di tile. Il [manuale delle sorgenti di tile](/manuals/tilesource/#tile-source-collision-shapes) spiega come aggiungere gruppi di collisione a una sorgente di tile e assegnare i tile ai gruppi di collisione ([esempio](/examples/tilemap/collisions/)).
@@ -51,7 +65,7 @@ Tieni presente che la proprietà *Group* **non** viene usata in questo caso, poi
 :::
 
 ## Forma a inviluppo convesso {#convex-hull-shape}
-Defold include una funzionalità che consente di creare una forma a inviluppo convesso a partire da tre o più punti. 
+Nella fisica 3D puoi creare un inviluppo convesso direttamente da una mesh usando la [procedura nell'editor descritta sopra](#hull-and-mesh-shapes-in-3d). La risorsa `.convexshape` precedente rimane supportata e può essere creata da punti usando un editor esterno:
 
 1. Crea un file di forma a inviluppo convesso (con estensione `.convexshape`) usando un editor esterno.
 2. Modifica manualmente il file usando un editor di testo o uno strumento esterno (vedi sotto)
@@ -102,7 +116,7 @@ Esistono diversi strumenti esterni che si possono usare per creare forme di coll
 L'oggetto di collisione e le sue forme ereditano la scala dell'oggetto di gioco. Per disattivare questo comportamento, deseleziona la casella [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) nella sezione Physics di *game.project*. Tieni presente che è supportata solo la scala uniforme e che, se la scala non è uniforme, verrà usato il valore di scala più piccolo.
 
 # Ridimensionamento delle forme di collisione {#resizing-collision-shapes}
-Le forme di un oggetto di collisione possono essere ridimensionate durante l'esecuzione usando `physics.set_shape()`. Esempio:
+Le forme primitive possono essere ridimensionate a runtime usando `physics.set_shape()`. Questa funzione non sostituisce i vertici degli inviluppi convessi né la geometria delle mesh triangolari. Esempio:
 
 ```lua
 -- set capsule shape data

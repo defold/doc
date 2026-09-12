@@ -5,7 +5,11 @@ brief: Defold admite articulaciones para físicas 2D. Este manual explica cómo 
 
 # Articulaciones
 
-Defold admite articulaciones (joints) para físicas 2D. Una articulación conecta dos objetos de colisión mediante algún tipo de restricción. Los tipos de articulación compatibles son:
+Una articulación (joint) conecta dos objetos de colisión mediante una restricción. Defold admite articulaciones tanto en físicas 2D como 3D, mediante APIs distintas.
+
+Este manual describe las articulaciones 2D expuestas por el módulo `physics`. Desde Defold 1.13.2, los proyectos 3D pueden crear y controlar restricciones mediante [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), incluidas bisagras, correderas y resortes. Usa esa API con cuerpos rígidos obtenidos mediante [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+
+Los tipos de articulación compatibles con la API 2D `physics` son:
 
 * **Fixed (physics.JOINT_TYPE_FIXED)** - Una articulación de cuerda que restringe la distancia máxima entre dos puntos. En Box2D se conoce como Rope joint.
 * **Hinge (physics.JOINT_TYPE_HINGE)** - Una articulación de bisagra especifica un punto de anclaje en dos objetos de colisión y los mueve para que los dos objetos de colisión estén siempre en el mismo lugar, sin restringir la rotación relativa de los objetos de colisión. La articulación de bisagra puede activar un motor con torque máximo y velocidad definidos. En Box2D se conoce como [Revolute joint](https://box2d.org/documentation/group__revolute__joint.html#details).
@@ -16,7 +20,7 @@ Defold admite articulaciones (joints) para físicas 2D. Una articulación conect
 
 ## Crear articulaciones
 
-Actualmente, las articulaciones solo se pueden crear programáticamente usando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
+Las articulaciones 2D descritas aquí se crean programáticamente usando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
 Está previsto agregar soporte en el editor para crear articulaciones, pero aún no se ha decidido una fecha de lanzamiento.
 :::

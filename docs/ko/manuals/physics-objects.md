@@ -27,7 +27,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 게임 오브젝트에 충돌 오브젝트 컴포넌트를 추가하려면:
 
 1. *Outline* 뷰에서 게임 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 컨텍스트 메뉴에서 <kbd>Add Component ▸ Collision Object</kbd>를 선택합니다. 이렇게 하면 모양이 없는 새 컴포넌트가 만들어집니다.
-2. 새 컴포넌트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>를 선택합니다. 그러면 충돌 오브젝트 컴포넌트에 새 모양이 추가됩니다. 컴포넌트에는 원하는 수만큼 모양을 추가할 수 있습니다. 타일 맵이나 convex hull을 사용해 물리 오브젝트의 모양을 정의할 수도 있습니다.
+2. 새 컴포넌트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택한 다음 모양을 선택합니다. 3D 물리 프로젝트에서는 <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd>, <kbd>Mesh</kbd>를, 2D 물리 프로젝트에서는 <kbd>Box</kbd> 또는 <kbd>Circle</kbd>을 선택할 수 있습니다. Hull 및 Mesh 모양은 Defold 1.13.2부터 사용할 수 있으며, glTF 또는 GLB 씬의 이름 있는 메쉬를 사용합니다. 컴포넌트에 여러 모양을 추가할 수 있습니다. *Collision Shape* 프로퍼티로 타일맵이나 `.convexshape` 리소스를 사용할 수도 있습니다.
 3. 이동, 회전, 스케일 도구를 사용해 모양을 편집합니다.
 4. *Outline*에서 컴포넌트를 선택하고 충돌 오브젝트의 *Properties*를 편집합니다.
 
@@ -36,7 +36,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 
 ## 충돌 모양 추가하기
 
-충돌 오브젝트 컴포넌트는 여러 기본 모양을 사용하거나 하나의 복잡한 모양을 사용할 수 있습니다. 다양한 모양과 충돌 오브젝트 컴포넌트에 모양을 추가하는 방법은 [충돌 모양 매뉴얼](/manuals/physics-shapes)에서 자세히 알아볼 수 있습니다.
+충돌 오브젝트 컴포넌트는 3D 물리의 hull과 삼각형 메쉬를 포함한 여러 내장 모양을 포함하거나, 타일맵 또는 convex shape 리소스를 사용할 수 있습니다. 다양한 모양과 충돌 오브젝트 컴포넌트에 모양을 추가하는 방법은 [충돌 모양 매뉴얼](/manuals/physics-shapes)에서 자세히 알아볼 수 있습니다.
 
 
 ## 충돌 오브젝트 프로퍼티
@@ -45,7 +45,7 @@ Id
 : 컴포넌트의 식별자입니다.
 
 Collision Shape
-: 이 프로퍼티는 타일 맵 지오메트리나 기본 모양을 사용하지 않는 convex shape에 사용됩니다. [충돌 모양에 대한 자세한 정보](/manuals/physics-shapes)를 참고하세요.
+: 타일맵 또는 `.convexshape` 리소스입니다. glTF 또는 GLB 메쉬를 사용하려면 컴포넌트에 Hull 또는 Mesh 모양을 추가하고 해당 모양의 *Scene* 및 *Mesh* 프로퍼티를 설정하세요. [충돌 모양에 대한 자세한 정보](/manuals/physics-shapes)를 참고하세요.
 
 Type
 : 충돌 오브젝트의 타입입니다: `Dynamic`, `Kinematic`, `Static` 또는 `Trigger`. 오브젝트를 `Dynamic`으로 설정하면 *Mass* 프로퍼티를 0이 아닌 값으로 설정해야 _합니다_. `Dynamic` 또는 `Static` 오브젝트의 경우 *Friction* 및 *Restitution* 값이 사용 사례에 적합한지도 확인해야 합니다.

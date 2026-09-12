@@ -87,6 +87,9 @@ brief: このマニュアルでは、ラベルコンポーネントを使って�
 
 ラベルのテキストや、その他のさまざまなプロパティを取得、設定して、実行時にラベルを操作できます。
 
+`text`
+: ラベルのテキスト内容です（`string`）。Defold 1.13.2 以降では、`go.get()` と `go.set()` で利用できます。
+
 `color`
 : ラベルの色です（`vector4`）。
 
@@ -106,9 +109,15 @@ brief: このマニュアルでは、ラベルコンポーネントを使って�
 function init(self)
     -- Set the text of the "my_label" component in the same game object
     -- as this script.
-    label.set_text("#my_label", "New text")
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+Defold 1.13.2 以降では、`label.set_text()` と `label.get_text()` は非推奨となり、代わりに `text` プロパティを使います。互換性のため、従来の関数も引き続き利用できます。従来の設定関数はメッセージをキューに入れますが、`go.set()` はテキストを即座に更新します。
+:::
 
 ```lua
 function init(self)

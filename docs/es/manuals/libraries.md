@@ -13,6 +13,8 @@ Las bibliotecas son útiles para los siguientes propósitos:
 * Construir una biblioteca de plantillas que puedes copiar en tus proyectos y luego personalizar o especializar.
 * Construir una o más bibliotecas de objetos o scripts listos para usar a los que puedes hacer referencia directamente. Esto es muy práctico para almacenar módulos de script comunes o para construir una biblioteca compartida de recursos de gráficos, sonido y animación.
 
+<a id="setting-up-library-sharing"></a>
+
 ## Configurar el uso compartido de bibliotecas
 
 Supongamos que quieres construir una biblioteca que contenga sprites y tile sources compartidos. Empieza por [configurar un nuevo proyecto](/manuals/project-setup/). Decide qué carpetas quieres compartir desde el proyecto y agrega los nombres de esas carpetas a la propiedad *`include_dirs`* en la configuración del proyecto. Si quieres listar más de una carpeta, separa los nombres con espacios:

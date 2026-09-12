@@ -576,9 +576,11 @@ return M
 
 ## 언어 서버(Language server) {#language-servers}
 
-에디터는 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)의 일부를 지원합니다. diagnostics(lint), completions, hover 정보, Structure pane의 document symbol, go to definition, find references, symbol rename을 지원합니다. 심볼 위에 마우스를 올리면 언어 서버의 정보를 볼 수 있습니다. 심볼에 커서를 둔 상태에서 <kbd>F2</kbd>로 이름을 바꾸고, <kbd>F12</kbd>로 정의로 이동하거나, <kbd>Shift+F12</kbd>로 참조를 찾을 수 있습니다. 이 동작은 <kbd>Edit</kbd> 메뉴에서도 사용할 수 있습니다.
+에디터는 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)의 일부를 지원합니다. 진단(lint), 자동 완성, 마우스를 올렸을 때 표시되는 정보, Structure 창의 문서 심볼, 정의로 이동, 참조 찾기, 심볼 이름 바꾸기, 문서 및 범위 포멧팅을 지원합니다. 심볼 위에 마우스를 올리면 언어 서버의 정보를 볼 수 있습니다. 심볼에 커서를 둔 상태에서 <kbd>F2</kbd>로 이름을 바꾸고, <kbd>F12</kbd>로 정의로 이동하거나, <kbd>Shift+F12</kbd>로 참조를 찾을 수 있습니다. 이 동작은 <kbd>Edit</kbd> 메뉴에서도 사용할 수 있습니다. 포멧팅 명령과 저장 시 포멧팅 환경설정은 [코드 포멧팅](/manuals/writing-code/#formatting-code)을 참고하세요.
 
-언어 서버(language server)를 정의하려면 다음과 같이 에디터 스크립트의 `get_language_servers` 함수를 편집해야 합니다.
+기본으로 제공되는 Lua 언어 서버에는 런타임 및 에디터 스크립트 API의 Defold 타입 어노테이션이 포함되어 있습니다. `.editor_script` 파일에서는 자동 완성과 진단 기능이 `editor.*` 함수와 인자 및 반환 타입을 인식합니다. [코드 자동 완성](/manuals/writing-code/#code-completion)을 참고하세요.
+
+언어 서버를 추가로 등록하려면 다음과 같이 에디터 스크립트의 `get_language_servers` 함수를 정의합니다.
 
 ```lua
 function M.get_language_servers()

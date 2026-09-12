@@ -102,6 +102,7 @@ Esistono anche funzioni specifiche per lavorare con la trasformazione dell'ogget
 
 | proprietà   | descrizione                            | tipo            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
+| *text* | Il contenuto testuale dell'etichetta. Disponibile da Defold 1.13.2. | `string` | `get+set`{.mark} |
 | *scale* | La scala dell'etichetta. | `vector3` | `get+set`{.mark} |
 | *scale.xy* | La scala dell'etichetta lungo gli assi X e Y. | `vector3` | `get+set`{.mark}|
 | *color*     | Il colore dell'etichetta. | `vector4` | `get+set`{.mark} |

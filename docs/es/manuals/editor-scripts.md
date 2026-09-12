@@ -574,9 +574,13 @@ Ten en cuenta que los hooks de ciclo de vida actualmente son una funcionalidad s
 
 ## Servidores de lenguaje {#language-servers}
 
-El editor admite un subconjunto del [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnósticos (lints), sugerencias de completado, información al pasar el cursor, símbolos del documento en el panel Structure, ir a la definición, buscar referencias y cambiar el nombre de símbolos. Pasa el cursor sobre un símbolo para ver información del servidor de lenguaje. Con el cursor sobre un símbolo, usa <kbd>F2</kbd> para cambiarle el nombre, <kbd>F12</kbd> para ir a su definición o <kbd>Shift+F12</kbd> para buscar referencias. Estas acciones también están disponibles en el menú <kbd>Edit</kbd>.
+El editor admite un subconjunto del [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnósticos (lints), sugerencias de completado, información al pasar el cursor, símbolos del documento en el panel Structure, ir a la definición, buscar referencias, cambiar el nombre de símbolos y formatear documentos o rangos. Pasa el cursor sobre un símbolo para ver información del servidor de lenguaje. Con el cursor sobre un símbolo, usa <kbd>F2</kbd> para cambiarle el nombre, <kbd>F12</kbd> para ir a su definición o <kbd>Shift+F12</kbd> para buscar referencias. Estas acciones también están disponibles en el menú <kbd>Edit</kbd>.
 
-Para definir el servidor de lenguaje, necesitas editar la función `get_language_servers` de tu script del editor así:
+Consulta [formatear código](/manuals/writing-code/#formatting-code) para conocer el comando de formateo y la preferencia para formatear al guardar.
+
+El servidor de lenguaje Lua incluido contiene anotaciones de tipos de Defold para las APIs de runtime y de scripting del editor. En archivos `.editor_script`, el completado y los diagnósticos reconocen las funciones `editor.*` y sus tipos de argumentos y valores de retorno. Consulta [completado de código](/manuals/writing-code/#code-completion).
+
+Para registrar un servidor de lenguaje adicional, define la función `get_language_servers` de tu script del editor así:
 
 ```lua
 function M.get_language_servers()

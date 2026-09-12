@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 Defold 目前仅支持 `Materials` 和 `Render Targets` 作为引用的渲染资源，但随着时间的推移，此系统将支持更多资源类型。
 :::
 
+### 多重采样渲染目标 {#multisampled-render-targets}
+
+渲染目标支持多重采样抗锯齿（MSAA），可在离屏渲染阶段平滑几何体边缘。目标的采样数独立于 [Display ▸ Samples](/manuals/project-settings/#samples)，后者控制窗口的抗锯齿。
+
+对于 `.render_target` 资源，在编辑器中将 **Sample Count** 设置为 `1`、`2`、`4`、`8` 或 `16`。值为 `1` 时禁用多重采样。将资源添加到 `.render` 文件的 **Render Resources** 表中，然后像上面的示例一样，将分配的名称传给 `render.set_render_target()`。
+
+也可以在渲染脚本的 `init()` 中创建目标。将 `sample_count` 放在最外层参数表中，与附件并列：
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+此示例使用仅含颜色附件的目标。目标中的所有颜色、深度和模板附件共享其采样数。如果该渲染阶段需要深度测试，请添加深度附件并设置常规的深度测试状态。
+
+对于下面的 `update()` 片段，请为场景材质添加 `scene` 标签，为全屏四边形的材质添加 `present` 标签。四边形材质必须采样纹理单元 `0`。为每个渲染阶段设置合适的视图和投影：
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+切换离开目标时，会结束该渲染阶段并自动解析其多重采样颜色附件。`render.enable_texture()` 绑定解析后的颜色纹理，因此四边形使用普通纹理采样器即可。无需单独的解析命令。
+
+请求的采样数默认为 `1`，且必须是正整数。图形后端会将不受支持的请求降低为受支持的 2 的幂，必要时回退到 `1`，并在采样数发生变化时记录警告。较高的采样数会增加附件所需的内存。
+
+使用渲染目标资源时，可在游戏对象的 `.script` 中通过 `resource.get_render_target_info()` 检查实际采样数。例如，将 `/render/offscreen.render_target` 添加到 **Render Resources** 后：
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+检查设备支持情况时，请使用此实际值，不要假定请求的采样数可用。完整的参数和结果表请参阅 [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) 和 [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path)。
+
 ## 纹理句柄
 
 Defold 中的纹理在内部表示为句柄，这本质上等同于一个数字，应该唯一标识引擎中任何位置的纹理对象。这意味着您可以通过在渲染系统和游戏对象脚本之间传递这些句柄来桥接游戏对象世界和渲染世界。例如，脚本可以在附加到游戏对象的脚本中创建动态纹理，并将其发送到渲染器，以用作绘制命令中的全局纹理。

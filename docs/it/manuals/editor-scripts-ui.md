@@ -5,7 +5,7 @@ brief: Questo manuale spiega come creare elementi dell'interfaccia utente nell'e
 
 # Script dell'editor e interfaccia utente {#editor-scripts-and-ui}
 
-Questo manuale spiega come creare elementi interattivi dell'interfaccia utente nell'editor usando script dell'editor scritti in Lua. Per iniziare a usare gli script dell'editor, consulta il [manuale degli script dell'editor](/manuals/editor-scripts). La documentazione di riferimento completa dell'API dell'editor è disponibile [qui](/ref/stable/editor-lua/). Al momento è possibile creare soltanto finestre di dialogo interattive, ma in futuro vogliamo estendere il supporto agli script per l'interfaccia al resto dell'editor.
+Questo manuale spiega come creare finestre di dialogo interattive e aprire risorse nell'editor usando script dell'editor scritti in Lua. Per iniziare a usare gli script dell'editor, consulta il [manuale degli script dell'editor](/manuals/editor-scripts). La documentazione di riferimento completa dell'API dell'editor è disponibile [qui](/ref/stable/editor-lua/).
 
 ## Ciao mondo {#hello-world}
 
@@ -52,6 +52,32 @@ Infine, dopo aver premuto <kbd>Enter</kbd> (o fatto clic sul pulsante `Perform`)
 ```
 Perform action:	true
 ```
+
+## Aprire le risorse {#opening-resources}
+
+Chiama `editor.ui.open_resource()` dalla funzione `run` di un comando per aprire una risorsa del progetto. Il percorso inizia con `/`. Omettendo la vista, viene selezionata la vista principale della risorsa:
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+Le viste `code` e `text` accettano una posizione del cursore o una selezione come terzo argomento. I numeri di riga e di colonna partono da `1`; se la colonna viene omessa, il valore predefinito è `1`. Specifica la vista quando passi questi argomenti:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+Per selezionare un intervallo, fornisci invece le posizioni del cursore `from` e `to`:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+La vista configurata per la risorsa può aprirsi nell'editor o in un'applicazione esterna. Le viste integrate Code e Text supportano gli argomenti per il cursore e la selezione. Consulta [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args) per i nomi delle viste supportate.
 
 ## Concetti di base {#basic-concepts}
 

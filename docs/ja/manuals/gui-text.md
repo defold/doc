@@ -7,6 +7,8 @@ brief: このマニュアルでは、GUI シーンにテキストを追加する
 
 Defold は、GUI シーン（GUI scene）にテキストを描画できる専用の GUI ノード（GUI node）をサポートしています。プロジェクトに追加した任意のフォントリソースを、テキストノード（text node）の描画に使用できます。
 
+エディターのプレビューは、エンジンのフォントレンダラーを使って、テキストの字形形成と右から左へのレイアウトをサポートします。必要なフォントと App Manifest の設定については、[テキストレイアウトのサポート](/manuals/font/#text-layout-support-eg-right-to-left)を参照してください。
+
 ## テキストノードの追加 {#adding-text-nodes}
 
 GUI テキストノードで使用するフォントは、GUI コンポーネント（GUI component）に追加する必要があります。*Fonts* フォルダーを右クリックするか、上部の <kbd>GUI</kbd> メニューを使用するか、対応するキーボードショートカットを押します。
@@ -55,4 +57,3 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-

@@ -72,12 +72,56 @@ La cartella facoltativa *manifests* di un'estensione contiene file aggiuntivi us
 
 * `android` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
   * La cartella può contenere anche un file `build.gradle` con dipendenze da [risolvere tramite Gradle](/manuals/extensions-gradle).
-  * Infine, la cartella può contenere anche zero o più file ProGuard (funzionalità sperimentale).
+  * Le estensioni con codice Java dovrebbero includere un [file di regole di conservazione R8](#r8-keep-rules-for-android) (`.keep`) per le classi necessarie a runtime.
 * `ios` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
   * La cartella può contenere anche un file `Podfile` con dipendenze da [risolvere tramite Cocoapods](/manuals/extensions-cocoapods).
 * `osx` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
 * `web` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
 
+
+### Regole di conservazione R8 per Android {#r8-keep-rules-for-android}
+
+Aggiungi un file `.keep` alla directory `manifests/android` dell'estensione, accanto a `build.gradle`. Per esempio, `/myextension/manifests/android/myextension.keep` può conservare le classi Java dell'estensione con:
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+Sostituisci `com.example.myextension` con il package che contiene le classi Java della tua estensione. Questa regola conserva le classi e i loro membri, consentendo a R8 di ottimizzarne il codice. Aggiungi regole per le altre classi a cui accedi tramite Java Native Interface (JNI) o reflection, poiché R8 potrebbe non rilevare automaticamente questi utilizzi.
+
+Se l'estensione dipende da annotazioni a runtime, includi anche:
+
+```proguard
+-keepattributes *Annotation*
+```
+
+Queste regole vengono combinate con il file di conservazione selezionato nel progetto quando [R8 è abilitato](/manuals/android/#enabling-r8).
+
+
+## Risorse personalizzate {#custom-resources}
+
+Un'estensione può includere dati nell'archivio del gioco dichiarando risorse personalizzate in un file `ext.properties` accanto al suo `ext.manifest`:
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+Per esempio, inserisci un file JSON in `/myextension/data/settings.json`. Il percorso è relativo alla radice del progetto e include la cartella dell'estensione. Quando condividi l'estensione come libreria, includi `myextension` in [Include Dirs](/manuals/libraries/#setting-up-library-sharing) della libreria, affinché i progetti che la usano ricevano l'estensione e i suoi dati.
+
+Questi percorsi vengono combinati con `project.custom_resources` di *game.project* e con quelli forniti dalle altre estensioni. Impostare le risorse personalizzate nel progetto non sostituisce quelle fornite dalle estensioni. Sia le build dell'editor sia gli archivi di Bob includono i file, che possono essere caricati a runtime:
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+Consulta [Accesso ai file](/manuals/file-access/#custom-resources) per le differenze tra risorse personalizzate e risorse del bundle.
 
 ## Condividere un'estensione {#sharing-an-extension}
 

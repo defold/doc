@@ -576,9 +576,11 @@ Tieni presente che gli hook del ciclo di vita sono attualmente una funzionalità
 
 ## Server di linguaggio {#language-servers}
 
-L'editor supporta un sottoinsieme del [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostica (analisi statica), completamento, informazioni al passaggio del puntatore, simboli del documento nel pannello Structure, navigazione alla definizione, ricerca dei riferimenti e ridenominazione dei simboli. Passa il puntatore su un simbolo per visualizzare le informazioni del server di linguaggio. Con il cursore su un simbolo, usa <kbd>F2</kbd> per rinominarlo, <kbd>F12</kbd> per andare alla sua definizione oppure <kbd>Shift+F12</kbd> per trovare i riferimenti. Queste azioni sono disponibili anche nel menu <kbd>Edit</kbd>.
+L'editor supporta un sottoinsieme del [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostica (analisi statica), completamento, informazioni al passaggio del puntatore, simboli del documento nel pannello Structure, navigazione alla definizione, ricerca dei riferimenti, ridenominazione dei simboli e formattazione di documenti o intervalli. Passa il puntatore su un simbolo per visualizzare le informazioni del server di linguaggio. Con il cursore su un simbolo, usa <kbd>F2</kbd> per rinominarlo, <kbd>F12</kbd> per andare alla sua definizione oppure <kbd>Shift+F12</kbd> per trovare i riferimenti. Queste azioni sono disponibili anche nel menu <kbd>Edit</kbd>. Consulta [Formattare il codice](/manuals/writing-code/#formatting-code) per il comando di formattazione e la preferenza per formattare al salvataggio.
 
-Per definire il server di linguaggio, modifica la funzione `get_language_servers` del tuo script dell'editor in questo modo:
+Il server di linguaggio Lua incluso contiene le annotazioni dei tipi Defold per le API di scripting del runtime e dell'editor. Nei file `.editor_script`, il completamento e la diagnostica riconoscono le funzioni `editor.*` e i tipi dei loro argomenti e valori restituiti. Consulta [Completamento del codice](/manuals/writing-code/#code-completion).
+
+Per registrare un server di linguaggio aggiuntivo, definisci la funzione `get_language_servers` del tuo script dell'editor in questo modo:
 
 ```lua
 function M.get_language_servers()

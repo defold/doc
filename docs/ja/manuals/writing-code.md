@@ -35,6 +35,16 @@ Defold にはコードエディターが組み込まれています。Lua ファ
 
 ![](/images/editor/apireference.png)
 
+同梱の Lua 言語サーバーには、Defold API の型アノテーションが含まれます。補完、ホバー情報、診断は、ハッシュ、URL、ベクトル、クォータニオンなどの Defold の型に加え、関数の引数と戻り値を理解します。エディターは、ゲームスクリプトと、`.editor_script` ファイルで使う `editor.*` API のアノテーションを提供します。Defold のコードエディターを使う場合、組み込み API 用に別のアノテーションライブラリを用意する必要はありません。
+
+サードパーティーの拡張 API には、独自のアノテーションが必要な場合があります。
+
+### コードの整形 {#formatting-code}
+
+<kbd>Edit ▸ Format Document/Selection</kbd> を選択するか、<kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> を押すと、言語サーバーのフォーマッターが実行されます。選択範囲がある場合は選択した行を、ない場合はドキュメントを整形します。整形には、対応する整形操作をサポートする言語サーバーが必要です。
+
+保存時に、開いている変更済みのファイルを整形するには、<kbd>Preferences ▸ Code</kbd> で **Format on save** を有効にします。この設定は既定で無効であり、ドキュメントの整形をサポートする言語サーバーが必要です。[Code の環境設定](/manuals/editor-preferences/#code)を参照してください。
+
 ### シンボルへの移動 {#jump-to-symbol}
 
 組み込みのコードエディターでは、現在のコードファイル内の関数、オブジェクト、変数などのシンボルを、検索可能な一覧で表示できます。<kbd>View ▸ Jump to Symbol…</kbd> を選択するか、Windows と Linux では <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>、macOS では <kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> を押します。

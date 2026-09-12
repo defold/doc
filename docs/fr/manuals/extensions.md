@@ -72,12 +72,56 @@ Le dossier facultatif *manifests* d'une extension contient des fichiers supplém
 
 * `android` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
   * Le dossier peut également contenir un fichier `build.gradle` avec des dépendances qui seront [résolues par Gradle](/manuals/extensions-gradle).
-  * Enfin, le dossier peut également contenir zéro ou plusieurs fichiers ProGuard (expérimental).
+  * Les extensions contenant du code Java devraient inclure un [fichier de règles de conservation R8](#r8-keep-rules-for-android) (`.keep`) pour les classes dont elles ont besoin à l'exécution.
 * `ios` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
   * Le dossier peut également contenir un fichier `Podfile` avec des dépendances qui seront [résolues par Cocoapods](/manuals/extensions-cocoapods).
 * `osx` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
 * `web` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
 
+
+### Règles de conservation R8 pour Android {#r8-keep-rules-for-android}
+
+Ajoutez un fichier `.keep` dans le répertoire `manifests/android` de l'extension, à côté de `build.gradle`. Par exemple, `/myextension/manifests/android/myextension.keep` peut préserver les classes Java de l'extension avec :
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+Remplacez `com.example.myextension` par le paquet contenant les classes Java de votre extension. Cette règle préserve les classes et leurs membres tout en permettant à R8 d'optimiser leur code. Ajoutez des règles pour les autres classes utilisées via Java Native Interface (JNI) ou la réflexion, car R8 peut ne pas détecter automatiquement ces usages.
+
+Si l'extension utilise des annotations à l'exécution, ajoutez également :
+
+```proguard
+-keepattributes *Annotation*
+```
+
+Ces règles sont combinées au fichier de conservation sélectionné pour le projet lorsque [R8 est activé](/manuals/android/#enabling-r8).
+
+
+## Ressources personnalisées {#custom-resources}
+
+Une extension peut inclure des données dans l'archive du jeu en déclarant des ressources personnalisées dans un fichier `ext.properties` à côté de son fichier `ext.manifest` :
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+Par exemple, placez un fichier JSON dans `/myextension/data/settings.json`. Le chemin est relatif à la racine du projet et inclut le dossier de l'extension. Lorsque vous partagez l'extension sous forme de bibliothèque, incluez `myextension` dans [Include Dirs](/manuals/libraries/#setting-up-library-sharing) de la bibliothèque pour que les projets utilisateurs reçoivent l'extension et ses données.
+
+Ces chemins sont combinés à `project.custom_resources` dans *game.project* et aux contributions des autres extensions. Définir des ressources personnalisées dans le projet ne remplace pas les contributions des extensions. Les builds de l'éditeur et les archives de Bob incluent ces fichiers, qui peuvent être chargés à l'exécution :
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+Consultez [Accès aux fichiers](/manuals/file-access/#custom-resources) pour connaître la différence entre les ressources personnalisées et les ressources de bundle.
 
 ## Partager une extension {#sharing-an-extension}
 

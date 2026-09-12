@@ -5,7 +5,7 @@ brief: Ta instrukcja wyjaśnia, jak tworzyć elementy UI w edytorze przy użyciu
 
 # Skrypty edytora i UI
 
-Ta instrukcja wyjaśnia, jak tworzyć interaktywne elementy UI w edytorze przy użyciu skryptów edytora napisanych w Lua. Aby zacząć pracę ze skryptami edytora, zobacz [instrukcję skryptów edytora](/manuals/editor-scripts). Pełne API edytora znajdziesz [tutaj](/ref/stable/editor-lua/). Obecnie można tworzyć tylko interaktywne okna dialogowe, chociaż w przyszłości chcemy rozszerzyć obsługę skryptowego UI na resztę edytora.
+Ta instrukcja wyjaśnia, jak tworzyć interaktywne okna dialogowe i otwierać zasoby w edytorze przy użyciu skryptów edytora napisanych w Lua. Aby zacząć pracę ze skryptami edytora, zobacz [instrukcję skryptów edytora](/manuals/editor-scripts). Pełną dokumentację API edytora znajdziesz [tutaj](/ref/stable/editor-lua/).
 
 ## Witaj świecie
 
@@ -52,6 +52,32 @@ Na końcu, po naciśnięciu <kbd>Enter</kbd> (albo kliknięciu przycisku `Perfor
 ```
 Perform action:	true
 ```
+
+## Otwieranie zasobów {#opening-resources}
+
+Wywołaj `editor.ui.open_resource()` z funkcji `run` polecenia, aby otworzyć zasób projektu. Ścieżka zaczyna się od `/`. Pominięcie widoku powoduje wybranie głównego widoku zasobu:
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+Widoki `code` i `text` przyjmują jako trzeci argument pozycję kursora lub zaznaczenie. Numery wierszy i kolumn zaczynają się od `1`; pominięta kolumna przyjmuje domyślnie wartość `1`. Podając te argumenty, określ widok:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+Aby zaznaczyć zakres, zamiast tego podaj pozycje kursora `from` i `to`:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+Skonfigurowany widok zasobu może otworzyć się w edytorze lub zewnętrznej aplikacji. Wbudowane widoki Code i Text obsługują argumenty pozycji kursora i zaznaczenia. Obsługiwane nazwy widoków znajdziesz w dokumentacji [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args).
 
 ## Podstawowe pojęcia
 

@@ -72,12 +72,56 @@ Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합
 
 * `android` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
   * 이 폴더에는 [Gradle로 해결되는](/manuals/extensions-gradle) 종속성이 들어 있는 `build.gradle` 파일도 넣을 수 있습니다.
-  * 마지막으로 이 폴더에는 ProGuard 파일을 0개 이상 넣을 수도 있습니다(실험적).
+  * Java 코드를 사용하는 익스텐션은 런타임에 필요한 클래스를 위한 [R8 keep 규칙 파일](#r8-keep-rules-for-android)(`.keep`)을 포함해야 합니다.
 * `ios` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
   * 이 폴더에는 [Cocoapods로 해결되는](/manuals/extensions-cocoapods) 종속성이 들어 있는 `Podfile` 파일도 넣을 수 있습니다.
 * `osx` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
 * `web` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
 
+
+### Android용 R8 keep 규칙 {#r8-keep-rules-for-android}
+
+익스텐션의 `manifests/android` 디렉토리에서 `build.gradle` 옆에 `.keep` 파일을 추가합니다. 예를 들어 `/myextension/manifests/android/myextension.keep`에서 다음 규칙으로 익스텐션의 Java 클래스를 보존할 수 있습니다.
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+`com.example.myextension`을 익스텐션의 Java 클래스가 들어 있는 패키지로 바꾸세요. 이 규칙은 클래스와 해당 멤버를 보존하면서 R8이 코드를 최적화하도록 허용합니다. R8이 사용 여부를 자동으로 감지하지 못할 수 있으므로 Java Native Interface(JNI)나 리플렉션으로 액세스하는 다른 클래스의 규칙도 추가하세요.
+
+익스텐션이 런타임에 어노테이션을 사용한다면 다음도 포함합니다.
+
+```proguard
+-keepattributes *Annotation*
+```
+
+[R8을 활성화하면](/manuals/android/#enabling-r8) 이 규칙들을 프로젝트에서 선택한 keep 파일과 결합합니다.
+
+
+## 커스텀 리소스 {#custom-resources}
+
+익스텐션은 `ext.manifest` 옆에 있는 `ext.properties` 파일에 커스텀 리소스를 선언하여 게임 아카이브에 데이터를 포함할 수 있습니다.
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+예를 들어 `/myextension/data/settings.json`에 JSON 파일을 배치합니다. 경로는 익스텐션 폴더를 포함하며 프로젝트 루트를 기준으로 합니다. 익스텐션을 라이브러리로 공유할 때는 라이브러리의 [Include Dirs](/manuals/libraries/#setting-up-library-sharing)에 `myextension`을 포함하여 사용하는 프로젝트에 익스텐션과 데이터가 전달되게 하세요.
+
+이 경로들은 *game.project*의 `project.custom_resources` 및 다른 익스텐션에서 제공하는 경로와 결합됩니다. 프로젝트에 커스텀 리소스를 설정해도 익스텐션이 제공하는 경로를 대체하지 않습니다. 에디터 빌드와 Bob 아카이브 모두 파일을 포함하며 런타임에 다음과 같이 로드할 수 있습니다.
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+커스텀 리소스와 번들 리소스의 차이는 [파일 액세스](/manuals/file-access/#custom-resources)를 참고하세요.
 
 ## 익스텐션 공유하기
 

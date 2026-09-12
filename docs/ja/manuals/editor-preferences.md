@@ -61,6 +61,9 @@ Zoom on Scroll
 Auto-insert closing parens
 : コードの編集中に、対応する閉じ文字を自動的に挿入します。このオプションは既定で有効です。
 
+Format on save
+: 保存時に、開いている変更済みのコードファイルに言語サーバーのフォーマッターを実行します。既定では無効です。言語サーバーが整形をサポートしている必要があります。ドキュメントや選択範囲を手動で整形するには、[コードの整形](/manuals/writing-code/#formatting-code)を参照してください。
+
 
 ### スクリプトファイルを Visual Studio Code で開く {#open-script-files-in-visual-studio-code}
 

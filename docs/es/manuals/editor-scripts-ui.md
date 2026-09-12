@@ -5,7 +5,7 @@ brief: Este manual explica cómo crear elementos de interfaz en el editor usando
 
 # Scripts del editor e interfaz
 
-Este manual explica cómo crear elementos interactivos de interfaz en el editor usando scripts del editor escritos en Lua. Para empezar con los scripts del editor, consulta el [manual de scripts del editor](/manuals/editor-scripts). Puedes encontrar la referencia completa de la API del editor [aquí](/ref/stable/editor-lua/). Actualmente solo es posible crear diálogos interactivos, aunque queremos ampliar el soporte de scripting de interfaz al resto del editor en el futuro.
+Este manual explica cómo crear diálogos interactivos y abrir recursos en el editor usando scripts del editor escritos en Lua. Para empezar con los scripts del editor, consulta el [manual de scripts del editor](/manuals/editor-scripts). Puedes encontrar la referencia completa de la API del editor [aquí](/ref/stable/editor-lua/).
 
 ## Hola mundo
 
@@ -52,6 +52,32 @@ Finalmente, después de presionar <kbd>Enter</kbd> (o hacer click en el botón `
 ```
 Perform action:	true
 ```
+
+## Abrir recursos {#opening-resources}
+
+Llama a `editor.ui.open_resource()` desde la función `run` de un comando para abrir un recurso del proyecto. La ruta comienza con `/`. Si omites la vista, se selecciona la vista principal del recurso:
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+Las vistas `code` y `text` aceptan como tercer argumento una posición del cursor o una selección. Los números de línea y columna empiezan en `1`; si falta la columna, su valor predeterminado es `1`. Especifica la vista al pasar estos argumentos:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+Para seleccionar un rango, proporciona en su lugar las posiciones del cursor `from` y `to`:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+La vista configurada para el recurso puede abrirse en el editor o en una aplicación externa. Las vistas integradas Code y Text admiten los argumentos de cursor y selección. Consulta [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args) para conocer los nombres de vista compatibles.
 
 ## Conceptos básicos
 

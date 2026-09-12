@@ -11,6 +11,10 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 - OpenType
 - BMFont
 
+自 Defold 1.13.2 起，旧版和完整文本布局引擎均支持 TrueType 轮廓以及 OpenType CFF1/CFF2 轮廓，包括从 `.ttf` 和 `.otf` 资源进行运行时生成。
+
+有关如何为单独的文本片段设置样式，以及使用链接和内嵌精灵，请参阅[富文本标记手册](/manuals/font-richtext)。
+
 添加到项目中的字体会自动转换为Defold可以渲染的纹理格式。有两种字体渲染技术可用，每种都有其特定的优点和缺点：
 
 - 位图
@@ -20,7 +24,9 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 
 默认情况下，转换为栅格化字形图像会在构建时（离线）完成。缺点是每个字体都需要在构建阶段栅格化所有可能的字形，可能产生非常大的纹理，占用内存并增加包体大小。
 
-使用“运行时字体”时，`.ttf` 字体会按原样打包，并在运行时按需栅格化。这会同时最小化运行时内存使用和包体大小。
+使用“运行时字体”时，`.ttf` 和 `.otf` 字体会按原样打包，并在运行时按需栅格化。这会同时最小化运行时内存使用和包体大小。
+
+<a id="text-layout-support-eg-right-to-left"></a>
 
 ## 文本布局支持（例如从右到左）
 
@@ -29,10 +35,12 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 
 参见[启用运行时字体](/manuals/font#enabling-runtime-fonts)
 
+编辑器使用引擎的字体渲染器预览字体和场景中的文本。文本塑形和从右到左的布局需要[运行时字体](#enabling-runtime-fonts)，并启用 App Manifest 中的 **Use full text layout system** 选项。对于离线字体，预览会遵循字体的 **Characters** 和 **All Chars** 设置。
+
 ## 字体集合
 
 `.fontc` 文件格式也称为字体集合。在离线模式下，它只关联一个字体。
-使用运行时字体时，可以将多个字体文件（`.ttf`）关联到字体集合。
+使用运行时字体时，可以将多个字体文件（`.ttf` 或 `.otf`）关联到字体集合。
 
 这允许在渲染多种语言的文本时使用一个字体集合，同时保持较低的内存占用。
 例如，加载包含日文字体的集合，然后将该字体关联到当前主字体，再卸载日文字体集合。
@@ -188,7 +196,7 @@ Defold中的字体资源在运行时会产生两个东西，一个纹理和字�
 
 ## 启用运行时字体 {#enabling-runtime-fonts}
 
-可以对SDF类型字体使用运行时生成，当使用TrueType (`.ttf`)字体时。
+使用 TrueType（`.ttf`）或 OpenType（`.otf`）字体时，可以在运行时生成 SDF 类型字体。自 Defold 1.13.2 起支持从 `.otf` 资源进行运行时生成。
 这种方法可以大大减少Defold游戏的下载大小和运行时内存消耗。
 小缺点是每个字形生成都是异步的。
 
@@ -202,7 +210,7 @@ Defold中的字体资源在运行时会产生两个东西，一个纹理和字�
 :::
 
 ::: important
-`font.runtime_generation` 设置会影响项目中的所有 `.ttf` 字体。
+`font.runtime_generation` 设置会影响项目中的所有 `.ttf` 和 `.otf` 字体。
 :::
 
 
@@ -265,7 +273,7 @@ end
 font.prewarm_text(self.font_collection, info.text, function (self, request_id, result, err)
     if result then
       print("PREWARMING OK!")
-      label.set_text(self.label, info.text)
+      go.set(self.label, "text", info.text)
     else
       print("Error prewarming text:", err)
     end

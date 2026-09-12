@@ -11,6 +11,10 @@ Les polices servent à afficher du texte dans les composants (component) Label e
 - OpenType
 - BMFont
 
+Depuis Defold 1.13.2, l'ancien moteur de mise en page du texte et le moteur complet prennent tous deux en charge les contours TrueType et OpenType CFF1/CFF2, y compris la génération à l'exécution à partir de ressources `.ttf` et `.otf`.
+
+Pour savoir comment appliquer des styles à des portions de texte et utiliser des liens et des sprites intégrés au texte, consultez le [manuel du balisage de texte enrichi](/manuals/font-richtext).
+
 Les polices ajoutées à votre projet sont automatiquement converties dans un format de texture que Defold peut afficher. Deux techniques de rendu des polices sont disponibles, chacune avec ses avantages et ses inconvénients :
 
 - Matriciel
@@ -20,7 +24,7 @@ Les polices ajoutées à votre projet sont automatiquement converties dans un fo
 
 Par défaut, la conversion des glyphes en images matricielles a lieu lors du build (hors ligne). L'inconvénient est que tous les glyphes possibles de chaque police doivent être rastérisés pendant le build, ce qui peut produire de très grandes textures qui consomment de la mémoire et augmentent également la taille du bundle.
 
-Avec les « polices générées à l'exécution », les polices `.ttf` sont intégrées telles quelles au bundle et la rastérisation a lieu à la demande, à l'exécution. Cela réduit au minimum la consommation de mémoire à l'exécution et la taille du bundle.
+Avec les « polices générées à l'exécution », les polices `.ttf` et `.otf` sont incluses telles quelles dans le bundle, et la rastérisation s'effectue à la demande à l'exécution. Cela minimise à la fois l'utilisation de mémoire à l'exécution et la taille du bundle.
 
 ## Prise en charge de la disposition du texte (par exemple, de droite à gauche) {#text-layout-support-eg-right-to-left}
 
@@ -29,10 +33,12 @@ Nous utilisons actuellement les bibliothèques [HarfBuzz](https://github.com/har
 
 Consultez [Activation des polices générées à l'exécution](/manuals/font#enabling-runtime-fonts)
 
+L'éditeur utilise le moteur de rendu des polices du moteur pour les aperçus des polices et du texte des scènes. La mise en forme des glyphes et la mise en page de droite à gauche nécessitent des [polices générées à l'exécution](#enabling-runtime-fonts) et l'option **Use full text layout system** dans l'App Manifest. Pour les polices générées hors ligne, l'aperçu respecte les paramètres **Characters** et **All Chars** de la police.
+
 ## Collection de polices {#font-collection}
 
 Le format de fichier `.fontc` est également appelé collection de polices. En mode hors ligne, une seule police lui est associée.
-Lorsque vous utilisez des polices générées à l'exécution, vous pouvez associer plusieurs fichiers de police (`.ttf`) à la collection de polices.
+Lorsque vous utilisez des polices générées à l'exécution, vous pouvez associer plusieurs fichiers de police (`.ttf` ou `.otf`) à la collection de polices.
 
 Cela permet d'utiliser une collection de polices pour afficher plusieurs textes dans différentes langues, tout en limitant l'empreinte mémoire.
 Par exemple, vous pouvez charger une collection contenant la police japonaise, associer cette police à la police principale actuelle, puis décharger la collection de polices japonaise.
@@ -188,7 +194,7 @@ Pour en savoir plus sur les variables uniformes des shaders, consultez le [manue
 
 ## Activation des polices générées à l'exécution {#enabling-runtime-fonts}
 
-Il est possible de générer à l'exécution les polices de type SDF lorsque vous utilisez des polices TrueType (`.ttf`).
+Il est possible de générer des polices SDF à l'exécution à partir de polices TrueType (`.ttf`) ou OpenType (`.otf`). La génération à l'exécution à partir de ressources `.otf` est prise en charge depuis Defold 1.13.2.
 Cette approche peut réduire considérablement la taille du téléchargement et la consommation de mémoire à l'exécution d'un jeu Defold.
 Le léger inconvénient est le caractère asynchrone de la génération de chaque glyphe.
 
@@ -202,7 +208,7 @@ Cette fonctionnalité est actuellement expérimentale, mais elle a vocation à d
 :::
 
 ::: important
-Le paramètre `font.runtime_generation` affecte toutes les polices `.ttf` du projet.
+Le paramètre `font.runtime_generation` affecte toutes les polices `.ttf` et `.otf` du projet.
 :::
 
 
@@ -265,7 +271,7 @@ Si le cache de glyphes est plein, le glyphe le plus ancien du cache sera évinc�
 font.prewarm_text(self.font_collection, info.text, function (self, request_id, result, err)
     if result then
       print("PREWARMING OK!")
-      label.set_text(self.label, info.text)
+      go.set(self.label, "text", info.text)
     else
       print("Error prewarming text:", err)
     end

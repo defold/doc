@@ -76,6 +76,21 @@ Ogg Opus 사운드 리소스 지원을 포함합니다. Opus decoder는 기본�
 엔진에서 모든 입력 처리를 제외합니다.
 
 
+## Exclude GUI
+
+엔진에서 GUI 리소스, 컴포넌트, Lua 지원을 제거합니다. 프로젝트에서 GUI 씬이나 GUI 스크립트를 사용하지 않을 때만 활성화하세요. Label 컴포넌트는 계속 사용할 수 있습니다. 이 옵션은 기본적으로 비활성화되어 있습니다.
+
+
+## Exclude Particle FX
+
+파티클 이펙트 리소스, 컴포넌트, `particlefx` Lua 모듈을 제거합니다. GUI 씬의 파티클 노드 지원도 제거되지만 파티클 노드가 없는 GUI 씬은 계속 지원됩니다. 이 옵션을 활성화하기 전에 파티클 이펙트 참조와 해당 API 호출을 제거하세요. 기본적으로 비활성화되어 있습니다.
+
+
+## Exclude Tilemaps
+
+타일맵 리소스, 컴포넌트, `tilemap` Lua 모듈을 제거합니다. 프로젝트에서 타일맵 컴포넌트나 해당 API를 사용하지 않을 때만 활성화하세요. 다른 컴포넌트에서 사용하는 타일 소스는 계속 사용할 수 있습니다. 이 옵션은 기본적으로 비활성화되어 있습니다.
+
+
 ## Exclude Live Update
 
 엔진에서 [Live Update 기능](/manuals/live-update)을 제외합니다.
@@ -117,7 +132,12 @@ Linux ARM64에서 **OpenGL** 선택은 OpenGL ES 백엔드를 사용합니다. A
 
 ## Use full text layout system
 
-활성화하면(`true`) 프로젝트에서 True Type Fonts(`.ttf`)를 사용할 때 SDF 타입 폰트의 런타임 생성을 사용할 수 있습니다. [Font Manual](https://defold.com/manuals/font/#enabling-runtime-fonts)에서 자세한 내용을 확인하세요.
+활성화하면(`true`) 오른쪽에서 왼쪽으로 쓰는 언어를 포함하여 텍스트 셰이핑을 위한 전체 텍스트 레이아웃 시스템을 포함합니다. TrueType(`.ttf`) 또는 OpenType(`.otf`) 리소스에서 SDF 폰트를 런타임에 생성하려면 이 옵션과 *game.project*의 `font.runtime_generation`을 함께 활성화하세요. `.otf` 리소스의 런타임 생성은 Defold 1.13.2부터 지원됩니다. 자세한 내용은 [폰트 매뉴얼](/manuals/font/#enabling-runtime-fonts)을 참고하세요.
+
+
+## Use Rich Text
+
+라벨과 GUI 텍스트를 위한 리치 텍스트 파싱과 스타일 효과를 포함합니다. 이 옵션은 기본적으로 활성화되어 있습니다. 프로젝트에 일반 텍스트만 필요하다면 비활성화하여 엔진 크기를 줄일 수 있습니다. 라벨과 GUI 텍스트는 계속 지원되지만 마크업에 서식이나 효과가 적용되지 않고 일반 텍스트로 렌더링됩니다.
 
 
 ## 최소 브라우저 버전

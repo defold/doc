@@ -102,6 +102,8 @@ Una lista de URL a las *Library URL* del proyecto. Consulta el [manual de biblio
 
 La carga de recursos personalizados se explica con más detalle en el [manual de acceso a archivos](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+Las rutas aportadas por las extensiones mediante `custom_resources.default` en `ext.properties` se combinan con esta configuración. Consulta [recursos personalizados de las extensiones](/manuals/extensions/#custom-resources) para ver un ejemplo.
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ Crea un back buffer de alta densidad de pixeles en pantallas que lo soportan. No
 
 #### Samples
 Cuántas muestras usar para super sampling anti-aliasing. Define el window hint `GLFW_FSAA_SAMPLES`. Un valor de `0` significa que el anti-aliasing está desactivado.
+
+Esta configuración controla la ventana. Los [render targets con multimuestreo](/manuals/render/#multisampled-render-targets) fuera de pantalla tienen su propio número de muestras.
 
 #### Fullscreen
 Marca esta opción si la aplicación debe iniciar en pantalla completa. Si no está marcada, la aplicación se ejecuta en una ventana.
@@ -300,6 +304,9 @@ El archivo de perfiles de textura que se usará para este proyecto, `/builtins/g
 
 #### Verify Graphics Calls
 Verifica el valor de retorno después de cada llamada gráfica y reporta cualquier error en el log.
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` selecciona la versión del contexto WebGL que se solicita para HTML5. Los valores válidos son `1` (WebGL 1) y `2` (WebGL 2, el predeterminado). Defínelo como `1` para usar o probar WebGL 1 incluso en un navegador que admita WebGL 2. Mantén [Exclude GLES 2.0](#exclude-gles-20) desactivado al usar WebGL 1 para que se incluyan los shaders necesarios.
 
 #### OpenGL Version Hint
 Indicación de versión de contexto OpenGL. Si se selecciona una versión específica, se usará como versión mínima requerida (no se aplica a OpenGL ES).
@@ -638,8 +645,16 @@ Extiende la aplicación al display cutout.
 #### Debuggable
 Indica si la aplicación se puede depurar usando herramientas como [GAPID](https://github.com/google/gapid) o [Android Studio](https://developer.android.com/studio/profile/android-profiler). Esto definirá el flag `android:debuggable` en el manifiesto de Android ([documentación oficial](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Archivo ProGuard personalizado para ayudar a eliminar clases Java redundantes del APK final.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` selecciona un archivo `.keep` para activar la eliminación de código no usado, la optimización y la ofuscación de código Java con R8 en builds de Android. Deja la configuración vacía para usar D8 sin eliminar código.
+
+Selecciona `/builtins/manifests/android/dmengine.keep` para usar directamente las reglas predeterminadas de Defold. Las extensiones proporcionan sus propias [reglas de conservación](/manuals/extensions/#r8-keep-rules-for-android), que se combinan con este archivo.
+
+Copia el archivo integrado a tu proyecto solo si necesitas agregar reglas específicas del proyecto. Conserva las reglas integradas en la copia: seleccionar un archivo personalizado reemplaza el conjunto completo de reglas del proyecto.
+
+Consulta el [manual de Android](/manuals/android/#shrinking-java-code-with-r8) para activar R8 y conservar su mapa de ofuscación junto a un bundle de release.
 
 #### Extract Native Libraries
 Especifica si el instalador del paquete extrae bibliotecas nativas del APK al sistema de archivos. Si se define como `false`, tus bibliotecas nativas se almacenan sin comprimir en el APK. Aunque tu APK puede ser más grande, tu aplicación carga más rápido porque las bibliotecas se cargan directamente desde el APK en runtime. Esto definirá el flag `android:extractNativeLibs` en el manifiesto de Android ([documentación oficial](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -716,10 +731,13 @@ Cuando está activada, esta opción imprimirá información sobre el motor y la 
 Especifica qué método usar para escalar el canvas del juego.
 
 #### Retry Count
-El número de intentos para descargar un archivo cuando el motor arranca (consulta `Retry Time`).
+El número de reintentos después de una descarga fallida durante el inicio, incluidos errores de red, estados HTTP fallidos y discrepancias de tamaño en el archivo JavaScript o WebAssembly del motor. La solicitud inicial se cuenta por separado. La verificación de archivos del juego tiene su propio límite de reintentos; consulta [verificación de descargas](/manuals/html5/#download-verification) y `Retry Time`.
 
 #### Retry Time
 El número de segundos que esperar entre intentos de descargar un archivo cuando la descarga falló (consulta `Retry Count`).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` compara los archivos descargados del motor y del archivo del juego con sus tamaños esperados. Está activado de forma predeterminada (`true`). Defínelo como `false` solo si un servidor, proxy o CDN modifica intencionalmente los archivos y cambia sus tamaños. La verificación fallida provoca reintentos de descarga antes de que falle el inicio. Los límites de reintentos son distintos para las descargas del motor y la verificación de archivos del juego; consulta [verificación de descargas](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Marca esta opción si quieres que el contexto gráfico tenga un fondo transparente.

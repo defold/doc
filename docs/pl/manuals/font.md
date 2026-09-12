@@ -11,6 +11,10 @@ Fonty służą do renderowania tekstu w komponentach Label oraz węzłach teksto
 - OpenType
 - BMFont
 
+Od wersji Defold 1.13.2 zarówno starszy, jak i pełny system układu tekstu obsługują kontury TrueType oraz kontury OpenType CFF1/CFF2, w tym generowanie w czasie działania z zasobów `.ttf` i `.otf`.
+
+Informacje o stylizowaniu poszczególnych fragmentów tekstu oraz pracy z odnośnikami i obrazami osadzonymi w tekście znajdziesz w [instrukcji znaczników tekstu formatowanego](/manuals/font-richtext).
+
 Fonty dodane do projektu są automatycznie konwertowane do formatu tekstury, który Defold potrafi renderować. Dostępne są dwie techniki renderowania fontów, a każda ma własne zalety i wady:
 
 - Bitmap
@@ -20,7 +24,9 @@ Fonty dodane do projektu są automatycznie konwertowane do formatu tekstury, kt�
 
 Domyślnie konwersja do zrasteryzowanych obrazów glifów odbywa się podczas budowania projektu, czyli offline. Ma to tę wadę, że każdy font musi wyrasteryzować wszystkie możliwe glify już na etapie budowania, co może prowadzić do bardzo dużych tekstur zajmujących pamięć i zwiększających rozmiar bundla.
 
-Przy użyciu runtime fonts pliki `.ttf` są dołączane do bundla bez zmian, a rasteryzacja odbywa się na żądanie w czasie działania programu. Dzięki temu zmniejsza się zarówno zużycie pamięci w runtime, jak i rozmiar bundla.
+Przy użyciu runtime fonts pliki `.ttf` i `.otf` są dołączane do bundla bez zmian, a rasteryzacja odbywa się na żądanie w czasie działania programu. Dzięki temu zmniejsza się zarówno zużycie pamięci w runtime, jak i rozmiar bundla.
+
+<a id="text-layout-support-eg-right-to-left"></a>
 
 ## Obsługa układu tekstu, np. right-to-left
 
@@ -29,10 +35,12 @@ Obecnie używamy bibliotek [HarfBuzz](https://github.com/harfbuzz/harfbuzz), [Sh
 
 Zobacz [Włączanie runtime fonts](/manuals/font#enabling-runtime-fonts)
 
+Edytor używa mechanizmu renderowania fontów silnika do podglądu fontów i tekstu w scenach. Kształtowanie tekstu i układ od prawej do lewej wymagają [fontów generowanych w czasie działania](#enabling-runtime-fonts) oraz opcji **Use full text layout system** w manifeście aplikacji. Dla fontów przygotowywanych offline podgląd uwzględnia ustawienia **Characters** i **All Chars** fontu.
+
 ## Kolekcja fontów
 
 Format pliku `.fontc` jest też znany jako font collection, czyli kolekcja fontów. W trybie offline jest z nim powiązany tylko jeden font.
-W przypadku runtime fonts możesz powiązać z kolekcją fontów więcej niż jeden plik fontu `.ttf`.
+W przypadku runtime fonts możesz powiązać z kolekcją fontów więcej niż jeden plik fontu (`.ttf` lub `.otf`).
 
 Dzięki temu można używać kolekcji fontów podczas renderowania wielu tekstów w różnych językach, a jednocześnie utrzymać niski ślad pamięciowy.
 Na przykład można załadować kolekcję z japońskim fontem, skojarzyć ten font z bieżącym głównym fontem, a następnie zwolnić japońską kolekcję fontów.
@@ -189,7 +197,7 @@ Więcej informacji o uniformach shaderów znajdziesz w [Shader manual](/manuals/
 
 ## Włączanie runtime fonts {#enabling-runtime-fonts}
 
-Można używać generowania w czasie działania dla fontów typu SDF, gdy korzystasz z fontów TrueType (`.ttf`).
+Można generować fonty typu SDF w czasie działania, korzystając z fontów TrueType (`.ttf`) lub OpenType (`.otf`). Generowanie w czasie działania z zasobów `.otf` jest obsługiwane od wersji Defold 1.13.2.
 Takie podejście może znacznie zmniejszyć rozmiar pobieranych danych i zużycie pamięci w runtime gry Defold.
 Niewielką wadą jest asynchroniczny charakter generowania każdego glifu.
 
@@ -203,7 +211,7 @@ Ta funkcja jest obecnie eksperymentalna, ale docelowo ma stać się domyślnym s
 :::
 
 ::: important
-Ustawienie `font.runtime_generation` wpływa na wszystkie fonty `.ttf` w projekcie.
+Ustawienie `font.runtime_generation` wpływa na wszystkie fonty `.ttf` i `.otf` w projekcie.
 :::
 
 
@@ -266,7 +274,7 @@ Jeśli cache glifów się zapełni, najstarszy glif zostanie z niego usunięty.
 font.prewarm_text(self.font_collection, info.text, function (self, request_id, result, err)
     if result then
       print("PREWARMING OK!")
-      label.set_text(self.label, info.text)
+      go.set(self.label, "text", info.text)
     else
       print("Error prewarming text:", err)
     end

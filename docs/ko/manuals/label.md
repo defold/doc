@@ -87,6 +87,9 @@ Label 컴포넌트를 만들려면 게임 오브젝트를 <kbd>오른쪽 클릭<
 
 런타임에 라벨 텍스트를 가져오고 설정할 수 있으며, 그 밖의 여러 프로퍼티도 조작할 수 있습니다.
 
+`text`
+: 라벨의 텍스트 내용(`string`)입니다. Defold 1.13.2부터 `go.get()` 및 `go.set()`으로 사용할 수 있습니다.
+
 `color`
 : 라벨 색상(`vector4`)
 
@@ -104,11 +107,17 @@ Label 컴포넌트를 만들려면 게임 오브젝트를 <kbd>오른쪽 클릭<
 
 ```lua
 function init(self)
-    -- 이 스크립트와 같은 게임 오브젝트에 있는
-    -- "my_label" 컴포넌트의 텍스트를 설정합니다.
-    label.set_text("#my_label", "New text")
+    -- Set the text of the "my_label" component in the same game object
+    -- as this script.
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+Defold 1.13.2부터 `label.set_text()` 및 `label.get_text()` 대신 `text` 프로퍼티 사용을 권장하며, 이전 함수들은 사용 중단되었습니다. 호환성을 위해 이전 함수들도 계속 사용할 수 있습니다. 이전 setter는 메세지를 큐에 넣지만 `go.set()`은 텍스트를 즉시 업데이트합니다.
+:::
 
 ```lua
 function init(self)

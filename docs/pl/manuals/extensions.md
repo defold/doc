@@ -72,12 +72,56 @@ Opcjonalny folder *manifests* rozszerzenia zawiera dodatkowe pliki używane podc
 
 * `android` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
   * Folder może też zawierać plik `build.gradle` z zależnościami, które mają być rozwiązywane przez Gradle.
-  * Na koniec folder może też zawierać zero lub więcej plików ProGuard (eksperymentalnych).
+  * Rozszerzenia zawierające kod Java powinny dołączać [plik reguł R8](#r8-keep-rules-for-android) (`.keep`) dla klas potrzebnych w czasie działania.
 * `ios` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
   * Folder może też zawierać plik `Podfile` z zależnościami, które mają być rozwiązywane przez CocoaPods.
 * `osx` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
 * `web` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
 
+
+### Reguły R8 dla Androida {#r8-keep-rules-for-android}
+
+Dodaj plik `.keep` do katalogu `manifests/android` rozszerzenia, obok `build.gradle`. Na przykład plik `/myextension/manifests/android/myextension.keep` może zachowywać klasy Java rozszerzenia za pomocą reguły:
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+Zastąp `com.example.myextension` pakietem zawierającym klasy Java rozszerzenia. Ta reguła zachowuje klasy i ich składowe, pozwalając R8 optymalizować ich kod. Dodaj reguły dla innych klas używanych przez Java Native Interface (JNI) lub mechanizm refleksji, ponieważ R8 może nie wykryć takich odwołań automatycznie.
+
+Jeśli rozszerzenie korzysta z adnotacji w czasie działania, dodaj również:
+
+```proguard
+-keepattributes *Annotation*
+```
+
+Te reguły są łączone z wybranym plikiem reguł projektu po [włączeniu R8](/manuals/android/#enabling-r8).
+
+
+## Zasoby niestandardowe {#custom-resources}
+
+Rozszerzenie może dołączać dane do archiwum gry, deklarując zasoby niestandardowe w pliku `ext.properties` obok `ext.manifest`:
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+Na przykład umieść plik JSON w `/myextension/data/settings.json`. Ścieżka jest względna wobec katalogu głównego projektu i zawiera folder rozszerzenia. Udostępniając rozszerzenie jako bibliotekę, dodaj `myextension` do ustawienia [Include Dirs](/manuals/libraries/#setting-up-library-sharing) biblioteki, aby korzystające z niej projekty otrzymały rozszerzenie wraz z danymi.
+
+Te ścieżki są łączone z `project.custom_resources` z pliku *game.project* oraz ze ścieżkami dostarczanymi przez inne rozszerzenia. Ustawienie zasobów niestandardowych w projekcie nie zastępuje zasobów pochodzących z rozszerzeń. Pliki są dołączane zarówno podczas budowania w edytorze, jak i do archiwów tworzonych przez Bob, a w czasie działania można je wczytać:
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+Różnice między zasobami niestandardowymi a zasobami pakietu opisano w [instrukcji dostępu do plików](/manuals/file-access/#custom-resources).
 
 ## Udostępnianie rozszerzenia
 

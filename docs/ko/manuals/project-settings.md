@@ -102,6 +102,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 커스텀 리소스를 로드하는 방법은 [File Access 매뉴얼](/manuals/file-access/#how-to-access-files-bundled-with-the-application)에서 더 자세히 다룹니다.
 
+`ext.properties`의 `custom_resources.default`를 통해 익스텐션이 제공하는 경로는 이 설정과 결합됩니다. 예제는 [익스텐션의 커스텀 리소스](/manuals/extensions/#custom-resources)를 참고하세요.
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Samples
 슈퍼 샘플링 안티앨리어싱에 사용할 샘플 수입니다. 이 값은 `GLFW_FSAA_SAMPLES` window hint를 설정합니다. 값이 `0`이면 안티앨리어싱이 꺼집니다.
+
+이 설정은 창을 제어합니다. 오프스크린 [멀티샘플 렌더 타겟](/manuals/render/#multisampled-render-targets)은 자체 샘플 수를 사용합니다.
 
 #### Fullscreen
 어플리케이션을 전체 화면으로 시작할지 체크합니다. 체크하지 않으면 어플리케이션은 창 모드로 실행됩니다.
@@ -300,6 +304,9 @@ fixed timestep을 사용할 때 시뮬레이션의 최대 step 수입니다(3D�
 
 #### Verify Graphics Calls
 각 그래픽 호출 후 반환값을 확인하고 오류가 있으면 로그에 보고합니다.
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint`는 HTML5에서 요청할 WebGL 컨텍스트 버전을 선택합니다. 유효한 값은 `1`(WebGL 1)과 `2`(기본값, WebGL 2)입니다. WebGL 2를 지원하는 브라우저에서도 WebGL 1을 대상으로 하거나 테스트하려면 `1`로 설정합니다. WebGL 1을 대상으로 할 때는 필요한 쉐이더가 포함되도록 [Exclude GLES 2.0](#exclude-gles-20)을 비활성화 상태로 두세요.
 
 #### OpenGL Version Hint
 OpenGL 컨텍스트 버전 hint입니다. 특정 버전을 선택하면 이 버전이 필요한 최소 버전으로 사용됩니다(OpenGL ES에는 적용되지 않음).
@@ -638,8 +645,16 @@ display cutout 영역까지 확장합니다.
 #### Debuggable
 어플리케이션을 [GAPID](https://github.com/google/gapid) 또는 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 같은 도구로 디버깅할 수 있는지 여부입니다. 이 설정은 Android manifest의 `android:debuggable` flag를 설정합니다([공식 문서](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-최종 APK에서 중복 Java 클래스를 제거하는 데 도움이 되는 커스텀 ProGuard 파일입니다.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules`는 Android 빌드에서 Java 코드의 R8 축소, 최적화, 난독화를 활성화할 `.keep` 파일을 선택합니다. 축소 없이 D8을 사용하려면 설정을 비워 둡니다.
+
+Defold의 기본 규칙을 바로 사용하려면 `/builtins/manifests/android/dmengine.keep`를 선택합니다. 익스텐션은 자체 [keep 규칙](/manuals/extensions/#r8-keep-rules-for-android)을 제공하며 이 파일과 결합됩니다.
+
+프로젝트별 규칙을 추가해야 할 때만 내장 파일을 프로젝트로 복사하세요. 커스텀 파일을 선택하면 프로젝트 규칙 전체를 대체하므로, 복사본에 내장 규칙을 보존해야 합니다.
+
+R8을 활성화하고 릴리스 번들과 함께 난독화 매핑을 보관하는 방법은 [Android 매뉴얼](/manuals/android/#shrinking-java-code-with-r8)을 참고하세요.
 
 #### Extract Native Libraries
 패키지 installer가 APK에서 네이티브 라이브러리를 파일 시스템으로 추출할지 지정합니다. `false`로 설정하면 네이티브 라이브러리는 APK 안에 압축되지 않은 상태로 저장됩니다. APK가 더 커질 수는 있지만, 런타임에 라이브러리가 APK에서 직접 로드되므로 어플리케이션 로드가 더 빨라집니다. 이 설정은 Android Manifest의 `android:extractNativeLibs` flag를 설정합니다([공식 문서](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -716,10 +731,13 @@ wasm 파일의 스트리밍을 활성화합니다(더 빠르고 메모리를 덜
 게임 canvas를 스케일하는 데 사용할 방법을 지정합니다.
 
 #### Retry Count
-엔진이 시작될 때 파일 다운로드를 시도할 횟수입니다(`Retry Time` 참고).
+시작 중 다운로드가 실패한 후 재시도하는 횟수입니다. 엔진의 JavaScript 또는 WebAssembly 파일에서 발생한 네트워크 오류, 실패한 HTTP 상태 및 크기 불일치가 포함됩니다. 최초 요청은 별도로 계산합니다. 아카이브 파일 검증에는 자체 재시도 제한이 있습니다. [다운로드 검증](/manuals/html5/#download-verification)과 `Retry Time`을 참고하세요.
 
 #### Retry Time
 다운로드가 실패했을 때 파일 다운로드를 다시 시도하기 전까지 기다릴 시간입니다. 단위는 초입니다(`Retry Count` 참고).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size`는 다운로드한 엔진 및 아카이브 파일을 예상 크기와 비교합니다. 기본적으로 활성화되어 있습니다(`true`). 서버, 프록시 또는 CDN이 파일을 의도적으로 변경하여 크기가 달라지는 경우에만 `false`로 설정하세요. 검증에 실패하면 시작이 실패하기 전에 다운로드를 재시도합니다. 엔진 다운로드와 아카이브 파일 검증의 재시도 제한은 다릅니다. [다운로드 검증](/manuals/html5/#download-verification)을 참고하세요.
 
 #### Transparent Graphics Context
 그래픽 컨텍스트에 투명한 배경을 사용하려면 체크합니다.

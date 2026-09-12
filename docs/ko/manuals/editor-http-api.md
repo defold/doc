@@ -34,7 +34,7 @@ Defold 에디터는 자동화 동작을 위한 특수 서버를 엽니다. HTTP 
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-에디터는 그래픽 데스크톱 어플리케이션입니다. 디스플레이에 액세스할 수 있는 대화형 사용자 세션에서 시작하세요. headless CI처럼 그래픽 세션을 사용할 수 없거나 컴파일 전용 자동화와 standalone 번들 생성이 필요한 경우 [Bob](/manuals/bob)을 사용하세요.
+에디터는 그래픽 데스크톱 어플리케이션입니다. 디스플레이에 액세스할 수 있는 대화형 사용자 세션에서 시작하세요. headless CI처럼 그래픽 세션을 사용할 수 없거나 독립 실행 번들을 생성하려면 [Bob](/manuals/bob)을 사용하세요. 열린 에디터에서는 `/command/compile`을 통한 컴파일 전용 자동화도 지원합니다.
 
 에디터를 시작한 후 프로젝트가 열리고 `.internal/editor.port`가 생성될 때까지 기다리세요. 그런 다음 유효한 문서를 반환할 때까지 `/openapi.json`을 폴링하세요. 프로세스를 생성했다고 해서 프로젝트가 준비된 것은 아닙니다.
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-사용 가능한 에디터 명령을 나열합니다.
+문서화된 에디터 명령 경로를 나열합니다.
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+Defold 1.13.2 이상에서는 OpenAPI 문서에서 각 명령에 고유한 경로가 있습니다. 이전 버전에서는 `/command/{command}` 경로와 명령 이름 enum을 통해 명령을 설명합니다.
 
 버전을 인식하는 연동 기능에서는 필요한 각 동작을 확인하고 반환된 스키마에 따라 요청을 구성해야 합니다. 엔드포인트나 명령 이름의 완전한 복사본이라고 가정한 목록은 오래될 수 있으므로 유지하지 않는 것이 좋습니다.
 
@@ -97,22 +95,38 @@ curl -sS "$BASE_URL/openapi.json" |
 
 ## 에디터 명령 실행하기 {#executing-editor-commands}
 
-에디터 명령은 다음을 통해 호출합니다.
+에디터 명령은 문서화된 해당 명령의 경로로 `POST` 요청을 보내 호출합니다. 예를 들면 다음과 같습니다.
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-예를 들어 현재 `build` 명령은 프로젝트를 컴파일하고 실행합니다.
+프로젝트를 실행하지 않고 컴파일하려면 다음을 사용합니다.
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-빌드에 성공하면 구조화된 결과를 반환합니다.
+프로젝트를 컴파일하고 실행하려면 다음을 사용합니다.
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+이 파이프라인은 응답 본문을 표시합니다. 자동화 스크립트에서는 [HTML5 빌드하기](#building-html5)의 패턴을 사용해 HTTP 상태와 `success`도 확인하세요.
+
+::: sidenote
+Defold 1.13.2부터 `/command/build`는 `/command/run`의 사용 중단된 호환성 별칭이며 OpenAPI에 나열되지 않습니다. 새 연동에서는 `/command/run`을 사용하세요.
+:::
+
+컴파일에 성공하면 구조화된 결과와 함께 HTTP 상태 `200`을 반환합니다.
 
 ```json
 {
@@ -150,7 +164,10 @@ curl -sS \
 
 실행 중인 에디터에 나열되어 있을 때 일반적으로 유용한 명령은 다음과 같습니다.
 
-`build`
+`compile`
+: 프로젝트를 실행하지 않고 컴파일합니다.
+
+`run`
 : 프로젝트를 컴파일하고 실행합니다.
 
 `clean-build`
@@ -177,7 +194,9 @@ curl -sS \
 
 ### 명령 응답과 비동기 작업 {#command-responses-and-asynchronous-work}
 
-명령 동작은 현재 OpenAPI 스키마에 응답 코드를 문서화합니다.
+응답은 명령에 따라 다릅니다. Defold 1.13.2 이상에서 `compile`, `run`, `clean-build`, `build-html5`, `debugger-start`, `hot-reload`는 명령이 완료될 때까지 기다린 다음 위에서 설명한 것처럼 `success`와 `issues`를 포함한 구조화된 결과를 반환합니다. 성공하면 HTTP `200`, 빌드 또는 검증에 실패하면 `422`를 반환합니다.
+
+`debugger-break` 같은 다른 명령은 여전히 `202`를 반환할 수 있습니다. 현재 OpenAPI 스키마에서 해당 동작을 확인하고 실제 HTTP 응답 상태를 처리하세요.
 
 | 상태 | 의미 |
 | --- | --- |
@@ -192,21 +211,36 @@ HTTP `202` 응답은 요청한 결과가 존재한다는 증거가 아닙니다.
 
 ### HTML5 빌드하기 {#building-html5}
 
-현재 OpenAPI 문서에 `build-html5`가 나열되어 있으면 명령 동작을 통해 호출하세요.
+현재 OpenAPI 문서에 `/command/build-html5`가 나열되어 있으면 해당 경로로 호출하세요. 셸 스크립트에서는 HTTP 상태와 응답 본문을 따로 저장하고 요청이나 빌드가 실패하면 중단합니다.
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-명령은 비동기적으로 실행되며 일반적으로 HTTP `202`를 반환합니다. 빌드가 완료되면 에디터는 다음 주소에서 빌드를 제공합니다.
+Defold 1.13.2 이상에서 이 요청은 빌드가 끝날 때까지 기다린 후 구조화된 결과를 반환합니다. 예제는 빌드 이슈를 포함한 응답 본문을 출력하고 HTTP `200`과 `success: true`를 모두 확인한 경우에만 계속 진행합니다. 빌드가 성공하면 에디터는 브라우저에서 게임을 열고 다음 주소에서 제공합니다.
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-브라우저 테스트를 시작하기 전에 URL을 사용할 수 있을 때까지 기다리세요. 자세한 내용은 [HTML5 브라우저 테스트](/manuals/automated-testing/#browser-tests-for-html5)를 참고하세요.
+빌드가 완료되었다고 해서 브라우저에서 게임 로딩이 끝난 것은 아닙니다. 입력을 보내거나 게임플레이를 확인하기 전에 캔버스와 어플리케이션이 준비될 때까지 기다리세요. 자세한 내용은 [HTML5 브라우저 테스트](/manuals/automated-testing/#browser-tests-for-html5)를 참고하세요.
 
 ## API 문서 검색하기 {#searching-api-documentation}
 

@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 現在、Defold が参照可能なレンダーリソースとして対応しているのは `Materials` と `Render Targets` のみですが、今後はこの仕組みで対応するリソースの種類が増える予定です。
 :::
 
+### マルチサンプリングを使うレンダーターゲット {#multisampled-render-targets}
+
+レンダーターゲットは、マルチサンプルアンチエイリアシング（MSAA）をサポートしています。オフスクリーンのレンダーパスでジオメトリのエッジを滑らかにします。ターゲットのサンプル数は、ウィンドウのアンチエイリアシングを制御する [Display ▸ Samples](/manuals/project-settings/#samples) とは独立しています。
+
+`.render_target` リソースでは、エディターの **Sample Count** を `1`、`2`、`4`、`8`、`16` のいずれかに設定します。値が `1` の場合、マルチサンプリングは無効です。リソースを `.render` ファイルの **Render Resources** テーブルに追加し、上記の例のように、割り当てた名前を `render.set_render_target()` で使います。
+
+または、レンダースクリプトの `init()` でターゲットを作成します。`sample_count` は、アタッチメントと同じ階層の外側のパラメーターテーブルに配置します。
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+この例ではカラーだけを持つターゲットを使います。ターゲット内のすべてのカラー、深度、ステンシルのアタッチメントは、そのサンプル数を共有します。パスに深度テストが必要な場合は、深度アタッチメントと通常の深度テストの状態を追加してください。
+
+以下の `update()` のコード断片では、シーンのマテリアルに `scene` タグを、画面全体を覆う四角形のマテリアルに `present` タグを付けます。四角形のマテリアルはテクスチャユニット `0` をサンプリングする必要があります。各パスに適切なビューと投影を設定してください。
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+別のターゲットに切り替えるとパスが終了し、マルチサンプリングされたカラーアタッチメントが自動的に解決されます。`render.enable_texture()` は解決済みのカラーテクスチャをバインドするため、四角形では通常のテクスチャサンプラーを使います。個別の解決コマンドは不要です。
+
+要求するサンプル数の既定値は `1` で、正の整数である必要があります。グラフィックスバックエンドは、サポートされていない要求値を、サポートされる2のべき乗の数に減らし、必要なら `1` にフォールバックします。数を変更した場合は警告をログに記録します。サンプル数が多いほど、アタッチメントに必要なメモリが増えます。
+
+レンダーターゲットリソースを使う場合は、ゲームオブジェクトの `.script` から `resource.get_render_target_info()` を使い、実際のサンプル数を確認できます。たとえば、`/render/offscreen.render_target` を **Render Resources** に追加した後、次のようにします。
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+デバイスの対応状況を確認するときは、要求したサンプル数を使えたと仮定せず、この実際の値を使ってください。パラメーターと結果のテーブル全体については、[`render.render_target()`](/ref/beta/render/#render.render_target:parameters) と [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) を参照してください。
+
 ## テクスチャハンドル {#texture-handles}
 
 Defold のテクスチャ（texture）は、内部ではハンドル（handle）で表されます。ハンドルは実質的には数値で、エンジン内のどこでもテクスチャオブジェクトを一意に識別するためのものです。つまり、レンダリングシステムとゲームオブジェクトのスクリプトとの間でこのハンドルを渡すことで、ゲームオブジェクト側とレンダリング側をつなぐことができます。たとえば、ゲームオブジェクトに割り当てられたスクリプトでテクスチャを動的に作成してレンダラーに送り、描画コマンドでグローバルテクスチャとして使えます。

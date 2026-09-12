@@ -7,6 +7,8 @@ brief: 本手册描述了如何在GUI场景中添加文本。
 
 Defold支持一种特定类型的GUI节点，允许在GUI场景中渲染文本。项目中添加的任何字体资源都可以用于文本节点渲染。
 
+编辑器预览使用引擎的字体渲染器，支持文本塑形和从右到左的布局。有关所需的字体和 App Manifest 设置，请参阅[文本布局支持](/manuals/font/#text-layout-support-eg-right-to-left)。
+
 ## 添加文本节点
 
 您希望在GUI文本节点中使用的字体必须添加到GUI组件中。可以右键单击*Fonts*文件夹，使用<kbd>GUI</kbd>顶部菜单或按相应的键盘快捷键。
@@ -55,4 +57,3 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-

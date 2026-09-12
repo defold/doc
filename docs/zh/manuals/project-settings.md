@@ -102,6 +102,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 加载自定义资源在[文件访问手册](/manuals/file-access/#how-to-access-files-bundled-with-the-application)中有更详细的介绍。
 
+扩展通过 `ext.properties` 中的 `custom_resources.default` 提供的路径会与此设置合并。示例请参阅[扩展的自定义资源](/manuals/extensions/#custom-resources)。
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Samples
 用于超级采样抗锯齿的样本数量。它设置 `GLFW_FSAA_SAMPLES` 窗口提示。值为 `0` 表示关闭抗锯齿。
+
+此设置控制窗口的抗锯齿。离屏的[多重采样渲染目标](/manuals/render/#multisampled-render-targets)有自己的采样数。
 
 #### Fullscreen
 勾选应用程序是否应全屏启动。如果未勾选，应用程序将在窗口模式下运行。
@@ -300,6 +304,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Verify Graphics Calls
 验证每次图形调用后的返回值并在日志中报告任何错误。
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` 选择 HTML5 请求的 WebGL 上下文版本。有效值为 `1`（WebGL 1）和 `2`（WebGL 2，默认值）。设置为 `1`，即可在支持 WebGL 2 的浏览器中面向或测试 WebGL 1。面向 WebGL 1 时，请保持 [Exclude GLES 2.0](#exclude-gles-20) 禁用，以包含所需的着色器。
 
 #### OpenGL Version Hint
 OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需的最低版本（不适用于 OpenGL ES）。
@@ -669,9 +676,17 @@ Firebase Cloud Messaging 应用 ID。
 
 应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具进行调试。这将在 Android 清单中设置 `android:debuggable` 标志（[官方文档](https://developer.android.com/guide/topics/manifest/application-element#debug)）。
 
-#### ProGuard config
+<a id="proguard-config"></a>
 
-自定义 ProGuard 文件，帮助从最终 APK 中删除冗余的 Java 类。
+#### R8 Keep Rules
+
+`android.r8_keep_rules` 选择一个 `.keep` 文件，以在 Android 构建中启用 R8 对 Java 代码的缩减、优化和混淆。将该设置留空会使用 D8，不执行缩减。
+
+选择 `/builtins/manifests/android/dmengine.keep` 可直接使用 Defold 的默认规则。扩展提供自己的[保留规则](/manuals/extensions/#r8-keep-rules-for-android)，这些规则会与此文件合并。
+
+仅当需要添加项目特定规则时，才将内置文件复制到项目中。请在副本中保留内置规则：选择自定义文件会替换完整的项目规则集。
+
+有关如何启用 R8 并在发布包中保留其混淆映射，请参阅 [Android 手册](/manuals/android/#shrinking-java-code-with-r8)。
 
 #### Extract Native Libraries
 
@@ -769,11 +784,15 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 
 #### Retry Count
 
-引擎启动时下载文件的尝试次数（参见 `Retry Time`）。
+启动期间下载失败后的重试次数，包括网络错误、失败的 HTTP 状态，以及引擎 JavaScript 或 WebAssembly 文件的大小不匹配。初次请求不计入重试次数。归档文件验证有自己的重试上限；请参阅[下载验证](/manuals/html5/#download-verification)和 `Retry Time`。
 
 #### Retry Time
 
 下载失败时尝试下载文件之间等待的秒数（参见 `Retry Count`）。
+
+#### Verify Downloaded File Size
+
+`html5.verify_downloaded_file_size` 检查下载的引擎和归档文件是否符合预期大小。默认启用（`true`）。仅当服务器、代理或 CDN 有意重写文件并改变其大小时，才将其设置为 `false`。验证失败会触发下载重试，耗尽重试后启动失败。引擎下载与归档文件验证的重试上限不同；请参阅[下载验证](/manuals/html5/#download-verification)。
 
 #### Transparent Graphics Context
 

@@ -5,7 +5,11 @@ brief: Defold supporta i giunti per la fisica 2D. Questo manuale spiega come cre
 
 # Giunti {#joints}
 
-Defold supporta i giunti (joint) per la fisica 2D. Un giunto collega due oggetti di collisione applicando un vincolo. I tipi di giunto supportati sono:
+Un giunto (joint) collega due oggetti di collisione applicando un vincolo. Defold supporta giunti sia nella fisica 2D sia in quella 3D, attraverso API diverse.
+
+Questo manuale descrive i giunti 2D esposti dal modulo `physics`. Da Defold 1.13.2, i progetti 3D possono creare e controllare vincoli tramite [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), tra cui cerniere, cursori e molle. Usa questa API con i corpi rigidi ottenuti tramite [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+
+I tipi di giunto supportati dall'API 2D `physics` sono:
 
 * **Fisso (physics.JOINT_TYPE_FIXED)** - Un giunto a fune che limita la distanza massima tra due punti. In Box2D è chiamato Rope joint.
 * **A cerniera (physics.JOINT_TYPE_HINGE)** - Un giunto a cerniera definisce un punto di ancoraggio su due oggetti di collisione e li sposta in modo che i due oggetti di collisione si trovino sempre nella stessa posizione, senza limitarne la rotazione relativa. Il giunto a cerniera può attivare un motore con coppia massima e velocità definite. In Box2D è chiamato [giunto rotoidale (Revolute joint)](https://box2d.org/documentation/group__revolute__joint.html#details).
@@ -16,7 +20,7 @@ Defold supporta i giunti (joint) per la fisica 2D. Un giunto collega due oggetti
 
 ## Creazione dei giunti {#creating-joints}
 
-Attualmente puoi creare i giunti soltanto tramite codice, utilizzando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
+I giunti 2D descritti qui vengono creati tramite codice usando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
 È previsto il supporto alla creazione dei giunti nell'editor, ma non è ancora stata stabilita una data di rilascio.
 :::

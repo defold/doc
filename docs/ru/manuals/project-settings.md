@@ -102,6 +102,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 Дополнительную информацию о пользовательских ресурсах см. в разделе [Файловый доступ](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+Пути, добавленные расширениями через `custom_resources.default` в `ext.properties`, объединяются с этой настройкой. Пример приведён в разделе [Пользовательские ресурсы расширений](/manuals/extensions/#custom-resources).
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Samples
 Количество сэмплов для суперсэмплинга (SSAA). Задаёт `GLFW_FSAA_SAMPLES`. Значение `0` отключает сглаживание.
+
+Этот параметр управляет окном. У внеэкранных [рендер-таргетов с мультисэмплингом](/manuals/render/#multisampled-render-targets) собственное число сэмплов.
 
 #### Fullscreen
 Если опция отмечена, приложение запускается в полноэкранном режиме. Если нет — в оконном.
@@ -300,6 +304,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Verify Graphics Calls
 Проверяет возвращаемые значения всех графических вызовов и записывает ошибки в журнал.
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` выбирает версию контекста WebGL, запрашиваемую для HTML5. Допустимые значения — `1` (WebGL 1) и `2` (WebGL 2, по умолчанию). Установите `1`, чтобы использовать или тестировать WebGL 1 даже в браузере с поддержкой WebGL 2. При использовании WebGL 1 оставьте [Exclude GLES 2.0](#exclude-gles-20) отключённым, чтобы необходимые шейдеры попали в сборку.
 
 #### OpenGL Version Hint
 Подсказка по версии контекста OpenGL. Если выбрана конкретная версия, она используется как минимально допустимая. Не применяется к OpenGL ES.
@@ -638,8 +645,16 @@ Sender Id для Google Cloud Messaging. Установите строку, вы
 #### Debuggable
 Определяет, может ли приложение быть отлажено с помощью таких инструментов, как [GAPID](https://github.com/google/gapid) или [Android Studio](https://developer.android.com/studio/profile/android-profiler). Устанавливает флаг `android:debuggable` в Android-манифесте ([официальная документация](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Пользовательский файл ProGuard для удаления избыточных Java‑классов из итогового APK.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` выбирает файл `.keep`, включающий удаление неиспользуемого Java-кода, оптимизацию и обфускацию с помощью R8 в сборках Android. Оставьте настройку пустой, чтобы использовать D8 без удаления неиспользуемого кода.
+
+Выберите `/builtins/manifests/android/dmengine.keep`, чтобы напрямую использовать стандартные правила Defold. Расширения предоставляют собственные [правила сохранения](/manuals/extensions/#r8-keep-rules-for-android), которые объединяются с этим файлом.
+
+Копируйте встроенный файл в проект только в том случае, если нужно добавить правила для конкретного проекта. Сохраните в копии встроенные правила: выбор пользовательского файла заменяет весь набор правил проекта.
+
+О включении R8 и сохранении таблицы соответствий обфускации вместе с релизным бандлом см. в [руководстве по Android](/manuals/android/#shrinking-java-code-with-r8).
 
 #### Extract Native Libraries
 Указывает, должен ли установщик извлекать нативные библиотеки из APK в файловую систему. Если установлено в `false`, библиотеки остаются внутри APK в несжатом виде. Это увеличивает размер APK, но ускоряет загрузку, так как библиотеки загружаются напрямую. Устанавливает флаг `android:extractNativeLibs` в Android-манифесте ([официальная документация](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -716,10 +731,13 @@ HTML-шаблон, используемый при сборке. По умолч
 Определяет способ масштабирования canvas-элемента.
 
 #### Retry Count
-Количество попыток повторной загрузки файла при запуске движка (см. `Retry Time`).
+Число повторных попыток после неудачной загрузки при запуске, включая сетевые ошибки, неуспешные HTTP-статусы и несовпадение размера файла JavaScript или WebAssembly движка. Первоначальный запрос считается отдельно. Проверка файлов архива имеет собственный предел повторных попыток; см. [проверку загрузок](/manuals/html5/#download-verification) и `Retry Time`.
 
 #### Retry Time
 Интервал в секундах между попытками загрузки файла при сбое (см. `Retry Count`).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` проверяет соответствие размеров загруженных файлов движка и архива ожидаемым. По умолчанию включён (`true`). Устанавливайте `false`, только если сервер, прокси или CDN намеренно изменяет файлы и их размеры. При неудачной проверке загрузка повторяется, прежде чем запуск завершится ошибкой. Пределы повторных попыток для загрузки движка и проверки файлов архива различаются; см. [проверку загрузок](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Если включено, графический контекст будет иметь прозрачный фон.

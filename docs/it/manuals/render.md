@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 Attualmente Defold supporta soltanto `Materials` e `Render Targets` come risorse di rendering referenziate, ma nel tempo questo sistema supporterà altri tipi di risorse.
 :::
 
+### Render target multicampionati {#multisampled-render-targets}
+
+I render target supportano l'antialiasing multicampione (MSAA), che smussa i bordi della geometria in un passaggio di rendering fuori schermo. Il numero di campioni del target è indipendente da [Display ▸ Samples](/manuals/project-settings/#samples), che controlla l'antialiasing della finestra.
+
+Per una risorsa `.render_target`, imposta **Sample Count** nell'editor su `1`, `2`, `4`, `8` o `16`. Il valore `1` disabilita il multicampionamento. Aggiungi la risorsa alla tabella **Render Resources** del file `.render` e usa il nome assegnato con `render.set_render_target()`, come nell'esempio precedente.
+
+In alternativa, crea un target in `init()` dello script di rendering. Inserisci `sample_count` nella tabella esterna dei parametri, accanto agli allegati:
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+Questo esempio usa un target con il solo colore. Tutti gli allegati di colore, profondità e stencil di un target condividono il suo numero di campioni. Aggiungi un allegato di profondità e il normale stato del test di profondità se il passaggio lo richiede.
+
+Per il seguente frammento di `update()`, assegna il tag `scene` ai materiali della scena e il tag `present` al materiale di un quadrilatero a schermo intero. Il materiale del quadrilatero deve campionare l'unità di texture `0`. Imposta vista e proiezione appropriate per ogni passaggio:
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+Passare a un altro target termina il passaggio e risolve automaticamente i suoi allegati di colore multicampionati. `render.enable_texture()` associa la texture di colore risolta, quindi il quadrilatero usa un normale campionatore di texture. Non serve un comando di risoluzione separato.
+
+Il numero di campioni richiesto ha valore predefinito `1` e deve essere un intero positivo. I backend grafici riducono le richieste non supportate a un numero supportato che sia una potenza di due, ricorrendo a `1` se necessario, e registrano un avviso quando il numero cambia. Un numero maggiore di campioni aumenta la memoria richiesta dagli allegati.
+
+Quando usi una risorsa render target, verifica il numero effettivo di campioni da uno `.script` di un oggetto di gioco con `resource.get_render_target_info()`. Per esempio, dopo aver aggiunto `/render/offscreen.render_target` a **Render Resources**:
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+Usa questo numero effettivo per verificare il supporto del dispositivo, senza presumere che il numero richiesto fosse disponibile. Consulta [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) e [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) per le tabelle complete di parametri e risultati.
+
 ## Handle delle texture {#texture-handles}
 
 Le texture in Defold sono rappresentate internamente da un handle, che in sostanza corrisponde a un numero che dovrebbe identificare in modo univoco un oggetto texture in qualsiasi parte del motore. Questo significa che puoi collegare il mondo degli oggetti di gioco a quello del rendering passando questi handle tra il sistema di rendering e uno script di un oggetto di gioco. Per esempio, uno script associato a un oggetto di gioco può creare una texture dinamica e inviarla al sistema di rendering per usarla come texture globale in un comando di disegno.

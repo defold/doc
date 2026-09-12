@@ -5,7 +5,11 @@ brief: Defold는 2D 물리용 조인트를 지원합니다. 이 매뉴얼에서�
 
 # 조인트
 
-Defold는 2D 물리용 조인트를 지원합니다. 조인트는 어떤 종류의 제약 조건을 사용해 두 충돌 오브젝트를 연결합니다. 지원되는 조인트 타입은 다음과 같습니다:
+조인트는 제약 조건으로 두 충돌 오브젝트를 연결합니다. Defold는 서로 다른 API를 통해 2D와 3D 물리 모두에서 조인트를 지원합니다.
+
+이 매뉴얼은 `physics` 모듈에서 제공하는 2D 조인트를 설명합니다. Defold 1.13.2부터 3D 프로젝트에서는 [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/)를 통해 힌지, 슬라이더, 스프링 등의 제약 조건을 만들고 제어할 수 있습니다. [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body)로 얻은 강체와 함께 해당 API를 사용하세요.
+
+2D `physics` API에서 지원하는 조인트 타입은 다음과 같습니다:
 
 * **Fixed (physics.JOINT_TYPE_FIXED)** - 두 점 사이의 최대 거리를 제한하는 로프 조인트입니다. Box2D에서는 Rope joint라고 합니다.
 * **Hinge (physics.JOINT_TYPE_HINGE)** - 힌지 조인트는 두 충돌 오브젝트의 앵커 포인트를 지정하고, 두 충돌 오브젝트의 앵커 포인트가 항상 같은 위치에 오도록 이동시키며, 충돌 오브젝트의 상대 회전은 제한하지 않습니다. 힌지 조인트는 정의된 최대 모터 토크와 속도를 가진 모터를 활성화할 수 있습니다. Box2D에서는 [Revolute joint](https://box2d.org/documentation/group__revolute__joint.html#details)라고 합니다.
@@ -16,7 +20,7 @@ Defold는 2D 물리용 조인트를 지원합니다. 조인트는 어떤 종류�
 
 ## 조인트 만들기
 
-현재 조인트는 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties])를 사용해 프로그래밍 방식으로만 만들 수 있습니다:
+여기에서 설명하는 2D 조인트는 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties])를 사용해 프로그래밍 방식으로만 만들 수 있습니다:
 ::: sidenote
 에디터에서 조인트를 만드는 기능은 계획되어 있지만, 릴리스 날짜는 아직 정해지지 않았습니다.
 :::

@@ -7,7 +7,7 @@ brief: L'editor di scena permette di modificare collezioni, oggetti di gioco, GU
 
 L'**editor di scena (Scene Editor)** è l'editor visivo utilizzato per creare e modificare scene come collezioni, oggetti di gioco e altri asset visivi.
 
-Per impostazione predefinita, molte scene visive si aprono con una vista **ortografica 2D**. Per lavorare in 3D puoi passare a un layout orientato al 3D, attivare un piano della griglia 3D e utilizzare una telecamera **prospettica**.
+La vista iniziale della telecamera dipende dalla risorsa. Le risorse 3D, come i modelli e le scene glTF, usano per impostazione predefinita la **prospettiva**, mentre quelle 2D, come sprite, tilemap e scene GUI, usano la proiezione **ortografica**. Puoi modificare l'orientamento della telecamera, la proiezione e la griglia dalla barra degli strumenti della scena.
 
 ## Aprire l'editor di scena {#opening-the-scene-editor}
 
@@ -19,6 +19,14 @@ Apri l'editor di scena facendo doppio clic su una risorsa visiva nel pannello *A
 - **UI** — scene GUI (`.gui`)
 - **Effetti** — effetti particellari (`.particlefx`)
 - E altri ancora
+
+## Viste delle scene memorizzate {#remembered-scene-views}
+
+L'editor memorizza lo stato della telecamera per ogni risorsa di scena quando la relativa scheda viene chiusa o quando esci dall'editor. Riaprire la stessa risorsa ripristina la sua vista, quindi collezioni o modelli diversi possono conservare posizioni, orientamenti e proiezioni della telecamera differenti.
+
+Anche i filtri di visibilità vengono memorizzati per ciascuna scena. Nascondere i modelli o le guide dei componenti in una scena non richiede di usare gli stessi filtri in un'altra. Queste impostazioni della vista nell'editor non modificano la telecamera del gioco né la visibilità a runtime.
+
+Per le risorse senza uno stato della telecamera salvato, i modelli, le mesh e le risorse glTF si aprono in prospettiva. Gli oggetti di collisione scelgono la vista in base all'impostazione della fisica 2D/3D del progetto; le collezioni e gli oggetti di gioco scelgono la vista iniziale in base alla geometria della scena.
 
 ## Navigazione nella vista della scena (controlli della telecamera) {#scene-view-navigation-camera-controls}
 
@@ -127,6 +135,8 @@ Fai clic sull'**icona a forma di occhio della visibilità** (`👁`) nella barra
 ## Impostazioni della griglia {#grid-settings}
 
 Puoi personalizzare la griglia in base al tuo flusso di lavoro (particolarmente utile in 3D). Fai clic sul pulsante **Grid Settings** (`▦`) per aprire il popup delle impostazioni della griglia.
+
+L'editor conserva impostazioni della griglia separate per le viste 2D e 3D. Imposta dimensioni, piano e aspetto mentre è attiva la modalità desiderata; passando da una modalità all'altra, vengono ripristinate le relative impostazioni della griglia. **Reset to Defaults** ripristina le impostazioni della modalità attiva.
 
 ![Impostazioni della griglia](images/editor/grid_popup.png)
 

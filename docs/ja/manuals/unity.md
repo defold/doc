@@ -164,7 +164,7 @@ Defold でコンポーネントというと、Unity の組み込みコンポー�
 |---|---|---|
 | [スプライト](/manuals/sprite/) | Sprite Renderer | Defold では、色調（色のプロパティ）はコードからのみ変更できます。 |
 | [タイルマップ](/manuals/tilemap/) | Tilemap / Grid | Defold には正方形のグリッドに対応した組み込みのタイルマップエディターがあります（ただし、たとえば[六角形](https://github.com/selimanac/defold-hexagon/)向けの拡張もあります）。組み込みのオートタイリングルールはありません。[Tiled](https://defold.com/assets/tiled/)、[TileSetter](https://defold.com/assets/tilesetter/)、[Sprite Fusion](https://defold.com/assets/spritefusion/) などのツールには、Defold へのエクスポート機能があります。 |
-| [ラベル](/manuals/label/) | Text / TextMeshPro | Defold には、TextMeshPro のような豊富な書式設定に対応する [RichText 拡張](https://defold.com/assets/richtext/)があります。 |
+| [ラベル](/manuals/label/) | Text / TextMeshPro | Defold 1.13.2 以降では、Label コンポーネントと GUI テキストノードが、色、グラデーション、輪郭、アニメーションエフェクトのための組み込み[リッチテキストマークアップ](/manuals/font-richtext/)をサポートします。別途 [RichText 拡張](https://defold.com/assets/richtext/)も利用できます。 |
 | [サウンド](/manuals/sound/) | AudioSource | Defold には、空間的な音源ではなく、グローバルな音源だけがあります。Defold 向けの公式 [FMOD 拡張](https://github.com/defold/extension-fmod)があります。 |
 | [ファクトリー](/manuals/factory/) | Prefab Instantiate() | Defold のファクトリー（factory）は、特定のプロトタイプ（prototype）（プレハブ）を持つコンポーネントです。 |
 | [コレクションファクトリー](/manuals/collection-factory/) | -（直接対応するコンポーネントはありません） | Defold のコレクションファクトリー（collection factory）コンポーネントは、親子関係を持つ複数のゲームオブジェクトを一度に生成できます。 |

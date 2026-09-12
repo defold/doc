@@ -75,6 +75,21 @@ Inclui o suporte a recursos de som Ogg Opus. O decodificador Opus é excluído p
 Exclui todo o tratamento de entrada da engine.
 
 
+## Exclude GUI {#exclude-gui}
+
+Remove recursos, componentes e suporte Lua de GUI da engine. Ative esta opção somente se o projeto não usar cenas GUI ou scripts de GUI. Os componentes Label continuam disponíveis. Esta opção vem desativada por padrão.
+
+
+## Exclude Particle FX {#exclude-particle-fx}
+
+Remove recursos e componentes de efeitos de partículas e o módulo Lua `particlefx`. Isso também remove o suporte a nós de partículas em cenas GUI; cenas GUI sem nós de partículas continuam funcionando. Remova as referências a efeitos de partículas e as chamadas às suas APIs antes de ativar esta opção. Ela vem desativada por padrão.
+
+
+## Exclude Tilemaps {#exclude-tilemaps}
+
+Remove recursos e componentes de tilemap e o módulo Lua `tilemap`. Ative esta opção somente se o projeto não usar componentes de tilemap ou suas APIs. As tile sources usadas por outros componentes continuam disponíveis. Esta opção vem desativada por padrão.
+
+
 ## Excluir Live Update
 
 Exclui a funcionalidade [Live Update](/manuals/live-update) da engine.
@@ -117,7 +132,12 @@ No Linux ARM64, a opção **OpenGL** usa o backend OpenGL ES. A opção combinad
 
 ## Usar sistema completo de layout de texto
 
-Se ativado (`true`), permite usar geração em tempo de execução para fontes do tipo SDF ao usar fontes True Type (`.ttf`) no projeto. Leia mais detalhes no [Manual de fontes](https://defold.com/manuals/font/#enabling-runtime-fonts).
+Se ativado (`true`), inclui o sistema completo de layout de texto para modelagem de texto, incluindo idiomas escritos da direita para a esquerda. Ative esta opção junto com `font.runtime_generation` no *game.project* para usar a geração em tempo de execução de fontes SDF a partir de recursos TrueType (`.ttf`) ou OpenType (`.otf`). A geração em tempo de execução a partir de recursos `.otf` é compatível desde o Defold 1.13.2. Leia mais no [manual de fontes](/manuals/font/#enabling-runtime-fonts).
+
+
+## Use Rich Text {#use-rich-text}
+
+Inclui interpretação de texto formatado e efeitos de estilo para labels e texto de GUI. Esta opção vem ativada por padrão. Desative-a para reduzir o tamanho da engine quando o projeto precisar apenas de texto simples. Labels e texto de GUI continuam funcionando, mas a marcação é renderizada como texto simples em vez de aplicar formatação ou efeitos.
 
 
 ## Versões mínimas dos navegadores

@@ -102,6 +102,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 カスタムリソースの読み込みについて詳しくは、[ファイルアクセスのマニュアル](/manuals/file-access/#how-to-access-files-bundled-with-the-application)で説明しています。
 
+拡張が `ext.properties` の `custom_resources.default` を通じて提供するパスは、この設定と統合されます。例については、[拡張のカスタムリソース](/manuals/extensions/#custom-resources)を参照してください。
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Samples
 スーパーサンプリングアンチエイリアシングで使用するサンプル数です。ウィンドウヒント `GLFW_FSAA_SAMPLES` を設定します。値が `0` の場合、アンチエイリアシングは無効になります。
+
+この設定はウィンドウを制御します。オフスクリーンの[マルチサンプリングを使うレンダーターゲット](/manuals/render/#multisampled-render-targets)には、独自のサンプル数があります。
 
 #### Fullscreen
 アプリケーションをフルスクリーンで起動する場合はチェックします。チェックしない場合は、ウィンドウモードで実行されます。
@@ -300,6 +304,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Verify Graphics Calls
 各グラフィックス呼び出しの後で戻り値を検証し、エラーがあればログに報告します。
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` は、HTML5 で要求する WebGL コンテキストのバージョンを選択します。有効な値は `1`（WebGL 1）と `2`（WebGL 2、既定値）です。WebGL 2 をサポートするブラウザーでも WebGL 1 を対象にしたりテストしたりするには、`1` に設定します。WebGL 1 を対象にする場合は、必要なシェーダーが含まれるよう、[Exclude GLES 2.0](#exclude-gles-20) を無効のままにしてください。
 
 #### OpenGL Version Hint
 OpenGL コンテキストのバージョンヒントです。特定のバージョンを選択すると、そのバージョンが必要な最小バージョンとして使用されます（OpenGL ES には適用されません）。
@@ -638,8 +645,16 @@ Android デバイスでキーボード入力を取得する方法を指定しま
 #### Debuggable
 [GAPID](https://github.com/google/gapid) や [Android Studio](https://developer.android.com/studio/profile/android-profiler) などのツールを使用して、アプリケーションをデバッグできるかどうかを指定します。Android マニフェストの `android:debuggable` フラグを設定します（[公式ドキュメント](https://developer.android.com/guide/topics/manifest/application-element#debug)）。
 
-#### ProGuard config
-最終的な APK から不要な Java クラスを取り除くための、カスタム ProGuard ファイルです。
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` で `.keep` ファイルを選択すると、Android ビルドで Java コードの R8 による縮小、最適化、難読化が有効になります。縮小を行わない D8 を使うには、設定を空にします。
+
+Defold の既定のルールを直接使うには、`/builtins/manifests/android/dmengine.keep` を選択します。拡張は独自の[保持ルール](/manuals/extensions/#r8-keep-rules-for-android)を提供し、このファイルと統合されます。
+
+プロジェクト固有のルールを追加する必要がある場合にのみ、組み込みファイルをプロジェクトにコピーしてください。コピーには組み込みのルールを保持してください。カスタムファイルを選択すると、プロジェクトのルールセット全体が置き換えられます。
+
+R8 を有効にし、リリースバンドルとともに難読化マッピングを保持する方法については、[Android のマニュアル](/manuals/android/#shrinking-java-code-with-r8)を参照してください。
 
 #### Extract Native Libraries
 パッケージインストーラーが APK からファイルシステムへネイティブライブラリを展開するかどうかを指定します。`false` に設定すると、ネイティブライブラリは APK 内に非圧縮で格納されます。APK が大きくなる可能性はありますが、実行時にライブラリを APK から直接読み込むため、アプリケーションの読み込みが速くなります。Android マニフェストの `android:extractNativeLibs` フラグを設定します（[公式ドキュメント](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)）。
@@ -716,10 +731,13 @@ wasm ファイルのストリーミングを有効にします（より高速で
 ゲームのキャンバスを拡大縮小する方法を指定します。
 
 #### Retry Count
-エンジン起動時にファイルのダウンロードを試みる回数です（`Retry Time` を参照）。
+起動中にダウンロードが失敗した後の再試行回数です。エンジンの JavaScript または WebAssembly ファイルでのネットワークエラー、失敗を示す HTTP ステータス、サイズの不一致を含みます。最初のリクエストは別に数えます。アーカイブファイルの検証には独自の再試行上限があります。[ダウンロードの検証](/manuals/html5/#download-verification)と `Retry Time` を参照してください。
 
 #### Retry Time
 ダウンロードに失敗した場合に、次のファイルダウンロードの試行まで待機する秒数です（`Retry Count` を参照）。
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` は、ダウンロードしたエンジンファイルとアーカイブファイルのサイズを期待するサイズと照合します。既定で有効（`true`）です。サーバー、プロキシ、CDN がファイルを意図的に書き換えてサイズを変更する場合にのみ、`false` に設定してください。検証に失敗すると、起動に失敗する前にダウンロードを再試行します。再試行上限はエンジンのダウンロードとアーカイブファイルの検証で異なります。[ダウンロードの検証](/manuals/html5/#download-verification)を参照してください。
 
 #### Transparent Graphics Context
 グラフィックスコンテキストの背景を透明にする場合はチェックします。

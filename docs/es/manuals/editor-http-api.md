@@ -34,7 +34,7 @@ El argumento opcional `--port` o `-p` selecciona el puerto del servidor del edit
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-El editor es una aplicación gráfica de escritorio. Inícialo en una sesión de usuario interactiva con acceso a la pantalla. Utiliza [Bob](/manuals/bob) cuando no haya una sesión gráfica disponible, como en un entorno de CI headless, o para automatizar únicamente la compilación y crear bundles independientes.
+El editor es una aplicación gráfica de escritorio. Inícialo en una sesión de usuario interactiva con acceso a la pantalla. Utiliza [Bob](/manuals/bob) cuando no haya una sesión gráfica disponible, como en un entorno de CI headless, o para crear bundles independientes. Un editor abierto también admite automatizar únicamente la compilación mediante `/command/compile`.
 
 Después de iniciar el editor, espera hasta que el proyecto se haya abierto y exista `.internal/editor.port`. A continuación, consulta periódicamente `/openapi.json` hasta que devuelva un documento válido. No des por sentado que el proyecto está listo solo porque se haya creado el proceso.
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-Muestra los comandos disponibles del editor:
+Muestra las rutas documentadas de los comandos del editor:
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+En Defold 1.13.2 y posteriores, cada comando tiene su propia ruta en el documento OpenAPI. Las versiones anteriores describen los comandos mediante una ruta `/command/{command}` y una enumeración de nombres de comandos.
 
 Una integración que tenga en cuenta la versión debe verificar cada operación necesaria y configurar las solicitudes según el esquema devuelto. No recomendamos mantener una copia supuestamente exhaustiva de los nombres de endpoints o comandos, ya que puede quedar obsoleta.
 
@@ -97,22 +95,38 @@ Las rutas definidas por el proyecto también aparecen en `/openapi.json` cuando 
 
 ## Ejecutar comandos del editor
 
-Los comandos del editor se invocan mediante:
+Invoca los comandos del editor enviando una solicitud `POST` a la ruta documentada del comando, por ejemplo:
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-Por ejemplo, el comando `build` actual compila y ejecuta el proyecto:
+Para compilar el proyecto sin ejecutarlo:
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-Una build correcta devuelve un resultado estructurado:
+Para compilar y ejecutar el proyecto:
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+Estas tuberías muestran el cuerpo de la respuesta. En los scripts de automatización, comprueba también el estado HTTP y `success`, siguiendo el patrón de [crear una build HTML5](#building-html5).
+
+::: sidenote
+Desde Defold 1.13.2, `/command/build` es un alias de compatibilidad obsoleto de `/command/run` y no aparece en OpenAPI. Usa `/command/run` en nuevas integraciones.
+:::
+
+Una compilación correcta devuelve el estado HTTP `200` con un resultado estructurado:
 
 ```json
 {
@@ -150,7 +164,10 @@ Los campos disponibles dependen del error. Utiliza la ruta del recurso y el rang
 
 Entre los comandos que suelen resultar útiles, cuando aparecen en el editor en ejecución, se incluyen:
 
-`build`
+`compile`
+: Compila el proyecto sin ejecutarlo.
+
+`run`
 : Compila y ejecuta el proyecto.
 
 `clean-build`
@@ -177,7 +194,9 @@ Los comandos que operan sobre recursos del proyecto sincronizan los cambios exte
 
 ### Respuestas de comandos y trabajo asíncrono
 
-La operación del comando documenta los códigos de respuesta en el esquema OpenAPI actual.
+Las respuestas dependen del comando. En Defold 1.13.2 y posteriores, `compile`, `run`, `clean-build`, `build-html5`, `debugger-start` y `hot-reload` esperan a que finalice el comando y devuelven un resultado estructurado con `success` e `issues`, como se muestra arriba. Un resultado correcto devuelve HTTP `200`; un fallo de compilación o validación devuelve `422`.
+
+Otros comandos aún pueden devolver `202`, por ejemplo `debugger-break`. Consulta la operación en el esquema OpenAPI actual y gestiona el estado HTTP real de la respuesta:
 
 | Estado | Significado |
 | --- | --- |
@@ -192,21 +211,36 @@ Una respuesta HTTP `202` no demuestra que el resultado solicitado exista. Espera
 
 ### Crear una build HTML5 {#building-html5}
 
-Si el documento OpenAPI actual incluye `build-html5`, invócalo mediante la operación del comando:
+Si el documento OpenAPI actual incluye `/command/build-html5`, invócalo mediante esa ruta. En un script de shell, captura el estado HTTP por separado del cuerpo de la respuesta y detente si falla la solicitud o la build:
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-El comando se ejecuta de forma asíncrona y normalmente devuelve el estado HTTP `202`. Una vez finalizada la build, el editor la sirve en:
+En Defold 1.13.2 y posteriores, esta solicitud espera a que termine la build y devuelve un resultado estructurado. El ejemplo imprime el cuerpo de la respuesta, incluidas las incidencias de compilación, y continúa solo con HTTP `200` y `success: true`. Después de una build correcta, el editor abre el juego en un navegador y lo sirve en:
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-Espera a que la URL esté disponible antes de iniciar las pruebas de navegador. Consulta [Pruebas de navegador para HTML5](/manuals/automated-testing/#browser-tests-for-html5) para obtener más detalles.
+Que la build haya terminado no significa que el juego haya terminado de cargar en el navegador. Espera a que el canvas y la aplicación estén listos antes de enviar input o comprobar el funcionamiento del juego. Consulta [pruebas de navegador para HTML5](/manuals/automated-testing/#browser-tests-for-html5) para obtener más detalles.
 
 ## Buscar en la documentación de la API
 

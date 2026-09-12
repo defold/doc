@@ -7,6 +7,8 @@ brief: Ce manuel décrit comment ajouter du texte aux scènes d'interface graphi
 
 Defold prend en charge un type spécifique de nœud d'interface graphique qui permet d'afficher du texte dans une scène d'interface graphique. Toute ressource de police ajoutée à un projet peut être utilisée pour le rendu des nœuds de texte.
 
+L'aperçu de l'éditeur prend en charge la mise en forme des glyphes et la mise en page de droite à gauche grâce au moteur de rendu des polices du moteur. Consultez [Prise en charge de la mise en page du texte](/manuals/font/#text-layout-support-eg-right-to-left) pour connaître les paramètres de police et d'App Manifest nécessaires.
+
 ## Ajout de nœuds de texte {#adding-text-nodes}
 
 Les polices que vous souhaitez utiliser dans les nœuds de texte d'interface graphique doivent être ajoutées au composant (component) d'interface graphique. Faites un clic droit sur le dossier *Fonts*, utilisez le menu supérieur <kbd>GUI</kbd> ou appuyez sur le raccourci clavier correspondant.
@@ -55,4 +57,3 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-

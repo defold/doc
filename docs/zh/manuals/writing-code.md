@@ -26,6 +26,8 @@ Defold 有一个内置代码编辑器，允许您打开和编辑 Lua 文件（.l
 ![](/images/editor/code-editor.png)
 
 
+<a id="code-completion"></a>
+
 ### 代码补全
 
 内置代码编辑器在编写代码时会显示函数的代码补全：
@@ -35,6 +37,16 @@ Defold 有一个内置代码编辑器，允许您打开和编辑 Lua 文件（.l
 按 <kbd>CTRL</kbd> + <kbd>Space</kbd> 将显示有关函数、参数和返回值的附加信息：
 
 ![](/images/editor/apireference.png)
+
+内置 Lua 语言服务器包含 Defold API 的类型注解。补全、悬停信息和诊断可以识别 Defold 类型（例如哈希、URL、向量和四元数），以及函数参数和返回值。编辑器为游戏脚本和 `.editor_script` 文件中使用的 `editor.*` API 提供注解。使用 Defold 代码编辑器时，内置 API 无需额外的注解库。
+
+第三方扩展 API 可能需要自己的注解。
+
+### 格式化代码 {#formatting-code}
+
+选择 <kbd>Edit ▸ Format Document/Selection</kbd> 或按 <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>，即可运行语言服务器的格式化工具。有选区时，编辑器会格式化选中的行；没有选区时，会格式化整个文档。格式化需要语言服务器支持相应的格式化操作。
+
+要在保存时格式化已修改且处于打开状态的文件，请在 <kbd>Preferences ▸ Code</kbd> 中启用 **Format on save**。此偏好设置默认禁用，需要语言服务器支持文档格式化。请参阅[代码偏好设置](/manuals/editor-preferences/#code)。
 
 ### 跳转到符号 {#jump-to-symbol}
 

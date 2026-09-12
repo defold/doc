@@ -5,7 +5,11 @@ brief: Defold は 2D 物理シミュレーションでジョイントをサポ�
 
 # ジョイント {#joints}
 
-Defold は 2D 物理シミュレーションでジョイント（joint）をサポートしています。ジョイントは、何らかの拘束（constraint）を使って2つのコリジョンオブジェクト（collision object）を接続します。サポートされているジョイントの種類は次のとおりです。
+ジョイント（joint）は、拘束（constraint）を使って2つのコリジョンオブジェクト（collision object）を接続します。Defold は、異なる API を通じて 2D 物理と 3D 物理の両方でジョイントをサポートしています。
+
+このマニュアルでは、`physics` モジュールが提供する 2D ジョイントを説明します。Defold 1.13.2 以降では、3D プロジェクトで [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) を通じて、ヒンジ、スライダー、スプリングなどの拘束を作成、制御できます。この API は、[`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) で取得した剛体とともに使います。
+
+2D の `physics` API でサポートされているジョイントの種類は次のとおりです。
 
 * **固定（Fixed） (physics.JOINT_TYPE_FIXED)** - 2点間の最大距離を制限するロープジョイントです。Box2D ではロープジョイント（Rope joint）と呼ばれます。
 * **ヒンジ（Hinge） (physics.JOINT_TYPE_HINGE)** - ヒンジジョイントは、2つのコリジョンオブジェクト上にアンカーポイントを指定し、2つのコリジョンオブジェクトが常に同じ位置にあるように移動させます。コリジョンオブジェクト間の相対回転は制限されません。ヒンジジョイントでは、最大モータートルクと速度を定義したモーターを有効にできます。Box2D では[回転ジョイント（Revolute joint）](https://box2d.org/documentation/group__revolute__joint.html#details)と呼ばれます。
@@ -16,7 +20,7 @@ Defold は 2D 物理シミュレーションでジョイント（joint）をサ�
 
 ## ジョイントの作成 {#creating-joints}
 
-現在、ジョイントは [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) を使ってプログラムからのみ作成できます。
+ここで説明する 2D ジョイントは、[`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) を使ってプログラムから作成します。
 ::: sidenote
 エディターでのジョイント作成のサポートは予定されていますが、リリース日は決まっていません。
 :::

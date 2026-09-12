@@ -26,6 +26,8 @@ Defold tiene un editor de código integrado que te permite abrir y editar archiv
 ![](/images/editor/code-editor.png)
 
 
+<a id="code-completion"></a>
+
 ### Autocompletado de código
 
 El editor de código integrado mostrará autocompletado de funciones mientras escribes código:
@@ -35,6 +37,16 @@ El editor de código integrado mostrará autocompletado de funciones mientras es
 Presionar <kbd>CTRL</kbd> + <kbd>Space</kbd> mostrará información adicional sobre funciones, argumentos y valores de retorno:
 
 ![](/images/editor/apireference.png)
+
+El servidor de lenguaje Lua incluido contiene anotaciones de tipos para las APIs de Defold. El completado, la información al pasar el cursor y los diagnósticos reconocen tipos de Defold como hashes, URL, vectores y cuaterniones, además de los argumentos y valores de retorno de las funciones. El editor proporciona anotaciones para los scripts del juego y para las APIs `editor.*` usadas en archivos `.editor_script`. No se necesita una biblioteca de anotaciones adicional para las APIs integradas al usar el editor de código de Defold.
+
+Las APIs de extensiones de terceros pueden necesitar sus propias anotaciones.
+
+### Formatear código {#formatting-code}
+
+Selecciona <kbd>Edit ▸ Format Document/Selection</kbd> o presiona <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> para ejecutar el formateador del servidor de lenguaje. Con una selección, el editor formatea las líneas seleccionadas; sin ella, formatea el documento. El formateo requiere un servidor de lenguaje que admita la operación de formateo correspondiente.
+
+Para formatear los archivos abiertos y modificados al guardar, activa **Format on save** en <kbd>Preferences ▸ Code</kbd>. Esta preferencia está desactivada de forma predeterminada y requiere un servidor de lenguaje que admita formatear documentos. Consulta [preferencias de código](/manuals/editor-preferences/#code).
 
 ### Ir a un símbolo {#jump-to-symbol}
 

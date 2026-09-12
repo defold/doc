@@ -71,6 +71,18 @@ App Manifest 设置控制是否将分析器代码链接到构建中。*game.proj
 
 从引擎中排除所有输入处理功能。
 
+## 排除 GUI {#exclude-gui}
+
+从引擎中移除 GUI 资源、组件及其 Lua 支持。仅当项目不使用 GUI 场景或 GUI 脚本时才启用此选项。Label 组件仍然可用。此选项默认禁用。
+
+## 排除粒子效果 {#exclude-particle-fx}
+
+移除粒子效果资源、组件和 `particlefx` Lua 模块。这也会移除对 GUI 场景中粒子节点的支持；不含粒子节点的 GUI 场景仍然受支持。启用此选项前，请移除对粒子效果的引用及其 API 调用。此选项默认禁用。
+
+## 排除图块地图 {#exclude-tilemaps}
+
+移除图块地图资源、组件和 `tilemap` Lua 模块。仅当项目不使用图块地图组件及其 API 时才启用此选项。其他组件使用的图块源仍然可用。此选项默认禁用。
+
 ## 排除热更新
 
 从引擎中排除[热更新功能](/manuals/live-update)。
@@ -107,7 +119,11 @@ App Manifest 设置控制是否将分析器代码链接到构建中。*game.proj
 
 ## 使用完整文本布局系统
 
-启用后（`true`），在项目中使用 True Type 字体（`.ttf`）时，可以为 SDF 类型字体使用运行时生成。更多详细信息请阅读[字体手册](https://defold.com/manuals/font/#enabling-runtime-fonts)。
+启用后（`true`），会包含完整文本布局系统，用于文本塑形，包括从右到左书写的语言。同时启用此选项和 *game.project* 中的 `font.runtime_generation`，即可从 TrueType（`.ttf`）或 OpenType（`.otf`）资源在运行时生成 SDF 字体。自 Defold 1.13.2 起支持从 `.otf` 资源进行运行时生成。更多信息请参阅[字体手册](/manuals/font/#enabling-runtime-fonts)。
+
+## 使用富文本 {#use-rich-text}
+
+为标签和 GUI 文本包含富文本解析和样式效果。此选项默认启用。如果项目仅需要纯文本，可禁用它以减小引擎大小。标签和 GUI 文本仍然受支持，但标记会显示为纯文本，不再应用格式或效果。
 
 ## 最低浏览器版本
 

@@ -85,6 +85,41 @@ Bundle 대화상자의 "Install on connected device" 및 "Launch installed app" 
 
 *.aab* 파일은 [Google Play developer console](https://play.google.com/apps/publish/)을 통해 Google Play에 업로드할 수 있습니다. 또한 [Android bundletool](https://developer.android.com/studio/command-line/bundletool)을 사용해 *.aab* 파일에서 *`.apk`* 파일을 생성하고 로컬에 설치할 수도 있습니다.
 
+## R8로 Java 코드 크기 줄이기 {#shrinking-java-code-with-r8}
+
+R8은 코드 축소, 최적화, 난독화를 통해 Java 코드의 크기를 줄입니다.
+
+### R8 활성화하기 {#enabling-r8}
+
+*game.project*의 **Android ▸ R8 Keep Rules**에서 `/builtins/manifests/android/dmengine.keep`를 선택합니다. 이렇게 하면 Defold의 기본 규칙을 바로 사용합니다.
+
+```ini
+[android]
+r8_keep_rules = /builtins/manifests/android/dmengine.keep
+```
+
+Java 코드를 사용하는 모든 익스텐션이 런타임에 필요한 클래스를 위한 `.keep` 파일을 제공하는지 확인하세요. 빌드할 때 익스텐션 규칙을 선택한 프로젝트 규칙과 결합합니다. R8을 활성화한 후에는 기기에서 릴리스 빌드를 테스트하세요.
+
+**R8 Keep Rules**를 비워 두면 축소 없이 D8을 사용합니다. R8을 활성화하면 네이티브 익스텐션이 없는 프로젝트도 네이티브 익스텐션 빌드 서비스를 사용합니다.
+
+### 익스텐션에 규칙 추가하기 {#adding-rules-to-an-extension}
+
+익스텐션의 keep 규칙은 `build.gradle` 옆의 `manifests/android` 디렉토리에 둡니다. 파일을 추가하고 익스텐션의 Java 클래스를 보존하는 방법은 [Android 익스텐션용 R8 keep 규칙](/manuals/extensions/#r8-keep-rules-for-android)을 참고하세요.
+
+### 난독화 매핑 보관하기 {#keeping-the-obfuscation-mapping}
+
+빌드에서 R8의 `mapping.txt`가 생성될 때 이 파일을 보관하려면 Android 번들 대화상자에서 **Generate debug symbols**를 활성화하거나 Bob에 `--with-symbols`를 전달합니다. 예를 들어 프로젝트 디렉토리에서 다음을 실행합니다.
+
+```sh
+java -jar bob.jar --platform arm64-android --variant release \
+  --archive --with-symbols --bundle-output build/android \
+  resolve build bundle
+```
+
+매핑은 생성된 APK 또는 AAB 옆에 `<binary-name>.apk.symbols/mapping.txt`로 저장됩니다. 예를 들어 프로젝트 제목이 `My Game`이면 위 명령은 `build/android/MyGame/MyGame.apk.symbols/mapping.txt`를 생성합니다.
+
+매핑 파일은 해당 파일을 생성한 정확한 릴리스와 함께 보관하세요. 이 파일은 난독화된 Java 이름을 원래 이름에 매핑하여 스택 트레이스를 해석할 수 있게 합니다. 다른 빌드의 매핑을 사용하면 잘못된 결과가 나올 수 있습니다.
+
 ## 권한
 
 Defold 엔진의 모든 기능이 작동하려면 여러 권한이 필요합니다. 권한은 *game.project* [프로젝트 설정 파일](/manuals/project-settings/#android)에 지정된 `AndroidManifest.xml`에 정의됩니다. Android 권한에 대한 자세한 내용은 [공식 문서](https://developer.android.com/guide/topics/permissions/overview)에서 확인할 수 있습니다. 기본 메니페스트에서는 다음 권한을 요청합니다.

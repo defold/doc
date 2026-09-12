@@ -90,6 +90,8 @@ print(data.highscore) -- 100
 #### カスタムリソース {#custom-resources}
 :[Custom Resources](../shared/custom-resources.md)
 
+拡張も `ext.properties` を通じてこれらのファイルを提供できます。エディターのビルドと Bob のアーカイブの両方で、そのパスはプロジェクトのカスタムリソースと統合されます。[拡張のカスタムリソース](/manuals/extensions/#custom-resources)を参照してください。
+
 ```lua
 -- Load level data into a string
 local data, error = sys.load_resource("/assets/level_data.json")

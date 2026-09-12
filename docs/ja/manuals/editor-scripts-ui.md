@@ -5,7 +5,7 @@ brief: このマニュアルでは、Lua を使用してエディターに UI �
 
 # エディタースクリプトと UI {#editor-scripts-and-ui}
 
-このマニュアルでは、Lua で記述したエディタースクリプト（editor script）を使用して、エディターに操作可能な UI 要素を作成する方法を説明します。エディタースクリプトを使い始めるには、[エディタースクリプトのマニュアル](/manuals/editor-scripts)を参照してください。エディター API の完全なリファレンスは[こちら](/ref/stable/editor-lua/)にあります。現在作成できるのは操作可能なダイアログだけですが、今後は UI スクリプトのサポートをエディターのほかの部分にも広げたいと考えています。
+このマニュアルでは、Lua で記述したエディタースクリプト（editor script）を使用して、エディターに操作可能なダイアログを作成し、リソースを開く方法を説明します。エディタースクリプトを使い始めるには、[エディタースクリプトのマニュアル](/manuals/editor-scripts)を参照してください。エディター API の完全なリファレンスは[こちら](/ref/stable/editor-lua/)にあります。
 
 ## 最初の例 {#hello-world}
 
@@ -52,6 +52,32 @@ return M
 ```
 Perform action:	true
 ```
+
+## リソースを開く {#opening-resources}
+
+コマンドの `run` 関数から `editor.ui.open_resource()` を呼び出すと、プロジェクトのリソースを開けます。パスは `/` で始まります。ビューを省略すると、リソースの主ビューが選択されます。
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+`code` ビューと `text` ビューでは、第3引数にカーソル位置または選択範囲を指定できます。行番号と列番号は `1` から始まり、列を省略すると `1` になります。これらの引数を渡す場合はビューを指定してください。
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+範囲を選択するには、代わりに `from` と `to` のカーソル位置を指定します。
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+設定されたリソースビューは、エディターまたは外部アプリケーションで開く場合があります。組み込みの Code ビューと Text ビューは、カーソル位置と選択範囲の引数をサポートします。サポートされるビュー名については、[`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args) を参照してください。
 
 ## 基本的な概念 {#basic-concepts}
 

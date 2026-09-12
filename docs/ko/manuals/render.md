@@ -349,6 +349,65 @@ render.draw(self.my_tile_predicate)
 현재 Defold는 참조된 렌더 리소스로 `Materials`와 `Render Targets`만 지원하지만, 시간이 지나면서 이 시스템에서 더 많은 리소스 타입을 지원할 예정입니다.
 :::
 
+### 멀티샘플 렌더 타겟 {#multisampled-render-targets}
+
+렌더 타겟은 멀티샘플 안티앨리어싱(MSAA)을 지원합니다. 오프스크린 렌더 패스에서 지오메트리 가장자리를 부드럽게 만드는 기능입니다. 타겟의 샘플 수는 창의 안티앨리어싱을 제어하는 [Display ▸ Samples](/manuals/project-settings/#samples)와 독립적입니다.
+
+`.render_target` 리소스의 경우 에디터에서 **Sample Count**를 `1`, `2`, `4`, `8`, `16` 중 하나로 설정합니다. 값이 `1`이면 멀티샘플링을 비활성화합니다. 위 예제처럼 `.render` 파일의 **Render Resources** 테이블에 리소스를 추가하고 할당한 이름을 `render.set_render_target()`에서 사용합니다.
+
+렌더 스크립트의 `init()`에서 타겟을 만들 수도 있습니다. 첨부 항목과 나란히 바깥쪽 파라미터 테이블에 `sample_count`를 넣습니다.
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+이 예제는 색상만 포함하는 타겟을 사용합니다. 타겟의 모든 색상, 깊이, 스텐실 첨부 항목은 같은 샘플 수를 사용합니다. 패스에 깊이 테스트가 필요하다면 깊이 첨부 항목과 일반적인 깊이 테스트 상태를 추가하세요.
+
+다음 `update()` 코드 조각에서는 씬 메터리얼에 `scene` 태그를, 전체 화면 쿼드의 메터리얼에 `present` 태그를 지정합니다. 쿼드의 메터리얼은 텍스쳐 유닛 `0`을 샘플링해야 합니다. 각 패스에 적합한 뷰와 투영을 설정하세요.
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+다른 타겟으로 전환하면 패스를 끝내고 멀티샘플 색상 첨부 항목을 자동으로 리졸브(resolve)합니다. `render.enable_texture()`는 리졸브된 색상 텍스쳐를 바인딩하므로 쿼드에서 일반 텍스쳐 샘플러를 사용합니다. 별도의 리졸브 명령은 필요하지 않습니다.
+
+요청하는 샘플 수의 기본값은 `1`이며 양의 정수여야 합니다. 그래픽 백엔드는 지원하지 않는 요청을 지원되는 2의 거듭제곱 샘플 수로 낮추고, 필요하면 `1`로 폴백하며, 수가 변경되면 경고를 기록합니다. 샘플 수가 높을수록 첨부 항목에 필요한 메모리가 늘어납니다.
+
+렌더 타겟 리소스를 사용할 때는 게임 오브젝트의 `.script`에서 `resource.get_render_target_info()`로 실제 샘플 수를 확인할 수 있습니다. 예를 들어 **Render Resources**에 `/render/offscreen.render_target`을 추가한 후 다음을 사용합니다.
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+기기의 지원 여부를 확인할 때는 요청한 샘플 수를 사용할 수 있었다고 가정하지 말고 이 실제 샘플 수를 사용하세요. 전체 파라미터 및 결과 테이블은 [`render.render_target()`](/ref/beta/render/#render.render_target:parameters)과 [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path)를 참고하세요.
+
 ## 텍스쳐 핸들 {#texture-handles}
 
 Defold에서 텍스쳐는 내부적으로 핸들(handle)로 표현되며, 이는 엔진 어디에서든 텍스쳐 오브젝트를 고유하게 식별해야 하는 숫자와 사실상 같습니다. 즉 렌더 시스템과 게임 오브젝트 스크립트 사이에서 이러한 핸들을 전달하여 게임 오브젝트 쪽과 렌더링 쪽을 연결할 수 있습니다. 예를 들어 스크립트는 게임 오브젝트에 연결된 스크립트에서 동적 텍스쳐를 만들고 이를 렌더러로 보내 그리기 명령의 전역 텍스쳐로 사용할 수 있습니다.

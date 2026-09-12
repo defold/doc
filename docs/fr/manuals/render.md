@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 Defold ne prend actuellement en charge que `Materials` et `Render Targets` comme ressources de rendu référencées, mais ce système prendra en charge davantage de types de ressources à l'avenir.
 :::
 
+### Cibles de rendu multi-échantillonnées {#multisampled-render-targets}
+
+Les cibles de rendu prennent en charge l'anticrénelage multi-échantillons (MSAA). Il lisse les bords de la géométrie lors d'une passe de rendu hors écran. Le nombre d'échantillons de la cible est indépendant de [Display ▸ Samples](/manuals/project-settings/#samples), qui contrôle l'anticrénelage de la fenêtre.
+
+Pour une ressource `.render_target`, définissez **Sample Count** dans l'éditeur sur `1`, `2`, `4`, `8` ou `16`. Une valeur de `1` désactive le multi-échantillonnage. Ajoutez la ressource au tableau **Render Resources** de votre fichier `.render` et utilisez le nom qui lui est attribué avec `render.set_render_target()`, comme dans l'exemple ci-dessus.
+
+Vous pouvez aussi créer une cible dans la fonction `init()` de votre script de rendu. Placez `sample_count` dans la table de paramètres extérieure, à côté des tampons attachés :
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+Cet exemple utilise une cible contenant uniquement un tampon attaché de couleur. Tous les tampons attachés de couleur, de profondeur et de stencil d'une cible partagent son nombre d'échantillons. Ajoutez un tampon attaché de profondeur et l'état habituel du test de profondeur si la passe nécessite ce test.
+
+Pour l'extrait de `update()` suivant, attribuez le tag `scene` aux matériaux de la scène et le tag `present` au matériau d'un quadrilatère plein écran. Le matériau du quadrilatère doit échantillonner l'unité de texture `0`. Définissez la vue et la projection appropriées pour chaque passe :
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+Changer de cible termine la passe et résout automatiquement ses tampons de couleur attachés multi-échantillonnés. `render.enable_texture()` lie la texture de couleur résolue ; le quadrilatère utilise donc un échantillonneur de texture ordinaire. Aucune commande de résolution distincte n'est nécessaire.
+
+Le nombre d'échantillons demandé vaut `1` par défaut et doit être un entier positif. Les moteurs de rendu ramènent les demandes non prises en charge à un nombre pris en charge qui est une puissance de deux, avec un repli sur `1` si nécessaire, et consignent un avertissement lorsque ce nombre change. Un nombre d'échantillons plus élevé augmente la mémoire nécessaire aux tampons attachés.
+
+Lorsque vous utilisez une ressource de cible de rendu, inspectez son nombre effectif depuis un `.script` d'objet de jeu avec `resource.get_render_target_info()`. Par exemple, après avoir ajouté `/render/offscreen.render_target` à **Render Resources** :
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+Utilisez ce nombre effectif pour vérifier la prise en charge sur l'appareil au lieu de supposer que le nombre demandé était disponible. Consultez [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) et [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) pour les tables complètes de paramètres et de résultats.
+
 ## Identifiants de texture {#texture-handles}
 
 Dans Defold, les textures sont représentées en interne par un identifiant opaque (handle), qui correspond essentiellement à un nombre devant identifier de manière unique un objet texture partout dans le moteur. Vous pouvez ainsi relier le monde des objets de jeu à celui du rendu en transmettant ces identifiants entre le système de rendu et un script d'objet de jeu. Par exemple, un script attaché à un objet de jeu peut créer une texture dynamique et l'envoyer au système de rendu pour qu'elle soit utilisée comme texture globale dans une commande de dessin.

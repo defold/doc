@@ -72,12 +72,55 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 
 * `android` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
   * 该文件夹还可以包含一个`build.gradle`文件，其中包含要[由Gradle解析的依赖项](/manuals/extensions-gradle)。
-  * 最后，该文件夹还可以包含零个或多个ProGuard文件（实验性）。
+  * 包含 Java 代码的扩展应提供 [R8 保留规则文件](#r8-keep-rules-for-android)（`.keep`），以保留运行时需要的类。
 * `ios` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
   * 该文件夹还可以包含一个`Podfile`文件，其中包含要[由Cocoapods解析的依赖项](/manuals/extensions-cocoapods)。
 * `osx` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
 * `web` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
 
+
+### Android 的 R8 保留规则 {#r8-keep-rules-for-android}
+
+在扩展的 `manifests/android` 目录中添加 `.keep` 文件，与 `build.gradle` 放在一起。例如，`/myextension/manifests/android/myextension.keep` 可以使用以下规则保留扩展的 Java 类：
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+将 `com.example.myextension` 替换为包含扩展 Java 类的包名。此规则保留类及其成员，同时允许 R8 优化它们的代码。对于通过 Java Native Interface（JNI）或反射访问的其他类，也请添加规则，因为 R8 可能无法自动发现这些用途。
+
+如果扩展在运行时依赖注解，还应包含：
+
+```proguard
+-keepattributes *Annotation*
+```
+
+[启用 R8](/manuals/android/#enabling-r8) 后，这些规则会与项目选定的保留规则文件合并。
+
+## 自定义资源 {#custom-resources}
+
+扩展可以在与 `ext.manifest` 同目录的 `ext.properties` 文件中声明自定义资源，将数据包含在游戏归档中：
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+例如，将 JSON 文件放在 `/myextension/data/settings.json`。该路径相对于项目根目录，包含扩展文件夹。将扩展作为库共享时，请在库的 [Include Dirs](/manuals/libraries/#setting-up-library-sharing) 中包含 `myextension`，使使用该库的项目能获得扩展及其数据。
+
+这些路径会与 *game.project* 中的 `project.custom_resources` 以及其他扩展提供的路径合并。项目中的自定义资源设置不会替换扩展提供的内容。编辑器构建和 Bob 归档都会包含这些文件，可在运行时加载：
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+有关自定义资源与捆绑资源的区别，请参阅[文件访问](/manuals/file-access/#custom-resources)。
 
 ## 共享扩展
 
