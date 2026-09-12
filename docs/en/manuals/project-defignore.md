@@ -17,6 +17,26 @@ The files and folders to exclude are defined in a file named `.defignore` in the
 
 This will exclude the file `/path/to/file.png` and anything in the path `/otherpath`.
 
+Each line must start with a `/` and is matched against project paths relative to the project root. A pattern matches a path if it is equal to the path or is one of its parent folders. Matching is case-sensitive.
+
+### Wildcards
+
+Patterns may contain wildcards:
+
+* `*` matches any number of characters except `/`
+* `?` matches exactly one character except `/`
+* `**` matches any number of whole folders, so `/**/name` matches `name` at any depth and `/folder/**` matches the folder and everything inside it
+
+All other characters are matched literally. Example:
+
+```
+/levels/*/tiled
+/**/generated
+/assets/temp_??.png
+```
+
+This will exclude the `tiled` folder in every direct subfolder of `/levels` (such as `/levels/01/tiled`), every folder named `generated` at any depth including `/generated` in the project root, and files such as `/assets/temp_01.png`.
+
 ## The `.defunload` file
 
 For certain large projects that contain multiple independent modules, you may want to exclude parts of it from loading to reduce memory usage and load times in the editor. To achieve this, you can list paths to exclude from loading in a `.defunload` file below the project directory.

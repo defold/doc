@@ -16,6 +16,25 @@ Os arquivos e pastas a excluir são definidos em um arquivo chamado `.defignore`
 ```
 
 Isso excluirá o arquivo `/path/to/file.png` e qualquer coisa no caminho `/otherpath`.
+Cada linha deve começar com `/` e é comparada com os caminhos do projeto relativos à raiz do projeto. Um padrão corresponde a um caminho se for igual a ele ou se for uma de suas pastas superiores. A comparação diferencia maiúsculas de minúsculas.
+
+### Curingas
+
+Os padrões podem conter curingas:
+
+* `*` corresponde a qualquer número de caracteres, exceto `/`
+* `?` corresponde a exatamente um caractere, exceto `/`
+* `**` corresponde a qualquer número de pastas inteiras, de modo que `/**/name` corresponde a `name` em qualquer profundidade e `/folder/**` corresponde à pasta e a todo o seu conteúdo
+
+Todos os outros caracteres são comparados literalmente. Exemplo:
+
+```
+/levels/*/tiled
+/**/generated
+/assets/temp_??.png
+```
+
+Isso excluirá a pasta `tiled` em cada subpasta direta de `/levels` (como `/levels/01/tiled`), todas as pastas chamadas `generated` em qualquer profundidade, incluindo `/generated` na raiz do projeto, e arquivos como `/assets/temp_01.png`.
 
 ## O arquivo `.defunload`
 
