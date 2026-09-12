@@ -106,6 +106,9 @@ Evaluating Lua expressions
 
   It is currently not possible to modify variables through the evaluator.
 
+Inspecting variables by hovering
+: With the game stopped at a breakpoint, hover the mouse over a variable in the code editor to see its current value. Simple values show directly in the tooltip. Tables open as an expandable tree that you can navigate, and each row has a copy button that copies the value to the clipboard. Hovering a dotted expression such as `self.position.y` shows the value of the full expression.
+
 Detaching the debugger
 : Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately.
 
