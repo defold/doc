@@ -102,6 +102,8 @@ A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/m
 
 Loading custom resources is covered in more detail in the [File Access manual](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
+Paths contributed by extensions through `custom_resources.default` in `ext.properties` are combined with this setting. See [extension custom resources](/manuals/extensions/#custom-resources) for an example.
+
 #### Bundle Resources
 `bundle_resources`
 :[Bundle Resources](../shared/bundle-resources.md)
@@ -164,6 +166,8 @@ Creates a high dpi back buffer on displays that support it. Typically the game w
 
 #### Samples
 How many samples to use for super sampling anti-aliasing. It sets the `GLFW_FSAA_SAMPLES` window hint. A value of `0` means that anti-aliasing is turned off.
+
+This setting controls the window. Offscreen [multisampled render targets](/manuals/render/#multisampled-render-targets) have their own sample count.
 
 #### Fullscreen
 Check if the application should start full screen. If unchecked, the application runs windowed.
@@ -300,6 +304,9 @@ The texture profiles file to use for this project, `/builtins/graphics/default.t
 
 #### Verify Graphics Calls
 Verify the return value after each graphics call and report any errors in the log.
+
+#### WebGL Version Hint
+`graphics.webgl_version_hint` selects the WebGL context version to request for HTML5. Valid values are `1` (WebGL 1) and `2` (WebGL 2, the default). Set it to `1` to target or test WebGL 1 even on a browser that supports WebGL 2. Keep [Exclude GLES 2.0](#exclude-gles-20) disabled when targeting WebGL 1 so the required shaders are included.
 
 #### OpenGL Version Hint
 OpenGL context version hint. If a specific version is selected, this will be used as the minimum version required (does not apply to OpenGL ES).
@@ -641,9 +648,11 @@ Whether or not the application can be debugged using tools such as [GAPID](https
 #### R8 Keep Rules
 `android.r8_keep_rules` selects a `.keep` file to enable R8 shrinking, optimization and obfuscation of Java code in Android builds. Leave the setting empty to use D8 without shrinking.
 
-Select `/builtins/manifests/android/dmengine.keep` to use the built-in rules. To customize them, copy this file into your project and select the copy. The selected file is the complete project rule set; it replaces the built-in rules rather than adding to them. Extensions can also provide [R8 keep rules](/manuals/extensions/#manifest-files).
+Select `/builtins/manifests/android/dmengine.keep` to use Defold's default rules directly. Extensions supply their own [keep rules](/manuals/extensions/#r8-keep-rules-for-android), which are combined with this file.
 
-Since Defold 1.13.2, this setting replaces `android.proguard`, and the built-in `dmengine.pro` file has been removed. Migrate existing project and extension rules to `.keep` files and select the project rules through **R8 Keep Rules**.
+Only copy the built-in file into your project if you need to add project-specific rules. Preserve the built-in rules in the copy: selecting a custom file replaces the complete project rule set.
+
+See the [Android manual](/manuals/android/#shrinking-java-code-with-r8) for enabling R8 and retaining its obfuscation mapping with a release bundle.
 
 #### Extract Native Libraries
 Specifies whether the package installer extracts native libraries from the APK to the file system. If set to `false`, your native libraries are stored uncompressed in the APK. Although your APK might be larger, your application loads faster because the libraries load directly from the APK at runtime. This will set the `android:extractNativeLibs` flag in the Android Manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -720,10 +729,13 @@ When enabled this option will print information about the engine and engine vers
 Specifies which method to use to scale the game canvas.
 
 #### Retry Count
-The number of attempts to download a file when the engine starts (see `Retry Time`).
+The number of retries after a failed download during startup, including network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly file. The initial request is separate. Archive-file verification has its own retry limit; see [download verification](/manuals/html5/#download-verification) and `Retry Time`.
 
 #### Retry Time
 The number of seconds to wait between attempts to download a file when the download failed (see `Retry Count`).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` checks downloaded engine and archive files against their expected sizes. Enabled by default (`true`). Set it to `false` only if a server, proxy or CDN intentionally rewrites files and changes their sizes. Failed verification causes download retries before startup fails. The retry limits differ for engine downloads and archive-file verification; see [download verification](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Check if you want the graphics context to have a transparent backdrop.

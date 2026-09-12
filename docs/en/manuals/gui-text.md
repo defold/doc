@@ -7,6 +7,8 @@ brief: This manual describes how to add text to GUI scenes.
 
 Defold supports a specific type of GUI node that allows text to be rendered in a GUI scene. Any font resource added to a project can be used for text node rendering.
 
+The editor preview supports text shaping and right-to-left layout using the engine's font renderer. See [text layout support](/manuals/font/#text-layout-support-eg-right-to-left) for the required font and App Manifest settings.
+
 ## Adding text nodes
 
 The fonts that you wish to use in GUI text nodes must be added to the GUI component. Either right-click the *Fonts* folder, use the <kbd>GUI</kbd> top menu or press the corresponding keyboard shortcut.
@@ -55,4 +57,3 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-

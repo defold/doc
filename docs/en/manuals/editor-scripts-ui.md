@@ -5,7 +5,7 @@ brief: This manual explains how to create UI elements in the editor using Lua
 
 # Editor scripts and UI
 
-This manual explains how to create interactive UI elements in the editor using editor scripts written in Lua. To get started with editor scripts, see [Editor Scripts manual](/manuals/editor-scripts). You can find the full editor API reference [here](/ref/stable/editor-lua/). Currently, it's only possible to create interactive dialogs, though we want to expand the UI scripting support to the rest of the editor in the future.
+This manual explains how to create interactive dialogs and open resources in the editor using editor scripts written in Lua. To get started with editor scripts, see [Editor Scripts manual](/manuals/editor-scripts). You can find the full editor API reference [here](/ref/stable/editor-lua/).
 
 ## Hello world
 
@@ -52,6 +52,32 @@ Finally, after pressing <kbd>Enter</kbd> (or clicking on the `Perform` button), 
 ```
 Perform action:	true
 ```
+
+## Opening resources
+
+Call `editor.ui.open_resource()` from a command's `run` function to open a project resource. The path starts with `/`. Omitting the view selects the resource's primary view:
+
+```lua
+editor.ui.open_resource("/main/main.script")
+```
+
+The `code` and `text` views accept a cursor position or a selection as a third argument. Line and column numbers start at `1`; a missing column defaults to `1`. Specify the view when passing these arguments:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", { line = 10 })
+editor.ui.open_resource("/main/main.script", "code", { line = 10, column = 5 })
+```
+
+To select a range, provide `from` and `to` cursor positions instead:
+
+```lua
+editor.ui.open_resource("/main/main.script", "code", {
+    from = { line = 10, column = 1 },
+    to = { line = 12, column = 1 }
+})
+```
+
+The configured resource view may open in the editor or an external application. The built-in Code and Text views support the cursor and selection arguments. See [`editor.ui.open_resource()`](/ref/beta/editor/#editor.ui.open_resource:resource_path-view-args) for supported view names.
 
 ## Basic concepts
 

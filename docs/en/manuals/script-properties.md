@@ -67,7 +67,7 @@ Script properties are parsed when building the project. Value expressions are no
 Since Defold 1.13.2, a string default defines a text property. Text properties support UTF-8 and newline characters and are edited in a multiline field in the editor:
 
 ```lua
-go.property("greeting", "Hello!\nWelcome to the game.")
+go.property("greeting", "Hello!\nWelcome, José!")
 
 function init(self)
     go.set("#label", "text", self.greeting)
@@ -75,6 +75,18 @@ end
 ```
 
 Select a script component in a game object or collection to override its text properties, just like other script properties. Embedded NUL characters are not allowed in defaults or overrides.
+
+Other scripts can read and write a text property through the script component's URL. For example, put the script above and a label on a game object named `speaker` in the collection, with component ids `script` and `label`. Update them from another script's `init()`:
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+Changing the script property does not automatically update the label; the last line explicitly copies the new value to the label's `text` property.
 
 ## Accessing script properties
 

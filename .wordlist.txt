@@ -233,6 +233,7 @@ jamesramsay
 javafx
 JIT
 jitter
+JNI
 jobfolder
 jpg
 js
@@ -304,6 +305,7 @@ MonoBehaviour
 MonoBehaviours
 Monteiro
 movieclip
+MSAA
 mutex
 Nakama
 namespace
