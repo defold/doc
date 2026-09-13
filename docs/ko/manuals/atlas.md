@@ -137,7 +137,7 @@ Playback
 
 ### 런타임에 Texture 리소스 생성하기
 
-새 텍스쳐 리소스를 생성하려면 [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table)를 사용합니다:
+새 텍스쳐 리소스를 생성하려면 [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table)를 사용합니다:
 
 ```lua
   local params = {
@@ -149,7 +149,7 @@ Playback
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-텍스쳐가 생성되면 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer)를 사용해 텍스쳐의 픽셀을 설정할 수 있습니다:
+텍스쳐가 생성되면 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer)를 사용해 텍스쳐의 픽셀을 설정할 수 있습니다:
 
 ```lua
   local width = 128
@@ -183,7 +183,7 @@ Playback
 
 ### 런타임에 Atlas 생성하기
 
-텍스쳐를 [스프라이트 컴포넌트](/manuals/sprite/)에서 사용하려면 먼저 아틀라스에서 사용해야 합니다. Atlas를 생성하려면 [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table)를 사용합니다:
+텍스쳐를 [스프라이트 컴포넌트](/manuals/sprite/)에서 사용하려면 먼저 아틀라스에서 사용해야 합니다. Atlas를 생성하려면 [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table)를 사용합니다:
 
 ```lua
   local params = {

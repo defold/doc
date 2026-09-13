@@ -5,7 +5,7 @@ brief: Ce manuel explique comment lire les journaux du jeu et du système.
 
 # Journal du jeu et du système {#game-and-system-log}
 
-Le journal du jeu affiche toutes les sorties du moteur, des extensions natives et de la logique de votre jeu. Les commandes [print()](/ref/stable/base/#print:...) et [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) peuvent être utilisées dans vos scripts et modules Lua pour afficher des informations dans le journal du jeu. Vous pouvez utiliser les fonctions de l'[espace de noms (namespace) `dmLog`](/ref/stable/dmLog/) pour écrire dans le journal du jeu depuis les extensions natives. Le journal du jeu peut être consulté depuis l'éditeur, depuis une fenêtre de terminal, à l'aide d'outils propres à chaque plateforme ou depuis un fichier journal.
+Le journal du jeu affiche toutes les sorties du moteur, des extensions natives et de la logique de votre jeu. Les commandes [print()](/ref/base/#print:...) et [pprint()](/ref/builtins/?q=pprint#pprint:v) peuvent être utilisées dans vos scripts et modules Lua pour afficher des informations dans le journal du jeu. Vous pouvez utiliser les fonctions de l'[espace de noms (namespace) `dmLog`](/ref/dmLog/) pour écrire dans le journal du jeu depuis les extensions natives. Le journal du jeu peut être consulté depuis l'éditeur, depuis une fenêtre de terminal, à l'aide d'outils propres à chaque plateforme ou depuis un fichier journal.
 
 Les journaux du système sont générés par le système d'exploitation et peuvent fournir des informations supplémentaires pour vous aider à localiser un problème. Ils peuvent contenir des traces de pile en cas de plantage et des avertissements de mémoire insuffisante.
 

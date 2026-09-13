@@ -85,7 +85,7 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 - `editor.ui.*` — funkcje związane z interfejsem; szczegóły w [instrukcji UI](/manuals/editor-scripts-ui);
 - `editor.prefs.*` — funkcje do pracy z preferencjami edytora; szczegóły w sekcji [Preferencje](#preferences).
 
-Pełne API edytora znajdziesz [tutaj](/ref/stable/editor/).
+Pełne API edytora znajdziesz [tutaj](/ref/editor/).
 
 ## Polecenia {#commands}
 

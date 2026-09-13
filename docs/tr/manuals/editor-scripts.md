@@ -81,7 +81,7 @@ Aşağıdaki API'yi tanımlayan `editor` paketini kullanarak düzenleyiciyle etk
 - `editor.ui.*` — kullanıcı arayüzüyle ilgili çeşitli işlevler; [Kullanıcı arayüzü kılavuzuna](/manuals/editor-scripts-ui) bakın.
 - `editor.prefs.*` — düzenleyici tercihleriyle etkileşim kurma işlevleri; [tercihler](#preferences) bölümüne bakın.
 
-Düzenleyici API'sinin tüm başvuru belgelerini [burada](/ref/stable/editor/) bulabilirsiniz.
+Düzenleyici API'sinin tüm başvuru belgelerini [burada](/ref/editor/) bulabilirsiniz.
 
 ## Komutlar {#commands}
 

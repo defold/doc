@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-Więcej informacji o funkcjach profilera znajdziesz w [dokumentacji API profilera](/ref/stable/profiler/).
+Więcej informacji o funkcjach profilera znajdziesz w [dokumentacji API profilera](/ref/profiler/).
 
 ## Profiler webowy
 Podczas uruchamiania buildu komputerowego lub mobilnego z obsługą profilera można otworzyć w przeglądarce interaktywne profilery klatek i zasobów.

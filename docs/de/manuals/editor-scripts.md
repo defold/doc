@@ -81,7 +81,7 @@ Der Editor sammelt dann alle im Projekt und in den Bibliotheken definierten Edit
 - `editor.ui.*` — verschiedene Funktionen für die Benutzeroberfläche, siehe [UI-Handbuch](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — Funktionen für den Zugriff auf Editoreinstellungen, siehe [Editoreinstellungen](#preferences).
 
-Die vollständige Editor-API-Referenz findest du [hier](/ref/stable/editor/).
+Die vollständige Editor-API-Referenz findest du [hier](/ref/editor/).
 
 ## Befehle {#commands}
 

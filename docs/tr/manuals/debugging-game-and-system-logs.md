@@ -5,7 +5,7 @@ brief: Bu kılavuz, oyun ve sistem günlüklerinin nasıl okunacağını açıkl
 
 # Oyun ve sistem günlüğü
 
-Oyun günlüğü (game log), motordan, yerel kod eklentilerinden (native extension) ve oyun mantığınızdan gelen tüm çıktıları gösterir. [print()](/ref/stable/base/#print:...) ve [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) komutlarını betiklerinizden ve Lua modüllerinizden oyun günlüğünde bilgi göstermek için kullanabilirsiniz. Yerel kod eklentilerinden oyun günlüğüne yazmak için [`dmLog` ad alanındaki](/ref/stable/dmLog/) işlevleri kullanabilirsiniz. Oyun günlüğü düzenleyiciden, terminal penceresinden, platforma özgü araçlar kullanılarak veya bir günlük dosyasından okunabilir.
+Oyun günlüğü (game log), motordan, yerel kod eklentilerinden (native extension) ve oyun mantığınızdan gelen tüm çıktıları gösterir. [print()](/ref/base/#print:...) ve [pprint()](/ref/builtins/?q=pprint#pprint:v) komutlarını betiklerinizden ve Lua modüllerinizden oyun günlüğünde bilgi göstermek için kullanabilirsiniz. Yerel kod eklentilerinden oyun günlüğüne yazmak için [`dmLog` ad alanındaki](/ref/dmLog/) işlevleri kullanabilirsiniz. Oyun günlüğü düzenleyiciden, terminal penceresinden, platforma özgü araçlar kullanılarak veya bir günlük dosyasından okunabilir.
 
 Sistem günlükleri (system log) işletim sistemi tarafından oluşturulur ve bir sorunun kaynağını saptamanıza yardımcı olabilecek ek bilgiler sağlayabilir. Sistem günlükleri, çökmeler için yığın izleri (stack trace) ve bellek yetersizliği uyarıları içerebilir.
 

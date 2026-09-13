@@ -167,7 +167,7 @@ Kształty kolizji w fizyce 3D można obracać wokół wszystkich osi.
 
 ## Obracanie kształtów kolizji w fizyce 2D
 
-Kształty kolizji w fizyce 2D można obracać tylko wokół osi Z. Obracanie wokół osi X albo Y daje nieprawidłowe wyniki i należy go unikać, nawet przy obrocie o 180 stopni, który pozornie miałby tylko odwrócić kształt wzdłuż osi X albo Y. Do odwracania kształtu fizyki zaleca się używać [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) oraz [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+Kształty kolizji w fizyce 2D można obracać tylko wokół osi Z. Obracanie wokół osi X albo Y daje nieprawidłowe wyniki i należy go unikać, nawet przy obrocie o 180 stopni, który pozornie miałby tylko odwrócić kształt wzdłuż osi X albo Y. Do odwracania kształtu fizyki zaleca się używać [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) oraz [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip).
 
 
 # Debugowanie

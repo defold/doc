@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-有关性能分析器功能的更多信息，请参阅[性能分析器 API 参考](/ref/stable/profiler/)。
+有关性能分析器功能的更多信息，请参阅[性能分析器 API 参考](/ref/profiler/)。
 
 ## Web 性能分析器
 

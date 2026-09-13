@@ -53,7 +53,7 @@ A: Game logic in your Defold project is primarily written using the Lua language
 
 #### Q: Can I use C++ to write game logic?
 
-A: C++ support exists in Defold mainly to write native extensions which interface with third party SDKs or platform specific APIs. The [dmSDK](https://defold.com/ref/stable/dmGameObject/) (the C++ API for Defold used in native extensions) will be gradually expanded with more functionality so that it is possible to write all game logic in C++ if a developer so wishes. Lua will still be the main language used for game logic, but with the expanded C++ API it will be possible to write game logic using C++ too. The work to expand the C++ API is mainly about moving existing private header files to the public section and cleaning up APIs for public use.
+A: C++ support exists in Defold mainly to write native extensions which interface with third party SDKs or platform specific APIs. The [dmSDK](https://defold.com/ref/dmGameObject/) (the C++ API for Defold used in native extensions) will be gradually expanded with more functionality so that it is possible to write all game logic in C++ if a developer so wishes. Lua will still be the main language used for game logic, but with the expanded C++ API it will be possible to write game logic using C++ too. The work to expand the C++ API is mainly about moving existing private header files to the public section and cleaning up APIs for public use.
 
 
 #### Q: Can I use TypeScript with Defold?
@@ -195,7 +195,7 @@ A: Yes, it does. They are called [collections](/manuals/building-blocks/#collect
 
 #### Q: I can't add a game object as a child to another game object, why?
 
-A: Chances are that you try to add a child in the game object file and that is not possible. It's only possible in the collection file. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy. You can get an id of the parent of the game object using [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
+A: Chances are that you try to add a child in the game object file and that is not possible. It's only possible in the collection file. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy. You can get an id of the parent of the game object using [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id).
 
 
 #### Q: Why can't I broadcast messages to all children of a game object?
@@ -258,7 +258,7 @@ A: In general all resources are statically declared with the benefit that you ge
 
 #### Q: Is there a way to access the physics collision shape properties?
 
-A: Yes, check out the physics API, especially [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) and [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table). 
+A: Yes, check out the physics API, especially [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) and [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table). 
 
 
 #### Q: Is there any quick way to render the collision objects in my scene? (like Box2D's debug draw)

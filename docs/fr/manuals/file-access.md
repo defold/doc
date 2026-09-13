@@ -9,7 +9,7 @@ Il existe de nombreuses façons de créer des fichiers et/ou d'y accéder. Les c
 ## Fonctions d'accès aux fichiers et aux dossiers {#functions-for-file-and-folder-access}
 Defold propose plusieurs fonctions pour manipuler les fichiers :
 
-* Vous pouvez utiliser les [fonctions standard `io.*`](https://defold.com/ref/stable/io/) pour lire et écrire des fichiers. Ces fonctions vous offrent un contrôle très précis sur l'ensemble du processus d'entrée/sortie.
+* Vous pouvez utiliser les [fonctions standard `io.*`](https://defold.com/ref/io/) pour lire et écrire des fichiers. Ces fonctions vous offrent un contrôle très précis sur l'ensemble du processus d'entrée/sortie.
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Vous pouvez utiliser [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) et [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) pour renommer et supprimer des fichiers.
+* Vous pouvez utiliser [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) et [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) pour renommer et supprimer des fichiers.
 
-* Vous pouvez utiliser [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) et [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) pour lire et écrire des tables Lua. Des fonctions [`sys.*`](https://defold.com/ref/stable/sys/) supplémentaires facilitent la résolution des chemins de fichiers indépendamment de la plateforme.
+* Vous pouvez utiliser [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) et [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) pour lire et écrire des tables Lua. Des fonctions [`sys.*`](https://defold.com/ref/sys/) supplémentaires facilitent la résolution des chemins de fichiers indépendamment de la plateforme.
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ Les emplacements des fichiers et des dossiers peuvent être répartis en trois c
 * Fichiers propres au système auxquels votre application accède
 
 ### Comment enregistrer et charger des fichiers propres à l'application {#how-to-save-and-load-application-specific-files}
-Pour enregistrer et charger des fichiers propres à l'application, comme les meilleurs scores, les paramètres utilisateur et l'état du jeu, il est recommandé d'utiliser un emplacement fourni par le système d'exploitation et spécifiquement destiné à cet usage. Vous pouvez utiliser [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) pour obtenir le chemin absolu d'un fichier adapté au système d'exploitation. Une fois ce chemin absolu obtenu, vous pouvez utiliser les fonctions `sys.*`, `io.*` et `os.*` (voir ci-dessus).
+Pour enregistrer et charger des fichiers propres à l'application, comme les meilleurs scores, les paramètres utilisateur et l'état du jeu, il est recommandé d'utiliser un emplacement fourni par le système d'exploitation et spécifiquement destiné à cet usage. Vous pouvez utiliser [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) pour obtenir le chemin absolu d'un fichier adapté au système d'exploitation. Une fois ce chemin absolu obtenu, vous pouvez utiliser les fonctions `sys.*`, `io.*` et `os.*` (voir ci-dessus).
 
 [Consultez l'exemple qui montre comment utiliser `sys.save()` et `sys.load()`](/examples/file/sys_save_load/).
 

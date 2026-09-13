@@ -81,7 +81,7 @@ return M
 - `editor.ui.*` — UI に関連する各種関数です。[UI マニュアル](/manuals/editor-scripts-ui)を参照してください。
 - `editor.prefs.*` — エディターの環境設定（preferences）とやり取りする関数です。[環境設定](#preferences)を参照してください。
 
-エディター API リファレンスの全体は[こちら](/ref/stable/editor/)で確認できます。
+エディター API リファレンスの全体は[こちら](/ref/editor/)で確認できます。
 
 ## コマンド {#commands}
 

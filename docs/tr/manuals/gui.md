@@ -56,7 +56,7 @@ Beyaz bir dikdörtgen, proje ayarlarında belirlenen varsayılan ekran genişli�
 : Bu GUI'de bulunabilecek en fazla düğüm sayısı.
 
 *Max Dynamic Textures*
-: Bu GUI bileşeninin izlediği en fazla dinamik doku sayısıdır; varsayılan değeri `128`'dir. Buna [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) ile oluşturulan dokular ve `go.set(..., "textures", ...)` veya `gui.set(msg.url(), "textures", ...)` ile GUI'ye atanan harici dokular dahildir. Çok sayıda harici dokuyu değiştiren projelerde bu sınırın artırılması gerekebilir.
+: Bu GUI bileşeninin izlediği en fazla dinamik doku sayısıdır; varsayılan değeri `128`'dir. Buna [`gui.new_texture()`](/ref/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) ile oluşturulan dokular ve `go.set(..., "textures", ...)` veya `gui.set(msg.url(), "textures", ...)` ile GUI'ye atanan harici dokular dahildir. Çok sayıda harici dokuyu değiştiren projelerde bu sınırın artırılması gerekebilir.
 
 
 ## Çalışma sırasında değiştirme

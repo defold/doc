@@ -36,7 +36,7 @@ Control rig and model functionality, or select None to exclude model and rig com
 
 ## Exclude Record
 
-Excluded the video recording capability from the engine (see the [`start_record`](https://defold.com/ref/stable/sys/#start_record) message documentation).
+Excluded the video recording capability from the engine (see the [`start_record`](https://defold.com/ref/sys/#start_record) message documentation).
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Exclude the [Live Update functionality](/manuals/live-update) from the engine.
 
 ## Exclude Image
 
-Exclude `image` script module [link](https://defold.com/ref/stable/image/) from the engine.
+Exclude `image` script module [link](https://defold.com/ref/image/) from the engine.
 
 
 ## Exclude Types
 
-Exclude `types` script module [link](https://defold.com/ref/stable/types/) from the engine.
+Exclude `types` script module [link](https://defold.com/ref/types/) from the engine.
 
 
 ## Exclude Basis Transcoder

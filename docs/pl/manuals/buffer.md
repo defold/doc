@@ -30,4 +30,4 @@ Powyższy przykład opisuje strumień pozycji w trzech wymiarach, zapisanych jak
 
 Zasoby Buffer są zazwyczaj tworzone przy użyciu zewnętrznych narzędzi lub skryptów, na przykład podczas eksportu z programów do modelowania, takich jak Blender.
 
-Zasób Buffer może być użyty jako dane wejściowe dla [komponentu Mesh](/manuals/mesh). Zasoby Buffer można też tworzyć w czasie działania przy użyciu `buffer.create()` oraz [powiązanych funkcji API](/ref/stable/buffer/#buffer.create:element_count-declaration).
+Zasób Buffer może być użyty jako dane wejściowe dla [komponentu Mesh](/manuals/mesh). Zasoby Buffer można też tworzyć w czasie działania przy użyciu `buffer.create()` oraz [powiązanych funkcji API](/ref/buffer/#buffer.create:element_count-declaration).

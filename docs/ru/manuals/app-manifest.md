@@ -35,7 +35,7 @@ brief: В этом руководстве описано, как использ�
 
 ## Exclude Record
 
-Исключает из движка возможность записи видео. См. документацию по сообщению [`start_record`](https://defold.com/ref/stable/sys/#start_record).
+Исключает из движка возможность записи видео. См. документацию по сообщению [`start_record`](https://defold.com/ref/sys/#start_record).
 
 ## Profiler
 
@@ -89,11 +89,11 @@ brief: В этом руководстве описано, как использ�
 
 ## Exclude Image
 
-Исключает из движка скриптовый модуль `image`: [документация](https://defold.com/ref/stable/image/).
+Исключает из движка скриптовый модуль `image`: [документация](https://defold.com/ref/image/).
 
 ## Exclude Types
 
-Исключает из движка скриптовый модуль `types`: [документация](https://defold.com/ref/stable/types/).
+Исключает из движка скриптовый модуль `types`: [документация](https://defold.com/ref/types/).
 
 ## Exclude Basis Transcoder
 

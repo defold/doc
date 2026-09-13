@@ -40,7 +40,7 @@ Ogni strumento consente di eseguire il debug su determinate piattaforme:
 
 ## Eseguire il debug tramite messaggi di stampa {#use-print-debugging}
 
-Il modo più semplice per eseguire il debug del codice nativo è usare [messaggi di stampa](http://en.wikipedia.org/wiki/Debugging#Techniques). Usa le funzioni del [namespace `dmLog`](/ref/stable/dmLog/) per osservare le variabili o indicare il flusso di esecuzione. Tutte le funzioni di log stampano nella vista *Console* dell'editor e nel [log del gioco](/manuals/debugging-game-and-system-logs).
+Il modo più semplice per eseguire il debug del codice nativo è usare [messaggi di stampa](http://en.wikipedia.org/wiki/Debugging#Techniques). Usa le funzioni del [namespace `dmLog`](/ref/dmLog/) per osservare le variabili o indicare il flusso di esecuzione. Tutte le funzioni di log stampano nella vista *Console* dell'editor e nel [log del gioco](/manuals/debugging-game-and-system-logs).
 
 
 ## Analizzare un log di crash {#analyze-a-crash-log}

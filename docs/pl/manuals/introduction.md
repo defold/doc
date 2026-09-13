@@ -24,7 +24,7 @@ Poświęciliśmy dużo czasu i pracy, aby kluczowe elementy procesu tworzenia gi
 - [**Przykłady**](/examples) - krótkie fragmenty kodu oraz małe, samodzielne przykłady funkcjonalności
 - [**Kursy**](/courses) - dłuższe, uporządkowane lekcje dostępne na Zenva, Udemy i tworzone przez społeczność
 - [**Wideo**](/videos) - jeśli wolisz oglądać, dostępnych jest wiele samouczków i przeglądów wideo
-- [**API**](/ref/stable/overview_defoldlua) - aktualną dokumentację wszystkich dostępnych funkcji i stałych
+- [**API**](/ref/overview_defoldlua) - aktualną dokumentację wszystkich dostępnych funkcji i stałych
 - [**FAQ**](/faq/faq) - odpowiedzi na najczęściej zadawane pytania; warto sprawdzić, czy twój problem nie został już rozwiązany
 
 Zachęcamy do eksperymentowania, przechodzenia samouczków, czytania podręczników i dokumentacji API oraz dołączenia do [kanałów społeczności](/community), aby zadawać pytania, uczyć się od innych użytkowników i śledzić rozwój Defold.

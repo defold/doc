@@ -35,7 +35,7 @@ Box2D 求解器设置因版本而异。详情请参阅 [Box2D 项目设置](/man
 
 ## 排除录制
 
-从引擎中排除视频录制功能（参见[`start_record`](https://defold.com/ref/stable/sys/#start_record)消息文档）。
+从引擎中排除视频录制功能（参见[`start_record`](https://defold.com/ref/sys/#start_record)消息文档）。
 
 ## 分析器 {#profiler}
 
@@ -89,11 +89,11 @@ App Manifest 设置控制是否将分析器代码链接到构建中。*game.proj
 
 ## 排除图像
 
-从引擎中排除`image`脚本模块[链接](https://defold.com/ref/stable/image/)。
+从引擎中排除`image`脚本模块[链接](https://defold.com/ref/image/)。
 
 ## 排除类型
 
-从引擎中排除`types`脚本模块[链接](https://defold.com/ref/stable/types/)。
+从引擎中排除`types`脚本模块[链接](https://defold.com/ref/types/)。
 
 ## 排除 Basis 转码器
 

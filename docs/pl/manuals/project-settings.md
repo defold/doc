@@ -170,7 +170,7 @@ To ustawienie dotyczy okna. Pozaekranowe [cele renderowania z wielokrotnym prób
 Zaznacz, jeśli aplikacja ma startować w trybie pełnoekranowym. Gdy pole nie jest zaznaczone, aplikacja uruchomi się w oknie.
 
 #### Update Frequency
-Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać zmiennej liczby klatek. Wartość większa od 0 powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
+Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać zmiennej liczby klatek. Wartość większa od 0 powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
 
 #### Swap interval
 Ta liczba całkowita steruje sposobem obsługi vsync. 0 wyłącza vsync, a wartością domyślną jest 1. Przy adapterze OpenGL wartość określa liczbę klatek pomiędzy [zamianami buforów](https://www.khronos.org/opengl/wiki/Swap_Interval). W przypadku Vulkana nie istnieje wbudowane pojęcie swap interval, więc wartość określa po prostu, czy vsync ma być włączony.

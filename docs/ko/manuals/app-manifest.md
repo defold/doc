@@ -36,7 +36,7 @@ Bullet 3D 물리 구현을 포함합니다. 기본적으로 포함되며, 3D 물
 
 ## Exclude Record
 
-엔진에서 비디오 녹화 기능을 제외합니다([`start_record`](https://defold.com/ref/stable/sys/#start_record) 메세지 문서를 참고하세요).
+엔진에서 비디오 녹화 기능을 제외합니다([`start_record`](https://defold.com/ref/sys/#start_record) 메세지 문서를 참고하세요).
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Ogg Opus 사운드 리소스 지원을 포함합니다. Opus decoder는 기본�
 
 ## Exclude Image
 
-엔진에서 `image` 스크립트 모듈 [link](https://defold.com/ref/stable/image/)를 제외합니다.
+엔진에서 `image` 스크립트 모듈 [link](https://defold.com/ref/image/)를 제외합니다.
 
 
 ## Exclude Types
 
-엔진에서 `types` 스크립트 모듈 [link](https://defold.com/ref/stable/types/)를 제외합니다.
+엔진에서 `types` 스크립트 모듈 [link](https://defold.com/ref/types/)를 제외합니다.
 
 
 ## Exclude Basis Transcoder

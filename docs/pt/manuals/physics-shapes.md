@@ -155,7 +155,7 @@ Formas de colisão em física 3D podem ser rotacionadas ao redor de todos os eix
 
 
 ## Rotacionando formas de colisão em física 2D
-Formas de colisão em física 2D só podem ser rotacionadas ao redor do eixo z. Rotação ao redor do eixo x ou y produzirá resultados incorretos e deve ser evitada, mesmo ao rotacionar 180 graus para essencialmente inverter a forma ao longo do eixo x ou y. Para inverter uma forma de física, é recomendado usar [`physics.set_hflip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) e [`physics.set_vflip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+Formas de colisão em física 2D só podem ser rotacionadas ao redor do eixo z. Rotação ao redor do eixo x ou y produzirá resultados incorretos e deve ser evitada, mesmo ao rotacionar 180 graus para essencialmente inverter a forma ao longo do eixo x ou y. Para inverter uma forma de física, é recomendado usar [`physics.set_hflip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) e [`physics.set_vflip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip).
 
 
 # Depuração

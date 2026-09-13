@@ -7,7 +7,7 @@ brief: Defold には 2D と 3D の物理エンジンが含まれています。�
 
 Defold には、2D 物理シミュレーション用の [Box2D](https://box2d.org/) と、3D 物理用の Bullet が含まれています。[App Manifest の Physics 2D 設定](/manuals/app-manifest/#physics-2d)で、**Box2D Version 3**、**Box2D (Legacy Defold version)**、**None** のいずれかを選択します。既定では従来の実装が使われ、Box2D 3 を使用するには明示的に選択する必要があります。実装を変更するとシミュレーション結果が変わることがあり、バージョン固有の [Box2D のプロジェクト設定](/manuals/project-settings/#box2d)を再調整する必要が生じる場合があります。
 
-これらのマニュアルで説明する、コンポーネント（component）を用いたコリジョンオブジェクト（collision object）の扱い方と `physics` モジュールは、どちらの Box2D 実装でも利用できます。**None** を選択すると、2D 物理が除外されます。Defold は、2D のボディ、形状、ジョイント（joint）、チェーン、ワールドに直接アクセスするための、より低水準の [`b2d`](/ref/stable/b2d/)、`b2d.body`、`b2d.fixture`、`b2d.shape`、`b2d.joint`、`b2d.chain`、`b2d.world` API も公開しています。すべての低水準関数が両方の Box2D 実装で利用できるわけではありません。各関数の生成された API ドキュメントを参照し、App Manifest で選択した実装で利用できるか確認してください。
+これらのマニュアルで説明する、コンポーネント（component）を用いたコリジョンオブジェクト（collision object）の扱い方と `physics` モジュールは、どちらの Box2D 実装でも利用できます。**None** を選択すると、2D 物理が除外されます。Defold は、2D のボディ、形状、ジョイント（joint）、チェーン、ワールドに直接アクセスするための、より低水準の [`b2d`](/ref/b2d/)、`b2d.body`、`b2d.fixture`、`b2d.shape`、`b2d.joint`、`b2d.chain`、`b2d.world` API も公開しています。すべての低水準関数が両方の Box2D 実装で利用できるわけではありません。各関数の生成された API ドキュメントを参照し、App Manifest で選択した実装で利用できるか確認してください。
 
 Defold で使用する物理エンジンの主な概念は次のとおりです。
 

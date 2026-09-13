@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-Du kannst [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:) verwenden, um den Pfad zu ermitteln, unter dem die Anwendung gespeichert ist. Verwende diesen Basispfad der Anwendung, um den vollständigen absoluten Pfad zu den Dateien zu bilden, auf die du zugreifen musst. Sobald du den absoluten Pfad dieser Dateien hast, kannst du mit den Funktionen `io.*` und `os.*` auf die Dateien zugreifen.
+Du kannst [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:) verwenden, um den Pfad zu ermitteln, unter dem die Anwendung gespeichert ist. Verwende diesen Basispfad der Anwendung, um den vollständigen absoluten Pfad zu den Dateien zu bilden, auf die du zugreifen musst. Sobald du den absoluten Pfad dieser Dateien hast, kannst du mit den Funktionen `io.*` und `os.*` auf die Dateien zugreifen.

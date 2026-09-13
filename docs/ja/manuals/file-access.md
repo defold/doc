@@ -9,7 +9,7 @@ brief: このマニュアルでは、ファイルの保存と読み込み、お�
 ## ファイルやフォルダーへのアクセスに使う関数 {#functions-for-file-and-folder-access}
 Defold には、ファイルを操作するためのさまざまな関数があります。
 
-* 標準の [`io.*` 関数](https://defold.com/ref/stable/io/) を使って、ファイルの読み取りと書き込みができます。これらの関数では、I/O 処理全体を非常に細かく制御できます。
+* 標準の [`io.*` 関数](https://defold.com/ref/io/) を使って、ファイルの読み取りと書き込みができます。これらの関数では、I/O 処理全体を非常に細かく制御できます。
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) と [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) を使って、ファイルの名前変更と削除ができます。
+* [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) と [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) を使って、ファイルの名前変更と削除ができます。
 
-* [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) と [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) を使って、Lua テーブルの読み取りと書き込みができます。ほかにも、プラットフォームに依存しないファイルパスの解決に役立つ [`sys.*`](https://defold.com/ref/stable/sys/) 関数があります。
+* [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) と [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) を使って、Lua テーブルの読み取りと書き込みができます。ほかにも、プラットフォームに依存しないファイルパスの解決に役立つ [`sys.*`](https://defold.com/ref/sys/) 関数があります。
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ print(data.highscore) -- 100
 * アプリケーションがアクセスする、システム固有のファイル
 
 ### アプリケーション固有のファイルを保存、読み込みする方法 {#how-to-save-and-load-application-specific-files}
-ハイスコア、ユーザー設定、ゲームの状態など、アプリケーション固有のファイルを保存、読み込みする際は、オペレーティングシステムがこの目的専用に提供する場所を使うことをお勧めします。[`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) を使うと、ファイルへの OS 固有の絶対パスを取得できます。絶対パスを取得したら、`sys.*`、`io.*`、`os.*` 関数を使えます（上記参照）。
+ハイスコア、ユーザー設定、ゲームの状態など、アプリケーション固有のファイルを保存、読み込みする際は、オペレーティングシステムがこの目的専用に提供する場所を使うことをお勧めします。[`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) を使うと、ファイルへの OS 固有の絶対パスを取得できます。絶対パスを取得したら、`sys.*`、`io.*`、`os.*` 関数を使えます（上記参照）。
 
 [`sys.save()` と `sys.load()` の使い方を示すサンプルを確認してください](/examples/file/sys_save_load/)。
 

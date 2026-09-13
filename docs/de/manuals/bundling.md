@@ -82,7 +82,7 @@ Auf diese Assets kannst du mit der Funktion [`sys.load_resource()`](https://defo
 Beim Erstellen eines Anwendungs-Bundles kannst du zwischen einem Debug- und einem Release-Bundle wählen. Die Unterschiede zwischen den beiden Bundles sind gering, du solltest sie jedoch beachten:
 
 * Release-Builds enthalten standardmäßig keinen [Profiler](/manuals/profiling). Setze **Profiler** auf **Always** im [Anwendungsmanifest](/manuals/app-manifest/#profiler), um die Profiler-Unterstützung sowohl in Debug- als auch in Release-Builds einzuschließen.
-* Release-Builds enthalten keine [Bildschirmaufnahmefunktion](/ref/stable/sys/#start_record)
+* Release-Builds enthalten keine [Bildschirmaufnahmefunktion](/ref/sys/#start_record)
 * Release-Builds zeigen weder die Ausgabe von Aufrufen von `print()` noch die Ausgabe nativer Erweiterungen an
 * Bei Release-Builds ist der Wert `is_debug` in `sys.get_engine_info()` auf `false` gesetzt
 * Release-Builds führen beim Aufruf von `tostring()` keine Rückwärtssuche für `hash`-Werte durch. In der Praxis bedeutet das, dass `tostring()` für einen Wert vom Typ `url` oder `hash` dessen numerische Darstellung statt der ursprünglichen Zeichenfolge zurückgibt (`'hash: [/camera_001]'` gegenüber `'hash: [11844936738040519888 (unknown)]'`)

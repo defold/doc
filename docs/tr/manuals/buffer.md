@@ -30,4 +30,4 @@ Yukarıdaki örnek, 32 bit kayan noktalı sayılarla temsil edilen üç boyutlu 
 
 Arabellek kaynakları genellikle harici araçlar veya betikler kullanılarak, örneğin Blender gibi modelleme araçlarından dışa aktarma sırasında oluşturulur. 
 
-Bir arabellek kaynağı, bir [örgü bileşeninin (Mesh component)](/manuals/mesh) girdisi olarak kullanılabilir. Arabellek kaynakları `buffer.create()` ve [ilgili API işlevleri](/ref/stable/buffer/#buffer.create:element_count-declaration) kullanılarak çalışma sırasında da oluşturulabilir. 
+Bir arabellek kaynağı, bir [örgü bileşeninin (Mesh component)](/manuals/mesh) girdisi olarak kullanılabilir. Arabellek kaynakları `buffer.create()` ve [ilgili API işlevleri](/ref/buffer/#buffer.create:element_count-declaration) kullanılarak çalışma sırasında da oluşturulabilir. 

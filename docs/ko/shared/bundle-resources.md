@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-어플리케이션이 저장된 위치의 경로를 얻으려면 [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:)를 사용할 수 있습니다. 이 어플리케이션 기본 경로를 사용해 액세스해야 하는 파일의 최종 절대 경로를 만드세요. 이 파일들의 절대 경로를 얻은 뒤에는 `io.*`와 `os.*` 함수를 사용해 파일에 액세스할 수 있습니다.
+어플리케이션이 저장된 위치의 경로를 얻으려면 [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:)를 사용할 수 있습니다. 이 어플리케이션 기본 경로를 사용해 액세스해야 하는 파일의 최종 절대 경로를 만드세요. 이 파일들의 절대 경로를 얻은 뒤에는 `io.*`와 `os.*` 함수를 사용해 파일에 액세스할 수 있습니다.

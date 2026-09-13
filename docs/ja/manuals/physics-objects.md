@@ -11,7 +11,7 @@ brief: コリジョンオブジェクトは、ゲームオブジェクトに物�
 : 静的オブジェクト（static object）は動きませんが、静的オブジェクトに衝突した動的オブジェクトは、跳ね返ったり滑ったりします。静的オブジェクトは、動かないレベルの地形（地面や壁など）を構築する際に非常に便利です。また、動的オブジェクトよりも処理負荷が低くなります。静的オブジェクトを移動したり、その他の変更を加えたりすることはできません。
 
 動的オブジェクト
-: 動的オブジェクト（dynamic object）は、物理エンジンによってシミュレーションされます。エンジンはすべての衝突を解決し、その結果生じる力を適用します。動的オブジェクトは、現実的な挙動が必要なオブジェクトに適しています。動的オブジェクトに影響を与える最も一般的な方法は、[力を適用する](/ref/physics/#apply_force)、角方向の[減衰](/ref/stable/physics/#angular_damping)と[速度](/ref/stable/physics/#linear_velocity)、直線方向の[減衰](/ref/stable/physics/#linear_damping)と[速度](/ref/stable/physics/#angular_velocity)を変更するなど、間接的に操作する方法です。*game.project* で [Allow Dynamic Transforms 設定](/manuals/project-settings/#allow-dynamic-transforms)が有効な場合は、動的オブジェクトの位置や向きを直接操作することもできます。
+: 動的オブジェクト（dynamic object）は、物理エンジンによってシミュレーションされます。エンジンはすべての衝突を解決し、その結果生じる力を適用します。動的オブジェクトは、現実的な挙動が必要なオブジェクトに適しています。動的オブジェクトに影響を与える最も一般的な方法は、[力を適用する](/ref/physics/#apply_force)、角方向の[減衰](/ref/physics/#angular_damping)と[速度](/ref/physics/#linear_velocity)、直線方向の[減衰](/ref/physics/#linear_damping)と[速度](/ref/physics/#angular_velocity)を変更するなど、間接的に操作する方法です。*game.project* で [Allow Dynamic Transforms 設定](/manuals/project-settings/#allow-dynamic-transforms)が有効な場合は、動的オブジェクトの位置や向きを直接操作することもできます。
 
 キネマティックオブジェクト
 : キネマティックオブジェクト（kinematic object）は、他の物理オブジェクトとの衝突を検出しますが、物理エンジンは自動的なシミュレーションを行いません。衝突を解決するか無視するかは、自分で処理する必要があります（[詳細はこちら](/manuals/physics-resolving-collisions)）。キネマティックオブジェクトは、プレイヤーキャラクターのように、プレイヤーやスクリプトで制御し、物理的な反応を細かく制御する必要があるオブジェクトに非常に適しています。

@@ -53,7 +53,7 @@ A: La lógica del juego en tu proyecto Defold está escrita principalmente en el
 
 #### Q: ¿Puedo usar C++ para escribir la lógica del juego?
 
-A: El soporte de C++ existe en Defold principalmente para escribir extensiones nativas que interactúan con SDKs de terceros o APIs específicas de plataforma. El [dmSDK](https://defold.com/ref/stable/dmGameObject/) (la API C++ de Defold usada en extensiones nativas) se ampliará gradualmente con más funcionalidad para que sea posible escribir toda la lógica del juego en C++ si un desarrollador lo desea. Lua seguirá siendo el lenguaje principal usado para la lógica del juego, pero con la API C++ ampliada también será posible escribir lógica de juego usando C++. El trabajo para ampliar la API C++ consiste principalmente en mover archivos header privados existentes a la sección pública y limpiar APIs para uso público.
+A: El soporte de C++ existe en Defold principalmente para escribir extensiones nativas que interactúan con SDKs de terceros o APIs específicas de plataforma. El [dmSDK](https://defold.com/ref/dmGameObject/) (la API C++ de Defold usada en extensiones nativas) se ampliará gradualmente con más funcionalidad para que sea posible escribir toda la lógica del juego en C++ si un desarrollador lo desea. Lua seguirá siendo el lenguaje principal usado para la lógica del juego, pero con la API C++ ampliada también será posible escribir lógica de juego usando C++. El trabajo para ampliar la API C++ consiste principalmente en mover archivos header privados existentes a la sección pública y limpiar APIs para uso público.
 
 
 #### Q: ¿Puedo usar TypeScript con Defold?
@@ -196,7 +196,7 @@ A: Si, lo hace. Son llamadas [colecciones](/manuals/building-blocks/#collections
 
 #### Q: No puedo agregar un objeto de juego como hijo de otro objeto de juego, ¿por qué?
 
-A: Probablemente sea que trataste de añadir un hijo en el archivo de objeto de juego y eso no es posible. Solo es posible en el archivo de colección. Para entender por qué, hay que recordar que las jerarquías padre-hijo son estrictamente una jerarquía de transformación del gráfico de la escena _(scene-graph_). Un objeto de juego que no se haya colocado (o aparecido) en una escena (colección) no es parte del gráfico de la escena y no puede ser parte de la jerarquía de éste. Puedes obtener un id del padre del objeto de juego usando [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
+A: Probablemente sea que trataste de añadir un hijo en el archivo de objeto de juego y eso no es posible. Solo es posible en el archivo de colección. Para entender por qué, hay que recordar que las jerarquías padre-hijo son estrictamente una jerarquía de transformación del gráfico de la escena _(scene-graph_). Un objeto de juego que no se haya colocado (o aparecido) en una escena (colección) no es parte del gráfico de la escena y no puede ser parte de la jerarquía de éste. Puedes obtener un id del padre del objeto de juego usando [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id).
 
 
 #### Q: ¿Por quéno puedo transmitir mensajes a todos los hijos de un objeto de juego?
@@ -259,7 +259,7 @@ A: En general todos los recursos están estadísticamente declarados con el bene
 
 #### Q: ¿Hay una forma de accesar a las propiedades de la forma de colisión de físicas?
 
-A: Sí, revisa la API de físicas, especialmente [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) y [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table).
+A: Sí, revisa la API de físicas, especialmente [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) y [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table).
 
 
 #### Q: ¿Hay alguna forma rápida de renderizar los objetos colisionadores en mi escena? (como Box2D's debugdraw)

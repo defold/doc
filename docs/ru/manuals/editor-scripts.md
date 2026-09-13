@@ -82,7 +82,7 @@ return M
 - `editor.ui.*` — различные функции, связанные с пользовательским интерфейсом. См. [UI manual](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — функции для работы с настройками редактора. См. раздел [preferences](#preferences).
 
-Полную документацию по API редактора можно найти [здесь](/ref/stable/editor/).
+Полную документацию по API редактора можно найти [здесь](/ref/editor/).
 
 ## Команды {#commands}
 

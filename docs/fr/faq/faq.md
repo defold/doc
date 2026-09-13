@@ -53,7 +53,7 @@ R : La logique du jeu de votre projet Defold est principalement écrite en Lua 
 
 #### Q : Puis-je utiliser C++ pour écrire la logique du jeu ? {#q-can-i-use-c-to-write-game-logic}
 
-R : La prise en charge de C++ dans Defold sert principalement à écrire des extensions natives qui interagissent avec des SDK tiers ou des API propres à une plateforme. Le [dmSDK](https://defold.com/ref/stable/dmGameObject/) (l'API C++ de Defold utilisée dans les extensions natives) sera progressivement enrichi de nouvelles fonctionnalités afin de permettre aux développeurs qui le souhaitent d'écrire toute la logique du jeu en C++. Lua restera le langage principal pour la logique du jeu, mais l'API C++ enrichie permettra également de l'écrire en C++. Le travail d'enrichissement de l'API C++ consiste surtout à déplacer les fichiers d'en-tête privés existants vers la partie publique et à remanier les API pour un usage public.
+R : La prise en charge de C++ dans Defold sert principalement à écrire des extensions natives qui interagissent avec des SDK tiers ou des API propres à une plateforme. Le [dmSDK](https://defold.com/ref/dmGameObject/) (l'API C++ de Defold utilisée dans les extensions natives) sera progressivement enrichi de nouvelles fonctionnalités afin de permettre aux développeurs qui le souhaitent d'écrire toute la logique du jeu en C++. Lua restera le langage principal pour la logique du jeu, mais l'API C++ enrichie permettra également de l'écrire en C++. Le travail d'enrichissement de l'API C++ consiste surtout à déplacer les fichiers d'en-tête privés existants vers la partie publique et à remanier les API pour un usage public.
 
 
 #### Q : Puis-je utiliser TypeScript avec Defold ? {#q-can-i-use-typescript-with-defold}
@@ -195,7 +195,7 @@ R : Oui. Ils sont appelés [collections](/manuals/building-blocks/#collections)
 
 #### Q : Je n'arrive pas à ajouter un objet de jeu comme enfant d'un autre objet de jeu. Pourquoi ? {#q-i-cant-add-a-game-object-as-a-child-to-another-game-object-why}
 
-R : Vous essayez probablement d'ajouter un enfant dans le fichier de l'objet de jeu, ce qui n'est pas possible. Cette opération n'est possible que dans le fichier de collection. Pour comprendre pourquoi, rappelez-vous que les hiérarchies parent-enfant sont strictement des hiérarchies de transformations du _graphe de scène_. Un objet de jeu qui n'a pas été placé (ou créé dynamiquement) dans une scène (collection) ne fait pas partie d'un graphe de scène et ne peut donc pas appartenir à une hiérarchie de graphe de scène. Vous pouvez obtenir l'identifiant du parent de l'objet de jeu à l'aide de [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
+R : Vous essayez probablement d'ajouter un enfant dans le fichier de l'objet de jeu, ce qui n'est pas possible. Cette opération n'est possible que dans le fichier de collection. Pour comprendre pourquoi, rappelez-vous que les hiérarchies parent-enfant sont strictement des hiérarchies de transformations du _graphe de scène_. Un objet de jeu qui n'a pas été placé (ou créé dynamiquement) dans une scène (collection) ne fait pas partie d'un graphe de scène et ne peut donc pas appartenir à une hiérarchie de graphe de scène. Vous pouvez obtenir l'identifiant du parent de l'objet de jeu à l'aide de [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id).
 
 
 #### Q : Pourquoi ne puis-je pas diffuser des messages à tous les enfants d'un objet de jeu ? {#q-why-cant-i-broadcast-messages-to-all-children-of-a-game-object}
@@ -258,7 +258,7 @@ R : En général, toutes les ressources sont déclarées statiquement, ce qui p
 
 #### Q : Existe-t-il un moyen d'accéder aux propriétés des formes de collision physiques ? {#q-is-there-a-way-to-access-the-physics-collision-shape-properties}
 
-R : Oui, consultez l'API de physique, en particulier [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) et [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table). 
+R : Oui, consultez l'API de physique, en particulier [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) et [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table). 
 
 
 #### Q : Existe-t-il un moyen rapide d'afficher les objets de collision de ma scène ? (comme l'affichage de débogage de Box2D) {#q-is-there-any-quick-way-to-render-the-collision-objects-in-my-scene-like-box2ds-debug-draw}

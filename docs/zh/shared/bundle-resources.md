@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-您可以使用 [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:) 来获取应用程序存储的路径。使用此应用程序基本路径来创建您需要访问的文件的最终绝对路径。一旦获得这些文件的绝对路径，您就可以使用 `io.*` 和 `os.*` 函数来访问这些文件。
+您可以使用 [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:) 来获取应用程序存储的路径。使用此应用程序基本路径来创建您需要访问的文件的最终绝对路径。一旦获得这些文件的绝对路径，您就可以使用 `io.*` 和 `os.*` 函数来访问这些文件。

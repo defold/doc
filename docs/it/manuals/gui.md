@@ -56,7 +56,7 @@ Selezionando il nodo radice "Gui" nella vista *Outline*, il pannello *Properties
 : Il numero massimo di nodi per questa GUI.
 
 *Max Dynamic Textures*
-: Il numero massimo di texture dinamiche gestite da questo componente GUI, `128` per impostazione predefinita. Include le texture create con [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) e le texture esterne assegnate alla GUI con `go.set(..., "textures", ...)` o `gui.set(msg.url(), "textures", ...)`. Nei progetti che sostituiscono molte texture esterne potrebbe essere necessario aumentare questo limite.
+: Il numero massimo di texture dinamiche gestite da questo componente GUI, `128` per impostazione predefinita. Include le texture create con [`gui.new_texture()`](/ref/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) e le texture esterne assegnate alla GUI con `go.set(..., "textures", ...)` o `gui.set(msg.url(), "textures", ...)`. Nei progetti che sostituiscono molte texture esterne potrebbe essere necessario aumentare questo limite.
 
 
 ## Modifiche durante l'esecuzione {#runtime-manipulation}

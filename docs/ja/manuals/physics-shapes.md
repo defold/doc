@@ -153,7 +153,7 @@ physics.set_shape("#collisionobject", "my_box_shape", box_data)
 
 
 ## 2D 物理でのコリジョン形状の回転 {#rotating-collision-shapes-in-2d-physics}
-2D 物理のコリジョン形状は、z 軸を中心にのみ回転できます。x 軸または y 軸を中心に回転すると誤った結果になるため、避けてください。形状を x 軸または y 軸に沿って実質的に反転させるために180度回転する場合も同様です。物理形状を反転するには、[`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) と [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip) の使用をお勧めします。
+2D 物理のコリジョン形状は、z 軸を中心にのみ回転できます。x 軸または y 軸を中心に回転すると誤った結果になるため、避けてください。形状を x 軸または y 軸に沿って実質的に反転させるために180度回転する場合も同様です。物理形状を反転するには、[`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) と [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip) の使用をお勧めします。
 
 
 # デバッグ {#debugging}

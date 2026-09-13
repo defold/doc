@@ -40,7 +40,7 @@ Cada herramienta puede depurar ciertas plataformas:
 
 ## Usar depuración con print {#use-print-debugging}
 
-La forma más simple de depurar tu código nativo es usar [depuración con print](http://en.wikipedia.org/wiki/Debugging#Techniques). Usa las funciones del [namespace `dmLog`](/ref/stable/dmLog/) para observar variables o indicar el flujo de ejecución. Usar cualquiera de las funciones de log imprimirá en la vista *Console* del editor y en el [log del juego](/manuals/debugging-game-and-system-logs).
+La forma más simple de depurar tu código nativo es usar [depuración con print](http://en.wikipedia.org/wiki/Debugging#Techniques). Usa las funciones del [namespace `dmLog`](/ref/dmLog/) para observar variables o indicar el flujo de ejecución. Usar cualquiera de las funciones de log imprimirá en la vista *Console* del editor y en el [log del juego](/manuals/debugging-game-and-system-logs).
 
 
 ## Analizar un log de crash {#analyze-a-crash-log}

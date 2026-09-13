@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-Profil çıkarıcı işlevleri hakkında daha fazla bilgi için [profil çıkarıcı API başvuru belgelerine](/ref/stable/profiler/) bakın.
+Profil çıkarıcı işlevleri hakkında daha fazla bilgi için [profil çıkarıcı API başvuru belgelerine](/ref/profiler/) bakın.
 
 ## Web profil çıkarıcısı
 Profil çıkarıcı desteği içeren bir masaüstü veya mobil derlemeyi çalıştırırken, etkileşimli kare ve kaynak profil çıkarıcılarına bir tarayıcı üzerinden erişebilirsiniz.

@@ -138,7 +138,7 @@ Playback
 
 ### Çalışma sırasında doku kaynağı oluşturma
 
-Yeni bir doku kaynağı oluşturmak için [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table) işlevini kullanın:
+Yeni bir doku kaynağı oluşturmak için [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table) işlevini kullanın:
 
 ```lua
   local params = {
@@ -150,7 +150,7 @@ Yeni bir doku kaynağı oluşturmak için [`resource.create_texture(path, params
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Doku oluşturulduktan sonra dokunun piksellerini ayarlamak için [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) işlevini kullanabilirsiniz:
+Doku oluşturulduktan sonra dokunun piksellerini ayarlamak için [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer) işlevini kullanabilirsiniz:
 
 ```lua
   local width = 128
@@ -184,7 +184,7 @@ Doku, `go.set()` kullanılarak doğrudan bir [model bileşeninde](/manuals/model
 
 ### Çalışma sırasında atlas oluşturma
 
-Dokunun bir [sprite bileşeninde](/manuals/sprite/) kullanılması için önce bir atlas tarafından kullanılması gerekir. Bir atlas oluşturmak için [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table) işlevini kullanın:
+Dokunun bir [sprite bileşeninde](/manuals/sprite/) kullanılması için önce bir atlas tarafından kullanılması gerekir. Bir atlas oluşturmak için [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table) işlevini kullanın:
 
 ```lua
   local params = {

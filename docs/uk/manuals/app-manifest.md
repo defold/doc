@@ -36,7 +36,7 @@ brief: У цьому посібнику описано, як за допомог
 
 ## Виключення запису відео (Exclude Record) {#exclude-record}
 
-Виключіть із рушія можливість запису відео (див. документацію повідомлення [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Виключіть із рушія можливість запису відео (див. документацію повідомлення [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Профайлер (Profiler) {#profiler}
@@ -98,12 +98,12 @@ brief: У цьому посібнику описано, як за допомог
 
 ## Виключення модуля image (Exclude Image) {#exclude-image}
 
-Виключіть із рушія модуль скриптів `image` ([посилання](https://defold.com/ref/stable/image/)).
+Виключіть із рушія модуль скриптів `image` ([посилання](https://defold.com/ref/image/)).
 
 
 ## Виключення модуля types (Exclude Types) {#exclude-types}
 
-Виключіть із рушія модуль скриптів `types` ([посилання](https://defold.com/ref/stable/types/)).
+Виключіть із рушія модуль скриптів `types` ([посилання](https://defold.com/ref/types/)).
 
 
 ## Виключення транскодера Basis (Exclude Basis Transcoder) {#exclude-basis-transcoder}

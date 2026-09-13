@@ -318,7 +318,7 @@ local instancing_supported = has_context_feature(
   ```
 
 `CONSTANT_TYPE_USER`
-: シェーダープログラムに渡す任意のカスタムデータに使える vector4 定数です。定数の定義で初期値を設定でき、[go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 関数で変更できます。[go.get()](/ref/stable/go/#go.get) で値を取得することもできます。単一のコンポーネントインスタンスのマテリアル定数を変更すると、[バッチ描画が分割され、追加のドローコールが発生します](/manuals/render/#draw-calls-and-batching)。
+: シェーダープログラムに渡す任意のカスタムデータに使える vector4 定数です。定数の定義で初期値を設定でき、[go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) 関数で変更できます。[go.get()](/ref/go/#go.get) で値を取得することもできます。単一のコンポーネントインスタンスのマテリアル定数を変更すると、[バッチ描画が分割され、追加のドローコールが発生します](/manuals/render/#draw-calls-and-batching)。
 
 例:
 
@@ -329,7 +329,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: シェーダープログラムに渡す任意のカスタムデータに使える matrix4 定数です。定数の定義で初期値を設定でき、[go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 関数で変更できます。[go.get()](/ref/stable/go/#go.get) で値を取得することもできます。単一のコンポーネントインスタンスのマテリアル定数を変更すると、[バッチ描画が分割され、追加のドローコールが発生します](/manuals/render/#draw-calls-and-batching)。
+: シェーダープログラムに渡す任意のカスタムデータに使える matrix4 定数です。定数の定義で初期値を設定でき、[go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) 関数で変更できます。[go.get()](/ref/go/#go.get) で値を取得することもできます。単一のコンポーネントインスタンスのマテリアル定数を変更すると、[バッチ描画が分割され、追加のドローコールが発生します](/manuals/render/#draw-calls-and-batching)。
 
 例:
 

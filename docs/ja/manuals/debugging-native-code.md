@@ -40,7 +40,7 @@ Defold は十分にテストされており、通常の状況でクラッシュ�
 
 ## プリントデバッグの使用 {#use-print-debugging}
 
-ネイティブコードをデバッグする最も簡単な方法は、[プリントデバッグ](http://en.wikipedia.org/wiki/Debugging#Techniques)を使うことです。[`dmLog` 名前空間](/ref/stable/dmLog/)の関数を使って、変数を監視したり、実行の流れを示したりできます。いずれのログ関数を使っても、エディターの *Console* ビューと[ゲームログ](/manuals/debugging-game-and-system-logs)に出力されます。
+ネイティブコードをデバッグする最も簡単な方法は、[プリントデバッグ](http://en.wikipedia.org/wiki/Debugging#Techniques)を使うことです。[`dmLog` 名前空間](/ref/dmLog/)の関数を使って、変数を監視したり、実行の流れを示したりできます。いずれのログ関数を使っても、エディターの *Console* ビューと[ゲームログ](/manuals/debugging-game-and-system-logs)に出力されます。
 
 
 ## クラッシュログの解析 {#analyze-a-crash-log}

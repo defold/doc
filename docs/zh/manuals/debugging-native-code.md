@@ -40,7 +40,7 @@ Defold 经过充分测试，在正常情况下应该很少崩溃。然而，无�
 
 ## 使用打印调试
 
-调试原生代码的最简单方法是使用 [打印调试](http://en.wikipedia.org/wiki/Debugging#Techniques)。使用 [`dmLog` 命名空间](/ref/stable/dmLog/) 中的函数来观察变量或指示执行流程。使用任何日志函数都会在编辑器的 *控制台* 视图和 [游戏日志](/manuals/debugging-game-and-system-logs) 中打印输出。
+调试原生代码的最简单方法是使用 [打印调试](http://en.wikipedia.org/wiki/Debugging#Techniques)。使用 [`dmLog` 命名空间](/ref/dmLog/) 中的函数来观察变量或指示执行流程。使用任何日志函数都会在编辑器的 *控制台* 视图和 [游戏日志](/manuals/debugging-game-and-system-logs) 中打印输出。
 
 
 ## 分析崩溃日志

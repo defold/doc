@@ -318,7 +318,7 @@ Le costanti degli shader, o "uniform", sono valori passati dal motore ai program
   ```
 
 `CONSTANT_TYPE_USER`
-: Una costante vector4 che puoi usare per qualsiasi dato personalizzato da passare ai programmi shader. Puoi impostare il valore iniziale della costante nella sua definizione e modificarlo tramite le funzioni [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Puoi anche recuperare il valore con [go.get()](/ref/stable/go/#go.get). Modificare una costante del materiale di una singola istanza di componente [interrompe il raggruppamento del rendering e genera chiamate di disegno aggiuntive](/manuals/render/#draw-calls-and-batching).
+: Una costante vector4 che puoi usare per qualsiasi dato personalizzato da passare ai programmi shader. Puoi impostare il valore iniziale della costante nella sua definizione e modificarlo tramite le funzioni [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). Puoi anche recuperare il valore con [go.get()](/ref/go/#go.get). Modificare una costante del materiale di una singola istanza di componente [interrompe il raggruppamento del rendering e genera chiamate di disegno aggiuntive](/manuals/render/#draw-calls-and-batching).
 
 Esempio:
 
@@ -329,7 +329,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: Una costante matrix4 che puoi usare per qualsiasi dato personalizzato da passare ai programmi shader. Puoi impostare il valore iniziale della costante nella sua definizione e modificarlo tramite le funzioni [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Puoi anche recuperare il valore con [go.get()](/ref/stable/go/#go.get). Modificare una costante del materiale di una singola istanza di componente [interrompe il raggruppamento del rendering e genera chiamate di disegno aggiuntive](/manuals/render/#draw-calls-and-batching).
+: Una costante matrix4 che puoi usare per qualsiasi dato personalizzato da passare ai programmi shader. Puoi impostare il valore iniziale della costante nella sua definizione e modificarlo tramite le funzioni [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). Puoi anche recuperare il valore con [go.get()](/ref/go/#go.get). Modificare una costante del materiale di una singola istanza di componente [interrompe il raggruppamento del rendering e genera chiamate di disegno aggiuntive](/manuals/render/#draw-calls-and-batching).
 
 Esempio:
 

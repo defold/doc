@@ -5,7 +5,7 @@ brief: 이 매뉴얼은 Lua를 사용해 에디터에서 UI 요소를 만드는 
 
 # 에디터 스크립트와 UI {#editor-scripts-and-ui}
 
-이 매뉴얼은 Lua로 작성한 에디터 스크립트를 사용해 에디터에서 상호작용형 대화상자를 만들고 리소스를 여는 방법을 설명합니다. 에디터 스크립트를 시작하려면 [에디터 스크립트 매뉴얼](/manuals/editor-scripts)을 참고하세요. 전체 에디터 API 레퍼런스는 [여기](/ref/stable/editor-lua/)에서 볼 수 있습니다.
+이 매뉴얼은 Lua로 작성한 에디터 스크립트를 사용해 에디터에서 상호작용형 대화상자를 만들고 리소스를 여는 방법을 설명합니다. 에디터 스크립트를 시작하려면 [에디터 스크립트 매뉴얼](/manuals/editor-scripts)을 참고하세요. 전체 에디터 API 레퍼런스는 [여기](/ref/editor-lua/)에서 볼 수 있습니다.
 
 ## Hello world {#hello-world}
 

@@ -53,7 +53,7 @@ A: Defold 프로젝트의 게임 로직은 주로 Lua 언어로 작성합니다.
 
 #### Q: C++로 게임 로직을 작성할 수 있나요?
 
-A: Defold의 C++ 지원은 주로 서드파티 SDK나 플랫폼별 API와 연동하는 네이티브 익스텐션을 작성하기 위한 것입니다. [dmSDK](https://defold.com/ref/stable/dmGameObject/)(네이티브 익스텐션에서 사용하는 Defold용 C++ API)는 점진적으로 더 많은 기능이 추가될 예정이며, 개발자가 원한다면 모든 게임 로직을 C++로 작성할 수 있게 하는 것이 목표입니다. Lua는 여전히 게임 로직에 사용하는 주 언어로 남겠지만, 확장된 C++ API를 통해 C++로도 게임 로직을 작성할 수 있게 됩니다. C++ API 확장 작업은 주로 기존 private 헤더 파일을 public 섹션으로 옮기고, public 사용에 맞게 API를 정리하는 작업입니다.
+A: Defold의 C++ 지원은 주로 서드파티 SDK나 플랫폼별 API와 연동하는 네이티브 익스텐션을 작성하기 위한 것입니다. [dmSDK](https://defold.com/ref/dmGameObject/)(네이티브 익스텐션에서 사용하는 Defold용 C++ API)는 점진적으로 더 많은 기능이 추가될 예정이며, 개발자가 원한다면 모든 게임 로직을 C++로 작성할 수 있게 하는 것이 목표입니다. Lua는 여전히 게임 로직에 사용하는 주 언어로 남겠지만, 확장된 C++ API를 통해 C++로도 게임 로직을 작성할 수 있게 됩니다. C++ API 확장 작업은 주로 기존 private 헤더 파일을 public 섹션으로 옮기고, public 사용에 맞게 API를 정리하는 작업입니다.
 
 
 #### Q: Defold에서 TypeScript를 사용할 수 있나요?
@@ -195,7 +195,7 @@ A: 예, 지원합니다. Defold에서는 이를 [컬렉션](/manuals/building-bl
 
 #### Q: 한 게임 오브젝트를 다른 게임 오브젝트의 자식으로 추가할 수 없는 이유는 무엇인가요?
 
-A: 게임 오브젝트 파일 안에서 자식을 추가하려고 했을 가능성이 큽니다. 이는 불가능합니다. 컬렉션 파일 안에서만 가능합니다. 이유를 이해하려면 부모-자식 계층구조가 엄격히 _씬 그래프(scene graph)_ 변형 계층구조라는 점을 기억해야 합니다. 씬(컬렉션)에 배치되거나 스폰되지 않은 게임 오브젝트는 씬 그래프의 일부가 아니므로 씬 그래프 계층구조의 일부가 될 수 없습니다. [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id)를 사용하면 게임 오브젝트의 부모 id를 얻을 수 있습니다.
+A: 게임 오브젝트 파일 안에서 자식을 추가하려고 했을 가능성이 큽니다. 이는 불가능합니다. 컬렉션 파일 안에서만 가능합니다. 이유를 이해하려면 부모-자식 계층구조가 엄격히 _씬 그래프(scene graph)_ 변형 계층구조라는 점을 기억해야 합니다. 씬(컬렉션)에 배치되거나 스폰되지 않은 게임 오브젝트는 씬 그래프의 일부가 아니므로 씬 그래프 계층구조의 일부가 될 수 없습니다. [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id)를 사용하면 게임 오브젝트의 부모 id를 얻을 수 있습니다.
 
 
 #### Q: 왜 게임 오브젝트의 모든 자식에게 메세지를 브로드캐스트할 수 없나요?
@@ -258,7 +258,7 @@ A: 일반적으로 모든 리소스는 정적으로 선언되며, 그 덕분에 
 
 #### Q: 물리 충돌 모형 프로퍼티에 액세스할 수 있는 방법이 있나요?
 
-A: 예, physics API를 확인하세요. 특히 [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape)와 [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table)를 참고하세요.
+A: 예, physics API를 확인하세요. 특히 [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape)와 [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table)를 참고하세요.
 
 
 #### Q: 씬에서 충돌 오브젝트를 빠르게 렌더링할 방법이 있나요? (Box2D의 debug draw처럼)

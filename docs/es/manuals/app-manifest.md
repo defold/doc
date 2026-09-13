@@ -36,7 +36,7 @@ Controla la funcionalidad de rig y modelo, o selecciona None para excluir por co
 
 ## Excluir grabación (`Exclude Record`)
 
-Excluye la capacidad de grabación de video del motor (consulta la documentación del mensaje [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Excluye la capacidad de grabación de video del motor (consulta la documentación del mensaje [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profiler {#profiler}
@@ -98,12 +98,12 @@ Excluye la [funcionalidad Live Update](/manuals/live-update) del motor.
 
 ## Excluir módulo `image` (`Exclude Image`)
 
-Excluye del motor el módulo de script `image` [enlace](https://defold.com/ref/stable/image/).
+Excluye del motor el módulo de script `image` [enlace](https://defold.com/ref/image/).
 
 
 ## Excluir módulo `types` (`Exclude Types`)
 
-Excluye del motor el módulo de script `types` [enlace](https://defold.com/ref/stable/types/).
+Excluye del motor el módulo de script `types` [enlace](https://defold.com/ref/types/).
 
 
 ## Excluir transcodificador Basis (`Exclude Basis Transcoder`)

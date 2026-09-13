@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-Uygulamanın depolandığı konumun yolunu almak için [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:) işlevini kullanabilirsiniz. Erişmeniz gereken dosyaların nihai mutlak yolunu oluşturmak için bu uygulama temel yolunu kullanın. Bu dosyaların mutlak yolunu elde ettikten sonra dosyalara erişmek için `io.*` ve `os.*` işlevlerini kullanabilirsiniz.
+Uygulamanın depolandığı konumun yolunu almak için [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:) işlevini kullanabilirsiniz. Erişmeniz gereken dosyaların nihai mutlak yolunu oluşturmak için bu uygulama temel yolunu kullanın. Bu dosyaların mutlak yolunu elde ettikten sonra dosyalara erişmek için `io.*` ve `os.*` işlevlerini kullanabilirsiniz.

@@ -153,7 +153,7 @@ Kollisionsformen in der 3D-Physik können um alle Achsen gedreht werden.
 
 
 ## Kollisionsformen in der 2D-Physik drehen {#rotating-collision-shapes-in-2d-physics}
-Kollisionsformen in der 2D-Physik können nur um die z-Achse gedreht werden. Eine Drehung um die x- oder y-Achse führt zu falschen Ergebnissen und sollte vermieden werden, auch wenn die Drehung um 180 Grad die Form im Wesentlichen entlang der x- oder y-Achse spiegelt. Um eine Physikform zu spiegeln, wird empfohlen, [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) und [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip) zu verwenden.
+Kollisionsformen in der 2D-Physik können nur um die z-Achse gedreht werden. Eine Drehung um die x- oder y-Achse führt zu falschen Ergebnissen und sollte vermieden werden, auch wenn die Drehung um 180 Grad die Form im Wesentlichen entlang der x- oder y-Achse spiegelt. Um eine Physikform zu spiegeln, wird empfohlen, [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) und [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip) zu verwenden.
 
 
 # Fehlersuche {#debugging}

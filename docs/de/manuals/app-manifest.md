@@ -36,7 +36,7 @@ Steuere die Funktionalität von Rigs und Modellen (models), oder wähle None aus
 
 ## Exclude Record
 
-Schließt die Videoaufnahmefunktion aus der Engine aus (siehe die Dokumentation zur Nachricht [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Schließt die Videoaufnahmefunktion aus der Engine aus (siehe die Dokumentation zur Nachricht [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Schließt die [Live-Update-Funktionalität](/manuals/live-update) aus der Engine
 
 ## Exclude Image
 
-Schließt das Skriptmodul `image` aus der Engine aus ([Link](https://defold.com/ref/stable/image/)).
+Schließt das Skriptmodul `image` aus der Engine aus ([Link](https://defold.com/ref/image/)).
 
 
 ## Exclude Types
 
-Schließt das Skriptmodul `types` aus der Engine aus ([Link](https://defold.com/ref/stable/types/)).
+Schließt das Skriptmodul `types` aus der Engine aus ([Link](https://defold.com/ref/types/)).
 
 
 ## Exclude Basis Transcoder

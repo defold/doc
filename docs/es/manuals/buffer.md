@@ -30,4 +30,4 @@ El ejemplo anterior describe un flujo de posiciones en tres dimensiones, represe
 
 Los recursos Buffer suelen crearse usando herramientas o scripts externos, por ejemplo al exportar desde herramientas de modelado como Blender.
 
-Un recurso Buffer puede usarse como entrada de un [componente Mesh](/manuals/mesh). Los recursos Buffer también pueden crearse en tiempo de ejecución usando `buffer.create()` y [funciones de API relacionadas](/ref/stable/buffer/#buffer.create:element_count-declaration).
+Un recurso Buffer puede usarse como entrada de un [componente Mesh](/manuals/mesh). Los recursos Buffer también pueden crearse en tiempo de ejecución usando `buffer.create()` y [funciones de API relacionadas](/ref/buffer/#buffer.create:element_count-declaration).

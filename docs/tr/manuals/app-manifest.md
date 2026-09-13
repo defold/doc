@@ -36,7 +36,7 @@ Bullet 3B fizik uygulamasını dahil edin. Varsayılan olarak dahildir; 3B fizi�
 
 ## Exclude Record
 
-Video kaydetme özelliğini motordan çıkarın ([`start_record`](https://defold.com/ref/stable/sys/#start_record) iletisinin belgelerine bakın).
+Video kaydetme özelliğini motordan çıkarın ([`start_record`](https://defold.com/ref/sys/#start_record) iletisinin belgelerine bakın).
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Karo haritası (tilemap) kaynaklarını, bileşenlerini ve `tilemap` Lua modül�
 
 ## Exclude Image
 
-`image` betik modülünü ([belgeler](https://defold.com/ref/stable/image/)) motordan çıkarın.
+`image` betik modülünü ([belgeler](https://defold.com/ref/image/)) motordan çıkarın.
 
 
 ## Exclude Types
 
-`types` betik modülünü ([belgeler](https://defold.com/ref/stable/types/)) motordan çıkarın.
+`types` betik modülünü ([belgeler](https://defold.com/ref/types/)) motordan çıkarın.
 
 
 ## Exclude Basis Transcoder

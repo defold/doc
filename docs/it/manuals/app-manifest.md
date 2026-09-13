@@ -36,7 +36,7 @@ Controlla le funzionalità di rig e modelli, oppure seleziona None per escludere
 
 ## Exclude Record
 
-Esclude dal motore la funzionalità di registrazione video (consulta la documentazione del messaggio [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Esclude dal motore la funzionalità di registrazione video (consulta la documentazione del messaggio [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Esclude dal motore la [funzionalità Live Update](/manuals/live-update).
 
 ## Exclude Image
 
-Esclude dal motore il modulo di script `image` [collegamento](https://defold.com/ref/stable/image/).
+Esclude dal motore il modulo di script `image` [collegamento](https://defold.com/ref/image/).
 
 
 ## Exclude Types
 
-Esclude dal motore il modulo di script `types` [collegamento](https://defold.com/ref/stable/types/).
+Esclude dal motore il modulo di script `types` [collegamento](https://defold.com/ref/types/).
 
 
 ## Exclude Basis Transcoder

@@ -5,7 +5,7 @@ brief: Este manual explica cómo crear elementos de interfaz en el editor usando
 
 # Scripts del editor e interfaz
 
-Este manual explica cómo crear diálogos interactivos y abrir recursos en el editor usando scripts del editor escritos en Lua. Para empezar con los scripts del editor, consulta el [manual de scripts del editor](/manuals/editor-scripts). Puedes encontrar la referencia completa de la API del editor [aquí](/ref/stable/editor-lua/).
+Este manual explica cómo crear diálogos interactivos y abrir recursos en el editor usando scripts del editor escritos en Lua. Para empezar con los scripts del editor, consulta el [manual de scripts del editor](/manuals/editor-scripts). Puedes encontrar la referencia completa de la API del editor [aquí](/ref/editor-lua/).
 
 ## Hola mundo
 

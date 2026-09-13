@@ -138,7 +138,7 @@ Playback
 
 ### 実行時のテクスチャリソースの作成 {#creating-a-texture-resource-at-runtime}
 
-[`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table) を使って、新しいテクスチャリソースを作成します。
+[`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table) を使って、新しいテクスチャリソースを作成します。
 
 ```lua
   local params = {
@@ -150,7 +150,7 @@ Playback
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-テクスチャを作成したら、[`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) を使ってテクスチャのピクセルを設定できます。
+テクスチャを作成したら、[`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer) を使ってテクスチャのピクセルを設定できます。
 
 ```lua
   local width = 128
@@ -184,7 +184,7 @@ Playback
 
 ### 実行時のアトラスの作成 {#creating-an-atlas-at-runtime}
 
-テクスチャを [スプライトコンポーネント](/manuals/sprite/) で使用するには、先にアトラスでそのテクスチャを使う必要があります。[`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table) を使ってアトラスを作成します。
+テクスチャを [スプライトコンポーネント](/manuals/sprite/) で使用するには、先にアトラスでそのテクスチャを使う必要があります。[`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table) を使ってアトラスを作成します。
 
 ```lua
   local params = {

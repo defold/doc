@@ -11,7 +11,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 : 정적 오브젝트는 절대 움직이지 않지만, 정적 오브젝트와 충돌하는 동적 오브젝트는 튕기거나 미끄러지는 방식으로 반응합니다. 정적 오브젝트는 움직이지 않는 레벨 지오메트리(예: 바닥과 벽)를 만드는 데 매우 유용합니다. 또한 성능 면에서 동적 오브젝트보다 비용이 낮습니다. 정적 오브젝트는 이동하거나 다른 방식으로 변경할 수 없습니다.
 
 동적 오브젝트
-: 동적 오브젝트는 물리 엔진이 시뮬레이션합니다. 엔진은 모든 충돌을 해결하고 그 결과로 생기는 힘을 적용합니다. 동적 오브젝트는 사실적으로 동작해야 하는 오브젝트에 적합합니다. 동적 오브젝트에 영향을 주는 가장 일반적인 방법은 [힘을 적용](/ref/physics/#apply_force)하거나 각 [감쇠](/ref/stable/physics/#angular_damping) 및 [속도](/ref/stable/physics/#linear_velocity), 선형 [감쇠](/ref/stable/physics/#linear_damping) 및 [속도](/ref/stable/physics/#angular_velocity)를 변경하는 식으로 간접적으로 조작하는 것입니다. *game.project*에서 [Allow Dynamic Transforms 설정](/manuals/project-settings/#allow-dynamic-transforms)이 활성화되어 있으면 동적 오브젝트의 위치와 방향을 직접 조작할 수도 있습니다.
+: 동적 오브젝트는 물리 엔진이 시뮬레이션합니다. 엔진은 모든 충돌을 해결하고 그 결과로 생기는 힘을 적용합니다. 동적 오브젝트는 사실적으로 동작해야 하는 오브젝트에 적합합니다. 동적 오브젝트에 영향을 주는 가장 일반적인 방법은 [힘을 적용](/ref/physics/#apply_force)하거나 각 [감쇠](/ref/physics/#angular_damping) 및 [속도](/ref/physics/#linear_velocity), 선형 [감쇠](/ref/physics/#linear_damping) 및 [속도](/ref/physics/#angular_velocity)를 변경하는 식으로 간접적으로 조작하는 것입니다. *game.project*에서 [Allow Dynamic Transforms 설정](/manuals/project-settings/#allow-dynamic-transforms)이 활성화되어 있으면 동적 오브젝트의 위치와 방향을 직접 조작할 수도 있습니다.
 
 키네마틱 오브젝트
 : 키네마틱 오브젝트는 다른 물리 오브젝트와의 충돌을 등록하지만, 물리 엔진은 자동 시뮬레이션을 수행하지 않습니다. 충돌을 해결하거나 무시하는 작업은 사용자에게 맡겨져 있습니다([자세히 알아보기](/manuals/physics-resolving-collisions)). 키네마틱 오브젝트는 플레이어 캐릭터처럼 물리 반응을 세밀하게 제어해야 하는 플레이어 또는 스크립트 제어 오브젝트에 매우 적합합니다.

@@ -5,7 +5,7 @@ brief: Ce manuel explique comment créer des éléments d'interface utilisateur 
 
 # Scripts de l'éditeur et interface utilisateur {#editor-scripts-and-ui}
 
-Ce manuel explique comment créer des boîtes de dialogue interactives et ouvrir des ressources dans l'éditeur à l'aide de scripts d'éditeur écrits en Lua. Pour commencer avec les scripts d'éditeur, consultez le [manuel des scripts d'éditeur](/manuals/editor-scripts). La référence complète de l'API de l'éditeur se trouve [ici](/ref/stable/editor-lua/).
+Ce manuel explique comment créer des boîtes de dialogue interactives et ouvrir des ressources dans l'éditeur à l'aide de scripts d'éditeur écrits en Lua. Pour commencer avec les scripts d'éditeur, consultez le [manuel des scripts d'éditeur](/manuals/editor-scripts). La référence complète de l'API de l'éditeur se trouve [ici](/ref/editor-lua/).
 
 ## Bonjour tout le monde {#hello-world}
 

@@ -5,7 +5,7 @@ brief: Questo manuale spiega come leggere i log di gioco e di sistema.
 
 # Log di gioco e di sistema {#game-and-system-log}
 
-Il log di gioco mostra tutto l'output del motore, delle estensioni native e della logica del tuo gioco. Puoi usare i comandi [print()](/ref/stable/base/#print:...) e [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) negli script e nei moduli Lua per mostrare informazioni nel log di gioco. Puoi usare le funzioni del [namespace `dmLog`](/ref/stable/dmLog/) per scrivere nel log di gioco dalle estensioni native. Puoi leggere il log di gioco dall'editor, da una finestra del terminale, con strumenti specifici della piattaforma o da un file di log.
+Il log di gioco mostra tutto l'output del motore, delle estensioni native e della logica del tuo gioco. Puoi usare i comandi [print()](/ref/base/#print:...) e [pprint()](/ref/builtins/?q=pprint#pprint:v) negli script e nei moduli Lua per mostrare informazioni nel log di gioco. Puoi usare le funzioni del [namespace `dmLog`](/ref/dmLog/) per scrivere nel log di gioco dalle estensioni native. Puoi leggere il log di gioco dall'editor, da una finestra del terminale, con strumenti specifici della piattaforma o da un file di log.
 
 I log di sistema sono generati dal sistema operativo e possono fornire ulteriori informazioni utili per individuare un problema. Possono contenere tracce dello stack in caso di crash e avvisi di memoria insufficiente.
 

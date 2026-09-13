@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-Consulta la [referencia de la API del profiler](/ref/stable/profiler/) para obtener más información sobre las funciones del profiler.
+Consulta la [referencia de la API del profiler](/ref/profiler/) para obtener más información sobre las funciones del profiler.
 
 ## El profiler web
 Mientras se ejecuta una build de escritorio o móvil que incluya soporte para el profiler, se puede acceder desde un navegador a profilers interactivos de frames y recursos.

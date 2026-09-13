@@ -173,7 +173,7 @@ Esta configuración controla la ventana. Los [render targets con multimuestreo](
 Marca esta opción si la aplicación debe iniciar en pantalla completa. Si no está marcada, la aplicación se ejecuta en una ventana.
 
 #### Update Frequency
-La tasa de frames deseada en Hertz. Define 0 para una tasa de frames variable. Un valor mayor que 0 dará como resultado una tasa de frames fija limitada en runtime hacia la tasa de frames real (lo que significa que no puedes actualizar el loop del juego dos veces en un frame del motor). Usa [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) para cambiar este valor en runtime. Esta configuración también funciona en builds headless.
+La tasa de frames deseada en Hertz. Define 0 para una tasa de frames variable. Un valor mayor que 0 dará como resultado una tasa de frames fija limitada en runtime hacia la tasa de frames real (lo que significa que no puedes actualizar el loop del juego dos veces en un frame del motor). Usa [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) para cambiar este valor en runtime. Esta configuración también funciona en builds headless.
 
 #### Swap interval
 Este valor entero controla cómo la aplicación gestiona vsync. 0 desactiva vsync, y el valor predeterminado es 1. Al usar un adaptador OpenGL, este valor define el número de frames que la ventana debe [actualizar entre intercambios de buffer](https://www.khronos.org/opengl/wiki/Swap_Interval). Para Vulkan no existe un concepto integrado de swap interval; en su lugar, el valor controla si vsync debe estar activado o no.

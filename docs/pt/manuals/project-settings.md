@@ -173,7 +173,7 @@ Esta configuração controla a janela. [Alvos de renderização com múltiplas a
 Marque se a aplicação deve iniciar em tela cheia. Se desmarcado, a aplicação roda em janela.
 
 #### Update Frequency
-A taxa de quadros desejada em Hertz. Defina como 0 para taxa de quadros variável. Um valor maior que 0 resultará em uma taxa de quadros fixa, limitada em tempo de execução em relação à taxa de quadros real (o que significa que você não pode atualizar o loop do jogo duas vezes em um frame da engine). Use [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) para alterar esse valor em tempo de execução. Essa configuração também funciona em builds headless.
+A taxa de quadros desejada em Hertz. Defina como 0 para taxa de quadros variável. Um valor maior que 0 resultará em uma taxa de quadros fixa, limitada em tempo de execução em relação à taxa de quadros real (o que significa que você não pode atualizar o loop do jogo duas vezes em um frame da engine). Use [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) para alterar esse valor em tempo de execução. Essa configuração também funciona em builds headless.
 
 #### Swap interval
 Este valor inteiro controla como a aplicação lida com vsync. 0 desabilita vsync, e o valor padrão é 1. Ao usar um adaptador OpenGL, esse valor define o número de frames entre [trocas de buffer](https://www.khronos.org/opengl/wiki/Swap_Interval) da janela. Para Vulkan, não há conceito integrado de swap interval; em vez disso, o valor controla se vsync deve ser habilitado ou não.

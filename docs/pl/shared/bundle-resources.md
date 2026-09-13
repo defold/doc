@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-Możesz użyć [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:) do pobrania ścieżki do katalogu, w którym znajduje się aplikacja. Użyj tej bazowej ścieżki aplikacji, aby zbudować końcową ścieżkę bezwzględną do plików, do których chcesz uzyskać dostęp. Gdy już znasz bezwzględną ścieżkę do tych plików, możesz użyć funkcji `io.*` i `os.*`, aby uzyskać do nich dostęp.
+Możesz użyć [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:) do pobrania ścieżki do katalogu, w którym znajduje się aplikacja. Użyj tej bazowej ścieżki aplikacji, aby zbudować końcową ścieżkę bezwzględną do plików, do których chcesz uzyskać dostęp. Gdy już znasz bezwzględną ścieżkę do tych plików, możesz użyć funkcji `io.*` i `os.*`, aby uzyskać do nich dostęp.

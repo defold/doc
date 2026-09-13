@@ -56,7 +56,7 @@ Wenn du den Wurzelknoten „Gui“ in der Ansicht *Outline* auswählst, zeigt *P
 : Die maximale Anzahl der Knoten für diese GUI.
 
 *Max Dynamic Textures*
-: Die maximale Anzahl dynamischer Texturen, die diese GUI-Komponente verwaltet, standardmäßig `128`. Dazu gehören Texturen, die mit [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) erstellt werden, sowie externe Texturen, die der GUI mit `go.set(..., "textures", ...)` oder `gui.set(msg.url(), "textures", ...)` zugewiesen werden. Projekte, die viele externe Texturen ersetzen, müssen diesen Grenzwert möglicherweise erhöhen.
+: Die maximale Anzahl dynamischer Texturen, die diese GUI-Komponente verwaltet, standardmäßig `128`. Dazu gehören Texturen, die mit [`gui.new_texture()`](/ref/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) erstellt werden, sowie externe Texturen, die der GUI mit `go.set(..., "textures", ...)` oder `gui.set(msg.url(), "textures", ...)` zugewiesen werden. Projekte, die viele externe Texturen ersetzen, müssen diesen Grenzwert möglicherweise erhöhen.
 
 
 ## Änderungen zur Laufzeit {#runtime-manipulation}

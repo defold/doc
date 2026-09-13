@@ -36,7 +36,7 @@ Bullet の 3D 物理実装を組み込みます。既定で組み込まれてい
 
 ## Exclude Record
 
-エンジンから動画の録画機能を除外します（[`start_record`](https://defold.com/ref/stable/sys/#start_record) メッセージのドキュメントを参照してください）。
+エンジンから動画の録画機能を除外します（[`start_record`](https://defold.com/ref/sys/#start_record) メッセージのドキュメントを参照してください）。
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Ogg Opus サウンドリソースのサポートを組み込みます。Opus デ
 
 ## Exclude Image
 
-エンジンから `image` スクリプトモジュールを除外します。[リンク](https://defold.com/ref/stable/image/)
+エンジンから `image` スクリプトモジュールを除外します。[リンク](https://defold.com/ref/image/)
 
 
 ## Exclude Types
 
-エンジンから `types` スクリプトモジュールを除外します。[リンク](https://defold.com/ref/stable/types/)
+エンジンから `types` スクリプトモジュールを除外します。[リンク](https://defold.com/ref/types/)
 
 
 ## Exclude Basis Transcoder

@@ -81,7 +81,7 @@ Puedes interactuar con el editor usando el paquete `editor`, que define esta API
 - `editor.ui.*` — varias funciones relacionadas con la interfaz; consulta el [manual de UI](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — funciones para interactuar con las preferencias del editor; consulta [preferencias](#preferences).
 
-Puedes encontrar la referencia completa de la API del editor [aquí](/ref/stable/editor/).
+Puedes encontrar la referencia completa de la API del editor [aquí](/ref/editor/).
 
 ## Comandos {#commands}
 

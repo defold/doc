@@ -56,7 +56,7 @@ Sélectionnez le nœud racine « Gui » dans la vue *Outline* pour afficher le
 : Le nombre maximal de nœuds pour cette interface graphique.
 
 *Max Dynamic Textures*
-: Le nombre maximal de textures dynamiques suivies par ce composant GUI, soit `128` par défaut. Cela comprend les textures créées avec [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) et les textures externes attribuées à l'interface graphique avec `go.set(..., "textures", ...)` ou `gui.set(msg.url(), "textures", ...)`. Les projets qui remplacent de nombreuses textures externes peuvent avoir besoin d'augmenter cette limite.
+: Le nombre maximal de textures dynamiques suivies par ce composant GUI, soit `128` par défaut. Cela comprend les textures créées avec [`gui.new_texture()`](/ref/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) et les textures externes attribuées à l'interface graphique avec `go.set(..., "textures", ...)` ou `gui.set(msg.url(), "textures", ...)`. Les projets qui remplacent de nombreuses textures externes peuvent avoir besoin d'augmenter cette limite.
 
 
 ## Manipulation à l'exécution {#runtime-manipulation}

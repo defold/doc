@@ -138,7 +138,7 @@ Du kannst eine Textur und einen Atlas zur Laufzeit erstellen.
 
 ### Eine Texturressource zur Laufzeit erstellen {#creating-a-texture-resource-at-runtime}
 
-Verwende [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table), um eine neue Texturressource zu erstellen:
+Verwende [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table), um eine neue Texturressource zu erstellen:
 
 ```lua
   local params = {
@@ -150,7 +150,7 @@ Verwende [`resource.create_texture(path, params)`](https://defold.com/ref/stable
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Nachdem die Textur erstellt wurde, kannst du [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) verwenden, um die Pixel der Textur festzulegen:
+Nachdem die Textur erstellt wurde, kannst du [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer) verwenden, um die Pixel der Textur festzulegen:
 
 ```lua
   local width = 128
@@ -184,7 +184,7 @@ Die Textur kann mit `go.set()` direkt auf einer [Modellkomponente](/manuals/mode
 
 ### Einen Atlas zur Laufzeit erstellen {#creating-an-atlas-at-runtime}
 
-Wenn die Textur auf einer [Sprite-Komponente](/manuals/sprite/) verwendet werden soll, muss sie zunächst von einem Atlas verwendet werden. Verwende [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), um einen Atlas zu erstellen:
+Wenn die Textur auf einer [Sprite-Komponente](/manuals/sprite/) verwendet werden soll, muss sie zunächst von einem Atlas verwendet werden. Verwende [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table), um einen Atlas zu erstellen:
 
 ```lua
   local params = {

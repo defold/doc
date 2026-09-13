@@ -30,4 +30,4 @@ brief: このマニュアルでは、Defold のバッファーリソースの仕
 
 バッファーリソースは通常、外部ツールやスクリプトを使用して作成します。たとえば、Blender などのモデリングツールからエクスポートするときに作成します。 
 
-バッファーリソースは、[メッシュコンポーネント（Mesh component）](/manuals/mesh) への入力として使用できます。また、`buffer.create()` と[関連する API 関数](/ref/stable/buffer/#buffer.create:element_count-declaration)を使用して、実行時にバッファーリソースを作成することもできます。 
+バッファーリソースは、[メッシュコンポーネント（Mesh component）](/manuals/mesh) への入力として使用できます。また、`buffer.create()` と[関連する API 関数](/ref/buffer/#buffer.create:element_count-declaration)を使用して、実行時にバッファーリソースを作成することもできます。 

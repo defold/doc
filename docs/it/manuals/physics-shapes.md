@@ -153,7 +153,7 @@ Le forme di collisione nella fisica 3D possono essere ruotate attorno a tutti gl
 
 
 ## Rotazione delle forme di collisione nella fisica 2D {#rotating-collision-shapes-in-2d-physics}
-Le forme di collisione nella fisica 2D possono essere ruotate solo attorno all'asse z. La rotazione attorno all'asse x o y produce risultati errati e va evitata, anche quando si ruota di 180 gradi per ribaltare di fatto la forma lungo l'asse x o y. Per ribaltare una forma fisica, si consiglia di usare [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) e [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+Le forme di collisione nella fisica 2D possono essere ruotate solo attorno all'asse z. La rotazione attorno all'asse x o y produce risultati errati e va evitata, anche quando si ruota di 180 gradi per ribaltare di fatto la forma lungo l'asse x o y. Per ribaltare una forma fisica, si consiglia di usare [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) e [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip).
 
 
 # Debug {#debugging}

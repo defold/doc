@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-プロファイラーの関数について詳しくは、[profiler API リファレンス](/ref/stable/profiler/)を参照してください。
+プロファイラーの関数について詳しくは、[profiler API リファレンス](/ref/profiler/)を参照してください。
 
 ## Web プロファイラー {#the-web-profiler}
 プロファイラーのサポートを含むデスクトップまたはモバイル向けビルドの実行中は、ブラウザーから対話型のフレームプロファイラーとリソースプロファイラーにアクセスできます。

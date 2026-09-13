@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-Puoi usare [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:) per ottenere il percorso in cui si trova l'applicazione. Usa questo percorso di base dell'applicazione per costruire il percorso assoluto completo dei file a cui devi accedere. Una volta ottenuto il percorso assoluto di questi file, puoi usare le funzioni `io.*` e `os.*` per accedervi.
+Puoi usare [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:) per ottenere il percorso in cui si trova l'applicazione. Usa questo percorso di base dell'applicazione per costruire il percorso assoluto completo dei file a cui devi accedere. Una volta ottenuto il percorso assoluto di questi file, puoi usare le funzioni `io.*` e `os.*` per accedervi.

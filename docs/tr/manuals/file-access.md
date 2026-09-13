@@ -9,7 +9,7 @@ Dosya oluşturmanın ve/veya dosyalara erişmenin birçok farklı yolu vardır. 
 ## Dosya ve klasör erişimi için işlevler
 Defold, dosyalarla çalışmak için çeşitli işlevler sunar:
 
-* Dosyaları okumak ve yazmak için standart [`io.*` işlevlerini](https://defold.com/ref/stable/io/) kullanabilirsiniz. Bu işlevler, giriş/çıkış (I/O) sürecinin tamamı üzerinde çok ayrıntılı denetim sağlar.
+* Dosyaları okumak ve yazmak için standart [`io.*` işlevlerini](https://defold.com/ref/io/) kullanabilirsiniz. Bu işlevler, giriş/çıkış (I/O) sürecinin tamamı üzerinde çok ayrıntılı denetim sağlar.
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Dosyaları yeniden adlandırmak ve silmek için [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) ve [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) işlevlerini kullanabilirsiniz.
+* Dosyaları yeniden adlandırmak ve silmek için [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) ve [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) işlevlerini kullanabilirsiniz.
 
-* Lua tablolarını okumak ve yazmak için [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) ve [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) işlevlerini kullanabilirsiniz. Dosya yollarını platformdan bağımsız olarak çözümlemeye yardımcı olan başka [`sys.*`](https://defold.com/ref/stable/sys/) işlevleri de vardır.
+* Lua tablolarını okumak ve yazmak için [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) ve [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) işlevlerini kullanabilirsiniz. Dosya yollarını platformdan bağımsız olarak çözümlemeye yardımcı olan başka [`sys.*`](https://defold.com/ref/sys/) işlevleri de vardır.
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ Dosya ve klasör konumları üç kategoriye ayrılabilir:
 * Uygulamanızın eriştiği sisteme özgü dosyalar
 
 ### Uygulamaya özgü dosyaları kaydetme ve yükleme
-En yüksek puanlar, kullanıcı ayarları ve oyun durumu gibi uygulamaya özgü dosyaları kaydederken ve yüklerken işletim sisteminin bu amaç için ayırdığı bir konumu kullanmanız önerilir. Bir dosyanın işletim sistemine özgü mutlak yolunu almak için [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) işlevini kullanabilirsiniz. Mutlak yolu aldıktan sonra `sys.*`, `io.*` ve `os.*` işlevlerini kullanabilirsiniz (yukarıya bakın).
+En yüksek puanlar, kullanıcı ayarları ve oyun durumu gibi uygulamaya özgü dosyaları kaydederken ve yüklerken işletim sisteminin bu amaç için ayırdığı bir konumu kullanmanız önerilir. Bir dosyanın işletim sistemine özgü mutlak yolunu almak için [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) işlevini kullanabilirsiniz. Mutlak yolu aldıktan sonra `sys.*`, `io.*` ve `os.*` işlevlerini kullanabilirsiniz (yukarıya bakın).
 
 [`sys.save()` ve `sys.load()` işlevlerinin kullanımını gösteren örneği inceleyin](/examples/file/sys_save_load/).
 

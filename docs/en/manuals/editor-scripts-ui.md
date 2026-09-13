@@ -5,7 +5,7 @@ brief: This manual explains how to create UI elements in the editor using Lua
 
 # Editor scripts and UI
 
-This manual explains how to create interactive dialogs and open resources in the editor using editor scripts written in Lua. To get started with editor scripts, see [Editor Scripts manual](/manuals/editor-scripts). You can find the full editor API reference [here](/ref/stable/editor-lua/).
+This manual explains how to create interactive dialogs and open resources in the editor using editor scripts written in Lua. To get started with editor scripts, see [Editor Scripts manual](/manuals/editor-scripts). You can find the full editor API reference [here](/ref/editor-lua/).
 
 ## Hello world
 

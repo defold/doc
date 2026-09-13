@@ -9,7 +9,7 @@ Há muitas formas diferentes de criar e/ou acessar arquivos. Os caminhos de arqu
 ## Funções para acesso a arquivos e pastas
 O Defold fornece várias funções diferentes para trabalhar com arquivos:
 
-* Você pode usar as funções padrão [`io.*`](https://defold.com/ref/stable/io/) para ler e escrever arquivos. Essas funções oferecem controle muito detalhado sobre todo o processo de I/O.
+* Você pode usar as funções padrão [`io.*`](https://defold.com/ref/io/) para ler e escrever arquivos. Essas funções oferecem controle muito detalhado sobre todo o processo de I/O.
 
 ```lua
 -- abre myfile.txt para escrita em modo binário
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Você pode usar [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) e [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) para renomear e remover arquivos.
+* Você pode usar [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) e [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) para renomear e remover arquivos.
 
-* Você pode usar [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) e [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) para ler e escrever tabelas Lua. Funções adicionais [`sys.*`](https://defold.com/ref/stable/sys/) existem para ajudar na resolução de caminhos de arquivo independente de plataforma.
+* Você pode usar [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) e [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) para ler e escrever tabelas Lua. Funções adicionais [`sys.*`](https://defold.com/ref/sys/) existem para ajudar na resolução de caminhos de arquivo independente de plataforma.
 
 ```lua
 -- obtém um caminho independente de plataforma para o arquivo "highscore" da aplicação "mygame"
@@ -80,7 +80,7 @@ Localizações de arquivos e pastas podem ser divididas em três categorias:
 * Arquivos específicos do sistema acessados pela sua aplicação
 
 ### Como salvar e carregar arquivos específicos da aplicação
-Ao salvar e carregar arquivos específicos da aplicação, como recordes, configurações do usuário e estado do jogo, recomenda-se usar uma localização fornecida pelo sistema operacional e destinada especificamente a essa finalidade. Você pode usar [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) para obter o caminho absoluto específico do sistema operacional para um arquivo. Depois de ter o caminho absoluto, você pode usar as funções `sys.*`, `io.*` e `os.*` (veja acima).
+Ao salvar e carregar arquivos específicos da aplicação, como recordes, configurações do usuário e estado do jogo, recomenda-se usar uma localização fornecida pelo sistema operacional e destinada especificamente a essa finalidade. Você pode usar [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) para obter o caminho absoluto específico do sistema operacional para um arquivo. Depois de ter o caminho absoluto, você pode usar as funções `sys.*`, `io.*` e `os.*` (veja acima).
 
 [Veja o exemplo que mostra como usar `sys.save()` e `sys.load()`](/examples/file/sys_save_load/).
 

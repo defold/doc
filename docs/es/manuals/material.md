@@ -318,7 +318,7 @@ Las constantes de shader, o "uniforms", son valores que se pasan desde el motor 
   ```
 
 `CONSTANT_TYPE_USER`
-: Una constante vector4 que puedes usar para cualquier dato personalizado que quieras pasar a tus programas de shader. Puedes definir el valor inicial de la constante en la definición de la constante, pero es mutable mediante las funciones [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). También puedes recuperar el valor con [go.get()](/ref/stable/go/#go.get). Cambiar una constante de material de una sola instancia de componente [rompe el batching de render y producirá draw calls adicionales](/manuals/render/#draw-calls-and-batching).
+: Una constante vector4 que puedes usar para cualquier dato personalizado que quieras pasar a tus programas de shader. Puedes definir el valor inicial de la constante en la definición de la constante, pero es mutable mediante las funciones [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). También puedes recuperar el valor con [go.get()](/ref/go/#go.get). Cambiar una constante de material de una sola instancia de componente [rompe el batching de render y producirá draw calls adicionales](/manuals/render/#draw-calls-and-batching).
 
 Ejemplo:
 
@@ -329,7 +329,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: Una constante matrix4 que puedes usar para cualquier dato personalizado que quieras pasar a tus programas de shader. Puedes definir el valor inicial de la constante en la definición de la constante, pero es mutable mediante las funciones [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). También puedes recuperar el valor con [go.get()](/ref/stable/go/#go.get). Cambiar una constante de material de una sola instancia de componente [rompe el batching de render y producirá draw calls adicionales](/manuals/render/#draw-calls-and-batching).
+: Una constante matrix4 que puedes usar para cualquier dato personalizado que quieras pasar a tus programas de shader. Puedes definir el valor inicial de la constante en la definición de la constante, pero es mutable mediante las funciones [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). También puedes recuperar el valor con [go.get()](/ref/go/#go.get). Cambiar una constante de material de una sola instancia de componente [rompe el batching de render y producirá draw calls adicionales](/manuals/render/#draw-calls-and-batching).
 
 Ejemplo:
 

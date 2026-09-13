@@ -36,7 +36,7 @@ Steruje funkcjami rig i model albo pozwala wybrać None, aby całkowicie wyklucz
 
 ## Exclude Record
 
-Wyklucza z silnika możliwość nagrywania wideo (zobacz dokumentację wiadomości [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Wyklucza z silnika możliwość nagrywania wideo (zobacz dokumentację wiadomości [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profiler
@@ -98,12 +98,12 @@ Wyklucza z silnika [funkcję Live Update](/manuals/live-update).
 
 ## Exclude Image
 
-Wyklucza z silnika moduł skryptowy `image`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/stable/image/).
+Wyklucza z silnika moduł skryptowy `image`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/image/).
 
 
 ## Exclude Types
 
-Wyklucza z silnika moduł skryptowy `types`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/stable/types/).
+Wyklucza z silnika moduł skryptowy `types`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/types/).
 
 
 ## Exclude Basis Transcoder

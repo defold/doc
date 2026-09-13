@@ -24,7 +24,7 @@ Oyun geliştirme sürecinin bazı temel unsurlarını olabildiğince sorunsuz ve
 - [**Örnekler**](/examples) - kısa kod parçaları ile basit, küçük, kendi içinde bütünlük taşıyan işlevler ve örnekler
 - [**Kurslar**](/courses) - Zenva ve Udemy'deki derslerin yanı sıra topluluğun hazırladığı, daha uzun, kapsamlı ve yapılandırılmış dersler
 - [**Videolar**](/videos) - izlemeyi tercih ediyorsanız aralarından seçebileceğiniz çok sayıda video öğretici ve genel bakış videosu
-- [**API**](/ref/stable/overview_defoldlua) - güncel ve eksiksiz belgelerimizle sunulan tüm işlevleri ve sabitleri anlamak için
+- [**API**](/ref/overview_defoldlua) - güncel ve eksiksiz belgelerimizle sunulan tüm işlevleri ve sabitleri anlamak için
 - [**Sık sorulan sorular**](/faq/faq) - en sık sorulan soruların yanıtları; sorununuzun daha önce çözülüp çözülmediğini görmek için arama yapın
 
 Denemeler yapmanızı, öğreticileri izlemenizi, kılavuzlarımızı ve API belgelerimizi okumanızı, soru sormak, diğer kullanıcılardan öğrenmek ve Defold'un gelişimini takip etmek için [topluluk kanallarımıza](/community) katılmanızı öneririz.

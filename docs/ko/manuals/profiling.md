@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-프로파일러 함수에 대한 자세한 내용은 [profiler API 레퍼런스](/ref/stable/profiler/)를 참조하세요.
+프로파일러 함수에 대한 자세한 내용은 [profiler API 레퍼런스](/ref/profiler/)를 참조하세요.
 
 ## 웹 프로파일러
 프로파일러 지원을 포함한 데스크탑 또는 모바일 빌드를 실행하는 동안 브라우저를 통해 대화형 프레임 및 리소스 프로파일러에 접근할 수 있습니다.

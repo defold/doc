@@ -5,7 +5,7 @@ brief: 本手册解释了如何使用Lua在编辑器中创建UI元素
 
 # 编辑器脚本和UI
 
-本手册解释了如何使用 Lua 编写的编辑器脚本，在编辑器中创建交互式对话框并打开资源。要开始使用编辑器脚本，请参阅[编辑器脚本手册](/manuals/editor-scripts)。完整的编辑器 API 参考可在[这里](/ref/stable/editor-lua/)找到。
+本手册解释了如何使用 Lua 编写的编辑器脚本，在编辑器中创建交互式对话框并打开资源。要开始使用编辑器脚本，请参阅[编辑器脚本手册](/manuals/editor-scripts)。完整的编辑器 API 参考可在[这里](/ref/editor-lua/)找到。
 
 ## Hello world
 

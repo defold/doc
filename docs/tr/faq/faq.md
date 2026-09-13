@@ -53,7 +53,7 @@ A: Defold projenizdeki oyun mantığı öncelikle Lua diliyle yazılır (özelli
 
 #### Q: Oyun mantığını yazmak için C++ kullanabilir miyim?
 
-A: Defold'daki C++ desteği esas olarak üçüncü taraf yazılım geliştirme kitleriyle (SDK) veya platforma özgü API'lerle iletişim kuran yerel kod eklentileri (native extension) yazmak için vardır. [dmSDK](https://defold.com/ref/stable/dmGameObject/) (yerel kod eklentilerinde kullanılan Defold C++ API'si), isteyen bir geliştiricinin tüm oyun mantığını C++ ile yazabilmesini sağlayacak şekilde zamanla daha fazla işlevle genişletilecektir. Lua, oyun mantığı için kullanılan ana dil olmaya devam edecek, ancak genişletilen C++ API'siyle oyun mantığını C++ kullanarak yazmak da mümkün olacaktır. C++ API'sini genişletme çalışmaları esas olarak mevcut özel başlık dosyalarını herkese açık bölüme taşımayı ve API'leri genel kullanıma uygun hâle getirmeyi kapsar.
+A: Defold'daki C++ desteği esas olarak üçüncü taraf yazılım geliştirme kitleriyle (SDK) veya platforma özgü API'lerle iletişim kuran yerel kod eklentileri (native extension) yazmak için vardır. [dmSDK](https://defold.com/ref/dmGameObject/) (yerel kod eklentilerinde kullanılan Defold C++ API'si), isteyen bir geliştiricinin tüm oyun mantığını C++ ile yazabilmesini sağlayacak şekilde zamanla daha fazla işlevle genişletilecektir. Lua, oyun mantığı için kullanılan ana dil olmaya devam edecek, ancak genişletilen C++ API'siyle oyun mantığını C++ kullanarak yazmak da mümkün olacaktır. C++ API'sini genişletme çalışmaları esas olarak mevcut özel başlık dosyalarını herkese açık bölüme taşımayı ve API'leri genel kullanıma uygun hâle getirmeyi kapsar.
 
 
 #### Q: Defold ile TypeScript kullanabilir miyim?
@@ -195,7 +195,7 @@ A: Evet, destekliyor. Bunlara [koleksiyon (collection)](/manuals/building-blocks
 
 #### Q: Bir oyun nesnesini başka bir oyun nesnesine alt nesne olarak ekleyemiyorum, neden?
 
-A: Büyük olasılıkla oyun nesnesi dosyasında bir alt nesne eklemeye çalışıyorsunuz ve bu mümkün değildir. Bu yalnızca koleksiyon dosyasında yapılabilir. Bunun nedenini anlamak için üst-alt nesne hiyerarşilerinin yalnızca bir _sahne grafı (scene graph)_ dönüşüm hiyerarşisi olduğunu hatırlamanız gerekir. Bir sahneye (koleksiyona) yerleştirilmemiş (veya çalışma sırasında oluşturulmamış) bir oyun nesnesi, sahne grafının parçası değildir ve bu nedenle sahne grafı hiyerarşisinin de parçası olamaz. Oyun nesnesinin üst nesnesinin tanımlayıcısını [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id) işlevini kullanarak alabilirsiniz.
+A: Büyük olasılıkla oyun nesnesi dosyasında bir alt nesne eklemeye çalışıyorsunuz ve bu mümkün değildir. Bu yalnızca koleksiyon dosyasında yapılabilir. Bunun nedenini anlamak için üst-alt nesne hiyerarşilerinin yalnızca bir _sahne grafı (scene graph)_ dönüşüm hiyerarşisi olduğunu hatırlamanız gerekir. Bir sahneye (koleksiyona) yerleştirilmemiş (veya çalışma sırasında oluşturulmamış) bir oyun nesnesi, sahne grafının parçası değildir ve bu nedenle sahne grafı hiyerarşisinin de parçası olamaz. Oyun nesnesinin üst nesnesinin tanımlayıcısını [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id) işlevini kullanarak alabilirsiniz.
 
 
 #### Q: Neden bir oyun nesnesinin tüm alt nesnelerine topluca ileti gönderemiyorum?
@@ -258,7 +258,7 @@ A: Genel olarak tüm kaynaklar statik olarak bildirilir; bunun avantajı, kaynak
 
 #### Q: Fizik çarpışma şeklinin özelliklerine erişmenin bir yolu var mı?
 
-A: Evet, fizik API'sine, özellikle de [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) ve [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table) işlevlerine göz atın. 
+A: Evet, fizik API'sine, özellikle de [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) ve [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table) işlevlerine göz atın. 
 
 
 #### Q: Sahnemdeki çarpışma nesnelerini çizdirmenin hızlı bir yolu var mı? (Box2D'nin hata ayıklama çizimi gibi)

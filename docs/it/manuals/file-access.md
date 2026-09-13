@@ -9,7 +9,7 @@ Esistono molti modi diversi per creare file e accedervi. I percorsi dei file e l
 ## Funzioni per l'accesso a file e cartelle {#functions-for-file-and-folder-access}
 Defold offre diverse funzioni per lavorare con i file:
 
-* Puoi usare le [funzioni standard `io.*`](https://defold.com/ref/stable/io/) per leggere e scrivere file. Queste funzioni offrono un controllo molto preciso sull'intero processo di I/O.
+* Puoi usare le [funzioni standard `io.*`](https://defold.com/ref/io/) per leggere e scrivere file. Queste funzioni offrono un controllo molto preciso sull'intero processo di I/O.
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Puoi usare [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) e [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) per rinominare ed eliminare file.
+* Puoi usare [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) e [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) per rinominare ed eliminare file.
 
-* Puoi usare [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) e [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) per leggere e scrivere tabelle Lua. Sono disponibili altre funzioni [`sys.*`](https://defold.com/ref/stable/sys/) che aiutano a risolvere i percorsi dei file in modo indipendente dalla piattaforma.
+* Puoi usare [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) e [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) per leggere e scrivere tabelle Lua. Sono disponibili altre funzioni [`sys.*`](https://defold.com/ref/sys/) che aiutano a risolvere i percorsi dei file in modo indipendente dalla piattaforma.
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ Le posizioni di file e cartelle si possono suddividere in tre categorie:
 * File specifici del sistema a cui accede la tua applicazione
 
 ### Come salvare e caricare file specifici dell'applicazione {#how-to-save-and-load-application-specific-files}
-Quando salvi e carichi file specifici dell'applicazione, come punteggi migliori, impostazioni dell'utente e stato del gioco, è consigliabile usare una posizione fornita dal sistema operativo e destinata appositamente a questo scopo. Puoi usare [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) per ottenere il percorso assoluto di un file nella posizione prevista dal sistema operativo. Una volta ottenuto il percorso assoluto, puoi usare le funzioni `sys.*`, `io.*` e `os.*` (vedi sopra).
+Quando salvi e carichi file specifici dell'applicazione, come punteggi migliori, impostazioni dell'utente e stato del gioco, è consigliabile usare una posizione fornita dal sistema operativo e destinata appositamente a questo scopo. Puoi usare [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) per ottenere il percorso assoluto di un file nella posizione prevista dal sistema operativo. Una volta ottenuto il percorso assoluto, puoi usare le funzioni `sys.*`, `io.*` e `os.*` (vedi sopra).
 
 [Consulta l'esempio che mostra come usare `sys.save()` e `sys.load()`](/examples/file/sys_save_load/).
 

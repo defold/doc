@@ -24,7 +24,7 @@ Notre [**centre d'apprentissage**](/learn) est le point de départ pour accéder
 - [**Exemples**](/examples) - de courts extraits de code, de petites fonctionnalités simples et autonomes, et des exemples d'utilisation
 - [**Cours**](/courses) - des leçons plus longues, complètes et structurées sur Zenva et Udemy, ainsi que des cours créés par la communauté
 - [**Vidéos**](/videos) - si vous préférez regarder, vous avez le choix parmi de nombreux tutoriels vidéo et présentations
-- [**API**](/ref/stable/overview_defoldlua) - pour comprendre toutes les fonctions et constantes fournies grâce à notre documentation complète et à jour
+- [**API**](/ref/overview_defoldlua) - pour comprendre toutes les fonctions et constantes fournies grâce à notre documentation complète et à jour
 - [**FAQ**](/faq/faq) - les réponses aux questions les plus fréquentes : faites une recherche pour voir si votre problème a déjà été résolu
 
 Nous vous encourageons à expérimenter, à suivre des tutoriels, à lire nos manuels et la documentation de l'API, et à rejoindre nos [espaces communautaires](/community) pour poser des questions, apprendre des autres utilisateurs et suivre le développement de Defold.

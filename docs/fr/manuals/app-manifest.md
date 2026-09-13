@@ -36,7 +36,7 @@ Contrôlez les fonctionnalités des squelettes et des modèles, ou sélectionnez
 
 ## Exclure l'enregistrement {#exclude-record}
 
-Exclut la capacité d'enregistrement vidéo du moteur (consultez la documentation du message [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Exclut la capacité d'enregistrement vidéo du moteur (consultez la documentation du message [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profileur {#profiler}
@@ -98,12 +98,12 @@ Exclut la [fonctionnalité Live Update](/manuals/live-update) du moteur.
 
 ## Exclure Image {#exclude-image}
 
-Exclut le module de script `image` ([documentation](https://defold.com/ref/stable/image/)) du moteur.
+Exclut le module de script `image` ([documentation](https://defold.com/ref/image/)) du moteur.
 
 
 ## Exclure Types {#exclude-types}
 
-Exclut le module de script `types` ([documentation](https://defold.com/ref/stable/types/)) du moteur.
+Exclut le module de script `types` ([documentation](https://defold.com/ref/types/)) du moteur.
 
 
 ## Exclure le transcodeur Basis {#exclude-basis-transcoder}

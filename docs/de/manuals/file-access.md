@@ -9,7 +9,7 @@ Es gibt viele verschiedene Möglichkeiten, Dateien zu erstellen und/oder auf sie
 ## Funktionen für den Zugriff auf Dateien und Ordner {#functions-for-file-and-folder-access}
 Defold bietet verschiedene Funktionen für die Arbeit mit Dateien:
 
-* Du kannst die standardmäßigen [`io.*`-Funktionen](https://defold.com/ref/stable/io/) verwenden, um Dateien zu lesen und zu schreiben. Mit diesen Funktionen kannst du den gesamten Ein-/Ausgabeprozess sehr genau steuern.
+* Du kannst die standardmäßigen [`io.*`-Funktionen](https://defold.com/ref/io/) verwenden, um Dateien zu lesen und zu schreiben. Mit diesen Funktionen kannst du den gesamten Ein-/Ausgabeprozess sehr genau steuern.
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Du kannst [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) und [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) verwenden, um Dateien umzubenennen und zu löschen.
+* Du kannst [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) und [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) verwenden, um Dateien umzubenennen und zu löschen.
 
-* Du kannst [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) und [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) verwenden, um Lua-Tabellen zu lesen und zu schreiben. Weitere [`sys.*`](https://defold.com/ref/stable/sys/)-Funktionen helfen dabei, Dateipfade plattformunabhängig zu ermitteln.
+* Du kannst [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) und [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) verwenden, um Lua-Tabellen zu lesen und zu schreiben. Weitere [`sys.*`](https://defold.com/ref/sys/)-Funktionen helfen dabei, Dateipfade plattformunabhängig zu ermitteln.
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ Die Speicherorte von Dateien und Ordnern lassen sich in drei Kategorien einteile
 * Systemspezifische Dateien, auf die deine Anwendung zugreift
 
 ### Anwendungsspezifische Dateien speichern und laden {#how-to-save-and-load-application-specific-files}
-Es wird empfohlen, anwendungsspezifische Dateien wie Höchstpunktzahlen, Benutzereinstellungen und den Spielzustand an einem Speicherort zu speichern und zu laden, den das Betriebssystem eigens für diesen Zweck bereitstellt. Mit [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) kannst du den betriebssystemspezifischen absoluten Pfad zu einer Datei ermitteln. Sobald du den absoluten Pfad hast, kannst du die Funktionen `sys.*`, `io.*` und `os.*` verwenden (siehe oben).
+Es wird empfohlen, anwendungsspezifische Dateien wie Höchstpunktzahlen, Benutzereinstellungen und den Spielzustand an einem Speicherort zu speichern und zu laden, den das Betriebssystem eigens für diesen Zweck bereitstellt. Mit [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) kannst du den betriebssystemspezifischen absoluten Pfad zu einer Datei ermitteln. Sobald du den absoluten Pfad hast, kannst du die Funktionen `sys.*`, `io.*` und `os.*` verwenden (siehe oben).
 
 [Sieh dir das Beispiel zur Verwendung von `sys.save()` und `sys.load()` an](/examples/file/sys_save_load/).
 

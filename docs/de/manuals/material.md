@@ -318,7 +318,7 @@ Shader-Konstanten oder „Uniforms“ sind Werte, die die Engine an Vertex- und 
   ```
 
 `CONSTANT_TYPE_USER`
-: Eine vector4-Konstante, die du für beliebige benutzerdefinierte Daten verwenden kannst, die du an deine Shader-Programme übergeben möchtest. Du kannst den Anfangswert der Konstante in ihrer Definition setzen und ihn anschließend über die Funktionen [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) ändern. Mit [go.get()](/ref/stable/go/#go.get) kannst du den Wert auch abrufen. Wenn du eine Materialkonstante einer einzelnen Komponenteninstanz änderst, [wird die Bündelung von Zeichenoperationen unterbrochen und es entstehen zusätzliche Zeichenaufrufe](/manuals/render/#draw-calls-and-batching).
+: Eine vector4-Konstante, die du für beliebige benutzerdefinierte Daten verwenden kannst, die du an deine Shader-Programme übergeben möchtest. Du kannst den Anfangswert der Konstante in ihrer Definition setzen und ihn anschließend über die Funktionen [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) ändern. Mit [go.get()](/ref/go/#go.get) kannst du den Wert auch abrufen. Wenn du eine Materialkonstante einer einzelnen Komponenteninstanz änderst, [wird die Bündelung von Zeichenoperationen unterbrochen und es entstehen zusätzliche Zeichenaufrufe](/manuals/render/#draw-calls-and-batching).
 
 Beispiel:
 
@@ -329,7 +329,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: Eine matrix4-Konstante, die du für beliebige benutzerdefinierte Daten verwenden kannst, die du an deine Shader-Programme übergeben möchtest. Du kannst den Anfangswert der Konstante in ihrer Definition setzen und ihn anschließend über die Funktionen [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) ändern. Mit [go.get()](/ref/stable/go/#go.get) kannst du den Wert auch abrufen. Wenn du eine Materialkonstante einer einzelnen Komponenteninstanz änderst, [wird die Bündelung von Zeichenoperationen unterbrochen und es entstehen zusätzliche Zeichenaufrufe](/manuals/render/#draw-calls-and-batching).
+: Eine matrix4-Konstante, die du für beliebige benutzerdefinierte Daten verwenden kannst, die du an deine Shader-Programme übergeben möchtest. Du kannst den Anfangswert der Konstante in ihrer Definition setzen und ihn anschließend über die Funktionen [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) ändern. Mit [go.get()](/ref/go/#go.get) kannst du den Wert auch abrufen. Wenn du eine Materialkonstante einer einzelnen Komponenteninstanz änderst, [wird die Bündelung von Zeichenoperationen unterbrochen und es entstehen zusätzliche Zeichenaufrufe](/manuals/render/#draw-calls-and-batching).
 
 Beispiel:
 

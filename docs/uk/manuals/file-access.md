@@ -9,7 +9,7 @@ brief: Цей посібник пояснює, як зберігати й зав
 ## Функції для доступу до файлів і папок {#functions-for-file-and-folder-access}
 Defold надає кілька різних функцій для роботи з файлами:
 
-* Для читання й записування файлів можна використовувати стандартні [функції `io.*`](https://defold.com/ref/stable/io/). Ці функції дають змогу дуже точно керувати всім процесом введення-виведення.
+* Для читання й записування файлів можна використовувати стандартні [функції `io.*`](https://defold.com/ref/io/). Ці функції дають змогу дуже точно керувати всім процесом введення-виведення.
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Для перейменування й видалення файлів можна використовувати [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) та [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename).
+* Для перейменування й видалення файлів можна використовувати [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) та [`os.remove()`](https://defold.com/ref/os/#os.remove:filename).
 
-* Для читання й записування таблиць Lua можна використовувати [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) та [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename). Додаткові функції [`sys.*`](https://defold.com/ref/stable/sys/) допомагають визначати шляхи до файлів незалежно від платформи.
+* Для читання й записування таблиць Lua можна використовувати [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) та [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename). Додаткові функції [`sys.*`](https://defold.com/ref/sys/) допомагають визначати шляхи до файлів незалежно від платформи.
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ print(data.highscore) -- 100
 * Системні файли, до яких звертається ваш застосунок
 
 ### Як зберігати й завантажувати файли застосунку {#how-to-save-and-load-application-specific-files}
-Для зберігання й завантаження файлів застосунку, як-от рекордів, налаштувань користувача та стану гри, рекомендовано використовувати розташування, яке операційна система надає спеціально для цієї мети. За допомогою [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) можна отримати абсолютний шлях до файлу для відповідної ОС. Отримавши абсолютний шлях, ви можете використовувати функції `sys.*`, `io.*` та `os.*` (див. вище).
+Для зберігання й завантаження файлів застосунку, як-от рекордів, налаштувань користувача та стану гри, рекомендовано використовувати розташування, яке операційна система надає спеціально для цієї мети. За допомогою [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) можна отримати абсолютний шлях до файлу для відповідної ОС. Отримавши абсолютний шлях, ви можете використовувати функції `sys.*`, `io.*` та `os.*` (див. вище).
 
 [Перегляньте приклад використання `sys.save()` і `sys.load()`](/examples/file/sys_save_load/).
 

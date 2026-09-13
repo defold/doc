@@ -30,4 +30,4 @@ Buffer 리소스는 위치나 색상과 같은 값 스트림을 하나 이상 �
 
 Buffer 리소스는 보통 Blender 같은 모델링 도구에서 익스포트할 때처럼 외부 도구나 스크립트를 사용해 생성합니다.
 
-Buffer 리소스는 [Mesh 컴포넌트](/manuals/mesh)의 입력으로 사용할 수 있습니다. Buffer 리소스는 런타임에 `buffer.create()`와 [관련 API 함수](/ref/stable/buffer/#buffer.create:element_count-declaration)를 사용해 생성할 수도 있습니다.
+Buffer 리소스는 [Mesh 컴포넌트](/manuals/mesh)의 입력으로 사용할 수 있습니다. Buffer 리소스는 런타임에 `buffer.create()`와 [관련 API 함수](/ref/buffer/#buffer.create:element_count-declaration)를 사용해 생성할 수도 있습니다.

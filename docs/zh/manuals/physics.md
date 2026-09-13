@@ -7,7 +7,7 @@ brief: Defold 包含 2D 和 3D 的物理引擎。它们允许您模拟不同类�
 
 Defold 包含用于 2D 物理模拟的 [Box2D](https://box2d.org/) 和用于 3D 物理模拟的 Bullet。[App Manifest 的 Physics 2D 设置](/manuals/app-manifest/#physics-2d)可选择 **Box2D Version 3**、**Box2D (Legacy Defold version)** 或 **None**。旧实现是默认选项；Box2D 3 需要主动选择。切换实现可能改变模拟结果，并可能需要重新调整各版本专用的 [Box2D 项目设置](/manuals/project-settings/#box2d)。
 
-这些手册介绍的面向组件的碰撞对象工作流程和 `physics` 模块适用于任一 Box2D 实现；选择 **None** 会移除 2D 物理功能。Defold 还公开较低层的 [`b2d`](/ref/stable/b2d/)、`b2d.body`、`b2d.fixture`、`b2d.shape`、`b2d.joint`、`b2d.chain` 和 `b2d.world` API，可直接访问 2D 刚体、形状、关节、链和世界。并非所有低层函数在两种 Box2D 实现中都可用；请根据 App Manifest 中选择的实现查看每个函数生成的 API 文档。
+这些手册介绍的面向组件的碰撞对象工作流程和 `physics` 模块适用于任一 Box2D 实现；选择 **None** 会移除 2D 物理功能。Defold 还公开较低层的 [`b2d`](/ref/b2d/)、`b2d.body`、`b2d.fixture`、`b2d.shape`、`b2d.joint`、`b2d.chain` 和 `b2d.world` API，可直接访问 2D 刚体、形状、关节、链和世界。并非所有低层函数在两种 Box2D 实现中都可用；请根据 App Manifest 中选择的实现查看每个函数生成的 API 文档。
 
 Defold 中使用的物理引擎的主要概念是：
 

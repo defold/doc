@@ -5,7 +5,7 @@ brief: Bu kılavuz, Lua kullanarak düzenleyicide kullanıcı arayüzü öğeler
 
 # Düzenleyici betikleri ve kullanıcı arayüzü
 
-Bu kılavuz, Lua ile yazılan düzenleyici betiklerini (editor scripts) kullanarak düzenleyicide etkileşimli iletişim kutuları oluşturmayı ve kaynakları (resource) açmayı açıklar. Düzenleyici betiklerine başlamak için [Düzenleyici betikleri kılavuzuna](/manuals/editor-scripts) bakın. Düzenleyicinin tüm API başvuru belgelerini [burada](/ref/stable/editor-lua/) bulabilirsiniz.
+Bu kılavuz, Lua ile yazılan düzenleyici betiklerini (editor scripts) kullanarak düzenleyicide etkileşimli iletişim kutuları oluşturmayı ve kaynakları (resource) açmayı açıklar. Düzenleyici betiklerine başlamak için [Düzenleyici betikleri kılavuzuna](/manuals/editor-scripts) bakın. Düzenleyicinin tüm API başvuru belgelerini [burada](/ref/editor-lua/) bulabilirsiniz.
 
 ## Merhaba dünya
 

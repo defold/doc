@@ -81,7 +81,7 @@ return M
 - `editor.ui.*` — 다양한 UI 관련 함수입니다. [UI 매뉴얼](/manuals/editor-scripts-ui)을 참고하세요.
 - `editor.prefs.*` — 에디터 preferences와 상호작용하는 함수입니다. [preferences](#preferences)를 참고하세요.
 
-전체 에디터 API 레퍼런스는 [여기](/ref/stable/editor/)에서 확인할 수 있습니다.
+전체 에디터 API 레퍼런스는 [여기](/ref/editor/)에서 확인할 수 있습니다.
 
 ## 커맨드 {#commands}
 

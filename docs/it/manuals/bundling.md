@@ -82,7 +82,7 @@ Puoi accedere a questi asset tramite la funzione [`sys.load_resource()`](https:/
 Quando crei il bundle di un'applicazione, puoi scegliere tra un bundle di debug e uno di release. Le differenze tra i due bundle sono piccole, ma è importante tenerle presenti:
 
 * Le build di release non includono il [profilatore](/manuals/profiling) per impostazione predefinita. Imposta **Profiler** su **Always** nel [manifest dell'applicazione](/manuals/app-manifest/#profiler) per includere il supporto al profilatore sia nelle build di debug sia in quelle di release.
-* Le build di release non includono il [registratore dello schermo](/ref/stable/sys/#start_record)
+* Le build di release non includono il [registratore dello schermo](/ref/sys/#start_record)
 * Le build di release non mostrano l'output delle chiamate a `print()` né quello delle estensioni native
 * Le build di release hanno il valore `is_debug` in `sys.get_engine_info()` impostato su `false`
 * Le build di release non risalgono alle stringhe originali dei valori `hash` quando viene chiamata `tostring()`. In pratica, una chiamata a `tostring()` per un valore di tipo `url` o `hash` restituisce la sua rappresentazione numerica anziché la stringa originale (`'hash: [/camera_001]'` rispetto a `'hash: [11844936738040519888 (unknown)]'`)

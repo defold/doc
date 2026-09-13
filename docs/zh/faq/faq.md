@@ -53,7 +53,7 @@ brief: 关于 Defold 游戏引擎、编辑器和平台的常见问题。
 
 #### 问: 我可以使用 C++ 来编写游戏逻辑吗？
 
-答: Defold 中的 C++ 支持主要用于编写与第三方 SDK 或平台特定 API 交互的原生扩展。[dmSDK](https://defold.com/ref/stable/dmGameObject/)（用于原生扩展的 Defold C++ API）将逐步扩展更多功能，使开发者可以选择完全使用 C++ 编写所有游戏逻辑。Lua 仍将是游戏逻辑的主要语言，但通过扩展的 C++ API，也可以使用 C++ 编写游戏逻辑。扩展 C++ API 的工作主要是将现有的私有头文件移至公共部分，并清理 API 以供公共使用。
+答: Defold 中的 C++ 支持主要用于编写与第三方 SDK 或平台特定 API 交互的原生扩展。[dmSDK](https://defold.com/ref/dmGameObject/)（用于原生扩展的 Defold C++ API）将逐步扩展更多功能，使开发者可以选择完全使用 C++ 编写所有游戏逻辑。Lua 仍将是游戏逻辑的主要语言，但通过扩展的 C++ API，也可以使用 C++ 编写游戏逻辑。扩展 C++ API 的工作主要是将现有的私有头文件移至公共部分，并清理 API 以供公共使用。
 
 
 #### 问: 我可以在 Defold 中使用 TypeScript 吗？
@@ -195,7 +195,7 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
 
 #### 问: 我无法将游戏对象添加为另一个游戏对象的子对象，为什么？
 
-答: 可能是因为您试图在游戏对象文件中添加子对象，而这是不可能的。要理解为什么，您必须记住父子层次结构严格来说是_场景图_变换层次结构。尚未被放置（或生成）到场景（集合）中的游戏对象不是场景图的一部分，因此不能成为场景图层次结构的一部分。您可以使用 [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id) 获取游戏对象父对象的 id。
+答: 可能是因为您试图在游戏对象文件中添加子对象，而这是不可能的。要理解为什么，您必须记住父子层次结构严格来说是_场景图_变换层次结构。尚未被放置（或生成）到场景（集合）中的游戏对象不是场景图的一部分，因此不能成为场景图层次结构的一部分。您可以使用 [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id) 获取游戏对象父对象的 id。
 
 
 #### 问: 为什么我不能向游戏对象的所有子对象广播消息？
@@ -258,7 +258,7 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
 
 #### 问: 有没有办法访问物理碰撞形状属性？
 
-答: 是的，请查看物理 API，尤其是 [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) 和 [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table)。
+答: 是的，请查看物理 API，尤其是 [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) 和 [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table)。
 
 
 #### 问: 有什么快速方法可以渲染场景中的碰撞对象吗？（就像 Box2D 的调试绘制）

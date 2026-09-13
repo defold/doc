@@ -80,7 +80,7 @@ Możesz uzyskać do nich dostęp za pomocą funkcji [`sys.load_resource()`](http
 Podczas tworzenia pakietu możesz wybrać wariant debug lub release. Różnice między nimi są niewielkie, ale warto je znać:
 
 * Wersje release nie zawierają domyślnie [profilera](/manuals/profiling). Aby dołączyć obsługę profilera zarówno w buildach debug, jak i release, ustaw opcję **Profiler** na **Always** w [manifeście aplikacji](/manuals/app-manifest/#profiler).
-* Wersje release nie zawierają [rejestratora ekranu](/ref/stable/sys/#start_record)
+* Wersje release nie zawierają [rejestratora ekranu](/ref/sys/#start_record)
 * Wersje release nie wyświetlają wyników działania `print()` ani danych wyjściowych z natywnych rozszerzeń
 * Wersje release mają wartość `is_debug` w `sys.get_engine_info()` ustawioną na `false`
 * Wersje release nie wykonują odwrotnego wyszukiwania wartości `hash` podczas wywoływania `tostring()`. W praktyce oznacza to, że `tostring()` dla wartości typu `url` lub `hash` zwróci ich numeryczną reprezentację, a nie oryginalny ciąg (`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)

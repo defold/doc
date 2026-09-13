@@ -40,7 +40,7 @@ Her araç belirli platformlarda hata ayıklayabilir:
 
 ## Çıktı yazdırarak hata ayıklama
 
-Yerel kodunuzda hata ayıklamanın en basit yolu, [çıktı yazdırarak hata ayıklama (print debugging)](http://en.wikipedia.org/wiki/Debugging#Techniques) yöntemini kullanmaktır. Değişkenleri izlemek veya yürütme akışını belirtmek için [`dmLog` ad alanındaki](/ref/stable/dmLog/) işlevleri kullanın. Günlük işlevlerinden herhangi biri kullanıldığında, düzenleyicideki *Console* görünümüne ve [oyun günlüğüne](/manuals/debugging-game-and-system-logs) çıktı yazdırılır.
+Yerel kodunuzda hata ayıklamanın en basit yolu, [çıktı yazdırarak hata ayıklama (print debugging)](http://en.wikipedia.org/wiki/Debugging#Techniques) yöntemini kullanmaktır. Değişkenleri izlemek veya yürütme akışını belirtmek için [`dmLog` ad alanındaki](/ref/dmLog/) işlevleri kullanın. Günlük işlevlerinden herhangi biri kullanıldığında, düzenleyicideki *Console* görünümüne ve [oyun günlüğüne](/manuals/debugging-game-and-system-logs) çıktı yazdırılır.
 
 
 ## Çökme günlüğünü inceleme

@@ -24,7 +24,7 @@ Nuestro [**Learning Hub**](/learn) es el punto de partida para todos los recurso
 - [**Ejemplos**](/examples) - fragmentos cortos de código y funcionalidades y muestras simples, pequeñas y contenidas
 - [**Cursos**](/courses) - lecciones más largas, completas y estructuradas en Zenva, Udemy y creadas por la comunidad
 - [**Videos**](/videos) - si prefieres mirar, hay muchos tutoriales y resúmenes en video para elegir
-- [**API**](/ref/stable/overview_defoldlua) - entiende todas las funciones y constantes proporcionadas con nuestra documentación completa y actualizada
+- [**API**](/ref/overview_defoldlua) - entiende todas las funciones y constantes proporcionadas con nuestra documentación completa y actualizada
 - [**FAQ**](/faq/faq) - con respuestas a las preguntas más frecuentes; busca para ver si quizá tu problema ya fue resuelto
 
 Te animamos a experimentar, seguir tutoriales, leer nuestros manuales y la documentación de la API, y unirte a nuestros [canales de comunidad](/community) - para hacer preguntas, aprender de otros usuarios y seguir el desarrollo de Defold.

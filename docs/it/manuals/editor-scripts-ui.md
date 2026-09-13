@@ -5,7 +5,7 @@ brief: Questo manuale spiega come creare elementi dell'interfaccia utente nell'e
 
 # Script dell'editor e interfaccia utente {#editor-scripts-and-ui}
 
-Questo manuale spiega come creare finestre di dialogo interattive e aprire risorse nell'editor usando script dell'editor scritti in Lua. Per iniziare a usare gli script dell'editor, consulta il [manuale degli script dell'editor](/manuals/editor-scripts). La documentazione di riferimento completa dell'API dell'editor è disponibile [qui](/ref/stable/editor-lua/).
+Questo manuale spiega come creare finestre di dialogo interattive e aprire risorse nell'editor usando script dell'editor scritti in Lua. Per iniziare a usare gli script dell'editor, consulta il [manuale degli script dell'editor](/manuals/editor-scripts). La documentazione di riferimento completa dell'API dell'editor è disponibile [qui](/ref/editor-lua/).
 
 ## Ciao mondo {#hello-world}
 

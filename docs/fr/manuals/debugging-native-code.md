@@ -40,7 +40,7 @@ Chaque outil permet de déboguer certaines plateformes :
 
 ## Utiliser le débogage par affichage {#use-print-debugging}
 
-La manière la plus simple de déboguer votre code natif est d'utiliser le [débogage par affichage](http://en.wikipedia.org/wiki/Debugging#Techniques). Utilisez les fonctions de l'[espace de noms (namespace) `dmLog`](/ref/stable/dmLog/) pour surveiller des variables ou indiquer le déroulement de l'exécution. Toutes les fonctions de journalisation affichent leurs messages dans la vue *Console* de l'éditeur et dans le [journal du jeu](/manuals/debugging-game-and-system-logs).
+La manière la plus simple de déboguer votre code natif est d'utiliser le [débogage par affichage](http://en.wikipedia.org/wiki/Debugging#Techniques). Utilisez les fonctions de l'[espace de noms (namespace) `dmLog`](/ref/dmLog/) pour surveiller des variables ou indiquer le déroulement de l'exécution. Toutes les fonctions de journalisation affichent leurs messages dans la vue *Console* de l'éditeur et dans le [journal du jeu](/manuals/debugging-game-and-system-logs).
 
 
 ## Analyser un journal de plantage {#analyze-a-crash-log}

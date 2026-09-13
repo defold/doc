@@ -35,7 +35,7 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-Consulta il [riferimento API del profilatore](/ref/stable/profiler/) per ulteriori informazioni sulle funzioni del profilatore.
+Consulta il [riferimento API del profilatore](/ref/profiler/) per ulteriori informazioni sulle funzioni del profilatore.
 
 ## Il profilatore web {#the-web-profiler}
 Durante l'esecuzione di una build desktop o mobile che include il supporto alla profilazione, puoi accedere tramite un browser ai profilatori interattivi dei fotogrammi e delle risorse.

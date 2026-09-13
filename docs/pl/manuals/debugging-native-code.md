@@ -40,7 +40,7 @@ Każde z tych narzędzi może debugować określone platformy:
 
 ## Użyj debugowania przez wypisywanie
 
-Najprostszym sposobem debugowania kodu natywnego jest [debugowanie przez wypisywanie](http://en.wikipedia.org/wiki/Debugging#Techniques). Użyj funkcji z przestrzeni nazw [`dmLog`](/ref/stable/dmLog/), aby obserwować zmienne albo zaznaczać przebieg wykonania. Każda z funkcji logujących wypisze dane do widoku *Console* w edytorze oraz do [logu gry](/manuals/debugging-game-and-system-logs).
+Najprostszym sposobem debugowania kodu natywnego jest [debugowanie przez wypisywanie](http://en.wikipedia.org/wiki/Debugging#Techniques). Użyj funkcji z przestrzeni nazw [`dmLog`](/ref/dmLog/), aby obserwować zmienne albo zaznaczać przebieg wykonania. Każda z funkcji logujących wypisze dane do widoku *Console* w edytorze oraz do [logu gry](/manuals/debugging-game-and-system-logs).
 
 
 ## Przeanalizuj log awarii

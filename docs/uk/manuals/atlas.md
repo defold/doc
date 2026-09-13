@@ -138,7 +138,7 @@ Playback
 
 ### Створення ресурсу текстури під час виконання {#creating-a-texture-resource-at-runtime}
 
-Використовуйте [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table), щоб створити новий ресурс текстури:
+Використовуйте [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table), щоб створити новий ресурс текстури:
 
 ```lua
   local params = {
@@ -150,7 +150,7 @@ Playback
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Після створення текстури можна скористатися [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer), щоб задати її пікселі:
+Після створення текстури можна скористатися [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer), щоб задати її пікселі:
 
 ```lua
   local width = 128
@@ -184,7 +184,7 @@ Playback
 
 ### Створення атласу під час виконання {#creating-an-atlas-at-runtime}
 
-Якщо текстуру потрібно використовувати в [компоненті спрайта](/manuals/sprite/), її спочатку потрібно додати до атласу. Використовуйте [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), щоб створити атлас:
+Якщо текстуру потрібно використовувати в [компоненті спрайта](/manuals/sprite/), її спочатку потрібно додати до атласу. Використовуйте [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table), щоб створити атлас:
 
 ```lua
   local params = {

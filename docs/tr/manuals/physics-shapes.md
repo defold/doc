@@ -153,7 +153,7 @@ Belirtilen kimliğe sahip ve doğru türde bir şekil, çarpışma nesnesinde za
 
 
 ## 2B fizikte çarpışma şekillerini döndürme
-2B fizikte çarpışma şekilleri yalnızca z ekseni etrafında döndürülebilir. x veya y ekseni etrafında döndürme yanlış sonuçlar verir ve bundan kaçınmanız önerilir; buna, şekli x veya y ekseni boyunca ters çevirmek için 180 derece döndürme de dahildir. Bir fizik şeklini ters çevirmek için [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) ve [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip) kullanılması önerilir.
+2B fizikte çarpışma şekilleri yalnızca z ekseni etrafında döndürülebilir. x veya y ekseni etrafında döndürme yanlış sonuçlar verir ve bundan kaçınmanız önerilir; buna, şekli x veya y ekseni boyunca ters çevirmek için 180 derece döndürme de dahildir. Bir fizik şeklini ters çevirmek için [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) ve [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip) kullanılması önerilir.
 
 
 # Hata ayıklama

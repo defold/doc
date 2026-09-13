@@ -81,7 +81,7 @@ return M
 - `editor.ui.*` — 各种与 UI 相关的函数，请参见[UI 手册](/manuals/editor-scripts-ui)。
 - `editor.prefs.*` — 与编辑器首选项交互的函数，请参见[首选项](#preferences)。
 
-您可以在[此处](/ref/stable/editor/)找到完整的编辑器 API 参考。
+您可以在[此处](/ref/editor/)找到完整的编辑器 API 参考。
 
 ## 命令 {#commands}
 

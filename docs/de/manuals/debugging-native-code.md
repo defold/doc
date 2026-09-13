@@ -40,7 +40,7 @@ Jedes Werkzeug kann bestimmte Plattformen debuggen:
 
 ## Debugging mit Protokollausgaben verwenden {#use-print-debugging}
 
-Die einfachste Möglichkeit, deinen nativen Code zu debuggen, ist [Debugging mit Protokollausgaben](http://en.wikipedia.org/wiki/Debugging#Techniques). Verwende die Funktionen im [Namensraum `dmLog`](/ref/stable/dmLog/), um Variablen zu beobachten oder den Ausführungsfluss sichtbar zu machen. Alle Protokollfunktionen geben Meldungen in der Ansicht *Console* im Editor und im [Spielprotokoll](/manuals/debugging-game-and-system-logs) aus.
+Die einfachste Möglichkeit, deinen nativen Code zu debuggen, ist [Debugging mit Protokollausgaben](http://en.wikipedia.org/wiki/Debugging#Techniques). Verwende die Funktionen im [Namensraum `dmLog`](/ref/dmLog/), um Variablen zu beobachten oder den Ausführungsfluss sichtbar zu machen. Alle Protokollfunktionen geben Meldungen in der Ansicht *Console* im Editor und im [Spielprotokoll](/manuals/debugging-game-and-system-logs) aus.
 
 
 ## Ein Absturzprotokoll analysieren {#analyze-a-crash-log}

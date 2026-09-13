@@ -9,7 +9,7 @@ brief: 本手册解释了如何保存和加载文件以及执行其他类型的�
 ## 文件和文件夹访问函数
 Defold 提供了几种不同的函数来处理文件：
 
-* 您可以使用标准的 [`io.*` 函数](https://defold.com/ref/stable/io/)来读写文件。这些函数为您提供了对整个 I/O 过程的非常精细的控制。
+* 您可以使用标准的 [`io.*` 函数](https://defold.com/ref/io/)来读写文件。这些函数为您提供了对整个 I/O 过程的非常精细的控制。
 
 ```lua
 -- 以二进制模式打开 myfile.txt 进行写入
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* 您可以使用 [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) 和 [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) 来重命名和删除文件。
+* 您可以使用 [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) 和 [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) 来重命名和删除文件。
 
-* 您可以使用 [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) 和 [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) 来读写 Lua 表。还有其他 [`sys.*`](https://defold.com/ref/stable/sys/) 函数可以帮助实现平台无关的文件路径解析。
+* 您可以使用 [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) 和 [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) 来读写 Lua 表。还有其他 [`sys.*`](https://defold.com/ref/sys/) 函数可以帮助实现平台无关的文件路径解析。
 
 ```lua
 -- 获取应用程序"mygame"的文件"highscore"的平台无关路径
@@ -79,7 +79,7 @@ print(data.highscore) -- 100
 * 由您的应用程序访问的系统特定文件
 
 ### 如何保存和加载应用程序特定文件
-当保存和加载应用程序特定文件（如高分、用户设置和游戏状态）时，建议在操作系统提供的专门用于此目的的位置中进行。您可以使用 [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) 获取文件的操作系统特定绝对路径。一旦获得绝对路径，您就可以使用 `sys.*`、`io.*` 和 `os.*` 函数（见上文）。
+当保存和加载应用程序特定文件（如高分、用户设置和游戏状态）时，建议在操作系统提供的专门用于此目的的位置中进行。您可以使用 [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) 获取文件的操作系统特定绝对路径。一旦获得绝对路径，您就可以使用 `sys.*`、`io.*` 和 `os.*` 函数（见上文）。
 
 [查看展示如何使用 `sys.save()` 和 `sys.load()` 的示例](/examples/file/sys_save_load/)。
 

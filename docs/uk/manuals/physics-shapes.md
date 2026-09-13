@@ -153,7 +153,7 @@ physics.set_shape("#collisionobject", "my_box_shape", box_data)
 
 
 ## Повертання форм колізій у 2D-фізиці {#rotating-collision-shapes-in-2d-physics}
-Форми колізій у 2D-фізиці можна повертати лише навколо осі z. Повертання навколо осі x або y дасть неправильні результати, і його слід уникати навіть у разі повертання на 180 градусів, щоб фактично віддзеркалити форму вздовж осі x або y. Для віддзеркалення фізичної форми рекомендовано використовувати [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) і [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+Форми колізій у 2D-фізиці можна повертати лише навколо осі z. Повертання навколо осі x або y дасть неправильні результати, і його слід уникати навіть у разі повертання на 180 градусів, щоб фактично віддзеркалити форму вздовж осі x або y. Для віддзеркалення фізичної форми рекомендовано використовувати [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) і [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip).
 
 
 # Налагодження {#debugging}

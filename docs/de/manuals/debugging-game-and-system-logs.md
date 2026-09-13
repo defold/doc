@@ -5,7 +5,7 @@ brief: Dieses Handbuch erklärt, wie du Spiel- und Systemprotokolle liest.
 
 # Spiel- und Systemprotokoll {#game-and-system-log}
 
-Das Spielprotokoll zeigt alle Ausgaben der Engine, nativer Erweiterungen (native extensions) und deiner Spiellogik an. Mit den Befehlen [print()](/ref/stable/base/#print:...) und [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) kannst du aus deinen Skripten und Lua-Modulen Informationen im Spielprotokoll anzeigen. Mit den Funktionen im [Namensraum `dmLog`](/ref/stable/dmLog/) kannst du aus nativen Erweiterungen in das Spielprotokoll schreiben. Das Spielprotokoll kannst du im Editor, in einem Terminalfenster, mit plattformspezifischen Werkzeugen oder aus einer Protokolldatei lesen.
+Das Spielprotokoll zeigt alle Ausgaben der Engine, nativer Erweiterungen (native extensions) und deiner Spiellogik an. Mit den Befehlen [print()](/ref/base/#print:...) und [pprint()](/ref/builtins/?q=pprint#pprint:v) kannst du aus deinen Skripten und Lua-Modulen Informationen im Spielprotokoll anzeigen. Mit den Funktionen im [Namensraum `dmLog`](/ref/dmLog/) kannst du aus nativen Erweiterungen in das Spielprotokoll schreiben. Das Spielprotokoll kannst du im Editor, in einem Terminalfenster, mit plattformspezifischen Werkzeugen oder aus einer Protokolldatei lesen.
 
 Systemprotokolle werden vom Betriebssystem erzeugt und können zusätzliche Informationen liefern, die dir helfen, ein Problem einzugrenzen. Die Systemprotokolle können Stacktraces zu Abstürzen und Warnungen bei knappem Arbeitsspeicher enthalten.
 

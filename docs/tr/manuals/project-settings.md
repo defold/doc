@@ -173,7 +173,7 @@ Bu ayar pencereyi denetler. Ekran dışı [çok örneklemeli işleme hedeflerini
 Uygulamanın tam ekran başlaması için işaretleyin. İşaretli değilse uygulama pencerede çalışır.
 
 #### Update Frequency
-Hertz cinsinden istenen kare hızı. Değişken kare hızı için 0 olarak ayarlayın. 0'dan büyük bir değer, çalışma sırasında gerçek kare hızına göre sınırlanan sabit bir kare hızı sağlar (yani oyun döngüsünü bir motor karesinde iki kez güncelleyemezsiniz). Bu değeri çalışma sırasında değiştirmek için [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) işlevini kullanın. Bu ayar, grafik arayüzü olmadan çalışan derlemelerde de geçerlidir.
+Hertz cinsinden istenen kare hızı. Değişken kare hızı için 0 olarak ayarlayın. 0'dan büyük bir değer, çalışma sırasında gerçek kare hızına göre sınırlanan sabit bir kare hızı sağlar (yani oyun döngüsünü bir motor karesinde iki kez güncelleyemezsiniz). Bu değeri çalışma sırasında değiştirmek için [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) işlevini kullanın. Bu ayar, grafik arayüzü olmadan çalışan derlemelerde de geçerlidir.
 
 #### Swap interval
 Bu tam sayı değeri, uygulamanın dikey eşitlemeyi (vsync) nasıl kullanacağını belirler. 0, dikey eşitlemeyi devre dışı bırakır; varsayılan değer 1'dir. OpenGL bağdaştırıcısı kullanılırken bu değer, pencerenin [arabellek takasları arasında güncelleneceği](https://www.khronos.org/opengl/wiki/Swap_Interval) kare sayısını belirler. Vulkan'da yerleşik bir takas aralığı kavramı olmadığından bu değer, dikey eşitlemenin etkinleştirilip etkinleştirilmeyeceğini belirler.

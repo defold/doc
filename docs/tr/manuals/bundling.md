@@ -82,7 +82,7 @@ Bu varlıklara [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_reso
 Bir uygulama dağıtım paketi oluştururken hata ayıklama paketi (debug) veya yayıma yönelik paket (release) oluşturmayı seçebilirsiniz. Bu iki paket arasındaki farklar küçüktür, ancak bunları akılda tutmak önemlidir:
 
 * Yayıma yönelik derlemeler varsayılan olarak [profil çıkarıcıyı (profiler)](/manuals/profiling) içermez. Hem hata ayıklama derlemelerine hem de yayıma yönelik derlemelere profil çıkarıcı desteği eklemek için [uygulama bildiriminde (App Manifest)](/manuals/app-manifest/#profiler) **Profiler** ayarını **Always** olarak ayarlayın.
-* Yayıma yönelik derlemeler [ekran kaydediciyi](/ref/stable/sys/#start_record) içermez
+* Yayıma yönelik derlemeler [ekran kaydediciyi](/ref/sys/#start_record) içermez
 * Yayıma yönelik derlemeler, `print()` çağrılarının veya herhangi bir yerel kod eklentisinin çıktısını göstermez
 * Yayıma yönelik derlemelerde `is_debug` değeri, `sys.get_engine_info()` içinde `false` olarak ayarlanır
 * Yayıma yönelik derlemeler, `hash` değerleri için `tostring()` çağrıldığında ters arama yapmaz. Pratikte bu, `tostring()` işlevinin `url` veya `hash` türündeki bir değer için özgün dize yerine sayısal gösterimi döndürmesi anlamına gelir (`'hash: [/camera_001]'` yerine `'hash: [11844936738040519888 (unknown)]'`)

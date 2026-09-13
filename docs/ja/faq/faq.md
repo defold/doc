@@ -53,7 +53,7 @@ A: Defold プロジェクトのゲームロジックは、主に Lua 言語で�
 
 #### Q: C++ でゲームロジックを記述できますか？ {#q-can-i-use-c-to-write-game-logic}
 
-A: Defold の C++ サポートは、主にサードパーティーの SDK やプラットフォーム固有の API と連携するネイティブ拡張（native extension）を記述するためのものです。[dmSDK](https://defold.com/ref/stable/dmGameObject/)（ネイティブ拡張で使用する Defold の C++ API）には段階的に機能を追加し、開発者が希望すればゲームロジック全体を C++ で記述できるようにする予定です。ゲームロジックに使う主な言語は引き続き Lua ですが、C++ API の拡充により、C++ でもゲームロジックを記述できるようになります。C++ API を拡充する作業は、主に既存の非公開ヘッダーファイルを公開部分に移し、公開利用に向けて API を整理することです。
+A: Defold の C++ サポートは、主にサードパーティーの SDK やプラットフォーム固有の API と連携するネイティブ拡張（native extension）を記述するためのものです。[dmSDK](https://defold.com/ref/dmGameObject/)（ネイティブ拡張で使用する Defold の C++ API）には段階的に機能を追加し、開発者が希望すればゲームロジック全体を C++ で記述できるようにする予定です。ゲームロジックに使う主な言語は引き続き Lua ですが、C++ API の拡充により、C++ でもゲームロジックを記述できるようになります。C++ API を拡充する作業は、主に既存の非公開ヘッダーファイルを公開部分に移し、公開利用に向けて API を整理することです。
 
 
 #### Q: Defold で TypeScript を使えますか？ {#q-can-i-use-typescript-with-defold}
@@ -195,7 +195,7 @@ A: はい、サポートしています。Defold では [コレクション（co
 
 #### Q: ゲームオブジェクトを別のゲームオブジェクトの子として追加できないのはなぜですか？ {#q-i-cant-add-a-game-object-as-a-child-to-another-game-object-why}
 
-A: ゲームオブジェクトファイル内で子を追加しようとしている可能性がありますが、それはできません。子を追加できるのはコレクションファイル内だけです。その理由を理解するには、親子階層が厳密には _シーングラフ_（scene graph）のトランスフォーム階層であることを思い出してください。シーン（コレクション）に配置（または生成）されていないゲームオブジェクトは、シーングラフの一部ではないため、シーングラフ階層の一部にもなれません。ゲームオブジェクトの親の ID は、[`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id) で取得できます。
+A: ゲームオブジェクトファイル内で子を追加しようとしている可能性がありますが、それはできません。子を追加できるのはコレクションファイル内だけです。その理由を理解するには、親子階層が厳密には _シーングラフ_（scene graph）のトランスフォーム階層であることを思い出してください。シーン（コレクション）に配置（または生成）されていないゲームオブジェクトは、シーングラフの一部ではないため、シーングラフ階層の一部にもなれません。ゲームオブジェクトの親の ID は、[`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id) で取得できます。
 
 
 #### Q: ゲームオブジェクトのすべての子にメッセージをブロードキャストできないのはなぜですか？ {#q-why-cant-i-broadcast-messages-to-all-children-of-a-game-object}
@@ -258,7 +258,7 @@ A: 一般に、すべてのリソースは静的に宣言されているため�
 
 #### Q: 物理のコリジョン形状のプロパティにアクセスする方法はありますか？ {#q-is-there-a-way-to-access-the-physics-collision-shape-properties}
 
-A: はい、物理 API、特に [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) と [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table) を参照してください。 
+A: はい、物理 API、特に [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) と [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table) を参照してください。 
 
 
 #### Q: シーン内のコリジョンオブジェクトを手早く描画する方法はありますか？（Box2D のデバッグ描画のように） {#q-is-there-any-quick-way-to-render-the-collision-objects-in-my-scene-like-box2ds-debug-draw}

@@ -318,7 +318,7 @@ Les constantes de shader, ou « uniformes », sont des valeurs transmises par 
   ```
 
 `CONSTANT_TYPE_USER`
-: Une constante vector4 que vous pouvez utiliser pour toute donnée personnalisée à transmettre à vos programmes de shader. Vous pouvez définir sa valeur initiale dans la définition de la constante, mais vous pouvez ensuite la modifier avec les fonctions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Vous pouvez également récupérer sa valeur avec [go.get()](/ref/stable/go/#go.get). Modifier une constante de matériau d'une seule instance de composant [rompt le regroupement des appels de rendu et entraîne des appels de rendu supplémentaires](/manuals/render/#draw-calls-and-batching).
+: Une constante vector4 que vous pouvez utiliser pour toute donnée personnalisée à transmettre à vos programmes de shader. Vous pouvez définir sa valeur initiale dans la définition de la constante, mais vous pouvez ensuite la modifier avec les fonctions [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). Vous pouvez également récupérer sa valeur avec [go.get()](/ref/go/#go.get). Modifier une constante de matériau d'une seule instance de composant [rompt le regroupement des appels de rendu et entraîne des appels de rendu supplémentaires](/manuals/render/#draw-calls-and-batching).
 
 Exemple :
 
@@ -329,7 +329,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: Une constante matrix4 que vous pouvez utiliser pour toute donnée personnalisée à transmettre à vos programmes de shader. Vous pouvez définir sa valeur initiale dans la définition de la constante, mais vous pouvez ensuite la modifier avec les fonctions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Vous pouvez également récupérer sa valeur avec [go.get()](/ref/stable/go/#go.get). Modifier une constante de matériau d'une seule instance de composant [rompt le regroupement des appels de rendu et entraîne des appels de rendu supplémentaires](/manuals/render/#draw-calls-and-batching).
+: Une constante matrix4 que vous pouvez utiliser pour toute donnée personnalisée à transmettre à vos programmes de shader. Vous pouvez définir sa valeur initiale dans la définition de la constante, mais vous pouvez ensuite la modifier avec les fonctions [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). Vous pouvez également récupérer sa valeur avec [go.get()](/ref/go/#go.get). Modifier une constante de matériau d'une seule instance de composant [rompt le regroupement des appels de rendu et entraîne des appels de rendu supplémentaires](/manuals/render/#draw-calls-and-batching).
 
 Exemple :
 

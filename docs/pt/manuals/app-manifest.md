@@ -37,7 +37,7 @@ Controla a funcionalidade de rig e modelo, ou selecione None para excluir modelo
 
 ## Excluir Gravação
 
-Exclui a capacidade de gravação de vídeo da engine (veja a documentação da mensagem [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Exclui a capacidade de gravação de vídeo da engine (veja a documentação da mensagem [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profiler
@@ -97,12 +97,12 @@ Exclui a funcionalidade [Live Update](/manuals/live-update) da engine.
 
 ## Excluir Image
 
-Exclui da engine o [módulo de script `image`](https://defold.com/ref/stable/image/).
+Exclui da engine o [módulo de script `image`](https://defold.com/ref/image/).
 
 
 ## Excluir Types
 
-Exclui da engine o [módulo de script `types`](https://defold.com/ref/stable/types/).
+Exclui da engine o [módulo de script `types`](https://defold.com/ref/types/).
 
 
 ## Excluir Basis Transcoder

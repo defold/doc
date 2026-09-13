@@ -155,7 +155,7 @@ physics.set_shape("#collisionobject", "my_box_shape", box_data)
 
 
 ## 2D 물리에서 충돌 모양 회전
-2D 물리의 충돌 모양은 z축을 중심으로만 회전할 수 있습니다. x축 또는 y축을 중심으로 회전하면 잘못된 결과가 발생하므로 피해야 합니다. 이는 모양을 x축 또는 y축을 따라 사실상 뒤집기 위해 180도 회전하는 경우에도 마찬가지입니다. 물리 모형을 뒤집으려면 [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) 및 [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip)을 사용하는 것이 권장됩니다.
+2D 물리의 충돌 모양은 z축을 중심으로만 회전할 수 있습니다. x축 또는 y축을 중심으로 회전하면 잘못된 결과가 발생하므로 피해야 합니다. 이는 모양을 x축 또는 y축을 따라 사실상 뒤집기 위해 180도 회전하는 경우에도 마찬가지입니다. 물리 모형을 뒤집으려면 [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) 및 [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip)을 사용하는 것이 권장됩니다.
 
 
 # 디버깅

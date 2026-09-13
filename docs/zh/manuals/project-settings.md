@@ -173,7 +173,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 勾选应用程序是否应全屏启动。如果未勾选，应用程序将在窗口模式下运行。
 
 #### Update Frequency
-所需的帧率（以赫兹为单位）。设置为 0 表示可变帧率。大于 0 的值将导致固定帧率，在运行时上限为实际帧率（这意味着您不能在引擎帧中更新游戏循环两次）。使用 [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) 在运行时更改此值。此设置也适用于无头构建。
+所需的帧率（以赫兹为单位）。设置为 0 表示可变帧率。大于 0 的值将导致固定帧率，在运行时上限为实际帧率（这意味着您不能在引擎帧中更新游戏循环两次）。使用 [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) 在运行时更改此值。此设置也适用于无头构建。
 
 #### Swap interval
 此整数值控制应用程序如何处理垂直同步。0 禁用垂直同步，默认值为 1。使用 OpenGL 适配器时，此值设置窗口应在[缓冲区交换之间更新](https://www.khronos.org/opengl/wiki/Swap_Interval)的帧数。对于 Vulkan，没有内置的交换间隔概念，该值控制是否应启用垂直同步。

@@ -173,7 +173,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 어플리케이션을 전체 화면으로 시작할지 체크합니다. 체크하지 않으면 어플리케이션은 창 모드로 실행됩니다.
 
 #### Update Frequency
-원하는 프레임레이트입니다. 단위는 Hertz입니다. 가변 프레임레이트를 사용하려면 0으로 설정합니다. 0보다 큰 값은 런타임에 실제 프레임레이트를 기준으로 제한되는 고정 프레임레이트를 사용하게 합니다. 즉, 하나의 엔진 프레임 안에서 게임 루프를 두 번 업데이트할 수는 없습니다. 런타임에 이 값을 변경하려면 [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency)를 사용하세요. 이 설정은 headless 빌드에서도 작동합니다.
+원하는 프레임레이트입니다. 단위는 Hertz입니다. 가변 프레임레이트를 사용하려면 0으로 설정합니다. 0보다 큰 값은 런타임에 실제 프레임레이트를 기준으로 제한되는 고정 프레임레이트를 사용하게 합니다. 즉, 하나의 엔진 프레임 안에서 게임 루프를 두 번 업데이트할 수는 없습니다. 런타임에 이 값을 변경하려면 [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency)를 사용하세요. 이 설정은 headless 빌드에서도 작동합니다.
 
 #### Swap interval
 이 정수 값은 어플리케이션이 vsync를 처리하는 방식을 제어합니다. 0은 vsync를 비활성화하며, 기본값은 1입니다. OpenGL 어댑터를 사용할 때 이 값은 창이 [buffer swap 사이에 업데이트](https://www.khronos.org/opengl/wiki/Swap_Interval)해야 하는 프레임 수를 설정합니다. Vulkan에는 swap interval이라는 내장 개념이 없으므로, 이 값은 대신 vsync 활성화 여부를 제어합니다.

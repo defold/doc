@@ -81,7 +81,7 @@ Vous pouvez interagir avec l'éditeur à l'aide du paquet `editor`, qui définit
 - `editor.ui.*` — diverses fonctions liées à l'interface utilisateur, voir le [manuel de l'interface utilisateur](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — fonctions permettant d'interagir avec les préférences de l'éditeur, voir les [préférences](#preferences).
 
-Vous trouverez la référence complète de l'API de l'éditeur [ici](/ref/stable/editor/).
+Vous trouverez la référence complète de l'API de l'éditeur [ici](/ref/editor/).
 
 ## Commandes {#commands}
 

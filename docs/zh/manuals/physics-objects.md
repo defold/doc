@@ -11,7 +11,7 @@ Static objects
 : 静态对象永远不会移动，但与静态对象碰撞的动态对象会通过反弹和/或滑动做出反应。静态对象对于构建不会移动的关卡几何体（即地面和墙壁）非常有用。它们在性能方面也比动态对象更便宜。您不能移动或以其他方式更改静态对象。
 
 Dynamic objects
-: 动态对象由物理引擎模拟。引擎解决所有碰撞并应用产生的力。动态对象适用于应该表现得真实的对象。影响它们的最常见方式是间接的，通过[施加力](/ref/physics/#apply_force)或改变角[阻尼](/ref/stable/physics/#angular_damping)和[速度](/ref/stable/physics/#linear_velocity)以及线性[阻尼](/ref/stable/physics/#linear_damping)和[速度](/ref/stable/physics/#angular_velocity)。当在 *game.project* 中启用[允许动态变换设置](/manuals/project-settings/#allow-dynamic-transforms)时，也可以直接操纵动态对象的位置和方向。
+: 动态对象由物理引擎模拟。引擎解决所有碰撞并应用产生的力。动态对象适用于应该表现得真实的对象。影响它们的最常见方式是间接的，通过[施加力](/ref/physics/#apply_force)或改变角[阻尼](/ref/physics/#angular_damping)和[速度](/ref/physics/#linear_velocity)以及线性[阻尼](/ref/physics/#linear_damping)和[速度](/ref/physics/#angular_velocity)。当在 *game.project* 中启用[允许动态变换设置](/manuals/project-settings/#allow-dynamic-transforms)时，也可以直接操纵动态对象的位置和方向。
 
 Kinematic objects
 : 运动学对象会注册与其他物理对象的碰撞，但物理引擎不执行任何自动模拟。解决碰撞或忽略它们的工作留给您来完成（[了解更多](/manuals/physics-resolving-collisions)）。运动学对象非常适合需要精细控制物理反应的玩家或脚本控制的对象，如玩家角色。

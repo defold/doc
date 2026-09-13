@@ -56,7 +56,7 @@ Defold がそのファイルを GUI シーンエディターで自動的に開�
 : この GUI のノードの最大数です。
 
 *Max Dynamic Textures*
-: この GUI コンポーネントが追跡する動的テクスチャの最大数で、デフォルトは `128` です。これには、[`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) で作成したテクスチャと、`go.set(..., "textures", ...)` または `gui.set(msg.url(), "textures", ...)` で GUI に割り当てた外部テクスチャが含まれます。多数の外部テクスチャを置き換えるプロジェクトでは、この上限を引き上げる必要がある場合があります。
+: この GUI コンポーネントが追跡する動的テクスチャの最大数で、デフォルトは `128` です。これには、[`gui.new_texture()`](/ref/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) で作成したテクスチャと、`go.set(..., "textures", ...)` または `gui.set(msg.url(), "textures", ...)` で GUI に割り当てた外部テクスチャが含まれます。多数の外部テクスチャを置き換えるプロジェクトでは、この上限を引き上げる必要がある場合があります。
 
 
 ## 実行時の操作 {#runtime-manipulation}

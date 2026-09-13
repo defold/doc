@@ -173,7 +173,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 アプリケーションをフルスクリーンで起動する場合はチェックします。チェックしない場合は、ウィンドウモードで実行されます。
 
 #### Update Frequency
-目標のフレームレートです。単位はヘルツです。可変フレームレートにするには 0 に設定します。0 より大きい値にすると固定フレームレートになり、実行時には実際のフレームレートが上限になります（つまり、エンジンの1フレーム内でゲームループを2回更新することはできません）。実行時にこの値を変更するには、[`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) を使用します。この設定は、画面表示を伴わずに実行するヘッドレスビルドでも機能します。
+目標のフレームレートです。単位はヘルツです。可変フレームレートにするには 0 に設定します。0 より大きい値にすると固定フレームレートになり、実行時には実際のフレームレートが上限になります（つまり、エンジンの1フレーム内でゲームループを2回更新することはできません）。実行時にこの値を変更するには、[`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) を使用します。この設定は、画面表示を伴わずに実行するヘッドレスビルドでも機能します。
 
 #### Swap interval
 この整数値は、アプリケーションでの垂直同期（vsync）の扱いを制御します。0 にすると垂直同期が無効になり、既定値は 1 です。OpenGL アダプターを使用する場合、この値は[バッファーの交換間にウィンドウを更新する](https://www.khronos.org/opengl/wiki/Swap_Interval)フレーム数を設定します。Vulkan にはスワップ間隔という組み込みの概念がないため、この値は垂直同期を有効にするかどうかを制御します。

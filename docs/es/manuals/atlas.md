@@ -138,7 +138,7 @@ Es posible crear una textura y un atlas en runtime.
 
 ### Crear un recurso Texture en runtime
 
-Usa [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table) para crear un nuevo recurso de textura:
+Usa [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table) para crear un nuevo recurso de textura:
 
 ```lua
   local params = {
@@ -150,7 +150,7 @@ Usa [`resource.create_texture(path, params)`](https://defold.com/ref/stable/reso
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Una vez creada la textura, puedes usar [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) para definir los pixeles de la textura:
+Una vez creada la textura, puedes usar [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer) para definir los pixeles de la textura:
 
 ```lua
   local width = 128
@@ -184,7 +184,7 @@ La textura puede usarse directamente en un [componente de modelo](/manuals/model
 
 ### Crear un Atlas en runtime
 
-Si la textura debe usarse en un [componente sprite](/manuals/sprite/), primero debe usarse en un atlas. Usa [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table) para crear un Atlas:
+Si la textura debe usarse en un [componente sprite](/manuals/sprite/), primero debe usarse en un atlas. Usa [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table) para crear un Atlas:
 
 ```lua
   local params = {
