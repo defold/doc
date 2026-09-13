@@ -1,0 +1,754 @@
+---
+title: Defold belgeleri için Türkçe terim sözlüğü
+brief: Defold belgelerinde kullanılacak Türkçe terimler, anlam ayrımları ve resmî kaynaklara dayalı kullanım notları.
+---
+
+# Defold belgeleri için Türkçe terim sözlüğü
+
+Bu sözlük, yeni Türkçe çeviriler için hazırlanmıştır. Araştırma sırasında `docs/tr` altında çeviri dosyası yoktu. Depodaki `de`, `es`, `fr`, `gr`, `it`, `ja`, `ko`, `pl`, `pt` ve `uk` dizinlerinde bulunan on sözlük ve on çeviri kılavuzunun kapsamı, terimleri ve kuralları incelendi. İngilizce Defold belgeleri, Godot projesinin resmî Türkçe belge çeviri kataloğu ve farklı yazılım üreticilerinin Türkçe belgeleriyle karşılaştırıldı. Hazırlama ve kaynakları kontrol etme tarihi: 2026-09-12.
+
+Açıklayıcı metinde önerilen Türkçe biçimi kullanın. Önemli kavramları bir yazıda ilk kez açıklarken İngilizcelerini de verin: `oyun nesnesi (game object)`. Ekranda bulunacak, yazılacak veya kopyalanacak arayüz etiketlerini, API adlarını, komutları, dosya adlarını ve diğer teknik dizeleri aynen koruyun. Ayrıntılar için [çeviri kılavuzuna](translation-guidelines.txt) bakın.
+
+Kaynaklar Türkçe kullanım örnekleri sağlar; başka bir motorun yapısını Defold için geçerli kılmaz. Anlam ve davranış için `docs/en` esas alınır. Özellikle `koleksiyon`, `başlangıç koleksiyonu`, `fabrika`, `koleksiyon fabrikası` ve `koleksiyon vekili` bu Türkçe belge seti için seçilmiş açıklama terimleridir; doğrulanmış Türkçe Defold arayüz etiketleri değildir. Ayrı kaynak gösterilmeyen maddeler de bu belge setinin terim önerileridir.
+
+## Defold ve genel kavramlar
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| Defold | Defold; ürün adını koruyun |
+| Defold Foundation | Defold Foundation; kuruluşun adını koruyun |
+| Defold Editor | Defold düzenleyicisi; ürünün tam İngilizce adı aktarılıyorsa `Defold Editor` |
+| editor | düzenleyici; Godot kataloğundaki kullanımla uyumludur [G1] |
+| engine | motor |
+| game engine | oyun motoru |
+| engine instance | motor örneği |
+| game | oyun |
+| gameplay | oynanış |
+| game logic | oyun mantığı |
+| application / app | uygulama |
+| software | yazılım |
+| feature | özellik; ürünün sunduğu yetenek anlamında |
+| tool | araç |
+| system / subsystem | sistem / alt sistem |
+| platform / target platform | platform / hedef platform |
+| documentation | belgeler; bir bütün olarak belgelendirme |
+| manual | kılavuz |
+| API documentation | API belgeleri |
+| API reference | API başvuru belgeleri |
+| tutorial | öğretici; adım adım uygulama içeren belge |
+| example / sample | örnek; `instance` anlamındaki nesne örneğiyle bağlamda ayırın |
+| overview | genel bakış |
+| product overview | ürüne genel bakış |
+| FAQ | sık sorulan sorular; başlıkta kullanılabilir, kaynak metindeki `Q:` ve `A:` işaretleri korunur |
+| community | topluluk |
+| forum | forum |
+
+## Projeler, dosyalar ve kaynaklar
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| project | proje |
+| project settings | proje ayarları |
+| project file | proje dosyası |
+| project template | proje şablonu |
+| file | dosya |
+| folder | klasör |
+| directory / root directory | dizin / kök dizin |
+| file extension | dosya uzantısı; motor eklentisiyle karıştırmayın |
+| source file | kaynak dosya |
+| source code | kaynak kod |
+| codebase | kod tabanı |
+| resource | kaynak; Defold kaynak sisteminin yönettiği veriler |
+| resource file | kaynak dosyası |
+| resource path | kaynak yolu |
+| resource tree | kaynak ağacı |
+| resource graph | kaynak grafı; bağımlılık ilişkilerini gösterir |
+| resource management | kaynak yönetimi |
+| resource property | kaynak özelliği; bir kaynağa başvuran özellik |
+| custom resource | özel kaynak |
+| built-in resource | yerleşik kaynak |
+| bundle resource | dağıtım paketine eklenen kaynak; tam ayar adı korunur |
+| asset | varlık; oyunda kullanılan görsel, model veya ses gibi üretim içeriği. `resource` için otomatik karşılık olarak kullanmayın |
+| Asset Portal | Asset Portal; özel adı koruyun |
+| content | içerik |
+| library | kütüphane; bu belgelerde `kitaplık` ile dönüşümlü kullanmayın |
+| dependency | bağımlılık |
+| library dependency | kütüphane bağımlılığı |
+| repository | depo; Git bağlamında kod deposu |
+| branch | dal |
+| version control | sürüm kontrolü |
+| clone | klonlamak; Git deposunun kopyasını oluşturmak |
+| archive | arşiv |
+| cache | önbellek |
+| caching | önbelleğe alma |
+| resource cache / asset cache | kaynak önbelleği / varlık önbelleği; kaynak metindeki ayrımı koruyun |
+| local cache / remote cache | yerel önbellek / uzak önbellek |
+| reference | başvuru; başka bir dosya, kaynak veya nesneye gönderme |
+| file reference | dosya başvurusu |
+| reference count / reference counting | başvuru sayısı / başvuru sayımı |
+| broken reference | bozuk başvuru |
+| extension | eklenti; dosya adı bağlamında uzantı |
+| native extension | yerel kod eklentisi; C, C++ gibi dillerde yazılan motor eklentisi |
+| checksum | sağlama toplamı |
+| read-only | salt okunur |
+| default value | varsayılan değer |
+| configuration / configuration value | yapılandırma / yapılandırma değeri |
+
+## Oyun yapısı ve örnekler
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| building blocks | yapı taşları |
+| game object | oyun nesnesi; kimlik, konum, dönme ve ölçek bilgileriyle bileşenleri barındırır [D1] |
+| current game object | geçerli oyun nesnesi |
+| component | bileşen; oyun nesnesine davranış veya görünüm gibi işlevler ekler [D1] |
+| component type | bileşen türü |
+| component property | bileşen özelliği |
+| collection | koleksiyon; oyun nesnelerinin ve alt koleksiyonların düzenini tanımlayan dosya. Çalışma zamanında doğrudan adreslenen bir oyun nesnesi değildir [D1] |
+| collection file | koleksiyon dosyası |
+| sub-collection | alt koleksiyon |
+| collection hierarchy | koleksiyon hiyerarşisi; adresleme bağlamını belirleyen yapı |
+| bootstrap collection | başlangıç koleksiyonu; motor başlatıldığında yüklenen koleksiyon |
+| main collection | ana koleksiyon; `game.project` içindeki tam ayar adı korunur |
+| root collection | kök koleksiyon; hiyerarşinin kökü, her bağlamda başlangıç koleksiyonu anlamına gelmez |
+| collection instance | koleksiyon örneği; koleksiyon tanımına dayalı içerik örneği |
+| factory | fabrika; çalışma sırasında oyun nesneleri oluşturan bileşen [D4] |
+| factory component | fabrika bileşeni |
+| collection factory | koleksiyon fabrikası; koleksiyonun içeriğini geçerli oyun dünyasında oluşturur [D3] |
+| collection proxy | koleksiyon vekili; koleksiyon içeriğini ayrı bir oyun dünyasına yükler ve yönetir. Ağdaki ara sunucu anlamında değildir [D2] |
+| prototype | prototip; Defold bağlamında örneklerin dayandığı tanım, yalnızca deneme sürümü anlamında değildir |
+| prefab | prefab; başka motorlardaki yeniden kullanılabilir nesne tanımı anlatılırken İngilizce terimi açıklayın |
+| blueprint | taslak; genel benzetmede. Unreal Engine özelliği olan `Blueprint` adını koruyun |
+| template | şablon |
+| hierarchy | hiyerarşi; öğelerin üst-alt ilişkilerine göre düzenlenmesi |
+| instance | örnek; belirsizlik varsa `nesne örneği` veya ilgili türle birlikte kullanın |
+| instantiate / instantiation | örnek oluşturmak / örnek oluşturma; doku veya ses örneklemesiyle karıştırmayın |
+| spawn | çalışma sırasında oluşturmak; nesnenin yeniden doğması anlamını kendiliğinden eklemeyin |
+| in-place | yerinde; ayrı prototip dosyasına başvurmak yerine içinde bulunduğu dosyada tanımlanan öğe |
+| embedded game object / component | gömülü oyun nesnesi / gömülü bileşen |
+| by reference | başvuru yoluyla; bir dosyaya başvurarak ekleme |
+| parent | üst nesne; GUI bağlamında üst düğüm |
+| child | alt nesne; GUI bağlamında alt düğüm |
+| parent-child hierarchy | üst-alt nesne hiyerarşisi; dönüşümlerin aktarılmasını belirler |
+| childing / reparenting | alt nesne olarak bağlama / üst nesneyi değiştirme; adresi değiştirmekle aynı işlem değildir [D1] |
+| root | kök |
+| scene | sahne; Defold koleksiyonu için her yerde kullanılabilecek bir eş anlamlı değildir |
+| scene graph | sahne grafı; çizelge veya grafik görüntüsü anlamında değildir |
+| game world | oyun dünyası |
+| physics world | fizik dünyası |
+| lifetime / lifespan | yaşam süresi; parçacıklarda ömür de kullanılabilir |
+| lifecycle | yaşam döngüsü; geçen süre yerine aşamaları ve geçişleri anlatır |
+
+## Bileşenler ve kaynak türleri
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| sprite | sprite; görüntü gösteren Defold bileşeni. İlk kullanımda `sprite bileşeni` diye açıklayın |
+| sprite component | sprite bileşeni |
+| script | betik; Godot kataloğunda da kullanılan karşılık [G1] |
+| script component | betik bileşeni |
+| script file | betik dosyası |
+| game object script | oyun nesnesi betiği |
+| GUI component | GUI bileşeni |
+| GUI scene | GUI sahnesi |
+| GUI script | GUI betiği; `.gui_script` uzantısı korunur |
+| editor script | düzenleyici betiği |
+| render script | işleme betiği; görüntü oluşturma akışını yöneten Lua betiği |
+| model / model component | model / model bileşeni |
+| mesh | örgü; köşelerden ve bunları birleştiren geometriden oluşan yapı. Epic belgelerindeki kullanımla uyumludur [E2] |
+| mesh component | örgü bileşeni |
+| camera / camera component | kamera / kamera bileşeni |
+| collision object | çarpışma nesnesi; adına rağmen Defold içinde bir bileşen türüdür |
+| sound component | ses bileşeni |
+| particle effect / Particle FX | parçacık efekti; `ParticleFX` gibi tam tür ve arayüz adlarını koruyun |
+| tile map / tilemap | karo haritası |
+| tile source | karo kaynağı; `.tilesource` uzantısı korunur |
+| tile set / tileset | karo kümesi; Defold karo kaynağının adı yerine kendiliğinden kullanmayın |
+| tile | karo; kare boyutunda olması gerektiğini çeviriye eklemeyin |
+| atlas | atlas; ayrı görüntüleri doku sayfalarında birleştiren kaynak |
+| animation set | animasyon kümesi |
+| material | materyal; gölgelendiricileri ve ilgili özellikleri tanımlayan kaynak. Doku ile aynı şey değildir [E2] |
+| texture | doku [E2] |
+| cubemap | küp haritası; küpün yüzlerine karşılık gelen görüntülerden oluşan doku |
+| font | yazı tipi [E2] |
+| label | etiket; oyun nesnesi üzerinde metin gösteren bileşen. GUI metin düğümünden ayrıdır |
+| GUI template | GUI şablonu |
+| texture profile | doku profili |
+| display profile | ekran profili |
+
+## Adresleme ve iletiler
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| identifier / ID | tanımlayıcı; `id`, `Id` veya `ID` tam alan adıysa yazımını koruyun |
+| unique identifier | benzersiz tanımlayıcı |
+| addressing | adresleme |
+| address | adres |
+| relative address / addressing | göreli adres / göreli adresleme |
+| absolute address / addressing | mutlak adres / mutlak adresleme |
+| target address | hedef adres |
+| target | hedef; işlem, ileti veya derleme bağlamını belirtin |
+| naming context | adlandırma bağlamı |
+| namespace | ad alanı |
+| name collision | ad çakışması; fiziksel çarpışmadan farklıdır |
+| path | yol; tam URL alanı adı `path` olarak kalır |
+| relative path / absolute path | göreli yol / mutlak yol |
+| URL | URL; adresin kendisini değiştirmeyin |
+| URL object / URL string | URL nesnesi / URL dizesi |
+| socket | soket; Defold URL adresinde oyun dünyasını belirleyen bölüm. Ağ bağlantısı anlamındaki soketten ayırın |
+| fragment (URL) | URL parçası; Defold adresinde bileşeni belirleyen bölüm. Alan adı `fragment` korunur |
+| separator | ayırıcı |
+| hash | karma; işlev, değer veya veri türünden hangisinin kastedildiğini belirtin. API adı `hash()` korunur |
+| hash value / hashed value | karma değeri |
+| hashed identifier | karma değeri alınmış tanımlayıcı |
+| shorthand | kısa gösterim; `.`, `#` ve diğer tam gösterimler korunur |
+| message | ileti; tam ileti adları çevrilmez |
+| message passing | ileti aktarımı |
+| send / post a message | ileti göndermek |
+| receive a message | ileti almak |
+| sender | gönderen |
+| receiver / recipient | alıcı |
+| message ID | ileti tanımlayıcısı |
+| message data | ileti verisi |
+| message queue | ileti kuyruğu |
+| message chain | ileti zinciri |
+| dispatch messages | iletileri dağıtmak |
+| dispatch pass | ileti dağıtım turu |
+| message handler | ileti işleyicisi |
+| broadcast | tüm alıcılara gönderim; yalnızca kaynak metin bu davranışı tanımlıyorsa |
+| system message | sistem iletisi |
+| user message | kullanıcı tanımlı ileti; oyuncunun yazdığı sohbet iletisi anlamını eklemeyin |
+| current component | geçerli bileşen |
+
+## Lua, programlama ve yaşam döngüsü
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| Lua / LuaJIT | Lua / LuaJIT; `LUA` yazmayın |
+| Lua script / Lua module | Lua betiği / Lua modülü |
+| Lua context | Lua bağlamı |
+| programming language | programlama dili |
+| high-level language | yüksek düzeyli dil |
+| native code | yerel kod; bilgisayarda yerel olarak saklanan dosya anlamından ayırın |
+| code | kod |
+| data | veri |
+| module | modül |
+| function | işlev; API işlevinin adı değişmez |
+| method | yöntem; türün üyesi olan çağrılabilir yapı |
+| callback | geri çağırım; gerektiğinde geri çağırım işlevi |
+| event | olay; ileti ve geri çağırım ile eş anlamlı değildir |
+| event handler | olay işleyicisi |
+| variable | değişken |
+| argument | bağımsız değişken; çağrı sırasında verilen değer |
+| parameter | parametre; işlev tanımındaki parametreyle verilen değeri ayırın |
+| return value | dönüş değeri |
+| property | özellik |
+| script property | betik özelliği |
+| attribute | öznitelik; özellikle köşe verilerinde `property` ile birleştirmeyin |
+| field | alan |
+| constant | sabit |
+| enum / enumeration | numaralandırma türü; sabit adlarını koruyun |
+| type / data type | tür / veri türü |
+| number | sayı; Lua tür adı `number` değişmez |
+| string | dize; metin içeren veri türü. `string` gibi tam tür adları korunur |
+| boolean | mantıksal değer; `boolean`, `true` ve `false` korunur |
+| nil | `nil`; değer bulunmadığını ifade eden Lua değeri, sıfır veya boş dize değildir |
+| userdata | `userdata`; Lua veri türü adını koruyun |
+| table / Lua table | tablo / Lua tablosu |
+| key-value pair | anahtar-değer çifti |
+| array | dizi; dize ile karıştırmayın |
+| scope | kapsam |
+| local scope / global scope | yerel kapsam / genel kapsam |
+| state | durum |
+| stateful / stateless | durum tutan / durum tutmayan |
+| coroutine | eş yordam; ilk kullanımda İngilizcesini ekleyin |
+| closure | kapanış; dış kapsamın değişkenlerine erişebilen işlev bağlamında |
+| metatable | meta tablo; `metatable` API veya tür adıysa korunur |
+| garbage collection | çöp toplama |
+| allocation / deallocation | bellek ayırma / ayrılan belleği serbest bırakma |
+| application lifecycle | uygulama yaşam döngüsü |
+| preinitialization | ön başlatma |
+| initialization | başlangıç işlemleri; nesne ve bileşenlerin hazırlanması |
+| finalization | sonlandırma işlemleri; doğrudan silme veya bellekten kaldırma ile aynı işlem değildir |
+| cleanup | temizleme; kullanılan kaynakların bırakılması gibi işlemler |
+| update loop | güncelleme döngüsü |
+| update | güncelleme; yaşam döngüsü aşaması. Yazılım sürümü güncellemesiyle bağlamda ayırın |
+| fixed update | sabit zaman adımlı güncelleme |
+| late update | geç güncelleme; `late_update()` korunur |
+| post update | güncelleme sonrası aşama |
+| time step / timestep | zaman adımı |
+| fixed timestep | sabit zaman adımı |
+| delta time | geçen süre; bu bağlamda zaman adımına karşılık gelen süre. `dt` korunur |
+| runtime | çalışma zamanı; yazılım ortamı kastediliyorsa çalışma zamanı ortamı |
+| at runtime | çalışma sırasında |
+| execution time | yürütme süresi; bir işlemin ne kadar sürdüğü |
+| load / unload | yüklemek / bellekten kaldırmak; diskteki dosyayı silmek anlamına gelmez |
+| enable / disable | etkinleştirmek / devre dışı bırakmak |
+| delete | silmek |
+
+## Koordinatlar, kamera ve ekran
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| 2D / 3D | iki boyutlu (2B) / üç boyutlu (3B); ad, tür veya arayüz etiketi içindeki `2D` ve `3D` korunur |
+| transform / transformation | dönüşüm; konum, dönme ve ölçek bilgisini kapsayan kavram |
+| translation (spatial) | öteleme; uzamsal dönüşümde `çeviri` kullanmayın |
+| translation (language) | çeviri |
+| position | konum |
+| rotation | dönme; işlem için döndürme |
+| scale | ölçek |
+| scaling | ölçekleme |
+| movement | hareket |
+| coordinate system | koordinat sistemi |
+| local space | yerel uzay |
+| world space | dünya uzayı |
+| screen space | ekran uzayı |
+| origin | başlangıç noktası; koordinat sisteminin sıfır noktası |
+| axis | eksen |
+| vector | vektör |
+| vector component | vektör bileşeni; oyun nesnesine eklenen bileşenden farklı anlam |
+| matrix | matris |
+| quaternion | kuaterniyon; ilk kullanımda `quaternion` karşılığını ekleyin |
+| projection | izdüşüm |
+| orthographic projection | ortografik izdüşüm |
+| perspective projection | perspektif izdüşüm |
+| projection matrix | izdüşüm matrisi |
+| view matrix | görünüm matrisi |
+| view-projection matrix | görünüm-izdüşüm matrisi |
+| view frustum | görüş hacmi; kesik piramit biçimindeki hacim için |
+| field of view / FOV | görüş açısı (FOV) |
+| near plane / far plane | yakın düzlem / uzak düzlem |
+| viewport | görüntü alanı; pencerede görüntünün oluşturulduğu bölge |
+| zoom | yakınlaştırma; azaltma işlemi için uzaklaştırma |
+| screen size | ekran boyutu |
+| resolution | çözünürlük |
+| aspect ratio | en boy oranı |
+| orientation | yönelim |
+| portrait / landscape | dikey / yatay; ekran yönelimi |
+| fullscreen | tam ekran |
+| high DPI | yüksek DPI; gerektiğinde yüksek piksel yoğunluğu açıklaması |
+| pixel | piksel [K1] |
+| subpixel | alt piksel |
+| pixel-perfect | piksel düzeyinde tam hizalı; ilgili görüntüleme davranışını açıklayın |
+
+## Grafikler, işleme ve dokular
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| graphics | grafikler; alana göre grafik sistemi |
+| render / rendering | işlemek / işleme; grafiklerden görüntü oluşturma. İlk açıklamada `işleme (rendering)` yazın [G1] |
+| renderer | işleyici; belirsizlik varsa grafik işleyicisi. CPU anlamındaki işlemciden farklıdır [G1] |
+| graphics API / render API | grafik API'si / işleme API'si |
+| rendering pipeline / render pipeline | işleme hattı; görüntü oluşturmanın aşamaları |
+| render target | işleme hedefi |
+| render predicate | işleme yüklemi; materyal etiketlerine göre çizilecek bileşenleri seçen koşul |
+| material tag | materyal etiketi |
+| render pass | işleme geçişi |
+| draw call | çizim çağrısı |
+| draw order | çizim sırası |
+| batching / batch rendering | toplu çizim; uyumlu çizim işlerini gruplandırma |
+| vertex | köşe; çokgen geometrisindeki köşe noktası |
+| vertex attribute | köşe özniteliği |
+| fragment (graphics) | parça; rasterleştirmede üretilen işleme birimi, her zaman son görüntüdeki tek bir pikselle aynı şey değildir |
+| shader | gölgelendirici [G1] [E2] |
+| vertex shader | köşe gölgelendiricisi |
+| fragment shader | parça gölgelendiricisi; kaynak metindeki adı `pixel shader` olarak değiştirmeyin |
+| compute shader | hesaplama gölgelendiricisi |
+| shader program | gölgelendirici programı |
+| shader constant | gölgelendirici sabiti |
+| uniform | uniform; gölgelendiriciye sağlanan parametre türü. `uniform` dil anahtar sözcüğü korunur |
+| sampler | örnekleyici |
+| texture sampling | doku örnekleme; nesne örneği oluşturma işleminden farklıdır |
+| texel | teksel; doku elemanı |
+| UV coordinates / UV mapping | UV koordinatları / UV eşleme |
+| texture filtering | doku filtreleme |
+| nearest-neighbor filtering | en yakın komşu filtreleme |
+| linear filtering | doğrusal filtreleme |
+| minification / magnification filtering | küçültme / büyütme filtrelemesi |
+| mipmap | mipmap; dokunun küçültülmüş sürümlerinden oluşan yapı |
+| texture compression | doku sıkıştırma |
+| wrap mode | sarma modu; doku koordinatlarının sınırlar dışında nasıl yorumlandığı |
+| blend mode | harmanlama modu; Krita aynı kavram için `harmanlama kipi` kullanır [K1] |
+| alpha / alpha channel | alfa / alfa kanalı |
+| premultiplied alpha | önceden çarpılmış alfa |
+| tint | renk çarpanı; Defold bağlamında görüntü rengine uygulanan renk değeri. `tint` alanı korunur |
+| depth buffer / depth test | derinlik arabelleği / derinlik testi |
+| stencil buffer / stencil test | şablon arabelleği / şablon testi; proje şablonuyla ilgisi yoktur |
+| back buffer | arka arabellek |
+| buffer | arabellek; `cache` için kullanılan önbellekten ayırın |
+| culling / frustum culling | görünmeyenleri eleme / görüş hacmi dışında kalanları eleme |
+| clipping | kırpma; görünür bölgeyi sınırlama |
+| texture bleeding / edge bleeding | doku taşması / kenar taşması; komşu görüntünün renginin örneklemeye karışması |
+| extrude borders | kenarları genişletme; sınır piksellerini dışarı doğru çoğaltma. `Extrude Borders` etiketi korunur |
+| sprite sheet | sprite sayfası |
+
+## GUI, yerleşim ve metin
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| user interface / UI | kullanıcı arayüzü (UI) |
+| graphical user interface / GUI | grafik kullanıcı arayüzü (GUI); Defold bileşeni için GUI kısaltmasını koruyun |
+| HUD | HUD; ilk kullanımda oyun içi bilgi göstergesi olarak açıklayın |
+| node / GUI node | düğüm / GUI düğümü; oyun nesnesi yerine kullanılmaz |
+| node tree | düğüm ağacı |
+| box node | kutu düğümü |
+| text node | metin düğümü |
+| pie node | daire dilimi düğümü |
+| template node | şablon düğümü |
+| particle effect node | parçacık efekti düğümü |
+| layer | katman [K1] |
+| layout | yerleşim |
+| adaptive GUI | uyarlanabilir GUI |
+| pivot | dayanak noktası; yerleştirme, döndürme ve ölçekleme için kullanılan referans noktası |
+| anchor | sabitleme noktası; GUI yerleşimi bağlamında |
+| adjust mode | uyarlama modu |
+| slice-9 / 9-slice | dokuz parçalı ölçekleme; köşe ve kenarları ayrı ele alan yöntem |
+| bounding box | sınırlayıcı kutu |
+| visibility / visible | görünürlük / görünür |
+| opacity | opaklık; saydam olmama derecesi. Krita kaynağındaki `matlık` yerine bu belgelerde opaklık kullanılır [K1] |
+| transparency | saydamlık [K1] |
+| glyph | glif; yazı tipindeki görsel şekil, Unicode karakteriyle bire bir aynı olmak zorunda değildir |
+| bitmap font | bit eşlem yazı tipi |
+| distance field font | uzaklık alanı yazı tipi |
+| font collection | yazı tipi koleksiyonu; Defold oyun koleksiyonuyla bağlamda ayırın |
+| glyph cache | glif önbelleği |
+| alignment | hizalama |
+| line break | satır sonu; otomatik satır düzenleme bağlamında satır kaydırma |
+| leading / tracking | satır aralığı / harf aralığı |
+| text / image / color | metin / görüntü / renk |
+| width / height / size | genişlik / yükseklik / boyut |
+| outline (text) | dış çizgi; yazı tipi çevresindeki çizgi. Düzenleyicideki `Outline` görünümüyle karıştırmayın |
+
+## Animasyon, parçacıklar ve ses
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| animation / animate | animasyon / animasyon uygulamak; cümlede doğal olduğunda canlandırmak |
+| flipbook animation / flip-book animation | kare dizisi animasyonu; sıralı görüntülerin oynatılması |
+| property animation | özellik animasyonu |
+| model animation | model animasyonu |
+| skeletal animation / bone animation | iskelet animasyonu / kemik animasyonu |
+| animation clip | animasyon klibi |
+| frame | kare; görüntü veya animasyon bağlamında, `çerçeve` kullanmayın |
+| frame rate / FPS | kare hızı / saniyedeki kare sayısı (FPS) |
+| keyframe | anahtar kare |
+| interpolation | ara değerleme; ilk kullanımda `interpolation` eklenebilir |
+| easing | geçiş eğrisi; animasyonun zamana göre ilerleyişini belirleyen eğri |
+| tween | ara geçiş animasyonu |
+| playback / playback rate | oynatma / oynatma hızı |
+| loop / looping | döngü / döngüde oynatma |
+| ping-pong playback | ileri geri oynatma |
+| skeleton / bone | iskelet / kemik |
+| skinning | iskelete bağlama; örgü köşelerinin kemiklere bağlanması ve bunlarla deforme edilmesi |
+| rig | iskelet düzeneği; ilk kullanımda İngilizce terimi ekleyin |
+| particle | parçacık; gölgelendiricideki `fragment` için kullanmayın |
+| emitter | yayıcı |
+| modifier | değiştirici |
+| spawn rate | oluşturma hızı; parçacık bağlamında yayım hızı |
+| sound / audio | ses; dosya veya bileşen türünü bağlamda belirtin |
+| sound effect | ses efekti |
+| sound group | ses grubu |
+| gain | kazanç; sinyale uygulanan çarpan, duyulan ses yüksekliğiyle aynı büyüklük değildir |
+| pan | stereo konumu; sesin sol ve sağ kanallar arasındaki dağılımı |
+| streaming audio | akış yoluyla ses oynatma |
+
+## Girdi
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| input | girdi; oyuncudan veya donanımdan alınan veri [G1] |
+| input binding | girdi eşlemesi; donanım girdisini oyun eylemine bağlar |
+| input action | girdi eylemi |
+| input trigger | girdi tetikleyicisi |
+| input focus | girdi odağı |
+| input stack | girdi yığını |
+| consume input | girdiyi tüketmek; girdinin diğer alıcılara aktarılmasını durdurma anlamında |
+| pressed / released / repeated | basıldı / bırakıldı / yinelendi; `pressed`, `released`, `repeated` alanları korunur |
+| gamepad | oyun kumandası |
+| controller | denetleyici; fiziksel aygıt bir gamepad ise oyun kumandası. `controller` tanımlayıcısı korunur |
+| analog stick / dead zone | analog çubuk / ölü bölge |
+| mouse button / mouse wheel | fare düğmesi / fare tekerleği |
+| touch / multitouch | dokunma / çoklu dokunma |
+| text input | metin girdisi |
+| marked text | işaretli metin; girdi yöntemi düzenleyicisinde henüz kesinleşmemiş metin |
+| accelerometer input | ivmeölçer girdisi |
+| listener | dinleyici |
+
+## Fizik ve çarpışmalar
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| physics / physics engine | fizik / fizik motoru |
+| collision | çarpışma |
+| collision detection | çarpışma algılama |
+| collision response | çarpışmaya tepki; `collision_response` ileti adı korunur |
+| collision shape | çarpışma şekli |
+| collision group / collision mask | çarpışma grubu / çarpışma maskesi |
+| dynamic object | dinamik nesne; hareketini fizik motoru hesaplar |
+| kinematic object | kinematik nesne; hareketi ve çarpışmaya tepkisi oyun koduyla yönetilir |
+| static object | statik nesne |
+| rigid body | katı cisim |
+| trigger (physics) | tetikleyici; giriş ve çıkışları algılayan çarpışma nesnesi türü |
+| ray cast / raycast | ışın sorgusu; ışının nesnelerle kesişmesini sınama. Işın izleme ile karıştırmayın |
+| hit | isabet; ışın sorgusunda kesişme sonucu |
+| contact point | temas noktası |
+| normal | normal; bağlam gerektiğinde normal vektörü |
+| penetration depth / penetration distance | iç içe geçme derinliği / iç içe geçme mesafesi |
+| velocity | hız; yönü olan vektörel büyüklük |
+| speed | sürat; hızın büyüklüğü. Oynatma veya yürütme bağlamında hız kullanın |
+| angular velocity | açısal hız |
+| force / torque / impulse | kuvvet / tork / itme; birbirinin yerine kullanmayın |
+| mass / friction / restitution | kütle / sürtünme / geri sekme katsayısı |
+| damping | sönümleme |
+| joint / constraint | eklem / kısıt |
+| hinge joint / spring joint | menteşe eklemi / yay eklemi |
+| rope joint / slider joint | halat eklemi / kayar eklem |
+| convex hull | dışbükey zarf |
+| box / sphere / capsule | kutu / küre / kapsül |
+
+## Derleme, paketleme ve platformlar
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| build (process) | proje derleme; kaynakları işleyip çalıştırılabilir çıktıyı hazırlayan bütün süreç [M1] |
+| build (result) | derleme çıktısı; bağlam açıkken derleme |
+| compile / compilation | kodu derlemek / kod derleme; build sürecinin belirli bir aşaması [M1] |
+| compiler | derleyici |
+| rebuild / clean build | yeniden derleme / temiz derleme |
+| build and launch | derleyip başlatmak |
+| build target | derleme hedefi |
+| build variant | derleme çeşidi; `Debug`, `Release` gibi tam adlar korunur |
+| debug build / release build | hata ayıklama derlemesi / yayıma yönelik derleme |
+| build error / build report | derleme hatası / derleme raporu |
+| build cache / build server | derleme önbelleği / derleme sunucusu |
+| bundle | dağıtım paketi; Defold ile belirli bir platform için oluşturulan bağımsız paket |
+| bundling / to bundle | paketleme / dağıtım paketi oluşturmak; yalnızca kod derleme değildir |
+| bundle resources (operation) | kaynakları pakete eklemek |
+| package | paket; her yazılım paketi bir Defold dağıtım paketi değildir |
+| standalone | bağımsız; düzenleyiciden ayrı çalıştırılabilen |
+| headless | grafik arayüzü olmadan çalışan; `headless` seçenek ve dosya adlarında korunur |
+| operating system / OS | işletim sistemi |
+| device | cihaz |
+| development app | geliştirme uygulaması |
+| executable / binary | yürütülebilir dosya / ikili dosya; her ikili dosya yürütülebilir değildir |
+| deployment | dağıtıma alma; uygulamayı hedef ortama yerleştirme |
+| distribution / publishing | dağıtım / yayımlama |
+| stable version / beta version | kararlı sürüm / beta sürümü |
+| version / release (version) | sürüm / yayımlanan sürüm; tam derleme çeşidi adı `Release` korunur |
+| hot reload | çalışma sırasında yeniden yükleme; geliştirme özelliği. `hot reload` ilk kullanımda eklenir |
+| Live Update | Live Update; ürün özelliğinin adını koruyun, gerektiğinde çalışma sırasında içerik güncelleme olarak açıklayın |
+| app manifest / application manifest | uygulama bildirimi; dosya adını ve yapılandırma anahtarlarını koruyun |
+| Android App Bundle / AAB | Android App Bundle (AAB); belirli Android yayımlama biçimi. Genel Defold dağıtım paketiyle aynı kapsamda değildir [A1] |
+| APK | APK; Android uygulama paketinin adı |
+| app signing | uygulama imzalama |
+| certificate / signing key / keystore | sertifika / imzalama anahtarı / anahtar deposu |
+| bundle identifier | paket tanımlayıcısı; değeri değişmez |
+| provisioning profile | sağlama profili; Apple geliştirme bağlamı |
+| entitlement | yetki; Apple platformlarına özgü anahtarların adları korunur |
+| SDK | yazılım geliştirme kiti (SDK) |
+| environment variable | ortam değişkeni |
+| driver | sürücü |
+| download / install | indirmek / kurmak; dosya veya kaynak yükleme işlemiyle ayırın |
+| extract an archive | arşivi çıkarmak |
+
+## Düzenleyici işlemleri, hata ayıklama ve performans
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| UI label | arayüz etiketi; bu sözlükteki açıklamalar gerçek etiketin yerine geçmez |
+| panel / pane | panel / bölme |
+| view | görünüm |
+| inspector | özellik denetleyicisi; bir ürünün tam panel adıysa korunur |
+| menu / context menu | menü / bağlam menüsü |
+| dialog / popup | iletişim kutusu / açılır pencere |
+| tab / button / checkbox | sekme / düğme / onay kutusu |
+| dropdown | açılır liste |
+| select / create / add | seçmek / oluşturmak / eklemek; yönergelerde seçin / oluşturun / ekleyin |
+| click / right-click / double-click | tıklamak / sağ tıklamak / çift tıklamak |
+| drag / drop / drag and drop | sürüklemek / bırakmak / sürükleyip bırakmak |
+| press and hold | basılı tutmak |
+| copy and paste | kopyalayıp yapıştırmak |
+| save / undo / redo | kaydetmek / geri almak / yinelemek |
+| import / export | içe aktarmak / dışa aktarmak [E2] |
+| keyboard shortcut | klavye kısayolu; tuş adlarını ve birleşimlerini koruyun |
+| preferences | tercihler |
+| console / console output | konsol / konsol çıktısı |
+| log / logging | günlük / günlüğe kaydetme |
+| log file | günlük dosyası |
+| debugging / debugger | hata ayıklama / hata ayıklayıcı [M2] |
+| breakpoint / conditional breakpoint | kesme noktası / koşullu kesme noktası [M2] |
+| call stack | çağrı yığını [M2] |
+| step into / step over / step out | işlevin içine ilerlemek / çağrıyı tamamlayıp ilerlemek / geçerli işlevden çıkana kadar ilerlemek; menü komutları korunur |
+| profiling / profiler | profil çıkarma / profil çıkarıcı; performans ölçümü bağlamında |
+| performance / optimization | performans / optimizasyon |
+| memory usage / memory footprint | bellek kullanımı / bellekte kaplanan alan |
+| memory | bellek |
+| stack / heap | yığın / öbek; bellek bölgeleri olarak birbirinden ayırın |
+| bottleneck | darboğaz |
+| fill rate | piksel doldurma hızı |
+| crash / crash log | çökme / çökme günlüğü |
+| bug / workaround | yazılım hatası / geçici çözüm |
+| minimal reproduction project | hatayı yeniden oluşturmak için gereken en küçük proje |
+| deprecated | kullanımı artık önerilmeyen; hâlâ bulunabilir, mutlaka kaldırıldığı veya kaldırılacağı anlamına gelmez |
+| removed | kaldırılmış; artık sunulmayan |
+| outdated | güncelliğini yitirmiş; `deprecated` ile otomatik olarak eşitlemeyin |
+| code completion / code linting | kod tamamlama / statik kod denetimi |
+| refactoring | yeniden düzenleme; kodun davranışını koruyarak yapısını iyileştirme |
+
+## Otomasyon ve HTTP
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| automation | otomasyon |
+| deterministic automation | belirlenimci otomasyon; aynı koşullarda aynı sonucu verme |
+| automation loop | otomasyon döngüsü |
+| workflow | iş akışı |
+| inspect / modify / verify / evaluate | incelemek / değiştirmek / doğrulamak / değerlendirmek |
+| command-line tool / CLI | komut satırı aracı / komut satırı arayüzü (CLI) |
+| command line | komut satırı |
+| command / shell / terminal | komut / kabuk / terminal |
+| API | uygulama programlama arayüzü (API); kısaltmayı ve API adlarını koruyun |
+| server / client | sunucu / istemci |
+| editor server | düzenleyici sunucusu; açık projeye ait düzenleyici sürecinde çalışır |
+| engine service | motor hizmeti; çalışan motor sürecine aittir |
+| editor HTTP API | düzenleyici HTTP API'si |
+| runtime API | çalışma zamanı API'si |
+| source of truth | esas alınan kaynak; karar için hangi bilginin temel olduğunu belirtin |
+| service discovery / port discovery | hizmet keşfi / bağlantı noktası keşfi |
+| port / localhost | bağlantı noktası / yerel makine; `localhost` adres değeri korunur |
+| endpoint / route | uç nokta / rota |
+| request / response | istek / yanıt [M4] |
+| request body / response body | istek gövdesi / yanıt gövdesi [M4] |
+| header / status code | üstbilgi / durum kodu; `Content-Type` gibi tam adlar korunur |
+| schema / OpenAPI document | şema / OpenAPI belgesi |
+| authentication / authorization | kimlik doğrulama / yetkilendirme |
+| access token / bearer token | erişim belirteci / taşıyıcı belirteç; `Authorization: Bearer` aynen korunur |
+| asynchronous operation | eşzamansız işlem |
+| timeout / retry / polling | zaman aşımı / yeniden deneme / düzenli aralıklarla sorgulama |
+| structured result / structured error | yapılandırılmış sonuç / yapılandırılmış hata |
+| editor transaction | düzenleyici işlemi; bir değişiklik grubunu uygulayan transaction bağlamında |
+| lifecycle hook | yaşam döngüsü kancası; belirli aşamada çağrılan işlev |
+| stream | akış |
+| screenshot | ekran görüntüsü |
+| editor preview / scene preview | düzenleyici önizlemesi / sahne önizlemesi |
+| canvas | tuval [K1] |
+| injected input | program yoluyla sağlanan girdi |
+| capability / capability negotiation | yetenek / yetenek uzlaşması; desteklenen işlemler üzerinde anlaşma |
+| version compatibility | sürüm uyumluluğu |
+
+## Test ve doğrulama
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| automated testing | otomatik test |
+| unit test | birim testi [M3] |
+| integration test | tümleştirme testi [M3] |
+| end-to-end test / E2E test | uçtan uca test (E2E) |
+| regression test | gerileme testi; önceki davranışın bozulup bozulmadığını denetler |
+| visual regression test | görsel gerileme testi |
+| browser test / platform test | tarayıcı testi / platform testi |
+| test collection | test koleksiyonu; test için hazırlanan Defold koleksiyonu |
+| test framework / test runner | test çatısı / test çalıştırıcısı |
+| test suite / test case | test takımı / test durumu |
+| test fixture | test düzeneği |
+| setup / teardown | hazırlık / test sonrası temizleme |
+| assertion | doğrulama koşulu; testin denetlediği koşul. `assert()` gibi API adlarını koruyun |
+| mock / stub | mock / stub; testte bağımlılık yerine kullanılan yapılar. Kaynakta yapılan ayrımı koruyup gerektiğinde açıklayın |
+| expected result / test result | beklenen sonuç / test sonucu |
+| pass / failure | başarılı sonuç / başarısızlık; makine çıktılarındaki değerler korunur |
+| exit code / exit status | çıkış kodu / çıkış durumu |
+| code coverage | kod kapsamı |
+| acceptance criteria | kabul ölçütleri |
+| evidence | kanıt; sonucu destekleyen günlük, ölçüm veya görüntü |
+| artifact | çıktı dosyası; derleme veya testin ürettiği saklanabilir sonuç |
+| verification / validation | doğrulama / geçerleme; teknik doğruluk ve ihtiyaca uygunluk ayrımını kaynak metnin bağlamına göre koruyun |
+| baseline image / difference image | referans görüntü / fark görüntüsü |
+| image comparison / visual inspection | görüntü karşılaştırması / görsel inceleme |
+| deterministic / reproducible | belirlenimci / yeniden üretilebilir |
+| continuous integration / CI | sürekli tümleştirme (CI) |
+| completion event / run ID | tamamlanma olayı / çalıştırma tanımlayıcısı |
+
+## Yapay zekâ ve geliştirme araçları
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| artificial intelligence / AI | yapay zekâ; açıklayıcı metinde açık yazın, tam ürün adları ve alanlardaki `AI` korunur |
+| AI agent / coding agent | yapay zekâ ajanı / kodlama ajanı |
+| large language model / LLM | büyük dil modeli (LLM) |
+| multimodal model | çok modlu model |
+| model-neutral | belirli bir modele bağlı olmayan |
+| prompt | istem; modele verilen talimat veya girdi. Kabuk bağlamında komut istemi |
+| token (LLM) | token; modelin işlediği metin birimi. Kimlik doğrulama belirtecinden farklıdır |
+| skill | skill; bir aracın tanıdığı talimat paketi kastediliyorsa koruyup açıklayın. Genel yetenek için beceri |
+| Model Context Protocol / MCP | Model Context Protocol (MCP); protokol adını koruyun |
+| Automation Bridge | Automation Bridge; özel adı koruyun |
+| retrieval-augmented generation / RAG | bilgi getirmeyle desteklenen üretim (RAG) |
+| adapter / wrapper / integration layer | bağdaştırıcı / sarmalayıcı / tümleştirme katmanı |
+| permission / approval | izin / onay |
+| credential / secret | kimlik bilgisi / gizli bilgi |
+| sandbox / isolation | yalıtılmış çalışma ortamı / yalıtım |
+| untrusted input | güvenilmeyen girdi |
+| worktree / container | çalışma ağacı / konteyner; `git worktree` komutu korunur |
+
+## Yayımlama ve gelir elde etme
+
+| English term | Önerilen Türkçe karşılık / kullanım notu |
+|---|---|
+| monetization | gelir elde etme |
+| advertisement / ad | reklam |
+| ad network / ad provider | reklam ağı / reklam sağlayıcısı |
+| banner ad / interstitial ad | bant reklam / geçiş reklamı |
+| rewarded ad / incentivized ad | ödüllü reklam / teşvikli reklam |
+| ad revenue | reklam geliri |
+| in-app purchase | uygulama içi satın alma |
+| privacy policy | gizlilik politikası |
+| anonymous usage data | anonim kullanım verileri |
+| user tracking | kullanıcı takibi |
+| free / royalty-free | ücretsiz / telif ücreti gerektirmeyen; aynı lisans koşulunu ifade etmez |
+| open source / source available | açık kaynaklı / kaynak kodu erişime açık; lisans anlamlarını birleştirmeyin |
+| question / answer | soru / yanıt |
+
+## Aynen korunacak dizeler
+
+Bu tablo bir terim çevirisi değildir. Aşağıdaki örnekler, kullanıcıların ekranda, dosyada veya kodda aynı biçimde bulması gereken dizelerdir. Türkçe ekleri dizenin içine eklemeyin; `game.project` dosyasını, `msg.post()` işlevini, <kbd>Outline</kbd> görünümünü gibi yapılar kullanın.
+
+| Kategori | Örnekler |
+|---|---|
+| Ürünler, diller ve araçlar | `Defold`, `Defold Foundation`, `Lua`, `LuaJIT`, `C++`, `JavaScript`, `Bob`, `Spine`, `Rive`, `GitHub`, `OpenAPI`, `Automation Bridge` |
+| Platformlar, biçimler ve hizmetler | `Android`, `iOS`, `macOS`, `Windows`, `Linux`, `HTML5`, `WebGL`, `Vulkan`, `Metal`, `OpenGL`, `WebAssembly`, `Google Play`, `App Store`, `Android App Bundle` |
+| API ve geri çağırımlar | `msg.post()`, `go.animate()`, `gui.get_node()`, `factory.create()`, `collectionfactory.create()`, `init()`, `update()`, `fixed_update()`, `late_update()`, `final()`, `on_message()`, `on_input()` |
+| İletiler, sabitler ve alanlar | `enable`, `disable`, `set_parent`, `proxy_loaded`, `collision_response`, `acquire_input_focus`, `message_id`, `action_id`, `PLAYBACK_LOOP_PINGPONG` |
+| Dosyalar, yollar ve ayarlar | `game.project`, `main.collection`, `.collectionfactory`, `.gui_script`, `.render_script`, `.internal/editor.port`, `display.width`, `main_collection`, `max_count` |
+| Adresler ve örnek tanımlayıcıları | `main:/manager#controller`, `@render`, `@system`, `bean`, `buddy`, `shield`, `controller`, `team_1` |
+| Arayüz ve menü yolları | `Outline`, `Properties`, `Assets`, `Add Game Object`, `Add Collection File`, `Collection Proxy`, `Edit ▸ World Space`, `Help ▸ Open Editor Server`, `Project ▸ Rebuild And Launch` |
+| Komutlar, HTTP ve sonuç verileri | `build`, `clean-build`, `build-html5`, `--variant`, `GET /ping`, `POST /eval`, `/openapi.json`, `Authorization: Bearer`, `success`, `issues`, `duration_ms` |
+
+## İncelenen resmî kaynaklar
+
+Türkçe kullanım için aşağıdaki kaynaklar incelendi. Godot kaynağı, projenin kendi deposunda yayımlanan Türkçe belge çeviri kataloğudur; tamamlanmış bir Türkçe web kılavuzu olduğu varsayılmaz. `msgstr` metinleri İngilizce `msgid` metinleriyle karşılaştırıldı; boş ve `fuzzy` işaretli çeviriler dayanak olarak kullanılmadı. İncelenen Godot revizyonu `b8a5a2ee3186c8007ea3f88fc055fc6461ffb8a3` olarak sabitlendi. Genel kontrol tarihi: 2026-09-12.
+
+- [G1: Godot — Türkçe belge çeviri kataloğu][G1]. Düğüm ve sahne bölümü, özellik listesi, betikler, girdiler ve işleme terimleri. Kaynak metin yolları katalogdaki `#:` satırlarında bulunur. Godot belge çevirileri Juan Linietsky, Ariel Manzur ve Godot topluluğuna aittir; katalog CC BY 3.0 lisanslıdır. Buradaki açıklamalar Defold için yeniden yazılmıştır.
+- [E1: Unreal Engine — Unity'den Unreal Engine'a genel bakış][E1]. Bileşenler, dönüşümler, çalışma zamanı, derleme ve paketleme. Epic tarafından yayımlanan bir karşılaştırmadır; Unity'nin kendi Türkçe belgesi olarak gösterilmez.
+- [E2: Unreal Engine — Unity'den varlık taşıma][E2]. Örgü, doku, materyal, gölgelendirici, yazı tipi ve içe/dışa aktarma terimleri.
+- [K1: Krita — Temel konseptler][K1]. Piksel, katman, tuval, saydamlık ve harmanlama terimleri. Kaynağın tüm sözcük seçimleri Defold için zorunlu kabul edilmez.
+- [M1: Visual Studio — Derleme ve oluşturma][M1]. Proje derleme, derleyici, hedef platform, günlük ve iş akışı.
+- [M2: Visual Studio — Hata ayıklayıcıya genel bakış][M2]. Hata ayıklama, kesme noktası, çağrı yığını ve adımlama.
+- [M3: .NET — Test etme][M3]. Birim testi ve tümleştirme testi.
+- [M4: .NET — HttpClient ile HTTP istekleri][M4]. İstek, yanıt, yanıt gövdesi ve durum kodu.
+- [A1: Android Developers — Android App Bundle hakkında][A1]. Biçimin adı, uygulama paketi, imzalama ve yayımlama kavramları.
+
+Defold kavramlarının anlamı için ayrıca İngilizce [yapı taşları][D1], [koleksiyon vekili][D2], [koleksiyon fabrikası][D3] ve [fabrika][D4] kılavuzları kullanıldı. Dil kuralları ve kaynaklar arasındaki seçimlerin gerekçeleri [çeviri kılavuzunda](translation-guidelines.txt) açıklanır.
+
+[D1]: ../en/manuals/building-blocks.md
+[D2]: ../en/manuals/collection-proxy.md
+[D3]: ../en/manuals/collection-factory.md
+[D4]: ../en/manuals/factory.md
+[G1]: https://github.com/godotengine/godot-docs-l10n/blob/b8a5a2ee3186c8007ea3f88fc055fc6461ffb8a3/weblate/tr.po
+[E1]: https://dev.epicgames.com/documentation/unreal-engine/unity-to-unreal-engine-overview?lang=tr
+[E2]: https://dev.epicgames.com/documentation/unreal-engine/migrating-assets-from-unity-to-unreal-engine?lang=tr
+[K1]: https://docs.krita.org/tr/user_manual/getting_started/basic_concepts.html
+[M1]: https://learn.microsoft.com/tr-tr/visualstudio/ide/compiling-and-building-in-visual-studio?view=visualstudio
+[M2]: https://learn.microsoft.com/tr-tr/visualstudio/debugger/debugger-feature-tour?view=visualstudio
+[M3]: https://learn.microsoft.com/tr-tr/dotnet/core/testing/
+[M4]: https://learn.microsoft.com/tr-tr/dotnet/fundamentals/networking/http/httpclient
+[A1]: https://developer.android.com/guide/app-bundle?hl=tr
