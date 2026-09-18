@@ -417,6 +417,7 @@ scroller
 SD
 SDK
 SDKs
+SDL
 SDF
 Sergey
 sha
