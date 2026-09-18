@@ -96,6 +96,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 Список URL на *Library URL* проекта. За подробностями обращайтесь к [руководству по библиотекам](/manuals/libraries/).
 
+#### Dependencies Metadata
+`project.dependencies_metadata` включает метаданные о подключённых библиотеках в бандл приложения. По умолчанию отключено. Метаданные можно прочитать во время выполнения с помощью `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 Список директорий, разделённых пробелами, которые должны быть доступны из проекта через общий доступ к библиотеке. Подробнее см. в [руководстве по библиотекам](/manuals/libraries/).
 
----
-
-### Script
-
-#### Shared State
-Если опция отмечена, все типы скриптов будут использовать единое состояние Lua.
+#### Defold Min Version
+`library.defold_min_version` задаёт минимальную версию Defold/Bob, необходимую для использования этого проекта в качестве библиотеки, например `1.11.2`. Оставьте поле пустым, чтобы не задавать минимальную версию.
 
 ---
 
@@ -320,6 +319,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` задаёт дополнительную версию контекста/API Vulkan. Применяется только при выбранном графическом бэкенде Vulkan. Значение по умолчанию — `0`.
 
+#### Memory Size
+`graphics.memory_size` задаёт лимит графической памяти в мегабайтах для графического бэкенда Nintendo Switch. Значение по умолчанию — `512`.
+
 ---
   
 ### Shader
@@ -345,6 +347,12 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Gamepads
 Ссылка на файл конфигурации геймпадов, сопоставляющий сигналы геймпада с ОС. По умолчанию: `/builtins/input/default.gamepads`.
+
+#### Gamepad Database
+`input.gamepad_database` выбирает базу сопоставлений геймпадов в формате SDL (`.txt`). По умолчанию используется `/builtins/input/gamecontrollerdb.txt`. При сборке проекта её сопоставления объединяются с сопоставлениями из файла *Gamepads*.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` задаёт мёртвую зону, применяемую во время выполнения к сопоставлениям из базы геймпадов SDL. Значение по умолчанию — `0.2`.
 
 #### Game Binding
 Ссылка на файл конфигурации ввода, сопоставляющий аппаратные события с действиями. По умолчанию: `/input/game.input_binding`.
@@ -486,6 +494,19 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Max Bone Matrix Texture Height
 Максимальная высота текстуры матриц костей. Только необходимый размер для анимаций используется, округляется до ближайшей степени двойки.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` задаёт максимальную ширину в пикселях текстуры, создаваемой для каждого меша и содержащей изменения позиций, нормалей и касательных для целей морфинга. Значение по умолчанию — `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` задаёт максимальную высоту в пикселях текстуры, создаваемой для каждого меша и содержащей изменения позиций, нормалей и касательных для целей морфинга. Значение по умолчанию — `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` задаёт максимальное количество компонентов освещения. По умолчанию — `64`. [(См. информацию по оптимизации количества компонентов)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -493,11 +514,24 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Max Count
 Максимальное количество компонентов GUI. [(См. информацию по оптимизации количества компонентов)](#component-max-count-optimizations).
 
+#### Max Particle Count
+Максимальное количество одновременно активных частиц в GUI.
+
 #### Max Particlefx Count
-Максимальное количество одновременно активных эмиттеров.
+`gui.max_particlefx_count` задаёт максимальное количество узлов эффектов частиц на коллекцию. Значение по умолчанию — `64`.
 
 #### Max Animation Count
 Максимальное количество одновременно активных анимаций в GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` определяет, какие отступы безопасной области учитываются при адаптации GUI:
+
+- `none` (по умолчанию): игнорировать отступы.
+- `long`: применять отступы слева и справа в альбомной ориентации, сверху и снизу — в портретной.
+- `short`: применять отступы сверху и снизу в альбомной ориентации, слева и справа — в портретной.
+- `both`: применять все четыре отступа.
+
+GUI-скрипт может переопределить режим для своей сцены с помощью [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). О поддержке на разных платформах и пользовательских макетах см. в [рекомендациях по работе с безопасной областью](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras).
 
 ---
 
@@ -514,10 +548,16 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ### Particle FX
 
 #### Max Count
-Максимальное количество одновременно активных эмиттеров. [(См. информацию по оптимизации количества компонентов)](#component-max-count-optimizations).
+`particle_fx.max_count` задаёт максимальное количество компонентов эффектов частиц. По умолчанию — `64`. [(См. информацию по оптимизации количества компонентов)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` задаёт максимальное количество одновременно активных эмиттеров эффектов частиц. Значение по умолчанию — `64`.
 
 #### Max Particle Count
-Максимальное количество одновременно отображаемых частиц.
+Максимальное количество одновременно активных частиц. Ограничивает размер буфера вершин на GPU. По умолчанию — `1024` частицы.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` задаёт максимальное количество частиц, передаваемых на GPU за одну загрузку. Ограничивает размер буфера на CPU, используемого для генерации вершин частиц. Значение по умолчанию — `1024`.
 
 ---
   
@@ -675,6 +715,12 @@ Sender Id для Google Cloud Messaging. Установите строку, вы
 #### Bundle Identifier
 Идентификатор бандла позволяет macOS распознавать обновления вашего приложения. Идентификатор должен быть зарегистрирован в Apple и уникален для приложения. Нельзя использовать один и тот же идентификатор как для iOS, так и для macOS. Он должен состоять минимум из двух сегментов, разделённых точками. Каждый сегмент должен начинаться с буквы и содержать только буквенно-цифровые символы, подчёркивания или дефисы.
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` задаёт краткое имя бандла (`CFBundleName`), длина которого ограничена 15 символами.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` задаёт номер сборки (`CFBundleVersion`) в виде числа или `x.y.z`. Значение по умолчанию — `1`.
+
 #### Default Language
 Язык, используемый приложением, если в списке `Localizations` отсутствует предпочтительный язык пользователя (см. [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Используйте двухбуквенный ISO 639-1, если доступен, или трёхбуквенный ISO 639-2.
 
@@ -753,6 +799,9 @@ HTML-шаблон, используемый при сборке. По умолч
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` включает систему Live update во время выполнения. По умолчанию включено. Об исключении, загрузке и подключении ресурсов см. в [руководстве по Live update](/manuals/live-update/).
+
 #### Settings
 Ресурс настроек Liveupdate, используемый при сборке.
 
@@ -774,6 +823,9 @@ HTML-шаблон, используемый при сборке. По умолч
 
 #### Track Cpu
 Выборка использования CPU по умолчанию включена в отладочных сборках. Включите этот параметр, если выборка CPU также нужна в релизной сборке, содержащей поддержку профайлера согласно манифесту приложения.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` включает подробный сбор данных об использовании памяти в профайлере. По умолчанию отключено. На HTML5 это может создавать значительную нагрузку.
 
 #### Sleep Between Server Updates
 Количество миллисекунд ожидания между обновлениями сервера.

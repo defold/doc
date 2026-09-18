@@ -86,6 +86,8 @@ Mobil platformlarda ya ekran yönelimini *game.project* dosyasında kilitleyin y
   * vsync ve swap interval (*game.project* dosyasının Display bölümünde) 
 
 
+<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
+
 ## Cep telefonları, çentikler ve ekran içi kamera delikleri
 Ön kameraya ve sensörlere yer açmak için ekranda küçük bir lens açıklığı (çentik veya ekran içi kamera deliği olarak da bilinir) kullanmak giderek yaygınlaşmıştır. Bir oyunu mobile taşırken kritik bilgilerin platformun güvenli alanı (safe area) içinde kaldığından emin olun.
 

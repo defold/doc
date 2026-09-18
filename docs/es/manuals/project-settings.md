@@ -96,6 +96,9 @@ Activa la compresión de archivos al crear bundles. Ten en cuenta que actualment
 #### Dependencies
 Una lista de URL a las *Library URL* del proyecto. Consulta el [manual de bibliotecas](/manuals/libraries/) para obtener más información.
 
+#### Dependencies Metadata
+`project.dependencies_metadata` incluye metadatos sobre las dependencias de bibliotecas en el bundle de runtime. Desactivado de forma predeterminada. Los metadatos se pueden leer en runtime usando `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Qué archivo de configuración de render usar, el cual define el pipeline de ren
 #### Include Dirs
 Una lista de directorios separados por espacios que deben compartirse desde tu proyecto mediante el uso compartido de bibliotecas. Consulta el [manual de bibliotecas](/manuals/libraries/) para obtener más información.
 
----
-
-### Script
-
-#### Shared State
-Marca esta opción para compartir un único estado Lua entre todos los tipos de script.
+#### Defold Min Version
+`library.defold_min_version` especifica la versión mínima de Defold/Bob necesaria para usar este proyecto como biblioteca, por ejemplo, `1.11.2`. Deja el campo vacío para no especificar una versión mínima.
 
 ---
 
@@ -320,6 +319,9 @@ Define la indicación de perfil 'core' de OpenGL al crear el contexto. El perfil
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` es la indicación de versión menor del contexto/API de Vulkan. Solo se aplica cuando se selecciona el backend gráfico Vulkan. El valor predeterminado es `0`.
 
+#### Memory Size
+`graphics.memory_size` define la cantidad de memoria gráfica disponible, en megabytes, para el backend gráfico de Nintendo Switch. El valor predeterminado es `512`.
+
 ---
 
 ### Shader
@@ -345,6 +347,12 @@ Segundos que esperar entre cada repetición de un input mantenido presionado.
 
 #### Gamepads
 Referencia al archivo de configuración de gamepads, que mapea señales de gamepad al sistema operativo, `/builtins/input/default.gamepads` de forma predeterminada.
+
+#### Gamepad Database
+`input.gamepad_database` selecciona una base de datos de asignaciones de gamepads en formato SDL (`.txt`). El valor predeterminado es `/builtins/input/gamecontrollerdb.txt`. Sus asignaciones se combinan con el archivo *Gamepads* al compilar el proyecto.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` define la zona muerta que se aplica en runtime a las asignaciones de la base de datos SDL de gamepads. El valor predeterminado es `0.2`.
 
 #### Game Binding
 Referencia al archivo de configuración de input, que mapea inputs de hardware a acciones, `/input/game.input_binding` de forma predeterminada.
@@ -486,6 +494,19 @@ Ancho máximo de la textura de matriz de huesos. Solo se usa el tamaño necesari
 #### Max Bone Matrix Texture Height
 Altura máxima de la textura de matriz de huesos. Solo se usa el tamaño necesario para animaciones, redondeado hacia arriba a la potencia de dos más cercana.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` define el ancho máximo en píxeles de la textura generada por mesh para las variaciones de posición, normal y tangente de los morph targets. El valor predeterminado es `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` define la altura máxima en píxeles de la textura generada por mesh para las variaciones de posición, normal y tangente de los morph targets. El valor predeterminado es `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` define el número máximo de componentes de luz, `64` de forma predeterminada. [(Consulta la información sobre optimizaciones del conteo máximo de componentes)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +517,21 @@ Número máximo de componentes GUI. [(Consulta la información sobre optimizacio
 #### Max Particle Count
 El número máximo de partículas concurrentes en GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` define el número máximo de nodos de efectos de partículas por colección. El valor predeterminado es `64`.
+
 #### Max Animation Count
 El número máximo de animaciones activas en GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` selecciona qué márgenes del área segura afectan al ajuste de la GUI:
+
+- `none` (predeterminado): Ignora los márgenes.
+- `long`: Aplica los márgenes izquierdo y derecho en orientación horizontal, y los márgenes superior e inferior en orientación vertical.
+- `short`: Aplica los márgenes superior e inferior en orientación horizontal, y los márgenes izquierdo y derecho en orientación vertical.
+- `both`: Aplica los cuatro márgenes.
+
+Un script GUI puede sobrescribir el modo de su escena con [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Consulta la [guía sobre el área segura](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) para conocer la compatibilidad de las plataformas y cómo crear diseños personalizados.
 
 ---
 
@@ -514,10 +548,16 @@ Marca esta opción para permitir que los labels aparezcan desalineados con respe
 ### Particle FX
 
 #### Max Count
-El número máximo de emisores concurrentes. [(Consulta la información sobre optimizaciones del conteo máximo de componentes)](#component-max-count-optimizations).
+`particle_fx.max_count` define el número máximo de componentes de efectos de partículas, `64` de forma predeterminada. [(Consulta la información sobre optimizaciones del conteo máximo de componentes)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` define el número máximo de emisores de efectos de partículas concurrentes. El valor predeterminado es `64`.
 
 #### Max Particle Count
-El número máximo de partículas concurrentes.
+El número máximo de partículas concurrentes. Limita el tamaño del buffer de vértices de la GPU, `1024` partículas de forma predeterminada.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` define el número máximo de partículas por transferencia a la GPU. Limita el buffer de la CPU usado para generar los vértices de las partículas. El valor predeterminado es `1024`.
 
 ---
 
@@ -675,6 +715,12 @@ El Apple Privacy Manifest para la aplicación. El campo tendrá como valor prede
 #### Bundle Identifier
 El identificador de bundle permite que macOS reconozca actualizaciones de tu app. Tu bundle ID debe estar registrado con Apple y ser único para tu app. No puedes usar el mismo identificador para apps de iOS y macOS. Debe constar de dos o más segmentos separados por un punto. Cada segmento debe empezar con una letra. Cada segmento debe contener solo letras alfanuméricas, el guion bajo o el carácter de guion (-).
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` especifica el nombre corto del bundle (`CFBundleName`), limitado a 15 caracteres.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` especifica el número de build (`CFBundleVersion`), ya sea un número o `x.y.z`. El valor predeterminado es `1`.
+
 #### Default Language
 El idioma usado si la aplicación no tiene el idioma preferido del usuario en la lista `Localizations` (consulta [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Usa el estándar ISO 639-1 de dos letras si el idioma preferido está disponible allí, o ISO 639-2 de tres letras.
 
@@ -753,6 +799,9 @@ Marca esta opción para finalizar automáticamente las transacciones IAP. Si est
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` activa el sistema Live update en runtime. Activado de forma predeterminada. Consulta el [manual de Live update](/manuals/live-update/) para saber cómo excluir, descargar y montar recursos.
+
 #### Settings
 Archivo de recurso de configuración de Live Update para usar durante la creación de bundles.
 
@@ -774,6 +823,9 @@ Activa el profiler dentro del juego.
 
 #### Track Cpu
 El muestreo de uso de CPU está activado de forma predeterminada en builds debug. Activa este ajuste cuando también necesites muestreo de CPU en una build release que incluya soporte para el profiler mediante el manifiesto de la aplicación.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` activa el muestreo detallado de memoria en el profiler. Desactivado de forma predeterminada. Puede tener un costo elevado en HTML5.
 
 #### Sleep Between Server Updates
 Número de milisegundos que dormir entre actualizaciones del servidor.

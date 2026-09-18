@@ -96,6 +96,9 @@ Active la compression des archives lors de la création des bundles. Notez que c
 #### Dependencies {#dependencies}
 Une liste d'URL correspondant aux *Library URL* du projet. Consultez le [manuel des bibliothèques](/manuals/libraries/) pour en savoir plus.
 
+#### Dependencies Metadata {#dependencies-metadata}
+`project.dependencies_metadata` inclut les métadonnées des dépendances de bibliothèques dans le bundle d'exécution. Désactivé par défaut. Ces métadonnées peuvent être lues à l'exécution avec `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources {#custom-resources}
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Le fichier de configuration du rendu à utiliser, qui définit la chaîne de ren
 #### Include Dirs {#include-dirs}
 Une liste de répertoires, séparés par des espaces, à partager depuis votre projet via le partage de bibliothèques. Consultez le [manuel des bibliothèques](/manuals/libraries/) pour en savoir plus.
 
----
-
-### Script {#script}
-
-#### Shared State {#shared-state}
-Cochez cette option pour partager un même état Lua entre tous les types de scripts.
+#### Defold Min Version {#defold-min-version}
+`library.defold_min_version` indique la version minimale de Defold/Bob requise pour utiliser ce projet comme bibliothèque, par exemple `1.11.2`. Laissez ce champ vide pour ne pas imposer de version minimale.
 
 ---
 
@@ -320,6 +319,9 @@ Définit l'indication de profil OpenGL 'core' lors de la création du contexte. 
 #### Vulkan Version Minor {#vulkan-version-minor}
 `graphics.vulkan_version_minor` indique la version mineure souhaitée pour le contexte et l'API Vulkan. Cela s'applique uniquement lorsque le backend graphique Vulkan est sélectionné. La valeur par défaut est `0`.
 
+#### Memory Size {#memory-size}
+`graphics.memory_size` définit le budget de mémoire graphique, en mégaoctets, du backend graphique Nintendo Switch. La valeur par défaut est `512`.
+
 ---
 
 ### Shader {#shader}
@@ -345,6 +347,12 @@ Le nombre de secondes à attendre entre chaque répétition d'une entrée mainte
 
 #### Gamepads {#gamepads}
 Référence au fichier de configuration des manettes, qui associe leurs signaux au système d'exploitation, `/builtins/input/default.gamepads` par défaut.
+
+#### Gamepad Database {#gamepad-database}
+`input.gamepad_database` sélectionne une base de données de correspondances de manettes au format SDL (`.txt`). La valeur par défaut est `/builtins/input/gamecontrollerdb.txt`. Ses correspondances sont combinées à celles du fichier *Gamepads* lors du build du projet.
+
+#### Gamepad Deadzone {#gamepad-deadzone}
+`input.gamepad_deadzone` définit la zone morte appliquée à l'exécution aux correspondances de la base de données de manettes SDL. La valeur par défaut est `0.2`.
 
 #### Game Binding {#game-binding}
 Référence au fichier de configuration des entrées, qui associe les entrées matérielles à des actions, `/input/game.input_binding` par défaut.
@@ -486,6 +494,19 @@ La largeur maximale de la texture des matrices des os. Seule la taille nécessai
 #### Max Bone Matrix Texture Height {#max-bone-matrix-texture-height}
 La hauteur maximale de la texture des matrices des os. Seule la taille nécessaire aux animations est utilisée, arrondie à la puissance de deux supérieure ou égale la plus proche.
 
+#### Max Morph Target Texture Width {#max-morph-target-texture-width}
+`model.max_morph_target_texture_width` définit la largeur maximale, en pixels, de la texture générée par maillage pour stocker les écarts de position, de normale et de tangente des cibles de morphing. La valeur par défaut est `1024`.
+
+#### Max Morph Target Texture Height {#max-morph-target-texture-height}
+`model.max_morph_target_texture_height` définit la hauteur maximale, en pixels, de la texture générée par maillage pour stocker les écarts de position, de normale et de tangente des cibles de morphing. La valeur par défaut est `1024`.
+
+---
+
+### Light {#light}
+
+#### Max Count {#light-max-count}
+`light.max_count` définit le nombre maximal de composants d'éclairage, `64` par défaut. [(Voir les informations sur les optimisations du nombre maximal de composants)](#component-max-count-optimizations).
+
 ---
 
 ### GUI {#gui}
@@ -496,8 +517,21 @@ Le nombre maximal de composants d'interface graphique. [(Voir les informations s
 #### Max Particle Count {#max-particle-count}
 Le nombre maximal de particules simultanées dans l'interface graphique.
 
+#### Max Particlefx Count {#max-particlefx-count}
+`gui.max_particlefx_count` définit le nombre maximal de nœuds d'effets de particules par collection. La valeur par défaut est `64`.
+
 #### Max Animation Count {#max-animation-count}
 Le nombre maximal d'animations actives dans l'interface graphique.
+
+#### Safe Area Mode {#safe-area-mode}
+`gui.safe_area_mode` sélectionne les marges de la zone sûre qui influencent l'ajustement de l'interface graphique :
+
+- `none` (valeur par défaut) : ignore les marges.
+- `long` : applique les marges gauche/droite en mode paysage et haut/bas en mode portrait.
+- `short` : applique les marges haut/bas en mode paysage et gauche/droite en mode portrait.
+- `both` : applique les marges des quatre bords.
+
+Un script d'interface graphique peut remplacer ce mode pour sa scène avec [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Consultez les [conseils sur la zone sûre](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) pour connaître les plateformes compatibles et créer des mises en page personnalisées.
 
 ---
 
@@ -514,10 +548,16 @@ Cochez cette option pour autoriser les composants label à s'afficher sans être
 ### Particle FX {#particle-fx}
 
 #### Max Count {#max-count}
-Le nombre maximal d'émetteurs simultanés. [(Voir les informations sur les optimisations du nombre maximal de composants)](#component-max-count-optimizations).
+`particle_fx.max_count` définit le nombre maximal de composants d'effets de particules, `64` par défaut. [(Voir les informations sur les optimisations du nombre maximal de composants)](#component-max-count-optimizations).
+
+#### Max Emitter Count {#max-emitter-count}
+`particle_fx.max_emitter_count` définit le nombre maximal d'émetteurs d'effets de particules simultanés. La valeur par défaut est `64`.
 
 #### Max Particle Count {#max-particle-count}
-Le nombre maximal de particules simultanées.
+Le nombre maximal de particules simultanées. Ce paramètre limite la taille du tampon de sommets du GPU, avec `1024` particules par défaut.
+
+#### Max Particle Buffer Count {#max-particle-buffer-count}
+`particle_fx.max_particle_buffer_count` définit le nombre maximal de particules par transfert vers le GPU. Ce paramètre limite la taille du tampon CPU utilisé pour générer les sommets des particules. La valeur par défaut est `1024`.
 
 ---
 
@@ -675,6 +715,12 @@ Le manifeste de confidentialité Apple de l'application. La valeur par défaut d
 #### Bundle Identifier {#bundle-identifier}
 L'identifiant du bundle permet à macOS de reconnaître les mises à jour de votre application. Il doit être enregistré auprès d'Apple et être propre à votre application. Vous ne pouvez pas utiliser le même identifiant pour les applications iOS et macOS. Il doit comporter au moins deux segments séparés par un point. Chaque segment doit commencer par une lettre et ne contenir que des caractères alphanumériques, le trait de soulignement ou le trait d'union (-).
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` indique le nom court du bundle (`CFBundleName`), limité à 15 caractères.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` indique le numéro de build (`CFBundleVersion`), sous la forme d'un nombre ou de `x.y.z`. La valeur par défaut est `1`.
+
 #### Default Language {#default-language}
 La langue utilisée si la langue préférée de l'utilisateur ne figure pas dans la liste `Localizations` de l'application (voir [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Utilisez le code à deux lettres de la norme ISO 639-1 si la langue préférée y figure, ou le code à trois lettres de la norme ISO 639-2.
 
@@ -753,6 +799,9 @@ Cochez cette option pour terminer automatiquement les transactions IAP. Si elle 
 
 ### Live update {#live-update}
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` active le système de mise à jour en direct à l'exécution. Activé par défaut. Consultez le [manuel de mise à jour en direct](/manuals/live-update/) pour savoir comment exclure, télécharger et monter des ressources.
+
 #### Settings {#settings}
 Le fichier de ressources des paramètres de mise à jour en direct à utiliser lors de la création du bundle.
 
@@ -774,6 +823,9 @@ Active le profileur intégré au jeu.
 
 #### Track Cpu {#track-cpu}
 L'échantillonnage de l'utilisation du processeur est activé par défaut dans les builds de débogage. Activez ce paramètre lorsque l'échantillonnage du processeur est également nécessaire dans un build de publication qui inclut la prise en charge du profilage via l'App Manifest.
+
+#### Track Detailed Memory {#track-detailed-memory}
+`profiler.track_detailed_memory` active l'échantillonnage détaillé de la mémoire dans le profileur. Désactivé par défaut. Cela peut être coûteux sur HTML5.
 
 #### Sleep Between Server Updates {#sleep-between-server-updates}
 Le nombre de millisecondes de pause entre les mises à jour du serveur.

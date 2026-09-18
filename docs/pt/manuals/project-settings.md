@@ -96,6 +96,9 @@ Habilita compressão de arquivos ao empacotar. Observe que isso atualmente se ap
 #### Dependencies
 Uma lista de URLs para os *Library URL*s do projeto. Consulte o [manual de Bibliotecas](/manuals/libraries/) para mais informações.
 
+#### Dependencies Metadata
+`project.dependencies_metadata` inclui metadados sobre dependências de bibliotecas no pacote da aplicação. Desativado por padrão. Os metadados podem ser lidos em tempo de execução com `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Qual arquivo de configuração de renderização usar, que define o pipeline de 
 #### Include Dirs
 Uma lista de diretórios separados por espaço que devem ser compartilhados a partir do seu projeto via compartilhamento de biblioteca. Consulte o [manual de Bibliotecas](/manuals/libraries/) para mais informações.
 
----
-
-### Script
-
-#### Shared State
-Marque para compartilhar um único estado Lua entre todos os tipos de script.
+#### Defold Min Version
+`library.defold_min_version` especifica a versão mínima do Defold/Bob necessária para usar este projeto como biblioteca, por exemplo, `1.11.2`. Deixe vazio para não exigir uma versão mínima.
 
 ---
 
@@ -320,6 +319,9 @@ Define a hint de perfil OpenGL 'core' ao criar o contexto. O core profile remove
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` é a hint da versão secundária do contexto/API Vulkan. Aplica-se somente quando o backend gráfico Vulkan está selecionado. O padrão é `0`.
 
+#### Memory Size
+`graphics.memory_size` define o orçamento de memória gráfica em megabytes para o backend gráfico do Nintendo Switch. O padrão é `512`.
+
 ---
 
 ### Shader
@@ -345,6 +347,12 @@ Segundos a aguardar entre cada repetição de uma entrada mantida pressionada.
 
 #### Gamepads
 Referência de arquivo do arquivo de configuração de gamepads, que mapeia sinais de gamepad para o SO, `/builtins/input/default.gamepads` por padrão.
+
+#### Gamepad Database
+`input.gamepad_database` seleciona um banco de dados de mapeamentos de gamepad no formato SDL (`.txt`). O padrão é `/builtins/input/gamecontrollerdb.txt`. Seus mapeamentos são combinados com o arquivo *Gamepads* ao compilar o projeto.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` define a zona morta aplicada em tempo de execução aos mapeamentos do banco de dados de gamepads SDL. O padrão é `0.2`.
 
 #### Game Binding
 Referência de arquivo do arquivo de configuração de entrada, que mapeia entradas de hardware para ações, `/input/game.input_binding` por padrão.
@@ -486,6 +494,19 @@ Largura máxima da textura de matriz de ossos. Apenas o tamanho necessário para
 #### Max Bone Matrix Texture Height
 Altura máxima da textura de matriz de ossos. Apenas o tamanho necessário para animações é usado, arredondado para a potência de dois mais próxima.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` define a largura máxima em pixels da textura gerada para cada mesh com os deltas de posição, normal e tangente dos morph targets. O padrão é `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` define a altura máxima em pixels da textura gerada para cada mesh com os deltas de posição, normal e tangente dos morph targets. O padrão é `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` define o número máximo de componentes de luz, `64` por padrão. [(Veja informações sobre otimizações de contagem máxima de componentes)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +517,21 @@ Número máximo de componentes GUI. [(Veja informações sobre otimizações de 
 #### Max Particle Count
 O número máximo de partículas simultâneas na GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` define o número máximo de nós de efeitos de partículas por coleção. O padrão é `64`.
+
 #### Max Animation Count
 O número máximo de animações ativas na gui.
+
+#### Safe Area Mode
+`gui.safe_area_mode` seleciona quais margens da área segura afetam o ajuste da GUI:
+
+- `none` (padrão): Ignora as margens.
+- `long`: Aplica as margens esquerda e direita na orientação paisagem e as margens superior e inferior na orientação retrato.
+- `short`: Aplica as margens superior e inferior na orientação paisagem e as margens esquerda e direita na orientação retrato.
+- `both`: Aplica as quatro margens.
+
+Um script de GUI pode sobrescrever o modo de sua cena com [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Consulte as [orientações sobre área segura](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) para informações sobre suporte nas plataformas e layouts personalizados.
 
 ---
 
@@ -514,10 +548,16 @@ Marque para permitir que rótulos apareçam desalinhados em relação aos pixels
 ### Particle FX
 
 #### Max Count
-O número máximo de emissores simultâneos. [(Veja informações sobre otimizações de contagem máxima de componentes)](#component-max-count-optimizations).
+`particle_fx.max_count` define o número máximo de componentes de efeitos de partículas, `64` por padrão. [(Veja informações sobre otimizações de contagem máxima de componentes)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` define o número máximo de emissores de efeitos de partículas simultâneos. O padrão é `64`.
 
 #### Max Particle Count
-O número máximo de partículas simultâneas.
+O número máximo de partículas simultâneas. Isso limita o tamanho do buffer de vértices da GPU, com `1024` partículas por padrão.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` define o número máximo de partículas por envio à GPU. Isso limita o buffer da CPU usado para gerar os vértices das partículas. O padrão é `1024`.
 
 ---
 
@@ -675,6 +715,12 @@ O Apple Privacy Manifest da aplicação. O campo usará `/builtins/manifests/osx
 #### Bundle Identifier
 O bundle identifier permite que o macOS reconheça atualizações do seu app. Seu bundle ID deve ser registrado na Apple e ser único para seu app. Você não pode usar o mesmo identificador para apps iOS e macOS. Deve consistir em dois ou mais segmentos separados por ponto. Cada segmento deve começar com uma letra. Cada segmento deve consistir apenas em letras alfanuméricas, underscore ou hífen (-).
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` especifica o nome curto do bundle (`CFBundleName`), limitado a 15 caracteres.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` especifica o número do build (`CFBundleVersion`), seja um número ou `x.y.z`. O padrão é `1`.
+
 #### Default Language
 O idioma usado se a aplicação não tiver o idioma preferido do usuário na lista `Localizations` (veja [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use o padrão ISO 639-1 de duas letras se o idioma preferido estiver disponível ali, ou o ISO 639-2 de três letras.
 
@@ -753,6 +799,9 @@ Marque para finalizar automaticamente transações IAP. Se desmarcado, você pre
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` ativa o sistema Live update em tempo de execução. Ativado por padrão. Consulte o [manual de Live update](/manuals/live-update/) para saber como excluir, baixar e montar recursos.
+
 #### Settings
 Arquivo de recurso de configurações Liveupdate a usar durante o empacotamento.
 
@@ -774,6 +823,9 @@ Habilita o perfilador dentro do jogo.
 
 #### Track Cpu
 A amostragem de uso da CPU vem ativada por padrão em builds debug. Ative esta configuração quando a amostragem de CPU também for necessária em uma build release que inclua suporte ao profiler por meio do Manifesto do aplicativo.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` ativa a amostragem detalhada de memória no profiler. Desativado por padrão. Isso pode consumir muitos recursos no HTML5.
 
 #### Sleep Between Server Updates
 Número de milissegundos a dormir entre atualizações do servidor.

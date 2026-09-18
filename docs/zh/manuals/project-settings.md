@@ -96,6 +96,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 项目 *库 URL* 的 URL 列表。有关更多信息，请参阅[库手册](/manuals/libraries/)。
 
+#### Dependencies Metadata
+`project.dependencies_metadata` 在运行时包中包含库依赖项的元数据。默认禁用。可以在运行时使用 `sys.load_resource("/.internal/dependencies.json")` 读取这些元数据。
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 应通过库共享从您的项目中共享的目录的空格分隔列表。有关更多信息，请参阅[库手册](/manuals/libraries/)。
 
----
-
-### Script
-
-#### Shared State
-勾选以在所有脚本类型之间共享单个 Lua 状态。
+#### Defold Min Version
+`library.defold_min_version` 指定将此项目用作库所需的最低 Defold/Bob 版本，例如 `1.11.2`。留空表示不限制最低版本。
 
 ---
 
@@ -320,6 +319,9 @@ OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需�
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` 是 Vulkan 上下文/API 次版本提示。仅在选择 Vulkan 图形后端时适用。默认值为 `0`。
 
+#### Memory Size
+`graphics.memory_size` 设置 Nintendo Switch 图形后端的显存预算，以兆字节为单位。默认值为 `512`。
+
 ---
 
 ### Shader
@@ -345,6 +347,12 @@ OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需�
 
 #### Gamepads
 游戏手柄配置文件的文件引用，它将游戏手柄信号映射到操作系统，默认为 `/builtins/input/default.gamepads`。
+
+#### Gamepad Database
+`input.gamepad_database` 选择 SDL 格式的游戏手柄映射数据库（`.txt`）。默认为 `/builtins/input/gamecontrollerdb.txt`。构建项目时，其中的映射会与 *Gamepads* 文件中的映射合并。
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` 设置在运行时应用于 SDL 游戏手柄数据库映射的死区。默认值为 `0.2`。
 
 #### Game Binding
 输入配置文件的文件引用，它将硬件输入映射到操作，默认为 `/input/game.input_binding`。
@@ -486,6 +494,19 @@ Spine 模型组件的最大数量。[(参见组件最大数量优化的信息)](
 #### Max Bone Matrix Texture Height
 骨骼矩阵纹理的最大高度。
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` 设置为每个网格生成的变形目标纹理的最大宽度，以像素为单位。该纹理存储位置、法线和切线的增量。默认值为 `1024`。
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` 设置为每个网格生成的变形目标纹理的最大高度，以像素为单位。该纹理存储位置、法线和切线的增量。默认值为 `1024`。
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` 设置光源组件的最大数量，默认为 `64`。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
 ---
 
 ### GUI
@@ -496,8 +517,21 @@ GUI 组件的最大数量。[(参见组件最大数量优化的信息)](#compone
 #### Max Particle Count
 GUI 粒子效果的最大粒子数量。
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` 设置每个集合中粒子 FX 节点的最大数量。默认值为 `64`。
+
 #### Max Animation Count
 GUI 动画的最大数量。
+
+#### Safe Area Mode
+`gui.safe_area_mode` 选择哪些安全区域内边距会影响 GUI 调整：
+
+- `none`（默认）：忽略内边距。
+- `long`：横屏时应用左/右边距，竖屏时应用上/下边距。
+- `short`：横屏时应用上/下边距，竖屏时应用左/右边距。
+- `both`：应用所有四个内边距。
+
+GUI 脚本可以使用 [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) 为其场景覆盖此模式。有关平台支持和自定义布局，请参阅[安全区域指南](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras)。
 
 ---
 
@@ -514,10 +548,16 @@ GUI 动画的最大数量。
 ### Particle FX
 
 #### Max Count
-粒子 FX 组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+`particle_fx.max_count` 设置粒子 FX 组件的最大数量，默认为 `64`。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` 设置同时运行的粒子 FX 发射器的最大数量。默认值为 `64`。
 
 #### Max Particle Count
-粒子的最大数量。
+同时存在的粒子的最大数量。此设置限制 GPU 顶点缓冲区的大小，默认为 `1024` 个粒子。
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` 设置每次上传到 GPU 的粒子数量上限。此设置限制用于生成粒子顶点的 CPU 缓冲区大小。默认值为 `1024`。
 
 ---
 
@@ -712,6 +752,14 @@ Firebase Cloud Messaging 应用 ID。
 
 捆绑标识符让 macOS 识别您应用的更新。您的捆绑 ID 必须在 Apple 注册，并且对您的应用是唯一的。您不能对 iOS 和 macOS 应用使用相同的标识符。必须由两个或多个用点分隔的段组成。每个段必须以字母开头。每个段只能包含字母数字字母、下划线或连字符 (-) 字符。
 
+#### Bundle Name {#osx-bundle-name}
+
+`osx.bundle_name` 指定捆绑短名称（`CFBundleName`），长度限制为 15 个字符。
+
+#### Bundle Version {#osx-bundle-version}
+
+`osx.bundle_version` 指定构建编号（`CFBundleVersion`），可以是一个数字或 `x.y.z`。默认值为 `1`。
+
 #### Default Language
 
 如果应用在 `Localizations` 列表中没有用户的首选语言时使用的语言（参见 [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)）。如果首选语言在那里可用，请使用两字母 ISO 639-1 标准或三字母 ISO 639-2。
@@ -810,6 +858,10 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+
+`liveupdate.enabled` 在运行时启用实时更新系统。默认启用。有关如何排除、下载和挂载资源，请参阅[实时更新手册](/manuals/live-update/)。
+
 #### Settings
 
 在打包期间要使用的实时更新设置资源文件。
@@ -835,6 +887,10 @@ App Manifest 的 **Profiler** 设置控制是否将分析器代码链接到 Debu
 #### Track Cpu
 
 Debug 构建默认启用 CPU 使用率采样。当通过 App Manifest 包含了分析器支持的 Release 构建也需要 CPU 采样时，请启用此设置。
+
+#### Track Detailed Memory
+
+`profiler.track_detailed_memory` 启用性能分析器中的详细内存采样。默认禁用。在 HTML5 上可能会产生较大的性能开销。
 
 #### Sleep Between Server Updates
 

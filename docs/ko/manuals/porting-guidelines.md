@@ -86,6 +86,8 @@ end
   * *game.project*의 Display 섹션에 있는 vsync와 swap interval
 
 
+<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
+
 ## 모바일 폰과 notch 및 hole punch camera
 전면 카메라와 센서를 넣기 위해 디스플레이 화면에 작은 렌즈 컷아웃을 사용하는 방식(노치 또는 hole punch camera라고도 함)이 점점 더 흔해졌습니다. 게임을 모바일로 포팅할 때는 중요한 정보를 플랫폼 safe area 안에 유지하세요.
 
