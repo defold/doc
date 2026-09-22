@@ -319,9 +319,6 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` задаёт дополнительную версию контекста/API Vulkan. Применяется только при выбранном графическом бэкенде Vulkan. Значение по умолчанию — `0`.
 
-#### Memory Size
-`graphics.memory_size` задаёт лимит графической памяти в мегабайтах для графического бэкенда Nintendo Switch. Значение по умолчанию — `512`.
-
 ---
   
 ### Shader

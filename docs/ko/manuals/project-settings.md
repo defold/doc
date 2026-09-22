@@ -319,9 +319,6 @@ OpenGL 컨텍스트 버전 hint입니다. 특정 버전을 선택하면 이 버�
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor`는 Vulkan context/API minor 버전 hint입니다. Vulkan 그래픽 백엔드를 선택한 경우에만 적용됩니다. 기본값은 `0`입니다.
 
-#### Memory Size
-`graphics.memory_size`는 Nintendo Switch 그래픽 백엔드의 그래픽 메모리 한도를 메가바이트 단위로 설정합니다. 기본값은 `512`입니다.
-
 ---
 
 ### Shader

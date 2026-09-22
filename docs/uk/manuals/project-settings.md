@@ -319,9 +319,6 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` — підказка щодо другорядної версії контексту/API Vulkan. Застосовується лише тоді, коли вибрано графічну підсистему Vulkan. Типове значення — `0`.
 
-#### Memory Size
-`graphics.memory_size` задає обсяг графічної пам’яті в мегабайтах для графічної підсистеми Nintendo Switch. Типове значення — `512`.
-
 ---
 
 ### Shader

@@ -319,9 +319,6 @@ Set the 'core' OpenGL profile hint when creating the context. The core profile r
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` is the Vulkan context/API minor version hint. This applies only when the Vulkan graphics backend is selected. The default is `0`.
 
-#### Memory Size
-`graphics.memory_size` sets the graphics memory budget in megabytes for the Nintendo Switch graphics backend. The default is `512`.
-
 ---
 
 ### Shader

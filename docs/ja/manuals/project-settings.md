@@ -319,9 +319,6 @@ OpenGL コンテキストのバージョンヒントです。特定のバージ�
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` は、Vulkan コンテキスト/API のマイナーバージョンヒントです。Vulkan グラフィックスバックエンドが選択されている場合にのみ適用されます。既定値は `0` です。
 
-#### Memory Size
-`graphics.memory_size` は、Nintendo Switch グラフィックスバックエンドのグラフィックスメモリ予算をメガバイト単位で設定します。既定値は `512` です。
-
 ---
 
 ### Shader

@@ -316,9 +316,6 @@ Ustawia podpowiedź profilu 'core' podczas tworzenia kontekstu. Profil core usuw
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` określa drugorzędną wersję kontekstu/API Vulkan. Dotyczy tylko wybranego backendu graficznego Vulkan. Wartość domyślna to `0`.
 
-#### Memory Size
-`graphics.memory_size` ustawia budżet pamięci graficznej w megabajtach dla backendu graficznego Nintendo Switch. Wartość domyślna to `512`.
-
 ---
 
 ### Shader

@@ -319,9 +319,6 @@ Define la indicación de perfil 'core' de OpenGL al crear el contexto. El perfil
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` es la indicación de versión menor del contexto/API de Vulkan. Solo se aplica cuando se selecciona el backend gráfico Vulkan. El valor predeterminado es `0`.
 
-#### Memory Size
-`graphics.memory_size` define la cantidad de memoria gráfica disponible, en megabytes, para el backend gráfico de Nintendo Switch. El valor predeterminado es `512`.
-
 ---
 
 ### Shader

@@ -319,9 +319,6 @@ Setzt beim Erstellen des Kontexts den OpenGL-Profilhinweis 'core'. Das Core-Prof
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` ist der Hinweis für die Nebenversion des Vulkan-Kontexts bzw. der Vulkan-API. Dies gilt nur, wenn das Vulkan-Grafik-Backend ausgewählt ist. Der Standardwert ist `0`.
 
-#### Memory Size
-`graphics.memory_size` legt das Grafikspeicherbudget in Megabyte für das Grafik-Backend der Nintendo Switch fest. Der Standardwert ist `512`.
-
 ---
 
 ### Shader

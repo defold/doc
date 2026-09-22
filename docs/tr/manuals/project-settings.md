@@ -319,9 +319,6 @@ Bağlam oluşturulurken 'core' OpenGL profil ipucunu ayarlar. Çekirdek profil, 
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor`, Vulkan bağlamının/API'sinin alt sürüm ipucudur. Yalnızca Vulkan grafik arka ucu seçildiğinde geçerlidir. Varsayılan değer `0`'dır.
 
-#### Memory Size
-`graphics.memory_size`, Nintendo Switch grafik arka ucu için grafik belleği bütçesini megabayt cinsinden ayarlar. Varsayılan değer `512`'dir.
-
 ---
 
 ### Shader

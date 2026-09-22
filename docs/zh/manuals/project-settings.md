@@ -319,9 +319,6 @@ OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需�
 #### Vulkan Version Minor
 `graphics.vulkan_version_minor` 是 Vulkan 上下文/API 次版本提示。仅在选择 Vulkan 图形后端时适用。默认值为 `0`。
 
-#### Memory Size
-`graphics.memory_size` 设置 Nintendo Switch 图形后端的显存预算，以兆字节为单位。默认值为 `512`。
-
 ---
 
 ### Shader
