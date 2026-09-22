@@ -11,7 +11,7 @@ Static objects
 : Static objects never move but a dynamic object that collides with a static object will react by bouncing and/or sliding. Static objects are very useful for building level geometry (i.e. ground and walls) that does not move. They are also cheaper performance-wise than dynamic objects. You cannot move or otherwise change static objects.
 
 Dynamic objects
-: Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically. The most common way to affect them is indirectly, by [applying forces](/ref/physics/#apply_force) or changing the angular [damping](/ref/stable/physics/#angular_damping) and [velocity](/ref/stable/physics/#linear_velocity) and the linear [damping](/ref/stable/physics/#linear_damping) and [velocity](/ref/stable/physics/#angular_velocity). It is also possible to directly manipulate the position and orientation of a dynamic object when the [Allow Dynamic Transforms setting](/manuals/project-settings/#allow-dynamic-transforms) is enabled in *game.project*.
+: Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically. The most common way to affect them is indirectly, by [applying forces](/ref/physics/#apply_force) or changing the angular [damping](/ref/physics/#angular_damping) and [velocity](/ref/physics/#linear_velocity) and the linear [damping](/ref/physics/#linear_damping) and [velocity](/ref/physics/#angular_velocity). It is also possible to directly manipulate the position and orientation of a dynamic object when the [Allow Dynamic Transforms setting](/manuals/project-settings/#allow-dynamic-transforms) is enabled in *game.project*.
 
 Kinematic objects
 : Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you ([learn more](/manuals/physics-resolving-collisions)). Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
@@ -27,7 +27,7 @@ A collision object component has a set of *Properties* that sets its type and ph
 To add a collision object component to a game object:
 
 1. In the *Outline* view, <kbd>right click</kbd> the game object and select <kbd>Add Component ▸ Collision Object</kbd> from the context menu. This creates a new component with no shapes.
-2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component. You can also use a tilemap or a convex hull to define the shape of the physics object.
+2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape</kbd>, then choose a shape: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> or <kbd>Mesh</kbd> in projects using 3D physics, <kbd>Box</kbd> or <kbd>Circle</kbd> in projects using 2D physics. Hull and Mesh shapes are available since Defold 1.13.2 and use a named mesh from a glTF or GLB scene. You can add several shapes to the component. You can also use a tilemap or a `.convexshape` resource through the *Collision Shape* property.
 3. Use the move, rotate and scale tools to edit the shapes.
 4. Select the component in the *Outline* and edit the collision object's *Properties*.
 
@@ -36,7 +36,7 @@ To add a collision object component to a game object:
 
 ## Adding a collision shape
 
-A collision component can either use several primitive shapes or a single complex shape. Learn more about the various shapes and how to add them to a collision component in the [Collision Shapes manual](/manuals/physics-shapes).
+A collision component can contain several embedded shapes, including hulls and triangle meshes in 3D physics, or use a tilemap or convex shape resource. Learn more about the various shapes and how to add them to a collision component in the [Collision Shapes manual](/manuals/physics-shapes).
 
 
 ## Collision object properties
@@ -45,7 +45,7 @@ Id
 : The identity of the component.
 
 Collision Shape
-: This property is used for tile map geometry or convex shapes that does not use primitive shapes. See [Collision Shapes for more information](/manuals/physics-shapes).
+: A tilemap or `.convexshape` resource. To use a glTF or GLB mesh, add a Hull or Mesh shape to the component and set that shape's *Scene* and *Mesh* properties instead. See [Collision Shapes for more information](/manuals/physics-shapes).
 
 Type
 : The type of collision object: `Dynamic`, `Kinematic`, `Static` or `Trigger`. If you set the object to `Dynamic` you _must_ set the *Mass* property to a non zero value. For `Dynamic` or `Static` objects you should also check that the *Friction* and *Restitution* values are good for your use-case.
@@ -87,7 +87,7 @@ Bullet
 : Setting this property enables continuous collision detection (CCD) between the collision object and other dynamic collision objects. The *Bullet* property is ignored if the *Type* is not set to `Dynamic`.
 
 Group
-: The name of the collision group the object should belong to. You can have 16 different groups and you name them as you see fit for your game. For example "players", "bullets", "enemies" and "world". If the *Collision Shape* is set to a tile map, this field is not used but the groups names are taken from the tile source. [Learn more about collision groups](/manuals/physics-groups).
+: The name of the collision group the object should belong to. You can have 16 different groups and you name them as you see fit for your game. For example `players`, `bullets`, `enemies` and `world`. If the *Collision Shape* is set to a tile map, this field is not used but the groups names are taken from the tile source. [Learn more about collision groups](/manuals/physics-groups).
 
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the *Mask* field empty, the object will not collide with anything. [Learn more about collision groups](/manuals/physics-groups).

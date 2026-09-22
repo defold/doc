@@ -103,7 +103,7 @@ function update(self, dt)
 end
 ```
 
-Zmiana i przeładowanie pliku "my_module.lua" _nie_ zmienią zachowania "user.script". Zobacz [instrukcję o modułach](/manuals/modules), aby dowiedzieć się więcej o tym, dlaczego tak się dzieje i jak uniknąć tej pułapki.
+Zmiana i przeładowanie pliku `my_module.lua` _nie_ zmienią zachowania `user.script`. Zobacz [instrukcję o modułach](/manuals/modules), aby dowiedzieć się więcej o tym, dlaczego tak się dzieje i jak uniknąć tej pułapki.
 
 ## Funkcja `on_reload()`
 

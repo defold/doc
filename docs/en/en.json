@@ -1465,6 +1465,27 @@
                 ]
             },
             {
+                "name": "Fonts and text",
+                "items": [
+                    {
+                        "path": "/manuals/font",
+                        "name": "Fonts"
+                    },
+                    {
+                        "path": "/manuals/font-richtext",
+                        "name": "Rich Text"
+                    },
+                    {
+                        "path": "/manuals/gui-text",
+                        "name": "Text nodes"
+                    },
+                    {
+                        "path": "/manuals/label",
+                        "name": "Label components"
+                    }
+                ]
+            },
+            {
                 "name": "Physics",
                 "items": [
                     {
@@ -1836,6 +1857,10 @@
                         "name": "App review and ratings"
                     },
                     {
+                        "path": "/extension-applovin",
+                        "name": "AppLovin MAX ad mediation"
+                    },
+                    {
                         "path": "/extension-camera",
                         "name": "Camera"
                     },
@@ -1864,8 +1889,8 @@
                         "name": "Inter-app communication"
                     },
                     {
-                        "path": "/extension-ironsource",
-                        "name": "IronSource ad mediation"
+                        "path": "/extension-levelplay",
+                        "name": "LevelPlay ad mediation"
                     },
                     {
                         "path": "/extension-push",
@@ -1909,6 +1934,10 @@
                         "name": "App review and ratings"
                     },
                     {
+                        "path": "/extension-applovin",
+                        "name": "AppLovin MAX ad mediation"
+                    },
+                    {
                         "path": "/extension-camera",
                         "name": "Camera"
                     },
@@ -1929,8 +1958,8 @@
                         "name": "Inter-app communication"
                     },
                     {
-                        "path": "/extension-ironsource",
-                        "name": "IronSource ad mediation"
+                        "path": "/extension-levelplay",
+                        "name": "LevelPlay ad mediation"
                     },
                     {
                         "path": "/extension-push",

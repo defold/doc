@@ -13,7 +13,7 @@ brief: 이 매뉴얼은 컬렉션 팩토리 컴포넌트를 사용해 게임 오
 
 ## 컬렉션 스폰하기 {#spawning-a-collection}
 
-캐릭터 게임 오브젝트 하나와, 캐릭터의 자식인 별도 방패 게임 오브젝트가 필요하다고 가정해 봅시다. 컬렉션 파일에 게임 오브젝트 계층구조를 만들고 "bean.collection"으로 저장합니다.
+캐릭터 게임 오브젝트 하나와, 캐릭터의 자식인 별도 방패 게임 오브젝트가 필요하다고 가정해 봅시다. 컬렉션 파일에 게임 오브젝트 계층구조를 만들고 `bean.collection`으로 저장합니다.
 
 ::: sidenote
 *컬렉션 프록시(Collection proxy)* 컴포넌트는 컬렉션을 기반으로 별도의 물리 월드를 포함하는 새 게임 월드를 만드는 데 사용됩니다. 새 월드는 새 소켓을 통해 액세스합니다. 컬렉션에 포함된 모든 에셋은 로딩을 시작하라는 메세지를 프록시에 보내면 프록시를 통해 로드됩니다. 따라서 게임에서 레벨을 변경하는 경우 등에 매우 유용합니다. 다만 새 게임 월드는 꽤 많은 오버헤드를 수반하므로 작은 컨텐츠를 동적으로 로드하는 데 사용하지 마세요. 자세한 내용은 [컬렉션 프록시 문서](/manuals/collection-proxy)를 참고하세요.
@@ -21,11 +21,11 @@ brief: 이 매뉴얼은 컬렉션 팩토리 컴포넌트를 사용해 게임 오
 
 ![스폰할 컬렉션](images/collection_factory/collection.png)
 
-그런 다음 스폰을 처리할 게임 오브젝트에 *Collection factory*를 추가하고, 컴포넌트의 *Prototype*을 "bean.collection"으로 설정합니다.
+그런 다음 스폰을 처리할 게임 오브젝트에 *Collection factory*를 추가하고, 컴포넌트의 *Prototype*을 `bean.collection`으로 설정합니다.
 
 ![컬렉션 팩토리](images/collection_factory/factory.png)
 
-이제 bean과 shield를 스폰하려면 `collectionfactory.create()` 함수를 호출하면 됩니다.
+이제 `bean`과 shield를 스폰하려면 `collectionfactory.create()` 함수를 호출하면 됩니다.
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
@@ -51,7 +51,7 @@ local bean_ids = collectionfactory.create("#bean_factory")
 `collectionfactory.create()`는 스폰된 게임 오브젝트의 식별자를 테이블로 반환합니다. 테이블 키는 각 오브젝트의 컬렉션-로컬 id 해쉬를 각 오브젝트의 런타임 id에 매핑합니다.
 
 ::: sidenote
-"bean"과 "shield" 사이의 부모-자식 관계는 반환된 테이블에 반영되지 *않습니다*. 이 관계는 런타임 씬 그래프, 즉 오브젝트가 함께 변형되는 방식에만 존재합니다. 오브젝트의 부모를 다시 지정해도 id는 절대 바뀌지 않습니다.
+`bean`과 `shield` 사이의 부모-자식 관계는 반환된 테이블에 반영되지 *않습니다*. 이 관계는 런타임 씬 그래프, 즉 오브젝트가 함께 변형되는 방식에만 존재합니다. 오브젝트의 부모를 다시 지정해도 id는 절대 바뀌지 않습니다.
 :::
 
 ```lua
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-"bean.collection"의 "bean" 게임 오브젝트가 "shield" 프로퍼티를 정의한다고 가정합니다. [스크립트 프로퍼티 매뉴얼](/manuals/script-properties)에는 스크립트 프로퍼티에 대한 정보가 있습니다.
+`bean.collection`의 `bean` 게임 오브젝트가 `shield` 프로퍼티를 정의한다고 가정합니다. [스크립트 프로퍼티 매뉴얼](/manuals/script-properties)에는 스크립트 프로퍼티에 대한 정보가 있습니다.
 
 ```lua
 -- bean/controller.script

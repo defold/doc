@@ -102,6 +102,7 @@ gui.set(node, "color.x", 1)
 
 | 프로퍼티   | 설명                            | 타입            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
+| *text* | 라벨의 텍스트 내용입니다. Defold 1.13.2부터 사용할 수 있습니다. | `string` | `get+set`{.mark} |
 | *scale* | 라벨의 스케일입니다. | `vector3` | `get+set`{.mark} |
 | *scale.xy* | 라벨의 X축과 Y축 스케일입니다. | `vector3` | `get+set`{.mark}|
 | *color*     | 라벨의 색상입니다. | `vector4` | `get+set`{.mark} |

@@ -11,6 +11,10 @@ Las fuentes se usan para renderizar texto en componentes Label y nodos de texto 
 - OpenType
 - BMFont
 
+Desde Defold 1.13.2, tanto el motor de layout de texto heredado como el completo admiten contornos TrueType y contornos OpenType CFF1/CFF2, incluida la generación en runtime a partir de recursos `.ttf` y `.otf`.
+
+Para saber cómo aplicar estilos a fragmentos de texto y trabajar con enlaces y sprites integrados en el texto, consulta el [manual de marcado de texto enriquecido](/manuals/font-richtext).
+
 Las fuentes agregadas a tu proyecto se convierten automáticamente a un formato de textura que Defold puede renderizar. Hay dos técnicas de renderizado de fuentes disponibles, cada una con sus propias ventajas y desventajas específicas:
 
 - Bitmap
@@ -20,7 +24,7 @@ Las fuentes agregadas a tu proyecto se convierten automáticamente a un formato 
 
 De forma predeterminada, la conversión a imágenes de glifos rasterizadas ocurre durante la build (offline). Esto tiene la desventaja de que cada fuente debe rasterizar todos los glifos posibles en la etapa de build, lo que puede producir texturas muy grandes que consumen memoria y también aumentan el tamaño del bundle.
 
-Al usar "fuentes en runtime", las fuentes `.ttf` se incluirán en el bundle tal cual, y la rasterización ocurrirá bajo demanda en runtime. Esto minimiza tanto el uso de memoria en runtime como el tamaño del bundle.
+Al usar "fuentes en runtime", las fuentes `.ttf` y `.otf` se incluirán en el bundle tal cual, y la rasterización ocurrirá bajo demanda en runtime. Esto minimiza tanto el uso de memoria en runtime como el tamaño del bundle.
 
 ## Compatibilidad con layout de texto (p. ej., derecha a izquierda) {#text-layout-support-eg-right-to-left}
 
@@ -29,10 +33,12 @@ Actualmente usamos las bibliotecas [HarfBuzz](https://github.com/harfbuzz/harfbu
 
 Consulta [Habilitar fuentes en runtime](/manuals/font#enabling-runtime-fonts)
 
+El editor usa el renderizador de fuentes del motor para las vistas previas de fuentes y texto de las escenas. La conformación del texto y el layout de derecha a izquierda requieren [fuentes en runtime](#enabling-runtime-fonts) y la opción **Use full text layout system** en App Manifest. Para fuentes offline, la vista previa respeta los ajustes **Characters** y **All Chars** de la fuente.
+
 ## Colección de fuentes {#font-collection}
 
 El formato de archivo `.fontc` también se conoce como colección de fuentes. En modo offline, solo una fuente está asociada a ella.
-Al usar fuentes en runtime, puedes asociar más de un archivo de fuente (`.ttf`) con la colección de fuentes.
+Al usar fuentes en runtime, puedes asociar más de un archivo de fuente (`.ttf` o `.otf`) con la colección de fuentes.
 
 Esto permite usar una colección de fuentes al renderizar varios textos en distintos idiomas, manteniendo baja la huella de memoria.
 Por ejemplo, cargar una colección con la fuente japonesa, asociar esa fuente con la fuente principal actual y luego descargar la colección de fuente japonesa.
@@ -188,7 +194,7 @@ Para más información sobre uniforms de shader, consulta el [manual de shaders]
 
 ## Habilitar fuentes en runtime {#enabling-runtime-fonts}
 
-Es posible usar la generación en runtime para fuentes de tipo SDF al usar fuentes TrueType (`.ttf`).
+Es posible usar la generación en runtime para fuentes de tipo SDF al usar fuentes TrueType (`.ttf`) u OpenType (`.otf`). La generación en runtime a partir de recursos `.otf` está disponible desde Defold 1.13.2.
 Este enfoque puede reducir mucho el tamaño de descarga y el consumo de memoria en runtime de un juego Defold.
 La pequeña desventaja es la naturaleza asíncrona de generar cada glifo.
 
@@ -202,7 +208,7 @@ Esta funcionalidad es actualmente experimental, pero con la intención de usarse
 :::
 
 ::: important
-La configuración `font.runtime_generation` afecta a todas las fuentes `.ttf` del proyecto.
+La configuración `font.runtime_generation` afecta a todas las fuentes `.ttf` y `.otf` del proyecto.
 :::
 
 
@@ -265,7 +271,7 @@ Si la caché de glifos se llena, se expulsará el glifo más antiguo de la cach�
 font.prewarm_text(self.font_collection, info.text, function (self, request_id, result, err)
     if result then
       print("PREWARMING OK!")
-      label.set_text(self.label, info.text)
+      go.set(self.label, "text", info.text)
     else
       print("Error prewarming text:", err)
     end

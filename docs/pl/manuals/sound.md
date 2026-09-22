@@ -11,7 +11,7 @@ Komponenty dźwięku
 : Te komponenty zawierają rzeczywisty dźwięk, który ma zostać odtworzony, i potrafią go odtwarzać.
 
 Grupy dźwięku
-: Każdy komponent dźwięku może zostać przypisany do _grupy_. Grupy zapewniają prosty i intuicyjny sposób zarządzania dźwiękami, które należą do siebie. Na przykład grupę "sound_fx" można skonfigurować tak, aby każdy dźwięk należący do tej grupy dało się wyciszyć jednym wywołaniem funkcji.
+: Każdy komponent dźwięku może zostać przypisany do _grupy_. Grupy zapewniają prosty i intuicyjny sposób zarządzania dźwiękami, które należą do siebie. Na przykład grupę `sound_fx` można skonfigurować tak, aby każdy dźwięk należący do tej grupy dało się wyciszyć jednym wywołaniem funkcji.
 
 ## Tworzenie komponentu dźwięku
 
@@ -33,7 +33,7 @@ Utworzony komponent ma zestaw właściwości, które należy ustawić:
 : Liczba odtworzeń dźwięku zapętlonego przed zatrzymaniem (0 oznacza, że dźwięk ma być odtwarzany w pętli aż do jawnego zatrzymania).
 
 *Group*
-: Nazwa grupy dźwięku, do której dźwięk powinien należeć. Jeśli to pole pozostanie puste, dźwięk zostanie przypisany do wbudowanej grupy "master".
+: Nazwa grupy dźwięku, do której dźwięk powinien należeć. Jeśli to pole pozostanie puste, dźwięk zostanie przypisany do wbudowanej grupy `master`.
 
 *Gain*
 : Możesz ustawić wzmocnienie dźwięku bezpośrednio na komponencie. Pozwala to łatwo dostroić głośność bez wracania do programu dźwiękowego i ponownego eksportu. Szczegóły obliczania wzmocnienia znajdziesz poniżej.
@@ -75,13 +75,13 @@ System dźwięku ma 4 poziomy wzmocnienia:
 - Wzmocnienie ustawione na komponencie dźwięku.
 - Wzmocnienie ustawione przy uruchamianiu dźwięku przez wywołanie `sound.play()` albo przy zmianie wzmocnienia głosu przez wywołanie `sound.set_gain()`.
 - Wzmocnienie ustawione na grupie przez wywołanie funkcji [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- Wzmocnienie ustawione na grupie "master". Można je zmienić za pomocą `sound.set_group_gain(hash("master"), gain)`.
+- Wzmocnienie ustawione na grupie `master`. Można je zmienić za pomocą `sound.set_group_gain(hash("master"), gain)`.
 
 Gdy w [ustawieniach projektu Sound](/manuals/project-settings/#sound) włączono **Use Linear Gain** (ustawienie domyślne), wzmocnienie wyjściowe jest wynikiem pomnożenia tych czterech wartości. Wzmocnienie `1.0` jest wzmocnieniem jednostkowym (0 dB). Gdy wzmocnienie liniowe jest wyłączone, Defold stosuje podczas miksowania krzywą nieliniową, więc bezpośrednie mnożenie czterech wartości i poniższe przeliczenie na decybele nie opisują wynikowego poziomu wyjściowego.
 
 ## Grupy dźwięku
 
-Każdy komponent dźwięku, dla którego podano nazwę grupy, zostanie przypisany do grupy dźwięku o tej nazwie. Jeśli nie podasz grupy, dźwięk zostanie przypisany do grupy "master". Możesz też jawnie ustawić grupę komponentu dźwięku na "master", co daje ten sam efekt.
+Każdy komponent dźwięku, dla którego podano nazwę grupy, zostanie przypisany do grupy dźwięku o tej nazwie. Jeśli nie podasz grupy, dźwięk zostanie przypisany do grupy `master`. Możesz też jawnie ustawić grupę komponentu dźwięku na `master`, co daje ten sam efekt.
 
 Dostępnych jest kilka funkcji, które pozwalają pobrać wszystkie dostępne grupy, pobrać nazwę jako string, pobrać i ustawić wzmocnienie, RMS (patrz http://en.wikipedia.org/wiki/Root_mean_square) oraz wzmocnienie szczytowe. Istnieje też funkcja, która pozwala sprawdzić, czy na urządzeniu docelowym działa odtwarzacz muzyki:
 

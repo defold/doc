@@ -11,7 +11,7 @@ Objetos estáticos
 : Los objetos estáticos nunca se mueven, pero un objeto dinámico que colisiona con un objeto estático reaccionará rebotando y/o deslizándose. Los objetos estáticos son muy útiles para construir geometría de niveles (es decir, suelo y paredes) que no se mueve. También son más baratos en rendimiento que los objetos dinámicos. No puedes mover ni cambiar de otro modo los objetos estáticos.
 
 Objetos dinámicos
-: Los objetos dinámicos son simulados por el motor de física. El motor resuelve todas las colisiones y aplica las fuerzas resultantes. Los objetos dinámicos son adecuados para objetos que deberían comportarse de forma realista. La forma más común de afectarlos es indirectamente, [aplicando fuerzas](/ref/physics/#apply_force) o cambiando el [damping](/ref/stable/physics/#angular_damping) y la [velocity](/ref/stable/physics/#linear_velocity) angulares, y el [damping](/ref/stable/physics/#linear_damping) y la [velocity](/ref/stable/physics/#angular_velocity) lineales. También es posible manipular directamente la posición y orientación de un objeto dinámico cuando la [opción Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) está habilitada en *game.project*.
+: Los objetos dinámicos son simulados por el motor de física. El motor resuelve todas las colisiones y aplica las fuerzas resultantes. Los objetos dinámicos son adecuados para objetos que deberían comportarse de forma realista. La forma más común de afectarlos es indirectamente, [aplicando fuerzas](/ref/physics/#apply_force) o cambiando el [damping](/ref/physics/#angular_damping) y la [velocity](/ref/physics/#linear_velocity) angulares, y el [damping](/ref/physics/#linear_damping) y la [velocity](/ref/physics/#angular_velocity) lineales. También es posible manipular directamente la posición y orientación de un objeto dinámico cuando la [opción Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) está habilitada en *game.project*.
 
 Objetos cinemáticos
 : Los objetos cinemáticos registran colisiones con otros objetos de física, pero el motor de física no realiza ninguna simulación automática. El trabajo de resolver las colisiones, o ignorarlas, queda a tu cargo ([más información](/manuals/physics-resolving-collisions)). Los objetos cinemáticos son muy adecuados para objetos controlados por el jugador o por scripts que requieren control detallado de las reacciones físicas, como un personaje jugador.
@@ -27,7 +27,7 @@ Un componente de objeto de colisión tiene un conjunto de *Properties* que defin
 Para agregar un componente de objeto de colisión a un objeto de juego:
 
 1. En la vista *Outline*, haz <kbd>click derecho</kbd> en el objeto de juego y selecciona <kbd>Add Component ▸ Collision Object</kbd> en el menú contextual. Esto crea un nuevo componente sin formas.
-2. Haz <kbd>click derecho</kbd> en el nuevo componente y selecciona <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. Esto agrega una nueva forma al componente de objeto de colisión. Puedes agregar cualquier número de formas al componente. También puedes usar un tilemap o un convex hull para definir la forma del objeto de física.
+2. Haz <kbd>click derecho</kbd> en el nuevo componente y selecciona <kbd>Add Shape</kbd>; luego elige una forma: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> o <kbd>Mesh</kbd> en proyectos que usan físicas 3D, o <kbd>Box</kbd> o <kbd>Circle</kbd> en proyectos que usan físicas 2D. Las formas Hull y Mesh están disponibles desde Defold 1.13.2 y usan una malla con nombre de una escena glTF o GLB. Puedes agregar varias formas al componente. También puedes usar un tilemap o un recurso `.convexshape` mediante la propiedad *Collision Shape*.
 3. Usa las herramientas de mover, rotar y escalar para editar las formas.
 4. Selecciona el componente en *Outline* y edita las *Properties* del objeto de colisión.
 
@@ -36,7 +36,7 @@ Para agregar un componente de objeto de colisión a un objeto de juego:
 
 ## Agregar una forma de colisión
 
-Un componente de colisión puede usar varias formas primitivas o una única forma compleja. Aprende más sobre las distintas formas y cómo agregarlas a un componente de colisión en el [manual de Collision Shapes](/manuals/physics-shapes).
+Un componente de colisión puede contener varias formas integradas, incluidas envolventes convexas y mallas de triángulos en físicas 3D, o usar un recurso tilemap o de forma convexa. Aprende más sobre las distintas formas y cómo agregarlas a un componente de colisión en el [manual de formas de colisión](/manuals/physics-shapes).
 
 
 ## Propiedades del objeto de colisión
@@ -45,7 +45,7 @@ Id
 : La identidad del componente.
 
 Collision Shape
-: Esta propiedad se usa para geometría de tile map o formas convexas que no usan formas primitivas. Consulta [Collision Shapes para obtener más información](/manuals/physics-shapes).
+: Un recurso tilemap o `.convexshape`. Para usar una malla glTF o GLB, agrega una forma Hull o Mesh al componente y define las propiedades *Scene* y *Mesh* de esa forma. Consulta [formas de colisión para obtener más información](/manuals/physics-shapes).
 
 Type
 : El tipo de objeto de colisión: `Dynamic`, `Kinematic`, `Static` o `Trigger`. Si defines el objeto como `Dynamic`, _debes_ definir la propiedad *Mass* con un valor distinto de cero. Para objetos `Dynamic` o `Static`, también deberías comprobar que los valores de *Friction* y *Restitution* sean adecuados para tu caso de uso.
@@ -87,7 +87,7 @@ Bullet
 : Al definir esta propiedad, se habilita la detección continua de colisiones (CCD) entre el objeto de colisión y otros objetos de colisión dinámicos. La propiedad *Bullet* se ignora si *Type* no está definido como `Dynamic`.
 
 Group
-: El nombre del grupo de colisión al que debería pertenecer el objeto. Puedes tener 16 grupos diferentes y nombrarlos como prefieras para tu juego. Por ejemplo, "players", "bullets", "enemies" y "world". Si *Collision Shape* está definido como un tile map, este campo no se usa, sino que los nombres de grupo se toman de la tile source. [Aprende más sobre los grupos de colisión](/manuals/physics-groups).
+: El nombre del grupo de colisión al que debería pertenecer el objeto. Puedes tener 16 grupos diferentes y nombrarlos como prefieras para tu juego. Por ejemplo, `players`, `bullets`, `enemies` y `world`. Si *Collision Shape* está definido como un tile map, este campo no se usa, sino que los nombres de grupo se toman de la tile source. [Aprende más sobre los grupos de colisión](/manuals/physics-groups).
 
 Mask
 : Los otros _grupos_ con los que este objeto debería colisionar. Puedes nombrar un grupo o especificar varios grupos en una lista separada por comas. Si dejas el campo *Mask* vacío, el objeto no colisionará con nada. [Aprende más sobre los grupos de colisión](/manuals/physics-groups).

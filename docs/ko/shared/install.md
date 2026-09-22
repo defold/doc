@@ -20,7 +20,7 @@ Windows에서 설치
 : 다운로드한 파일은 압축을 풀어야 하는 ZIP 아카이브입니다:
 
   1. "Defold-x86_64-win32.zip" 아카이브 파일을 찾은 뒤 해당 압축 폴더를 <kbd>길게 누르거나</kbd>(또는 <kbd>마우스 오른쪽 버튼으로 클릭</kbd>) *Extract All*을 선택한 다음, 안내에 따라 아카이브를 "Defold"라는 폴더에 추출합니다.
-    2. "Defold" 폴더를 원하는 위치(예: `D:\Defold`)로 옮깁니다. 이렇게 하면 에디터가 업데이트되지 못하므로 Defold를 `C:\Program Files (x86)\` 또는 `C:\Program Files\`로 옮기면 안 됩니다.
+  2. "Defold" 폴더를 원하는 위치(예: `D:\Defold`)로 옮깁니다. 이렇게 하면 에디터가 업데이트되지 못하므로 Defold를 `C:\Program Files (x86)\` 또는 `C:\Program Files\`로 옮기면 안 됩니다.
 
   에디터를 시작하려면 "Defold" 폴더를 열고 "Defold.exe" 파일을 <kbd>더블 클릭</kbd>합니다.
 

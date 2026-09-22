@@ -36,7 +36,7 @@ Steruje funkcjami rig i model albo pozwala wybrać None, aby całkowicie wyklucz
 
 ## Exclude Record
 
-Wyklucza z silnika możliwość nagrywania wideo (zobacz dokumentację wiadomości [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
+Wyklucza z silnika możliwość nagrywania wideo (zobacz dokumentację wiadomości [`start_record`](https://defold.com/ref/sys/#start_record)).
 
 
 ## Profiler
@@ -76,6 +76,21 @@ Dołącza obsługę zasobów dźwiękowych Ogg Opus. Dekoder Opus jest domyślni
 Wyklucza z silnika całą obsługę wejścia.
 
 
+## Exclude GUI
+
+Usuwa z silnika zasoby i komponenty GUI oraz ich obsługę w Lua. Włącz tę opcję tylko wtedy, gdy projekt nie używa scen ani skryptów GUI. Komponenty Label pozostają dostępne. Opcja jest domyślnie wyłączona.
+
+
+## Exclude Particle FX
+
+Usuwa zasoby i komponenty efektów cząsteczkowych oraz moduł Lua `particlefx`. Usuwa też obsługę węzłów cząsteczkowych w scenach GUI; sceny GUI bez takich węzłów pozostają obsługiwane. Przed włączeniem tej opcji usuń odwołania do efektów cząsteczkowych i wywołania ich API. Opcja jest domyślnie wyłączona.
+
+
+## Exclude Tilemaps
+
+Usuwa zasoby i komponenty map kafelków oraz moduł Lua `tilemap`. Włącz tę opcję tylko wtedy, gdy projekt nie używa komponentów map kafelków ani ich API. Źródła kafelków używane przez inne komponenty pozostają dostępne. Opcja jest domyślnie wyłączona.
+
+
 ## Exclude Live Update
 
 Wyklucza z silnika [funkcję Live Update](/manuals/live-update).
@@ -83,12 +98,12 @@ Wyklucza z silnika [funkcję Live Update](/manuals/live-update).
 
 ## Exclude Image
 
-Wyklucza z silnika moduł skryptowy `image`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/stable/image/).
+Wyklucza z silnika moduł skryptowy `image`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/image/).
 
 
 ## Exclude Types
 
-Wyklucza z silnika moduł skryptowy `types`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/stable/types/).
+Wyklucza z silnika moduł skryptowy `types`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/types/).
 
 
 ## Exclude Basis Transcoder
@@ -117,7 +132,12 @@ W systemie Linux ARM64 opcja **OpenGL** używa backendu OpenGL ES. Domyślna opc
 
 ## Use full text layout system
 
-Jeśli ta opcja jest włączona (`true`), umożliwia generowanie w czasie działania fontów typu SDF przy użyciu fontów TrueType (`.ttf`) w projekcie. Więcej szczegółów znajdziesz w [podręczniku fontów](https://defold.com/manuals/font/#enabling-runtime-fonts).
+Jeśli ta opcja jest włączona (`true`), dołącza pełny system układu tekstu, który obsługuje kształtowanie tekstu, w tym języki pisane od prawej do lewej. Włącz ją razem z `font.runtime_generation` w pliku *game.project*, aby generować w czasie działania fonty SDF z zasobów TrueType (`.ttf`) lub OpenType (`.otf`). Generowanie w czasie działania z zasobów `.otf` jest obsługiwane od wersji Defold 1.13.2. Więcej informacji znajdziesz w [podręczniku fontów](/manuals/font/#enabling-runtime-fonts).
+
+
+## Use Rich Text
+
+Dołącza parsowanie tekstu formatowanego i efekty stylów dla etykiet oraz tekstu GUI. Opcja jest domyślnie włączona. Wyłącz ją, aby zmniejszyć rozmiar silnika, jeśli projekt potrzebuje jedynie zwykłego tekstu. Etykiety i tekst GUI pozostają obsługiwane, ale znaczniki są wyświetlane jako zwykły tekst zamiast stosowania formatowania lub efektów.
 
 
 ## Minimalne wersje przeglądarek

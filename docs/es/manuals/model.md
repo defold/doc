@@ -18,12 +18,17 @@ Los componentes Model se crean igual que cualquier otro componente de objeto de 
 
 Una vez creado el modelo, debes especificar varias propiedades:
 
+<a id="model-properties"></a>
+
 ### Propiedades de Model
 
 Aparte de las propiedades *Id*, *Position* y *Rotation*, existen las siguientes propiedades específicas del componente:
 
+*Scene*
+: El archivo glTF *.gltf* o *.glb* que contiene la geometría del modelo. Si contiene morph targets, se importan junto con la escena. Esta propiedad se llamaba *Mesh* antes de Defold 1.13.2.
+
 *Mesh*
-: Esta propiedad debe hacer referencia al archivo glTF *.gltf* o *.glb* que contiene la malla que se va a usar. Si el archivo contiene morph targets, se importan junto con la malla. Si el archivo contiene varias mallas, solo se lee la primera.
+: Una malla con nombre opcional de la *Scene* seleccionada, disponible desde Defold 1.13.2. Deja este campo vacío para renderizar toda la escena con sus transformaciones importadas. Selecciona una malla para renderizarla una vez en sus coordenadas locales, sin las transformaciones de los nodos glTF. Posiciona, rota y escala el componente Model o su objeto de juego para colocar la malla seleccionada.
 
 *Create GO Bones*
 : Activa esto para crear un objeto de juego por cada hueso del modelo. Puedes usar los objetos de juego para adjuntar otros objetos de juego, como armas, a los huesos de las manos y casos similares.

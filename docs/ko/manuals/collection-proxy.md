@@ -23,7 +23,7 @@ Defold는 모든 게임 오브젝트를 컬렉션 안에 구성합니다. 컬렉
 
 ## 부트스트랩
 
-Defold 엔진이 시작되면 *부트스트랩 컬렉션*의 모든 게임 오브젝트를 런타임에 로드하고 인스턴스화합니다. 그런 다음 게임 오브젝트와 그 컴포넌트를 초기화하고 활성화합니다. 엔진이 어떤 부트스트랩 컬렉션을 사용할지는 [프로젝트 설정](/manuals/project-settings/#main-collection)에서 설정합니다. 관례상 이 컬렉션 파일의 이름은 보통 "main.collection"입니다.
+Defold 엔진이 시작되면 *부트스트랩 컬렉션*의 모든 게임 오브젝트를 런타임에 로드하고 인스턴스화합니다. 그런 다음 게임 오브젝트와 그 컴포넌트를 초기화하고 활성화합니다. 엔진이 어떤 부트스트랩 컬렉션을 사용할지는 [프로젝트 설정](/manuals/project-settings/#main-collection)에서 설정합니다. 관례상 이 컬렉션 파일의 이름은 보통 `main.collection`입니다.
 
 ![부트스트랩](images/collection-proxy/bootstrap.png)
 

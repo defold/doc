@@ -347,6 +347,65 @@ render.draw(self.my_tile_predicate)
 Obecnie Defold obsługuje jako odwoływane zasoby renderowania tylko `Materials` i `Render Targets`, ale z czasem system ten będzie obsługiwał więcej typów zasobów.
 :::
 
+### Cele renderowania z wielokrotnym próbkowaniem {#multisampled-render-targets}
+
+Cele renderowania obsługują antyaliasing z wielokrotnym próbkowaniem (MSAA). Wygładza on krawędzie geometrii w pozaekranowym przebiegu renderowania. Liczba próbek celu jest niezależna od [Display ▸ Samples](/manuals/project-settings/#samples), które steruje antyaliasingiem okna.
+
+Dla zasobu `.render_target` ustaw w edytorze **Sample Count** na `1`, `2`, `4`, `8` lub `16`. Wartość `1` wyłącza wielokrotne próbkowanie. Dodaj zasób do tabeli **Render Resources** pliku `.render` i używaj przypisanej mu nazwy w `render.set_render_target()`, jak w powyższym przykładzie.
+
+Możesz też utworzyć cel w funkcji `init()` skryptu do renderowania. Umieść `sample_count` w zewnętrznej tabeli parametrów, obok dołączonych buforów:
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+Ten przykład używa celu z samym buforem koloru. Wszystkie bufory koloru, głębi i szablonu dołączone do celu współdzielą jego liczbę próbek. Jeśli przebieg wymaga testowania głębi, dodaj bufor głębi i zwykłe ustawienia testu głębi.
+
+Dla poniższego fragmentu `update()` nadaj materiałom sceny znacznik `scene`, a materiałowi czworokąta wypełniającego ekran znacznik `present`. Materiał tego czworokąta musi próbkować jednostkę tekstury `0`. Ustaw odpowiedni widok i projekcję dla każdego przebiegu:
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+Przełączenie z tego celu kończy przebieg i automatycznie scala próbki dołączonych buforów koloru. `render.enable_texture()` wiąże wynikową teksturę koloru, więc czworokąt używa zwykłego samplera tekstury. Osobne polecenie scalania próbek nie jest wymagane.
+
+Żądana liczba próbek domyślnie wynosi `1` i musi być dodatnią liczbą całkowitą. Backend graficzny zmniejsza nieobsługiwaną wartość do obsługiwanej potęgi dwójki, w razie potrzeby do `1`, i zapisuje ostrzeżenie w dzienniku, gdy liczba zostanie zmieniona. Większa liczba próbek zwiększa ilość pamięci potrzebnej dla dołączonych buforów.
+
+Gdy używasz zasobu celu renderowania, sprawdź jego rzeczywistą liczbę próbek ze skryptu `.script` obiektu gry za pomocą `resource.get_render_target_info()`. Na przykład po dodaniu `/render/offscreen.render_target` do **Render Resources**:
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+Sprawdzając obsługę przez urządzenie, używaj tej rzeczywistej liczby, zamiast zakładać, że żądana liczba próbek była dostępna. Pełne tabele parametrów i wyników znajdziesz w dokumentacji [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) oraz [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path).
+
 ## Uchwyt tekstur
 
 W Defold tekstury są wewnętrznie reprezentowane jako uchwyt, który w praktyce odpowiada liczbie mającej jednoznacznie identyfikować obiekt tekstury w dowolnym miejscu silnika. Oznacza to, że możesz połączyć świat obiektów gry ze światem renderowania, przekazując te uchwyty między systemem renderowania a skryptem obiektu gry. Na przykład skrypt może utworzyć dynamiczną teksturę w skrypcie dołączonym do obiektu gry i wysłać ją do renderera, aby użyć jej jako globalnej tekstury w poleceniu rysowania.

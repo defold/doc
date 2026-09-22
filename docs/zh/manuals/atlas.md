@@ -40,7 +40,7 @@ brief: 本手册解释了 Defold 中图集资源的工作原理。
 
   从弹出的上下文菜单中选择 <kbd>Add Animation Group</kbd> 以创建翻书动画组。
 
-  一个新的、空的、具有默认名称（"New Animation"）的动画组被添加到图集中。
+  一个新的、空的、具有默认名称（`New Animation`）的动画组被添加到图集中。
 
   从 *Asset* 面板将图像拖放到编辑器视图中，将它们添加到当前选定的组中。
   
@@ -139,7 +139,7 @@ Playback
 
 ### 在运行时创建纹理资源
 
-使用 [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table) 创建新的纹理资源：
+使用 [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table) 创建新的纹理资源：
 
 ```lua
   local params = {
@@ -151,7 +151,7 @@ Playback
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-创建纹理后，您可以使用 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) 设置纹理的像素：
+创建纹理后，您可以使用 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer) 设置纹理的像素：
 
 ```lua
   local width = 128
@@ -185,7 +185,7 @@ Playback
 
 ### 在运行时创建图集
 
-如果纹理应该在[精灵组件](/manuals/sprite/)上使用，它首先需要被图集使用。使用 [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table) 创建图集：
+如果纹理应该在[精灵组件](/manuals/sprite/)上使用，它首先需要被图集使用。使用 [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table) 创建图集：
 
 ```lua
   local params = {

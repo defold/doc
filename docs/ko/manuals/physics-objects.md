@@ -11,7 +11,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 : 정적 오브젝트는 절대 움직이지 않지만, 정적 오브젝트와 충돌하는 동적 오브젝트는 튕기거나 미끄러지는 방식으로 반응합니다. 정적 오브젝트는 움직이지 않는 레벨 지오메트리(예: 바닥과 벽)를 만드는 데 매우 유용합니다. 또한 성능 면에서 동적 오브젝트보다 비용이 낮습니다. 정적 오브젝트는 이동하거나 다른 방식으로 변경할 수 없습니다.
 
 동적 오브젝트
-: 동적 오브젝트는 물리 엔진이 시뮬레이션합니다. 엔진은 모든 충돌을 해결하고 그 결과로 생기는 힘을 적용합니다. 동적 오브젝트는 사실적으로 동작해야 하는 오브젝트에 적합합니다. 동적 오브젝트에 영향을 주는 가장 일반적인 방법은 [힘을 적용](/ref/physics/#apply_force)하거나 각 [감쇠](/ref/stable/physics/#angular_damping) 및 [속도](/ref/stable/physics/#linear_velocity), 선형 [감쇠](/ref/stable/physics/#linear_damping) 및 [속도](/ref/stable/physics/#angular_velocity)를 변경하는 식으로 간접적으로 조작하는 것입니다. *game.project*에서 [Allow Dynamic Transforms 설정](/manuals/project-settings/#allow-dynamic-transforms)이 활성화되어 있으면 동적 오브젝트의 위치와 방향을 직접 조작할 수도 있습니다.
+: 동적 오브젝트는 물리 엔진이 시뮬레이션합니다. 엔진은 모든 충돌을 해결하고 그 결과로 생기는 힘을 적용합니다. 동적 오브젝트는 사실적으로 동작해야 하는 오브젝트에 적합합니다. 동적 오브젝트에 영향을 주는 가장 일반적인 방법은 [힘을 적용](/ref/physics/#apply_force)하거나 각 [감쇠](/ref/physics/#angular_damping) 및 [속도](/ref/physics/#linear_velocity), 선형 [감쇠](/ref/physics/#linear_damping) 및 [속도](/ref/physics/#angular_velocity)를 변경하는 식으로 간접적으로 조작하는 것입니다. *game.project*에서 [Allow Dynamic Transforms 설정](/manuals/project-settings/#allow-dynamic-transforms)이 활성화되어 있으면 동적 오브젝트의 위치와 방향을 직접 조작할 수도 있습니다.
 
 키네마틱 오브젝트
 : 키네마틱 오브젝트는 다른 물리 오브젝트와의 충돌을 등록하지만, 물리 엔진은 자동 시뮬레이션을 수행하지 않습니다. 충돌을 해결하거나 무시하는 작업은 사용자에게 맡겨져 있습니다([자세히 알아보기](/manuals/physics-resolving-collisions)). 키네마틱 오브젝트는 플레이어 캐릭터처럼 물리 반응을 세밀하게 제어해야 하는 플레이어 또는 스크립트 제어 오브젝트에 매우 적합합니다.
@@ -27,7 +27,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 게임 오브젝트에 충돌 오브젝트 컴포넌트를 추가하려면:
 
 1. *Outline* 뷰에서 게임 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 컨텍스트 메뉴에서 <kbd>Add Component ▸ Collision Object</kbd>를 선택합니다. 이렇게 하면 모양이 없는 새 컴포넌트가 만들어집니다.
-2. 새 컴포넌트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>를 선택합니다. 그러면 충돌 오브젝트 컴포넌트에 새 모양이 추가됩니다. 컴포넌트에는 원하는 수만큼 모양을 추가할 수 있습니다. 타일 맵이나 convex hull을 사용해 물리 오브젝트의 모양을 정의할 수도 있습니다.
+2. 새 컴포넌트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택한 다음 모양을 선택합니다. 3D 물리 프로젝트에서는 <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd>, <kbd>Mesh</kbd>를, 2D 물리 프로젝트에서는 <kbd>Box</kbd> 또는 <kbd>Circle</kbd>을 선택할 수 있습니다. Hull 및 Mesh 모양은 Defold 1.13.2부터 사용할 수 있으며, glTF 또는 GLB 씬의 이름 있는 메쉬를 사용합니다. 컴포넌트에 여러 모양을 추가할 수 있습니다. *Collision Shape* 프로퍼티로 타일맵이나 `.convexshape` 리소스를 사용할 수도 있습니다.
 3. 이동, 회전, 스케일 도구를 사용해 모양을 편집합니다.
 4. *Outline*에서 컴포넌트를 선택하고 충돌 오브젝트의 *Properties*를 편집합니다.
 
@@ -36,7 +36,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 
 ## 충돌 모양 추가하기
 
-충돌 오브젝트 컴포넌트는 여러 기본 모양을 사용하거나 하나의 복잡한 모양을 사용할 수 있습니다. 다양한 모양과 충돌 오브젝트 컴포넌트에 모양을 추가하는 방법은 [충돌 모양 매뉴얼](/manuals/physics-shapes)에서 자세히 알아볼 수 있습니다.
+충돌 오브젝트 컴포넌트는 3D 물리의 hull과 삼각형 메쉬를 포함한 여러 내장 모양을 포함하거나, 타일맵 또는 convex shape 리소스를 사용할 수 있습니다. 다양한 모양과 충돌 오브젝트 컴포넌트에 모양을 추가하는 방법은 [충돌 모양 매뉴얼](/manuals/physics-shapes)에서 자세히 알아볼 수 있습니다.
 
 
 ## 충돌 오브젝트 프로퍼티
@@ -45,7 +45,7 @@ Id
 : 컴포넌트의 식별자입니다.
 
 Collision Shape
-: 이 프로퍼티는 타일 맵 지오메트리나 기본 모양을 사용하지 않는 convex shape에 사용됩니다. [충돌 모양에 대한 자세한 정보](/manuals/physics-shapes)를 참고하세요.
+: 타일맵 또는 `.convexshape` 리소스입니다. glTF 또는 GLB 메쉬를 사용하려면 컴포넌트에 Hull 또는 Mesh 모양을 추가하고 해당 모양의 *Scene* 및 *Mesh* 프로퍼티를 설정하세요. [충돌 모양에 대한 자세한 정보](/manuals/physics-shapes)를 참고하세요.
 
 Type
 : 충돌 오브젝트의 타입입니다: `Dynamic`, `Kinematic`, `Static` 또는 `Trigger`. 오브젝트를 `Dynamic`으로 설정하면 *Mass* 프로퍼티를 0이 아닌 값으로 설정해야 _합니다_. `Dynamic` 또는 `Static` 오브젝트의 경우 *Friction* 및 *Restitution* 값이 사용 사례에 적합한지도 확인해야 합니다.
@@ -87,7 +87,7 @@ Bullet
 : 이 프로퍼티를 설정하면 충돌 오브젝트와 다른 동적 충돌 오브젝트 사이의 연속 충돌 감지(CCD)가 활성화됩니다. *Type*이 `Dynamic`으로 설정되어 있지 않으면 *Bullet* 프로퍼티는 무시됩니다.
 
 Group
-: 오브젝트가 속해야 하는 충돌 그룹의 이름입니다. 서로 다른 그룹을 16개까지 만들 수 있으며, 게임에 맞게 원하는 이름을 지정할 수 있습니다. 예를 들어 "players", "bullets", "enemies", "world" 같은 이름을 사용할 수 있습니다. *Collision Shape*가 타일 맵으로 설정되어 있으면 이 필드는 사용되지 않고, 그룹 이름은 타일 소스에서 가져옵니다. [충돌 그룹에 대해 더 알아보세요](/manuals/physics-groups).
+: 오브젝트가 속해야 하는 충돌 그룹의 이름입니다. 서로 다른 그룹을 16개까지 만들 수 있으며, 게임에 맞게 원하는 이름을 지정할 수 있습니다. 예를 들어 `players`, `bullets`, `enemies`, `world` 같은 이름을 사용할 수 있습니다. *Collision Shape*가 타일 맵으로 설정되어 있으면 이 필드는 사용되지 않고, 그룹 이름은 타일 소스에서 가져옵니다. [충돌 그룹에 대해 더 알아보세요](/manuals/physics-groups).
 
 Mask
 : 이 오브젝트가 충돌해야 하는 다른 _그룹_입니다. 하나의 그룹 이름을 지정하거나 쉼표로 구분된 목록으로 여러 그룹을 지정할 수 있습니다. *Mask* 필드를 비워 두면 오브젝트는 아무것과도 충돌하지 않습니다. [충돌 그룹에 대해 더 알아보세요](/manuals/physics-groups).

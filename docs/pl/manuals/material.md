@@ -319,7 +319,7 @@ Stałe shaderów, czyli "uniformy", to wartości przekazywane z silnika do progr
   ```
 
 `CONSTANT_TYPE_USER`
-: Stała vector4, której możesz użyć dla dowolnych niestandardowych danych, jakie chcesz przekazać do swoich programów shaderów. Początkową wartość stałej możesz ustawić w definicji stałej, ale można ją zmieniać za pomocą funkcji [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Wartość można też odczytać przez [go.get()](/ref/stable/go/#go.get). Zmiana stałej materiału dla pojedynczej instancji komponentu [zrywa batchowanie renderowania i spowoduje dodatkowe wywołania rysowania](/manuals/render/#draw-calls-and-batching).
+: Stała vector4, której możesz użyć dla dowolnych niestandardowych danych, jakie chcesz przekazać do swoich programów shaderów. Początkową wartość stałej możesz ustawić w definicji stałej, ale można ją zmieniać za pomocą funkcji [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). Wartość można też odczytać przez [go.get()](/ref/go/#go.get). Zmiana stałej materiału dla pojedynczej instancji komponentu [zrywa batchowanie renderowania i spowoduje dodatkowe wywołania rysowania](/manuals/render/#draw-calls-and-batching).
 
 Przykład:
 
@@ -330,7 +330,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: Stała matrix4, której możesz użyć dla dowolnych niestandardowych danych, jakie chcesz przekazać do swoich programów shaderów. Początkową wartość stałej możesz ustawić w definicji stałej, ale można ją zmieniać za pomocą funkcji [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Wartość można też odczytać przez [go.get()](/ref/stable/go/#go.get). Zmiana stałej materiału dla pojedynczej instancji komponentu [zrywa batchowanie renderowania i spowoduje dodatkowe wywołania rysowania](/manuals/render/#draw-calls-and-batching).
+: Stała matrix4, której możesz użyć dla dowolnych niestandardowych danych, jakie chcesz przekazać do swoich programów shaderów. Początkową wartość stałej możesz ustawić w definicji stałej, ale można ją zmieniać za pomocą funkcji [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate). Wartość można też odczytać przez [go.get()](/ref/go/#go.get). Zmiana stałej materiału dla pojedynczej instancji komponentu [zrywa batchowanie renderowania i spowoduje dodatkowe wywołania rysowania](/manuals/render/#draw-calls-and-batching).
 
 Przykład:
 

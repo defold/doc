@@ -64,7 +64,7 @@ Para criar uma nova extensão, crie uma pasta na raiz do projeto. Essa pasta con
 : Esta pasta opcional contém arquivos adicionais usados no processo de build ou empacotamento. Veja abaixo os detalhes.
 
 *res*
-: Esta pasta opcional contém quaisquer recursos extras dos quais a extensão depende. Os arquivos de recurso devem ser colocados em subpastas nomeadas por `platform`, ou `architecture-platform`, assim como as subpastas de "lib". Uma subpasta `common` também é permitida, contendo arquivos de recurso comuns a todas as plataformas.
+: Esta pasta opcional contém quaisquer recursos extras dos quais a extensão depende. Os arquivos de recurso devem ser colocados em subpastas nomeadas por `platform`, ou `architecture-platform`, assim como as subpastas de `lib`. Uma subpasta `common` também é permitida, contendo arquivos de recurso comuns a todas as plataformas.
 
 ### Arquivos de manifesto
 
@@ -72,12 +72,56 @@ A pasta opcional *manifests* de uma extensão contém arquivos adicionais usados
 
 * `android` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
   * A pasta também pode conter um arquivo `build.gradle` com dependências a serem [resolvidas pelo Gradle](/manuals/extensions-gradle).
-  * Por fim, a pasta também pode conter zero ou mais arquivos ProGuard (experimental).
+  * Extensões com código Java devem incluir um [arquivo de regras de preservação do R8](#r8-keep-rules-for-android) (`.keep`) para as classes necessárias em tempo de execução.
 * `ios` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
   * A pasta também pode conter um arquivo `Podfile` com dependências a serem [resolvidas pelo Cocoapods](/manuals/extensions-cocoapods).
 * `osx` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
 * `web` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
 
+
+### Regras de preservação do R8 para Android {#r8-keep-rules-for-android}
+
+Adicione um arquivo `.keep` ao diretório `manifests/android` da extensão, ao lado de `build.gradle`. Por exemplo, `/myextension/manifests/android/myextension.keep` pode preservar as classes Java da extensão com:
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+Substitua `com.example.myextension` pelo pacote que contém as classes Java da sua extensão. Essa regra preserva as classes e seus membros, permitindo que o R8 otimize seu código. Adicione regras para outras classes acessadas pela Java Native Interface (JNI) ou por reflexão, pois o R8 pode não detectar esses usos automaticamente.
+
+Se a extensão depender de anotações em tempo de execução, inclua também:
+
+```proguard
+-keepattributes *Annotation*
+```
+
+Essas regras são combinadas com o arquivo de preservação selecionado para o projeto quando [o R8 está ativado](/manuals/android/#enabling-r8).
+
+
+## Recursos personalizados {#custom-resources}
+
+Uma extensão pode incluir dados no arquivo de jogo declarando recursos personalizados em um arquivo `ext.properties` ao lado de `ext.manifest`:
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+Por exemplo, coloque um arquivo JSON em `/myextension/data/settings.json`. O caminho é relativo à raiz do projeto, incluindo a pasta da extensão. Ao compartilhar a extensão como biblioteca, inclua `myextension` em [Include Dirs](/manuals/libraries/#setting-up-library-sharing) da biblioteca para que os projetos que a utilizam recebam a extensão e seus dados.
+
+Esses caminhos são combinados com `project.custom_resources` do *game.project* e as contribuições de outras extensões. Definir recursos personalizados no projeto não substitui as contribuições das extensões. Tanto os builds do editor quanto os arquivos gerados pelo Bob incluem os arquivos, que podem ser carregados em tempo de execução:
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+Consulte [acesso a arquivos](/manuals/file-access/#custom-resources) para saber como recursos personalizados diferem de recursos de pacote.
 
 ## Compartilhando uma extensão
 
@@ -186,7 +230,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Observe a macro `DM_DECLARE_EXTENSION`, usada para declarar os vários pontos de entrada no código da extensão. O primeiro argumento `symbol` deve corresponder ao nome especificado em *ext.manifest*. Para este exemplo simples, não há necessidade de pontos de entrada "update" ou "on_event", então `0` é fornecido nessas posições da macro.
+Observe a macro `DM_DECLARE_EXTENSION`, usada para declarar os vários pontos de entrada no código da extensão. O primeiro argumento `symbol` deve corresponder ao nome especificado em *ext.manifest*. Para este exemplo simples, não há necessidade de pontos de entrada `update` ou `on_event`, então `0` é fornecido nessas posições da macro.
 
 Agora basta compilar o projeto (<kbd>Projeto ▸ Compilar</kbd>). Isso enviará a extensão ao builder de extensões, que produzirá uma engine personalizada com a nova extensão incluída. Se o builder encontrar algum erro, uma caixa de diálogo com os erros de build será exibida.
 

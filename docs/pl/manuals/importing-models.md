@@ -27,6 +27,8 @@ Jeśli model ma używać tekstury w Defold, zaimportuj obraz tekstury jako osobn
 ::: sidenote
 Począwszy od Defold 1.13.0, Defold zachowuje pozycje i transformacje z importowanego pliku glTF i nie wyśrodkowuje automatycznie modelu podczas importu. Podgląd w edytorze i środowisko uruchomieniowe używają importowanych transformacji w spójny sposób: siatki ze skinningiem lub powiązane z kośćmi zachowują transformacje lokalne względem szkieletu, a siatki sztywne zachowują spłaszczone położenie w przestrzeni świata.
 
+Od wersji Defold 1.13.2 [komponent Model](/manuals/model/#model-properties) może wybrać pojedynczą siatkę o określonej nazwie z zaimportowanej sceny. Pozostawienie pustego pola *Mesh* oznacza użycie całej sceny i zachowanie opisanych wyżej transformacji. Wybranie siatki powoduje użycie jej geometrii lokalnej bez transformacji węzłów glTF, dlatego rozmieść ją za pomocą transformacji komponentu modelu lub obiektu gry.
+
 Jeśli model utworzony w starszej wersji Defold zmieni pozycję lub orientację po ponownym zaimportowaniu, popraw transformację w Blenderze lub innym narzędziu autorskim, a następnie ponownie wyeksportuj plik *.gltf* lub *.glb*.
 :::
 
@@ -34,8 +36,8 @@ Jeśli model utworzony w starszej wersji Defold zmieni pozycję lub orientację 
 Po zaimportowaniu modelu użyj go w [komponencie Model](/manuals/model):
 
 1. Utwórz plik Model z panelu *Assets* za pomocą <kbd>New... ▸ Model</kbd>, albo dodaj komponent Model bezpośrednio do obiektu gry za pomocą <kbd>Add Component ▸ Model</kbd>.
-2. Ustaw właściwość *Mesh* na zaimportowany plik *.gltf* lub *.glb* zawierający siatkę.
-3. W przypadku modelu animowanego ustaw właściwość *Skeleton* na plik *.gltf* lub *.glb* zawierający szkielet. Często jest to ten sam plik, którego używasz dla *Mesh*, gdy siatka, szkielet i animacje są eksportowane razem.
+2. Ustaw właściwość *Scene* na zaimportowany plik *.gltf* lub *.glb*. Pozostaw *Mesh* puste, aby użyć całej sceny, albo wybierz siatkę o określonej nazwie, aby użyć tylko jej geometrii lokalnej.
+3. W przypadku modelu animowanego ustaw właściwość *Skeleton* na plik *.gltf* lub *.glb* zawierający szkielet. Często jest to ten sam plik, którego używasz dla *Scene*, gdy siatka, szkielet i animacje są eksportowane razem.
 4. Utwórz plik *Animation Set* dla animacji i przypisz go do właściwości *Animations*. Ustaw *Default Animation*, jeśli animacja ma rozpocząć się automatycznie.
 5. Ustaw właściwość *Material* na materiał odpowiedni dla modelu. Wbudowane pliki *model.material*, *model_instanced.material*, *model_skinned.material* i *model_skinned_instanced.material* są przydatnymi punktami wyjścia. Materiały dla modeli ze skinningiem używają lokalnej przestrzeni wierzchołków, aby skinning mógł być wykonywany na GPU; niestandardowe materiały dla modeli ze skinningiem GPU lub instancjonowanych również powinny używać lokalnej przestrzeni wierzchołków. Wymagania dotyczące adaptera graficznego opisano w [instrukcji Model](/manuals/model/#material).
 6. Ustaw właściwości tekstur materiału, takie jak *Texture*, na zaimportowane pliki obrazów tekstur. Jeśli materiał używa wielu tekstur, przypisz każdą teksturę w odpowiednim polu tekstury materiału.

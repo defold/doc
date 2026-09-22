@@ -24,7 +24,7 @@ Our [**Learning Hub**](/learn) is a starting point for all learning resources fo
 - [**Examples**](/examples) - short snippets of code and simple, small, contained functionalities and samples
 - [**Courses**](/courses) - longer-form, comprehensive, structured lessons on Zenva, Udemy, and created by the community
 - [**Videos**](/videos) - if you prefer watching, there are a lot of video tutorials and overviews to choose from
-- [**API**](/ref/stable/overview_defoldlua) - understand all the provided functions and constants with our up-to-date full documentation
+- [**API**](/ref/overview_defoldlua) - understand all the provided functions and constants with our up-to-date full documentation
 - [**FAQ**](/faq/faq) - with answers to the most frequently asked questions - search to see if maybe your issue was already solved
 
 We encourage you to experiment, follow tutorials, read our manuals and API documentation, and join our [community channels](/community) - to ask questions, learn from other users, and follow the development of Defold.

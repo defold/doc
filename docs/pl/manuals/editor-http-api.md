@@ -34,7 +34,7 @@ Opcjonalny argument `--port` lub `-p` wybiera port serwera edytora. Jego pomini�
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-Edytor jest graficzną aplikacją komputerową. Należy go uruchamiać w interaktywnej sesji użytkownika z dostępem do ekranu. Gdy sesja graficzna jest niedostępna, np. w CI bez interfejsu graficznego, lub w przypadku automatyzacji obejmującej wyłącznie kompilowanie i tworzenie samodzielnych pakietów należy użyć [Bob](/manuals/bob).
+Edytor jest graficzną aplikacją komputerową. Należy go uruchamiać w interaktywnej sesji użytkownika z dostępem do ekranu. Gdy sesja graficzna jest niedostępna, np. w CI bez interfejsu graficznego, lub do tworzenia samodzielnych pakietów należy użyć [Bob](/manuals/bob). Otwarty edytor obsługuje też automatyzację samej kompilacji przez `/command/compile`.
 
 Po uruchomieniu edytora należy poczekać na otwarcie projektu i pojawienie się pliku `.internal/editor.port`. Następnie należy odpytywać `/openapi.json`, dopóki nie zwróci prawidłowego dokumentu. Nie należy zakładać, że utworzenie procesu oznacza gotowość projektu.
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-Wyświetlenie dostępnych poleceń edytora:
+Wyświetlenie udokumentowanych ścieżek poleceń edytora:
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+W wersji Defold 1.13.2 i nowszych każde polecenie ma własną ścieżkę w dokumencie OpenAPI. Wcześniejsze wersje opisują polecenia przez ścieżkę `/command/{command}` i wyliczenie nazw poleceń.
 
 Integracja uwzględniająca wersję powinna sprawdzać każdą wymaganą operację i konfigurować żądania na podstawie zwróconego schematu. Odradzamy utrzymywanie rzekomo kompletnej kopii nazw punktów końcowych lub poleceń, ponieważ może się zdezaktualizować.
 
@@ -97,22 +95,38 @@ Trasy zdefiniowane przez projekt również pojawiają się w `/openapi.json`, gd
 
 ## Wykonywanie poleceń edytora {#executing-editor-commands}
 
-Polecenia edytora są wywoływane przez:
+Wywołuj polecenia edytora, wysyłając żądanie `POST` do udokumentowanej ścieżki polecenia, na przykład:
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-Na przykład bieżące polecenie `build` kompiluje i uruchamia projekt:
+Aby skompilować projekt bez uruchamiania go:
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-Pomyślna kompilacja zwraca ustrukturyzowany wynik:
+Aby skompilować i uruchomić projekt:
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+Te potoki wyświetlają treść odpowiedzi. W skryptach automatyzacji sprawdzaj również status HTTP i `success`, zgodnie ze wzorcem z sekcji [budowanie HTML5](#building-html5).
+
+::: sidenote
+Od wersji Defold 1.13.2 `/command/build` jest przestarzałym aliasem zgodności dla `/command/run` i nie jest wymieniony w OpenAPI. W nowych integracjach używaj `/command/run`.
+:::
+
+Pomyślna kompilacja zwraca status HTTP `200` z ustrukturyzowanym wynikiem:
 
 ```json
 {
@@ -150,7 +164,10 @@ Dostępne pola zależą od błędu. Należy korzystać ze ścieżki zasobu i zak
 
 Często przydatne polecenia, jeśli są wymienione przez uruchomiony edytor, obejmują:
 
-`build`
+`compile`
+: Kompiluje projekt bez uruchamiania go.
+
+`run`
 : Kompiluje i uruchamia projekt.
 
 `clean-build`
@@ -177,7 +194,9 @@ Polecenia wykonujące operacje na zasobach projektu synchronizują zewnętrzne z
 
 ### Odpowiedzi poleceń i praca asynchroniczna {#command-responses-and-asynchronous-work}
 
-Operacja polecenia dokumentuje kody odpowiedzi w bieżącym schemacie OpenAPI.
+Odpowiedzi zależą od polecenia. W wersji Defold 1.13.2 i nowszych `compile`, `run`, `clean-build`, `build-html5`, `debugger-start` oraz `hot-reload` czekają na zakończenie polecenia i zwracają ustrukturyzowany wynik z `success` oraz `issues`, jak pokazano powyżej. Pomyślny wynik zwraca HTTP `200`, a błąd budowania lub walidacji zwraca `422`.
+
+Inne polecenia mogą nadal zwracać `202`, na przykład `debugger-break`. Sprawdź operację w bieżącym schemacie OpenAPI i obsłuż rzeczywisty status odpowiedzi HTTP:
 
 | Stan | Znaczenie |
 | --- | --- |
@@ -192,21 +211,36 @@ Odpowiedź HTTP `202` nie dowodzi, że żądany wynik istnieje. Należy poczeka�
 
 ### Budowanie HTML5 {#building-html5}
 
-Jeśli bieżący dokument OpenAPI wymienia `build-html5`, należy wywołać to polecenie za pomocą operacji polecenia:
+Jeśli bieżący dokument OpenAPI wymienia `/command/build-html5`, wywołaj polecenie przez tę ścieżkę. W skrypcie powłoki zapisz status HTTP osobno od treści odpowiedzi i zakończ pracę po nieudanym żądaniu lub budowaniu:
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-Polecenie działa asynchronicznie i zwykle zwraca stan HTTP `202`. Po ukończeniu budowania edytor udostępnia wynik pod adresem:
+W wersji Defold 1.13.2 i nowszych to żądanie czeka na zakończenie budowania i zwraca ustrukturyzowany wynik. Przykład wypisuje treść odpowiedzi, w tym wszelkie problemy z budowaniem, i kontynuuje tylko przy HTTP `200` oraz `success: true`. Po pomyślnym budowaniu edytor otwiera grę w przeglądarce i udostępnia ją pod adresem:
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-Przed rozpoczęciem testów przeglądarkowych należy poczekać, aż adres URL stanie się dostępny. Więcej informacji zawiera sekcja [Testy przeglądarkowe dla HTML5](/manuals/automated-testing/#browser-tests-for-html5).
+Zakończone budowanie nie oznacza, że gra zakończyła ładowanie w przeglądarce. Przed wysyłaniem wejścia lub sprawdzaniem rozgrywki poczekaj na kanwę i gotowość aplikacji. Więcej informacji zawiera sekcja [testy przeglądarkowe dla HTML5](/manuals/automated-testing/#browser-tests-for-html5).
 
 ## Przeszukiwanie dokumentacji API {#searching-api-documentation}
 

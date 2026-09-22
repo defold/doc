@@ -9,7 +9,7 @@ Lua modules allow you to structure your project and create reusable library code
 
 ## Requiring Lua files
 
-Lua code stored in files with file ending ".lua" somewhere in your game project structure can be loaded with `require` into script and gui script files. To create a new Lua module file, right click the folder you want to create it in in the *Assets* view, then select <kbd>New... ▸ Lua Module</kbd>. Give the file a unique name and press <kbd>Ok</kbd>:
+Lua code stored in files with file ending `.lua` somewhere in your game project structure can be loaded with `require` into script and gui script files. To create a new Lua module file, right click the folder you want to create it in in the *Assets* view, then select <kbd>New... ▸ Lua Module</kbd>. Give the file a unique name and press <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -99,7 +99,7 @@ print(m.value) --> "4711" (even if "module.lua" is changed and hot reloaded)
 
 If you hot reload the module file the code is run again, but nothing happens with `m.value`. Why is that?
 
-First, the table created in "module.lua" is created in local scope and a _reference_ to that table is returned to the user. Reloading "module.lua" evaluates the module code again but that creates a new table in the local scope instead of updating the table `m` refers to.
+First, the table created in `module.lua` is created in local scope and a _reference_ to that table is returned to the user. Reloading `module.lua` evaluates the module code again but that creates a new table in the local scope instead of updating the table `m` refers to.
 
 Secondly, Lua caches files loaded with `require`. The first time a file is required, it is put in the table [`package.loaded`](/ref/package/#package.loaded) so it can be read faster on subsequent `require` calls. You can force a file to be re-read from disk by setting the file's entry to `nil`: `package.loaded["my_module"] = nil`.
 

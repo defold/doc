@@ -29,6 +29,7 @@ apk
 APK's
 APKs
 apkx
+AppLovin
 AppStore
 armeabi
 ASTC
@@ -64,6 +65,7 @@ callstack
 CCD
 CDN
 Celtoys
+CFF
 ChadAragorn
 checkboxes
 checksums
@@ -139,6 +141,7 @@ enum
 esc
 excitemike
 exe
+FFFC
 ffmpeg
 FCM
 Fi
@@ -230,6 +233,7 @@ jamesramsay
 javafx
 JIT
 jitter
+JNI
 jobfolder
 jpg
 js
@@ -301,6 +305,7 @@ MonoBehaviour
 MonoBehaviours
 Monteiro
 movieclip
+MSAA
 mutex
 Nakama
 namespace
@@ -312,6 +317,7 @@ NDK
 NES
 normals
 NPC
+NUL
 NVDA
 obfuscator
 Ogg
@@ -350,6 +356,7 @@ prebaked
 prebuild
 prebuilt
 preconfigured
+preconnect
 prehash
 preinitialization
 preload
@@ -371,6 +378,7 @@ programmatically
 ProGuard
 protobuf
 Protools
+PTHREAD
 PSD
 PSNR
 qtile
@@ -409,6 +417,7 @@ scroller
 SD
 SDK
 SDKs
+SDL
 SDF
 Sergey
 sha
@@ -516,6 +525,7 @@ upscaled
 upscaling
 URI
 userdata
+UTF
 UUID
 UV
 UVs

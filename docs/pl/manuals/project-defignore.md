@@ -16,6 +16,25 @@ Pliki i foldery do wykluczenia są definiowane w pliku o nazwie `.defignore` w k
 ```
 
 To wykluczy plik `/path/to/file.png` oraz wszystko pod ścieżką `/otherpath`.
+Każdy wiersz musi zaczynać się od `/` i jest dopasowywany do ścieżek projektu względem katalogu głównego projektu. Wzorzec pasuje do ścieżki, jeśli jest jej równy lub jest jednym z jej folderów nadrzędnych. Dopasowanie rozróżnia wielkość liter.
+
+### Symbole wieloznaczne
+
+Wzorce mogą zawierać symbole wieloznaczne:
+
+* `*` pasuje do dowolnej liczby znaków z wyjątkiem `/`
+* `?` pasuje do dokładnie jednego znaku z wyjątkiem `/`
+* `**` pasuje do dowolnej liczby całych folderów, więc `/**/name` pasuje do `name` na dowolnej głębokości, a `/folder/**` pasuje do folderu i całej jego zawartości
+
+Wszystkie pozostałe znaki są dopasowywane dosłownie. Przykład:
+
+```
+/levels/*/tiled
+/**/generated
+/assets/temp_??.png
+```
+
+To wykluczy folder `tiled` w każdym bezpośrednim podfolderze `/levels` (na przykład `/levels/01/tiled`), każdy folder o nazwie `generated` na dowolnej głębokości, włącznie z `/generated` w katalogu głównym projektu, oraz pliki takie jak `/assets/temp_01.png`.
 
 ## Plik `.defunload`
 

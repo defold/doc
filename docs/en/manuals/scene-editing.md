@@ -7,7 +7,7 @@ brief: The Scene Editor is where you edit collections, game objects, GUIs, parti
 
 The **Scene Editor** is the visual editor used to build and edit scenes such as collections, game objects, and other visual assets.
 
-By default, many visual scenes open with a **2D orthographic** view. For 3D work you can switch to a 3D-oriented layout, enable a 3D grid plane, and use a **perspective** camera.
+The initial camera view depends on the resource. 3D resources such as models and glTF scenes default to **perspective**, while 2D resources such as sprites, tilemaps and GUI scenes default to **orthographic**. You can change the camera orientation, projection and grid through the scene toolbar.
 
 ## Opening the Scene Editor
 
@@ -19,6 +19,14 @@ Open the Scene Editor by double-clicking a visual resource in the *Assets* pane,
 - **UI** — GUI scenes (`.gui`)
 - **Effects** — particle effects (`.particlefx`)
 - And others
+
+## Remembered scene views
+
+The editor remembers the camera state for each scene resource when its tab is closed or the editor exits. Reopening the same resource restores its view, so different collections or models can retain different camera positions, orientations and projections.
+
+Visibility filters are also remembered per scene. Hiding models or component guides in one scene does not require using the same filters in another. These are editor view settings and do not change the game's camera or runtime visibility.
+
+For resources without a saved camera state, model, mesh and glTF resources start in perspective. Collision objects choose their view from the project's 2D/3D physics setting; collections and game objects choose an initial view based on their scene geometry.
 
 ## Scene view navigation (camera controls)
 
@@ -127,6 +135,8 @@ Click on the **Visibility Eye Icon** (`👁`) in the Toolbar to toggle visibilit
 ## Grid settings
 
 The grid can be customized to match your workflow (especially useful in 3D). Click the **Grid Settings** button (`▦`) to open the grid settings popup.
+
+The editor keeps separate grid settings for 2D and 3D views. Set the size, plane and appearance while the desired mode is active; switching modes restores that mode's grid settings. **Reset to Defaults** resets the active mode's settings.
 
 ![Grid Settings](images/editor/grid_popup.png)
 

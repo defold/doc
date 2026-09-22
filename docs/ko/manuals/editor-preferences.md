@@ -61,6 +61,9 @@ Zoom on Scroll
 Auto-insert closing parens
 : 코드를 편집할 때 짝이 되는 닫는 문자를 자동으로 삽입합니다. 이 옵션은 기본적으로 활성화되어 있습니다.
 
+Format on save
+: 저장할 때 수정된 열린 코드 파일에 언어 서버의 포멧터를 실행합니다. 기본적으로 비활성화되어 있습니다. 언어 서버가 포멧팅을 지원해야 합니다. 문서나 선택 영역을 수동으로 포멧팅하려면 [코드 포멧팅](/manuals/writing-code/#formatting-code)을 참고하세요.
+
 
 ### Visual Studio Code에서 스크립트 파일 열기
 

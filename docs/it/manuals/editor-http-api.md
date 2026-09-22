@@ -3,9 +3,9 @@ title: Automatizzare l'editor Defold con HTTP
 brief: Questo manuale spiega come gli strumenti esterni possono individuare e utilizzare l'API HTTP locale di un progetto aperto nell'editor Defold.
 ---
 
-# Automatizzare l'editor Defold
+# Automatizzare l'editor Defold {#automating-the-defold-editor}
 
-L'editor Defold apre un server speciale per le azioni automatizzate. L'API HTTP controlla il progetto aperto. Utilizzala per comandi dell'editor, build, risorse del progetto, anteprime, preferenze, output della console, ricerca nella documentazione o integrazioni con script dell'editor. Per ispezionare o controllare invece il gioco in esecuzione, utilizza il [servizio del motore o un'API di automazione a runtime](/manuals/engine-service).
+L'editor Defold avvia un server dedicato alle azioni automatizzate. L'API HTTP controlla il progetto aperto. Utilizzala per comandi dell'editor, build, risorse del progetto, anteprime, preferenze, output della console, ricerca nella documentazione o integrazioni con script dell'editor. Per ispezionare o controllare invece il gioco in esecuzione, utilizza il [servizio del motore o un'API di automazione a runtime](/manuals/engine-service).
 
 ::: important
 L'API HTTP dell'editor è sperimentale e può cambiare tra le versioni di Defold. Il documento `/openapi.json` generato dall'editor in esecuzione è la fonte autorevole per le operazioni e gli schemi disponibili.
@@ -34,7 +34,7 @@ L'argomento facoltativo `--port` o `-p` seleziona la porta del server dell'edito
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-L'editor è un'applicazione desktop grafica. Avvialo in una sessione utente interattiva con accesso allo schermo. Utilizza [Bob](/manuals/bob) quando non è disponibile una sessione grafica, ad esempio nella CI headless, oppure per l'automazione della sola compilazione e la creazione di bundle autonomi.
+L'editor è un'applicazione desktop grafica. Avvialo in una sessione utente interattiva con accesso allo schermo. Utilizza [Bob](/manuals/bob) quando non è disponibile una sessione grafica, ad esempio nella CI headless, oppure per creare bundle autonomi. Un editor aperto supporta anche l'automazione della sola compilazione tramite `/command/compile`.
 
 Dopo avere avviato l'editor, attendi che il progetto sia aperto e che esista `.internal/editor.port`. Quindi interroga ripetutamente `/openapi.json` finché non restituisce un documento valido. Non presupporre che la creazione del processo significhi che il progetto sia pronto.
 
@@ -65,7 +65,7 @@ Il server dell'editor è un'interfaccia di controllo locale attendibile. Non esp
 
 ## Individuare le operazioni tramite OpenAPI {#discovering-operations-through-openapi}
 
-Le uniche informazioni di bootstrap specifiche di Defold necessarie a uno strumento esterno sono la porta dell'editor e il documento OpenAPI:
+Le uniche informazioni iniziali specifiche di Defold necessarie a uno strumento esterno sono la porta dell'editor e il documento OpenAPI:
 
 ```sh
 curl -sS "http://127.0.0.1:$(cat .internal/editor.port)/openapi.json"
@@ -80,39 +80,53 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-Elenca i comandi dell'editor disponibili:
+Elenca i percorsi documentati dei comandi dell'editor:
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
 
-Un'integrazione compatibile con più versioni dovrebbe verificare ogni operazione richiesta e configurare le richieste in base allo schema restituito. Sconsigliamo di mantenere una copia che si presume esaustiva dei nomi degli endpoint o dei comandi, poiché può diventare obsoleta.
+Da Defold 1.13.2, ogni comando ha un proprio percorso nel documento OpenAPI. Le versioni precedenti descrivono i comandi tramite il percorso `/command/{command}` e un'enumerazione dei nomi dei comandi.
+
+Un'integrazione che tiene conto della versione dovrebbe verificare ogni operazione richiesta e configurare le richieste in base allo schema restituito. Sconsigliamo di mantenere una copia che si presume esaustiva dei nomi degli endpoint o dei comandi, poiché può diventare obsoleta.
 
 Anche le route definite dal progetto compaiono in `/openapi.json` quando i relativi script dell'editor forniscono una descrizione dell'operazione OpenAPI.
 
 ## Eseguire i comandi dell'editor {#executing-editor-commands}
 
-I comandi dell'editor vengono richiamati tramite:
+Richiama i comandi dell'editor inviando una richiesta `POST` al percorso documentato del comando, per esempio:
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-Ad esempio, il comando corrente `build` compila ed esegue il progetto:
+Per compilare il progetto senza eseguirlo:
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-Una build riuscita restituisce un risultato strutturato:
+Per compilare ed eseguire il progetto:
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+Queste pipeline mostrano il corpo della risposta. Negli script di automazione, controlla anche lo stato HTTP e `success`, seguendo lo schema descritto in [Creare una build HTML5](#building-html5).
+
+::: sidenote
+Da Defold 1.13.2, `/command/build` è un alias di compatibilità deprecato di `/command/run` e non è elencato in OpenAPI. Nelle nuove integrazioni usa `/command/run`.
+:::
+
+Una compilazione riuscita restituisce lo stato HTTP `200` con un risultato strutturato:
 
 ```json
 {
@@ -150,7 +164,10 @@ I campi disponibili dipendono dall'errore. Utilizza il percorso della risorsa e 
 
 Tra i comandi comunemente utili, quando sono elencati dall'editor in esecuzione, figurano:
 
-`build`
+`compile`
+: Compila il progetto senza eseguirlo.
+
+`run`
 : Compila ed esegue il progetto.
 
 `clean-build`
@@ -177,7 +194,9 @@ I comandi che operano sulle risorse del progetto sincronizzano le modifiche este
 
 ### Risposte dei comandi e attività asincrone {#command-responses-and-asynchronous-work}
 
-L'operazione dei comandi documenta i codici di risposta nello schema OpenAPI corrente.
+Le risposte dipendono dal comando. Da Defold 1.13.2, `compile`, `run`, `clean-build`, `build-html5`, `debugger-start` e `hot-reload` attendono il completamento del comando e restituiscono un risultato strutturato con `success` e `issues`, come mostrato sopra. Un risultato positivo restituisce HTTP `200`; un errore di build o di convalida restituisce `422`.
+
+Altri comandi possono ancora restituire `202`, per esempio `debugger-break`. Esamina l'operazione nello schema OpenAPI corrente e gestisci il codice di stato HTTP effettivo della risposta:
 
 | Stato | Significato |
 | --- | --- |
@@ -192,21 +211,36 @@ Una risposta HTTP `202` non dimostra che il risultato richiesto esista. Attendi 
 
 ### Creare una build HTML5 {#building-html5}
 
-Se il documento OpenAPI corrente elenca `build-html5`, richiamalo tramite l'operazione dei comandi:
+Se il documento OpenAPI corrente elenca `/command/build-html5`, richiamalo tramite quel percorso. In uno script di shell, acquisisci lo stato HTTP separatamente dal corpo della risposta e interrompi l'esecuzione se la richiesta o la build non riesce:
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-Il comando viene eseguito in modo asincrono e normalmente restituisce HTTP `202`. Al termine della build, l'editor la serve all'indirizzo:
+Da Defold 1.13.2, questa richiesta attende il completamento della build e restituisce un risultato strutturato. L'esempio stampa il corpo della risposta, inclusi eventuali problemi della build, e prosegue soltanto con HTTP `200` e `success: true`. Dopo una build riuscita, l'editor apre il gioco in un browser e lo serve all'indirizzo:
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-Attendi che l'URL sia disponibile prima di avviare i test nel browser. Per ulteriori dettagli, consulta [Test nel browser per HTML5](/manuals/automated-testing/#browser-tests-for-html5).
+Una build completata non significa che il gioco abbia finito di caricarsi nel browser. Attendi che il canvas e l'applicazione siano pronti prima di inviare input o verificare il gameplay. Per ulteriori dettagli, consulta [Test nel browser per HTML5](/manuals/automated-testing/#browser-tests-for-html5).
 
 ## Cercare nella documentazione API {#searching-api-documentation}
 
@@ -245,9 +279,9 @@ I parametri di ricerca sono:
 `q`
 : Un'espressione senza distinzione tra maiuscole e minuscole. Gli spazi rappresentano AND, mentre `|` rappresenta OR.
 
-Esistono anche risorse di documentazione condensate: l'[indice della documentazione per LLM](https://defold.com/llms.txt) rimanda ai manuali ufficiali, ai namespace API e agli esempi, mentre la [documentazione completa per LLM](https://defold.com/llms-full.txt) elenca la documentazione completa per consentire la ricerca offline e l'indicizzazione locale.
+Esistono anche risorse di documentazione in formato compatto: l'[indice della documentazione per LLM](https://defold.com/llms.txt) rimanda ai manuali ufficiali, ai namespace API e agli esempi, mentre la [documentazione completa per LLM](https://defold.com/llms-full.txt) raccoglie l'intera documentazione per consentire la ricerca offline e l'indicizzazione locale.
 
-Gli agenti IA dovrebbero tuttavia preferire ricerche specifiche anziché recuperare un intero documento di riferimento quando occorre soltanto un'API o un messaggio, in modo da risparmiare token e disporre di un contesto pulito e meglio preparato per l'attività specifica.
+Gli agenti IA dovrebbero tuttavia preferire ricerche mirate anziché recuperare un intero documento di riferimento quando occorre soltanto un'API o un messaggio, in modo da risparmiare token e disporre di un contesto privo di informazioni superflue e più adatto all'attività da svolgere.
 
 ## Leggere l'output della console {#reading-console-output}
 
@@ -267,7 +301,7 @@ curl -N "$BASE_URL/console/stream"
 
 Il flusso include le righe già presenti nella console e poi rimane aperto per il nuovo output. Chiudilo dopo aver ricevuto un indicatore di completamento o un errore, aver rilevato la terminazione del processo o aver raggiunto un timeout o un limite di righe.
 
-Per l'inquadramento dei risultati dei test e la classificazione degli errori, consulta [Test automatici e verifica](/manuals/automated-testing/#structured-test-results).
+Per la delimitazione dei risultati dei test e la classificazione degli errori, consulta [Test automatici e verifica](/manuals/automated-testing/#structured-test-results).
 
 ## Renderizzare le anteprime delle scene {#rendering-scene-previews}
 
@@ -285,7 +319,7 @@ Questo comando renderizza la collezione principale del progetto aperto basato su
 
 ![Anteprima della collezione principale renderizzata dall'editor](images/automation/main-preview.png)
 
-Puoi utilizzare il rendering per ottenere anteprime delle risorse che usano l'editor visivo delle scene. Ad esempio, puoi renderizzare allo stesso modo un componente modello, così da verificarne l'aspetto o, per esempio, la correttezza dello shader:
+Puoi utilizzare il rendering per ottenere anteprime delle risorse che usano l'editor visivo delle scene. Ad esempio, puoi renderizzare allo stesso modo un componente modello per verificarne l'aspetto o la correttezza dello shader:
 
 ```sh
 curl -sS \
@@ -420,7 +454,7 @@ Le preferenze sono impostazioni persistenti dell'utente, globali o specifiche de
 
 Gli script dell'editor possono definire route aggiuntive con [`get_http_server_routes()`](/manuals/editor-scripts/#http-server). Una tabella facoltativa delle operazioni OpenAPI espone una route tramite lo stesso documento `/openapi.json` delle operazioni integrate.
 
-Le route definite dal progetto possono fornire generazione di contenuti, convalida, report, controlli di localizzazione, analisi delle risorse, test specifici del progetto o un'interfaccia più piccola per un IDE o un controller esterno.
+Le route definite dal progetto possono fornire generazione di contenuti, convalida, report, controlli di localizzazione, analisi delle risorse, test specifici del progetto o un'interfaccia più essenziale per un IDE o un controller esterno.
 
 Una buona route dovrebbe eseguire un'unica operazione dal nome chiaro, convalidarne l'input, restituire un risultato strutturato, essere idempotente ove possibile e limitare le attività dispendiose.
 
@@ -467,7 +501,7 @@ Considera l'intero server dell'editor come un'interfaccia locale attendibile:
 * Mantieni il token nel livello di integrazione locale anziché nei prompt, nei report o nei log.
 * Ricorda che le route definite dal progetto non ereditano l'autenticazione di `/eval`.
 * Utilizza un `/openapi.json` aggiornato.
-* Utilizza attese limitate per i comandi automatici asincroni e per l'avvio dell'editor.
+* Utilizza tempi di attesa limitati per i comandi automatici asincroni e per l'avvio dell'editor.
 
 ## Server del motore {#engine-server}
 

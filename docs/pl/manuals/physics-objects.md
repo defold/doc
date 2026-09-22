@@ -11,7 +11,7 @@ Static objects
 : Obiekty statyczne nigdy się nie poruszają, ale obiekt dynamiczny, który zderzy się z obiektem statycznym, zareaguje odbiciem i/lub ześlizgnięciem się. Obiekty statyczne są bardzo przydatne do budowania geometrii poziomu, takiej jak podłoga i ściany, która się nie porusza. Pod względem wydajności są też tańsze niż obiekty dynamiczne. Nie można ich przesuwać ani w inny sposób zmieniać.
 
 Dynamic objects
-: Obiekty dynamiczne są symulowane przez silnik fizyki. Silnik rozwiązuje wszystkie kolizje i stosuje wynikowe siły. Obiekty dynamiczne dobrze sprawdzają się tam, gdzie elementy powinny zachowywać się realistycznie. Najczęściej wpływa się na nie pośrednio, przez [stosowanie sił](/ref/physics/#apply_force) albo zmianę [tłumienia](/ref/stable/physics/#angular_damping) i [prędkości](/ref/stable/physics/#linear_velocity) kątowej oraz liniowego [tłumienia](/ref/stable/physics/#linear_damping) i [prędkości](/ref/stable/physics/#angular_velocity). Można też bezpośrednio manipulować pozycją i orientacją obiektu dynamicznego, gdy włączone jest ustawienie [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w pliku *game.project*.
+: Obiekty dynamiczne są symulowane przez silnik fizyki. Silnik rozwiązuje wszystkie kolizje i stosuje wynikowe siły. Obiekty dynamiczne dobrze sprawdzają się tam, gdzie elementy powinny zachowywać się realistycznie. Najczęściej wpływa się na nie pośrednio, przez [stosowanie sił](/ref/physics/#apply_force) albo zmianę [tłumienia](/ref/physics/#angular_damping) i [prędkości](/ref/physics/#linear_velocity) kątowej oraz liniowego [tłumienia](/ref/physics/#linear_damping) i [prędkości](/ref/physics/#angular_velocity). Można też bezpośrednio manipulować pozycją i orientacją obiektu dynamicznego, gdy włączone jest ustawienie [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w pliku *game.project*.
 
 Kinematic objects
 : Obiekty kinematyczne rejestrują kolizje z innymi obiektami fizycznymi, ale silnik fizyki nie wykonuje żadnej automatycznej symulacji. Zadanie rozstrzygania kolizji albo ich ignorowania pozostaje po Twojej stronie ([dowiedz się więcej](/manuals/physics-resolving-collisions)). Obiekty kinematyczne bardzo dobrze nadają się do obiektów sterowanych przez gracza lub skrypt, które wymagają precyzyjnej kontroli reakcji fizycznych, takich jak postać gracza.
@@ -27,7 +27,7 @@ Komponent obiektu kolizji ma zestaw *Properties*, które określają jego typ i 
 Aby dodać komponent obiektu kolizji do obiektu gry:
 
 1. W widoku *Outline* kliknij prawym przyciskiem myszy obiekt gry i wybierz z menu kontekstowego <kbd>Add Component ▸ Collision Object</kbd>. Spowoduje to utworzenie nowego komponentu bez żadnych kształtów.
-2. Kliknij prawym przyciskiem myszy nowy komponent i wybierz <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. Spowoduje to dodanie nowego kształtu do komponentu obiektu kolizji. Możesz dodać dowolną liczbę kształtów do komponentu. Możesz też użyć mapy kafelków albo wypukłej otoczki, aby zdefiniować kształt obiektu fizycznego.
+2. Kliknij prawym przyciskiem myszy nowy komponent i wybierz <kbd>Add Shape</kbd>, a następnie kształt: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> lub <kbd>Mesh</kbd> w projektach z fizyką 3D, albo <kbd>Box</kbd> lub <kbd>Circle</kbd> w projektach z fizyką 2D. Kształty Hull i Mesh są dostępne od wersji Defold 1.13.2 i używają siatki o określonej nazwie ze sceny glTF lub GLB. Do komponentu możesz dodać kilka kształtów. Możesz też użyć mapy kafelków lub zasobu `.convexshape` przez właściwość *Collision Shape*.
 3. Użyj narzędzi do przesuwania, obracania i skalowania, aby edytować kształty.
 4. Wybierz komponent w widoku *Outline* i edytuj *Properties* obiektu kolizji.
 
@@ -36,7 +36,7 @@ Aby dodać komponent obiektu kolizji do obiektu gry:
 
 ## Dodawanie kształtu kolizji
 
-Komponent kolizji może używać kilku prostych kształtów albo jednego złożonego kształtu. Więcej informacji o różnych kształtach i o tym, jak dodawać je do komponentu kolizji, znajdziesz w [manualu Collision Shapes](/manuals/physics-shapes).
+Komponent kolizji może zawierać kilka osadzonych kształtów, w tym otoczki wypukłe i siatki trójkątów w fizyce 3D, albo używać zasobu mapy kafelków lub kształtu wypukłego. Więcej informacji o kształtach i dodawaniu ich do komponentu kolizji znajdziesz w [instrukcji kształtów kolizji](/manuals/physics-shapes).
 
 
 ## Właściwości obiektu kolizji
@@ -45,7 +45,7 @@ Id
 : Tożsamość komponentu.
 
 Collision Shape
-: Ta właściwość służy do geometrii z mapy kafelków albo do kształtów wypukłych, które nie korzystają z prostych kształtów. Więcej informacji znajdziesz w [Collision Shapes](/manuals/physics-shapes).
+: Zasób mapy kafelków lub `.convexshape`. Aby użyć siatki glTF lub GLB, dodaj do komponentu kształt Hull lub Mesh i ustaw jego właściwości *Scene* oraz *Mesh*. Więcej informacji znajdziesz w [instrukcji kształtów kolizji](/manuals/physics-shapes).
 
 Type
 : Typ obiektu kolizji: `Dynamic`, `Kinematic`, `Static` albo `Trigger`. Jeśli ustawisz obiekt jako `Dynamic`, _musisz_ ustawić właściwość *Mass* na wartość różną od zera. W przypadku obiektów `Dynamic` lub `Static` warto też sprawdzić, czy wartości *Friction* i *Restitution* są odpowiednie dla danego zastosowania.
@@ -87,7 +87,7 @@ Bullet
 : Ustawienie tej właściwości włącza ciągłe wykrywanie kolizji (CCD) między obiektem kolizji a innymi dynamicznymi obiektami kolizji. Właściwość *Bullet* jest ignorowana, jeśli *Type* nie jest ustawione na `Dynamic`.
 
 Group
-: Nazwa grupy kolizji, do której obiekt powinien należeć. Możesz mieć 16 różnych grup i nadać im dowolne nazwy odpowiednie dla gry. Na przykład "players", "bullets", "enemies" i "world". Jeśli *Collision Shape* jest ustawione na mapę kafelków, to pole to nie jest używane, a nazwy grup są pobierane ze źródła kafelków. [Dowiedz się więcej o grupach kolizji](/manuals/physics-groups).
+: Nazwa grupy kolizji, do której obiekt powinien należeć. Możesz mieć 16 różnych grup i nadać im dowolne nazwy odpowiednie dla gry. Na przykład `players`, `bullets`, `enemies` i `world`. Jeśli *Collision Shape* jest ustawione na mapę kafelków, to pole to nie jest używane, a nazwy grup są pobierane ze źródła kafelków. [Dowiedz się więcej o grupach kolizji](/manuals/physics-groups).
 
 Mask
 : Inne _grupy_, z którymi ten obiekt ma się zderzać. Możesz podać jedną grupę albo kilka grup w liście rozdzielonej przecinkami. Jeśli zostawisz pole *Mask* puste, obiekt nie będzie z niczym kolidował. [Dowiedz się więcej o grupach kolizji](/manuals/physics-groups).

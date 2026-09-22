@@ -37,9 +37,9 @@ CPM = 千人成本。广告商为每千次观看支付的金额。CPM因广告�
 [Defold 资源门户](/tags/stars/ads/)包含几个与广告提供商集成的资源：
 
 * [AdMob](https://defold.com/assets/admob-defold/) - 使用 Google AdMob 网络展示广告。
-* [Enhance](https://defold.com/assets/enhance/) - 支持多种不同的广告网络。需要额外的构建后步骤。
+* [AppLovin MAX](https://defold.com/extension-applovin/) - 通过 AppLovin MAX 广告聚合展示广告。
 * [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - 在你的 Facebook Instant Game 中展示广告。
-* [IronSource](https://defold.com/assets/ironsource/) - 使用 IronSource 广告网络展示广告。
+* [LevelPlay](https://defold.com/extension-levelplay/) - 通过 Unity LevelPlay 广告聚合展示广告。
 * [Unity Ads](https://defold.com/assets/defvideoads/) - 使用 Unity Ads 网络展示广告。
 
 

@@ -79,6 +79,28 @@ Defold HTML5 bundles require a modern browser with WebAssembly support. Internet
 
 When you click on the <kbd>Create bundle</kbd> button you will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
 
+## WebGL context version
+
+Select the requested graphics context through [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Its default is WebGL 2; request WebGL 1 to test or target that context on browsers that support both versions.
+
+## Download verification
+
+The HTML5 loader checks the sizes of downloaded engine and archive files by default. Failed checks cause downloads to be retried before the loader reports an error:
+
+* Network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly download use the retry limit in `html5.retry_count`.
+* Archive-file verification has its own retry limit for size or SHA-1 mismatches. Each verification retry downloads the file's pieces again, with the normal network retries available for each download.
+
+The `html5.retry_time` setting controls the delay between retries in both cases.
+
+If your server, proxy or CDN intentionally rewrites served files and changes their sizes, disable size verification in *game.project*:
+
+```ini
+[html5]
+verify_downloaded_file_size = 0
+```
+
+Disabling **Verify Downloaded File Size** leaves any SHA-1 verification included in the bundle enabled. See the [HTML5 project settings](/manuals/project-settings/#verify-downloaded-file-size).
+
 ## Known issues and limitations
 
 * Hot Reload - Hot Reload doesn't work in HTML5 builds. Defold applications must run their own miniature web server in order to receive updates from the editor, which isn't possible in a HTML5 build.
@@ -167,6 +189,24 @@ DEFOLD_SPLASH_IMAGE
 
 exe-name
 : The project name without unacceptable symbols
+
+DEFOLD_ARCHIVE_LOCATION_PREFIX
+: The resolved archive path prefix used by the loader, based on `html5.archive_location_prefix`.
+
+DEFOLD_ARCHIVE_LOCATION_SUFFIX
+: The resolved suffix appended to archive URLs, based on `html5.archive_location_suffix`.
+
+DEFOLD_HAS_ARCHIVE_ORIGIN
+: `true` when the archive prefix specifies an HTTP or HTTPS origin, including a protocol-relative URL such as `//cdn.example.com/archive`. It is `false` for relative archive prefixes. Available since Defold 1.13.2.
+
+DEFOLD_ARCHIVE_ORIGIN
+: The archive origin, including the scheme, host and optional port, or an empty string when no origin is specified. A protocol-relative prefix produces a protocol-relative origin. Used for the preconnect hint and available since Defold 1.13.2.
+
+DEFOLD_HAS_WASM_ENGINE
+: `true` if the bundle includes a WebAssembly engine, either `wasm-web` or `wasm_pthread-web`.
+
+DEFOLD_HAS_WASM_PTHREAD_ENGINE
+: `true` if the bundle includes `wasm_pthread-web`. Use it to avoid preloading the wrong engine variant when the loader chooses the architecture at runtime.
 
 
 DEFOLD_CUSTOM_CSS_INLINE

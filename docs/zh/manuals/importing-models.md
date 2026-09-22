@@ -28,6 +28,8 @@ glTF 常见有两种存储方式：
 ::: sidenote
 从 Defold 1.13.0 开始，Defold 会保留导入的 glTF 文件中的位置和变换，并且在导入时不会自动将模型重新居中。编辑器预览和运行时会一致地使用导入的变换：蒙皮网格或以骨骼为父节点的网格会保留相对于骨架的局部变换，而刚性网格会保留其展平后的世界空间位置。
 
+自 Defold 1.13.2 起，[模型组件](/manuals/model/#model-properties) 可以从导入的场景中选择单个命名网格。将其 *Mesh* 字段留空会使用整个场景，并保留上述变换。选择网格会使用其局部几何体，不应用 glTF 节点变换，因此需要通过模型组件或游戏对象的变换来放置它。
+
 如果使用旧版 Defold 创建的模型在重新导入后位置或方向发生变化，请在 Blender 或其他创作工具中修正变换，然后重新导出 *.gltf* 或 *.glb* 文件。
 :::
 
@@ -35,8 +37,8 @@ glTF 常见有两种存储方式：
 导入模型后，请在[模型组件](/manuals/model)中使用它：
 
 1. 在 *Assets* 面板中通过 <kbd>New... ▸ Model</kbd> 创建 Model 文件，或通过 <kbd>Add Component ▸ Model</kbd> 将 Model 组件直接添加到游戏对象。
-2. 将 *Mesh* 属性设置为包含网格的已导入 *.gltf* 或 *.glb* 文件。
-3. 对于动画模型，将 *Skeleton* 属性设置为包含骨架的 *.gltf* 或 *.glb* 文件。当网格、骨架和动画一起导出时，这通常与 *Mesh* 使用同一个文件。
+2. 将 *Scene* 属性设置为已导入的 *.gltf* 或 *.glb* 文件。将 *Mesh* 留空可使用整个场景，或选择一个命名网格以仅使用其局部几何体。
+3. 对于动画模型，将 *Skeleton* 属性设置为包含骨架的 *.gltf* 或 *.glb* 文件。当网格、骨架和动画一起导出时，这通常与 *Scene* 使用同一个文件。
 4. 为动画创建 *Animation Set* 文件，并将其分配给 *Animations* 属性。如果希望动画自动开始，请设置 *Default Animation*。
 5. 将 *Material* 属性设置为适合模型的材质。内置的 *model.material*、*model_instanced.material*、*model_skinned.material* 和 *model_skinned_instanced.material* 文件都是有用的起点。蒙皮材质使用局部顶点空间，因此蒙皮可以在 GPU 上运行；用于 GPU 蒙皮或实例化模型的自定义材质也应使用局部顶点空间。有关图形适配器要求，请参阅[模型手册](/manuals/model/#material)。
 6. 将材质纹理属性（例如 *Texture*）设置为导入的纹理图像文件。如果材质使用多个纹理，请在相应的材质纹理字段中分配每个纹理。

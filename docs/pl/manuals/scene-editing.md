@@ -7,7 +7,7 @@ brief: Edytor scen służy do edytowania kolekcji, obiektów gry, GUI, efektów 
 
 **Scene Editor** to edytor wizualny używany do budowania i edytowania scen, takich jak kolekcje, obiekty gry i inne zasoby wizualne.
 
-Domyślnie wiele scen wizualnych otwiera się w widoku **ortograficznym 2D**. Przy pracy w 3D możesz przełączyć się na układ zorientowany na 3D, włączyć płaszczyznę siatki 3D i użyć kamery **perspektywicznej**.
+Początkowy widok kamery zależy od zasobu. Zasoby 3D, takie jak modele i sceny glTF, domyślnie używają widoku **perspektywicznego**, natomiast zasoby 2D, takie jak sprite’y, mapy kafelków i sceny GUI, używają widoku **ortograficznego**. Orientację kamery, projekcję i siatkę możesz zmieniać za pomocą paska narzędzi sceny.
 
 ## Otwieranie edytora scen
 
@@ -19,6 +19,14 @@ Otwórz edytor scen, klikając dwukrotnie zasób wizualny w panelu *Assets*, na 
 - **UI** - sceny GUI (`.gui`)
 - **Efekty** - efekty cząsteczkowe (`.particlefx`)
 - i inne
+
+## Zapamiętywanie widoków scen {#remembered-scene-views}
+
+Edytor zapamiętuje stan kamery dla każdego zasobu sceny przy zamknięciu jego karty lub zakończeniu pracy edytora. Ponowne otwarcie tego samego zasobu przywraca jego widok, dzięki czemu różne kolekcje lub modele mogą zachować różne pozycje, orientacje i projekcje kamery.
+
+Filtry widoczności są również zapamiętywane osobno dla każdej sceny. Ukrycie modeli lub linii pomocniczych komponentów w jednej scenie nie wymaga użycia tych samych filtrów w innej. Są to ustawienia widoku edytora i nie zmieniają kamery gry ani widoczności w czasie działania.
+
+Zasoby modeli, siatek i glTF bez zapisanego stanu kamery otwierają się w perspektywie. Obiekty kolizji wybierają widok na podstawie ustawienia fizyki 2D/3D projektu, a kolekcje i obiekty gry wybierają widok początkowy na podstawie geometrii sceny.
 
 ## Nawigacja widoku sceny (sterowanie kamerą)
 
@@ -128,6 +136,8 @@ Kliknij **ikonę oka** (`👁`) na pasku narzędzi, aby przełączać widocznoś
 
 Siatkę można dostosować do swojego przepływu pracy, co jest szczególnie przydatne w 3D. Kliknij przycisk **Grid Settings** (`▦`), aby otworzyć okno ustawień siatki.
 
+Edytor przechowuje osobne ustawienia siatki dla widoków 2D i 3D. Ustaw rozmiar, płaszczyznę i wygląd, gdy aktywny jest właściwy tryb; przełączenie trybu przywraca jego ustawienia siatki. **Reset to Defaults** resetuje ustawienia aktywnego trybu.
+
 ![Ustawienia siatki](images/editor/grid_popup.png)
 
 Ustawienia obejmują:
@@ -141,7 +151,7 @@ Ustawienia obejmują:
 - **Grid opacity**
   Kontroluje przezroczystość linii siatki. Niższe wartości sprawiają, że siatka mniej przeszkadza, ale nadal służy jako punkt odniesienia.
 - Przycisk **Reset to Defaults**
-  Przywraca wszystkie ustawienia siatki do wartości początkowych.
+  Przywraca ustawienia siatki aktywnego trybu do wartości początkowych.
 
 ## Typ kamery: Perspective i Orthographic
 

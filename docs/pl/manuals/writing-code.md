@@ -25,6 +25,8 @@ Defold ma wbudowany edytor kodu, który pozwala otwierać i edytować pliki Lua 
 
 ![](/images/editor/code-editor.png)
 
+<a id="code-completion"></a>
+
 ### Uzupełnianie kodu
 
 Wbudowany edytor kodu wyświetla podpowiedzi dotyczące funkcji podczas pisania:
@@ -34,6 +36,16 @@ Wbudowany edytor kodu wyświetla podpowiedzi dotyczące funkcji podczas pisania:
 Naciśnięcie <kbd>CTRL</kbd> + <kbd>Space</kbd> pokazuje dodatkowe informacje o funkcjach, argumentach i wartościach zwracanych:
 
 ![](/images/editor/apireference.png)
+
+Dołączony serwer językowy Lua zawiera adnotacje typów dla API Defold. Podpowiedzi, informacje po najechaniu kursorem i diagnostyka rozpoznają typy Defold, takie jak hasze, adresy URL, wektory i kwaterniony, a także argumenty funkcji i wartości zwracane. Edytor dostarcza adnotacje dla skryptów gry oraz API `editor.*` używanych w plikach `.editor_script`. Korzystanie z wbudowanych API w edytorze kodu Defold nie wymaga osobnej biblioteki adnotacji.
+
+API rozszerzeń zewnętrznych mogą wymagać własnych adnotacji.
+
+### Formatowanie kodu {#formatting-code}
+
+Wybierz <kbd>Edit ▸ Format Document/Selection</kbd> lub naciśnij <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>, aby uruchomić narzędzie formatujące serwera językowego. Jeśli istnieje zaznaczenie, edytor formatuje zaznaczone wiersze; w przeciwnym razie formatuje cały dokument. Serwer językowy musi obsługiwać odpowiednią operację formatowania.
+
+Aby formatować zmodyfikowane otwarte pliki przy zapisywaniu, włącz **Format on save** w <kbd>Preferences ▸ Code</kbd>. Ta preferencja jest domyślnie wyłączona i wymaga serwera językowego obsługującego formatowanie dokumentu. Zobacz [preferencje kodu](/manuals/editor-preferences/#code).
 
 ### Przejście do symbolu {#jump-to-symbol}
 

@@ -16,7 +16,7 @@ Common use cases are to set the health or speed of a specific enemy AI, the tint
 
 ## Defining a script property
 
-Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any lifecycle functions like `init()` and `update()`. The default value provided for the property governs the type of the property: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
+Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any lifecycle functions like `init()` and `update()`. The default value provided for the property governs the type of the property: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
 
 ::: important
 Note that the reversal of the hash value works only in the Debug build to facilitate debugging. In the Release build, the reversed string value does not exist, so using `tostring()` on a `hash` value to extract the string from it is meaningless.
@@ -62,6 +62,32 @@ Any property that is overridden with a new instance specific value is marked blu
 Script properties are parsed when building the project. Value expressions are not evaluated. This means that something like `go.property("hp", 3+6)` will not work while `go.property("hp", 9)` will.
 :::
 
+### Text properties
+
+Since Defold 1.13.2, a string default defines a text property. Text properties support UTF-8 and newline characters and are edited in a multiline field in the editor:
+
+```lua
+go.property("greeting", "Hello!\nWelcome, José!")
+
+function init(self)
+    go.set("#label", "text", self.greeting)
+end
+```
+
+Select a script component in a game object or collection to override its text properties, just like other script properties. Embedded NUL characters are not allowed in defaults or overrides.
+
+Other scripts can read and write a text property through the script component's URL. For example, put the script above and a label on a game object named `speaker` in the collection, with component ids `script` and `label`. Update them from another script's `init()`:
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+Changing the script property does not automatically update the label; the last line explicitly copies the new value to the label's `text` property.
+
 ## Accessing script properties
 
 Any defined script property is available as a stored member in `self`, the script instance reference:
@@ -78,7 +104,7 @@ function update(self, dt)
 end
 ```
 
-User-defined script properties can also be accessed through the `get`, `set` and `animate` functions, the same way as any other property:
+User-defined script properties can also be read with `go.get()` and written with `go.set()`. Numeric properties, including vectors and quaternions, can be animated with `go.animate()`. Text properties can be read and written, but cannot be animated:
 
 ```lua
 -- another.script

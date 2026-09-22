@@ -26,6 +26,8 @@ Defold에는 Lua 파일(.lua), Defold 스크립트 파일(.script, .gui_script �
 ![](/images/editor/code-editor.png)
 
 
+<a id="code-completion"></a>
+
 ### 코드 자동 완성
 
 내장 코드 에디터는 코드를 작성하는 동안 함수의 코드 자동 완성을 표시합니다.
@@ -35,6 +37,16 @@ Defold에는 Lua 파일(.lua), Defold 스크립트 파일(.script, .gui_script �
 <kbd>CTRL</kbd> + <kbd>Space</kbd>를 누르면 함수, 인자, 반환값에 대한 추가 정보가 표시됩니다.
 
 ![](/images/editor/apireference.png)
+
+기본으로 제공되는 Lua 언어 서버에는 Defold API의 타입 어노테이션이 포함되어 있습니다. 자동 완성, 마우스를 올렸을 때 표시되는 정보, 진단 기능은 해쉬, URL, 벡터, 쿼터니언 같은 Defold 타입뿐 아니라 함수 인자와 반환값도 이해합니다. 에디터는 게임 스크립트와 `.editor_script` 파일에서 사용하는 `editor.*` API용 어노테이션을 제공합니다. Defold 코드 에디터를 사용할 때 내장 API를 위한 별도의 어노테이션 라이브러리는 필요하지 않습니다.
+
+외부 익스텐션 API에는 별도의 어노테이션이 필요할 수 있습니다.
+
+### 코드 포멧팅 {#formatting-code}
+
+언어 서버의 포멧터를 실행하려면 <kbd>Edit ▸ Format Document/Selection</kbd>을 선택하거나 <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>를 누릅니다. 선택 영역이 있으면 선택한 줄을, 없으면 문서 전체를 포멧팅합니다. 해당 포멧팅 동작을 지원하는 언어 서버가 필요합니다.
+
+저장할 때 수정된 열린 파일을 포멧팅하려면 <kbd>Preferences ▸ Code</kbd>에서 **Format on save**를 활성화합니다. 이 환경설정은 기본적으로 비활성화되어 있으며, 문서 포멧팅을 지원하는 언어 서버가 필요합니다. [Code 환경설정](/manuals/editor-preferences/#code)을 참고하세요.
 
 ### 심볼로 이동 {#jump-to-symbol}
 

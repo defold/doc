@@ -11,6 +11,10 @@ brief: 이 매뉴얼은 Defold가 폰트를 처리하는 방식과 게임에서 
 - OpenType
 - BMFont
 
+Defold 1.13.2부터 레거시 텍스트 레이아웃 엔진과 전체 텍스트 레이아웃 엔진 모두 TrueType 외곽선과 OpenType CFF1/CFF2 외곽선을 지원하며, `.ttf` 및 `.otf` 리소스의 런타임 생성도 지원합니다.
+
+개별 텍스트 구간에 스타일을 적용하고 링크와 인라인 스프라이트를 사용하는 방법은 [리치 텍스트 마크업 매뉴얼](/manuals/font-richtext)을 참고하세요.
+
 프로젝트에 추가된 폰트는 Defold가 렌더링할 수 있는 텍스쳐 포멧으로 자동 변환됩니다. 폰트 렌더링 기술은 두 가지가 있으며, 각각 고유한 장점과 단점이 있습니다.
 
 - 비트맵
@@ -20,7 +24,9 @@ brief: 이 매뉴얼은 Defold가 폰트를 처리하는 방식과 게임에서 
 
 기본적으로 래스터화된 글리프 이미지로 변환하는 작업은 빌드 시점(오프라인)에 이루어집니다. 이 방식은 각 폰트가 빌드 단계에서 가능한 모든 글리프를 래스터화해야 하므로, 메모리를 소비하고 번들 크기도 늘릴 수 있는 매우 큰 텍스쳐가 생성될 수 있다는 단점이 있습니다.
 
-"runtime fonts"를 사용하면 `.ttf` 폰트가 원본 그대로 번들에 포함되고, 래스터화는 런타임에 필요할 때 수행됩니다. 이렇게 하면 런타임 메모리 사용량과 번들 크기를 모두 최소화할 수 있습니다.
+"runtime fonts"를 사용하면 `.ttf` 및 `.otf` 폰트가 원본 그대로 번들에 포함되고, 래스터화는 런타임에 필요할 때 수행됩니다. 이렇게 하면 런타임 메모리 사용량과 번들 크기를 모두 최소화할 수 있습니다.
+
+<a id="text-layout-support-eg-right-to-left"></a>
 
 ## 텍스트 레이아웃 지원(예: 오른쪽에서 왼쪽)
 
@@ -29,10 +35,12 @@ brief: 이 매뉴얼은 Defold가 폰트를 처리하는 방식과 게임에서 
 
 [런타임 폰트 활성화](/manuals/font#enabling-runtime-fonts)를 참고하세요.
 
+에디터는 폰트와 씬 텍스트의 미리보기에 엔진의 폰트 렌더러를 사용합니다. 텍스트 셰이핑과 오른쪽에서 왼쪽으로 쓰는 레이아웃에는 [런타임 폰트](#enabling-runtime-fonts)와 App Manifest의 **Use full text layout system** 옵션이 필요합니다. 오프라인 폰트의 미리보기는 폰트의 **Characters** 및 **All Chars** 설정을 따릅니다.
+
 ## 폰트 컬렉션
 
 `.fontc` 파일 포멧은 폰트 컬렉션이라고도 합니다. 오프라인 모드에서는 하나의 폰트만 연결됩니다.
-런타임 폰트를 사용할 때는 둘 이상의 폰트 파일(`.ttf`)을 폰트 컬렉션에 연결할 수 있습니다.
+런타임 폰트를 사용할 때는 둘 이상의 폰트 파일(`.ttf` 또는 `.otf`)을 폰트 컬렉션에 연결할 수 있습니다.
 
 이를 통해 여러 언어의 텍스트를 렌더링할 때 하나의 폰트 컬렉션을 사용하면서도 메모리 사용량을 낮게 유지할 수 있습니다.
 예를 들어 일본어 폰트가 들어 있는 컬렉션을 로드한 다음, 해당 폰트를 현재 main 폰트에 연결하고, 이후 일본어 폰트 컬렉션을 언로드할 수 있습니다.
@@ -189,7 +197,7 @@ Defold의 폰트 리소스는 런타임에 텍스쳐와 폰트 데이터, 두 �
 
 ## 런타임 폰트 활성화 {#enabling-runtime-fonts}
 
-TrueType(`.ttf`) 폰트를 사용할 때 SDF 타입 폰트에 런타임 생성을 사용할 수 있습니다.
+TrueType(`.ttf`) 또는 OpenType(`.otf`) 폰트를 사용할 때 SDF 타입 폰트에 런타임 생성을 사용할 수 있습니다. `.otf` 리소스의 런타임 생성은 Defold 1.13.2부터 지원됩니다.
 이 방식은 Defold 게임의 다운로드 크기와 런타임 메모리 사용량을 크게 줄일 수 있습니다.
 작은 단점은 각 글리프를 생성하는 작업이 비동기적이라는 점입니다.
 
@@ -203,7 +211,7 @@ TrueType(`.ttf`) 폰트를 사용할 때 SDF 타입 폰트에 런타임 생성�
 :::
 
 ::: important
-`font.runtime_generation` 설정은 프로젝트의 모든 `.ttf` 폰트에 영향을 줍니다.
+`font.runtime_generation` 설정은 프로젝트의 모든 `.ttf` 및 `.otf` 폰트에 영향을 줍니다.
 :::
 
 
@@ -266,7 +274,7 @@ end
 font.prewarm_text(self.font_collection, info.text, function (self, request_id, result, err)
     if result then
       print("PREWARMING OK!")
-      label.set_text(self.label, info.text)
+      go.set(self.label, "text", info.text)
     else
       print("Error prewarming text:", err)
     end

@@ -72,7 +72,7 @@ Algunas aplicaciones también pueden necesitar entitlements adicionales. La exte
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - Indica si la app puede cargar plug-ins o frameworks arbitrarios, sin requerir firma de código.
+  * `com.apple.security.cs.disable-library-validation` - Indica si la app puede cargar plug-ins o frameworks arbitrarios, sin requerir firma de código.
 
 Todos los entitlements que se pueden conceder a una aplicación se listan en la [documentación oficial para desarrolladores de Apple](https://developer.apple.com/documentation/bundleresources/entitlements).
 

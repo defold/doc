@@ -40,7 +40,7 @@ Wiązania wejścia to tabela obejmująca cały projekt, która pozwala określi�
 
 ![Input binding setting](images/input/setting.png)
 
-Domyślny plik wiązań wejścia jest automatycznie tworzony w każdym nowym szablonie projektu, więc zwykle nie ma potrzeby tworzenia nowego pliku. Domyślny plik nazywa się "game.input_binding" i znajduje się w folderze "input" w katalogu głównym projektu. Kliknij dwukrotnie ten plik, aby otworzyć go w edytorze:
+Domyślny plik wiązań wejścia jest automatycznie tworzony w każdym nowym szablonie projektu, więc zwykle nie ma potrzeby tworzenia nowego pliku. Domyślny plik nazywa się `game.input_binding` i znajduje się w folderze `input` w katalogu głównym projektu. Kliknij dwukrotnie ten plik, aby otworzyć go w edytorze:
 
 ![Input set bindings](images/input/input_binding.png)
 
@@ -50,7 +50,7 @@ Aby utworzyć nowe wiązanie, kliknij przycisk <kbd>+</kbd> na dole odpowiedniej
 : Surowe wejście, którego chcesz nasłuchiwać, wybierane z przewijanej listy dostępnych wejść.
 
 *Action*
-: Nazwa akcji nadawana akcjom wejściowym w chwili ich tworzenia i przekazywania do skryptów. Tę samą nazwę akcji można przypisać do wielu wejść. Na przykład możesz przypisać klawisz <kbd>Space</kbd> i przycisk gamepada "A" do akcji `jump`. Pamiętaj, że istnieje znany błąd, przez który wejścia dotykowe nie mogą mieć tych samych nazw akcji co inne wejścia.
+: Nazwa akcji nadawana akcjom wejściowym w chwili ich tworzenia i przekazywania do skryptów. Tę samą nazwę akcji można przypisać do wielu wejść. Na przykład możesz przypisać klawisz <kbd>Space</kbd> i przycisk gamepada `A` do akcji `jump`. Pamiętaj, że istnieje znany błąd, przez który wejścia dotykowe nie mogą mieć tych samych nazw akcji co inne wejścia.
 
 ## Rodzaje wyzwalaczy
 
@@ -163,7 +163,7 @@ Istnieje wiele dobrych zastosowań, w których konsumowanie wejścia zapewnia pr
 
 ![consuming input](images/input/game.png)
 
-Menu pauzy jest początkowo ukryte (wyłączone), a gdy gracz dotknie elementu HUD "PAUSE", zostaje włączone:
+Menu pauzy jest początkowo ukryte (wyłączone), a gdy gracz dotknie elementu HUD `PAUSE`, zostaje włączone:
 
 ```lua
 function on_input(self, action_id, action)

@@ -38,7 +38,7 @@ Sprites 및 ParticleFX 컴포넌트 같은 오브젝트 컴포넌트의 그래�
 
   팝업 컨텍스트 메뉴에서 <kbd>Add Animation Group</kbd>을 선택해 플립북 애니메이션 그룹을 만듭니다.
 
-  기본 이름("New Animation")을 가진 비어 있는 새 애니메이션 그룹이 아틀라스에 추가됩니다.
+  기본 이름(`New Animation`)을 가진 비어 있는 새 애니메이션 그룹이 아틀라스에 추가됩니다.
 
   *Asset* pane에서 에디터 뷰로 이미지를 드래그 앤 드롭해 현재 선택된 그룹에 추가합니다.
 
@@ -137,7 +137,7 @@ Playback
 
 ### 런타임에 Texture 리소스 생성하기
 
-새 텍스쳐 리소스를 생성하려면 [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table)를 사용합니다:
+새 텍스쳐 리소스를 생성하려면 [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table)를 사용합니다:
 
 ```lua
   local params = {
@@ -149,7 +149,7 @@ Playback
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-텍스쳐가 생성되면 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer)를 사용해 텍스쳐의 픽셀을 설정할 수 있습니다:
+텍스쳐가 생성되면 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer)를 사용해 텍스쳐의 픽셀을 설정할 수 있습니다:
 
 ```lua
   local width = 128
@@ -183,7 +183,7 @@ Playback
 
 ### 런타임에 Atlas 생성하기
 
-텍스쳐를 [스프라이트 컴포넌트](/manuals/sprite/)에서 사용하려면 먼저 아틀라스에서 사용해야 합니다. Atlas를 생성하려면 [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table)를 사용합니다:
+텍스쳐를 [스프라이트 컴포넌트](/manuals/sprite/)에서 사용하려면 먼저 아틀라스에서 사용해야 합니다. Atlas를 생성하려면 [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table)를 사용합니다:
 
 ```lua
   local params = {

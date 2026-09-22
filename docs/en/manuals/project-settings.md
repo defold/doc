@@ -96,11 +96,16 @@ Enables compression of archives when bundling. Note that this currently applies 
 #### Dependencies
 A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
+#### Dependencies Metadata
+`project.dependencies_metadata` includes metadata about library dependencies in the runtime bundle. Disabled by default. The metadata can be read at runtime using `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
 
 Loading custom resources is covered in more detail in the [File Access manual](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+
+Paths contributed by extensions through `custom_resources.default` in `ext.properties` are combined with this setting. See [extension custom resources](/manuals/extensions/#custom-resources) for an example.
 
 #### Bundle Resources
 `bundle_resources`
@@ -129,12 +134,8 @@ Which render setup file to use, which defines the render pipeline, `/builtins/re
 #### Include Dirs
 A space separated list of directories that should be shared from your project via library sharing. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
----
-
-### Script
-
-#### Shared State
-Check to share a single Lua state between all script types.
+#### Defold Min Version
+`library.defold_min_version` specifies the minimum Defold/Bob version required to use this project as a library, for example `1.11.2`. Leave empty to specify no minimum version.
 
 ---
 
@@ -165,11 +166,13 @@ Creates a high dpi back buffer on displays that support it. Typically the game w
 #### Samples
 How many samples to use for super sampling anti-aliasing. It sets the `GLFW_FSAA_SAMPLES` window hint. A value of `0` means that anti-aliasing is turned off.
 
+This setting controls the window. Offscreen [multisampled render targets](/manuals/render/#multisampled-render-targets) have their own sample count.
+
 #### Fullscreen
 Check if the application should start full screen. If unchecked, the application runs windowed.
 
 #### Update Frequency
-The desired frame rate in Hertz. Set to 0 for variable frame rate. A value larger than 0 will result in a fixed frame rate capped at runtime towards the actual frame rate (which means that you cannot update the game loop twice in an engine frame). Use [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) to change this value at runtime. This setting also works in headless builds.
+The desired frame rate in Hertz. Set to 0 for variable frame rate. A value larger than 0 will result in a fixed frame rate capped at runtime towards the actual frame rate (which means that you cannot update the game loop twice in an engine frame). Use [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) to change this value at runtime. This setting also works in headless builds.
 
 #### Swap interval
 This integer value controls how the application deals with vsync. 0 disables vsync, and the default value is 1. When using an OpenGL adapter, this value sets the number of frames the window should [update between buffer swaps](https://www.khronos.org/opengl/wiki/Swap_Interval). For Vulkan, there is no built-in concept of swap interval, the value instead controls if vsync should be enabled or not.
@@ -301,6 +304,9 @@ The texture profiles file to use for this project, `/builtins/graphics/default.t
 #### Verify Graphics Calls
 Verify the return value after each graphics call and report any errors in the log.
 
+#### WebGL Version Hint
+`graphics.webgl_version_hint` selects the WebGL context version to request for HTML5. Valid values are `1` (WebGL 1) and `2` (WebGL 2, the default). Set it to `1` to target or test WebGL 1 even on a browser that supports WebGL 2. Keep [Exclude GLES 2.0](#exclude-gles-20) disabled when targeting WebGL 1 so the required shaders are included.
+
 #### OpenGL Version Hint
 OpenGL context version hint. If a specific version is selected, this will be used as the minimum version required (does not apply to OpenGL ES).
 
@@ -338,6 +344,12 @@ Seconds to wait between each repetition of a held down input.
 
 #### Gamepads
 File reference of the gamepads config file, which maps gamepad signals to OS, `/builtins/input/default.gamepads` by default.
+
+#### Gamepad Database
+`input.gamepad_database` selects an SDL-format gamepad mapping database (`.txt`). The default is `/builtins/input/gamecontrollerdb.txt`. Its mappings are combined with the *Gamepads* file when building the project.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` sets the runtime dead zone applied to mappings from the SDL gamepad database. The default is `0.2`.
 
 #### Game Binding
 File reference of the input config file, which maps hardware inputs to actions, `/input/game.input_binding` by default.
@@ -479,6 +491,19 @@ Maximum width of the bone matrix texture. Only the size needed for animations is
 #### Max Bone Matrix Texture Height
 Maximum height of the bone matrix texture. Only the size needed for animations is used, rounded up to nearest power-of-two.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` sets the maximum width in pixels of the texture generated per mesh for morph target position, normal, and tangent deltas. The default is `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` sets the maximum height in pixels of the texture generated per mesh for morph target position, normal, and tangent deltas. The default is `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` sets the maximum number of light components, `64` by default. [(See information about component max count optimizations)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -489,8 +514,21 @@ Max number of GUI components. [(See information about component max count optimi
 #### Max Particle Count
 The max number of concurrent particles in GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` sets the maximum number of particle FX nodes per collection. The default is `64`.
+
 #### Max Animation Count
 The max number of active animations in gui.
+
+#### Safe Area Mode
+`gui.safe_area_mode` selects which safe-area insets affect GUI adjustment:
+
+- `none` (default): Ignore the insets.
+- `long`: Apply left/right insets in landscape and top/bottom insets in portrait.
+- `short`: Apply top/bottom insets in landscape and left/right insets in portrait.
+- `both`: Apply all four insets.
+
+A GUI script can override the mode for its scene with [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). See the [safe area guidance](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) for platform support and custom layouts.
 
 ---
 
@@ -507,10 +545,16 @@ Check to allow labels to appear unaligned with respect to pixels.
 ### Particle FX
 
 #### Max Count
-The max number of concurrent emitters. [(See information about component max count optimizations)](#component-max-count-optimizations).
+`particle_fx.max_count` sets the maximum number of particle FX components, `64` by default. [(See information about component max count optimizations)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` sets the maximum number of concurrent particle FX emitters. The default is `64`.
 
 #### Max Particle Count
-The max number of concurrent particles.
+The max number of concurrent particles. This limits the GPU vertex buffer size, `1024` particles by default.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` sets the maximum number of particles per upload to the GPU. This limits the CPU buffer used to generate particle vertices. The default is `1024`.
 
 ---
 
@@ -638,8 +682,14 @@ Extend to display cutout.
 #### Debuggable
 Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Custom ProGuard file to help strip redundant Java classes from the final APK.
+#### R8 Keep Rules
+`android.r8_keep_rules` selects a `.keep` file to enable R8 shrinking, optimization and obfuscation of Java code in Android builds. Leave the setting empty to use D8 without shrinking.
+
+Select `/builtins/manifests/android/dmengine.keep` to use Defold's default rules directly. Extensions supply their own [keep rules](/manuals/extensions/#r8-keep-rules-for-android), which are combined with this file.
+
+Only copy the built-in file into your project if you need to add project-specific rules. Preserve the built-in rules in the copy: selecting a custom file replaces the complete project rule set.
+
+See the [Android manual](/manuals/android/#shrinking-java-code-with-r8) for enabling R8 and retaining its obfuscation mapping with a release bundle.
 
 #### Extract Native Libraries
 Specifies whether the package installer extracts native libraries from the APK to the file system. If set to `false`, your native libraries are stored uncompressed in the APK. Although your APK might be larger, your application loads faster because the libraries load directly from the APK at runtime. This will set the `android:extractNativeLibs` flag in the Android Manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -659,6 +709,12 @@ The Apple Privacy Manifest for the application. The field will default to `/buil
 
 #### Bundle Identifier
 The bundle identifier lets macOS recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters, the underscore or hyphen (-) character.
+
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` specifies the short bundle name (`CFBundleName`), limited to 15 characters.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` specifies the build number (`CFBundleVersion`), either a number or `x.y.z`. The default is `1`.
 
 #### Default Language
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
@@ -716,10 +772,13 @@ When enabled this option will print information about the engine and engine vers
 Specifies which method to use to scale the game canvas.
 
 #### Retry Count
-The number of attempts to download a file when the engine starts (see `Retry Time`).
+The number of retries after a failed download during startup, including network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly file. The initial request is separate. Archive-file verification has its own retry limit; see [download verification](/manuals/html5/#download-verification) and `Retry Time`.
 
 #### Retry Time
 The number of seconds to wait between attempts to download a file when the download failed (see `Retry Count`).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` checks downloaded engine and archive files against their expected sizes. Enabled by default (`true`). Set it to `false` only if a server, proxy or CDN intentionally rewrites files and changes their sizes. Failed verification causes download retries before startup fails. The retry limits differ for engine downloads and archive-file verification; see [download verification](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Check if you want the graphics context to have a transparent backdrop.
@@ -734,6 +793,9 @@ Check to automatically finish IAP transactions. If unchecked, you need to explic
 ---
 
 ### Live update
+
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` enables the Live update system at runtime. Enabled by default. See the [Live update manual](/manuals/live-update/) for how to exclude, download, and mount resources.
 
 #### Settings
 Liveupdate settings resource file to use during bundling.
@@ -756,6 +818,9 @@ Enable the in-game profiler.
 
 #### Track Cpu
 CPU usage sampling is enabled by default in debug builds. Enable this setting when CPU sampling is also needed in a release build that includes profiler support through the App Manifest.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` enables detailed memory sampling in the profiler. Disabled by default. This can be expensive on HTML5.
 
 #### Sleep Between Server Updates
 Number of milliseconds to sleep between server updates.

@@ -318,7 +318,7 @@ local instancing_supported = has_context_feature(
   ```
 
 `CONSTANT_TYPE_USER`
-: 쉐이더 프로그램으로 전달하려는 커스텀 데이터에 사용할 수 있는 vector4 상수입니다. 상수 정의에서 상수의 초기값을 설정할 수 있지만, [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 함수로 변경할 수 있습니다. [go.get()](/ref/stable/go/#go.get)으로 값을 가져올 수도 있습니다. 단일 컴포넌트 인스턴스의 메터리얼 상수를 변경하면 [렌더 배칭이 깨지고 추가 draw call이 발생합니다](/manuals/render/#draw-calls-and-batching).
+: 쉐이더 프로그램으로 전달하려는 커스텀 데이터에 사용할 수 있는 vector4 상수입니다. 상수 정의에서 상수의 초기값을 설정할 수 있지만, [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) 함수로 변경할 수 있습니다. [go.get()](/ref/go/#go.get)으로 값을 가져올 수도 있습니다. 단일 컴포넌트 인스턴스의 메터리얼 상수를 변경하면 [렌더 배칭이 깨지고 추가 draw call이 발생합니다](/manuals/render/#draw-calls-and-batching).
 
 예:
 
@@ -329,7 +329,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: 쉐이더 프로그램으로 전달하려는 커스텀 데이터에 사용할 수 있는 matrix4 상수입니다. 상수 정의에서 상수의 초기값을 설정할 수 있지만, [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 함수로 변경할 수 있습니다. [go.get()](/ref/stable/go/#go.get)으로 값을 가져올 수도 있습니다. 단일 컴포넌트 인스턴스의 메터리얼 상수를 변경하면 [렌더 배칭이 깨지고 추가 draw call이 발생합니다](/manuals/render/#draw-calls-and-batching).
+: 쉐이더 프로그램으로 전달하려는 커스텀 데이터에 사용할 수 있는 matrix4 상수입니다. 상수 정의에서 상수의 초기값을 설정할 수 있지만, [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) 함수로 변경할 수 있습니다. [go.get()](/ref/go/#go.get)으로 값을 가져올 수도 있습니다. 단일 컴포넌트 인스턴스의 메터리얼 상수를 변경하면 [렌더 배칭이 깨지고 추가 draw call이 발생합니다](/manuals/render/#draw-calls-and-batching).
 
 예:
 

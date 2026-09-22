@@ -9,7 +9,7 @@ Hay muchas maneras diferentes de crear y/o acceder a archivos. Las rutas de arch
 ## Funciones para acceder a archivos y carpetas
 Defold proporciona varias funciones diferentes para trabajar con archivos:
 
-* Puedes usar las funciones estándar [`io.*`](https://defold.com/ref/stable/io/) para leer y escribir archivos. Estas funciones te dan un control muy detallado sobre todo el proceso de E/S.
+* Puedes usar las funciones estándar [`io.*`](https://defold.com/ref/io/) para leer y escribir archivos. Estas funciones te dan un control muy detallado sobre todo el proceso de E/S.
 
 ```lua
 -- abrir myfile.txt para escritura en modo binario
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Puedes usar [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) y [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) para renombrar y eliminar archivos.
+* Puedes usar [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) y [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) para renombrar y eliminar archivos.
 
-* Puedes usar [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) y [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) para leer y escribir tablas Lua. Existen funciones [`sys.*`](https://defold.com/ref/stable/sys/) adicionales para ayudar con la resolución de rutas de archivo independiente de la plataforma.
+* Puedes usar [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) y [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) para leer y escribir tablas Lua. Existen funciones [`sys.*`](https://defold.com/ref/sys/) adicionales para ayudar con la resolución de rutas de archivo independiente de la plataforma.
 
 ```lua
 -- obtener una ruta independiente de la plataforma al archivo "highscore" para la aplicación "mygame"
@@ -80,15 +80,19 @@ Las ubicaciones de archivos y carpetas se pueden dividir en tres categorías:
 * Archivos específicos del sistema a los que accede tu aplicación
 
 ### Cómo guardar y cargar archivos específicos de la aplicación
-Al guardar y cargar archivos específicos de la aplicación, como puntuaciones altas, configuración de usuario y estado del juego, se recomienda hacerlo en una ubicación proporcionada por el sistema operativo y destinada específicamente a este propósito. Puedes usar [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) para obtener la ruta absoluta específica del sistema operativo a un archivo. Una vez que tengas la ruta absoluta, puedes usar las funciones `sys.*`, `io.*` y `os.*` (consulta arriba).
+Al guardar y cargar archivos específicos de la aplicación, como puntuaciones altas, configuración de usuario y estado del juego, se recomienda hacerlo en una ubicación proporcionada por el sistema operativo y destinada específicamente a este propósito. Puedes usar [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) para obtener la ruta absoluta específica del sistema operativo a un archivo. Una vez que tengas la ruta absoluta, puedes usar las funciones `sys.*`, `io.*` y `os.*` (consulta arriba).
 
 [Consulta el ejemplo que muestra cómo usar `sys.save()` y `sys.load()`](/examples/file/sys_save_load/).
 
 ### Cómo acceder a archivos empaquetados con la aplicación {#how-to-access-files-bundled-with-the-application}
 Puedes incluir archivos con tu aplicación usando Custom Resources y Bundle Resources.
 
+<a id="custom-resources"></a>
+
 #### Recursos personalizados (Custom Resources)
 :[Custom Resources](../shared/custom-resources.md)
+
+Las extensiones también pueden aportar estos archivos mediante `ext.properties`. Sus rutas se combinan con los recursos personalizados del proyecto tanto en las builds del editor como en los archivos generados por Bob. Consulta [recursos personalizados de las extensiones](/manuals/extensions/#custom-resources).
 
 ```lua
 -- Cargar los datos del nivel en un string

@@ -164,7 +164,7 @@ A tabela abaixo apresenta componentes semelhantes do Unity para consulta rápida
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | No Defold, você só pode alterar o tint (propriedade de cor) via código. |
 | [Tilemap](/manuals/tilemap/) | Tilemap / Grid | O Defold tem um Tilemap Editor integrado que suporta grades quadradas (mas há uma extensão para, por exemplo, [Hexagon](https://github.com/selimanac/defold-hexagon/)) e não tem regras integradas de autotiling. Ferramentas como [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) ou [Sprite Fusion](https://defold.com/assets/spritefusion/) têm opções de exportação para Defold. |
-| [Label](/manuals/label/) | Text / TextMeshPro | O Defold tem uma [extensão RichText](https://defold.com/assets/richtext/) para formatação rica (semelhante ao TextMeshPro). |
+| [Label](/manuals/label/) | Text / TextMeshPro | Desde o Defold 1.13.2, componentes Label e nós de texto de GUI oferecem suporte integrado a [marcação de texto formatado](/manuals/font-richtext/) para cores, gradientes, contornos e efeitos animados. Uma [extensão RichText](https://defold.com/assets/richtext/) separada também está disponível. |
 | [Sound](/manuals/sound/) | AudioSource | O Defold tem apenas uma fonte de som global (não espacial). Há uma [extensão FMOD](https://github.com/defold/extension-fmod) oficial para Defold. |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | No Defold, uma Factory é um componente com um protótipo específico (prefab). |
 | [Collection Factory](/manuals/collection-factory/) | - (Sem equivalente direto de componente) | Um componente Collection Factory no Defold pode instanciar vários Game Objects com relações pai-filho de uma vez. |

@@ -7,7 +7,7 @@ brief: O Scene Editor é onde você edita coleções, objetos de jogo, GUIs, efe
 
 O **Scene Editor** é o editor visual usado para construir e editar cenas, como coleções, objetos de jogo e outros assets visuais.
 
-Por padrão, muitas cenas visuais abrem em uma visualização **2D ortográfica**. Para trabalho em 3D, você pode mudar para um layout orientado a 3D, ativar um plano de grade 3D e usar uma câmera **perspectiva**.
+A visualização inicial da câmera depende do recurso. Recursos 3D como modelos e cenas glTF usam **perspectiva** por padrão, enquanto recursos 2D como sprites, tilemaps e cenas GUI usam projeção **ortográfica**. Você pode alterar a orientação, a projeção e a grade da câmera pela barra de ferramentas da cena.
 
 ## Abrindo o Scene Editor
 
@@ -19,6 +19,14 @@ Abra o Scene Editor dando duplo clique em um recurso visual no painel *Assets*, 
 - **UI** - cenas GUI (`.gui`)
 - **Efeitos** - efeitos de partículas (`.particlefx`)
 - E outros
+
+## Visualizações de cena salvas {#remembered-scene-views}
+
+O editor salva o estado da câmera de cada recurso de cena quando sua aba é fechada ou quando o editor é encerrado. Reabrir o mesmo recurso restaura sua visualização, de modo que coleções ou modelos diferentes podem manter posições, orientações e projeções de câmera diferentes.
+
+Os filtros de visibilidade também são salvos por cena. Ocultar modelos ou guias de componentes em uma cena não exige usar os mesmos filtros em outra. Essas configurações afetam a visualização do editor e não alteram a câmera do jogo nem a visibilidade em tempo de execução.
+
+Para recursos sem estado de câmera salvo, modelos, malhas e recursos glTF iniciam em perspectiva. Objetos de colisão escolhem sua visualização conforme a configuração de física 2D/3D do projeto; coleções e objetos de jogo escolhem a visualização inicial com base na geometria da cena.
 
 ## Navegação na visualização de cena (controles de câmera)
 
@@ -127,6 +135,8 @@ Clique no **Visibility Eye Icon** (`👁`) na barra de ferramentas para alternar
 ## Configurações da grade {#grid-settings}
 
 A grade pode ser personalizada para se ajustar ao seu fluxo de trabalho (especialmente útil em 3D). Clique no botão **Grid Settings** (`▦`) para abrir o popup de configurações da grade.
+
+O editor mantém configurações de grade separadas para visualizações 2D e 3D. Defina tamanho, plano e aparência enquanto o modo desejado estiver ativo; alternar entre os modos restaura as configurações de grade de cada um. **Reset to Defaults** redefine as configurações do modo ativo.
 
 ![Grid Settings](images/editor/grid_popup.png)
 

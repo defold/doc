@@ -196,7 +196,7 @@ na
 
 `{ ... 6, 11, 2, 13, 0 ... }`
 
-Nowy stan dodaje 3 inwersje w następujący sposób:
+Łączna liczba inwersji zmniejsza się o 1 w następujący sposób:
 
 - liczba 6 dodaje 1 inwersję (liczba 2 znajduje się teraz po 6)
 - liczba 11 traci 1 inwersję (liczba 6 znajduje się teraz przed 11)

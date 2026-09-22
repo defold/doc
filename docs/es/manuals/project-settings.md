@@ -96,11 +96,16 @@ Activa la compresión de archivos al crear bundles. Ten en cuenta que actualment
 #### Dependencies
 Una lista de URL a las *Library URL* del proyecto. Consulta el [manual de bibliotecas](/manuals/libraries/) para obtener más información.
 
+#### Dependencies Metadata
+`project.dependencies_metadata` incluye metadatos sobre las dependencias de bibliotecas en el bundle de runtime. Desactivado de forma predeterminada. Los metadatos se pueden leer en runtime usando `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
 
 La carga de recursos personalizados se explica con más detalle en el [manual de acceso a archivos](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+
+Las rutas aportadas por las extensiones mediante `custom_resources.default` en `ext.properties` se combinan con esta configuración. Consulta [recursos personalizados de las extensiones](/manuals/extensions/#custom-resources) para ver un ejemplo.
 
 #### Bundle Resources
 `bundle_resources`
@@ -129,12 +134,8 @@ Qué archivo de configuración de render usar, el cual define el pipeline de ren
 #### Include Dirs
 Una lista de directorios separados por espacios que deben compartirse desde tu proyecto mediante el uso compartido de bibliotecas. Consulta el [manual de bibliotecas](/manuals/libraries/) para obtener más información.
 
----
-
-### Script
-
-#### Shared State
-Marca esta opción para compartir un único estado Lua entre todos los tipos de script.
+#### Defold Min Version
+`library.defold_min_version` especifica la versión mínima de Defold/Bob necesaria para usar este proyecto como biblioteca, por ejemplo, `1.11.2`. Deja el campo vacío para no especificar una versión mínima.
 
 ---
 
@@ -165,11 +166,13 @@ Crea un back buffer de alta densidad de pixeles en pantallas que lo soportan. No
 #### Samples
 Cuántas muestras usar para super sampling anti-aliasing. Define el window hint `GLFW_FSAA_SAMPLES`. Un valor de `0` significa que el anti-aliasing está desactivado.
 
+Esta configuración controla la ventana. Los [render targets con multimuestreo](/manuals/render/#multisampled-render-targets) fuera de pantalla tienen su propio número de muestras.
+
 #### Fullscreen
 Marca esta opción si la aplicación debe iniciar en pantalla completa. Si no está marcada, la aplicación se ejecuta en una ventana.
 
 #### Update Frequency
-La tasa de frames deseada en Hertz. Define 0 para una tasa de frames variable. Un valor mayor que 0 dará como resultado una tasa de frames fija limitada en runtime hacia la tasa de frames real (lo que significa que no puedes actualizar el loop del juego dos veces en un frame del motor). Usa [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) para cambiar este valor en runtime. Esta configuración también funciona en builds headless.
+La tasa de frames deseada en Hertz. Define 0 para una tasa de frames variable. Un valor mayor que 0 dará como resultado una tasa de frames fija limitada en runtime hacia la tasa de frames real (lo que significa que no puedes actualizar el loop del juego dos veces en un frame del motor). Usa [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) para cambiar este valor en runtime. Esta configuración también funciona en builds headless.
 
 #### Swap interval
 Este valor entero controla cómo la aplicación gestiona vsync. 0 desactiva vsync, y el valor predeterminado es 1. Al usar un adaptador OpenGL, este valor define el número de frames que la ventana debe [actualizar entre intercambios de buffer](https://www.khronos.org/opengl/wiki/Swap_Interval). Para Vulkan no existe un concepto integrado de swap interval; en su lugar, el valor controla si vsync debe estar activado o no.
@@ -301,6 +304,9 @@ El archivo de perfiles de textura que se usará para este proyecto, `/builtins/g
 #### Verify Graphics Calls
 Verifica el valor de retorno después de cada llamada gráfica y reporta cualquier error en el log.
 
+#### WebGL Version Hint
+`graphics.webgl_version_hint` selecciona la versión del contexto WebGL que se solicita para HTML5. Los valores válidos son `1` (WebGL 1) y `2` (WebGL 2, el predeterminado). Defínelo como `1` para usar o probar WebGL 1 incluso en un navegador que admita WebGL 2. Mantén [Exclude GLES 2.0](#exclude-gles-20) desactivado al usar WebGL 1 para que se incluyan los shaders necesarios.
+
 #### OpenGL Version Hint
 Indicación de versión de contexto OpenGL. Si se selecciona una versión específica, se usará como versión mínima requerida (no se aplica a OpenGL ES).
 
@@ -338,6 +344,12 @@ Segundos que esperar entre cada repetición de un input mantenido presionado.
 
 #### Gamepads
 Referencia al archivo de configuración de gamepads, que mapea señales de gamepad al sistema operativo, `/builtins/input/default.gamepads` de forma predeterminada.
+
+#### Gamepad Database
+`input.gamepad_database` selecciona una base de datos de asignaciones de gamepads en formato SDL (`.txt`). El valor predeterminado es `/builtins/input/gamecontrollerdb.txt`. Sus asignaciones se combinan con el archivo *Gamepads* al compilar el proyecto.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` define la zona muerta que se aplica en runtime a las asignaciones de la base de datos SDL de gamepads. El valor predeterminado es `0.2`.
 
 #### Game Binding
 Referencia al archivo de configuración de input, que mapea inputs de hardware a acciones, `/input/game.input_binding` de forma predeterminada.
@@ -479,6 +491,19 @@ Ancho máximo de la textura de matriz de huesos. Solo se usa el tamaño necesari
 #### Max Bone Matrix Texture Height
 Altura máxima de la textura de matriz de huesos. Solo se usa el tamaño necesario para animaciones, redondeado hacia arriba a la potencia de dos más cercana.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` define el ancho máximo en píxeles de la textura generada por mesh para las variaciones de posición, normal y tangente de los morph targets. El valor predeterminado es `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` define la altura máxima en píxeles de la textura generada por mesh para las variaciones de posición, normal y tangente de los morph targets. El valor predeterminado es `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` define el número máximo de componentes de luz, `64` de forma predeterminada. [(Consulta la información sobre optimizaciones del conteo máximo de componentes)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -489,8 +514,21 @@ Número máximo de componentes GUI. [(Consulta la información sobre optimizacio
 #### Max Particle Count
 El número máximo de partículas concurrentes en GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` define el número máximo de nodos de efectos de partículas por colección. El valor predeterminado es `64`.
+
 #### Max Animation Count
 El número máximo de animaciones activas en GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` selecciona qué márgenes del área segura afectan al ajuste de la GUI:
+
+- `none` (predeterminado): Ignora los márgenes.
+- `long`: Aplica los márgenes izquierdo y derecho en orientación horizontal, y los márgenes superior e inferior en orientación vertical.
+- `short`: Aplica los márgenes superior e inferior en orientación horizontal, y los márgenes izquierdo y derecho en orientación vertical.
+- `both`: Aplica los cuatro márgenes.
+
+Un script GUI puede sobrescribir el modo de su escena con [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Consulta la [guía sobre el área segura](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) para conocer la compatibilidad de las plataformas y cómo crear diseños personalizados.
 
 ---
 
@@ -507,10 +545,16 @@ Marca esta opción para permitir que los labels aparezcan desalineados con respe
 ### Particle FX
 
 #### Max Count
-El número máximo de emisores concurrentes. [(Consulta la información sobre optimizaciones del conteo máximo de componentes)](#component-max-count-optimizations).
+`particle_fx.max_count` define el número máximo de componentes de efectos de partículas, `64` de forma predeterminada. [(Consulta la información sobre optimizaciones del conteo máximo de componentes)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` define el número máximo de emisores de efectos de partículas concurrentes. El valor predeterminado es `64`.
 
 #### Max Particle Count
-El número máximo de partículas concurrentes.
+El número máximo de partículas concurrentes. Limita el tamaño del buffer de vértices de la GPU, `1024` partículas de forma predeterminada.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` define el número máximo de partículas por transferencia a la GPU. Limita el buffer de la CPU usado para generar los vértices de las partículas. El valor predeterminado es `1024`.
 
 ---
 
@@ -638,8 +682,16 @@ Extiende la aplicación al display cutout.
 #### Debuggable
 Indica si la aplicación se puede depurar usando herramientas como [GAPID](https://github.com/google/gapid) o [Android Studio](https://developer.android.com/studio/profile/android-profiler). Esto definirá el flag `android:debuggable` en el manifiesto de Android ([documentación oficial](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Archivo ProGuard personalizado para ayudar a eliminar clases Java redundantes del APK final.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` selecciona un archivo `.keep` para activar la eliminación de código no usado, la optimización y la ofuscación de código Java con R8 en builds de Android. Deja la configuración vacía para usar D8 sin eliminar código.
+
+Selecciona `/builtins/manifests/android/dmengine.keep` para usar directamente las reglas predeterminadas de Defold. Las extensiones proporcionan sus propias [reglas de conservación](/manuals/extensions/#r8-keep-rules-for-android), que se combinan con este archivo.
+
+Copia el archivo integrado a tu proyecto solo si necesitas agregar reglas específicas del proyecto. Conserva las reglas integradas en la copia: seleccionar un archivo personalizado reemplaza el conjunto completo de reglas del proyecto.
+
+Consulta el [manual de Android](/manuals/android/#shrinking-java-code-with-r8) para activar R8 y conservar su mapa de ofuscación junto a un bundle de release.
 
 #### Extract Native Libraries
 Especifica si el instalador del paquete extrae bibliotecas nativas del APK al sistema de archivos. Si se define como `false`, tus bibliotecas nativas se almacenan sin comprimir en el APK. Aunque tu APK puede ser más grande, tu aplicación carga más rápido porque las bibliotecas se cargan directamente desde el APK en runtime. Esto definirá el flag `android:extractNativeLibs` en el manifiesto de Android ([documentación oficial](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -659,6 +711,12 @@ El Apple Privacy Manifest para la aplicación. El campo tendrá como valor prede
 
 #### Bundle Identifier
 El identificador de bundle permite que macOS reconozca actualizaciones de tu app. Tu bundle ID debe estar registrado con Apple y ser único para tu app. No puedes usar el mismo identificador para apps de iOS y macOS. Debe constar de dos o más segmentos separados por un punto. Cada segmento debe empezar con una letra. Cada segmento debe contener solo letras alfanuméricas, el guion bajo o el carácter de guion (-).
+
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` especifica el nombre corto del bundle (`CFBundleName`), limitado a 15 caracteres.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` especifica el número de build (`CFBundleVersion`), ya sea un número o `x.y.z`. El valor predeterminado es `1`.
 
 #### Default Language
 El idioma usado si la aplicación no tiene el idioma preferido del usuario en la lista `Localizations` (consulta [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Usa el estándar ISO 639-1 de dos letras si el idioma preferido está disponible allí, o ISO 639-2 de tres letras.
@@ -716,10 +774,13 @@ Cuando está activada, esta opción imprimirá información sobre el motor y la 
 Especifica qué método usar para escalar el canvas del juego.
 
 #### Retry Count
-El número de intentos para descargar un archivo cuando el motor arranca (consulta `Retry Time`).
+El número de reintentos después de una descarga fallida durante el inicio, incluidos errores de red, estados HTTP fallidos y discrepancias de tamaño en el archivo JavaScript o WebAssembly del motor. La solicitud inicial se cuenta por separado. La verificación de archivos del juego tiene su propio límite de reintentos; consulta [verificación de descargas](/manuals/html5/#download-verification) y `Retry Time`.
 
 #### Retry Time
 El número de segundos que esperar entre intentos de descargar un archivo cuando la descarga falló (consulta `Retry Count`).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` compara los archivos descargados del motor y del archivo del juego con sus tamaños esperados. Está activado de forma predeterminada (`true`). Defínelo como `false` solo si un servidor, proxy o CDN modifica intencionalmente los archivos y cambia sus tamaños. La verificación fallida provoca reintentos de descarga antes de que falle el inicio. Los límites de reintentos son distintos para las descargas del motor y la verificación de archivos del juego; consulta [verificación de descargas](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Marca esta opción si quieres que el contexto gráfico tenga un fondo transparente.
@@ -734,6 +795,9 @@ Marca esta opción para finalizar automáticamente las transacciones IAP. Si est
 ---
 
 ### Live update
+
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` activa el sistema Live update en runtime. Activado de forma predeterminada. Consulta el [manual de Live update](/manuals/live-update/) para saber cómo excluir, descargar y montar recursos.
 
 #### Settings
 Archivo de recurso de configuración de Live Update para usar durante la creación de bundles.
@@ -756,6 +820,9 @@ Activa el profiler dentro del juego.
 
 #### Track Cpu
 El muestreo de uso de CPU está activado de forma predeterminada en builds debug. Activa este ajuste cuando también necesites muestreo de CPU en una build release que incluya soporte para el profiler mediante el manifiesto de la aplicación.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` activa el muestreo detallado de memoria en el profiler. Desactivado de forma predeterminada. Puede tener un costo elevado en HTML5.
 
 #### Sleep Between Server Updates
 Número de milisegundos que dormir entre actualizaciones del servidor.

@@ -322,7 +322,7 @@ local instancing_supported = has_context_feature(
   ```
 
 `CONSTANT_TYPE_USER`
-: 一个 vector4 常量，您可以用于任何想要传递到着色器程序的自定义数据。您可以在常量定义中设置常量的初始值，但它可以通过函数 [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 进行修改。您也可以使用 [go.get()](/ref/stable/go/#go.get) 检索值。更改单个组件实例的材质常量会[破坏渲染批处理并导致额外的绘制调用](/manuals/render/#draw-calls-and-batching)。
+: 一个 vector4 常量，您可以用于任何想要传递到着色器程序的自定义数据。您可以在常量定义中设置常量的初始值，但它可以通过函数 [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) 进行修改。您也可以使用 [go.get()](/ref/go/#go.get) 检索值。更改单个组件实例的材质常量会[破坏渲染批处理并导致额外的绘制调用](/manuals/render/#draw-calls-and-batching)。
 
 示例：
 
@@ -333,7 +333,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 `CONSTANT_TYPE_USER_MATRIX4`
-: 一个 matrix4 常量，您可以用于任何想要传递到着色器程序的自定义数据。您可以在常量定义中设置常量的初始值，但它可以通过函数 [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 进行修改。您也可以使用 [go.get()](/ref/stable/go/#go.get) 检索值。更改单个组件实例的材质常量会[破坏渲染批处理并导致额外的绘制调用](/manuals/render/#draw-calls-and-batching)。
+: 一个 matrix4 常量，您可以用于任何想要传递到着色器程序的自定义数据。您可以在常量定义中设置常量的初始值，但它可以通过函数 [go.set()](/ref/go/#go.set) / [go.animate()](/ref/go/#go.animate) 进行修改。您也可以使用 [go.get()](/ref/go/#go.get) 检索值。更改单个组件实例的材质常量会[破坏渲染批处理并导致额外的绘制调用](/manuals/render/#draw-calls-and-batching)。
 
 示例：
 

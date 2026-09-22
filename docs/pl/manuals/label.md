@@ -87,6 +87,9 @@ Ustawiając właściwość *Pivot*, możesz zmienić sposób wyrównania tekstu.
 
 Możesz modyfikować Label w czasie działania, odczytując i ustawiając tekst Label oraz inne właściwości.
 
+`text`
+: Treść etykiety (`string`). Dostępna przez `go.get()` i `go.set()` od wersji Defold 1.13.2.
+
 `color`
 : Kolor Label (`vector4`)
 
@@ -104,11 +107,17 @@ Możesz modyfikować Label w czasie działania, odczytując i ustawiając tekst 
 
 ```lua
 function init(self)
-    -- Ustaw tekst komponentu "my_label" w tym samym obiekcie gry
-    -- co ten skrypt.
-    label.set_text("#my_label", "New text")
+    -- Set the text of the "my_label" component in the same game object
+    -- as this script.
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+Od wersji Defold 1.13.2 funkcje `label.set_text()` i `label.get_text()` są przestarzałe i zaleca się używanie właściwości `text`. Stare funkcje pozostają dostępne dla zgodności. Stara funkcja ustawiająca tekst umieszcza wiadomość w kolejce, natomiast `go.set()` aktualizuje tekst natychmiast.
+:::
 
 ```lua
 function init(self)

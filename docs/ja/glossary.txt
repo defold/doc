@@ -1,0 +1,657 @@
+---
+title: Defold ドキュメント日本語用語集
+brief: 既存の各言語の用語集と公式の日本語技術文書を参考にした、Defold 日本語ドキュメントの推奨用語です。
+---
+
+# Defold ドキュメント日本語用語集
+
+この用語集は、`docs/es`、`docs/fr`、`docs/gr`、`docs/it`、`docs/ko`、`docs/pl`、`docs/pt`、`docs/uk` にあるすべての `glossary.txt` と `translation-guidelines.txt` を調査し、Defold の英語マニュアルと、ゲームエンジンおよび開発ツールの公式サイトで公開されている日本語文書を照合して作成しました。初版作成日: 2026-09-07。
+
+調査時点の `docs/ja` には翻訳文書がありません。本ファイルは今後の翻訳のための推奨用語集です。既存の日本語訳から抽出した確定用語集や、他社が承認した Defold の用語集ではありません。[日本語翻訳ガイド](translation-guidelines.txt)と併用してください。
+
+通常の説明文では日本語の推奨形を使います。UI のラベル、API、型名、設定キー、コマンド、ファイル名、パス、識別子、入力や出力の文字列を引用するときは原文を保持します。重要な概念の初出では、`ゲームオブジェクト（game object）` のように英語を併記します。
+
+表中の出典リンクは日本語の用例を示します。Defold の意味や動作は `docs/en` を基準とし、他製品の仕様を持ち込みません。特にコレクション、ファクトリー、コレクションプロキシなどの訳語と補足は、本用語集で定める Defold 向けの編集上の選択です。出典を付けていない項目も、外部文書からの引用ではなく、この日本語版の推奨形です。
+
+## Defold と基本用語
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| Defold | Defold。製品名は翻訳、カタカナ化しません |
+| Defold Foundation | Defold Foundation。組織の正式名称を保持します |
+| Defold Editor | Defold エディター。正式名称を引用するときは `Defold Editor` |
+| editor | エディター。[Unity の用例][U1]を参考に長音を付けます |
+| engine | エンジン |
+| game engine | ゲームエンジン |
+| engine instance | エンジンのインスタンス |
+| game | ゲーム |
+| gameplay | ゲームプレイ |
+| game logic | ゲームロジック |
+| application / app | アプリケーション。モバイルアプリを指す場合はアプリも使えます |
+| software | ソフトウェア |
+| feature | 機能 |
+| documentation | ドキュメント |
+| manual | マニュアル |
+| API reference | API リファレンス |
+| tutorial | チュートリアル |
+| product overview | 製品概要 |
+| FAQ | よくある質問。略称は FAQ |
+| community | コミュニティ |
+
+## プロジェクト、ファイル、リソース
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| project | プロジェクト |
+| project settings | プロジェクト設定。設定キーや UI の見出しは原文を保持します |
+| project file | プロジェクトファイル。`game.project` は変更しません |
+| project template | プロジェクトテンプレート |
+| file | ファイル |
+| folder | フォルダー |
+| directory | ディレクトリ。パスやファイルシステムの説明で使います |
+| root directory | ルートディレクトリ |
+| file extension | ファイルの拡張子。ネイティブ拡張と区別します |
+| source code | ソースコード |
+| resource | リソース。Defold が参照、ビルド、読み込みを行うデータ |
+| resource file | リソースファイル |
+| resource path | リソースパス |
+| resource tree | リソースツリー |
+| resource management | リソース管理 |
+| custom resource | カスタムリソース。`Custom Resources` などの設定名は原文を保持します |
+| bundle resource | バンドルリソース。バンドルに同梱するファイル。通常のリソースツリーとは区別します |
+| asset | アセット。画像、音声、モデルなどの制作素材。resource と一律に置換しません |
+| Asset Portal | Asset Portal。サービス名を保持します |
+| content | コンテンツ |
+| library | ライブラリ |
+| dependency | 依存関係 |
+| library dependency | ライブラリへの依存関係 |
+| repository | リポジトリ |
+| branch | ブランチ |
+| version control | バージョン管理 |
+| archive | アーカイブ |
+| cache | キャッシュ |
+| reference | 参照 |
+| reference count | 参照カウント |
+| broken reference | 無効な参照。参照先が見つからない場合は、その状態を具体的に説明します |
+| native extension | ネイティブ拡張 |
+| built-in resource | 組み込みリソース。`builtins` ディレクトリ名は保持します |
+
+## ゲームの構造とインスタンス
+
+意味の基準: [Building blocks](../en/manuals/building-blocks.md)、[Collection factory](../en/manuals/collection-factory.md)、[Collection proxy](../en/manuals/collection-proxy.md)。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| building blocks | 基本構成要素 |
+| game object | ゲームオブジェクト。[Unity の用例][U1]。Defold の概念を指す場合は `GameObject` という型名に置き換えません |
+| component | コンポーネント。[Unity の用例][U1]。数学のベクトルの component は成分 |
+| component type | コンポーネントの種類。具体的な型名や UI ラベルは保持します |
+| collection | コレクション。ゲームオブジェクトなどの配置と階層を定義するファイル。シーンや配列と意訳しません |
+| collection file | コレクションファイル。拡張子は `.collection` |
+| sub-collection | サブコレクション |
+| collection hierarchy | コレクション階層。ゲームオブジェクトの親子階層とは区別します |
+| bootstrap collection | ブートストラップコレクション。初出では「起動時に読み込まれるコレクション」と説明します |
+| main collection | メインコレクション。起動時のコレクションを指す場合はブートストラップコレクションと対応させます |
+| root collection | ルートコレクション。原文が起動時のコレクションを指しているか確認します |
+| factory | ファクトリー。ゲームオブジェクトを動的に生成するコンポーネント。工場とは訳しません |
+| collection factory | コレクションファクトリー。コレクションの内容を現在のゲームワールドに生成するコンポーネント |
+| collection proxy | コレクションプロキシ。コレクションから別のゲームワールドを読み込み、管理するコンポーネント |
+| prototype | プロトタイプ。Defold ではインスタンスの元になる定義。試作品という意味に限定しません |
+| prefab | プレハブ。他エンジンとの比較で使います。Defold の正式なリソース種類として扱いません |
+| blueprint | 設計図。再利用できる定義という比喩。Unreal Engine の機能名を指す場合はブループリント |
+| instance | インスタンス。[Godot の用例][G1]。定義元のリソースとは区別します |
+| instantiate / instantiation | インスタンス化する / インスタンス化。手順では「インスタンスを作成します」も使えます |
+| spawn | 生成する。ゲーム内への動的な生成を表します |
+| in-place | その場で追加する。現在のファイル内に直接定義すること。初出で英語を併記します |
+| embedded game object / component | 埋め込みゲームオブジェクト / 埋め込みコンポーネント |
+| by reference | 参照として追加する。別のファイルを参照すること |
+| parent | 親。対象が必要なら親ゲームオブジェクト、親ノード |
+| child | 子。対象が必要なら子ゲームオブジェクト、子ノード |
+| parent-child hierarchy | 親子階層 |
+| childing | 子にする / 親子関係を設定する |
+| root | ルート。ルートノードなど、対象を明示します |
+| scene | シーン。Defold のコレクションすべてをシーンと呼び替えません |
+| scene graph | シーングラフ |
+| game world | ゲームワールド。個々のコレクションファイルと同一視しません |
+| physics world | 物理ワールド |
+| lifetime / lifespan | 生存期間。パーティクルなどでは寿命 |
+| test collection | テスト用コレクション |
+
+## コンポーネントとリソースの種類
+
+意味の基準: [Defold glossary](../en/manuals/glossary.md)。ここで示す日本語は説明用であり、拡張子やエディターの種類名を変更する指示ではありません。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| script | スクリプト |
+| script component | スクリプトコンポーネント |
+| game object script | ゲームオブジェクトのスクリプト。`.script` |
+| GUI | GUI。初出で必要ならグラフィカルユーザーインターフェースと説明します |
+| GUI component | GUI コンポーネント |
+| GUI script | GUI スクリプト。`.gui_script` |
+| render script | レンダースクリプト。`.render_script`。通常のゲームオブジェクト用スクリプトと区別します |
+| editor script | エディタースクリプト。`.editor_script` |
+| sprite | スプライト |
+| label | ラベル。Defold の文字を表示するコンポーネント |
+| sound | サウンド。一般的な音の説明では音、音声も使います |
+| camera | カメラ |
+| model | モデル。3D のデータ、コンポーネント、AI モデルを文脈で区別します |
+| mesh | メッシュ |
+| collision object | コリジョンオブジェクト。初出で衝突判定や物理特性を持つコンポーネントと説明します |
+| ParticleFX | ParticleFX。正式名称は保持し、説明ではパーティクルエフェクト |
+| particle effect | パーティクルエフェクト |
+| atlas | アトラス。複数の画像をまとめたリソース |
+| tile source | タイルソース。タイル画像やアニメーションなどを定義するリソース |
+| tile map / tilemap | タイルマップ。タイルソースとは区別します |
+| tile set / tileset | タイルセット。他ツールの概念を Defold のタイルソースに機械的に置き換えません |
+| texture | テクスチャ。[Unity の用例][U2]、[Unreal Engine の用例][E1] |
+| material | マテリアル。[Unity の用例][U2]、[Unreal Engine の用例][E1]。シェーダーと同義にはしません |
+| shader | シェーダー。[Unity の用例][U2]。API やファイル名の `shader` は保持します |
+| cubemap | キューブマップ |
+| font | フォント |
+| animation set | アニメーションセット |
+| texture profiles | テクスチャプロファイル |
+| display profiles | ディスプレイプロファイル |
+
+## アドレス指定とメッセージ
+
+意味の基準: [Addressing](../en/manuals/addressing.md)、[Message passing](../en/manuals/message-passing.md)。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| addressing | アドレス指定 |
+| address | アドレス |
+| identifier / ID | 識別子 / ID。通常の説明では識別子、具体的なフィールドは `id` など原文どおり |
+| unique identifier | 一意の識別子 |
+| relative address | 相対アドレス |
+| absolute address | 絶対アドレス |
+| relative path | 相対パス |
+| absolute path | 絶対パス |
+| URL | URL。Defold のオブジェクトやコンポーネントのアドレスにも使います |
+| URL object | URL オブジェクト |
+| socket | ソケット。Defold URL ではゲームワールドを識別する部分。ネットワークソケットとは区別します |
+| path | パス。Defold URL ではゲームオブジェクトを識別する部分。ファイルパスとは区別します |
+| fragment | フラグメント。Defold URL ではコンポーネントを識別する部分。シェーダーのフラグメントとは別の意味です |
+| separator | 区切り文字 |
+| shorthand | 省略形。`.`、`#` などの記号自体は保持します |
+| namespace | 名前空間 |
+| naming context | 命名コンテキスト。名前を解決する範囲 |
+| name collision | 名前の衝突。物理的な衝突とは区別します |
+| hash | ハッシュ。関数、値、データ型のどれを指すか明示します |
+| hash value | ハッシュ値 |
+| hashed identifier | ハッシュ化された識別子 |
+| message | メッセージ |
+| message passing | メッセージパッシング。初出ではメッセージによる通信と説明します |
+| send / post a message | メッセージを送信する |
+| receive a message | メッセージを受信する |
+| message ID | メッセージ ID。`message_id` や具体的なメッセージ名は保持します |
+| message data | メッセージデータ |
+| message queue | メッセージキュー |
+| message dispatcher | メッセージディスパッチャー |
+| dispatch messages | メッセージを配送する。関数の直接呼び出しとは区別します |
+| sender | 送信元。フィールドや引数名の `sender` は保持します |
+| receiver / recipient | 受信先 |
+| target | 対象。メッセージの宛先なら送信先、ビルド対象ならビルドターゲット |
+| system message | システムメッセージ |
+| user message | ユーザー定義メッセージ |
+
+## Lua、プログラミング、ライフサイクル
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| Lua | Lua。`LUA` やカタカナ表記に変更しません |
+| Lua module | Lua モジュール |
+| module | モジュール |
+| function | 関数 |
+| method | メソッド |
+| callback | コールバック。必要ならコールバック関数 |
+| event | イベント |
+| event handler | イベントハンドラー |
+| parameter | パラメーター。関数定義上の変数を明確に区別する説明では仮引数 |
+| argument | 引数。parameter と厳密に対比する説明では実引数 |
+| variable | 変数 |
+| field | フィールド。Lua テーブルや JSON のキー名自体は保持します |
+| property | プロパティ。Defold の公開値や設定可能な値。一般的な性質や頂点の attribute は属性 |
+| script property | スクリプトプロパティ |
+| resource property | リソースプロパティ |
+| constant | 定数 |
+| enum / enumeration | 列挙型 / 列挙。列挙値は原文を保持します |
+| type | 型。UI の `Type` は保持します |
+| string | 文字列 |
+| number | 数値。型や関数名としての `number` は保持します |
+| boolean | 真偽値。`boolean`、`true`、`false` はコードでは保持します |
+| nil | `nil`。`null` や空文字列と置き換えません |
+| userdata | `userdata`。説明ではユーザーデータ |
+| table | テーブル。Lua のデータ構造。文書内の表とは区別します |
+| key-value pair | キーと値のペア |
+| scope | スコープ |
+| local scope / global scope | ローカルスコープ / グローバルスコープ |
+| state | 状態。Lua の実行環境を指す専門用語では Lua ステート |
+| context | コンテキスト。対象に応じて実行コンテキスト、Lua コンテキスト |
+| coroutine | コルーチン |
+| thread | スレッド。コルーチンと同一視しません |
+| garbage collection | ガベージコレクション |
+| memory | メモリ |
+| allocation / deallocation | 割り当て / 解放 |
+| application lifecycle | アプリケーションのライフサイクル |
+| initialization | 初期化 |
+| finalization | 終了処理。`final()` の説明。単に無効化する操作とは区別します |
+| update loop | 更新ループ |
+| update | 更新。`update()` は保持します |
+| fixed update | 固定時間間隔での更新。`fixed_update()` は保持します |
+| late update | 後段の更新。`late_update()` は保持し、呼び出し時点は原文に従います |
+| post update | 更新後の処理。`late_update()` と同一視しません |
+| time step / timestep | タイムステップ。初出では更新やシミュレーションの時間刻みと説明します |
+| delta time | 経過時間。必要なら前フレームからの経過時間。`dt` は保持します |
+| runtime | ランタイム。時間的な意味では実行時、実行中。処理にかかる時間とは区別します |
+| at runtime | 実行時に / 実行中に |
+| execution time | 実行時間。処理にかかる時間 |
+| load / unload | 読み込む / アンロードする。アンロードは読み込んだデータの解放と説明します |
+| enable / disable | 有効にする / 無効にする。メッセージ名の `enable`、`disable` は保持します |
+| delete | 削除する。無効化やリソースのアンロードとは区別します |
+
+## 座標系、カメラ、画面
+
+位置、回転、スケール、クォータニオンの用例: [Unity の Transform][U3]、[Blender のトランスフォーム][B1]。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| transform / transformation | トランスフォーム / 変換。位置、回転、スケールをまとめて指す場合はトランスフォーム |
+| translation | 平行移動。座標変換の文脈では翻訳と訳しません |
+| position | 位置 |
+| rotation | 回転 |
+| scale / scaling | スケール / 拡大縮小 |
+| orientation | 向き。画面の縦横、オブジェクトの姿勢、回転表現を文脈で区別します |
+| coordinate system | 座標系 |
+| local space | ローカル空間。座標値についてはローカル座標 |
+| world space | ワールド空間。座標値についてはワールド座標 |
+| screen space | スクリーン空間。座標値についてはスクリーン座標 |
+| origin | 原点 |
+| axis | 軸 |
+| vector | ベクトル |
+| matrix | 行列 |
+| quaternion | クォータニオン。初出では四元数とも説明できます |
+| projection | 投影 |
+| orthographic projection | 正投影。透視投影と区別します |
+| perspective projection | 透視投影 |
+| projection matrix | 投影行列 |
+| view matrix | ビュー行列 |
+| view-projection matrix | ビュープロジェクション行列 |
+| viewport | ビューポート |
+| view frustum | 視錐台 |
+| field of view / FOV | 視野角（FOV） |
+| near plane / far plane | ニアクリップ面 / ファークリップ面 |
+| zoom | ズーム |
+| screen size | 画面サイズ |
+| resolution | 解像度 |
+| aspect ratio | アスペクト比 |
+| fullscreen | フルスクリーン |
+| portrait / landscape | 縦向き / 横向き。画面の向きの説明 |
+| pixel | ピクセル |
+| pixel-perfect | ピクセルパーフェクト。ピクセル境界や表示倍率の意味を原文に合わせて説明します |
+| subpixel | サブピクセル |
+| High DPI | 高 DPI。ラベルの `High DPI` は保持します |
+
+## 描画、シェーダー、テクスチャ
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| graphics | グラフィックス。`2D グラフィックス`、`3D グラフィックス` |
+| render / rendering | レンダリング。具体的に画面へ描く操作では描画する / 描画 |
+| renderer | レンダラー |
+| render pipeline / rendering pipeline | レンダリングパイプライン |
+| render predicate | レンダー述語。描画対象を選択する条件。`render.predicate()` は保持します |
+| material tag | マテリアルタグ |
+| render target | レンダーターゲット |
+| render pass | レンダーパス。ファイルの path と区別します |
+| draw call | ドローコール |
+| draw order | 描画順序 |
+| batching / batch rendering | バッチ処理 / バッチ描画 |
+| vertex | 頂点 |
+| vertex attribute | 頂点属性。Defold の property の訳語と区別します |
+| fragment (graphics) | フラグメント。ラスタライズで生成される処理単位。常に最終的な画面の1ピクセルと同じとは限りません |
+| vertex shader | 頂点シェーダー |
+| fragment shader | フラグメントシェーダー。原文の名称をピクセルシェーダーに置き換えません |
+| compute shader | コンピュートシェーダー |
+| shader program | シェーダープログラム |
+| shader constant | シェーダー定数。数値リテラルや定数名は保持します |
+| uniform | ユニフォーム。シェーダーに渡す値。初出で英語を併記します |
+| sampler | サンプラー |
+| texture sampling | テクスチャサンプリング |
+| texel | テクセル。テクスチャの画素 |
+| UV coordinates / UV mapping | UV 座標 / UV マッピング |
+| texture filtering | テクスチャフィルタリング |
+| nearest-neighbor filtering | 最近傍フィルタリング。`Nearest` などのラベルは保持します |
+| linear filtering | 線形フィルタリング。`Linear` などのラベルは保持します |
+| mipmap | ミップマップ |
+| texture compression | テクスチャ圧縮 |
+| wrap mode | ラップモード。テクスチャ座標が範囲外に出た場合の扱い |
+| blend mode | ブレンドモード。`Alpha`、`Add` などの設定値は保持します |
+| alpha | アルファ値。透明度との関係は原文に合わせて説明します |
+| premultiplied alpha | 乗算済みアルファ |
+| tint | 色調。乗算色としての働きは原文に合わせて説明し、`tint` プロパティ名は保持します |
+| depth buffer / depth test | 深度バッファー / 深度テスト |
+| stencil buffer / stencil test | ステンシルバッファー / ステンシルテスト |
+| back buffer | バックバッファー |
+| culling / frustum culling | カリング / 視錐台カリング |
+| clipping | クリッピング。カリングと区別します |
+| texture bleeding / edge bleeding | テクスチャのにじみ / 境界のにじみ |
+
+## GUI とテキスト
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| user interface / UI | ユーザーインターフェース / UI |
+| HUD | HUD。初出ではヘッドアップディスプレイ、またはゲーム中の情報表示と説明します |
+| GUI scene | GUI シーン。ゲームワールドとは区別します |
+| node / GUI node | ノード / GUI ノード。[Godot の用例][G1]を参考にしますが、Godot のノードの仕様は持ち込みません |
+| box node | ボックスノード |
+| text node | テキストノード |
+| pie node | パイノード。初出では円や扇形を表示するノードと説明します |
+| template node | テンプレートノード |
+| particle effect node | パーティクルエフェクトノード |
+| GUI template | GUI テンプレート |
+| node tree | ノードツリー |
+| layout | レイアウト |
+| layer | レイヤー。GUI のレイヤーを他エンジンのすべてのレイヤー機能と同一視しません |
+| pivot | ピボット。位置、回転、拡大縮小などの基準点 |
+| anchor | アンカー。GUI の配置基準。文書のリンク先を指す場合はリンクアンカー |
+| adjust mode | 調整モード。`Adjust Mode` や値の `Fit`、`Zoom`、`Stretch` は保持します |
+| slice-9 / 9-slice | 9スライス。画像を9領域に分けて拡大縮小する方法。`Slice 9` は保持します |
+| bounding box | バウンディングボックス。必要なら対象を囲む矩形や直方体と説明します |
+| canvas | キャンバス |
+| visibility / visible | 表示状態 / 表示される。enabled の有効状態と区別します |
+| glyph | グリフ。文字を描画するための字形。文字コードとは区別します |
+| bitmap font | ビットマップフォント |
+| distance field font | 距離フィールドフォント |
+| alignment | 配置 / 揃え。テキストでは左揃え、中央揃えなど |
+| line break | 改行。`Line Break` のラベルは保持します |
+| leading / tracking | 行間 / 字間。UI や API の名前は保持します |
+
+## アニメーション、パーティクル、音声
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| animation | アニメーション |
+| flipbook animation / flip-book animation | フリップブックアニメーション。初出で連続した画像を切り替える方式と説明します |
+| property animation | プロパティアニメーション |
+| skeletal animation / bone animation | スケルタルアニメーション / ボーンアニメーション |
+| model animation | モデルアニメーション |
+| animation clip | アニメーションクリップ |
+| frame | フレーム。アニメーションの画像と画面更新の単位を文脈で区別します |
+| frame rate / FPS | フレームレート / FPS |
+| keyframe | キーフレーム |
+| interpolation | 補間 |
+| easing | イージング |
+| playback / playback rate | 再生 / 再生速度 |
+| loop / ping-pong | ループ / 往復再生。列挙値や UI ラベルは保持します |
+| skeleton / bone | スケルトン / ボーン |
+| skinning | スキニング |
+| particle | パーティクル |
+| emitter | エミッター |
+| modifier | モディファイアー。パーティクルの動きなどを変える要素 |
+| spawn rate | 生成レート。単位は原文を保持します |
+| sound effect | 効果音 |
+| sound group | サウンドグループ |
+| gain | ゲイン。音量に関係する増幅率。原文にない単位変換はしません |
+| pan | パン。左右の定位 |
+| streaming audio | ストリーミング音声 |
+
+## 入力と物理
+
+衝突、コリジョン、レイキャストの使い分けの参考: [Unreal Engine のコリジョンの概要][E2]。Defold の物理オブジェクトやイベントの動作は `docs/en/manuals/physics*.md` を基準にします。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| input | 入力 |
+| input binding | 入力バインディング。ハードウェア入力とアクションを対応付ける設定 |
+| input action | 入力アクション。`action_id` や `jump` などの識別子は保持します |
+| input focus | 入力フォーカス |
+| input stack | 入力スタック |
+| input trigger | 入力トリガー。物理のトリガーと区別します |
+| consume input | 入力を消費する。後続の受信先への伝播との関係を原文どおり説明します |
+| pressed / released / repeated | 押された / 離された / リピートされた。`pressed` などのフィールド名は保持します |
+| gamepad | ゲームパッド |
+| controller | コントローラー。ゲームパッド、制御用スクリプト、外部制御ツールを文脈で区別します |
+| analog stick / dead zone | アナログスティック / デッドゾーン |
+| mouse wheel | マウスホイール |
+| touch / multitouch | タッチ / マルチタッチ |
+| text input | テキスト入力 |
+| marked text | 変換中のテキスト。IME などでの入力確定前の文字列。`marked-text` は保持します |
+| physics | 物理 / 物理シミュレーション |
+| physics engine | 物理エンジン |
+| collision | 衝突。コンポーネント名などではコリジョンを使います |
+| collision detection | 衝突判定 |
+| collision response | 衝突への応答。メッセージ名の `collision_response` は保持します |
+| collision shape | コリジョン形状。衝突判定に使う形状 |
+| collision group / collision mask | コリジョングループ / コリジョンマスク |
+| dynamic object | 動的オブジェクト。物理の種類を指す場合。動的に生成しただけのオブジェクトと区別します |
+| kinematic object | キネマティックオブジェクト。具体的な物理動作は Defold の原文に従います |
+| static object | 静的オブジェクト。物理の種類を指す場合 |
+| trigger | トリガー。物理では領域への出入りを検出する種類 |
+| rigid body | 剛体。Defold のコリジョンオブジェクトすべての言い換えにはしません |
+| ray cast / raycast | レイキャスト |
+| hit | ヒット。物理クエリーでは交差や衝突の検出 |
+| contact point | 接触点 |
+| normal | 法線。通常の、標準の、という意味では別に訳します |
+| penetration depth / penetration distance | めり込みの深さ / めり込み距離 |
+| velocity / angular velocity | 速度 / 角速度 |
+| force / torque / impulse | 力 / トルク / 力積。互いに混同しません |
+| mass / friction / restitution | 質量 / 摩擦 / 反発係数 |
+| damping | 減衰 |
+| joint / constraint | ジョイント / 拘束 |
+| convex hull | 凸包 |
+
+## ビルド、配布、プラットフォーム
+
+ビルドとコンパイルの用例: [Visual Studio][M1]。Android 固有の形式名: [Android Developers][A1]。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| build | ビルド。処理全体にも生成結果にも使い、必要ならビルド処理、ビルド成果物と明示します |
+| compile / compilation | コンパイルする / コンパイル。ビルド全体と同一視しません |
+| compiler | コンパイラー |
+| rebuild | 再ビルド |
+| build and launch | ビルドして起動する。UI のコマンド名は保持します |
+| build target | ビルドターゲット |
+| build variant | ビルドバリアント。具体的な値は原文を保持します |
+| debug build / release build | デバッグビルド / リリースビルド。`Debug`、`Release` などのラベルは保持します |
+| headless | ヘッドレス。初出で画面表示を伴わずに実行する形態と説明します。`--variant headless` は保持します |
+| build error / build report | ビルドエラー / ビルドレポート |
+| bundle | バンドル。Defold でプラットフォーム向けに作成する配布用パッケージ |
+| bundling / to bundle | バンドルの作成 / バンドルを作成する |
+| bundle resources (operation) | リソースを同梱する。設定の bundle resource とは文脈で区別します |
+| package | パッケージ。一般的なソフトウェアの配布単位 |
+| standalone | スタンドアロン。必要なら単体で実行できると説明します |
+| artifact | 成果物。ビルド、テストなどの生成物 |
+| target platform | 対象プラットフォーム |
+| operating system / OS | オペレーティングシステム / OS |
+| device | デバイス |
+| development app | 開発用アプリ |
+| deployment / distribution / publishing | デプロイ / 配布 / 公開。対象環境への配置とユーザーへの配布、公開を区別します |
+| release | リリース。版の公開と、入力を離す操作を文脈で区別します |
+| stable version / beta version | 安定版 / ベータ版 |
+| hot reload | ホットリロード。開発中のゲームへ変更を反映する機能 |
+| Live Update | Live Update。配布したゲームにリソースを追加する機能名。ホットリロードと区別します |
+| app manifest / application manifest | アプリケーションマニフェスト。`.appmanifest`、`AndroidManifest.xml` などは保持します |
+| APK | APK。Android のインストール用パッケージ |
+| Android App Bundle / AAB | Android App Bundle / AAB。公開用の形式名。Defold のバンドル全般や APK と区別します |
+| app signing | アプリ署名 |
+| certificate / signing key / keystore | 証明書 / 署名キー / キーストア |
+| permission | 権限。操作に対する許可を指す場合は許可。`android.permission.INTERNET` などは保持します |
+| in-app purchase | アプリ内購入 |
+| monetization / rewarded ad | 収益化 / リワード広告 |
+| Bob | Bob。Defold のビルドツール。`bob.jar`、コマンド、オプションは保持します |
+
+## エディター操作、デバッグ、性能
+
+以下の操作語は説明文の訳です。画面に表示されるコマンド、ボタン、パネル名の翻訳一覧ではありません。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| UI label | UI ラベル。読者が画面で探す文字列は正確に保持します |
+| panel / pane / view | パネル / ペイン / ビュー。固有の名称が付く場合は名称を保持します |
+| inspector | インスペクター。Defold の `Properties` ペインを勝手に改名しません |
+| menu / context menu | メニュー / コンテキストメニュー |
+| dialog / popup | ダイアログ / ポップアップ |
+| tab / button / checkbox | タブ / ボタン / チェックボックス |
+| select | 選択する。単なる選択と項目の有効化を区別します |
+| create / add | 作成する / 追加する |
+| click / right-click / double-click | クリックする / 右クリックする / ダブルクリックする |
+| drag / drop / drag and drop | ドラッグする / ドロップする / ドラッグ＆ドロップする |
+| press and hold | 押し続ける。マウスかキーかを文脈に合わせて明示します |
+| copy and paste | コピーして貼り付ける |
+| save / undo / redo | 保存する / 元に戻す / やり直す |
+| import / export | インポートする / エクスポートする |
+| keyboard shortcut | キーボードショートカット。キー名と組み合わせは保持します |
+| preferences | 環境設定。エディターの設定とプロジェクト設定を区別します |
+| preview | プレビュー |
+| editor preview | エディターのプレビュー。実行中のゲームの画面とは区別します |
+| screenshot | スクリーンショット |
+| console / console output | コンソール / コンソール出力 |
+| log / logging | ログ / ログの記録 |
+| debugging / debugger | デバッグ / デバッガー |
+| breakpoint / call stack | ブレークポイント / コールスタック |
+| step into / step over / step out | ステップイン / ステップオーバー / ステップアウト。コマンド名は原文を保持します |
+| performance / optimization | パフォーマンス / 最適化 |
+| profiling / profiler | プロファイリング / プロファイラー |
+| memory usage / memory footprint | メモリ使用量 / メモリ占有量 |
+| bottleneck | ボトルネック |
+| crash / crash log | クラッシュ / クラッシュログ |
+| bug / workaround | 不具合 / 回避策 |
+| minimal reproduction project | 最小再現プロジェクト |
+| deprecated / removed | 非推奨 / 削除済み。まだ使える機能と削除された機能を区別します |
+| outdated | 内容が古い / 更新が必要な。機能自体が廃止されたとは限りません |
+
+## 自動化と HTTP
+
+HTTP のリクエスト、レスポンス、サーバーなどの用例: [MDN Web Docs][W1]。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| automation | 自動化 |
+| workflow | ワークフロー |
+| automation loop | 自動化ループ |
+| inspect / modify / verify / evaluate | 調べる / 変更する / 検証する / 評価する。対象と目的を具体的に示します |
+| editor server | エディターサーバー。エディター側で動作するサーバー |
+| engine service | エンジンサービス。実行中のエンジン側のサービス。エディターサーバーと区別します |
+| API | API。略語と API 名は保持します |
+| editor HTTP API | エディター HTTP API |
+| runtime API | ランタイム API |
+| editor transaction | エディターのトランザクション |
+| lifecycle hook | ライフサイクルフック |
+| command-line tool / CLI | コマンドラインツール / CLI |
+| command / shell | コマンド / シェル |
+| environment variable | 環境変数 |
+| process | プロセス。一般的な手順なら処理や工程 |
+| server / client | サーバー / クライアント |
+| port / localhost | ポート / localhost。数値やホスト名は保持します |
+| service discovery | サービス検出 |
+| endpoint / route | エンドポイント / ルート。API のパスと HTTP メソッドは保持します |
+| request / response | リクエスト / レスポンス |
+| request body / response body | リクエスト本文 / レスポンス本文。JSON のキーや値は保持します |
+| header / status code | ヘッダー / ステータスコード |
+| schema / OpenAPI document | スキーマ / OpenAPI ドキュメント |
+| authentication / authorization | 認証 / 認可。本人確認とアクセス権限の判断を区別します |
+| access token / bearer token | アクセストークン / Bearer トークン。`Authorization: Bearer` は保持します |
+| asynchronous operation | 非同期処理 |
+| timeout / retry / polling | タイムアウト / 再試行 / ポーリング |
+| structured result | 構造化された結果 |
+| Automation Bridge | Automation Bridge。製品名を保持します |
+
+## テストと検証
+
+単体テスト、統合テストなどの用例: [Microsoft .NET のテスト文書][M2]。
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| automated testing | 自動テスト |
+| unit test | 単体テスト。新しい説明文ではユニットテストと混在させません |
+| integration test | 統合テスト |
+| end-to-end test / E2E test | エンドツーエンドテスト / E2E テスト |
+| regression test | 回帰テスト |
+| visual regression test | 画像比較による回帰テスト。見た目の変化を検出することを説明します |
+| browser test / platform test | ブラウザーテスト / プラットフォーム別テスト |
+| test framework / test runner | テストフレームワーク / テストランナー |
+| test suite / test case | テストスイート / テストケース |
+| test fixture | テストフィクスチャ。テストに必要な状態やデータ |
+| setup / teardown | セットアップ / 後片付け。フック名などは原文を保持します |
+| assertion | アサーション。期待する条件が満たされることを確認する記述 |
+| mock / stub | モック / スタブ。依存先の代替物。両者の役割を原文どおり区別します |
+| expected result | 期待する結果 |
+| pass / failure | 成功 / 失敗。結果データの `pass` などは保持します |
+| exit code / exit status | 終了コード / 終了ステータス |
+| code coverage | コードカバレッジ |
+| continuous integration / CI | 継続的インテグレーション（CI） |
+| acceptance criteria | 受け入れ基準 |
+| evidence | 根拠。必要なら検証結果、ログ、画像など具体的な内容を示します |
+| verification | 検証。期待した結果や条件を満たすことの確認 |
+| validation | 妥当性の確認 / 検証。入力形式、仕様への適合、目的への適合など、何を確認するか明示します |
+| static validation | 静的検証 |
+| baseline image / difference image | 基準画像 / 差分画像 |
+| deterministic / reproducible | 決定論的 / 再現可能。決定論的な処理と実行条件の再現性を区別します |
+
+## AI と開発支援ツール
+
+| English term | 日本語の推奨形 / 補足 |
+|---|---|
+| artificial intelligence / AI | 人工知能 / AI。通常の技術説明では AI |
+| AI agent / coding agent | AI エージェント / コーディングエージェント |
+| large language model / LLM | 大規模言語モデル（LLM） |
+| multimodal model | マルチモーダルモデル |
+| model-neutral | 特定のモデルに依存しない |
+| prompt | プロンプト。AI への指示とシェルの入力待ち表示を区別します |
+| skill | スキル。エージェント用の指示をまとめたものを指す場合は初出で説明し、`SKILL.md` は保持します |
+| Model Context Protocol / MCP | Model Context Protocol（MCP）。正式名称を保持します |
+| adapter / wrapper / integration layer | アダプター / ラッパー / 連携レイヤー。各要素の役割を具体的に説明します |
+| capability | 機能 / 対応機能。権限や許可とは区別します |
+| approval | 承認 |
+| credential / secret | 認証情報 / シークレット。secret が一般的な説明なら機密情報 |
+| untrusted input | 信頼できない入力 |
+| sandbox / isolation | サンドボックス / 分離 |
+| worktree / container | ワークツリー / コンテナー。Git の作業ツリーと実行環境の用語 |
+
+## 原文を保持する文字列
+
+表の日本語訳をコード、UI、パス、識別子へ機械的に適用しないでください。たとえば「子ゲームオブジェクト」は日本語で説明しますが、例の名前が `child_bean` ならその名前を保持します。
+
+| 種類 | 原文を保持する例 |
+|---|---|
+| 製品、言語、ライブラリ | Defold、Lua、LuaJIT、Bob、Spine、Rive、Unity、Unreal Engine、Godot、Blender、JavaScript、OpenAPI、Protobuf |
+| プラットフォーム、形式、サービス | Windows、macOS、Linux、Android、iOS、HTML5、Nintendo Switch、Google Play、App Store、GitHub、WebAssembly、glTF、PNG、JSON |
+| API、コールバック | `msg.post()`、`go.get_id()`、`factory.create()`、`collectionfactory.create()`、`gui.get_node()`、`init()`、`update()`、`fixed_update()`、`late_update()`、`final()`、`on_message()`、`on_input()` |
+| メッセージ、定数、フィールド | `enable`、`disable`、`set_parent`、`proxy_loaded`、`acquire_input_focus`、`PLAYBACK_LOOP_PINGPONG`、`self`、`message_id`、`socket`、`path`、`fragment` |
+| ファイル、パス、設定 | `game.project`、`main.collection`、`.gui_script`、`.internal/editor.port`、`/builtins/render/default.render`、`display.width`、`max_count` |
+| アドレス、識別子 | `main:/manager#controller`、`@render`、`@system`、`bean`、`buddy`、`controller`、`team_1` |
+| UI ラベル、メニュー | `Assets`、`Outline`、`Properties`、`Add Game Object`、`Add Collection File`、`Edit ▸ World Space`、`Help ▸ Open Editor Server` |
+| コマンド、HTTP、結果データ | `build`、`clean-build`、`build-html5`、`GET /ping`、`POST /eval`、`/openapi.json`、`200`、`202`、`422`、`success`、`pass`、`duration_ms` |
+
+日本語 UI を明示して説明する場合のラベルの扱い、表記の統一、用語を追加する際の判断は [translation-guidelines.txt](translation-guidelines.txt) を参照してください。
+
+## 参照した公式の日本語文書
+
+日本語の用例を確認した文書です。バージョン付き URL は用語調査時に参照した版を示し、最新バージョンの推奨を意味しません。外部文書の文体や UI 名をそのまま Defold の規則として採用するものではありません。
+
+- [U1: Unity 6.0 — ゲームオブジェクトの概要][U1]。ゲームオブジェクト、コンポーネント、エディター。
+- [U2: Unity 6.0 — マテリアル][U2]。マテリアル、シェーダー、テクスチャ。
+- [U3: Unity 6.0 — Transform][U3]。位置、回転、スケール。
+- [G1: Godot 4.4 — ノードとシーン][G1]。ノード、シーン、インスタンス、プロパティ。
+- [E1: Unreal Engine — マテリアル][E1]。マテリアル、メッシュ、シェーダー。
+- [E2: Unreal Engine — コリジョンの概要][E2]。コリジョン、衝突、レイキャスト。
+- [B1: Blender 4.5 LTS — トランスフォーム][B1]。トランスフォーム、ローカル座標、クォータニオン。
+- [M1: Visual Studio — コンパイルとビルド][M1]。ビルド、コンパイル、依存関係、デバッグ。
+- [M2: .NET — テスト][M2]。自動テスト、単体テスト、統合テスト。
+- [A1: Android Developers — Android App Bundle について][A1]。形式名、リソース、署名、配信。
+- [W1: MDN Web Docs — HTTP の概要][W1]。リクエスト、レスポンス、サーバー、クライアント。
+
+[U1]: https://docs.unity3d.com/ja/6000.0/Manual/GameObjects.html
+[U2]: https://docs.unity3d.com/ja/6000.0/Manual/Materials.html
+[U3]: https://docs.unity3d.com/ja/6000.0/Manual/class-Transform.html
+[G1]: https://docs.godotengine.org/ja/4.4/getting_started/step_by_step/nodes_and_scenes.html
+[E1]: https://dev.epicgames.com/documentation/ja-jp/unreal-engine/unreal-engine-materials
+[E2]: https://dev.epicgames.com/documentation/ja-jp/unreal-engine/collision-in-unreal-engine---overview
+[B1]: https://docs.blender.org/manual/ja/4.5/scene_layout/object/properties/transforms.html
+[M1]: https://learn.microsoft.com/ja-jp/visualstudio/ide/compiling-and-building-in-visual-studio?view=visualstudio
+[M2]: https://learn.microsoft.com/ja-jp/dotnet/core/testing/
+[A1]: https://developer.android.com/guide/app-bundle?hl=ja
+[W1]: https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Overview

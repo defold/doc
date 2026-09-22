@@ -17,4 +17,4 @@ res
             └── filepaths.xml
 ```
 
-Puedes usar [`sys.get_application_path()`](/ref/stable/sys/#sys.get_application_path:) para obtener la ruta donde está almacenada la aplicación. Usa esta ruta base de la aplicación para crear la ruta absoluta final a los archivos a los que necesitas acceder. Una vez que tengas la ruta absoluta de estos archivos, puedes usar las funciones `io.*` y `os.*` para acceder a los archivos.
+Puedes usar [`sys.get_application_path()`](/ref/sys/#sys.get_application_path:) para obtener la ruta donde está almacenada la aplicación. Usa esta ruta base de la aplicación para crear la ruta absoluta final a los archivos a los que necesitas acceder. Una vez que tengas la ruta absoluta de estos archivos, puedes usar las funciones `io.*` y `os.*` para acceder a los archivos.

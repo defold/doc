@@ -73,7 +73,7 @@ $ chmod +x Game.app/Contents/MacOS/Game
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - указывает, может ли приложение загружать произвольные плагины или фреймворки без обязательной проверки подписи кода.
+  * `com.apple.security.cs.disable-library-validation` - указывает, может ли приложение загружать произвольные плагины или фреймворки без обязательной проверки подписи кода.
 
 Полный список entitlements, которые могут быть выданы приложению, приведён в официальной [документации Apple для разработчиков](https://developer.apple.com/documentation/bundleresources/entitlements).
 

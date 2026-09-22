@@ -13,7 +13,7 @@ Defold使用地址（或URL，但我们暂时忽略这一点）来引用游戏�
 
 ```lua
 local id = factory.create("#enemy_factory")
-label.set_text("my_gameobject#my_label", "Hello World!")
+go.set("my_gameobject#my_label", "text", "Hello World!")
 
 local pos = go.get_position("my_gameobject")
 go.set_position(pos, "/level/stuff/other_gameobject")

@@ -81,7 +81,7 @@ return M
 - `editor.ui.*` — 다양한 UI 관련 함수입니다. [UI 매뉴얼](/manuals/editor-scripts-ui)을 참고하세요.
 - `editor.prefs.*` — 에디터 preferences와 상호작용하는 함수입니다. [preferences](#preferences)를 참고하세요.
 
-전체 에디터 API 레퍼런스는 [여기](/ref/stable/editor/)에서 확인할 수 있습니다.
+전체 에디터 API 레퍼런스는 [여기](/ref/editor/)에서 확인할 수 있습니다.
 
 ## 커맨드 {#commands}
 
@@ -576,9 +576,11 @@ return M
 
 ## 언어 서버(Language server) {#language-servers}
 
-에디터는 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)의 일부를 지원합니다. diagnostics(lint), completions, hover 정보, Structure pane의 document symbol, go to definition, find references, symbol rename을 지원합니다. 심볼 위에 마우스를 올리면 언어 서버의 정보를 볼 수 있습니다. 심볼에 커서를 둔 상태에서 <kbd>F2</kbd>로 이름을 바꾸고, <kbd>F12</kbd>로 정의로 이동하거나, <kbd>Shift+F12</kbd>로 참조를 찾을 수 있습니다. 이 동작은 <kbd>Edit</kbd> 메뉴에서도 사용할 수 있습니다.
+에디터는 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)의 일부를 지원합니다. 진단(lint), 자동 완성, 마우스를 올렸을 때 표시되는 정보, Structure 창의 문서 심볼, 정의로 이동, 참조 찾기, 심볼 이름 바꾸기, 문서 및 범위 포멧팅을 지원합니다. 심볼 위에 마우스를 올리면 언어 서버의 정보를 볼 수 있습니다. 심볼에 커서를 둔 상태에서 <kbd>F2</kbd>로 이름을 바꾸고, <kbd>F12</kbd>로 정의로 이동하거나, <kbd>Shift+F12</kbd>로 참조를 찾을 수 있습니다. 이 동작은 <kbd>Edit</kbd> 메뉴에서도 사용할 수 있습니다. 포멧팅 명령과 저장 시 포멧팅 환경설정은 [코드 포멧팅](/manuals/writing-code/#formatting-code)을 참고하세요.
 
-언어 서버(language server)를 정의하려면 다음과 같이 에디터 스크립트의 `get_language_servers` 함수를 편집해야 합니다.
+기본으로 제공되는 Lua 언어 서버에는 런타임 및 에디터 스크립트 API의 Defold 타입 어노테이션이 포함되어 있습니다. `.editor_script` 파일에서는 자동 완성과 진단 기능이 `editor.*` 함수와 인자 및 반환 타입을 인식합니다. [코드 자동 완성](/manuals/writing-code/#code-completion)을 참고하세요.
+
+언어 서버를 추가로 등록하려면 다음과 같이 에디터 스크립트의 `get_language_servers` 함수를 정의합니다.
 
 ```lua
 function M.get_language_servers()
@@ -677,7 +679,7 @@ end)
 에디터 스크립트는 preferences를 정의하고 사용할 수 있습니다. preferences는 사용자의 컴퓨터에 저장되는, 커밋되지 않는 영구 데이터 조각입니다. 이 preferences에는 세 가지 주요 특징이 있습니다.
 - typed: 모든 preference에는 데이터 타입과 기본값 같은 기타 메타데이터를 포함하는 스키마 정의가 있습니다.
 - scoped: preferences는 프로젝트별 또는 사용자별로 scope가 지정됩니다.
-- nested: 모든 preference 키는 점으로 구분된 문자열이며, 첫 번째 path segment는 에디터 스크립트를 식별하고 나머지는
+- nested: 모든 preference 키는 점으로 구분된 문자열이며, 첫 번째 path segment는 에디터 스크립트를 식별하고 나머지는 해당 스크립트 내의 그룹과 개별 preference를 식별합니다.
 
 모든 preferences는 스키마를 정의해 등록해야 합니다.
 ```lua

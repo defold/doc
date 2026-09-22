@@ -23,7 +23,7 @@ Pełnomocniki kolekcji różnią się od [fabryk kolekcji](/manuals/collection-f
 
 ## Bootstrap
 
-Gdy silnik Defold startuje, wczytuje i instancjonuje wszystkie obiekty gry z kolekcji startowej (*bootstrap collection*). Następnie inicjalizuje i aktywuje obiekty oraz ich komponenty. To, której kolekcji startowej ma użyć silnik, ustawia się w [ustawieniach projektu](/manuals/project-settings/#main-collection). Zgodnie z konwencją plik tej kolekcji zwykle nosi nazwę "main.collection".
+Gdy silnik Defold startuje, wczytuje i instancjonuje wszystkie obiekty gry z kolekcji startowej (*bootstrap collection*). Następnie inicjalizuje i aktywuje obiekty oraz ich komponenty. To, której kolekcji startowej ma użyć silnik, ustawia się w [ustawieniach projektu](/manuals/project-settings/#main-collection). Zgodnie z konwencją plik tej kolekcji zwykle nosi nazwę `main.collection`.
 
 ![bootstrap](images/collection-proxy/bootstrap.png)
 

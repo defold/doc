@@ -96,11 +96,16 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 프로젝트 *Library URL*들의 URL 목록입니다. 자세한 내용은 [Libraries 매뉴얼](/manuals/libraries/)을 참고하세요.
 
+#### Dependencies Metadata
+`project.dependencies_metadata`는 라이브러리 종속성에 대한 메타데이터를 런타임 번들에 포함합니다. 기본적으로 비활성화되어 있습니다. 런타임에 `sys.load_resource("/.internal/dependencies.json")`을 사용하여 메타데이터를 읽을 수 있습니다.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
 
 커스텀 리소스를 로드하는 방법은 [File Access 매뉴얼](/manuals/file-access/#how-to-access-files-bundled-with-the-application)에서 더 자세히 다룹니다.
+
+`ext.properties`의 `custom_resources.default`를 통해 익스텐션이 제공하는 경로는 이 설정과 결합됩니다. 예제는 [익스텐션의 커스텀 리소스](/manuals/extensions/#custom-resources)를 참고하세요.
 
 #### Bundle Resources
 `bundle_resources`
@@ -129,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 라이브러리 공유를 통해 프로젝트에서 공유할 디렉토리를 공백으로 구분한 목록입니다. 자세한 내용은 [Libraries 매뉴얼](/manuals/libraries/)을 참고하세요.
 
----
-
-### Script
-
-#### Shared State
-체크하면 모든 스크립트 타입이 하나의 Lua state를 공유합니다.
+#### Defold Min Version
+`library.defold_min_version`은 이 프로젝트를 라이브러리로 사용하는 데 필요한 최소 Defold/Bob 버전을 지정합니다. 예: `1.11.2`. 최소 버전을 지정하지 않으려면 비워 두세요.
 
 ---
 
@@ -165,11 +166,13 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Samples
 슈퍼 샘플링 안티앨리어싱에 사용할 샘플 수입니다. 이 값은 `GLFW_FSAA_SAMPLES` window hint를 설정합니다. 값이 `0`이면 안티앨리어싱이 꺼집니다.
 
+이 설정은 창을 제어합니다. 오프스크린 [멀티샘플 렌더 타겟](/manuals/render/#multisampled-render-targets)은 자체 샘플 수를 사용합니다.
+
 #### Fullscreen
 어플리케이션을 전체 화면으로 시작할지 체크합니다. 체크하지 않으면 어플리케이션은 창 모드로 실행됩니다.
 
 #### Update Frequency
-원하는 프레임레이트입니다. 단위는 Hertz입니다. 가변 프레임레이트를 사용하려면 0으로 설정합니다. 0보다 큰 값은 런타임에 실제 프레임레이트를 기준으로 제한되는 고정 프레임레이트를 사용하게 합니다. 즉, 하나의 엔진 프레임 안에서 게임 루프를 두 번 업데이트할 수는 없습니다. 런타임에 이 값을 변경하려면 [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency)를 사용하세요. 이 설정은 headless 빌드에서도 작동합니다.
+원하는 프레임레이트입니다. 단위는 Hertz입니다. 가변 프레임레이트를 사용하려면 0으로 설정합니다. 0보다 큰 값은 런타임에 실제 프레임레이트를 기준으로 제한되는 고정 프레임레이트를 사용하게 합니다. 즉, 하나의 엔진 프레임 안에서 게임 루프를 두 번 업데이트할 수는 없습니다. 런타임에 이 값을 변경하려면 [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency)를 사용하세요. 이 설정은 headless 빌드에서도 작동합니다.
 
 #### Swap interval
 이 정수 값은 어플리케이션이 vsync를 처리하는 방식을 제어합니다. 0은 vsync를 비활성화하며, 기본값은 1입니다. OpenGL 어댑터를 사용할 때 이 값은 창이 [buffer swap 사이에 업데이트](https://www.khronos.org/opengl/wiki/Swap_Interval)해야 하는 프레임 수를 설정합니다. Vulkan에는 swap interval이라는 내장 개념이 없으므로, 이 값은 대신 vsync 활성화 여부를 제어합니다.
@@ -301,6 +304,9 @@ fixed timestep을 사용할 때 시뮬레이션의 최대 step 수입니다(3D�
 #### Verify Graphics Calls
 각 그래픽 호출 후 반환값을 확인하고 오류가 있으면 로그에 보고합니다.
 
+#### WebGL Version Hint
+`graphics.webgl_version_hint`는 HTML5에서 요청할 WebGL 컨텍스트 버전을 선택합니다. 유효한 값은 `1`(WebGL 1)과 `2`(기본값, WebGL 2)입니다. WebGL 2를 지원하는 브라우저에서도 WebGL 1을 대상으로 하거나 테스트하려면 `1`로 설정합니다. WebGL 1을 대상으로 할 때는 필요한 쉐이더가 포함되도록 [Exclude GLES 2.0](#exclude-gles-20)을 비활성화 상태로 두세요.
+
 #### OpenGL Version Hint
 OpenGL 컨텍스트 버전 hint입니다. 특정 버전을 선택하면 이 버전이 필요한 최소 버전으로 사용됩니다(OpenGL ES에는 적용되지 않음).
 
@@ -338,6 +344,12 @@ OpenGLES 2.0 / WebGL 1.0을 실행하는 장치용 쉐이더를 컴파일하지 
 
 #### Gamepads
 게임패드 신호를 OS에 매핑하는 gamepads config 파일의 파일 참조입니다. 기본값은 `/builtins/input/default.gamepads`입니다.
+
+#### Gamepad Database
+`input.gamepad_database`는 SDL 포멧의 게임패드 매핑 데이터베이스(`.txt`)를 선택합니다. 기본값은 `/builtins/input/gamecontrollerdb.txt`입니다. 프로젝트를 빌드할 때 이 데이터베이스의 매핑이 *Gamepads* 파일과 결합됩니다.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone`은 SDL 게임패드 데이터베이스의 매핑에 런타임에 적용할 데드존(dead zone)을 설정합니다. 기본값은 `0.2`입니다.
 
 #### Game Binding
 하드웨어 입력을 액션에 매핑하는 입력 config 파일의 파일 참조입니다. 기본값은 `/input/game.input_binding`입니다.
@@ -479,6 +491,19 @@ bone matrix 텍스쳐의 최대 너비입니다. 애니메이션에 필요한 �
 #### Max Bone Matrix Texture Height
 bone matrix 텍스쳐의 최대 높이입니다. 애니메이션에 필요한 크기만 사용하며, 가장 가까운 power-of-two로 올림합니다.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width`는 모프 타겟(morph target)의 위치, 법선, 접선 변화량을 저장하기 위해 mesh마다 생성되는 텍스쳐의 최대 너비를 픽셀 단위로 설정합니다. 기본값은 `1024`입니다.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height`는 모프 타겟의 위치, 법선, 접선 변화량을 저장하기 위해 mesh마다 생성되는 텍스쳐의 최대 높이를 픽셀 단위로 설정합니다. 기본값은 `1024`입니다.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count`는 라이트 컴포넌트의 최대 수를 설정하며, 기본값은 `64`입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -489,8 +514,21 @@ GUI 컴포넌트의 최대 수입니다. [(component max count optimizations 정
 #### Max Particle Count
 GUI에서 동시에 존재할 수 있는 파티클의 최대 수입니다.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count`는 컬렉션당 파티클 FX 노드의 최대 수를 설정합니다. 기본값은 `64`입니다.
+
 #### Max Animation Count
 GUI에서 활성화될 수 있는 애니메이션의 최대 수입니다.
+
+#### Safe Area Mode
+`gui.safe_area_mode`는 GUI 조정에 반영할 안전 영역(safe area)의 여백을 선택합니다.
+
+- `none`(기본값): 여백을 무시합니다.
+- `long`: 가로 방향에서는 좌우 여백을, 세로 방향에서는 상하 여백을 적용합니다.
+- `short`: 가로 방향에서는 상하 여백을, 세로 방향에서는 좌우 여백을 적용합니다.
+- `both`: 네 방향의 여백을 모두 적용합니다.
+
+GUI 스크립트는 [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode)를 사용하여 해당 씬의 모드를 재정의할 수 있습니다. 플랫폼 지원과 커스텀 레이아웃에 대한 내용은 [안전 영역 안내](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras)를 참고하세요.
 
 ---
 
@@ -507,10 +545,16 @@ GUI에서 활성화될 수 있는 애니메이션의 최대 수입니다.
 ### Particle FX
 
 #### Max Count
-동시에 존재할 수 있는 emitter의 최대 수입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
+`particle_fx.max_count`는 파티클 FX 컴포넌트의 최대 수를 설정하며, 기본값은 `64`입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count`는 동시에 존재할 수 있는 파티클 FX emitter의 최대 수를 설정합니다. 기본값은 `64`입니다.
 
 #### Max Particle Count
-동시에 존재할 수 있는 파티클의 최대 수입니다.
+동시에 존재할 수 있는 파티클의 최대 수입니다. GPU 버텍스 버퍼 크기를 제한하며, 기본값은 파티클 `1024`개입니다.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count`는 GPU에 한 번에 업로드할 파티클의 최대 수를 설정합니다. 파티클 버텍스 생성에 사용되는 CPU 버퍼 크기를 제한합니다. 기본값은 `1024`입니다.
 
 ---
 
@@ -638,8 +682,16 @@ display cutout 영역까지 확장합니다.
 #### Debuggable
 어플리케이션을 [GAPID](https://github.com/google/gapid) 또는 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 같은 도구로 디버깅할 수 있는지 여부입니다. 이 설정은 Android manifest의 `android:debuggable` flag를 설정합니다([공식 문서](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-최종 APK에서 중복 Java 클래스를 제거하는 데 도움이 되는 커스텀 ProGuard 파일입니다.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules`는 Android 빌드에서 Java 코드의 R8 축소, 최적화, 난독화를 활성화할 `.keep` 파일을 선택합니다. 축소 없이 D8을 사용하려면 설정을 비워 둡니다.
+
+Defold의 기본 규칙을 바로 사용하려면 `/builtins/manifests/android/dmengine.keep`를 선택합니다. 익스텐션은 자체 [keep 규칙](/manuals/extensions/#r8-keep-rules-for-android)을 제공하며 이 파일과 결합됩니다.
+
+프로젝트별 규칙을 추가해야 할 때만 내장 파일을 프로젝트로 복사하세요. 커스텀 파일을 선택하면 프로젝트 규칙 전체를 대체하므로, 복사본에 내장 규칙을 보존해야 합니다.
+
+R8을 활성화하고 릴리스 번들과 함께 난독화 매핑을 보관하는 방법은 [Android 매뉴얼](/manuals/android/#shrinking-java-code-with-r8)을 참고하세요.
 
 #### Extract Native Libraries
 패키지 installer가 APK에서 네이티브 라이브러리를 파일 시스템으로 추출할지 지정합니다. `false`로 설정하면 네이티브 라이브러리는 APK 안에 압축되지 않은 상태로 저장됩니다. APK가 더 커질 수는 있지만, 런타임에 라이브러리가 APK에서 직접 로드되므로 어플리케이션 로드가 더 빨라집니다. 이 설정은 Android Manifest의 `android:extractNativeLibs` flag를 설정합니다([공식 문서](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -659,6 +711,12 @@ macOS에서 어플리케이션 아이콘으로 사용할 번들 아이콘 파일
 
 #### Bundle Identifier
 번들 식별자는 macOS가 앱 업데이트를 인식할 수 있게 합니다. 번들 ID는 Apple에 등록되어야 하며 앱마다 고유해야 합니다. iOS 앱과 macOS 앱에 같은 식별자를 사용할 수 없습니다. 점으로 구분된 둘 이상의 segment로 구성되어야 합니다. 각 segment는 문자로 시작해야 합니다. 각 segment는 영숫자 문자, 밑줄 또는 하이픈(-) 문자로만 구성되어야 합니다.
+
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name`은 번들의 짧은 이름(`CFBundleName`)을 지정하며, 최대 15자로 제한됩니다.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version`은 빌드 번호(`CFBundleVersion`)를 숫자 또는 `x.y.z` 형식으로 지정합니다. 기본값은 `1`입니다.
 
 #### Default Language
 어플리케이션의 `Localizations` 목록에 사용자가 선호하는 언어가 없을 때 사용할 언어입니다([`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) 참고). 선호 언어가 있으면 두 글자 ISO 639-1 표준을 사용하고, 그렇지 않으면 세 글자 ISO 639-2를 사용합니다.
@@ -716,10 +774,13 @@ wasm 파일의 스트리밍을 활성화합니다(더 빠르고 메모리를 덜
 게임 canvas를 스케일하는 데 사용할 방법을 지정합니다.
 
 #### Retry Count
-엔진이 시작될 때 파일 다운로드를 시도할 횟수입니다(`Retry Time` 참고).
+시작 중 다운로드가 실패한 후 재시도하는 횟수입니다. 엔진의 JavaScript 또는 WebAssembly 파일에서 발생한 네트워크 오류, 실패한 HTTP 상태 및 크기 불일치가 포함됩니다. 최초 요청은 별도로 계산합니다. 아카이브 파일 검증에는 자체 재시도 제한이 있습니다. [다운로드 검증](/manuals/html5/#download-verification)과 `Retry Time`을 참고하세요.
 
 #### Retry Time
 다운로드가 실패했을 때 파일 다운로드를 다시 시도하기 전까지 기다릴 시간입니다. 단위는 초입니다(`Retry Count` 참고).
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size`는 다운로드한 엔진 및 아카이브 파일을 예상 크기와 비교합니다. 기본적으로 활성화되어 있습니다(`true`). 서버, 프록시 또는 CDN이 파일을 의도적으로 변경하여 크기가 달라지는 경우에만 `false`로 설정하세요. 검증에 실패하면 시작이 실패하기 전에 다운로드를 재시도합니다. 엔진 다운로드와 아카이브 파일 검증의 재시도 제한은 다릅니다. [다운로드 검증](/manuals/html5/#download-verification)을 참고하세요.
 
 #### Transparent Graphics Context
 그래픽 컨텍스트에 투명한 배경을 사용하려면 체크합니다.
@@ -734,6 +795,9 @@ IAP 트랜잭션을 자동으로 완료하려면 체크합니다. 체크하지 �
 ---
 
 ### Live update
+
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled`는 런타임에 Live update 시스템을 활성화합니다. 기본적으로 활성화되어 있습니다. 리소스를 제외하고, 다운로드하고, 마운트하는 방법은 [Live update 매뉴얼](/manuals/live-update/)을 참고하세요.
 
 #### Settings
 번들링 중 사용할 Liveupdate 설정 리소스 파일입니다.
@@ -756,6 +820,9 @@ App Manifest의 **Profiler** 설정은 프로파일러 코드를 디버그 빌�
 
 #### Track Cpu
 CPU 사용량 sampling은 디버그 빌드에서 기본적으로 활성화됩니다. App Manifest를 통해 프로파일러 지원을 포함한 릴리스 빌드에서도 CPU sampling이 필요할 때 이 설정을 활성화하세요.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory`는 프로파일러의 상세 메모리 샘플링을 활성화합니다. 기본적으로 비활성화되어 있습니다. HTML5에서는 성능 비용이 클 수 있습니다.
 
 #### Sleep Between Server Updates
 서버 업데이트 사이에 sleep할 시간입니다. 단위는 milliseconds입니다.

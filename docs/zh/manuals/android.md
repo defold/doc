@@ -85,6 +85,41 @@ Success
 
 一个 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传到 Google Play。也可以使用 *.aab* 文件制作 *.apk* 以便使用 [`bundletool`](https://developer.android.com/studio/command-line/bundletool) 在本地安装。
 
+## 使用 R8 缩减 Java 代码 {#shrinking-java-code-with-r8}
+
+R8 通过缩减、优化和混淆来减小 Java 代码的大小。
+
+### 启用 R8 {#enabling-r8}
+
+在 *game.project* 的 **Android ▸ R8 Keep Rules** 中选择 `/builtins/manifests/android/dmengine.keep`，即可直接使用 Defold 的默认规则：
+
+```ini
+[android]
+r8_keep_rules = /builtins/manifests/android/dmengine.keep
+```
+
+确保每个包含 Java 代码的扩展都提供 `.keep` 文件，保留其在运行时需要的类。构建时，扩展规则会与选定的项目规则合并。启用 R8 后，请在设备上测试 Release 构建。
+
+将 **R8 Keep Rules** 留空会使用 D8，不执行缩减。启用 R8 会使用原生扩展构建服务，即使项目没有原生扩展也是如此。
+
+### 向扩展添加规则 {#adding-rules-to-an-extension}
+
+扩展的保留规则应放在其 `manifests/android` 目录中，与 `build.gradle` 位于同一位置。有关如何添加文件并保留扩展的 Java 类，请参阅 [Android 扩展的 R8 保留规则](/manuals/extensions/#r8-keep-rules-for-android)。
+
+### 保存混淆映射 {#keeping-the-obfuscation-mapping}
+
+在 Android 打包对话框中启用 **Generate debug symbols**，或向 Bob 传递 `--with-symbols`，以便在构建生成 R8 的 `mapping.txt` 时保留该文件。例如，在项目目录中运行：
+
+```sh
+java -jar bob.jar --platform arm64-android --variant release \
+  --archive --with-symbols --bundle-output build/android \
+  resolve build bundle
+```
+
+映射文件保存为生成的 APK 或 AAB 旁的 `<binary-name>.apk.symbols/mapping.txt`。例如，项目标题为 `My Game` 时，上述命令会生成 `build/android/MyGame/MyGame.apk.symbols/mapping.txt`。
+
+请将映射文件与生成它的对应发布版本一同保存。该文件将混淆后的 Java 名称映射回原始名称，以便解读堆栈跟踪；使用其他构建的映射文件可能得到错误结果。
+
 ## 权限
 
 Defold 引擎需要许多不同的权限才能使所有引擎功能正常工作。权限在 `AndroidManifest.xml` 中定义，在 *game.project* [项目设置文件](/manuals/project-settings/#android) 中指定。你可以在[官方文档](https://developer.android.com/guide/topics/permissions/overview)中阅读更多关于 Android 权限的信息。默认清单中请求以下权限：

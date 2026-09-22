@@ -16,7 +16,7 @@ Typowe zastosowania to ustawianie zdrowia lub prędkości konkretnego przeciwnik
 
 ## Definiowanie właściwości skryptu
 
-Właściwości skryptu dodaje się do komponentu skryptu przez zdefiniowanie ich za pomocą specjalnej funkcji `go.property()`. Funkcję trzeba wywołać na najwyższym poziomie, poza funkcjami cyklu życia, takimi jak `init()` i `update()`. Domyślna wartość podana dla właściwości określa jej typ: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` oraz `resource` (patrz niżej).
+Właściwości skryptu dodaje się do komponentu skryptu przez zdefiniowanie ich za pomocą specjalnej funkcji `go.property()`. Funkcję trzeba wywołać na najwyższym poziomie, poza funkcjami cyklu życia, takimi jak `init()` i `update()`. Domyślna wartość podana dla właściwości określa jej typ: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` oraz `resource` (patrz niżej).
 
 ::: important
 Odwracanie wartości hash działa tylko w buildzie Debug, co ułatwia debugowanie. W buildzie Release odwrócony ciąg znaków nie istnieje, więc używanie `tostring()` na wartości `hash` w celu wyciągnięcia z niej tekstu nie ma sensu.
@@ -62,6 +62,32 @@ Każda właściwość, która zostanie nadpisana nową wartością właściwą d
 Właściwości skryptu są parsowane podczas budowania projektu. Wyrażenia wartości nie są obliczane. Oznacza to, że coś takiego jak `go.property("hp", 3+6)` nie zadziała, podczas gdy `go.property("hp", 9)` będzie działać.
 :::
 
+### Właściwości tekstowe {#text-properties}
+
+Od wersji Defold 1.13.2 domyślna wartość będąca ciągiem znaków definiuje właściwość tekstową. Właściwości tekstowe obsługują UTF-8 i znaki nowego wiersza, a w edytorze można je zmieniać w polu wielowierszowym:
+
+```lua
+go.property("greeting", "Hello!\nWelcome, José!")
+
+function init(self)
+    go.set("#label", "text", self.greeting)
+end
+```
+
+Wybierz komponent skryptu w obiekcie gry lub kolekcji, aby nadpisać jego właściwości tekstowe, tak jak pozostałe właściwości skryptu. Wartości domyślne i nadpisania nie mogą zawierać znaków NUL.
+
+Inne skrypty mogą odczytywać i zapisywać właściwość tekstową przez adres URL komponentu skryptu. Na przykład umieść powyższy skrypt i etykietę w obiekcie gry o nazwie `speaker` w kolekcji, z identyfikatorami komponentów `script` i `label`. Zaktualizuj je z funkcji `init()` innego skryptu:
+
+```lua
+function init(self)
+    local greeting = go.get("/speaker#script", "greeting")
+    go.set("/speaker#script", "greeting", greeting .. "\nEnjoy the game!")
+    go.set("/speaker#label", "text", go.get("/speaker#script", "greeting"))
+end
+```
+
+Zmiana właściwości skryptu nie aktualizuje etykiety automatycznie; ostatni wiersz jawnie kopiuje nową wartość do właściwości `text` etykiety.
+
 ## Uzyskiwanie dostępu do właściwości skryptu
 
 Każda zdefiniowana właściwość skryptu jest dostępna jako przechowywany człon w `self`, czyli odwołaniu do instancji skryptu:
@@ -78,7 +104,7 @@ function update(self, dt)
 end
 ```
 
-Właściwości skryptu zdefiniowane przez użytkownika można też odczytywać i modyfikować za pomocą funkcji `get`, `set` i `animate`, tak samo jak każdą inną właściwość:
+Właściwości skryptu zdefiniowane przez użytkownika można też odczytywać za pomocą `go.get()` i zapisywać za pomocą `go.set()`. Właściwości liczbowe, w tym wektory i kwaterniony, można animować funkcją `go.animate()`. Właściwości tekstowe można odczytywać i zapisywać, ale nie można ich animować:
 
 ```lua
 -- another.script

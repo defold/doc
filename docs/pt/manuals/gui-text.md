@@ -7,6 +7,8 @@ brief: Este manual descreve como adicionar texto a cenas GUI.
 
 O Defold oferece suporte a um tipo específico de node GUI que permite renderizar texto em uma cena GUI. Qualquer recurso de fonte adicionado a um projeto pode ser usado para renderização de nodes de texto.
 
+A prévia do editor oferece suporte à modelagem de texto e ao layout da direita para a esquerda usando o renderizador de fontes da engine. Consulte [suporte a layout de texto](/manuals/font/#text-layout-support-eg-right-to-left) para conhecer as configurações de fonte e App Manifest necessárias.
+
 ## Adicionando nodes de texto
 
 As fontes que você deseja usar em nodes GUI de texto devem ser adicionadas ao componente GUI. Clique com o botão direito na pasta *Fonts*, use o menu superior <kbd>GUI</kbd> ou pressione o atalho de teclado correspondente.
@@ -55,4 +57,3 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-

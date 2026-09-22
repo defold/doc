@@ -102,6 +102,7 @@ gui.set(node, "color.x", 1)
 
 | 属性   | 描述                            | 类型            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
+| *text* | 标签的文本内容。自 Defold 1.13.2 起可用。 | `string` | `get+set`{.mark} |
 | *scale* | 标签的缩放。 | `vector3` | `get+set`{.mark} |
 | *scale.xy* | 标签沿 X 和 Y 轴的缩放。 | `vector3` | `get+set`{.mark}|
 | *color*     | 标签的颜色。 | `vector4` | `get+set`{.mark} |

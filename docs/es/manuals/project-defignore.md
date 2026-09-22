@@ -16,6 +16,25 @@ Los archivos y carpetas que se excluirán se definen en un archivo llamado `.def
 ```
 
 Esto excluirá el archivo `/path/to/file.png` y todo lo que esté en la ruta `/otherpath`.
+Cada línea debe empezar con `/` y se compara con las rutas del proyecto relativas a la raíz del proyecto. Un patrón coincide con una ruta si es igual a ella o es una de sus carpetas superiores. La comparación distingue mayúsculas de minúsculas.
+
+### Comodines
+
+Los patrones pueden contener comodines:
+
+* `*` coincide con cualquier número de caracteres excepto `/`
+* `?` coincide con exactamente un carácter excepto `/`
+* `**` coincide con cualquier número de carpetas completas, de modo que `/**/name` coincide con `name` a cualquier profundidad y `/folder/**` coincide con la carpeta y todo su contenido
+
+El resto de caracteres se comparan literalmente. Ejemplo:
+
+```
+/levels/*/tiled
+/**/generated
+/assets/temp_??.png
+```
+
+Esto excluirá la carpeta `tiled` de cada subcarpeta directa de `/levels` (por ejemplo `/levels/01/tiled`), todas las carpetas llamadas `generated` a cualquier profundidad, incluida `/generated` en la raíz del proyecto, y archivos como `/assets/temp_01.png`.
 
 ## El archivo `.defunload`
 

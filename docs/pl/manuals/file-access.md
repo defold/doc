@@ -9,7 +9,7 @@ Istnieje wiele różnych sposobów tworzenia plików i uzyskiwania do nich dost�
 ## Funkcje dostępu do plików i folderów
 Defold udostępnia kilka różnych funkcji do pracy z plikami:
 
-* Możesz użyć standardowych funkcji [`io.*`](https://defold.com/ref/stable/io/) do odczytu i zapisu plików. Funkcje te dają bardzo precyzyjną kontrolę nad całym procesem I/O.
+* Możesz użyć standardowych funkcji [`io.*`](https://defold.com/ref/io/) do odczytu i zapisu plików. Funkcje te dają bardzo precyzyjną kontrolę nad całym procesem I/O.
 
 ```lua
 -- otwórz myfile.txt do zapisu w trybie binarnym
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* Możesz użyć [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) i [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) do zmieniania nazw plików i ich usuwania.
+* Możesz użyć [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) i [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) do zmieniania nazw plików i ich usuwania.
 
-* Możesz użyć [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) i [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) do odczytu i zapisu tabel Lua. Dodatkowe funkcje [`sys.*`](https://defold.com/ref/stable/sys/) pomagają w rozwiązywaniu ścieżek do plików w sposób niezależny od platformy.
+* Możesz użyć [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) i [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) do odczytu i zapisu tabel Lua. Dodatkowe funkcje [`sys.*`](https://defold.com/ref/sys/) pomagają w rozwiązywaniu ścieżek do plików w sposób niezależny od platformy.
 
 ```lua
 -- pobierz ścieżkę niezależną od platformy do pliku "highscore" dla aplikacji "mygame"
@@ -80,15 +80,19 @@ Lokalizacje plików i folderów można podzielić na trzy kategorie:
 * Pliki systemowe, do których uzyskuje dostęp twoja aplikacja
 
 ### Jak zapisywać i odczytywać pliki specyficzne dla aplikacji
-Podczas zapisywania i odczytywania plików specyficznych dla aplikacji, takich jak wyniki, ustawienia użytkownika i stan gry, zaleca się używanie lokalizacji dostarczonej przez system operacyjny i przeznaczonej właśnie do tego celu. Możesz użyć [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name), aby uzyskać bezwzględną ścieżkę do pliku zależną od systemu operacyjnego. Gdy masz już tę ścieżkę bezwzględną, możesz korzystać z funkcji `sys.*`, `io.*` i `os.*` (patrz wyżej).
+Podczas zapisywania i odczytywania plików specyficznych dla aplikacji, takich jak wyniki, ustawienia użytkownika i stan gry, zaleca się używanie lokalizacji dostarczonej przez system operacyjny i przeznaczonej właśnie do tego celu. Możesz użyć [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name), aby uzyskać bezwzględną ścieżkę do pliku zależną od systemu operacyjnego. Gdy masz już tę ścieżkę bezwzględną, możesz korzystać z funkcji `sys.*`, `io.*` i `os.*` (patrz wyżej).
 
 [Sprawdź przykład pokazujący, jak używać `sys.save()` i `sys.load()`](/examples/file/sys_save_load/).
 
 ### Jak uzyskiwać dostęp do plików dołączonych do aplikacji {#how-to-access-files-bundled-with-the-application}
 Pliki możesz dołączać do aplikacji za pomocą zasobów pakietu i zasobów niestandardowych.
 
+<a id="custom-resources"></a>
+
 #### Zasoby niestandardowe
 :[Zasoby niestandardowe](../shared/custom-resources.md)
+
+Rozszerzenia mogą też dostarczać takie pliki przez `ext.properties`. Ich ścieżki są łączone z zasobami niestandardowymi projektu zarówno podczas budowania w edytorze, jak i w archiwach Bob. Zobacz [zasoby niestandardowe rozszerzeń](/manuals/extensions/#custom-resources).
 
 ```lua
 -- Wczytaj dane poziomu do łańcucha znaków

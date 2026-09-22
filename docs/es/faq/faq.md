@@ -53,7 +53,7 @@ A: La lógica del juego en tu proyecto Defold está escrita principalmente en el
 
 #### Q: ¿Puedo usar C++ para escribir la lógica del juego?
 
-A: El soporte de C++ existe en Defold principalmente para escribir extensiones nativas que interactúan con SDKs de terceros o APIs específicas de plataforma. El [dmSDK](https://defold.com/ref/stable/dmGameObject/) (la API C++ de Defold usada en extensiones nativas) se ampliará gradualmente con más funcionalidad para que sea posible escribir toda la lógica del juego en C++ si un desarrollador lo desea. Lua seguirá siendo el lenguaje principal usado para la lógica del juego, pero con la API C++ ampliada también será posible escribir lógica de juego usando C++. El trabajo para ampliar la API C++ consiste principalmente en mover archivos header privados existentes a la sección pública y limpiar APIs para uso público.
+A: El soporte de C++ existe en Defold principalmente para escribir extensiones nativas que interactúan con SDKs de terceros o APIs específicas de plataforma. El [dmSDK](https://defold.com/ref/dmGameObject/) (la API C++ de Defold usada en extensiones nativas) se ampliará gradualmente con más funcionalidad para que sea posible escribir toda la lógica del juego en C++ si un desarrollador lo desea. Lua seguirá siendo el lenguaje principal usado para la lógica del juego, pero con la API C++ ampliada también será posible escribir lógica de juego usando C++. El trabajo para ampliar la API C++ consiste principalmente en mover archivos header privados existentes a la sección pública y limpiar APIs para uso público.
 
 
 #### Q: ¿Puedo usar TypeScript con Defold?
@@ -102,7 +102,7 @@ A: Las siguientes plataformas son compatibles:
   | Windows            | 10                 | `x86-64`           |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
-  (1 El editor fue creado y probad para 64-bit Ubuntu 18.04. Debe funcionar en otras distribuciones pero no damos garantía de ello.)
+  (1 El editor se compila y prueba para Ubuntu de 64 bits. Debería funcionar también en otras distribuciones, pero no ofrecemos garantías.)
 
   **Runtime del motor**
 
@@ -110,17 +110,17 @@ A: Las siguientes plataformas son compatibles:
   | ------------------ | ------------------ | ------------------ |
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
-  | Linux (2)          | Any                | `x86-64`, `arm-64` |
+  | Linux (2)          | Cualquiera         | `x86-64`, `arm-64` |
   | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` |
+  | Android            | 5.0 (nivel de API 21) | `arm-32`, `arm-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
-  (2 El engine runtime debe correr en la mayoría de distribuciones 64-bit de Linux mientras los drivers de gráficos estén actualizados y soporten OpenGL ES 2.0.)
+  (2 El runtime del motor debería funcionar en la mayoría de las distribuciones Linux de 64 bits siempre que los controladores gráficos estén actualizados; consulta más abajo la información sobre las API gráficas.)
 
 
 #### Q: ¿Para qué plataformas objetivo puedo desarrollar con Defold?
 
-A: Con un click puedes publicar en Nintendo Switch, iOS, Android y HTML5 así como macOS, Windows y Linux. Es realmente un código base con múltiples plataformas soportadas.
+A: Con un clic puedes publicar en PS4™, PS5™, Nintendo Switch, iOS (64 bits), Android (32 bits y 64 bits) y HTML5, así como en macOS (x86-64 y arm64), Windows (64 bits) y Linux (x86-64 y arm64). Es realmente una única base de código con múltiples plataformas compatibles.
 
 
 #### Q: ¿De cuál API de rendering depende Defold?
@@ -205,7 +205,7 @@ A: Si, lo hace. Son llamadas [colecciones](/manuals/building-blocks/#collections
 
 #### Q: No puedo agregar un objeto de juego como hijo de otro objeto de juego, ¿por qué?
 
-A: Probablemente sea que trataste de añadir un hijo en el archivo de objeto de juego y eso no es posible. Solo es posible en el archivo de colección. Para entender por qué, hay que recordar que las jerarquías padre-hijo son estrictamente una jerarquía de transformación del gráfico de la escena _(scene-graph_). Un objeto de juego que no se haya colocado (o aparecido) en una escena (colección) no es parte del gráfico de la escena y no puede ser parte de la jerarquía de éste. Puedes obtener un id del padre del objeto de juego usando [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
+A: Probablemente sea que trataste de añadir un hijo en el archivo de objeto de juego y eso no es posible. Solo es posible en el archivo de colección. Para entender por qué, hay que recordar que las jerarquías padre-hijo son estrictamente una jerarquía de transformación del gráfico de la escena _(scene-graph_). Un objeto de juego que no se haya colocado (o aparecido) en una escena (colección) no es parte del gráfico de la escena y no puede ser parte de la jerarquía de éste. Puedes obtener un id del padre del objeto de juego usando [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id).
 
 
 #### Q: ¿Por quéno puedo transmitir mensajes a todos los hijos de un objeto de juego?
@@ -268,7 +268,7 @@ A: En general todos los recursos están estadísticamente declarados con el bene
 
 #### Q: ¿Hay una forma de accesar a las propiedades de la forma de colisión de físicas?
 
-A: Sí, revisa la API de físicas, especialmente [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) y [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table).
+A: Sí, revisa la API de físicas, especialmente [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) y [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table).
 
 
 #### Q: ¿Hay alguna forma rápida de renderizar los objetos colisionadores en mi escena? (como Box2D's debugdraw)

@@ -12,6 +12,11 @@
             "translation": "Translation by cocosgames.com",
             "active": true
         },
+        "de":
+        {
+            "name": "Deutsch (German)",
+            "active": true
+        },
         "es":
         {
             "name": "Español (Spanish)",
@@ -33,6 +38,11 @@
         {
             "name": "Italiano (Italian)",
             "translation": "Translation by Fabrizio Codello",
+            "active": true
+        },
+        "ja":
+        {
+            "name": "日本語 (Japanese)",
             "active": true
         },
         "ko":
@@ -57,6 +67,11 @@
         {
             "name": "Русский (Russian)",
             "translation": "Translation by Demetrij87G",
+            "active": true
+        },
+        "tr":
+        {
+            "name": "Türkçe (Turkish)",
             "active": true
         },
         "uk":

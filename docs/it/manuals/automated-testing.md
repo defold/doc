@@ -3,13 +3,13 @@ title: Test automatici e verifica
 brief: Questo manuale spiega come progettare, eseguire e documentare test Defold deterministici in locale, in un gioco in esecuzione, nei browser e nell'integrazione continua.
 ---
 
-# Test automatici e verifica
+# Test automatici e verifica {#automated-testing-and-verification}
 
 I test automatici verificano il codice e i contenuti Defold tramite prove esplicite e leggibili dalle macchine. Usa questo manuale per progettare test che funzionino allo stesso modo con script locali, runner di CI (integrazione continua) e agenti di programmazione. Il manuale tratta test di modulo, collezioni in esecuzione, test nel browser, automazione a runtime, controlli visivi e build headless, oltre a fornire buone pratiche utili.
 
 ## Livelli di verifica {#verification-levels}
 
-I buoni livelli di test automatico seguono il modello della piramide dei test, che suddivide i test in tre livelli principali: test unitari, test di integrazione e test end-to-end (E2E). In Defold puoi separare i test in collezioni specifiche caricabili al bootstrap. In genere è opportuno iniziare dal controllo più circoscritto e veloce in grado di rilevare il problema, aggiungendo poi test a runtime o specifici della piattaforma quando necessario.
+Una buona organizzazione dei test automatici segue il modello della piramide dei test, che suddivide i test in tre livelli principali: test unitari, test di integrazione e test end-to-end (E2E). In Defold puoi separare i test in collezioni specifiche caricabili al bootstrap. In genere è opportuno iniziare dal controllo più circoscritto e veloce in grado di rilevare il problema, aggiungendo poi test a runtime o specifici della piattaforma quando necessario.
 
 | Livello | Prove adatte |
 | --- | --- |
@@ -18,7 +18,7 @@ I buoni livelli di test automatico seguono il modello della piramide dei test, c
 | Collezione in esecuzione | Messaggi, componenti, input, fisica, ciclo di vita e comportamento del motore |
 | Automazione a runtime | Stato della scena in esecuzione, input iniettato, stato dell'applicazione e schermate a runtime |
 | Test HTML5 nel browser | Input nel canvas, integrazione con il browser, comportamento della viewport e output web |
-| Test di piattaforma | Comportamento e rendering dalla piattaforma di destinazione effettiva |
+| Test di piattaforma | Comportamento e rendering sulla piattaforma di destinazione effettiva |
 | Build e bundle | Stato di uscita di Bob, report di build, archivio e artefatti del bundle |
 
 Una compilazione riuscita dimostra che il progetto viene compilato, ma non garantisce il corretto comportamento del gameplay. Una schermata non dimostra transizioni, animazioni, interazioni o flussi di gioco complessi, ma può essere utilizzata dalle moderne soluzioni multimodali per esaminare l'aspetto di un singolo fotogramma e verificare la correttezza degli shader e del layout visivo. Per i test automatici, tuttavia, prediligi asserzioni deterministiche ogni volta che la condizione può essere espressa direttamente.
@@ -62,7 +62,7 @@ Ad esempio, [DefTest](https://defold.com/assets/deftest/) è una libreria di tes
 
 ## Risultati dei test strutturati {#structured-test-results}
 
-Il riepilogo della console o del log di un framework può essere utile agli sviluppatori, ma un controller automatico non presidiato necessita comunque di un risultato di completamento esplicito. Se necessario, aggiungi un piccolo adattatore intorno al callback o al riepilogo del framework, in modo che il controller possa elaborare facilmente i risultati dei test.
+Il riepilogo della console o del log di un framework può essere utile agli sviluppatori, ma un controller automatico non presidiato necessita comunque di un risultato di completamento esplicito. Se necessario, aggiungi un piccolo adattatore intorno alla callback o al riepilogo del framework, in modo che il controller possa elaborare facilmente i risultati dei test.
 
 Una semplice descrizione dei risultati può utilizzare un prefisso univoco seguito da un oggetto JSON su ogni riga fisica della console:
 
@@ -113,7 +113,7 @@ finally:
     game.close_engine()
 ```
 
-Gli stati definiti dall'applicazione e gli ID di automazione utilizzano l'API Lua facoltativa di Automation Bridge, disponibile soltanto in modalità debug. Il progetto deve abilitare l'API ed esporre esplicitamente tali dati. Un'attesa fissa è sensibile alla velocità del computer e alla temporizzazione dei fotogrammi; un polling circoscritto di uno stato definito è più affidabile.
+Gli stati definiti dall'applicazione e gli ID di automazione utilizzano l'API Lua facoltativa di Automation Bridge, disponibile soltanto in modalità debug. Il progetto deve abilitare l'API ed esporre esplicitamente tali dati. Un'attesa fissa è sensibile alla velocità del computer e alla temporizzazione dei fotogrammi; un polling con un limite di tempo per verificare uno stato definito è più affidabile.
 
 Automation Bridge è un'estensione, non fa parte del motore principale. Consulta il relativo [riferimento API Python](https://github.com/defold/extension-automation-bridge/tree/master/automation_bridge/automation-bridge-python) per selettori, attese, stato, eventi, schermate e diagnostica della versione installata.
 
@@ -129,15 +129,15 @@ Strumenti esterni di automazione del browser come Playwright, Puppeteer, Seleniu
 * raccogliere l'output della console del browser e gli errori JavaScript;
 * acquisire schermate e confrontare gli artefatti.
 
-L'input indirizzato al canvas viene elaborato tramite i normali binding di input del progetto e i callback `on_input()`. Verifica sia la risposta del gioco sia i punti di integrazione specifici del browser.
+L'input indirizzato al canvas viene elaborato tramite i normali binding di input del progetto e le callback `on_input()`. Verifica sia la risposta del gioco sia i punti di integrazione specifici del browser.
 
 L'approccio più affidabile consiste nell'esporre un bridge di test JavaScript esplicito nell'`index.html` personalizzato. Sul lato Defold, le build HTML5 possono eseguire JavaScript tramite `html5.run()`, rendendo possibile la comunicazione con un simile bridge lato browser. Per i comandi che passano da JavaScript a Defold, utilizza un bridge dedicato tra JavaScript e il motore.
 
-Mantieni circoscritti i test nel browser. Nel report finale, distingui tra errore di caricamento della pagina, canvas mancante, errore JavaScript, timeout del test e asserzione del gioco non riuscita.
+Imponi limiti ai test nel browser. Nel report finale, distingui tra errore di caricamento della pagina, canvas mancante, errore JavaScript, timeout del test e asserzione del gioco non riuscita.
 
 ## Anteprime dell'editor e schermate a runtime per l'ispezione visiva {#editor-previews-and-runtime-screenshots}
 
-È possibile acquisire una schermata di una risorsa nella vista predefinita della scena dell'editor aperto oppure di un gioco a runtime.
+Puoi acquisire schermate dei file delle risorse nella vista predefinita della scena dell'editor aperto oppure in un gioco in esecuzione.
 
 | Metodo | Scopo |
 | --- | --- |

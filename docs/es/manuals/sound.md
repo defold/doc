@@ -11,7 +11,7 @@ Componentes de sonido
 : Estos componentes contienen el sonido real que se debe reproducir y pueden reproducirlo.
 
 Grupos de sonido
-: Cada componente Sound puede designarse para pertenecer a un _grupo_. Los grupos ofrecen una forma sencilla de gestionar sonidos relacionados entre sí de manera intuitiva. Por ejemplo, se puede configurar un grupo "sound_fx" y cualquier sonido que pertenezca a ese grupo se puede atenuar con una simple llamada a una función.
+: Cada componente Sound puede designarse para pertenecer a un _grupo_. Los grupos ofrecen una forma sencilla de gestionar sonidos relacionados entre sí de manera intuitiva. Por ejemplo, se puede configurar un grupo `sound_fx` y cualquier sonido que pertenezca a ese grupo se puede atenuar con una simple llamada a una función.
 
 ## Crear un componente Sound
 
@@ -33,7 +33,7 @@ El componente creado tiene un conjunto de propiedades que se deben definir:
 : El número de veces que un sonido en loop se reproducirá antes de detenerse (0 significa que el sonido debe repetirse hasta que se detenga explícitamente).
 
 *Group*
-: El nombre del grupo de sonido al que debe pertenecer el sonido. Si esta propiedad se deja vacía, el sonido se asignará al grupo integrado "master".
+: El nombre del grupo de sonido al que debe pertenecer el sonido. Si esta propiedad se deja vacía, el sonido se asignará al grupo integrado `master`.
 
 *Gain*
 : Puedes definir la ganancia del sonido directamente en el componente. Esto permite ajustar fácilmente la ganancia de un sonido sin volver a tu programa de sonido y reexportarlo. Consulta más abajo los detalles sobre cómo se calcula la ganancia.
@@ -75,13 +75,13 @@ El sistema de sonido tiene 4 niveles de ganancia:
 - La ganancia definida en el componente Sound.
 - La ganancia definida al iniciar el sonido mediante una llamada a `sound.play()` o al cambiar la ganancia de la voz mediante una llamada a `sound.set_gain()`.
 - La ganancia definida en el grupo mediante una llamada a la función [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- La ganancia definida en el grupo "master". Esto se puede modificar con `sound.set_group_gain(hash("master"), gain)`.
+- La ganancia definida en el grupo `master`. Esto se puede modificar con `sound.set_group_gain(hash("master"), gain)`.
 
 Cuando **Use Linear Gain** está activado en las [opciones de proyecto de Sound](/manuals/project-settings/#sound) (el valor predeterminado), la ganancia de salida es el resultado de multiplicar estas cuatro ganancias. Una ganancia de `1.0` es la ganancia unitaria (0 dB). Cuando la ganancia lineal está desactivada, Defold aplica una curva no lineal durante la mezcla, por lo que la multiplicación directa de los cuatro valores y la conversión a decibelios que se muestra a continuación no describen el nivel de salida resultante.
 
 ## Grupos de sonido
 
-Cualquier componente Sound con un nombre de grupo de sonido especificado se colocará en un grupo de sonido con ese nombre. Si no especificas un grupo, el sonido se asignará al grupo "master". También puedes definir explícitamente el grupo de un componente Sound como "master", lo que tiene el mismo efecto.
+Cualquier componente Sound con un nombre de grupo de sonido especificado se colocará en un grupo de sonido con ese nombre. Si no especificas un grupo, el sonido se asignará al grupo `master`. También puedes definir explícitamente el grupo de un componente Sound como `master`, lo que tiene el mismo efecto.
 
 Hay algunas funciones disponibles para obtener todos los grupos disponibles, obtener el nombre como string, obtener y definir la ganancia, RMS (ver http://en.wikipedia.org/wiki/Root_mean_square) y la ganancia pico. También hay una función que permite comprobar si el reproductor de música del dispositivo objetivo está en ejecución:
 

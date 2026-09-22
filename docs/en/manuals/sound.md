@@ -11,7 +11,7 @@ Sound components
 : These components contain an actual sound that should be played and are able to play back the sound.
 
 Sound groups
-: Each sound component can be designated to belong to a _group_. Groups offer an easy way to manage sounds that belong together in an intuitive way. For instance, a group "sound_fx" can be set up and any sound belonging to that group can be ducked by a simple function call.
+: Each sound component can be designated to belong to a _group_. Groups offer an easy way to manage sounds that belong together in an intuitive way. For instance, a group `sound_fx` can be set up and any sound belonging to that group can be ducked by a simple function call.
 
 ## Creating a sound component
 
@@ -33,7 +33,7 @@ The created component has a set of properties that should be set:
 : The number of times a looping sound will play before stopping (0 means the sound should loop until explicitly stopped).
 
 *Group*
-: The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
+: The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in `master` group.
 
 *Gain*
 : You can set the gain for the sound directly on the component. This allows you to easily tweak the gain for a sound without going back to your sound program and performing a re-export. See below for details on how gain is calculated.
@@ -75,13 +75,13 @@ The sound system has 4 levels of gain:
 - The gain set on the sound component.
 - The gain set when starting the sound via a call to `sound.play()` or when changing the gain on the voice via a call to `sound.set_gain()`.
 - The gain set on the group via a [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) function call.
-- The gain set on the "master" group. This can be altered with `sound.set_group_gain(hash("master"), gain)`.
+- The gain set on the `master` group. This can be altered with `sound.set_group_gain(hash("master"), gain)`.
 
 When **Use Linear Gain** is enabled in the [Sound project settings](/manuals/project-settings/#sound) (the default), the output gain is the result of these four gains multiplied. A gain of `1.0` is unity gain (0 dB). When linear gain is disabled, Defold applies a nonlinear curve during mixing, so the direct four-way multiplication and decibel conversion below do not describe the resulting output level.
 
 ## Sound groups
 
-Any sound component with a sound group name specified will be put in a sound group with that name. If you don't specify a group the sound will be assigned to the "master" group. You can also explicitly set the group on a sound component to "master" which has the same effect.
+Any sound component with a sound group name specified will be put in a sound group with that name. If you don't specify a group the sound will be assigned to the `master` group. You can also explicitly set the group on a sound component to `master` which has the same effect.
 
 A few functions are available to get all available groups, get the string name, get and set gain, rms (see http://en.wikipedia.org/wiki/Root_mean_square) and peak gain. There is also a function that allows you to test if the target device's music player is running:
 

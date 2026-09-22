@@ -64,7 +64,7 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains additional files used in the build or bundling process. See below for details.
 
 *res*
-: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecture-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecture-platform` just as the `lib` subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
 
 ### Manifest files
 
@@ -72,12 +72,56 @@ The optional *manifests* folder of an extension contains additional files used i
 
 * `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
   * The folder can also contain a `build.gradle` file with dependencies to be [resolved by Gradle](/manuals/extensions-gradle).
-  * Finally the folder can also contain zero or more ProGuard files (experimental).
+  * Extensions with Java code should include an [R8 keep-rule file](#r8-keep-rules-for-android) (`.keep`) for the classes they need at runtime.
 * `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
   * The folder can also contain a `Podfile` file with dependencies to be [resolved by Cocoapods](/manuals/extensions-cocoapods).
 * `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
 * `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
 
+
+### R8 keep rules for Android
+
+Add a `.keep` file to the extension's `manifests/android` directory, next to `build.gradle`. For example, `/myextension/manifests/android/myextension.keep` can preserve the extension's Java classes with:
+
+```proguard
+-keep,allowoptimization class com.example.myextension.** { *; }
+```
+
+Replace `com.example.myextension` with the package containing your extension's Java classes. This rule preserves the classes and their members while allowing R8 to optimize their code. Add rules for other classes accessed through the Java Native Interface (JNI) or reflection, since R8 may not discover those uses automatically.
+
+If the extension relies on annotations at runtime, also include:
+
+```proguard
+-keepattributes *Annotation*
+```
+
+These rules are combined with the project's selected keep file when [R8 is enabled](/manuals/android/#enabling-r8).
+
+
+## Custom resources
+
+An extension can include data in the game archive by declaring custom resources in an `ext.properties` file next to its `ext.manifest`:
+
+```ini
+[project]
+custom_resources.default = /myextension/data
+```
+
+For example, place a JSON file at `/myextension/data/settings.json`. The path is relative to the project root, including the extension folder. When sharing the extension as a library, include `myextension` in the library's [Include Dirs](/manuals/libraries/#setting-up-library-sharing) so consuming projects receive the extension and its data.
+
+These paths are combined with `project.custom_resources` from *game.project* and contributions from other extensions. Setting custom resources in the project does not replace the extension contributions. Both editor builds and Bob archives include the files, which can be loaded at runtime:
+
+```lua
+local data, err = sys.load_resource("/myextension/data/settings.json")
+if data then
+    local settings = json.decode(data)
+    pprint(settings)
+else
+    print(err)
+end
+```
+
+See [file access](/manuals/file-access/#custom-resources) for how custom resources differ from bundle resources.
 
 ## Sharing an extension
 
@@ -186,7 +230,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any "update" or "on_event" entry points, so `0` is provided in those locations to the macro.
+Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any `update` or `on_event` entry points, so `0` is provided in those locations to the macro.
 
 Now it is just a matter of building the project (<kbd>Project ▸ Build</kbd>). This will upload the extension to the extension builder which will produce a custom engine with the new extension included. If the builder encounters any errors, a dialog with the build errors will show.
 

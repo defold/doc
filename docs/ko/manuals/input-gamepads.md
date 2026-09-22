@@ -124,7 +124,7 @@ end
 
 ### 식별되지 않은 게임패드 {#unidentified-gamepads}
 
-게임패드가 연결되었지만 해당 게임패드에 대한 매핑이 없으면, 게임패드는 "connected", "disconnected", "raw" 동작만 생성합니다. 이 경우 게임에서 원시 게임패드 데이터를 동작에 직접 매핑해야 합니다.
+게임패드가 연결되었지만 해당 게임패드에 대한 매핑이 없으면, 게임패드는 `connected`, `disconnected`, `raw` 동작만 생성합니다. 이 경우 게임에서 원시 게임패드 데이터를 동작에 직접 매핑해야 합니다.
 
 게임패드의 입력 동작이 알 수 없는 게임패드에서 온 것인지 여부는 `action`의 `gamepad_unknown` 값을 읽어 확인할 수 있습니다:
 
@@ -161,7 +161,7 @@ end
 
 ### 표준 게임패드 {#standard-gamepad}
 
-연결된 게임패드가 브라우저에서 표준 게임패드로 식별되면, [gamepads 설정 파일](/manuals/input-gamepads/#gamepads-settings-file)의 "Standard Gamepad" 매핑을 사용합니다(`Standard Gamepad` 매핑은 `/builtins`의 `default.gamepads` 파일에 포함되어 있습니다). 표준 게임패드는 PlayStation 또는 Xbox 컨트롤러와 비슷한 버튼 레이아웃을 가진 16개 버튼과 2개 아날로그 스틱으로 정의됩니다(자세한 내용은 [W3C 정의와 버튼 레이아웃](https://w3c.github.io/gamepad/#dfn-standard-gamepad)을 참고하세요). 연결된 게임패드가 표준 게임패드로 식별되지 않으면 Defold는 게임패드 설정 파일에서 하드웨어 게임패드 타입과 일치하는 매핑을 찾습니다.
+연결된 게임패드가 브라우저에서 표준 게임패드로 식별되면, [gamepads 설정 파일](/manuals/input-gamepads/#gamepads-settings-file)의 `Standard Gamepad` 매핑을 사용합니다(`Standard Gamepad` 매핑은 `/builtins`의 `default.gamepads` 파일에 포함되어 있습니다). 표준 게임패드는 PlayStation 또는 Xbox 컨트롤러와 비슷한 버튼 레이아웃을 가진 16개 버튼과 2개 아날로그 스틱으로 정의됩니다(자세한 내용은 [W3C 정의와 버튼 레이아웃](https://w3c.github.io/gamepad/#dfn-standard-gamepad)을 참고하세요). 연결된 게임패드가 표준 게임패드로 식별되지 않으면 Defold는 게임패드 설정 파일에서 하드웨어 게임패드 타입과 일치하는 매핑을 찾습니다.
 
 ## Windows의 게임패드 {#gamepads-on-windows}
 Windows에서는 현재 XBox 360 컨트롤러만 지원됩니다. 360 컨트롤러를 Windows 머신에 연결하려면 [올바르게 설정되어 있는지 확인하세요](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).

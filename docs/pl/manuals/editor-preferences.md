@@ -60,6 +60,9 @@ Zoom on Scroll
 Auto-insert closing parens
 : Automatycznie wstawia pasujące znaki zamykające podczas edytowania kodu. Ta opcja jest domyślnie włączona.
 
+Format on save
+: Uruchamia narzędzie formatujące serwera językowego dla zmodyfikowanych otwartych plików kodu przy zapisywaniu. Domyślnie wyłączone. Serwer językowy musi obsługiwać formatowanie; ręczne formatowanie dokumentu lub zaznaczenia opisano w sekcji [formatowanie kodu](/manuals/writing-code/#formatting-code).
+
 ### Otwieranie plików skryptów w Visual Studio Code
 
 ![](images/editor/preferences_vscode.png)

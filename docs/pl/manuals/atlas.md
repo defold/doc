@@ -37,7 +37,7 @@ Dodawanie animacji flipbook
 
   Wybierz <kbd>Add Animation Group</kbd> z menu kontekstowego, aby utworzyć grupę animacji flipbook.
 
-  Do atlasu zostanie dodana nowa, pusta grupa animacji z domyślną nazwą ("New Animation").
+  Do atlasu zostanie dodana nowa, pusta grupa animacji z domyślną nazwą (`New Animation`).
 
   Przeciągnij obrazy z panelu *Assets* do widoku edytora, aby dodać je do aktualnie zaznaczonej grupy.
 
@@ -136,7 +136,7 @@ Można tworzyć teksturę i atlas w czasie działania programu.
 
 ### Tworzenie zasobu tekstury w czasie działania programu
 
-Użyj [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table), aby utworzyć nowy zasób tekstury:
+Użyj [`resource.create_texture(path, params)`](https://defold.com/ref/resource/#resource.create_texture:path-table), aby utworzyć nowy zasób tekstury:
 
 ```lua
   local params = {
@@ -148,7 +148,7 @@ Użyj [`resource.create_texture(path, params)`](https://defold.com/ref/stable/re
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Gdy tekstura zostanie utworzona, użyj [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer), aby ustawić piksele tekstury:
+Gdy tekstura zostanie utworzona, użyj [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/resource/#resource.set_texture:path-table-buffer), aby ustawić piksele tekstury:
 
 ```lua
   local width = 128
@@ -182,7 +182,7 @@ Teksturę można użyć bezpośrednio na [komponencie modelu](/manuals/model/) z
 
 ### Tworzenie atlasu w czasie działania programu
 
-Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), najpierw musi zostać użyta przez atlas. Użyj [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), aby utworzyć atlas:
+Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), najpierw musi zostać użyta przez atlas. Użyj [`resource.create_atlas(path, params)`](https://defold.com/ref/resource/#resource.create_atlas:path-table), aby utworzyć atlas:
 
 ```lua
   local params = {

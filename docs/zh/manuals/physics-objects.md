@@ -11,7 +11,7 @@ Static objects
 : 静态对象永远不会移动，但与静态对象碰撞的动态对象会通过反弹和/或滑动做出反应。静态对象对于构建不会移动的关卡几何体（即地面和墙壁）非常有用。它们在性能方面也比动态对象更便宜。您不能移动或以其他方式更改静态对象。
 
 Dynamic objects
-: 动态对象由物理引擎模拟。引擎解决所有碰撞并应用产生的力。动态对象适用于应该表现得真实的对象。影响它们的最常见方式是间接的，通过[施加力](/ref/physics/#apply_force)或改变角[阻尼](/ref/stable/physics/#angular_damping)和[速度](/ref/stable/physics/#linear_velocity)以及线性[阻尼](/ref/stable/physics/#linear_damping)和[速度](/ref/stable/physics/#angular_velocity)。当在 *game.project* 中启用[允许动态变换设置](/manuals/project-settings/#allow-dynamic-transforms)时，也可以直接操纵动态对象的位置和方向。
+: 动态对象由物理引擎模拟。引擎解决所有碰撞并应用产生的力。动态对象适用于应该表现得真实的对象。影响它们的最常见方式是间接的，通过[施加力](/ref/physics/#apply_force)或改变角[阻尼](/ref/physics/#angular_damping)和[速度](/ref/physics/#linear_velocity)以及线性[阻尼](/ref/physics/#linear_damping)和[速度](/ref/physics/#angular_velocity)。当在 *game.project* 中启用[允许动态变换设置](/manuals/project-settings/#allow-dynamic-transforms)时，也可以直接操纵动态对象的位置和方向。
 
 Kinematic objects
 : 运动学对象会注册与其他物理对象的碰撞，但物理引擎不执行任何自动模拟。解决碰撞或忽略它们的工作留给您来完成（[了解更多](/manuals/physics-resolving-collisions)）。运动学对象非常适合需要精细控制物理反应的玩家或脚本控制的对象，如玩家角色。
@@ -27,7 +27,7 @@ Triggers
 要向游戏对象添加碰撞对象组件：
 
 1. 在 *大纲* 视图中，<kbd>右键点击</kbd>游戏对象并从上下文菜单中选择 <kbd>Add Component ▸ Collision Object</kbd>。这将创建一个没有形状的新组件。
-2. <kbd>右键点击</kbd>新组件并选择 <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>。这会向碰撞对象组件添加一个新形状。您可以为组件添加任意数量的形状。您也可以使用瓦片地图或凸包来定义物理对象的形状。
+2. <kbd>右键点击</kbd>新组件并选择 <kbd>Add Shape</kbd>，然后选择形状：使用 3D 物理的项目可选 <kbd>Box</kbd>、<kbd>Capsule</kbd>、<kbd>Sphere</kbd>、<kbd>Hull</kbd> 或 <kbd>Mesh</kbd>；使用 2D 物理的项目可选 <kbd>Box</kbd> 或 <kbd>Circle</kbd>。Hull 和 Mesh 形状自 Defold 1.13.2 起可用，使用 glTF 或 GLB 场景中的命名网格。您可以向组件添加多个形状，也可以通过 *Collision Shape* 属性使用瓦片地图或 `.convexshape` 资源。
 3. 使用移动、旋转和缩放工具编辑形状。
 4. 在 *大纲* 中选择组件并编辑碰撞对象的 *属性*。
 
@@ -36,7 +36,7 @@ Triggers
 
 ## 添加碰撞形状
 
-碰撞组件可以使用多个基本形状或单个复杂形状。在[碰撞形状手册](/manuals/physics-shapes)中了解有关各种形状以及如何将它们添加到碰撞组件的更多信息。
+碰撞组件可以包含多个内嵌形状，包括 3D 物理中的凸包和三角网格，也可以使用瓦片地图或凸形状资源。在[碰撞形状手册](/manuals/physics-shapes)中了解有关各种形状以及如何将它们添加到碰撞组件的更多信息。
 
 
 ## 碰撞对象属性
@@ -45,7 +45,7 @@ Id
 : 组件的标识符。
 
 Collision Shape
-: 此属性用于瓦片地图几何体或不使用基本形状的凸形状。有关更多信息，请参见[碰撞形状](/manuals/physics-shapes)。
+: 瓦片地图或 `.convexshape` 资源。要使用 glTF 或 GLB 网格，请改为向组件添加 Hull 或 Mesh 形状，并设置该形状的 *Scene* 和 *Mesh* 属性。有关更多信息，请参见[碰撞形状](/manuals/physics-shapes)。
 
 Type
 : 碰撞对象的类型：`Dynamic`、`Kinematic`、`Static` 或 `Trigger`。如果将对象设置为 `Dynamic`，您 _必须_ 将 *Mass* 属性设置为非零值。对于 `Dynamic` 或 `Static` 对象，您还应该检查 *Friction* 和 *Restitution* 值是否适合您的用例。
@@ -87,7 +87,7 @@ Bullet
 : 设置此属性启用碰撞对象与其他动态碰撞对象之间的连续碰撞检测（CCD）。如果*类型*未设置为 `Dynamic`，则忽略 *Bullet* 属性。
 
 Group
-: 对象应属于的碰撞组的名称。您可以有 16 个不同的组，并根据您的游戏需要为它们命名。例如"players"、"bullets"、"enemies"和"world"。如果 *Collision Shape* 设置为瓦片地图，则不使用此字段，但组名取自瓦片源。[了解有关碰撞组的更多信息](/manuals/physics-groups)。
+: 对象应属于的碰撞组的名称。您可以有 16 个不同的组，并根据您的游戏需要为它们命名。例如`players`、`bullets`、`enemies`和`world`。如果 *Collision Shape* 设置为瓦片地图，则不使用此字段，但组名取自瓦片源。[了解有关碰撞组的更多信息](/manuals/physics-groups)。
 
 Mask
 : 此对象应该与之碰撞的其他 _组_。您可以命名一个组或在逗号分隔的列表中指定多个组。如果将 *Mask* 字段留空，对象将不会与任何东西碰撞。[了解有关碰撞组的更多信息](/manuals/physics-groups)。

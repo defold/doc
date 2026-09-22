@@ -13,7 +13,7 @@ brief: 本手册解释了如何使用集合工厂组件来生成游戏对象的�
 
 ## 生成集合 {#spawning-a-collection}
 
-假设我们想要一个角色游戏对象和一个单独的盾牌游戏对象作为角色的子对象。我们在一个集合文件中构建游戏对象层级结构，并将其保存为"bean.collection"。
+假设我们想要一个角色游戏对象和一个单独的盾牌游戏对象作为角色的子对象。我们在一个集合文件中构建游戏对象层级结构，并将其保存为`bean.collection`。
 
 ::: sidenote
 *集合代理*组件用于基于集合创建新的游戏世界，包括单独的物理世界。新世界通过新的套接字访问。当您向代理发送消息开始加载时，集合中包含的所有资产都通过代理加载。这使得它们对于例如在游戏中切换关卡非常有用。然而，新的游戏世界带来了相当多的开销，因此不要将它们用于少量内容的动态加载。有关更多信息，请参阅[集合代理文档](/manuals/collection-proxy)。
@@ -21,11 +21,11 @@ brief: 本手册解释了如何使用集合工厂组件来生成游戏对象的�
 
 ![Collection to spawn](images/collection_factory/collection.png)
 
-然后，我们将*集合工厂*添加到一个游戏对象中，该游戏对象将负责生成，并将"bean.collection"设置为组件的*原型*：
+然后，我们将*集合工厂*添加到一个游戏对象中，该游戏对象将负责生成，并将`bean.collection`设置为组件的*原型*：
 
 ![Collection factory](images/collection_factory/factory.png)
 
-现在，生成bean和shield只需要调用`collectionfactory.create()`函数：
+现在，生成`bean`和shield只需要调用`collectionfactory.create()`函数：
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
@@ -51,7 +51,7 @@ local bean_ids = collectionfactory.create("#bean_factory")
 `collectionfactory.create()`将生成的游戏对象的标识作为表返回。表键将每个对象的集合本地id的哈希映射到每个对象的运行时id：
 
 ::: sidenote
-"bean"和"shield"之间的父子关系*不会*在返回的表中反映出来。这种关系仅存在于运行时场景图中，即对象如何一起变换。重新设置对象的父级永远不会改变其id。
+`bean`和`shield`之间的父子关系*不会*在返回的表中反映出来。这种关系仅存在于运行时场景图中，即对象如何一起变换。重新设置对象的父级永远不会改变其id。
 :::
 
 ```lua
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-假设"bean.collection"中的"bean"游戏对象定义了"shield"属性。[脚本属性手册](/manuals/script-properties)包含有关脚本属性的信息。
+假设`bean.collection`中的`bean`游戏对象定义了`shield`属性。[脚本属性手册](/manuals/script-properties)包含有关脚本属性的信息。
 
 ```lua
 -- bean/controller.script

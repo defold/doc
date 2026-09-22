@@ -11,6 +11,10 @@ Fonts are used to render text on Label components and GUI text nodes. Defold sup
 - OpenType
 - BMFont
 
+Since Defold 1.13.2, both the legacy and full text layout engines support TrueType outlines and OpenType CFF1/CFF2 outlines, including runtime generation from `.ttf` and `.otf` resources.
+
+For information about styling individual text spans and working with links and inline sprites, see the [Rich text markup manual](/manuals/font-richtext).
+
 Fonts added to your project are automatically converted into a texture format that Defold can render. Two font rendering techniques are available, each with its own specific benefits and drawbacks:
 
 - Bitmap
@@ -20,7 +24,7 @@ Fonts added to your project are automatically converted into a texture format th
 
 By default, the conversion to rasterized glyph images happens at build time (offline). This has the drawback that each font needs to rasterize all possible glyphs in the build stage, producing potentially very large textures that consume memory and also increase the bundle size.
 
-By using "runtime fonts", the `.ttf` fonts will be bundled as-is, and the rasterization will happen on-demand at runtime. This minimizes both runtime memory usage and the bundle size.
+By using "runtime fonts", the `.ttf` and `.otf` fonts will be bundled as-is, and the rasterization will happen on-demand at runtime. This minimizes both runtime memory usage and the bundle size.
 
 ## Text layout support (e.g. Right-to-left)
 
@@ -29,10 +33,12 @@ We currently use the libraries [HarfBuzz](https://github.com/harfbuzz/harfbuzz),
 
 See [Enabling Runtime Fonts](/manuals/font#enabling-runtime-fonts)
 
+The editor uses the engine's font renderer for font and scene text previews. Text shaping and right-to-left layout require [runtime fonts](#enabling-runtime-fonts) and the **Use full text layout system** option in the App Manifest. For offline fonts, the preview respects the font's **Characters** and **All Chars** settings.
+
 ## Font collection
 
 The `.fontc` file format is also known as a font collection. In offline mode, only one font is associated with it.
-When using runtime fonts, you can associate more than one font file (`.ttf`) with the font collection.
+When using runtime fonts, you can associate more than one font file (`.ttf` or `.otf`) with the font collection.
 
 This allows for using the a font collection when rendering multiple texts in different languages, while also keeping the memory footprint low.
 E.g. loading a collection with the Japanese font, then associate that font with the current main font, followed by unloading the Japanese font collection.
@@ -188,7 +194,7 @@ For more information about shader uniforms, see the [Shader manual](/manuals/sha
 
 ## Enabling Runtime Fonts
 
-It is possible to use runtime generation for SDF type fonts, when using TrueType (`.ttf`) fonts.
+It is possible to use runtime generation for SDF type fonts, when using TrueType (`.ttf`) or OpenType (`.otf`) fonts. Runtime generation from `.otf` resources is supported since Defold 1.13.2.
 This approach can greatly reduce the download size and runtime memory consumption of a Defold game.
 The small downside is the asynchronous nature of generating each glyph.
 
@@ -202,7 +208,7 @@ This feature is currently experimental, but with the intention to be used as the
 :::
 
 ::: important
-The `font.runtime_generation` setting affects all `.ttf` fonts in the project.
+The `font.runtime_generation` setting affects all `.ttf` and `.otf` fonts in the project.
 :::
 
 
@@ -265,7 +271,7 @@ If the glyph cache gets full, the oldest glyph in the cache will be evicted.
 font.prewarm_text(self.font_collection, info.text, function (self, request_id, result, err)
     if result then
       print("PREWARMING OK!")
-      label.set_text(self.label, info.text)
+      go.set(self.label, "text", info.text)
     else
       print("Error prewarming text:", err)
     end

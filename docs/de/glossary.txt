@@ -1,0 +1,729 @@
+---
+title: Deutsches Glossar zur Defold-Dokumentation
+brief: Empfohlene deutsche Fachbegriffe für Defold mit Verwendungshinweisen und Belegen aus offiziellen deutschsprachigen Dokumentationen.
+---
+
+# Deutsches Glossar zur Defold-Dokumentation
+
+Dieses Glossar dient als Grundlage für neue deutsche Übersetzungen. Untersucht wurden alle vorhandenen `glossary.txt` und `translation-guidelines.txt` unter `docs/es`, `docs/fr`, `docs/gr`, `docs/it`, `docs/ja`, `docs/ko`, `docs/pl`, `docs/pt` und `docs/uk`. Ihr Wortschatz wurde nach Themen und Bedeutungen zusammengeführt und mit englischen Defold-Handbüchern sowie offiziellen deutschsprachigen Dokumentationen verglichen. Erstellt und Quellen geprüft am: 2026-09-12.
+
+Verwende die empfohlenen Formen in Erklärungen. UI-Beschriftungen, API-Namen, Befehle, Konfigurationsschlüssel, Dateinamen, Pfade und andere genaue Zeichenfolgen bleiben in ihrer Originalschreibweise. Führe wichtige Begriffe beim ersten Auftreten eines Artikels mit Englisch in Klammern ein, etwa `Spielobjekt (game object)`. Weitere Regeln stehen in den [Übersetzungsrichtlinien](translation-guidelines.txt).
+
+Quellenverweise belegen den deutschen Sprachgebrauch, keine Übereinstimmung der Produktsysteme. Die Begriffe und Erklärungen zu Defold richten sich nach `docs/en`. Insbesondere Sammlung, Startsammlung, Fabrik, Sammlungsfabrik und Sammlungs-Proxy sind hier festgelegte Erklärbegriffe. Einträge ohne externen Beleg sind ebenfalls redaktionelle Empfehlungen für diese deutsche Fassung.
+
+## Defold und allgemeine Begriffe
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| Defold | Defold; Produktname unverändert |
+| Defold Foundation | Defold Foundation; Name der Organisation unverändert |
+| Defold Editor | Defold-Editor in der Prosa; als genau zitierter Produktname `Defold Editor` |
+| editor | Editor; der Editor, die Editoren. [Godot][G1] |
+| engine | Engine; die Engine, die Engines. [Godot][G1] |
+| game engine | Game-Engine |
+| engine instance | Engine-Instanz |
+| game | Spiel |
+| gameplay | Gameplay; Spielablauf, wenn der konkrete Ablauf gemeint ist |
+| game logic | Spiellogik |
+| application / app | Anwendung; bei mobilen Anwendungen auch App |
+| software | Software |
+| feature | Funktion; bei einer allgemeinen Produkteigenschaft auch Merkmal |
+| tool | Werkzeug; genaue Produktnamen erhalten |
+| documentation | Dokumentation |
+| manual | Handbuch; bei einer einzelnen Seite auch Handbuchartikel |
+| API documentation | API-Dokumentation |
+| API reference | API-Referenz |
+| tutorial | Tutorial; das Tutorial, die Tutorials |
+| example / sample | Beispiel; genaue Namen von Beispielprojekten erhalten |
+| product overview | Produktübersicht |
+| FAQ | häufig gestellte Fragen; Abkürzung FAQ erhalten |
+| community | Community |
+| forum | Forum; die Foren |
+
+## Projekte, Dateien und Ressourcen
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| project | Projekt |
+| project settings | Projekteinstellungen; genaue UI-Namen und Schlüssel erhalten |
+| project file | Projektdatei; `game.project` bleibt unverändert |
+| project template | Projektvorlage |
+| file | Datei |
+| folder | Ordner; insbesondere im Zusammenhang mit einer Benutzeroberfläche |
+| directory | Verzeichnis; insbesondere bei Dateisystemen und Pfaden |
+| root directory | Stammverzeichnis |
+| file extension | Dateierweiterung; beispielsweise `.collection` |
+| source file | Quelldatei |
+| source code | Quellcode |
+| codebase | Codebasis |
+| resource | Ressource; Daten im Defold-Ressourcensystem |
+| resource file | Ressourcendatei |
+| resource path | Ressourcenpfad |
+| resource tree | Ressourcenbaum |
+| resource graph | Ressourcengraph |
+| resource management | Ressourcenverwaltung |
+| resource property | Ressourceneigenschaft; Bedeutung anhand der beschriebenen API prüfen |
+| custom resource | benutzerdefinierte Ressource; `Custom Resources` als Einstellung erhalten |
+| bundle resource | Bundle-Ressource; zusätzlich im Bundle enthaltene Datei |
+| built-in resource | integrierte Ressource; Verzeichnisname `builtins` bleibt erhalten |
+| asset | Asset; das Asset, die Assets. Produktionsmaterial wie Bilder, Modelle und Audiodateien. [Unreal Engine][E2] |
+| Asset Portal | Asset Portal; offizieller Name erhalten |
+| content | Inhalt; im Plural Inhalte |
+| library | Bibliothek |
+| dependency | Abhängigkeit |
+| library dependency | Abhängigkeit von einer Bibliothek |
+| repository | Repository; das Repository, die Repositorys |
+| branch | Branch; der Branch, die Branches; Git-Namen erhalten |
+| version control | Versionsverwaltung |
+| archive | Archiv |
+| cache | Cache; der Cache, die Caches; zur Erklärung Zwischenspeicher |
+| caching | Zwischenspeichern |
+| resource cache | Ressourcen-Cache |
+| local cache / remote cache | lokaler Cache / entfernter Cache |
+| reference | Referenz auf ein Objekt oder eine Ressource; Verweis bei einem Dokumentationslink |
+| file reference | Dateireferenz |
+| reference count | Referenzzähler, wenn der Zähler gemeint ist; Anzahl der Referenzen für seinen Wert |
+| reference counting | Referenzzählung |
+| broken reference | ungültige Referenz; bei fehlendem Ziel ausdrücklich darauf hinweisen |
+| extension | Erweiterung; eine Dateierweiterung und eine Softwareerweiterung unterscheiden |
+| native extension | native Erweiterung |
+| checksum | Prüfsumme |
+| read-only | schreibgeschützt bei Dateien und Ansichten; nur lesend bei Zugriffen |
+
+## Spielstruktur und Instanzen
+
+Bedeutungsgrundlage: [Bausteine](../en/manuals/building-blocks.md), [Sammlungsfabriken](../en/manuals/collection-factory.md) und [Sammlungs-Proxys](../en/manuals/collection-proxy.md).
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| building blocks | Bausteine |
+| game object | Spielobjekt; erstmals Spielobjekt (game object). Kein Defold-Typ namens `GameObject` daraus ableiten |
+| current game object | aktuelles Spielobjekt |
+| component | Komponente; Baustein eines Spielobjekts. Deutscher Sprachgebrauch auch bei [Unreal Engine][E2] |
+| component type | Komponententyp; genaue Typnamen und Beschriftungen erhalten |
+| component property | Komponenteneigenschaft |
+| collection | Sammlung; Definition von Spielobjekten und ihrer Hierarchie in einer Datei |
+| collection file | Sammlungsdatei; Erweiterung `.collection` erhalten |
+| sub-collection | Untersammlung |
+| collection hierarchy | Sammlungshierarchie; von der Eltern-Kind-Hierarchie unterscheiden |
+| bootstrap collection | Startsammlung; erstmals Startsammlung (bootstrap collection) |
+| main collection | Hauptsammlung; wenn die beim Start geladene Sammlung gemeint ist, mit Startsammlung abgleichen |
+| root collection | Sammlung auf oberster Ebene; den jeweiligen Bezug im Original erhalten |
+| collection instance | Instanz einer Sammlung; ihre Inhalte nicht als eigenständig adressierbares Sammlungsobjekt beschreiben |
+| factory | Fabrik; Komponente zum dynamischen Erzeugen von Spielobjekten; erstmals Fabrik (factory) |
+| factory component | Fabrikkomponente; genaue UI-Beschriftung `Factory` erhalten |
+| collection factory | Sammlungsfabrik; erzeugt Inhalte einer Sammlung in der aktuellen Spielwelt |
+| collection proxy | Sammlungs-Proxy; lädt und verwaltet eine separate Spielwelt aus einer Sammlung |
+| prototype | Prototyp; im Defold-Kontext eine Definition, auf der Instanzen beruhen |
+| prefab | Prefab; Begriff bei Vergleichen mit anderen Engines; keine zusätzliche Defold-Ressourcenart |
+| blueprint | Bauplan als allgemeine Metapher; Unreal Engines `Blueprint` bleibt als Funktionsname erhalten |
+| template | Vorlage; konkrete Defold-Ressourcen entsprechend ihrem Kontext benennen |
+| instance | Instanz; die Instanz, die Instanzen. [Godot][G1] |
+| instantiate / instantiation | instanziieren / Instanziierung; in Anleitungen auch eine Instanz erstellen |
+| spawn | dynamisch erzeugen; das erzeugte Objekt benennen |
+| in-place | direkt in der aktuellen Datei definiert; beim Hinzufügen direkt einfügen (in-place) |
+| embedded game object / component | eingebettetes Spielobjekt / eingebettete Komponente |
+| by reference | als Referenz; beim Hinzufügen als Dateireferenz einfügen |
+| parent | übergeordnetes Objekt; bei Bedarf übergeordnetes Spielobjekt oder übergeordneter Knoten |
+| child | untergeordnetes Objekt; bei Bedarf untergeordnetes Spielobjekt oder untergeordneter Knoten |
+| parent-child hierarchy | Eltern-Kind-Hierarchie |
+| childing | einem übergeordneten Spielobjekt zuordnen; Herstellen dieser Hierarchie |
+| root | Wurzel eines Baums; bei Objekten und Knoten auch oberstes Objekt oder oberster Knoten |
+| scene | Szene; eine Defold-Sammlung nicht pauschal so umbenennen |
+| scene graph | Szenengraph |
+| game world | Spielwelt |
+| physics world | Physikwelt |
+| lifetime / lifespan | Lebensdauer; Zeitraum der Existenz eines Objekts |
+| lifecycle | Lebenszyklus; Folge der Zustände und Ereignisse |
+
+## Komponenten und Ressourcentypen
+
+Die deutschen Bezeichnungen erklären die Funktion. Genaue Typnamen, Dateierweiterungen und Einträge in Dialogen behalten ihre Originalschreibweise.
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| sprite | Sprite; das Sprite, die Sprites |
+| sprite component | Sprite-Komponente |
+| script | Skript; das Skript, die Skripte; `.script` und die UI-Beschriftung `Script` erhalten |
+| script component | Skriptkomponente |
+| game object script | Spielobjekt-Skript |
+| GUI component | GUI-Komponente |
+| GUI scene | GUI-Szene |
+| GUI script | GUI-Skript |
+| editor script | Editor-Skript |
+| render script | Render-Skript |
+| model | Modell; bei Geometrie auch 3D-Modell |
+| model component | Modellkomponente |
+| mesh | Mesh; das Mesh, die Meshes; Geometrie aus Vertices und Primitiven. [Unreal Engine][E2] |
+| mesh component | Mesh-Komponente |
+| camera | Kamera |
+| camera component | Kamerakomponente |
+| collision object | Kollisionsobjekt; in Defold eine Komponente mit physikalischen Eigenschaften |
+| sound component | Audiokomponente; genaue UI-Beschriftung `Sound` erhalten |
+| particle effect / Particle FX | Partikeleffekt; genaue UI-Beschriftung `Particle FX` erhalten |
+| tile map / tilemap | Kachelkarte; erstmals Kachelkarte (tile map); `.tilemap` erhalten |
+| tile source | Kachelquelle; Ressource zur Definition von Kacheln; `.tilesource` erhalten |
+| tile set / tileset | Kachelsatz; von der Defold-Kachelquelle unterscheiden |
+| tile | Kachel |
+| atlas | Atlas; erstmals bei Bedarf Texturatlas; der Atlas, die Atlanten |
+| animation set | Animationssatz |
+| material | Material; von Textur und Shader unterscheiden. [Unreal Engine][E1] |
+| texture | Textur. [Unreal Engine][E1] |
+| cubemap | Cubemap; die Cubemap, die Cubemaps; Textur mit sechs Würfelseiten |
+| font | Schriftart; für die Defold-Datei Schriftressource |
+| label | Beschriftung; als Komponente Beschriftungskomponente; `Label` als UI-Name erhalten |
+| GUI template | GUI-Vorlage |
+| texture profile | Texturprofil |
+| display profile | Anzeigeprofil |
+
+## Adressierung und Nachrichten
+
+Bedeutungsgrundlage: [Adressierung](../en/manuals/addressing.md) und [Nachrichtenübermittlung](../en/manuals/message-passing.md).
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| identifier / ID | Bezeichner; die Abkürzung ID kann nach der Einführung verwendet werden; ein Feld `id` bleibt erhalten |
+| unique identifier | eindeutiger Bezeichner |
+| addressing | Adressierung |
+| address | Adresse |
+| relative address / addressing | relative Adresse / relative Adressierung |
+| absolute address / addressing | absolute Adresse / absolute Adressierung |
+| target address | Zieladresse; bei Nachrichten auch Empfängeradresse |
+| naming context | Namenskontext |
+| namespace | Namensraum |
+| name collision | Namenskonflikt |
+| path | Pfad; das Feld `path` bleibt erhalten |
+| relative path / absolute path | relativer Pfad / absoluter Pfad |
+| URL | URL; die URL, die URLs; hier auch Defolds Objektadressierung |
+| URL object | URL-Objekt |
+| socket | Socket; der Socket, die Sockets; im Defold-URL-Kontext Bezeichnung der Spielwelt, kein Netzwerkport |
+| fragment | Fragment; in einer Defold-URL der Bestandteil für die Komponente; Feld `fragment` erhalten |
+| separator | Trennzeichen |
+| hash | Hash; je nach Bedeutung Hashwert oder Hashfunktion |
+| hash value / hashed value | Hashwert |
+| hashed identifier | gehashter Bezeichner |
+| shorthand | Kurzform |
+| message | Nachricht |
+| message passing | Nachrichtenübermittlung |
+| send / post a message | eine Nachricht senden; Funktionsname `msg.post()` erhalten |
+| receive a message | eine Nachricht empfangen |
+| sender | Absender; Parameter `sender` erhalten |
+| receiver / recipient | Empfänger |
+| message ID | Nachrichtenbezeichner; Parameter `message_id` erhalten |
+| message data | Nachrichtendaten |
+| message queue | Nachrichtenwarteschlange |
+| message chain | Nachrichtenkette |
+| dispatch messages | Nachrichten zustellen; beim Durchlaufen der Warteschlange Nachrichten abarbeiten |
+| dispatch pass | Durchlauf der Nachrichtenverarbeitung |
+| message handler | Nachrichtenhandler; Funktion zur Verarbeitung einer Nachricht |
+| broadcast | an alle betreffenden Empfänger senden; den im Original angegebenen Empfängerkreis erhalten |
+| system message | Systemnachricht |
+| user message | benutzerdefinierte Nachricht; bei vom Spielcode definierten Nachrichten |
+| current component | aktuelle Komponente |
+
+## Lua, Programmierung und Lebenszyklus
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| Lua | Lua; niemals LUA |
+| Lua script | Lua-Skript |
+| Lua module | Lua-Modul |
+| Lua context | Lua-Kontext |
+| programming language | Programmiersprache |
+| high-level language | höhere Programmiersprache |
+| native code | nativer Code |
+| code | Code; der Code |
+| module | Modul; das Modul |
+| function | Funktion |
+| method | Methode |
+| callback | Callback; der Callback, die Callbacks; bei Bedarf Callback-Funktion |
+| event | Ereignis; von einer Nachricht unterscheiden |
+| event handler | Ereignishandler |
+| variable | Variable |
+| argument | Argument; beim Aufruf übergebener Wert |
+| parameter | Parameter; benannte Stelle einer Funktionsschnittstelle |
+| return value | Rückgabewert |
+| property | Eigenschaft; in der Prosa keine wechselnde Verwendung von Property. [Unreal Engine][E2] |
+| script property | Skripteigenschaft |
+| field | Feld; genaue Feldnamen erhalten |
+| constant | Konstante |
+| enum / enumeration | Aufzählungstyp; Namen und Werte erhalten |
+| type | Typ; bei Werten Datentyp |
+| number | Zahl; Lua-Typname `number` erhalten |
+| string | Zeichenfolge; Lua-Typname `string` erhalten |
+| boolean | boolescher Wert; `boolean`, `true` und `false` im Code erhalten |
+| nil | `nil`; Lua-Wert unverändert; nicht als `null` oder `false` wiedergeben |
+| userdata | `userdata`; Lua-Typname erhalten und bei Bedarf die betreffenden Daten erklären |
+| table / Lua table | Tabelle / Lua-Tabelle; Typname `table` erhalten |
+| key-value pair | Schlüssel-Wert-Paar |
+| array | Array; das Array, die Arrays |
+| scope | Gültigkeitsbereich |
+| local scope / global scope | lokaler Gültigkeitsbereich / globaler Gültigkeitsbereich |
+| state | Zustand |
+| stateful / stateless | zustandsbehaftet / zustandslos |
+| coroutine | Koroutine |
+| closure | Closure; die Closure, die Closures; Funktion mit Zugriff auf ihren lexikalischen Kontext |
+| metatable | Metatabelle; Lua-Funktionsnamen erhalten |
+| garbage collection | automatische Speicherbereinigung; erstmals bei Bedarf Garbage Collection ergänzen |
+| allocation / deallocation | Speicherzuweisung / Speicherfreigabe |
+| application lifecycle | Anwendungslebenszyklus |
+| initialization | Initialisierung |
+| finalization | Finalisierung; zugehörigen Callback `final()` erhalten |
+| cleanup | Aufräumen; je nach Vorgang beispielsweise Ressourcen freigeben |
+| update loop | Aktualisierungsschleife |
+| update | Aktualisierung; bei einer Aktion aktualisieren; `update()` erhalten |
+| fixed update | Aktualisierung mit festem Zeitschritt; `fixed_update()` erhalten |
+| late update | späte Aktualisierung; `late_update()` erhalten |
+| post update | Phase nach der Aktualisierung; von late update unterscheiden |
+| time step / timestep | Zeitschritt |
+| delta time | Zeitdifferenz; im Aktualisierungskontext Länge des Zeitschritts; `dt` erhalten |
+| runtime | Laufzeitumgebung, wenn die ausführende Software gemeint ist; zur Laufzeit für den Zeitpunkt |
+| at runtime | zur Laufzeit |
+| execution time | Ausführungszeit; Dauer einer Ausführung |
+| load / unload | laden / entladen |
+| enable / disable | aktivieren / deaktivieren; Nachrichtennamen `enable` und `disable` erhalten |
+| delete | löschen; von deaktivieren und entladen unterscheiden |
+
+## Koordinaten, Kamera und Bildschirm
+
+Die deutschen Begriffe für Transformationen sind unter anderem in [Godots Dokumentation][G2] belegt. Koordinatenkonventionen folgen weiterhin dem jeweiligen Defold-Artikel.
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| transform / transformation | Transformation; Oberbegriff für räumliche Abbildungen |
+| translation (spatial) | Verschiebung; bei Bedarf Translation als mathematischen Begriff ergänzen |
+| translation (language) | Übersetzung |
+| position | Position |
+| rotation | Drehung |
+| scale | Skalierung; bei einem Zahlenwert Skalierungsfaktor |
+| scaling | Skalieren / Skalierung |
+| movement | Bewegung |
+| coordinate system | Koordinatensystem |
+| local space | lokales Koordinatensystem; Koordinaten relativ zum beschriebenen Bezug |
+| world space | Weltkoordinatensystem |
+| screen space | Bildschirmkoordinatensystem |
+| origin | Ursprung |
+| axis | Achse; die Achsen |
+| vector | Vektor |
+| vector component | Vektorkomponente; von einer Defold-Komponente unterscheiden |
+| matrix | Matrix; die Matrizen |
+| quaternion | Quaternion; das Quaternion, die Quaternionen |
+| projection | Projektion |
+| orthographic projection | orthografische Projektion |
+| perspective projection | perspektivische Projektion |
+| projection matrix | Projektionsmatrix |
+| view matrix | Ansichtsmatrix |
+| view-projection matrix | kombinierte Ansichts- und Projektionsmatrix |
+| view frustum | Sichtvolumen; bei perspektivischer Projektion Sichtpyramidenstumpf |
+| field of view / FOV | Sichtfeld; beim Winkel Sichtwinkel; Abkürzung FOV erhalten |
+| near plane / far plane | nahe Begrenzungsebene / ferne Begrenzungsebene |
+| viewport | Ansichtsbereich; erstmals Ansichtsbereich (viewport); genaue UI-Namen erhalten |
+| zoom | Zoom; als Handlung vergrößern oder verkleinern |
+| screen size | Bildschirmgröße; bei Pixelmaßen Größe der Ausgabefläche aus dem Kontext bestimmen |
+| resolution | Auflösung |
+| aspect ratio | Seitenverhältnis |
+| orientation | Ausrichtung; bei Bildschirmen beispielsweise Hoch- oder Querformat |
+| portrait / landscape | Hochformat / Querformat |
+| fullscreen | Vollbild; im Vollbildmodus |
+| high DPI | hohe Pixeldichte; exakte Einstellung `High DPI` erhalten |
+| pixel | Pixel; das Pixel, die Pixel |
+| subpixel | Subpixel; Einstellung `Subpixels` erhalten |
+| pixel-perfect | pixelgenau |
+
+## Rendering, Shader und Texturen
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| graphics | Grafik; beispielsweise 2D-Grafik und 3D-Grafik |
+| render / rendering | rendern / Rendering; das Rendering |
+| renderer | Renderer; der Renderer, die Renderer |
+| graphics API / render API | Grafik-API / Render-API |
+| rendering pipeline / render pipeline | Rendering-Pipeline |
+| render target | Renderziel |
+| render predicate | Render-Prädikat; Auswahl über Material-Tags |
+| material tag | Material-Tag; das Tag, die Tags |
+| render pass | Renderdurchlauf |
+| draw call | Zeichenaufruf; erstmals Zeichenaufruf (draw call) |
+| draw order | Zeichenreihenfolge |
+| batching / batch rendering | Bündelung von Zeichenoperationen / gebündeltes Rendern; erstmals Batching ergänzen |
+| vertex | Vertex; der Vertex, die Vertices; in Erklärungen auch Eckpunkt |
+| vertex attribute | Vertex-Attribut |
+| fragment (graphics) | Fragment; Ergebnis der Rasterisierung, das weiterverarbeitet wird; von einem URL-Fragment unterscheiden |
+| shader | Shader; der Shader, die Shader. [Unreal Engine][E1] |
+| vertex shader / fragment shader | Vertex-Shader / Fragment-Shader |
+| compute shader | Compute-Shader |
+| shader program | Shader-Programm |
+| shader constant / uniform | Shader-Konstante / Uniform; genaue API- und GLSL-Bezeichnungen erhalten |
+| sampler | Sampler; der Sampler, die Sampler |
+| texture sampling | Texturabtastung |
+| texel | Texel; das Texel, die Texel; Element einer Textur |
+| UV coordinates / UV mapping | UV-Koordinaten / UV-Abbildung |
+| texture filtering | Texturfilterung |
+| nearest-neighbor filtering | Nächster-Nachbar-Filterung; exakten Wert `nearest` erhalten |
+| linear filtering | lineare Filterung; exakten Wert `linear` erhalten |
+| mipmap | Mipmap; die Mipmap, die Mipmaps |
+| texture compression | Texturkomprimierung |
+| wrap mode | Texturadressierungsmodus; beispielsweise Wiederholen oder Begrenzen; genaue Werte erhalten |
+| blend mode | Mischmodus; genaue Modusnamen erhalten |
+| alpha / alpha channel | Alpha / Alphakanal |
+| premultiplied alpha | vormultipliziertes Alpha |
+| tint | Einfärbung; Eigenschaft `tint` erhalten |
+| depth buffer / depth test | Tiefenpuffer / Tiefentest |
+| stencil buffer / stencil test | Stencil-Puffer / Stencil-Test; erstmals bei Bedarf Maskenpuffer erklären |
+| back buffer | Backbuffer; der Backbuffer; Puffer für das nächste auszugebende Bild |
+| culling / frustum culling | Aussondern von Geometrie / Aussondern von Geometrie außerhalb des Sichtvolumens; erstmals Culling bzw. Frustum Culling ergänzen |
+| clipping | Beschneiden; im Grafikzusammenhang Clipping bei der ersten Nennung ergänzen |
+| texture bleeding / edge bleeding | Übergreifen benachbarter Texturpixel; erstmals den englischen Begriff ergänzen |
+| extrude borders | Randpixel nach außen erweitern; exakte UI-Beschriftung `Extrude Borders` erhalten |
+| sprite sheet | Sprite-Bogen; erstmals Sprite-Bogen (sprite sheet) |
+
+## GUI, Layout und Text
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| user interface / UI | Benutzeroberfläche; Abkürzung UI erhalten |
+| graphical user interface / GUI | grafische Benutzeroberfläche; die GUI; für Defolds System GUI verwenden |
+| HUD | HUD; bei der ersten Nennung bei Bedarf eingeblendete Spielinformationen erklären |
+| node / GUI node | Knoten / GUI-Knoten; der Knoten, die Knoten |
+| node tree | Knotenbaum |
+| box node | Box-Knoten; genaue Typbezeichnung `Box` erhalten |
+| text node | Textknoten |
+| pie node | Kreissektor-Knoten; genaue Typbezeichnung `Pie` erhalten |
+| template node | Vorlagenknoten |
+| particle effect node | Partikeleffektknoten |
+| layer | Ebene; deutscher Grafikbegriff auch bei [GIMP][I1] |
+| layout | Layout; das Layout, die Layouts |
+| adaptive GUI | anpassungsfähige GUI |
+| pivot | Bezugspunkt; erstmals Bezugspunkt (pivot); nicht pauschal als Mittelpunkt übersetzen |
+| anchor | Verankerung; genaue Namen wie `X Anchor` erhalten |
+| adjust mode | Anpassungsmodus; genaue UI-Beschriftung `Adjust Mode` erhalten |
+| slice-9 / 9-slice | Neun-Segment-Skalierung; bei der ersten Nennung 9-slice ergänzen |
+| bounding box | Begrenzungsrechteck in 2D; Begrenzungsquader in 3D |
+| visibility / visible | Sichtbarkeit / sichtbar; von aktiviert unterscheiden. [GIMP][I1] |
+| opacity / transparency | Deckkraft / Transparenz; beide Größen unterscheiden. [GIMP][I1] |
+| glyph | Glyphe |
+| bitmap font | Bitmap-Schrift |
+| distance field font | Distanzfeldschrift; erstmals bei Bedarf distance field font ergänzen |
+| alignment | Ausrichtung; bei Text beispielsweise linksbündig |
+| line break | Zeilenumbruch |
+| leading / tracking | Zeilenabstand / Zeichenabstand |
+
+## Animation, Partikel und Audio
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| animation / animate | Animation / animieren |
+| flipbook animation / flip-book animation | Flipbook-Animation; Animation aus aufeinanderfolgenden Einzelbildern |
+| property animation | Eigenschaftsanimation |
+| model animation | Modellanimation |
+| skeletal animation / bone animation | Skelettanimation |
+| animation clip | Animationsclip |
+| frame | Frame in Spielschleife und Rendering; Einzelbild bei einer Bildfolge |
+| frame rate / FPS | Bildrate; erstmals Bilder pro Sekunde (FPS) |
+| keyframe | Schlüsselbild; erstmals Schlüsselbild (keyframe) |
+| interpolation | Interpolation |
+| easing | Easing; Verlauf der zeitlichen Interpolation; genaue Kurvennamen erhalten |
+| playback / playback rate | Wiedergabe / Wiedergabegeschwindigkeit |
+| loop / looping | Schleife / wiederholte Wiedergabe |
+| ping-pong playback | abwechselnde Vorwärts- und Rückwärtswiedergabe; exakte Wiedergabemodi erhalten |
+| skeleton / bone | Skelett / Knochen |
+| skinning | Skinning; Verformung eines Meshes anhand des Skeletts |
+| rig | Rig; das Rig, die Rigs; Steuerstruktur für die Animation |
+| particle | Partikel; der Partikel, die Partikel |
+| emitter | Emitter; der Emitter, die Emitter; erzeugt Partikel |
+| modifier | Modifikator |
+| spawn rate | Erzeugungsrate; bei Partikeln Partikelerzeugungsrate |
+| sound / audio | Ton / Audio; einen Klang oder die Audioverarbeitung entsprechend dem Kontext benennen |
+| sound effect | Soundeffekt |
+| sound group | Audiogruppe |
+| gain | Verstärkungsfaktor; keinen Dezibelwert aus einem linearen Faktor ableiten |
+| pan | Stereopanorama; räumliche Verteilung zwischen linkem und rechtem Kanal |
+| streaming audio | Audiostreaming; als Handlung Audiodaten streamen |
+
+## Eingabe
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| input | Eingabe |
+| input binding | Eingabebindung; erstmals Eingabebindung (input binding) |
+| input action | Eingabeaktion |
+| input trigger | Eingabeauslöser; von einem physikalischen Trigger unterscheiden |
+| input focus | Eingabefokus |
+| input stack | Eingabestapel |
+| consume input | Eingabe abfangen; ihre Weitergabe im Eingabestapel beenden |
+| pressed / released / repeated | gedrückt / losgelassen / wiederholt; gleichnamige Felder erhalten |
+| gamepad | Gamepad; das Gamepad, die Gamepads |
+| controller | Controller bei einem Eingabegerät; Steuerung bei einer Softwarefunktion; Bezeichner `controller` erhalten |
+| analog stick / dead zone | Analogstick / Totzone |
+| mouse button / mouse wheel | Maustaste / Mausrad |
+| touch / multitouch | Berührungseingabe / Mehrfacheingabe per Berührung |
+| text input | Texteingabe |
+| marked text | markierter Text im Texteingabeverfahren; noch nicht bestätigte Eingabe nach Original erläutern |
+| accelerometer input | Eingabe des Beschleunigungssensors |
+
+## Physik und Kollisionen
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| physics | Physik |
+| physics engine | Physik-Engine |
+| collision | Kollision |
+| collision detection | Kollisionserkennung |
+| collision response | Kollisionsreaktion; Nachricht `collision_response` erhalten |
+| collision shape | Kollisionsform |
+| collision group / collision mask | Kollisionsgruppe / Kollisionsmaske |
+| dynamic object | dynamisches Objekt; im Physikkontext dynamisches Kollisionsobjekt |
+| kinematic object | kinematisches Objekt; im Physikkontext kinematisches Kollisionsobjekt |
+| static object | statisches Objekt; im Physikkontext statisches Kollisionsobjekt |
+| rigid body | starrer Körper |
+| trigger (physics) | Trigger; der Trigger, die Trigger; erkennt Überlappungen entsprechend dem Physiksystem |
+| ray cast / raycast | Strahlabfrage; erstmals Strahlabfrage (raycast); von Raytracing unterscheiden |
+| hit | Treffer |
+| contact point | Kontaktpunkt |
+| normal | Normale; bei Bedarf Normalenvektor |
+| penetration depth / penetration distance | Eindringtiefe |
+| velocity / angular velocity | Geschwindigkeit / Winkelgeschwindigkeit |
+| force / torque / impulse | Kraft / Drehmoment / Impuls |
+| mass / friction / restitution | Masse / Reibung / Rückprallkoeffizient |
+| damping | Dämpfung |
+| joint / constraint | Gelenk / Zwangsbedingung; bei Gelenken den tatsächlichen Typ erhalten |
+| hinge joint / spring joint | Scharniergelenk / Federgelenk; API-Konstanten erhalten |
+| convex hull | konvexe Hülle |
+| box / sphere / capsule | Quader / Kugel / Kapsel; in 2D passende Geometriebezeichnung anhand des Originals wählen |
+
+## Builds, Bundles und Plattformen
+
+Begriffe wie Build, Erstellen und Kompilieren sind auch bei [Visual Studio][M1] belegt. Die Arbeitsschritte und Artefakte richten sich nach Defold.
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| build (process) | Build-Vorgang; als Handlung einen Build erstellen |
+| build (result) | Build; der Build, die Builds |
+| compile / compilation | kompilieren / Kompilierung; kein Synonym für den gesamten Build-Vorgang |
+| compiler | Compiler |
+| rebuild / clean build | neu erstellen / Build nach Bereinigung; genaue Befehle erhalten |
+| build and launch | Build erstellen und starten |
+| build target / target platform | Build-Ziel / Zielplattform |
+| build variant | Build-Variante; exakte Variantenwerte erhalten |
+| debug build / release build | Debug-Build / Release-Build |
+| build error / build report | Build-Fehler / Build-Bericht |
+| build cache | Build-Cache |
+| build server | Build-Server |
+| bundle | Bundle; das Bundle, die Bundles; eigenständiges Plattformpaket von Defold |
+| bundling / to bundle | Bundle-Erstellung / ein Bundle erstellen |
+| package | Paket im allgemeinen Sinn; ein Defold-Bundle gezielt Bundle nennen |
+| standalone | eigenständig; bei einer Anwendung ohne den Editor ausführbar |
+| headless | ohne grafische Oberfläche; erstmals bei Bedarf headless ergänzen; Variantenwerte erhalten |
+| operating system / OS | Betriebssystem; Abkürzung OS bei Bedarf erhalten |
+| device | Gerät |
+| development app | Entwicklungs-App |
+| executable / binary | ausführbare Datei / Binärdatei; den jeweiligen Dateityp beachten |
+| deployment | Bereitstellung |
+| distribution / publishing | Verteilung / Veröffentlichung |
+| stable version / beta version | stabile Version / Betaversion |
+| hot reload | Hot Reload; beim Entwickeln Änderungen in das laufende Spiel laden |
+| Live Update | Live Update; Defold-Funktionsname; von Hot Reload unterscheiden |
+| app manifest / application manifest | Anwendungsmanifest; genaue Dateinamen erhalten |
+| Android App Bundle / AAB | Android App Bundle / AAB; Formatname, kein Synonym für jedes Defold-Bundle |
+| APK | APK; Abkürzung und Erweiterung erhalten |
+| app signing | Signieren der Anwendung |
+| certificate / signing key / keystore | Zertifikat / Signaturschlüssel / Schlüsselspeicher; Namen und Werte erhalten |
+| bundle identifier | Bundle-ID; genaue Bezeichner und Einstellungsnamen erhalten |
+| provisioning profile | Bereitstellungsprofil; erstmals bei Bedarf provisioning profile ergänzen |
+| entitlement | Berechtigung im Signierungs- und Plattformkontext; technische Schlüssel erhalten |
+| SDK | SDK; bei Bedarf Software Development Kit erklären |
+| environment variable | Umgebungsvariable |
+
+## Editorbedienung, Fehlersuche und Leistung
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| UI label | UI-Beschriftung; von der Beschriftungskomponente `Label` unterscheiden |
+| panel / pane | Bereich; benannte UI-Bereiche mit ihrem exakten Namen nennen |
+| view | Ansicht |
+| inspector | Inspektor, wenn ein Werkzeug allgemein erklärt wird; `Properties` nicht umbenennen |
+| menu / context menu | Menü / Kontextmenü |
+| dialog / popup | Dialogfeld / Popup |
+| tab / button / checkbox | Registerkarte / Schaltfläche / Kontrollkästchen |
+| dropdown | Auswahlliste |
+| select / create / add | auswählen / erstellen / hinzufügen |
+| click / right-click / double-click | klicken / mit der rechten Maustaste klicken / doppelklicken |
+| drag / drop / drag and drop | ziehen / ablegen / ziehen und ablegen |
+| press and hold | gedrückt halten |
+| copy and paste | kopieren und einfügen |
+| save / undo / redo | speichern / rückgängig machen / wiederholen; genaue Befehlsnamen erhalten |
+| import / export | importieren / exportieren |
+| keyboard shortcut | Tastenkombination; genaue Tastenfolge erhalten |
+| preferences | Editoreinstellungen, wenn die Einstellungen des Editors gemeint sind |
+| console / console output | Konsole / Konsolenausgabe; Bereichsname `Console` erhalten |
+| log / logging | Protokoll / Protokollierung |
+| log file | Protokolldatei |
+| debugging / debugger | Debugging / Debugger; allgemein auch Fehlersuche. [Visual Studio][M2] |
+| breakpoint / conditional breakpoint | Haltepunkt / bedingter Haltepunkt. [Visual Studio][M2] |
+| call stack | Aufrufstapel |
+| step into / step over / step out | in einen Aufruf einsteigen / Aufruf ohne Einsteigen ausführen / bis zum Rücksprung ausführen; UI-Befehle erhalten |
+| profiling / profiler | Profiling / Profiler; Laufzeit- und Ressourcenverhalten untersuchen |
+| performance / optimization | Leistung / Optimierung |
+| memory usage / memory footprint | Speicherverbrauch / Speicherbedarf |
+| stack / heap | Stack / Heap; jeweiliger Speicherbereich |
+| bottleneck | Engpass |
+| fill rate | Füllrate |
+| crash / crash log | Absturz / Absturzprotokoll |
+| bug / workaround | Fehler / Behelfslösung |
+| minimal reproduction project | minimales Beispielprojekt zum Nachstellen des Fehlers |
+| deprecated / removed / outdated | veraltet und zur Ablösung vorgesehen / entfernt / nicht mehr aktuell; Status anhand des Originals erhalten |
+| code completion / code linting | Codevervollständigung / statische Codeprüfung |
+| refactoring | Refactoring; strukturelle Überarbeitung des Codes |
+
+## Automatisierung und HTTP
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| automation | Automatisierung |
+| deterministic automation | deterministische Automatisierung |
+| automation loop | Automatisierungsschleife |
+| workflow | Arbeitsablauf |
+| inspect / modify / verify / evaluate | untersuchen / ändern / überprüfen / bewerten; einzelne Schritte unterscheiden |
+| command-line tool / CLI | Kommandozeilenwerkzeug / Kommandozeilenschnittstelle; CLI erhalten |
+| command / shell / terminal | Befehl / Shell / Terminal |
+| server / client | Server / Client |
+| editor server | Editorserver |
+| engine service | Engine-Dienst; vom Editorserver unterscheiden |
+| editor HTTP API | HTTP-API des Editors |
+| runtime API | Laufzeit-API; bei Bedarf API der laufenden Engine |
+| source of truth | maßgebliche Quelle |
+| service discovery / port discovery | Diensterkennung / Ermitteln des Ports |
+| port / localhost | Port / localhost; numerische Adressen unverändert lassen |
+| endpoint / route | Endpunkt / Route; konkrete HTTP-Pfade erhalten |
+| request / response | Anfrage / Antwort; bei HTTP HTTP-Anfrage und HTTP-Antwort. [MDN][W1] |
+| request body / response body | Anfrageinhalt / Antwortinhalt; jeweils der Body der HTTP-Nachricht |
+| header / status code | Header / Statuscode; tatsächliche Headernamen erhalten. [MDN][W1] |
+| schema / OpenAPI document | Schema / OpenAPI-Dokument |
+| authentication / authorization | Authentifizierung / Autorisierung; Identitätsnachweis und Zugriffsentscheidung unterscheiden |
+| access token / bearer token | Zugriffstoken / Bearer-Token; das Token, die Tokens |
+| asynchronous operation | asynchroner Vorgang |
+| timeout / retry / polling | Zeitüberschreitung / erneuter Versuch / wiederholtes Abfragen |
+| structured result / structured error | strukturiertes Ergebnis / strukturierte Fehlerinformation |
+| editor transaction | Editortransaktion |
+| lifecycle hook | Lebenszyklus-Hook; genaue Funktionsnamen erhalten |
+| stream | Datenstrom; bei Audio und anderen Fachbegriffen auch Stream gemäß Kontext |
+| screenshot | Bildschirmaufnahme |
+| editor preview / scene preview | Editorvorschau / Szenenvorschau |
+| canvas | Zeichenfläche; HTML-Element `canvas` erhalten |
+| injected input | eingespeiste Eingabe |
+| capability / capability negotiation | unterstützte Funktion / Aushandeln unterstützter Funktionen |
+| version compatibility | Versionskompatibilität |
+
+## Tests und Überprüfung
+
+[Microsoft .NET][M3] verwendet unter anderem Komponententest und Integrationstest. Für die deutsche Defold-Dokumentation wird unit test als Unit-Test wiedergegeben, um den Begriff von Defold-Komponenten abzugrenzen.
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| automated testing | automatisiertes Testen |
+| unit test | Unit-Test; Test einer einzelnen Softwareeinheit |
+| integration test | Integrationstest |
+| end-to-end test / E2E test | Ende-zu-Ende-Test / E2E-Test |
+| regression test / visual regression test | Regressionstest / visueller Regressionstest |
+| browser test / platform test | Browsertest / Plattformtest |
+| test collection | Testsammlung; im Defold-Kontext eine zum Testen verwendete Sammlung |
+| test framework / test runner | Testframework / Testrunner |
+| test suite / test case | Testsuite / Testfall |
+| test fixture | Test-Fixture; definierte Ausgangsumgebung eines Tests |
+| setup / teardown | Testvorbereitung / Testnachbereitung; Funktionsnamen erhalten |
+| assertion | Assertion; Prüfung einer erwarteten Bedingung; `assert` erhalten |
+| mock / stub | Mock / Stub; beide Arten von Testersatzobjekten entsprechend ihrer Rolle unterscheiden |
+| expected result / test result | erwartetes Ergebnis / Testergebnis |
+| pass / failure | bestanden / fehlgeschlagen; technische Statuswerte erhalten |
+| exit code / exit status | Rückgabecode des Prozesses / Beendigungsstatus |
+| code coverage | Codeabdeckung |
+| acceptance criteria | Abnahmekriterien |
+| evidence | Nachweise; beispielsweise Protokolle, Messergebnisse oder Aufnahmen |
+| artifact | Artefakt; etwa ein Build-Ergebnis oder Testbericht |
+| verification / validation | Überprüfung / Validierung; Nachweis einer Vorgabe und Eignungsprüfung nach Kontext unterscheiden |
+| baseline image / difference image | Referenzbild / Differenzbild |
+| image comparison / visual inspection | Bildvergleich / visuelle Prüfung |
+| deterministic / reproducible | deterministisch / reproduzierbar; nicht gleichsetzen |
+| continuous integration / CI | kontinuierliche Integration; Abkürzung CI erhalten |
+| completion event / run ID | Abschlussereignis / Lauf-ID; technische Ereignis- und Feldnamen erhalten |
+
+## KI und Entwicklungswerkzeuge
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| artificial intelligence / AI | künstliche Intelligenz / KI; `AI` in genauen Produktnamen und Literalen erhalten |
+| AI agent / coding agent | KI-Agent / Programmieragent |
+| large language model / LLM | großes Sprachmodell; erstmals großes Sprachmodell (Large Language Model, LLM) |
+| multimodal model | multimodales Modell |
+| model-neutral | modellunabhängig |
+| prompt | Prompt; der Prompt, die Prompts; Eingabe oder Anweisung an ein Modell |
+| token (LLM) | Token; Verarbeitungseinheit des Sprachmodells; von einem Zugriffstoken unterscheiden |
+| skill | Skill bei einem benannten Anweisungsartefakt für einen Agenten; erstmals dessen Funktion erklären |
+| Model Context Protocol / MCP | Model Context Protocol / MCP; offizieller Protokollname erhalten |
+| Automation Bridge | Automation Bridge; offizieller Werkzeugname erhalten |
+| retrieval-augmented generation / RAG | Retrieval-Augmented Generation (RAG); bei der ersten Nennung Generierung mit abgerufenen Zusatzinformationen erklären |
+| adapter / wrapper / integration layer | Adapter / Wrapper / Integrationsschicht; Anpassung und bloße Kapselung unterscheiden |
+| permission / approval | Berechtigung / Zustimmung; technische Zugriffserlaubnis und menschliche Zustimmung unterscheiden |
+| credential / secret | Zugangsdaten / Geheimnis; konkrete Schlüssel, Tokens und Kennwörter nicht umbenennen |
+| sandbox / isolation | Sandbox / Isolation; bei Bedarf abgeschirmte Ausführungsumgebung erklären |
+| untrusted input | nicht vertrauenswürdige Eingabe |
+| worktree / container | Worktree / Container; technische Begriffe erhalten |
+
+## Veröffentlichung, Monetarisierung und FAQ
+
+| English term | Deutsche Form / Verwendung |
+|---|---|
+| monetization | Monetarisierung |
+| advertisement / ad | Werbung; einzelne Einblendung als Werbeanzeige |
+| ad network / ad provider | Werbenetzwerk / Werbeanbieter |
+| banner ad / interstitial ad | Banneranzeige / Interstitial-Anzeige |
+| rewarded ad / incentivized ad | Werbung gegen Belohnung |
+| ad revenue | Werbeeinnahmen |
+| in-app purchase | In-App-Kauf |
+| privacy policy | Datenschutzerklärung |
+| anonymous usage data | anonyme Nutzungsdaten; den tatsächlichen Grad der Anonymisierung nicht verstärken |
+| user tracking | Nutzertracking; bei Bedarf Erfassung des Nutzungsverhaltens erklären |
+| free / royalty-free | kostenlos / lizenzgebührenfrei; Bedingungen des Originals erhalten |
+| open source / source available | Open Source / mit einsehbarem Quellcode; unterschiedliche Lizenzmerkmale |
+| question / answer | Frage / Antwort; in FAQ die Kürzel `Q:` und `A:` erhalten |
+
+## Zeichenfolgen, die unverändert bleiben
+
+Wende die Übersetzungen nicht auf die folgenden Literale an. Beispielsweise kann die Erklärung von einem untergeordneten Spielobjekt sprechen, während der genaue Beispielname weiterhin `child_bean` lautet.
+
+| Kategorie | Beispiele |
+|---|---|
+| Produkte, Sprachen und Werkzeuge | `Defold`, `Lua`, `LuaJIT`, `Bob`, `Spine`, `Rive`, `JavaScript`, `OpenAPI`, `Protobuf`, `Automation Bridge` |
+| Plattformen, Formate und Dienste | `Windows`, `macOS`, `Linux`, `Android`, `iOS`, `HTML5`, `Nintendo Switch`, `Google Play`, `App Store`, `GitHub`, `WebAssembly`, `glTF`, `PNG`, `JSON` |
+| API und Callbacks | `msg.post()`, `go.get_id()`, `factory.create()`, `collectionfactory.create()`, `gui.get_node()`, `init()`, `update()`, `fixed_update()`, `late_update()`, `final()`, `on_message()`, `on_input()` |
+| Nachrichten, Konstanten und Felder | `enable`, `disable`, `set_parent`, `proxy_loaded`, `acquire_input_focus`, `PLAYBACK_LOOP_PINGPONG`, `self`, `message_id`, `socket`, `path`, `fragment` |
+| Dateien, Pfade und Einstellungen | `game.project`, `main.collection`, `.gui_script`, `.internal/editor.port`, `/builtins/render/default.render`, `display.width`, `max_count` |
+| Adressen und Beispielbezeichner | `main:/manager#controller`, `@render`, `@system`, `bean`, `buddy`, `controller`, `team_1` |
+| UI und Menüpfade | `Assets`, `Outline`, `Properties`, `Add Game Object`, `Add Collection File`, `Edit ▸ World Space`, `Help ▸ Open Editor Server` |
+| Befehle, HTTP und Ergebnisdaten | `build`, `clean-build`, `build-html5`, `GET /ping`, `POST /eval`, `/openapi.json`, `200`, `202`, `422`, `success`, `pass`, `duration_ms` |
+
+Für Artikel über eine ausdrücklich deutsche Oberfläche gelten die Regeln zu überprüften offiziellen Beschriftungen in den [Übersetzungsrichtlinien](translation-guidelines.txt). Übersetzte Erklärbegriffe sind keine UI-Nachweise.
+
+## Offizielle deutschsprachige Quellen
+
+Geprüft am 2026-09-12. Verwendet wurden deutsche Textstellen; englische Resttexte und produktspezifische Bedienabläufe begründen keine deutschen Defold-Regeln. Versionsangaben kennzeichnen die untersuchten Fassungen.
+
+- [G1: Godot 4.5 — Nodes und Szenen][G1]. Sprachgebrauch für Engine, Editor, Instanz, Node und Property.
+- [G2: Godot 4.5 — Viewport- und Canvas-Transformationen][G2]. Transformationen und Koordinatensysteme.
+- [E1: Unreal Engine — Materialien][E1]. Material, Shader und Textur.
+- [E2: Unreal Engine — Blueprint-Grundlagen][E2]. Komponente, Eigenschaft, Knoten, Asset und Mesh; Defold-Prototypen behalten ihre eigene Bedeutung.
+- [I1: GIMP 3.0 — Bilder kombinieren][I1]. Ebene, Deckkraft, Transparenz und Sichtbarkeit.
+- [M1: Visual Studio — Kompilieren und Erstellen][M1]. Build, Kompilieren und Erstellen.
+- [M2: Visual Studio — Übersicht über den Debugger][M2]. Haltepunkte und Debugging.
+- [M3: .NET — Testen in .NET][M3]. Testarten; Abweichung zu `Unit-Test` oben erläutert.
+- [W1: MDN — Überblick über HTTP][W1]. HTTP-Anfragen, Antworten, Header und Statuscodes.
+
+[G1]: https://docs.godotengine.org/de/4.5/getting_started/step_by_step/nodes_and_scenes.html
+[G2]: https://docs.godotengine.org/de/4.5/tutorials/2d/2d_transforms.html
+[E1]: https://dev.epicgames.com/documentation/de-de/unreal-engine/unreal-engine-materials
+[E2]: https://dev.epicgames.com/documentation/de-de/unreal-engine/blueprint-foundations
+[I1]: https://docs.gimp.org/3.0/de/gimp-image-combining.html
+[M1]: https://learn.microsoft.com/de-de/visualstudio/ide/compiling-and-building-in-visual-studio?view=visualstudio
+[M2]: https://learn.microsoft.com/de-de/visualstudio/debugger/debugger-feature-tour?view=visualstudio
+[M3]: https://learn.microsoft.com/de-de/dotnet/core/testing/
+[W1]: https://developer.mozilla.org/de/docs/Web/HTTP/Guides/Overview

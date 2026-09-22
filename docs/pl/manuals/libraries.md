@@ -13,6 +13,8 @@ Biblioteki są przydatne w następujących sytuacjach:
 * aby zbudować bibliotekę szablonów, które można kopiować do projektów, a potem dostosowywać lub specjalizować.
 * aby zbudować jedną lub więcej bibliotek gotowych obiektów lub skryptów, do których można odwoływać się bezpośrednio. To bardzo wygodne do przechowywania wspólnych modułów skryptowych albo wspólnych zasobów graficznych, dźwiękowych i animacyjnych.
 
+<a id="setting-up-library-sharing"></a>
+
 ## Ustawianie udostępniania biblioteki
 
 Załóżmy, że chcesz zbudować bibliotekę zawierającą współdzielone sprite'y oraz źródła kafelków. Zacznij od [utworzenia nowego projektu](/manuals/project-setup/). Zdecyduj, które foldery chcesz udostępnić z projektu, i dodaj ich nazwy do właściwości *`include_dirs`* w ustawieniach projektu. Jeśli chcesz wymienić więcej niż jeden folder, oddziel nazwy spacjami:

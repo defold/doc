@@ -124,7 +124,7 @@ La herramienta te pedirá que presiones distintos botones en tu mando conectado.
 
 ### Gamepads no identificados {#unidentified-gamepads}
 
-Cuando se conecta un gamepad y no existe ningún mapeo para él, el gamepad solo generará acciones "connected", "disconnected" y "raw". En este caso necesitas mapear manualmente los datos raw del gamepad a acciones en tu juego.
+Cuando se conecta un gamepad y no existe ningún mapeo para él, el gamepad solo generará acciones `connected`, `disconnected` y `raw`. En este caso necesitas mapear manualmente los datos raw del gamepad a acciones en tu juego.
 
 Es posible comprobar si una acción de input para un gamepad proviene de un gamepad desconocido o no leyendo el valor `gamepad_unknown` de `action`:
 
@@ -161,7 +161,7 @@ Si tu juego se ejecuta dentro de un `iframe`, también debes asegurarte de que e
 
 ### Gamepad estándar {#standard-gamepad}
 
-Si el navegador identifica un gamepad conectado como gamepad estándar, usará el mapeo para "`Standard Gamepad`" en el [archivo de configuración de gamepads](/manuals/input-gamepads/#gamepads-settings-file) (el archivo `default.gamepads` en `/builtins` incluye un mapeo de Standard Gamepad). Un gamepad estándar se define como un dispositivo con 16 botones y 2 sticks analógicos, con una disposición de botones similar a un mando PlayStation o Xbox (consulta la [definición y disposición de botones de W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad) para más información). Si el gamepad conectado no se identifica como un gamepad estándar, Defold buscará en el archivo de configuración de gamepads un mapeo que coincida con el tipo de hardware del gamepad.
+Si el navegador identifica un gamepad conectado como gamepad estándar, usará el mapeo para `Standard Gamepad` en el [archivo de configuración de gamepads](/manuals/input-gamepads/#gamepads-settings-file) (el archivo `default.gamepads` en `/builtins` incluye un mapeo de `Standard Gamepad`). Un gamepad estándar se define como un dispositivo con 16 botones y 2 sticks analógicos, con una disposición de botones similar a un mando PlayStation o Xbox (consulta la [definición y disposición de botones de W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad) para más información). Si el gamepad conectado no se identifica como un gamepad estándar, Defold buscará en el archivo de configuración de gamepads un mapeo que coincida con el tipo de hardware del gamepad.
 
 ## Gamepads en Windows {#gamepads-on-windows}
 En Windows, actualmente solo se admiten mandos Xbox 360. Para conectar tu mando 360 a tu computadora Windows, [asegúrate de que esté configurado correctamente](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).

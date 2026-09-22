@@ -40,7 +40,7 @@ Defold는 충분히 테스트되어 있으며 일반적인 상황에서는 크�
 
 ## print 디버깅 사용하기
 
-네이티브 코드를 디버깅하는 가장 간단한 방법은 [print 디버깅](http://en.wikipedia.org/wiki/Debugging#Techniques)을 사용하는 것입니다. 변수를 확인하거나 실행 흐름을 나타내려면 [`dmLog` 네임스페이스](/ref/stable/dmLog/)의 함수를 사용하세요. 로그 함수 중 하나를 사용하면 에디터의 *Console* 뷰와 [게임 로그](/manuals/debugging-game-and-system-logs)에 출력됩니다.
+네이티브 코드를 디버깅하는 가장 간단한 방법은 [print 디버깅](http://en.wikipedia.org/wiki/Debugging#Techniques)을 사용하는 것입니다. 변수를 확인하거나 실행 흐름을 나타내려면 [`dmLog` 네임스페이스](/ref/dmLog/)의 함수를 사용하세요. 로그 함수 중 하나를 사용하면 에디터의 *Console* 뷰와 [게임 로그](/manuals/debugging-game-and-system-logs)에 출력됩니다.
 
 
 ## 크래시 로그 분석하기

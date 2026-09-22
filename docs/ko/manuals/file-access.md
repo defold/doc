@@ -9,7 +9,7 @@ brief: 이 매뉴얼은 파일을 저장하고 로드하는 방법과 기타 파
 ## 파일 및 폴더 액세스 함수
 Defold는 파일을 다루기 위한 여러 함수를 제공합니다:
 
-* 표준 [`io.*` 함수](https://defold.com/ref/stable/io/)를 사용해 파일을 읽고 쓸 수 있습니다. 이 함수들은 전체 I/O 과정에 대해 매우 세밀한 제어를 제공합니다.
+* 표준 [`io.*` 함수](https://defold.com/ref/io/)를 사용해 파일을 읽고 쓸 수 있습니다. 이 함수들은 전체 I/O 과정에 대해 매우 세밀한 제어를 제공합니다.
 
 ```lua
 -- myfile.txt를 바이너리 모드로 쓰기 위해 엽니다
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname)과 [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename)를 사용해 파일 이름을 변경하고 파일을 삭제할 수 있습니다.
+* [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname)과 [`os.remove()`](https://defold.com/ref/os/#os.remove:filename)를 사용해 파일 이름을 변경하고 파일을 삭제할 수 있습니다.
 
-* [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table)와 [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename)를 사용해 Lua 테이블을 읽고 쓸 수 있습니다. 플랫폼과 무관한 파일 경로 해석을 돕기 위한 추가 [`sys.*`](https://defold.com/ref/stable/sys/) 함수들도 있습니다.
+* [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table)와 [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename)를 사용해 Lua 테이블을 읽고 쓸 수 있습니다. 플랫폼과 무관한 파일 경로 해석을 돕기 위한 추가 [`sys.*`](https://defold.com/ref/sys/) 함수들도 있습니다.
 
 ```lua
 -- 어플리케이션 "mygame"의 파일 "highscore"에 대한 플랫폼 독립적인 경로를 얻습니다
@@ -80,15 +80,19 @@ print(data.highscore) -- 100
 * 어플리케이션이 액세스하는 시스템별 파일
 
 ### 어플리케이션별 파일을 저장하고 로드하는 방법
-하이스코어, 사용자 설정, 게임 상태 같은 어플리케이션별 파일을 저장하고 로드할 때는 운영체제가 이 목적을 위해 제공하는 위치를 사용하는 것이 좋습니다. [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name)을 사용하면 파일에 대한 OS별 절대 경로를 얻을 수 있습니다. 절대 경로를 얻은 뒤에는 `sys.*`, `io.*`, `os.*` 함수를 사용할 수 있습니다(위 내용 참고).
+하이스코어, 사용자 설정, 게임 상태 같은 어플리케이션별 파일을 저장하고 로드할 때는 운영체제가 이 목적을 위해 제공하는 위치를 사용하는 것이 좋습니다. [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name)을 사용하면 파일에 대한 OS별 절대 경로를 얻을 수 있습니다. 절대 경로를 얻은 뒤에는 `sys.*`, `io.*`, `os.*` 함수를 사용할 수 있습니다(위 내용 참고).
 
 [`sys.save()`와 `sys.load()` 사용 방법을 보여주는 예제를 확인하세요](/examples/file/sys_save_load/).
 
 ### 어플리케이션에 번들된 파일에 액세스하는 방법 {#how-to-access-files-bundled-with-the-application}
 번들 리소스와 커스텀 리소스를 사용해 파일을 어플리케이션에 포함할 수 있습니다.
 
+<a id="custom-resources"></a>
+
 #### 커스텀 리소스
 :[Custom Resources](../shared/custom-resources.md)
+
+익스텐션도 `ext.properties`를 통해 이 파일들을 제공할 수 있습니다. 에디터 빌드와 Bob 아카이브 모두에서 익스텐션의 경로를 프로젝트의 커스텀 리소스와 결합합니다. [익스텐션의 커스텀 리소스](/manuals/extensions/#custom-resources)를 참고하세요.
 
 ```lua
 -- 레벨 데이터를 문자열로 로드합니다

@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 Defold currently only supports `Materials` and `Render Targets` as referenced render resources, but over time more resource types will be supported by this system.
 :::
 
+### Multisampled render targets
+
+Render targets support multisample anti-aliasing (MSAA). This smooths geometry edges in an offscreen render pass. The target's sample count is independent of [Display ▸ Samples](/manuals/project-settings/#samples), which controls anti-aliasing for the window.
+
+For a `.render_target` resource, set **Sample Count** in the editor to `1`, `2`, `4`, `8` or `16`. A value of `1` disables multisampling. Add the resource to your `.render` file's **Render Resources** table and use its assigned name with `render.set_render_target()`, as in the example above.
+
+Alternatively, create a target in your render script's `init()`. Put `sample_count` in the outer parameter table, alongside the attachments:
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+This example uses a color-only target. All color, depth and stencil attachments in a target share its sample count. Add a depth attachment and the usual depth-test state if the pass requires depth testing.
+
+For the following `update()` fragment, give the scene materials the `scene` tag and a full-screen quad's material the `present` tag. The quad's material must sample texture unit `0`. Set the appropriate view and projection for each pass:
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+Switching away from the target finishes the pass and resolves its multisampled color attachments automatically. `render.enable_texture()` binds the resolved color texture, so the quad uses an ordinary texture sampler. No separate resolve command is required.
+
+The requested sample count defaults to `1` and must be a positive integer. Graphics backends reduce unsupported requests to a supported power-of-two count, falling back to `1` if necessary, and log a warning when the count changes. Higher sample counts increase the memory needed for the attachments.
+
+When using a render target resource, inspect its effective count from a game object `.script` with `resource.get_render_target_info()`. For example, after adding `/render/offscreen.render_target` to **Render Resources**:
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+Use this effective count when checking device support instead of assuming that the requested count was available. See [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) and [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) for the full parameter and result tables.
+
 ## Texture handles
 
 Textures in Defold are represented internally as a handle, which essentially equates to a number that should uniquely identify a texture object anywhere in the engine. This means that you can bridge the gameobject world with the rendering world by passing these handles between the render system and a gameobject script. For example, a script can create a dynamic texture in a script attached to a gameobject and send this to the renderer to be used as a global texture in a draw command.

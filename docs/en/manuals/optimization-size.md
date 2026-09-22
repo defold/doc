@@ -34,6 +34,8 @@ Defold will create a dependency tree when building and bundling your application
 A quick way to reduce the engine size is to remove functionality in the engine that you do not use. This is done [application manifest file](https://defold.com/manuals/app-manifest/) where it is possible to remove engine components that you do not need. Examples:
 
 * Physics - If your game does not make use of Box2D or Bullet3D physics then it is strongly advised to remove the physics engines
+* GUI, particle effects and tilemaps - These components can be excluded separately with the [App Manifest component switches](/manuals/app-manifest/#exclude-gui). Remove component references and API calls for any feature you exclude. Excluding particle effects also removes support for particle nodes in GUI scenes.
+* Rich text - Disable [Use Rich Text](/manuals/app-manifest/#use-rich-text) if labels and GUI text only need plain text. This removes rich text parsing and style effects while retaining ordinary text rendering.
 * LiveUpdate - If your game does not use LiveUpdate it can be removed
 * Image loaded - If your game does not manually load and decode images using `image.load()`
 * BasisU - If your game has few textures, compare the build size without BasisU (removed via app manifest) and without texture compression versus a build with BasisU and compressed textures. For games with limited textures, it might be more beneficial to reduce the binary size and skip texture compression. Additionally, not using the transcoder can lower the amount of memory required to run your game.

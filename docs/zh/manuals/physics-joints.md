@@ -5,7 +5,11 @@ brief: Defold 支持 2D 物理关节。本手册解释了如何创建和使用�
 
 # 关节
 
-Defold 支持 2D 物理关节。关节使用某种约束连接两个碰撞对象。支持的关节类型有：
+关节使用约束连接两个碰撞对象。Defold 通过不同的 API，同时支持 2D 和 3D 物理中的关节。
+
+本手册介绍 `physics` 模块提供的 2D 关节。自 Defold 1.13.2 起，3D 项目可以通过 [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) 创建和控制约束，包括铰链、滑动和弹簧约束。请将此 API 与通过 [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) 获得的刚体配合使用。
+
+2D `physics` API 支持的关节类型有：
 
 * **Fixed (physics.JOINT_TYPE_FIXED)** - 一个限制两点之间最大距离的绳索关节。在 Box2D 中被称为绳索关节。
 * **Hinge (physics.JOINT_TYPE_HINGE)** - 铰链关节在两个碰撞对象上指定一个锚点，并移动它们使两个碰撞对象始终在同一位置，碰撞对象的相对旋转不受限制。铰链关节可以启用具有定义的最大引擎扭矩和速度的马达。在 Box2D 中被称为[旋转关节](https://box2d.org/documentation/group__revolute__joint.html#details)。
@@ -16,7 +20,7 @@ Defold 支持 2D 物理关节。关节使用某种约束连接两个碰撞对象
 
 ## 创建关节
 
-目前只能通过编程方式使用 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) 创建关节：
+这里介绍的 2D 关节通过编程方式使用 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) 创建：
 ::: sidenote
 编辑器支持创建关节的功能已在计划中，但尚未确定发布日期。
 :::
@@ -26,7 +30,7 @@ Defold 支持 2D 物理关节。关节使用某种约束连接两个碰撞对象
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-上述代码将创建一个 ID 为 `my_test_joint` 的固定关节，连接在两个碰撞对象 `obj_a#collisionobject` 和 `obj_b#collisionobject` 之间。关节连接在碰撞对象 `obj_a#collisionobject` 中心左侧 10 像素和碰撞对象 `obj_b#collisionobject` 中心上方 20 像素的位置。关节的最大长度为 20 像素。
+上述代码将创建一个 ID 为 `my_test_joint` 的固定关节，连接在两个碰撞对象 `obj_a#collisionobject` 和 `obj_b#collisionobject` 之间。关节连接在碰撞对象 `obj_a#collisionobject` 中心右侧 10 像素和碰撞对象 `obj_b#collisionobject` 中心上方 20 像素的位置。关节的最大长度为 20 像素。
 
 ## 销毁关节
 

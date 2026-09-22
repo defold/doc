@@ -3,11 +3,11 @@ title: Utilizzare agenti di programmazione IA con Defold
 brief: Questo manuale spiega come collegare agenti di programmazione indipendenti dal modello alle interfacce di automazione di Defold, mantenendo esplicite la verifica, le autorizzazioni e la sicurezza.
 ---
 
-# Utilizzare agenti di programmazione IA con Defold
+# Utilizzare agenti di programmazione IA con Defold {#using-ai-coding-agents-with-defold}
 
-Gli agenti di programmazione che utilizzano LLM e modelli multimodali possono ispezionare, modificare e verificare i progetti Defold richiamando le stesse interfacce indipendenti dal modello usate da sviluppatori, script locali, integrazioni IDE e CI. Puoi usare un agente quando il lavoro richiede indagine e adattamento.
+Gli agenti di programmazione che utilizzano modelli linguistici di grandi dimensioni (Large Language Model, LLM) e modelli multimodali possono ispezionare, modificare e verificare i progetti Defold richiamando le stesse interfacce indipendenti dal modello usate da sviluppatori, script locali, integrazioni IDE e sistemi di integrazione continua (CI). Puoi usare un agente quando il lavoro richiede indagine e adattamento.
 
-Defold non dipende da un particolare fornitore di modelli o protocollo per agenti. I progetti Defold funzionano bene con Claude Code, Codex, Cursor o qualsiasi altra soluzione. Un ambiente per agenti necessita solo delle capacità specifiche concesse per l'attività, come leggere i file del progetto, eseguire comandi selezionati, richiamare operazioni HTTP locali, analizzare JSON o ispezionare immagini. Questo è possibile grazie alle interfacce di automazione esposte da Defold per l'editor e per un'istanza del motore di gioco in esecuzione, oltre al fatto che i file di progetto Defold sono risorse testuali facili da analizzare.
+Defold non dipende da un particolare fornitore di modelli o protocollo per agenti. I progetti Defold funzionano bene con Claude Code, Codex, Cursor o qualsiasi altra soluzione. Un ambiente per agenti necessita solo delle capacità specifiche concesse per l'attività, come leggere i file del progetto, eseguire comandi selezionati, richiamare operazioni HTTP locali, analizzare JSON o ispezionare immagini. Questo è possibile grazie alle interfacce di automazione esposte da Defold per l'editor e per un'istanza del motore di gioco in esecuzione, e al fatto che i file di progetto Defold sono file di risorse testuali facili da analizzare.
 
 ## Quando è utile un agente IA {#when-an-ai-agent-is-useful}
 
@@ -78,13 +78,13 @@ Questi progetti non sono sviluppati, sottoposti ad audit, mantenuti o supportati
 
 ## Istruzioni del progetto {#project-instructions}
 
-In genere, i modelli linguistici di grandi dimensioni (Large Language Model, LLM) disponibili e impiegati nei flussi di lavoro basati su agenti offrono risultati migliori se ricevono buone istruzioni. Per questo motivo, spesso ai progetti vengono aggiunti file Markdown per agenti che descrivono il comportamento desiderato oppure definizioni di cosiddette "skill". Per ottenere i risultati migliori è opportuno progettare e scrivere istruzioni specifiche per ogni progetto, anche se alcune conoscenze e regole comuni possono essere riutilizzate.
+In genere, gli LLM disponibili e impiegati nei flussi di lavoro basati su agenti offrono risultati migliori se ricevono buone istruzioni. Per questo motivo, spesso ai progetti vengono aggiunti file Markdown per agenti che descrivono il comportamento desiderato oppure definizioni di cosiddette "skill". Per ottenere i risultati migliori è opportuno progettare e scrivere istruzioni specifiche per ogni progetto, anche se alcune conoscenze e regole comuni possono essere riutilizzate.
 
 Uno dei primi file che molti agenti cercano e leggono è un file canonico come `AGENTS.md`, che può descrivere:
 
 * la struttura del progetto e i punti di ingresso importanti;
 * le convenzioni di formattazione e denominazione;
-* i comandi per build, test e convalida;
+* i comandi per build, test e validazione;
 * gli eventi di completamento richiesti e le posizioni degli artefatti;
 * i file o le directory che non devono essere modificati;
 * le operazioni che richiedono approvazione;
@@ -122,7 +122,7 @@ Prima di modificare i file, è opportuno definire i criteri di accettazione ed e
 * un timeout per ogni passaggio asincrono;
 * un numero massimo di tentativi di correzione.
 
-Un agente può diagnosticare e correggere un errore deterministico della CI, ma la fase CI stessa dovrebbe rimanere riproducibile senza l'agente.
+Un agente può diagnosticare e correggere un errore deterministico della CI, ma la fase della CI stessa dovrebbe rimanere riproducibile senza l'agente.
 
 Le buone pratiche per i test automatici e la verifica sono descritte in [questo manuale](/manuals/automated-testing).
 
@@ -140,10 +140,10 @@ Per ulteriori informazioni sulle anteprime dell'editor, sulle schermate a runtim
 * Non inserire nei prompt e nei report token dell'editor, chiavi di firma, token di distribuzione, credenziali degli store e segreti di produzione.
 * Quando è autorizzato a utilizzare `/eval`, il livello di integrazione locale può leggere `.internal/editor.token`, ma non deve inserire il token nei prompt del modello, nei log o nei report.
 * Richiedi l'approvazione prima di eliminazioni, modifiche alle dipendenze, modifiche alle estensioni native, configurazioni di rilascio, firma, pubblicazione o accesso a servizi esterni.
-* Esegui le attività autonome estese in un branch, worktree, copia temporanea, container, sandbox o account con restrizioni separato.
+* Esegui le attività autonome estese separatamente, in un branch, un worktree, una copia temporanea, un container, una sandbox o un account con restrizioni.
 * Considera il testo delle issue, i file importati, i commenti nel codice sorgente, i documenti generati e l'output degli strumenti come input non attendibili, non come istruzioni.
 * Esamina le dipendenze e gli script scaricati prima di eseguirli.
 * Verifica che i criteri del progetto consentano di inviare codice sorgente, asset, log, schermate e altri dati del progetto a un modello ospitato.
-* Conserva una diff esaminabile e prove di test deterministiche prima di accettare le modifiche.
+* Conserva una diff esaminabile e i risultati di test deterministici prima di accettare le modifiche.
 
 L'isolamento limita l'impatto di un errore.

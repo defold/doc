@@ -87,6 +87,9 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 
 您可以在运行时通过获取和设置标签文本以及其他各种属性来操作标签。
 
+`text`
+: 标签的文本内容（`string`）。自 Defold 1.13.2 起，可通过 `go.get()` 和 `go.set()` 访问。
+
 `color`
 : 标签颜色（`vector4`）
 
@@ -104,10 +107,17 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 
 ```lua
 function init(self)
-    -- 设置与此脚本在同一游戏对象中的"my_label"组件的文本。
-    label.set_text("#my_label", "新文本")
+    -- Set the text of the "my_label" component in the same game object
+    -- as this script.
+    go.set("#my_label", "text", "New text")
+    local text = go.get("#my_label", "text")
+    print(text) -- New text
 end
 ```
+
+::: sidenote
+自 Defold 1.13.2 起，`label.set_text()` 和 `label.get_text()` 已弃用，推荐改用 `text` 属性。旧函数仍然可用，以保持兼容性。旧的设置函数会将消息加入队列，而 `go.set()` 会立即更新文本。
+:::
 
 ```lua
 function init(self)

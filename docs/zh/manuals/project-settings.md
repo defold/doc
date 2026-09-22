@@ -96,11 +96,16 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 项目 *库 URL* 的 URL 列表。有关更多信息，请参阅[库手册](/manuals/libraries/)。
 
+#### Dependencies Metadata
+`project.dependencies_metadata` 在运行时包中包含库依赖项的元数据。默认禁用。可以在运行时使用 `sys.load_resource("/.internal/dependencies.json")` 读取这些元数据。
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
 
 加载自定义资源在[文件访问手册](/manuals/file-access/#how-to-access-files-bundled-with-the-application)中有更详细的介绍。
+
+扩展通过 `ext.properties` 中的 `custom_resources.default` 提供的路径会与此设置合并。示例请参阅[扩展的自定义资源](/manuals/extensions/#custom-resources)。
 
 #### Bundle Resources
 `bundle_resources`
@@ -129,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 应通过库共享从您的项目中共享的目录的空格分隔列表。有关更多信息，请参阅[库手册](/manuals/libraries/)。
 
----
-
-### Script
-
-#### Shared State
-勾选以在所有脚本类型之间共享单个 Lua 状态。
+#### Defold Min Version
+`library.defold_min_version` 指定将此项目用作库所需的最低 Defold/Bob 版本，例如 `1.11.2`。留空表示不限制最低版本。
 
 ---
 
@@ -165,11 +166,13 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Samples
 用于超级采样抗锯齿的样本数量。它设置 `GLFW_FSAA_SAMPLES` 窗口提示。值为 `0` 表示关闭抗锯齿。
 
+此设置控制窗口的抗锯齿。离屏的[多重采样渲染目标](/manuals/render/#multisampled-render-targets)有自己的采样数。
+
 #### Fullscreen
 勾选应用程序是否应全屏启动。如果未勾选，应用程序将在窗口模式下运行。
 
 #### Update Frequency
-所需的帧率（以赫兹为单位）。设置为 0 表示可变帧率。大于 0 的值将导致固定帧率，在运行时上限为实际帧率（这意味着您不能在引擎帧中更新游戏循环两次）。使用 [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) 在运行时更改此值。此设置也适用于无头构建。
+所需的帧率（以赫兹为单位）。设置为 0 表示可变帧率。大于 0 的值将导致固定帧率，在运行时上限为实际帧率（这意味着您不能在引擎帧中更新游戏循环两次）。使用 [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) 在运行时更改此值。此设置也适用于无头构建。
 
 #### Swap interval
 此整数值控制应用程序如何处理垂直同步。0 禁用垂直同步，默认值为 1。使用 OpenGL 适配器时，此值设置窗口应在[缓冲区交换之间更新](https://www.khronos.org/opengl/wiki/Swap_Interval)的帧数。对于 Vulkan，没有内置的交换间隔概念，该值控制是否应启用垂直同步。
@@ -301,6 +304,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Verify Graphics Calls
 验证每次图形调用后的返回值并在日志中报告任何错误。
 
+#### WebGL Version Hint
+`graphics.webgl_version_hint` 选择 HTML5 请求的 WebGL 上下文版本。有效值为 `1`（WebGL 1）和 `2`（WebGL 2，默认值）。设置为 `1`，即可在支持 WebGL 2 的浏览器中面向或测试 WebGL 1。面向 WebGL 1 时，请保持 [Exclude GLES 2.0](#exclude-gles-20) 禁用，以包含所需的着色器。
+
 #### OpenGL Version Hint
 OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需的最低版本（不适用于 OpenGL ES）。
 
@@ -338,6 +344,12 @@ OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需�
 
 #### Gamepads
 游戏手柄配置文件的文件引用，它将游戏手柄信号映射到操作系统，默认为 `/builtins/input/default.gamepads`。
+
+#### Gamepad Database
+`input.gamepad_database` 选择 SDL 格式的游戏手柄映射数据库（`.txt`）。默认为 `/builtins/input/gamecontrollerdb.txt`。构建项目时，其中的映射会与 *Gamepads* 文件中的映射合并。
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` 设置在运行时应用于 SDL 游戏手柄数据库映射的死区。默认值为 `0.2`。
 
 #### Game Binding
 输入配置文件的文件引用，它将硬件输入映射到操作，默认为 `/input/game.input_binding`。
@@ -479,6 +491,19 @@ Spine 模型组件的最大数量。[(参见组件最大数量优化的信息)](
 #### Max Bone Matrix Texture Height
 骨骼矩阵纹理的最大高度。
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` 设置为每个网格生成的变形目标纹理的最大宽度，以像素为单位。该纹理存储位置、法线和切线的增量。默认值为 `1024`。
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` 设置为每个网格生成的变形目标纹理的最大高度，以像素为单位。该纹理存储位置、法线和切线的增量。默认值为 `1024`。
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` 设置光源组件的最大数量，默认为 `64`。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
 ---
 
 ### GUI
@@ -489,8 +514,21 @@ GUI 组件的最大数量。[(参见组件最大数量优化的信息)](#compone
 #### Max Particle Count
 GUI 粒子效果的最大粒子数量。
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` 设置每个集合中粒子 FX 节点的最大数量。默认值为 `64`。
+
 #### Max Animation Count
 GUI 动画的最大数量。
+
+#### Safe Area Mode
+`gui.safe_area_mode` 选择哪些安全区域内边距会影响 GUI 调整：
+
+- `none`（默认）：忽略内边距。
+- `long`：横屏时应用左/右边距，竖屏时应用上/下边距。
+- `short`：横屏时应用上/下边距，竖屏时应用左/右边距。
+- `both`：应用所有四个内边距。
+
+GUI 脚本可以使用 [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) 为其场景覆盖此模式。有关平台支持和自定义布局，请参阅[安全区域指南](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras)。
 
 ---
 
@@ -507,10 +545,16 @@ GUI 动画的最大数量。
 ### Particle FX
 
 #### Max Count
-粒子 FX 组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+`particle_fx.max_count` 设置粒子 FX 组件的最大数量，默认为 `64`。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` 设置同时运行的粒子 FX 发射器的最大数量。默认值为 `64`。
 
 #### Max Particle Count
-粒子的最大数量。
+同时存在的粒子的最大数量。此设置限制 GPU 顶点缓冲区的大小，默认为 `1024` 个粒子。
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` 设置每次上传到 GPU 的粒子数量上限。此设置限制用于生成粒子顶点的 CPU 缓冲区大小。默认值为 `1024`。
 
 ---
 
@@ -669,9 +713,17 @@ Firebase Cloud Messaging 应用 ID。
 
 应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具进行调试。这将在 Android 清单中设置 `android:debuggable` 标志（[官方文档](https://developer.android.com/guide/topics/manifest/application-element#debug)）。
 
-#### ProGuard config
+<a id="proguard-config"></a>
 
-自定义 ProGuard 文件，帮助从最终 APK 中删除冗余的 Java 类。
+#### R8 Keep Rules
+
+`android.r8_keep_rules` 选择一个 `.keep` 文件，以在 Android 构建中启用 R8 对 Java 代码的缩减、优化和混淆。将该设置留空会使用 D8，不执行缩减。
+
+选择 `/builtins/manifests/android/dmengine.keep` 可直接使用 Defold 的默认规则。扩展提供自己的[保留规则](/manuals/extensions/#r8-keep-rules-for-android)，这些规则会与此文件合并。
+
+仅当需要添加项目特定规则时，才将内置文件复制到项目中。请在副本中保留内置规则：选择自定义文件会替换完整的项目规则集。
+
+有关如何启用 R8 并在发布包中保留其混淆映射，请参阅 [Android 手册](/manuals/android/#shrinking-java-code-with-r8)。
 
 #### Extract Native Libraries
 
@@ -696,6 +748,14 @@ Firebase Cloud Messaging 应用 ID。
 #### Bundle Identifier
 
 捆绑标识符让 macOS 识别您应用的更新。您的捆绑 ID 必须在 Apple 注册，并且对您的应用是唯一的。您不能对 iOS 和 macOS 应用使用相同的标识符。必须由两个或多个用点分隔的段组成。每个段必须以字母开头。每个段只能包含字母数字字母、下划线或连字符 (-) 字符。
+
+#### Bundle Name {#osx-bundle-name}
+
+`osx.bundle_name` 指定捆绑短名称（`CFBundleName`），长度限制为 15 个字符。
+
+#### Bundle Version {#osx-bundle-version}
+
+`osx.bundle_version` 指定构建编号（`CFBundleVersion`），可以是一个数字或 `x.y.z`。默认值为 `1`。
 
 #### Default Language
 
@@ -769,11 +829,15 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 
 #### Retry Count
 
-引擎启动时下载文件的尝试次数（参见 `Retry Time`）。
+启动期间下载失败后的重试次数，包括网络错误、失败的 HTTP 状态，以及引擎 JavaScript 或 WebAssembly 文件的大小不匹配。初次请求不计入重试次数。归档文件验证有自己的重试上限；请参阅[下载验证](/manuals/html5/#download-verification)和 `Retry Time`。
 
 #### Retry Time
 
 下载失败时尝试下载文件之间等待的秒数（参见 `Retry Count`）。
+
+#### Verify Downloaded File Size
+
+`html5.verify_downloaded_file_size` 检查下载的引擎和归档文件是否符合预期大小。默认启用（`true`）。仅当服务器、代理或 CDN 有意重写文件并改变其大小时，才将其设置为 `false`。验证失败会触发下载重试，耗尽重试后启动失败。引擎下载与归档文件验证的重试上限不同；请参阅[下载验证](/manuals/html5/#download-verification)。
 
 #### Transparent Graphics Context
 
@@ -790,6 +854,10 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 ---
 
 ### Live update
+
+#### Enabled {#liveupdate-enabled}
+
+`liveupdate.enabled` 在运行时启用实时更新系统。默认启用。有关如何排除、下载和挂载资源，请参阅[实时更新手册](/manuals/live-update/)。
 
 #### Settings
 
@@ -816,6 +884,10 @@ App Manifest 的 **Profiler** 设置控制是否将分析器代码链接到 Debu
 #### Track Cpu
 
 Debug 构建默认启用 CPU 使用率采样。当通过 App Manifest 包含了分析器支持的 Release 构建也需要 CPU 采样时，请启用此设置。
+
+#### Track Detailed Memory
+
+`profiler.track_detailed_memory` 启用性能分析器中的详细内存采样。默认禁用。在 HTML5 上可能会产生较大的性能开销。
 
 #### Sleep Between Server Updates
 

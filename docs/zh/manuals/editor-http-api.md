@@ -34,7 +34,7 @@ Defold 编辑器会为自动化操作开放一个专用服务器。HTTP API 用�
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-编辑器是图形桌面应用程序。请在可以访问显示器的交互式用户会话中启动它。当图形会话不可用（例如在无头 CI 中），或只需执行编译自动化和创建独立包时，请使用 [Bob](/manuals/bob)。
+编辑器是图形桌面应用程序。请在可以访问显示器的交互式用户会话中启动它。当图形会话不可用（例如在无头 CI 中），或需要创建独立包时，请使用 [Bob](/manuals/bob)。已打开的编辑器还支持通过 `/command/compile` 自动执行只编译、不运行的操作。
 
 启动编辑器后，请等待项目打开且 `.internal/editor.port` 出现。然后轮询 `/openapi.json`，直到它返回有效文档。不要因为进程已创建就认为项目已经就绪。
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-列出可用的编辑器命令：
+列出文档中记录的编辑器命令路径：
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+在 Defold 1.13.2 及更高版本中，每个命令在 OpenAPI 文档中都有自己的路径。更早的版本通过 `/command/{command}` 路径和命令名称枚举来描述命令。
 
 了解版本的集成应验证所需的每项操作，并根据返回的模式配置请求。不建议维护一份据称包含全部端点或命令名称的副本，因为它可能会过时。
 
@@ -97,22 +95,38 @@ curl -sS "$BASE_URL/openapi.json" |
 
 ## 执行编辑器命令
 
-编辑器命令通过以下路径调用：
+向命令在文档中列出的路径发送 `POST` 请求即可调用编辑器命令，例如：
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-例如，当前的 `build` 命令会编译并运行项目：
+只编译项目而不运行：
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-构建成功时会返回结构化结果：
+编译并运行项目：
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+这些管道命令会显示响应正文。在自动化脚本中，还应按照[构建 HTML5](#building-html5) 中的方式检查 HTTP 状态和 `success`。
+
+::: sidenote
+自 Defold 1.13.2 起，`/command/build` 是 `/command/run` 的已弃用兼容别名，不会列在 OpenAPI 中。新的集成应使用 `/command/run`。
+:::
+
+编译成功时会返回 HTTP 状态 `200`，并附带结构化结果：
 
 ```json
 {
@@ -150,7 +164,10 @@ curl -sS \
 
 运行中的编辑器列出时，常用命令包括：
 
-`build`
+`compile`
+: 编译项目，但不运行。
+
+`run`
 : 编译并运行项目。
 
 `clean-build`
@@ -177,7 +194,9 @@ curl -sS \
 
 ### 命令响应和异步工作
 
-命令操作会在当前 OpenAPI 模式中说明响应码。
+响应取决于具体命令。在 Defold 1.13.2 及更高版本中，`compile`、`run`、`clean-build`、`build-html5`、`debugger-start` 和 `hot-reload` 会等待命令完成，并返回如上所示包含 `success` 和 `issues` 的结构化结果。成功时返回 HTTP `200`；构建或验证失败时返回 `422`。
+
+其他命令仍可能返回 `202`，例如 `debugger-break`。请检查当前 OpenAPI 模式中的操作，并处理实际的 HTTP 响应状态：
 
 | 状态 | 含义 |
 | --- | --- |
@@ -192,21 +211,36 @@ HTTP `202` 响应并不能证明请求的结果已经存在。应等待相关输
 
 ### 构建 HTML5 {#building-html5}
 
-如果当前 OpenAPI 文档列出了 `build-html5`，请通过命令操作调用它：
+如果当前 OpenAPI 文档列出了 `/command/build-html5`，请通过该路径调用它。在 Shell 脚本中，将 HTTP 状态和响应正文分别保存，并在请求或构建失败时停止：
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-该命令异步运行，通常返回 HTTP `202`。构建完成后，编辑器会在以下位置提供该构建：
+在 Defold 1.13.2 及更高版本中，此请求会等待构建完成并返回结构化结果。此示例会输出包含构建问题的响应正文，并且仅在 HTTP 状态为 `200` 且 `success: true` 时继续执行。构建成功后，编辑器会在浏览器中打开游戏，并在以下位置提供游戏：
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-开始浏览器测试前，请等待该 URL 可用。更多详情请参阅 [HTML5 的浏览器测试](/manuals/automated-testing/#browser-tests-for-html5)。
+构建完成不表示游戏已在浏览器中加载完毕。发送输入或检查游戏行为之前，请等待画布和应用程序就绪。更多详情请参阅 [HTML5 的浏览器测试](/manuals/automated-testing/#browser-tests-for-html5)。
 
 ## 搜索 API 文档
 

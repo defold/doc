@@ -348,6 +348,65 @@ render.draw(self.my_tile_predicate)
 Defold на текущий момент поддерживает только `Materials` и `Render Targets` как подключаемые ресурсы рендеринга, но в будущем поддержка будет расширена.
 :::
 
+### Рендер-таргеты с мультисэмплингом {#multisampled-render-targets}
+
+Рендер-таргеты поддерживают сглаживание методом мультисэмплинга (MSAA). Оно сглаживает края геометрии во внеэкранном проходе рендеринга. Число сэмплов таргета не зависит от [Display ▸ Samples](/manuals/project-settings/#samples), который управляет сглаживанием окна.
+
+Для ресурса `.render_target` задайте в редакторе **Sample Count** равным `1`, `2`, `4`, `8` или `16`. Значение `1` отключает мультисэмплинг. Добавьте ресурс в таблицу **Render Resources** файла `.render` и используйте назначенное ему имя в `render.set_render_target()`, как в примере выше.
+
+Также можно создать таргет в функции `init()` render-скрипта. Поместите `sample_count` во внешнюю таблицу параметров, рядом с присоединёнными буферами:
+
+```lua
+self.offscreen = render.render_target({
+    sample_count = 4,
+    [graphics.BUFFER_TYPE_COLOR0_BIT] = {
+        format = graphics.TEXTURE_FORMAT_RGBA,
+        width = 1024,
+        height = 1024,
+        min_filter = graphics.TEXTURE_FILTER_LINEAR,
+        mag_filter = graphics.TEXTURE_FILTER_LINEAR,
+        u_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+        v_wrap = graphics.TEXTURE_WRAP_CLAMP_TO_EDGE,
+    },
+})
+self.scene_predicate = render.predicate({"scene"})
+self.present_predicate = render.predicate({"present"})
+```
+
+В этом примере таргет содержит только цветовой буфер. Все присоединённые к таргету буферы цвета, глубины и трафарета используют одно число сэмплов. Если проход требует проверки глубины, добавьте буфер глубины и обычные настройки проверки глубины.
+
+Для следующего фрагмента `update()` назначьте материалам сцены тег `scene`, а материалу полноэкранного прямоугольника — тег `present`. Материал прямоугольника должен читать текстуру из текстурного блока `0`. Задайте подходящие матрицы вида и проекции для каждого прохода:
+
+```lua
+render.set_render_target(self.offscreen)
+render.set_viewport(0, 0, 1024, 1024)
+render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
+-- Set the scene view and projection here.
+render.draw(self.scene_predicate)
+
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+-- Set the full-screen quad view and projection here.
+render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
+render.draw(self.present_predicate)
+render.disable_texture(0)
+```
+
+Переключение с таргета завершает проход и автоматически объединяет сэмплы его цветовых буферов в итоговое изображение. `render.enable_texture()` привязывает полученную цветовую текстуру, поэтому прямоугольник использует обычный текстурный сэмплер. Отдельная команда объединения не требуется.
+
+Запрашиваемое число сэмплов по умолчанию равно `1` и должно быть положительным целым числом. Графические бэкенды уменьшают неподдерживаемые значения до поддерживаемой степени двойки, при необходимости до `1`, и записывают предупреждение в журнал при изменении значения. Чем больше сэмплов, тем больше памяти требуется для присоединённых буферов.
+
+При использовании ресурса рендер-таргета можно узнать его фактическое число сэмплов из `.script` игрового объекта с помощью `resource.get_render_target_info()`. Например, после добавления `/render/offscreen.render_target` в **Render Resources**:
+
+```lua
+function init(self)
+    local info = resource.get_render_target_info("/render/offscreen.render_targetc")
+    print("Render target sample count:", info.sample_count)
+end
+```
+
+Используйте это фактическое значение при проверке поддержки устройства, не предполагая, что запрошенное число сэмплов было доступно. Полные таблицы параметров и результатов приведены в документации [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) и [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path).
+
 ## Обработчики текстур
 
 Текстуры в Defold представлены внутренне как handle (дескриптор), по сути — это число, которое уникально идентифицирует объект текстуры внутри движка. Это означает, что вы можете связать мир игровых объектов с рендеринговой системой, передав эти дескрипторы между игровыми скриптами и системой рендеринга. Например, скрипт может создать динамическую текстуру в script-файле, прикреплённом к игровому объекту, и передать её в рендерер для использования как глобальной текстуры в команде отрисовки.

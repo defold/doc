@@ -7,6 +7,8 @@ brief: Ta instrukcja opisuje, jak dodawać tekst do scen GUI.
 
 Defold obsługuje specjalny typ węzła GUI, który pozwala renderować tekst w scenie GUI. Każdy zasób fontu dodany do projektu może być użyty do renderowania węzłów tekstowych.
 
+Podgląd w edytorze obsługuje kształtowanie tekstu i układ od prawej do lewej, korzystając z mechanizmu renderowania fontów silnika. Wymagane ustawienia fontu i manifestu aplikacji opisano w sekcji [obsługa układu tekstu](/manuals/font/#text-layout-support-eg-right-to-left).
+
 ## Dodawanie węzłów tekstowych
 
 Fonty, których chcesz używać we węzłach tekstowych GUI, muszą zostać dodane do komponentu GUI. Kliknij prawym przyciskiem myszy folder *Fonts*, użyj górnego menu <kbd>GUI</kbd> albo naciśnij odpowiedni skrót klawiaturowy.

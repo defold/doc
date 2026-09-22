@@ -5,7 +5,7 @@ brief: Ta instrukcja wyjaśnia, jak czytać logi gry i systemu.
 
 # Logi gry i systemu
 
-Log gry pokazuje całe wyjście z silnika, rozszerzeń natywnych i logiki gry. Polecenia [print()](/ref/stable/base/#print:...) oraz [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) można wywoływać ze skryptów i modułów Lua, aby wyświetlać informacje w logu gry. Z poziomu rozszerzeń natywnych możesz używać funkcji w przestrzeni nazw [`dmLog` namespace](/ref/stable/dmLog/), aby zapisywać do logu gry. Log gry można odczytać w edytorze, w oknie terminala, przy użyciu narzędzi specyficznych dla platformy albo z pliku logu.
+Log gry pokazuje całe wyjście z silnika, rozszerzeń natywnych i logiki gry. Polecenia [print()](/ref/base/#print:...) oraz [pprint()](/ref/builtins/?q=pprint#pprint:v) można wywoływać ze skryptów i modułów Lua, aby wyświetlać informacje w logu gry. Z poziomu rozszerzeń natywnych możesz używać funkcji w przestrzeni nazw [`dmLog` namespace](/ref/dmLog/), aby zapisywać do logu gry. Log gry można odczytać w edytorze, w oknie terminala, przy użyciu narzędzi specyficznych dla platformy albo z pliku logu.
 
 Logi systemowe są generowane przez system operacyjny i mogą dostarczyć dodatkowych informacji, które pomagają namierzyć problem. Mogą też zawierać ślady stosu po awariach oraz ostrzeżenia o niskim poziomie pamięci.
 

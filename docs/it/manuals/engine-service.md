@@ -1,11 +1,11 @@
 ---
 title: Il servizio del motore e le API HTTP a runtime
-brief: Questo manuale spiega il servizio HTTP di sviluppo in un motore di debug Defold in esecuzione e come le estensioni a runtime o gli strumenti esterni possono utilizzarlo.
+brief: Questo manuale spiega il servizio HTTP di sviluppo in un motore Defold di debug in esecuzione e come le estensioni a runtime o gli strumenti esterni possono utilizzarlo.
 ---
 
-# Il servizio del motore e le API HTTP a runtime
+# Il servizio del motore e le API HTTP a runtime {#the-engine-service-and-runtime-http-apis}
 
-L'esecuzione di un progetto in modalità Debug crea un processo per una determinata istanza del motore a runtime, contenente il gioco e uno speciale servizio del motore accessibile per l'infrastruttura di sviluppo e profilazione, la logica e i messaggi a runtime, lo stato del motore e le estensioni.
+L'esecuzione di un progetto in modalità Debug crea un processo per una determinata istanza del motore a runtime, contenente il gioco e uno speciale servizio del motore. Questo servizio consente di accedere all'infrastruttura di sviluppo e profilazione, alla logica e ai messaggi a runtime, allo stato del motore e alle estensioni.
 
 Il servizio del motore è un servizio HTTP di sviluppo appartenente a un motore di debug (`dmengine`) in esecuzione.
 
@@ -13,7 +13,7 @@ Il servizio del motore è un servizio HTTP di sviluppo appartenente a un motore 
 
 I due servizi utilizzano porte diverse. Uno strumento connesso alla porta dell'editor non può richiamare lì le route delle estensioni a runtime e, viceversa, uno strumento connesso al servizio del motore non può richiamare operazioni dell'editor.
 
-Il servizio del motore fa parte dell'infrastruttura di debug, sviluppo e profilazione. Le istanze release del motore non creano il servizio.
+Il servizio del motore fa parte dell'infrastruttura di debug, sviluppo e profilazione. Le istanze del motore nelle build di release non creano il servizio.
 
 ## Disponibilità e individuazione della porta {#availability-and-port-discovery}
 
@@ -25,9 +25,9 @@ Quando l'editor avvia un motore di debug, richiede una porta del servizio assegn
 INFO:ENGINE: Engine service started on port <port>
 ```
 
-La riga compare nella console dell'editor quando il gioco è stato avviato dall'editor. Un semplice controller locale può analizzarla, ma un'integrazione riutilizzabile dovrebbe consentire all'editor o al relativo wrapper di tenere traccia dell'istanza del motore e della porta registrata. Ciò evita di confondere una vecchia porta con un processo appena avviato o riutilizzato.
+La riga compare nella console dell'editor quando il gioco è stato avviato dall'editor. Un semplice controller locale può analizzarla, ma un'integrazione riutilizzabile dovrebbe lasciare che l'editor o il relativo wrapper tengano traccia dell'istanza del motore e della porta registrata. In questo modo si evita di attribuire una vecchia porta a un processo appena avviato o riutilizzato.
 
-Il motore pubblicizza inoltre le destinazioni di sviluppo tramite il rilevamento dei servizi sulle piattaforme supportate. Tale meccanismo viene utilizzato principalmente dagli strumenti Defold e non dovrebbe essere sostituito con una porta codificata in modo permanente.
+Il motore annuncia inoltre le destinazioni di sviluppo tramite il rilevamento dei servizi sulle piattaforme supportate. Tale meccanismo viene utilizzato principalmente dagli strumenti Defold e non dovrebbe essere sostituito con un numero di porta fisso nel codice.
 
 Il server è accessibile su localhost (`127.0.0.1`) alla porta indicata:
 
@@ -42,7 +42,7 @@ Il motore di debug corrente registra un piccolo insieme di route principali.
 | `GET /ping` | Verifica che il servizio del motore risponda |
 | `GET /info` | Legge la versione del motore, la piattaforma, l'identificatore di build e le informazioni sul servizio di log |
 | `GET /state` | Legge lo stato della connessione di sviluppo utilizzato dagli strumenti Defold |
-| `POST /post/<socket>/<message-type>` | Invia un messaggio Defold codificato in Protobuf a un socket del motore denominato |
+| `POST /post/<socket>/<message-type>` | Invia un messaggio Defold codificato in Protobuf a un socket del motore identificato per nome |
 
 Ad esempio:
 

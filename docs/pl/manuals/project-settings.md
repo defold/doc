@@ -93,11 +93,16 @@ Włącza kompresję archiwów podczas bundlowania. Obecnie dotyczy to wszystkich
 #### Dependencies
 Lista adresów URL do projektów będących *Library URL*. Więcej informacji znajdziesz w [instrukcji Libraries](/manuals/libraries/).
 
+#### Dependencies Metadata
+`project.dependencies_metadata` dołącza metadane zależności bibliotecznych do pakietu aplikacji. Domyślnie wyłączone. Metadane można odczytać w czasie działania za pomocą `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Zasoby niestandardowe](../shared/custom-resources.md)
 
 Ładowanie zasobów niestandardowych opisano dokładniej w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+
+Ścieżki dostarczane przez rozszerzenia za pomocą `custom_resources.default` w pliku `ext.properties` są łączone z tym ustawieniem. Przykład znajdziesz w sekcji [zasoby niestandardowe rozszerzeń](/manuals/extensions/#custom-resources).
 
 #### Bundle Resources
 `bundle_resources`
@@ -126,12 +131,8 @@ Plik konfiguracji renderowania definiujący pipeline renderowania. Domyślnie `/
 #### Include Dirs
 Lista katalogów rozdzielonych spacjami, które mają być współdzielone z projektu przez mechanizm bibliotek. Więcej informacji znajdziesz w [instrukcji Libraries](/manuals/libraries/).
 
----
-
-### Script
-
-#### Shared State
-Zaznacz, aby współdzielić pojedynczy stan Lua między wszystkimi typami skryptów.
+#### Defold Min Version
+`library.defold_min_version` określa minimalną wersję silnika Defold i narzędzia Bob wymaganą do używania tego projektu jako biblioteki, na przykład `1.11.2`. Pozostaw pole puste, aby nie wymagać minimalnej wersji.
 
 ---
 
@@ -162,11 +163,13 @@ Tworzy bufor o wysokim DPI na wyświetlaczach, które to obsługują. Zwykle gra
 #### Samples
 Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna `GLFW_FSAA_SAMPLES`. Wartość `0` wyłącza antyaliasing.
 
+To ustawienie dotyczy okna. Pozaekranowe [cele renderowania z wielokrotnym próbkowaniem](/manuals/render/#multisampled-render-targets) mają własną liczbę próbek.
+
 #### Fullscreen
 Zaznacz, jeśli aplikacja ma startować w trybie pełnoekranowym. Gdy pole nie jest zaznaczone, aplikacja uruchomi się w oknie.
 
 #### Update Frequency
-Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać zmiennej liczby klatek. Wartość większa od 0 powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
+Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać zmiennej liczby klatek. Wartość większa od 0 powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
 
 #### Swap interval
 Ta liczba całkowita steruje sposobem obsługi vsync. 0 wyłącza vsync, a wartością domyślną jest 1. Przy adapterze OpenGL wartość określa liczbę klatek pomiędzy [zamianami buforów](https://www.khronos.org/opengl/wiki/Swap_Interval). W przypadku Vulkana nie istnieje wbudowane pojęcie swap interval, więc wartość określa po prostu, czy vsync ma być włączony.
@@ -298,6 +301,9 @@ Plik profili teksturowania używany przez projekt, domyślnie `/builtins/graphic
 #### Verify Graphics Calls
 Sprawdza wartość zwrotną po każdym wywołaniu grafiki i raportuje błędy w logu.
 
+#### WebGL Version Hint
+`graphics.webgl_version_hint` wybiera wersję kontekstu WebGL żądaną dla HTML5. Prawidłowe wartości to `1` (WebGL 1) i `2` (WebGL 2, domyślna). Ustaw `1`, aby używać lub testować WebGL 1 nawet w przeglądarce obsługującej WebGL 2. Pozostaw [Exclude GLES 2.0](#exclude-gles-20) wyłączone, jeśli chcesz używać WebGL 1, aby dołączyć wymagane shadery.
+
 #### OpenGL Version Hint
 Podpowiedź dotycząca wersji kontekstu OpenGL. Jeśli wybierzesz konkretną wersję, będzie ona używana jako minimalnie wymagana wersja. Nie dotyczy OpenGL ES.
 
@@ -335,6 +341,12 @@ Liczba sekund pomiędzy kolejnymi powtórzeniami przytrzymanego wejścia.
 
 #### Gamepads
 Odwołanie do pliku konfiguracji gamepadów mapującego sygnały gamepada na system operacyjny. Domyślnie `/builtins/input/default.gamepads`.
+
+#### Gamepad Database
+`input.gamepad_database` wybiera bazę mapowań gamepadów w formacie SDL (`.txt`). Wartość domyślna to `/builtins/input/gamecontrollerdb.txt`. Podczas budowania projektu jej mapowania są łączone z plikiem *Gamepads*.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` ustawia martwą strefę stosowaną w czasie działania do mapowań z bazy gamepadów SDL. Wartość domyślna to `0.2`.
 
 #### Game Binding
 Odwołanie do pliku konfiguracji wejść mapującego sprzętowe wejścia na akcje. Domyślnie `/input/game.input_binding`.
@@ -474,6 +486,19 @@ Maksymalna szerokość tekstury macierzy kości. Używany jest tylko rozmiar pot
 #### Max Bone Matrix Texture Height
 Maksymalna wysokość tekstury macierzy kości. Używany jest tylko rozmiar potrzebny animacjom, zaokrąglany w górę do najbliższej potęgi dwójki.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` ustawia maksymalną szerokość w pikselach tekstury generowanej dla każdej siatki, zawierającej różnice położeń, normalnych i stycznych dla kształtów docelowych (morph targets). Wartość domyślna to `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` ustawia maksymalną wysokość w pikselach tekstury generowanej dla każdej siatki, zawierającej różnice położeń, normalnych i stycznych dla kształtów docelowych (morph targets). Wartość domyślna to `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` ustawia maksymalną liczbę komponentów światła (Light), domyślnie `64`. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -484,8 +509,21 @@ Maksymalna liczba komponentów GUI. Zobacz też informacje o [optymalizacji licz
 #### Max Particle Count
 Maksymalna liczba jednoczesnych cząsteczek w GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` ustawia maksymalną liczbę węzłów efektów cząsteczkowych w jednej kolekcji. Wartość domyślna to `64`.
+
 #### Max Animation Count
 Maksymalna liczba aktywnych animacji w GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` wybiera, które marginesy obszaru bezpiecznego wpływają na dostosowanie GUI:
+
+- `none` (domyślne): ignoruj marginesy.
+- `long`: stosuj lewy i prawy margines w orientacji poziomej oraz górny i dolny w orientacji pionowej.
+- `short`: stosuj górny i dolny margines w orientacji poziomej oraz lewy i prawy w orientacji pionowej.
+- `both`: stosuj wszystkie cztery marginesy.
+
+Skrypt GUI może nadpisać tryb dla swojej sceny za pomocą [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Informacje o obsłudze na poszczególnych platformach i własnych układach znajdziesz we [wskazówkach dotyczących obszaru bezpiecznego](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras).
 
 ---
 
@@ -502,10 +540,16 @@ Zaznacz, aby pozwolić etykietom pojawiać się poza siatką pełnych pikseli.
 ### Particle FX
 
 #### Max Count
-Maksymalna liczba jednoczesnych emiterów. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+`particle_fx.max_count` ustawia maksymalną liczbę komponentów efektów cząsteczkowych, domyślnie `64`. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` ustawia maksymalną liczbę jednoczesnych emiterów efektów cząsteczkowych. Wartość domyślna to `64`.
 
 #### Max Particle Count
-Maksymalna liczba jednoczesnych cząsteczek.
+Maksymalna liczba jednoczesnych cząsteczek. Ogranicza rozmiar bufora wierzchołków GPU, domyślnie do `1024` cząsteczek.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` ustawia maksymalną liczbę cząsteczek przesyłanych jednorazowo do GPU. Ogranicza bufor CPU używany do generowania wierzchołków cząsteczek. Wartość domyślna to `1024`.
 
 ---
 
@@ -633,8 +677,16 @@ Pozwala rozszerzyć obraz na obszar wycięcia ekranu.
 #### Debuggable
 Określa, czy aplikację można debugować narzędziami takimi jak [GAPID](https://github.com/google/gapid) albo [Android Studio](https://developer.android.com/studio/profile/android-profiler). Ustawia flagę `android:debuggable` w Android Manifest. Zobacz [oficjalną dokumentację](https://developer.android.com/guide/topics/manifest/application-element#debug).
 
-#### ProGuard config
-Własny plik ProGuard pomagający usunąć zbędne klasy Java z końcowego APK.
+<a id="proguard-config"></a>
+
+#### R8 Keep Rules
+`android.r8_keep_rules` wybiera plik `.keep`, aby włączyć usuwanie nieużywanego kodu, optymalizację i zaciemnianie nazw Java przez R8 podczas budowania dla Androida. Pozostaw pole puste, aby używać D8 bez usuwania kodu.
+
+Wybierz `/builtins/manifests/android/dmengine.keep`, aby bezpośrednio użyć domyślnych reguł silnika Defold. Rozszerzenia dostarczają własne [reguły zachowywania klas](/manuals/extensions/#r8-keep-rules-for-android), które są łączone z tym plikiem.
+
+Skopiuj wbudowany plik do projektu tylko wtedy, gdy musisz dodać reguły specyficzne dla projektu. Zachowaj w kopii reguły wbudowane: wybranie własnego pliku zastępuje kompletny zestaw reguł projektu.
+
+Włączanie R8 i zachowywanie mapowania zaciemnionych nazw razem z pakietem wydania opisano w [instrukcji Androida](/manuals/android/#shrinking-java-code-with-r8).
 
 #### Extract Native Libraries
 Określa, czy instalator pakietu ma rozpakowywać biblioteki natywne z APK do systemu plików. Jeśli ustawisz `false`, biblioteki będą przechowywane nieskompresowane wewnątrz APK. APK może być wtedy większy, ale aplikacja będzie ładować się szybciej, bo biblioteki będą ładowane bezpośrednio z APK w czasie działania. To ustawienie ustawia flagę `android:extractNativeLibs` w Android Manifest. Zobacz [oficjalną dokumentację](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs).
@@ -654,6 +706,12 @@ Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/man
 
 #### Bundle Identifier
 Identyfikator bundla pozwalający macOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (-).
+
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` określa krótką nazwę bundla (`CFBundleName`), ograniczoną do 15 znaków.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` określa numer builda (`CFBundleVersion`), zapisany jako liczba albo `x.y.z`. Wartość domyślna to `1`.
 
 #### Default Language
 Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli preferowany język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
@@ -711,10 +769,13 @@ Po włączeniu ta opcja wypisuje informacje o silniku i jego wersji w konsoli pr
 Określa metodę skalowania kanwy gry.
 
 #### Retry Count
-Liczba prób pobrania pliku przy uruchamianiu silnika. Zobacz także `Retry Time`.
+Liczba ponowień po nieudanym pobraniu podczas uruchamiania, obejmująca błędy sieci, nieprawidłowe statusy HTTP oraz niezgodności rozmiaru pliku JavaScript lub WebAssembly silnika. Początkowe żądanie jest liczone osobno. Weryfikacja plików archiwum ma własny limit ponowień; zobacz [weryfikację pobierania](/manuals/html5/#download-verification) i `Retry Time`.
 
 #### Retry Time
 Liczba sekund oczekiwania między kolejnymi próbami pobrania pliku po nieudanym pobraniu. Zobacz także `Retry Count`.
+
+#### Verify Downloaded File Size
+`html5.verify_downloaded_file_size` sprawdza rozmiary pobranych plików silnika i archiwum względem oczekiwanych wartości. Domyślnie włączone (`true`). Ustaw `false` tylko wtedy, gdy serwer, proxy lub CDN celowo przekształca pliki i zmienia ich rozmiary. Nieudana weryfikacja powoduje ponowienia pobierania, zanim uruchomienie zakończy się błędem. Limity ponowień różnią się dla pobierania silnika i weryfikacji plików archiwum; zobacz [weryfikację pobierania](/manuals/html5/#download-verification).
 
 #### Transparent Graphics Context
 Zaznacz, jeśli kontekst grafiki ma mieć przezroczyste tło.
@@ -729,6 +790,9 @@ Zaznacz, aby automatycznie finalizować transakcje IAP. Jeśli pole jest odznacz
 ---
 
 ### Live update
+
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` włącza system Live update w czasie działania. Domyślnie włączone. Sposób wykluczania, pobierania i montowania zasobów opisano w [instrukcji Live update](/manuals/live-update/).
 
 #### Settings
 Plik zasobu ustawień Liveupdate używany podczas bundlowania.
@@ -751,6 +815,9 @@ Włącza profiler w grze.
 
 #### Track Cpu
 Próbkowanie użycia CPU jest domyślnie włączone w buildach debug. Włącz to ustawienie, jeśli próbkowanie CPU jest również potrzebne w buildzie release, który zawiera obsługę profilera dołączoną przez manifest aplikacji.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` włącza szczegółowe próbkowanie pamięci w profilerze. Domyślnie wyłączone. Na HTML5 może powodować duży narzut wydajnościowy.
 
 #### Sleep Between Server Updates
 Liczba milisekund uśpienia pomiędzy aktualizacjami serwera.

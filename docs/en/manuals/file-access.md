@@ -9,7 +9,7 @@ There are many different ways to create and/or access files. The file paths and 
 ## Functions for file and folder access
 Defold provides several different functions to work with files:
 
-* You can use the standard [`io.*` functions](https://defold.com/ref/stable/io/) to read and write files. These functions give you very fine-grained control over the entire I/O process.
+* You can use the standard [`io.*` functions](https://defold.com/ref/io/) to read and write files. These functions give you very fine-grained control over the entire I/O process.
 
 ```lua
 -- open myfile.txt for writing in binary mode
@@ -44,9 +44,9 @@ end
 print(s) -- Foobar
 ```
 
-* You can use [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) and [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) to rename and remove files.
+* You can use [`os.rename()`](https://defold.com/ref/os/#os.rename:oldname-newname) and [`os.remove()`](https://defold.com/ref/os/#os.remove:filename) to rename and remove files.
 
-* You can use [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) and [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) to read and write Lua tables. Additional [`sys.*`](https://defold.com/ref/stable/sys/) functions exist to help with platform independent file path resolution.
+* You can use [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) and [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) to read and write Lua tables. Additional [`sys.*`](https://defold.com/ref/sys/) functions exist to help with platform independent file path resolution.
 
 ```lua
 -- get a platform independent path to the file "highscore" for application "mygame"
@@ -80,7 +80,7 @@ File and folder locations can be divided into three categories:
 * System specific files accessed by your application
 
 ### How to save and load application specific files
-When saving and loading application specific files such as high scores, user settings and game state it is recommended to do so in a location provided by the operating system and intended specifically for this purpose. You can use [`sys.get_save_file()`](https://defold.com/ref/stable/sys/#sys.get_save_file:application_id-file_name) to get the OS specific absolute path to a file. Once you have the absolute path you can use the `sys.*`, `io.*` and `os.*` functions (see above).
+When saving and loading application specific files such as high scores, user settings and game state it is recommended to do so in a location provided by the operating system and intended specifically for this purpose. You can use [`sys.get_save_file()`](https://defold.com/ref/sys/#sys.get_save_file:application_id-file_name) to get the OS specific absolute path to a file. Once you have the absolute path you can use the `sys.*`, `io.*` and `os.*` functions (see above).
 
 [Check the example showing how to use `sys.save()` and `sys.load()`](/examples/file/sys_save_load/).
 
@@ -89,6 +89,8 @@ You can include files with your application using bundle resources and custom re
 
 #### Custom Resources
 :[Custom Resources](../shared/custom-resources.md)
+
+Extensions can also contribute these files through `ext.properties`. Their paths are combined with the project's custom resources in both editor builds and Bob archives. See [extension custom resources](/manuals/extensions/#custom-resources).
 
 ```lua
 -- Load level data into a string

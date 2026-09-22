@@ -13,7 +13,7 @@ Defold는 게임 오브젝트와 컴포넌트를 참조할 때 주소(또는 URL
 
 ```lua
 local id = factory.create("#enemy_factory")
-label.set_text("my_gameobject#my_label", "Hello World!")
+go.set("my_gameobject#my_label", "text", "Hello World!")
 
 local pos = go.get_position("my_gameobject")
 go.set_position(pos, "/level/stuff/other_gameobject")

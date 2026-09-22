@@ -37,9 +37,9 @@ Reklamy nagradzane (znane też jako motywacyjne) są opcjonalne, przez co i mnie
 [Defold Asset Portal](/tags/stars/ads/) posiada wiele rozszerzeń umożliwiających integrację z różnymi dostawcami reklam:
 
 * [AdMob](https://defold.com/assets/admob/) - Google ad network.
-* [Enhance](https://defold.com/assets/enhance/) - Różne sieci. Wymaga dodatkowego kroku po zbudowaniu, w celu dołączenia danych sieci.
+* [AppLovin MAX](https://defold.com/extension-applovin/) - Wyświetlaj reklamy za pomocą mediacji reklamowej AppLovin MAX.
 * [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - Reklamy w grach Facebook Instant.
-* [IronSource](https://defold.com/assets/ironsource/) - IronSource Ad network.
+* [LevelPlay](https://defold.com/extension-levelplay/) - Wyświetlaj reklamy za pomocą mediacji reklamowej Unity LevelPlay.
 * [Unity Ads](https://defold.com/assets/defvideoads/) - Unity Ads network.
 
 

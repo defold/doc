@@ -86,6 +86,8 @@ end
   * *game.project* 显示部分中的 vsync 和交换间隔
 
 
+<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
+
 ## 移动手机的刘海屏和打孔屏相机
 在显示屏上使用小镜头切口来容纳前置摄像头和传感器（也称为刘海屏或打孔屏相机）变得越来越流行。将游戏移植到移动设备时，请确保关键信息位于平台安全区域内。
 

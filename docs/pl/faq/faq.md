@@ -53,7 +53,7 @@ A: Logika gry w projekcie Defold jest przede wszystkim pisana w języku Lua, kon
 
 #### P: Czy mogę używać C++ do pisania logiki gry?
 
-A: Obsługa C++ w Defold służy głównie do pisania rozszerzeń natywnych, które integrują się z SDK innych firm lub platformowymi API. [dmSDK](https://defold.com/ref/stable/dmGameObject/) (API C++ dla Defold używane w rozszerzeniach natywnych) będzie stopniowo rozbudowywane o kolejne funkcje, tak aby w przyszłości dało się pisać całą logikę gry w C++, jeśli deweloper będzie tego chciał. Lua pozostanie głównym językiem do logiki gry, ale dzięki rozbudowanemu API C++ będzie można pisać logikę gry także w C++. Prace nad rozbudową API C++ polegają głównie na przenoszeniu istniejących prywatnych plików nagłówkowych do sekcji publicznej i porządkowaniu API do publicznego użytku.
+A: Obsługa C++ w Defold służy głównie do pisania rozszerzeń natywnych, które integrują się z SDK innych firm lub platformowymi API. [dmSDK](https://defold.com/ref/dmGameObject/) (API C++ dla Defold używane w rozszerzeniach natywnych) będzie stopniowo rozbudowywane o kolejne funkcje, tak aby w przyszłości dało się pisać całą logikę gry w C++, jeśli deweloper będzie tego chciał. Lua pozostanie głównym językiem do logiki gry, ale dzięki rozbudowanemu API C++ będzie można pisać logikę gry także w C++. Prace nad rozbudową API C++ polegają głównie na przenoszeniu istniejących prywatnych plików nagłówkowych do sekcji publicznej i porządkowaniu API do publicznego użytku.
 
 
 #### P: Czy mogę używać TypeScript z Defold?
@@ -112,7 +112,7 @@ A: Obsługiwane są następujące platformy:
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Dowolna            | `x86-64`, `arm-64` |
   | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` |
+  | Android            | 5.0 (poziom API 21) | `arm-32`, `arm-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Środowisko uruchomieniowe silnika powinno działać na większości 64-bitowych dystrybucji Linuksa, o ile sterowniki graficzne są aktualne. Więcej informacji znajdziesz poniżej, w sekcji o API graficznych.)
@@ -204,7 +204,7 @@ A: Tak. Nazywają się [kolekcje](/manuals/building-blocks/#collections). Pozwal
 
 #### P: Dlaczego nie mogę dodać obiektu gry jako dziecka innego obiektu gry?
 
-A: Najprawdopodobniej próbujesz dodać obiekt podrzędny w pliku obiektu gry, a to nie jest możliwe. Jest to możliwe tylko w pliku kolekcji. Aby zrozumieć dlaczego, trzeba pamiętać, że hierarchie rodzic-dziecko są wyłącznie hierarchią transformacji grafu sceny. Obiekt gry, który nie został umieszczony (lub utworzony dynamicznie) w scenie (kolekcji), nie należy do grafu sceny, więc nie może być częścią takiej hierarchii. Możesz sprawdzić id rodzica danego obiektu gry używając [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
+A: Najprawdopodobniej próbujesz dodać obiekt podrzędny w pliku obiektu gry, a to nie jest możliwe. Jest to możliwe tylko w pliku kolekcji. Aby zrozumieć dlaczego, trzeba pamiętać, że hierarchie rodzic-dziecko są wyłącznie hierarchią transformacji grafu sceny. Obiekt gry, który nie został umieszczony (lub utworzony dynamicznie) w scenie (kolekcji), nie należy do grafu sceny, więc nie może być częścią takiej hierarchii. Możesz sprawdzić id rodzica danego obiektu gry używając [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id).
 
 
 #### P: Dlaczego nie mogę rozsyłać wiadomości do wszystkich dzieci obiektu gry?
@@ -267,7 +267,7 @@ A: Zasadniczo wszystkie zasoby są deklarowane statycznie, dzięki czemu zarząd
 
 #### P: Czy istnieje sposób na dostęp do właściwości kształtu kolizji w fizyce?
 
-A: Tak, sprawdź funkcji API fizyki, w szczególności [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) i [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table). 
+A: Tak, sprawdź funkcji API fizyki, w szczególności [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) i [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table). 
 
 
 #### P: Czy istnieje jakiś szybki sposób na renderowanie obiektów kolizji w mojej scenie? (jak debug draw w Box2D)

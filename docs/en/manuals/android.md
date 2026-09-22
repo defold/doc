@@ -85,6 +85,41 @@ For this feature to work, you will need *ADB* installed and *USB debugging* enab
 
 An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *`.apk`* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Shrinking Java code with R8
+
+R8 reduces the size of Java code through shrinking, optimization and obfuscation.
+
+### Enabling R8
+
+Select `/builtins/manifests/android/dmengine.keep` in **Android ▸ R8 Keep Rules** in *game.project*. This uses Defold's default rules directly:
+
+```ini
+[android]
+r8_keep_rules = /builtins/manifests/android/dmengine.keep
+```
+
+Make sure every extension with Java code provides a `.keep` file for the classes it needs at runtime. Extension rules are combined with the selected project rules when building. Test a release build on a device after enabling R8.
+
+Leaving **R8 Keep Rules** empty uses D8 without shrinking. Enabling R8 uses the native extension build service, even for a project without native extensions.
+
+### Adding rules to an extension
+
+Keep rules for an extension belong in its `manifests/android` directory, next to `build.gradle`. See [R8 keep rules for Android extensions](/manuals/extensions/#r8-keep-rules-for-android) for how to add a file and preserve the extension's Java classes.
+
+### Keeping the obfuscation mapping
+
+Enable **Generate debug symbols** in the Android bundle dialog, or pass `--with-symbols` to Bob, to retain R8's `mapping.txt` when the build produces one. For example, from the project directory:
+
+```sh
+java -jar bob.jar --platform arm64-android --variant release \
+  --archive --with-symbols --bundle-output build/android \
+  resolve build bundle
+```
+
+The mapping is saved as `<binary-name>.apk.symbols/mapping.txt` beside the generated APK or AAB. For example, with the project title `My Game`, the command above produces `build/android/MyGame/MyGame.apk.symbols/mapping.txt`.
+
+Keep the mapping file with the exact release it came from. It maps obfuscated Java names back to the original names for interpreting stack traces; a mapping from a different build may give incorrect results.
+
 ## Permissions
 
 The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the *game.project* [project settings file](/manuals/project-settings/#android). You can read more about Android permissions in [the official docs](https://developer.android.com/guide/topics/permissions/overview). The following permissions are requested in the default manifest:
