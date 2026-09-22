@@ -65,7 +65,7 @@ Lua API とその実装は、それぞれ1つだけにすることをお勧め�
 
 現在の一覧は次のとおりです。
 
-    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32
 
 たとえば、プラットフォーム固有のライブラリは次の場所に配置します。
 

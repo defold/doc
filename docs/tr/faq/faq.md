@@ -92,26 +92,35 @@ Defold Foundation daha önce Defold'a C# desteği eklenmesine karşıydı, ancak
 
 #### Q: Defold hangi platformlarda çalışır?
 
-A: Düzenleyici/araçlar ve motorun çalışma zamanı ortamı için aşağıdaki platformlar desteklenir:
+A: Aşağıdaki platformlar desteklenir:
 
-  | Sistem             | Sürüm              | Mimariler          | Desteklenen        |
-  | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Düzenleyici ve motor |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Düzenleyici ve motor |
-  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Düzenleyici        |
-  | Linux (2)          | Herhangi biri      | `x86-64`, `arm-64` | Motor              |
-  | iOS                | 15.0               | `arm-64`  `x86_64` | Motor              |
-  | Android            | 5.0 (API düzeyi 21) | `arm-32`, `arm-64` | Motor              |
-  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Motor        |
+  **Düzenleyici ve araçlar**
+
+  | Sistem             | Sürüm              | Mimariler          |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | 10                 | `x86-64`           |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
   (1 Düzenleyici, 64 bit Ubuntu için derlenir ve test edilir. Diğer dağıtımlarda da çalışması beklenir, ancak bunu garanti etmiyoruz.)
+
+  **Motorun çalışma zamanı ortamı**
+
+  | Sistem             | Sürüm              | Mimariler          |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | Vista              | `x86-64`           |
+  | Linux (2)          | Herhangi biri      | `x86-64`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (API düzeyi 21) | `arm-32`, `arm-64`, `x86-64` |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Grafik sürücüleri güncel olduğu sürece motorun çalışma zamanı ortamının çoğu 64 bit Linux dağıtımında çalışması beklenir; grafik API'leri hakkında daha fazla bilgi için aşağıya bakın)
 
 
 #### Q: Defold ile hangi hedef platformlar için oyun geliştirebilirim?
 
-A: Tek tıklamayla PS4™, PS5™, Nintendo Switch, iOS (64 bit), Android (32 bit ve 64 bit) ve HTML5 için; ayrıca macOS (x86-64 ve arm64), Windows (32 bit ve 64 bit) ve Linux (x86-64 ve arm64) için yayımlayabilirsiniz. Gerçekten de tek bir kod tabanı birden çok platformu destekler.
+A: Tek tıklamayla PS4™, PS5™, Nintendo Switch, iOS (64 bit), Android (32 bit ve 64 bit) ve HTML5 için; ayrıca macOS (x86-64 ve arm64), Windows (64 bit) ve Linux (x86-64 ve arm64) için yayımlayabilirsiniz. Gerçekten de tek bir kod tabanı birden çok platformu destekler.
 
 
 #### Q: Defold hangi işleme API'sini kullanır?

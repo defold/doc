@@ -92,26 +92,35 @@ Die Defold Foundation war zuvor gegen die Aufnahme von C#-Unterstützung in Defo
 
 #### Q: Auf welchen Plattformen läuft Defold? {#q-what-platforms-does-defold-run-on}
 
-A: Für den Editor und die Werkzeuge sowie für die Laufzeitumgebung der Engine werden folgende Plattformen unterstützt:
+A: Die folgenden Plattformen werden unterstützt:
 
-  | System             | Version            | Architekturen      | Unterstützung      |
-  | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor und Engine  |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Editor und Engine  |
-  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
-  | Linux (2)          | Beliebig           | `x86-64`, `arm-64` | Engine             |
-  | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
-  | Android            | 5.0 (API-Level 21) | `arm-32`, `arm-64` | Engine             |
-  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Engine       |
+  **Editor und Werkzeuge**
+
+  | System             | Version            | Architekturen      |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | 10                 | `x86-64`           |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
   (1 Der Editor wird für 64-Bit-Ubuntu erstellt und getestet. Er sollte auch auf anderen Distributionen funktionieren, aber dafür geben wir keine Garantie.)
+
+  **Laufzeitumgebung der Engine**
+
+  | System             | Version            | Architekturen      |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | Vista              | `x86-64`           |
+  | Linux (2)          | Beliebig           | `x86-64`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (API-Level 21) | `arm-32`, `arm-64`, `x86-64` |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Die Laufzeitumgebung der Engine sollte auf den meisten 64-Bit-Linux-Distributionen laufen, solange die Grafiktreiber aktuell sind. Weitere Informationen zu Grafik-APIs findest du unten.)
 
 
 #### Q: Für welche Zielplattformen kann ich mit Defold Spiele entwickeln? {#q-what-target-platforms-can-i-develop-games-for-with-defold}
 
-A: Mit einem Klick kannst du für PS4™, PS5™, Nintendo Switch, iOS (64-Bit), Android (32-Bit und 64-Bit) und HTML5 sowie macOS (x86-64 und arm64), Windows (32-Bit und 64-Bit) und Linux (x86-64 und arm64) veröffentlichen. Es ist tatsächlich eine einzige Codebasis mit Unterstützung für mehrere Plattformen.
+A: Mit einem Klick kannst du für PS4™, PS5™, Nintendo Switch, iOS (64-Bit), Android (32-Bit und 64-Bit) und HTML5 sowie macOS (x86-64 und arm64), Windows (64-Bit) und Linux (x86-64 und arm64) veröffentlichen. Es ist tatsächlich eine einzige Codebasis mit Unterstützung für mehrere Plattformen.
 
 
 #### Q: Auf welcher Rendering-API basiert Defold? {#q-what-rendering-api-does-defold-rely-on}

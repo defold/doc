@@ -188,9 +188,6 @@ Kullanılabilir platformlar ve mimariler:
 `x86_64-win32`
 : 64 bit Windows
 
-`x86-win32`
-: 32 bit Windows
-
 `x86_64-linux`
 : 64 bit Linux
 

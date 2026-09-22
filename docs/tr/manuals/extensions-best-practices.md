@@ -65,7 +65,7 @@ Belirli yerlerde, uygulamanın kodunu derlerken veya uygulamayı paketlerken han
 
 Güncel liste şöyledir:
 
-    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32
 
 Örneğin, platforma özgü kütüphaneleri şu klasörlerin altına yerleştirin:
 

@@ -188,9 +188,6 @@ usage: bob [options] [commands]
 `x86_64-win32`
 : 64-бітна Windows
 
-`x86-win32`
-: 32-бітна Windows
-
 `x86_64-linux`
 : 64-бітний Linux
 

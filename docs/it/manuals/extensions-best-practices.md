@@ -65,7 +65,7 @@ In alcuni percorsi, l'architettura della piattaforma viene usata come nome della
 
 L'elenco attuale è:
 
-    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32
 
 Per esempio, colloca le librerie specifiche di una piattaforma in:
 

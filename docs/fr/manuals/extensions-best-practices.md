@@ -65,7 +65,7 @@ Notez que les fichiers `myextension.mm` et `myextension_android.cpp` ne sont né
 
 La liste actuelle est la suivante :
 
-    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+    arm64-ios, arm64_sim-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32
 
 Par exemple, placez les bibliothèques propres à une plateforme dans :
 
