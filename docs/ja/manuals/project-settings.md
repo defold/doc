@@ -96,6 +96,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 プロジェクトの *Library URL* の URL リストです。詳しくは、[ライブラリのマニュアル](/manuals/libraries/)を参照してください。
 
+#### Dependencies Metadata
+`project.dependencies_metadata` は、ライブラリの依存関係に関するメタデータを、実行時に使用するバンドルに含めます。既定では無効です。メタデータは、実行時に `sys.load_resource("/.internal/dependencies.json")` を使って読み取れます。
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 ライブラリ共有を通じてプロジェクトから共有するディレクトリの、スペース区切りのリストです。詳しくは、[ライブラリのマニュアル](/manuals/libraries/)を参照してください。
 
----
-
-### Script
-
-#### Shared State
-チェックすると、すべてのスクリプトの種類で1つの Lua ステートを共有します。
+#### Defold Min Version
+`library.defold_min_version` は、このプロジェクトをライブラリとして使用するために必要な Defold/Bob の最小バージョンを指定します。たとえば `1.11.2` です。最小バージョンを指定しない場合は空にします。
 
 ---
 
@@ -346,6 +345,12 @@ OpenGLES 2.0 / WebGL 1.0 を実行するデバイス向けのシェーダーを�
 #### Gamepads
 ゲームパッドの信号を OS に対応付ける、ゲームパッド設定ファイルのファイル参照です。既定値は `/builtins/input/default.gamepads` です。
 
+#### Gamepad Database
+`input.gamepad_database` は、SDL 形式のゲームパッドマッピングデータベース（`.txt`）を選択します。既定値は `/builtins/input/gamecontrollerdb.txt` です。このデータベースのマッピングは、プロジェクトのビルド時に *Gamepads* ファイルと統合されます。
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` は、SDL ゲームパッドデータベースのマッピングに実行時に適用するデッドゾーンを設定します。既定値は `0.2` です。
+
 #### Game Binding
 ハードウェア入力をアクションに対応付ける、入力設定ファイルのファイル参照です。既定値は `/input/game.input_binding` です。
 
@@ -486,6 +491,19 @@ Spine モデルコンポーネントの最大数です。[（コンポーネン�
 #### Max Bone Matrix Texture Height
 ボーン行列テクスチャの最大高さです。アニメーションに必要なサイズを、それ以上で最も近い2の累乗に切り上げたサイズだけ使用します。
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` は、モーフターゲット（morph target）の位置、法線、接線の差分を格納するためにメッシュごとに生成されるテクスチャの最大幅を、ピクセル単位で設定します。既定値は `1024` です。
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` は、モーフターゲットの位置、法線、接線の差分を格納するためにメッシュごとに生成されるテクスチャの最大高さを、ピクセル単位で設定します。既定値は `1024` です。
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` は、ライトコンポーネントの最大数を設定します。既定値は `64` です。[（コンポーネントの最大数の最適化について参照）](#component-max-count-optimizations)。
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ GUI コンポーネントの最大数です。[（コンポーネントの最大
 #### Max Particle Count
 GUI 内に同時に存在できるパーティクルの最大数です。
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` は、コレクションあたりのパーティクルエフェクトノードの最大数を設定します。既定値は `64` です。
+
 #### Max Animation Count
 GUI 内のアクティブなアニメーションの最大数です。
+
+#### Safe Area Mode
+`gui.safe_area_mode` は、セーフエリア（safe area）のインセットのうち、GUI の調整に反映するものを選択します。
+
+- `none`（既定値）: インセットを無視します。
+- `long`: 横向きでは左右、縦向きでは上下のインセットを適用します。
+- `short`: 横向きでは上下、縦向きでは左右のインセットを適用します。
+- `both`: 4辺すべてのインセットを適用します。
+
+GUI スクリプトは、[`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) を使って、そのシーンのモードを上書きできます。プラットフォームの対応状況とカスタムレイアウトについては、[セーフエリアのガイダンス](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras)を参照してください。
 
 ---
 
@@ -514,10 +545,16 @@ GUI 内のアクティブなアニメーションの最大数です。
 ### Particle FX
 
 #### Max Count
-同時に存在できるエミッターの最大数です。[（コンポーネントの最大数の最適化について参照）](#component-max-count-optimizations)。
+`particle_fx.max_count` は、パーティクルエフェクトコンポーネントの最大数を設定します。既定値は `64` です。[（コンポーネントの最大数の最適化について参照）](#component-max-count-optimizations)。
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` は、同時に存在できるパーティクルエフェクトのエミッターの最大数を設定します。既定値は `64` です。
 
 #### Max Particle Count
-同時に存在できるパーティクルの最大数です。
+同時に存在できるパーティクルの最大数です。この値は GPU 頂点バッファーのサイズを制限します。既定値は `1024` パーティクルです。
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` は、GPU への1回のアップロードに含めるパーティクルの最大数を設定します。この値は、パーティクルの頂点を生成するために使用する CPU バッファーを制限します。既定値は `1024` です。
 
 ---
 
@@ -675,6 +712,12 @@ macOS のアプリケーションアイコンとして使用するバンドル�
 #### Bundle Identifier
 バンドル識別子により、macOS はアプリの更新を認識できます。バンドル ID は Apple に登録し、アプリ固有のものにする必要があります。iOS アプリと macOS アプリで同じ識別子を使用することはできません。識別子は、ドットで区切った2つ以上のセグメントで構成する必要があります。各セグメントは英字で始める必要があります。各セグメントには、英数字、アンダースコア、ハイフン（-）のみを使用できます。
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` は、短いバンドル名（`CFBundleName`）を指定します。15文字以内にする必要があります。
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` は、ビルド番号（`CFBundleVersion`）を数値または `x.y.z` 形式で指定します。既定値は `1` です。
+
 #### Default Language
 アプリケーションの `Localizations` リストにユーザーの優先言語がない場合に使用する言語です（[`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) を参照）。優先言語が2文字の ISO 639-1 規格に含まれている場合はそのコードを、それ以外の場合は3文字の ISO 639-2 コードを使用してください。
 
@@ -753,6 +796,9 @@ IAP トランザクションを自動的に完了する場合はチェックし�
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` は、実行時の Live Update システムを有効にします。既定で有効です。リソースの除外、ダウンロード、マウントの方法については、[Live Update のマニュアル](/manuals/live-update/)を参照してください。
+
 #### Settings
 バンドル作成時に使用する Live Update 設定リソースファイルです。
 
@@ -774,6 +820,9 @@ App Manifest の **Profiler** 設定は、デバッグビルドとリリース�
 
 #### Track Cpu
 デバッグビルドでは、CPU 使用率のサンプリングが既定で有効になります。App Manifest を通じてプロファイラー対応を含めたリリースビルドでも CPU サンプリングが必要な場合は、この設定を有効にします。
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` は、プロファイラーで詳細なメモリサンプリングを有効にします。既定では無効です。HTML5 では負荷が高くなる場合があります。
 
 #### Sleep Between Server Updates
 サーバー更新の間にスリープするミリ秒数です。

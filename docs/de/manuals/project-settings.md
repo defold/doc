@@ -96,6 +96,9 @@ Aktiviert die Komprimierung von Archiven bei der Bundle-Erstellung. Beachte, das
 #### Dependencies
 Eine Liste der *Library URL*s des Projekts. Weitere Informationen findest du im [Handbuch zu Bibliotheken](/manuals/libraries/).
 
+#### Dependencies Metadata
+`project.dependencies_metadata` nimmt Metadaten zu Bibliotheksabhängigkeiten in das Laufzeit-Bundle auf. Standardmäßig deaktiviert. Die Metadaten können zur Laufzeit mit `sys.load_resource("/.internal/dependencies.json")` gelesen werden.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Die zu verwendende Render-Konfigurationsdatei, die die Rendering-Pipeline defini
 #### Include Dirs
 Eine durch Leerzeichen getrennte Liste von Verzeichnissen, die aus deinem Projekt als Bibliothek freigegeben werden sollen. Weitere Informationen findest du im [Handbuch zu Bibliotheken](/manuals/libraries/).
 
----
-
-### Script
-
-#### Shared State
-Aktiviere diese Option, um einen einzigen Lua-Zustand für alle Skripttypen gemeinsam zu verwenden.
+#### Defold Min Version
+`library.defold_min_version` gibt die Mindestversion von Defold/Bob an, die erforderlich ist, um dieses Projekt als Bibliothek zu verwenden, zum Beispiel `1.11.2`. Lasse die Einstellung leer, um keine Mindestversion vorzugeben.
 
 ---
 
@@ -346,6 +345,12 @@ Die Wartezeit in Sekunden zwischen den Wiederholungen einer gedrückt gehaltenen
 #### Gamepads
 Dateireferenz auf die Gamepad-Konfigurationsdatei, die Gamepad-Signale dem Betriebssystem zuordnet; standardmäßig `/builtins/input/default.gamepads`.
 
+#### Gamepad Database
+`input.gamepad_database` wählt eine Datenbank mit Gamepad-Zuordnungen im SDL-Format (`.txt`) aus. Der Standardwert ist `/builtins/input/gamecontrollerdb.txt`. Beim Erstellen des Projekts werden ihre Zuordnungen mit denen aus der Datei *Gamepads* kombiniert.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` legt die Totzone fest, die zur Laufzeit auf Zuordnungen aus der SDL-Gamepad-Datenbank angewendet wird. Der Standardwert ist `0.2`.
+
 #### Game Binding
 Dateireferenz auf die Eingabekonfigurationsdatei, die Hardwareeingaben Aktionen zuordnet; standardmäßig `/input/game.input_binding`.
 
@@ -486,6 +491,19 @@ Maximale Breite der Knochenmatrixtextur. Es wird nur die für Animationen benöt
 #### Max Bone Matrix Texture Height
 Maximale Höhe der Knochenmatrixtextur. Es wird nur die für Animationen benötigte Größe verwendet, aufgerundet auf die nächste Zweierpotenz.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` legt die maximale Breite in Pixeln der Textur fest, die pro Mesh für die Positions-, Normalen- und Tangentendifferenzen von Morph-Zielen erzeugt wird. Der Standardwert ist `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` legt die maximale Höhe in Pixeln der Textur fest, die pro Mesh für die Positions-, Normalen- und Tangentendifferenzen von Morph-Zielen erzeugt wird. Der Standardwert ist `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` legt die maximale Anzahl der Lichtkomponenten fest; standardmäßig `64`. [(Siehe Informationen zur Optimierung der maximalen Komponentenanzahl)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ Maximale Anzahl der GUI-Komponenten. [(Siehe Informationen zur Optimierung der m
 #### Max Particle Count
 Die maximale Anzahl gleichzeitig vorhandener Partikel in der GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` legt die maximale Anzahl der Partikeleffektknoten pro Sammlung fest. Der Standardwert ist `64`.
+
 #### Max Animation Count
 Die maximale Anzahl aktiver Animationen in der GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` wählt aus, welche Randabstände des sicheren Bereichs die GUI-Anpassung beeinflussen:
+
+- `none` (Standardwert): Ignoriert die Randabstände.
+- `long`: Wendet im Querformat die linken/rechten und im Hochformat die oberen/unteren Randabstände an.
+- `short`: Wendet im Querformat die oberen/unteren und im Hochformat die linken/rechten Randabstände an.
+- `both`: Wendet alle vier Randabstände an.
+
+Ein GUI-Skript kann den Modus für seine Szene mit [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) überschreiben. Informationen zur Plattformunterstützung und zu benutzerdefinierten Layouts findest du in den [Hinweisen zum sicheren Bereich](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras).
 
 ---
 
@@ -514,10 +545,16 @@ Aktiviere diese Option, damit Beschriftungen ohne Ausrichtung am Pixelraster ers
 ### Particle FX
 
 #### Max Count {#max-count-7}
-Die maximale Anzahl gleichzeitig vorhandener Emitter. [(Siehe Informationen zur Optimierung der maximalen Komponentenanzahl)](#component-max-count-optimizations).
+`particle_fx.max_count` legt die maximale Anzahl der Partikeleffektkomponenten fest; standardmäßig `64`. [(Siehe Informationen zur Optimierung der maximalen Komponentenanzahl)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` legt die maximale Anzahl gleichzeitig vorhandener Partikeleffekt-Emitter fest. Der Standardwert ist `64`.
 
 #### Max Particle Count {#max-particle-count-1}
-Die maximale Anzahl gleichzeitig vorhandener Partikel.
+Die maximale Anzahl gleichzeitig vorhandener Partikel. Dieser Wert begrenzt die Größe des GPU-Vertex-Puffers; der Standardwert ist `1024` Partikel.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` legt die maximale Anzahl der Partikel pro Übertragung zur GPU fest. Dieser Wert begrenzt den CPU-Puffer, der zum Erzeugen der Partikel-Vertices verwendet wird. Der Standardwert ist `1024`.
 
 ---
 
@@ -673,6 +710,12 @@ Das Apple-Datenschutzmanifest für die Anwendung. Der Standardwert des Felds ist
 #### Bundle Identifier {#bundle-identifier-1}
 Anhand der Bundle-ID erkennt macOS Aktualisierungen deiner App. Deine Bundle-ID muss bei Apple registriert und für deine App eindeutig sein. Du kannst nicht dieselbe Kennung für iOS- und macOS-Apps verwenden. Sie muss aus zwei oder mehr durch einen Punkt getrennten Segmenten bestehen. Jedes Segment muss mit einem Buchstaben beginnen. Jedes Segment darf nur alphanumerische Zeichen, Unterstriche oder Bindestriche (-) enthalten.
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` gibt den Kurznamen des Bundles (`CFBundleName`) an, der auf 15 Zeichen begrenzt ist.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` gibt die Build-Nummer (`CFBundleVersion`) an, entweder eine Zahl oder `x.y.z`. Der Standardwert ist `1`.
+
 #### Default Language {#default-language-1}
 Die Sprache, die verwendet wird, wenn die vom Benutzer bevorzugte Sprache nicht in der Liste `Localizations` der Anwendung enthalten ist (siehe [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Verwende den zweibuchstabigen Standard ISO 639-1, wenn die bevorzugte Sprache darin verfügbar ist, andernfalls den dreibuchstabigen Standard ISO 639-2.
 
@@ -751,6 +794,9 @@ Aktiviere diese Option, um IAP-Transaktionen automatisch abzuschließen. Ist sie
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` aktiviert das Live-Update-System zur Laufzeit. Standardmäßig aktiviert. Im [Handbuch zu Live Update](/manuals/live-update/) erfährst du, wie du Ressourcen ausschließt, herunterlädst und einbindest.
+
 #### Settings
 Die Ressourcendatei mit Live-Update-Einstellungen, die bei der Bundle-Erstellung verwendet werden soll.
 
@@ -772,6 +818,9 @@ Aktiviert den Profiler im Spiel.
 
 #### Track Cpu
 Das Sampling der CPU-Auslastung ist in Debug-Builds standardmäßig aktiviert. Aktiviere diese Einstellung, wenn CPU-Sampling auch in einem Release-Build benötigt wird, der über das Anwendungsmanifest Profiler-Unterstützung enthält.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` aktiviert detailliertes Speicher-Sampling im Profiler. Standardmäßig deaktiviert. Dies kann unter HTML5 aufwendig sein.
 
 #### Sleep Between Server Updates
 Die Wartezeit in Millisekunden zwischen Serveraktualisierungen.

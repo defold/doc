@@ -96,6 +96,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 프로젝트 *Library URL*들의 URL 목록입니다. 자세한 내용은 [Libraries 매뉴얼](/manuals/libraries/)을 참고하세요.
 
+#### Dependencies Metadata
+`project.dependencies_metadata`는 라이브러리 종속성에 대한 메타데이터를 런타임 번들에 포함합니다. 기본적으로 비활성화되어 있습니다. 런타임에 `sys.load_resource("/.internal/dependencies.json")`을 사용하여 메타데이터를 읽을 수 있습니다.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 라이브러리 공유를 통해 프로젝트에서 공유할 디렉토리를 공백으로 구분한 목록입니다. 자세한 내용은 [Libraries 매뉴얼](/manuals/libraries/)을 참고하세요.
 
----
-
-### Script
-
-#### Shared State
-체크하면 모든 스크립트 타입이 하나의 Lua state를 공유합니다.
+#### Defold Min Version
+`library.defold_min_version`은 이 프로젝트를 라이브러리로 사용하는 데 필요한 최소 Defold/Bob 버전을 지정합니다. 예: `1.11.2`. 최소 버전을 지정하지 않으려면 비워 두세요.
 
 ---
 
@@ -346,6 +345,12 @@ OpenGLES 2.0 / WebGL 1.0을 실행하는 장치용 쉐이더를 컴파일하지 
 #### Gamepads
 게임패드 신호를 OS에 매핑하는 gamepads config 파일의 파일 참조입니다. 기본값은 `/builtins/input/default.gamepads`입니다.
 
+#### Gamepad Database
+`input.gamepad_database`는 SDL 포멧의 게임패드 매핑 데이터베이스(`.txt`)를 선택합니다. 기본값은 `/builtins/input/gamecontrollerdb.txt`입니다. 프로젝트를 빌드할 때 이 데이터베이스의 매핑이 *Gamepads* 파일과 결합됩니다.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone`은 SDL 게임패드 데이터베이스의 매핑에 런타임에 적용할 데드존(dead zone)을 설정합니다. 기본값은 `0.2`입니다.
+
 #### Game Binding
 하드웨어 입력을 액션에 매핑하는 입력 config 파일의 파일 참조입니다. 기본값은 `/input/game.input_binding`입니다.
 
@@ -486,6 +491,19 @@ bone matrix 텍스쳐의 최대 너비입니다. 애니메이션에 필요한 �
 #### Max Bone Matrix Texture Height
 bone matrix 텍스쳐의 최대 높이입니다. 애니메이션에 필요한 크기만 사용하며, 가장 가까운 power-of-two로 올림합니다.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width`는 모프 타겟(morph target)의 위치, 법선, 접선 변화량을 저장하기 위해 mesh마다 생성되는 텍스쳐의 최대 너비를 픽셀 단위로 설정합니다. 기본값은 `1024`입니다.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height`는 모프 타겟의 위치, 법선, 접선 변화량을 저장하기 위해 mesh마다 생성되는 텍스쳐의 최대 높이를 픽셀 단위로 설정합니다. 기본값은 `1024`입니다.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count`는 라이트 컴포넌트의 최대 수를 설정하며, 기본값은 `64`입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ GUI 컴포넌트의 최대 수입니다. [(component max count optimizations 정
 #### Max Particle Count
 GUI에서 동시에 존재할 수 있는 파티클의 최대 수입니다.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count`는 컬렉션당 파티클 FX 노드의 최대 수를 설정합니다. 기본값은 `64`입니다.
+
 #### Max Animation Count
 GUI에서 활성화될 수 있는 애니메이션의 최대 수입니다.
+
+#### Safe Area Mode
+`gui.safe_area_mode`는 GUI 조정에 반영할 안전 영역(safe area)의 여백을 선택합니다.
+
+- `none`(기본값): 여백을 무시합니다.
+- `long`: 가로 방향에서는 좌우 여백을, 세로 방향에서는 상하 여백을 적용합니다.
+- `short`: 가로 방향에서는 상하 여백을, 세로 방향에서는 좌우 여백을 적용합니다.
+- `both`: 네 방향의 여백을 모두 적용합니다.
+
+GUI 스크립트는 [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode)를 사용하여 해당 씬의 모드를 재정의할 수 있습니다. 플랫폼 지원과 커스텀 레이아웃에 대한 내용은 [안전 영역 안내](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras)를 참고하세요.
 
 ---
 
@@ -514,10 +545,16 @@ GUI에서 활성화될 수 있는 애니메이션의 최대 수입니다.
 ### Particle FX
 
 #### Max Count
-동시에 존재할 수 있는 emitter의 최대 수입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
+`particle_fx.max_count`는 파티클 FX 컴포넌트의 최대 수를 설정하며, 기본값은 `64`입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count`는 동시에 존재할 수 있는 파티클 FX emitter의 최대 수를 설정합니다. 기본값은 `64`입니다.
 
 #### Max Particle Count
-동시에 존재할 수 있는 파티클의 최대 수입니다.
+동시에 존재할 수 있는 파티클의 최대 수입니다. GPU 버텍스 버퍼 크기를 제한하며, 기본값은 파티클 `1024`개입니다.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count`는 GPU에 한 번에 업로드할 파티클의 최대 수를 설정합니다. 파티클 버텍스 생성에 사용되는 CPU 버퍼 크기를 제한합니다. 기본값은 `1024`입니다.
 
 ---
 
@@ -675,6 +712,12 @@ macOS에서 어플리케이션 아이콘으로 사용할 번들 아이콘 파일
 #### Bundle Identifier
 번들 식별자는 macOS가 앱 업데이트를 인식할 수 있게 합니다. 번들 ID는 Apple에 등록되어야 하며 앱마다 고유해야 합니다. iOS 앱과 macOS 앱에 같은 식별자를 사용할 수 없습니다. 점으로 구분된 둘 이상의 segment로 구성되어야 합니다. 각 segment는 문자로 시작해야 합니다. 각 segment는 영숫자 문자, 밑줄 또는 하이픈(-) 문자로만 구성되어야 합니다.
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name`은 번들의 짧은 이름(`CFBundleName`)을 지정하며, 최대 15자로 제한됩니다.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version`은 빌드 번호(`CFBundleVersion`)를 숫자 또는 `x.y.z` 형식으로 지정합니다. 기본값은 `1`입니다.
+
 #### Default Language
 어플리케이션의 `Localizations` 목록에 사용자가 선호하는 언어가 없을 때 사용할 언어입니다([`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) 참고). 선호 언어가 있으면 두 글자 ISO 639-1 표준을 사용하고, 그렇지 않으면 세 글자 ISO 639-2를 사용합니다.
 
@@ -753,6 +796,9 @@ IAP 트랜잭션을 자동으로 완료하려면 체크합니다. 체크하지 �
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled`는 런타임에 Live update 시스템을 활성화합니다. 기본적으로 활성화되어 있습니다. 리소스를 제외하고, 다운로드하고, 마운트하는 방법은 [Live update 매뉴얼](/manuals/live-update/)을 참고하세요.
+
 #### Settings
 번들링 중 사용할 Liveupdate 설정 리소스 파일입니다.
 
@@ -774,6 +820,9 @@ App Manifest의 **Profiler** 설정은 프로파일러 코드를 디버그 빌�
 
 #### Track Cpu
 CPU 사용량 sampling은 디버그 빌드에서 기본적으로 활성화됩니다. App Manifest를 통해 프로파일러 지원을 포함한 릴리스 빌드에서도 CPU sampling이 필요할 때 이 설정을 활성화하세요.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory`는 프로파일러의 상세 메모리 샘플링을 활성화합니다. 기본적으로 비활성화되어 있습니다. HTML5에서는 성능 비용이 클 수 있습니다.
 
 #### Sleep Between Server Updates
 서버 업데이트 사이에 sleep할 시간입니다. 단위는 milliseconds입니다.

@@ -93,6 +93,9 @@ Włącza kompresję archiwów podczas bundlowania. Obecnie dotyczy to wszystkich
 #### Dependencies
 Lista adresów URL do projektów będących *Library URL*. Więcej informacji znajdziesz w [instrukcji Libraries](/manuals/libraries/).
 
+#### Dependencies Metadata
+`project.dependencies_metadata` dołącza metadane zależności bibliotecznych do pakietu aplikacji. Domyślnie wyłączone. Metadane można odczytać w czasie działania za pomocą `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Zasoby niestandardowe](../shared/custom-resources.md)
@@ -128,12 +131,8 @@ Plik konfiguracji renderowania definiujący pipeline renderowania. Domyślnie `/
 #### Include Dirs
 Lista katalogów rozdzielonych spacjami, które mają być współdzielone z projektu przez mechanizm bibliotek. Więcej informacji znajdziesz w [instrukcji Libraries](/manuals/libraries/).
 
----
-
-### Script
-
-#### Shared State
-Zaznacz, aby współdzielić pojedynczy stan Lua między wszystkimi typami skryptów.
+#### Defold Min Version
+`library.defold_min_version` określa minimalną wersję silnika Defold i narzędzia Bob wymaganą do używania tego projektu jako biblioteki, na przykład `1.11.2`. Pozostaw pole puste, aby nie wymagać minimalnej wersji.
 
 ---
 
@@ -343,6 +342,12 @@ Liczba sekund pomiędzy kolejnymi powtórzeniami przytrzymanego wejścia.
 #### Gamepads
 Odwołanie do pliku konfiguracji gamepadów mapującego sygnały gamepada na system operacyjny. Domyślnie `/builtins/input/default.gamepads`.
 
+#### Gamepad Database
+`input.gamepad_database` wybiera bazę mapowań gamepadów w formacie SDL (`.txt`). Wartość domyślna to `/builtins/input/gamecontrollerdb.txt`. Podczas budowania projektu jej mapowania są łączone z plikiem *Gamepads*.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` ustawia martwą strefę stosowaną w czasie działania do mapowań z bazy gamepadów SDL. Wartość domyślna to `0.2`.
+
 #### Game Binding
 Odwołanie do pliku konfiguracji wejść mapującego sprzętowe wejścia na akcje. Domyślnie `/input/game.input_binding`.
 
@@ -481,6 +486,19 @@ Maksymalna szerokość tekstury macierzy kości. Używany jest tylko rozmiar pot
 #### Max Bone Matrix Texture Height
 Maksymalna wysokość tekstury macierzy kości. Używany jest tylko rozmiar potrzebny animacjom, zaokrąglany w górę do najbliższej potęgi dwójki.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` ustawia maksymalną szerokość w pikselach tekstury generowanej dla każdej siatki, zawierającej różnice położeń, normalnych i stycznych dla kształtów docelowych (morph targets). Wartość domyślna to `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` ustawia maksymalną wysokość w pikselach tekstury generowanej dla każdej siatki, zawierającej różnice położeń, normalnych i stycznych dla kształtów docelowych (morph targets). Wartość domyślna to `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` ustawia maksymalną liczbę komponentów światła (Light), domyślnie `64`. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -491,8 +509,21 @@ Maksymalna liczba komponentów GUI. Zobacz też informacje o [optymalizacji licz
 #### Max Particle Count
 Maksymalna liczba jednoczesnych cząsteczek w GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` ustawia maksymalną liczbę węzłów efektów cząsteczkowych w jednej kolekcji. Wartość domyślna to `64`.
+
 #### Max Animation Count
 Maksymalna liczba aktywnych animacji w GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` wybiera, które marginesy obszaru bezpiecznego wpływają na dostosowanie GUI:
+
+- `none` (domyślne): ignoruj marginesy.
+- `long`: stosuj lewy i prawy margines w orientacji poziomej oraz górny i dolny w orientacji pionowej.
+- `short`: stosuj górny i dolny margines w orientacji poziomej oraz lewy i prawy w orientacji pionowej.
+- `both`: stosuj wszystkie cztery marginesy.
+
+Skrypt GUI może nadpisać tryb dla swojej sceny za pomocą [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Informacje o obsłudze na poszczególnych platformach i własnych układach znajdziesz we [wskazówkach dotyczących obszaru bezpiecznego](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras).
 
 ---
 
@@ -509,10 +540,16 @@ Zaznacz, aby pozwolić etykietom pojawiać się poza siatką pełnych pikseli.
 ### Particle FX
 
 #### Max Count
-Maksymalna liczba jednoczesnych emiterów. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+`particle_fx.max_count` ustawia maksymalną liczbę komponentów efektów cząsteczkowych, domyślnie `64`. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` ustawia maksymalną liczbę jednoczesnych emiterów efektów cząsteczkowych. Wartość domyślna to `64`.
 
 #### Max Particle Count
-Maksymalna liczba jednoczesnych cząsteczek.
+Maksymalna liczba jednoczesnych cząsteczek. Ogranicza rozmiar bufora wierzchołków GPU, domyślnie do `1024` cząsteczek.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` ustawia maksymalną liczbę cząsteczek przesyłanych jednorazowo do GPU. Ogranicza bufor CPU używany do generowania wierzchołków cząsteczek. Wartość domyślna to `1024`.
 
 ---
 
@@ -670,6 +707,12 @@ Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/man
 #### Bundle Identifier
 Identyfikator bundla pozwalający macOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (-).
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` określa krótką nazwę bundla (`CFBundleName`), ograniczoną do 15 znaków.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` określa numer builda (`CFBundleVersion`), zapisany jako liczba albo `x.y.z`. Wartość domyślna to `1`.
+
 #### Default Language
 Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli preferowany język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
 
@@ -748,6 +791,9 @@ Zaznacz, aby automatycznie finalizować transakcje IAP. Jeśli pole jest odznacz
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` włącza system Live update w czasie działania. Domyślnie włączone. Sposób wykluczania, pobierania i montowania zasobów opisano w [instrukcji Live update](/manuals/live-update/).
+
 #### Settings
 Plik zasobu ustawień Liveupdate używany podczas bundlowania.
 
@@ -769,6 +815,9 @@ Włącza profiler w grze.
 
 #### Track Cpu
 Próbkowanie użycia CPU jest domyślnie włączone w buildach debug. Włącz to ustawienie, jeśli próbkowanie CPU jest również potrzebne w buildzie release, który zawiera obsługę profilera dołączoną przez manifest aplikacji.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` włącza szczegółowe próbkowanie pamięci w profilerze. Domyślnie wyłączone. Na HTML5 może powodować duży narzut wydajnościowy.
 
 #### Sleep Between Server Updates
 Liczba milisekund uśpienia pomiędzy aktualizacjami serwera.

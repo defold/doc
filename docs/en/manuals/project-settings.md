@@ -96,6 +96,9 @@ Enables compression of archives when bundling. Note that this currently applies 
 #### Dependencies
 A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
+#### Dependencies Metadata
+`project.dependencies_metadata` includes metadata about library dependencies in the runtime bundle. Disabled by default. The metadata can be read at runtime using `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Which render setup file to use, which defines the render pipeline, `/builtins/re
 #### Include Dirs
 A space separated list of directories that should be shared from your project via library sharing. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
----
-
-### Script
-
-#### Shared State
-Check to share a single Lua state between all script types.
+#### Defold Min Version
+`library.defold_min_version` specifies the minimum Defold/Bob version required to use this project as a library, for example `1.11.2`. Leave empty to specify no minimum version.
 
 ---
 
@@ -346,6 +345,12 @@ Seconds to wait between each repetition of a held down input.
 #### Gamepads
 File reference of the gamepads config file, which maps gamepad signals to OS, `/builtins/input/default.gamepads` by default.
 
+#### Gamepad Database
+`input.gamepad_database` selects an SDL-format gamepad mapping database (`.txt`). The default is `/builtins/input/gamecontrollerdb.txt`. Its mappings are combined with the *Gamepads* file when building the project.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` sets the runtime dead zone applied to mappings from the SDL gamepad database. The default is `0.2`.
+
 #### Game Binding
 File reference of the input config file, which maps hardware inputs to actions, `/input/game.input_binding` by default.
 
@@ -486,6 +491,19 @@ Maximum width of the bone matrix texture. Only the size needed for animations is
 #### Max Bone Matrix Texture Height
 Maximum height of the bone matrix texture. Only the size needed for animations is used, rounded up to nearest power-of-two.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` sets the maximum width in pixels of the texture generated per mesh for morph target position, normal, and tangent deltas. The default is `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` sets the maximum height in pixels of the texture generated per mesh for morph target position, normal, and tangent deltas. The default is `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` sets the maximum number of light components, `64` by default. [(See information about component max count optimizations)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ Max number of GUI components. [(See information about component max count optimi
 #### Max Particle Count
 The max number of concurrent particles in GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` sets the maximum number of particle FX nodes per collection. The default is `64`.
+
 #### Max Animation Count
 The max number of active animations in gui.
+
+#### Safe Area Mode
+`gui.safe_area_mode` selects which safe-area insets affect GUI adjustment:
+
+- `none` (default): Ignore the insets.
+- `long`: Apply left/right insets in landscape and top/bottom insets in portrait.
+- `short`: Apply top/bottom insets in landscape and left/right insets in portrait.
+- `both`: Apply all four insets.
+
+A GUI script can override the mode for its scene with [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). See the [safe area guidance](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) for platform support and custom layouts.
 
 ---
 
@@ -514,10 +545,16 @@ Check to allow labels to appear unaligned with respect to pixels.
 ### Particle FX
 
 #### Max Count
-The max number of concurrent emitters. [(See information about component max count optimizations)](#component-max-count-optimizations).
+`particle_fx.max_count` sets the maximum number of particle FX components, `64` by default. [(See information about component max count optimizations)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` sets the maximum number of concurrent particle FX emitters. The default is `64`.
 
 #### Max Particle Count
-The max number of concurrent particles.
+The max number of concurrent particles. This limits the GPU vertex buffer size, `1024` particles by default.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` sets the maximum number of particles per upload to the GPU. This limits the CPU buffer used to generate particle vertices. The default is `1024`.
 
 ---
 
@@ -673,6 +710,12 @@ The Apple Privacy Manifest for the application. The field will default to `/buil
 #### Bundle Identifier
 The bundle identifier lets macOS recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters, the underscore or hyphen (-) character.
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` specifies the short bundle name (`CFBundleName`), limited to 15 characters.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` specifies the build number (`CFBundleVersion`), either a number or `x.y.z`. The default is `1`.
+
 #### Default Language
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
 
@@ -751,6 +794,9 @@ Check to automatically finish IAP transactions. If unchecked, you need to explic
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` enables the Live update system at runtime. Enabled by default. See the [Live update manual](/manuals/live-update/) for how to exclude, download, and mount resources.
+
 #### Settings
 Liveupdate settings resource file to use during bundling.
 
@@ -772,6 +818,9 @@ Enable the in-game profiler.
 
 #### Track Cpu
 CPU usage sampling is enabled by default in debug builds. Enable this setting when CPU sampling is also needed in a release build that includes profiler support through the App Manifest.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` enables detailed memory sampling in the profiler. Disabled by default. This can be expensive on HTML5.
 
 #### Sleep Between Server Updates
 Number of milliseconds to sleep between server updates.

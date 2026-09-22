@@ -96,6 +96,9 @@ Paketleme sırasında arşivlerin sıkıştırılmasını etkinleştirir. Bunun 
 #### Dependencies
 Projenin *Library URL* adreslerinin listesi. Daha fazla bilgi için [Kütüphaneler kılavuzuna](/manuals/libraries/) bakın.
 
+#### Dependencies Metadata
+`project.dependencies_metadata`, kütüphane bağımlılıkları hakkındaki üst verileri çalışma zamanı dağıtım paketine ekler. Varsayılan olarak devre dışıdır. Üst veriler, çalışma sırasında `sys.load_resource("/.internal/dependencies.json")` kullanılarak okunabilir.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Görüntü oluşturma hattını tanımlayan işleme (rendering) yapılandırma d
 #### Include Dirs
 Projenizden kütüphane paylaşımı yoluyla paylaşılacak dizinlerin boşlukla ayrılmış listesi. Daha fazla bilgi için [Kütüphaneler kılavuzuna](/manuals/libraries/) bakın.
 
----
-
-### Script
-
-#### Shared State
-Tüm betik türleri arasında tek bir Lua durumu paylaşmak için işaretleyin.
+#### Defold Min Version
+`library.defold_min_version`, bu projeyi kütüphane olarak kullanmak için gereken en düşük Defold/Bob sürümünü belirtir; örneğin `1.11.2`. En düşük sürüm belirtmemek için boş bırakın.
 
 ---
 
@@ -346,6 +345,12 @@ Basılı tutulan bir girdinin her yinelenmesi arasında beklenecek saniye sayıs
 #### Gamepads
 Oyun kumandası sinyallerini işletim sistemiyle eşleyen oyun kumandaları yapılandırma dosyasının başvurusu; varsayılan olarak `/builtins/input/default.gamepads`.
 
+#### Gamepad Database
+`input.gamepad_database`, SDL biçiminde bir oyun kumandası eşleme veritabanı (`.txt`) seçer. Varsayılan değer `/builtins/input/gamecontrollerdb.txt`'dir. İçindeki eşlemeler, proje derlenirken *Gamepads* dosyasıyla birleştirilir.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone`, SDL oyun kumandası veritabanından gelen eşlemelere çalışma sırasında uygulanacak ölü bölgeyi ayarlar. Varsayılan değer `0.2`'dir.
+
 #### Game Binding
 Donanım girdilerini eylemlere eşleyen girdi yapılandırma dosyasının başvurusu; varsayılan olarak `/input/game.input_binding`.
 
@@ -486,6 +491,19 @@ Kemik matrisi dokusunun en büyük genişliği. Yalnızca animasyonlar için ger
 #### Max Bone Matrix Texture Height
 Kemik matrisi dokusunun en büyük yüksekliği. Yalnızca animasyonlar için gereken boyut kullanılır ve yukarı doğru ikinin en yakın kuvvetine yuvarlanır.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width`, biçim hedeflerinin (morph target) konum, normal ve teğet farkları için örgü başına oluşturulan dokunun piksel cinsinden en büyük genişliğini ayarlar. Varsayılan değer `1024`'tür.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height`, biçim hedeflerinin konum, normal ve teğet farkları için örgü başına oluşturulan dokunun piksel cinsinden en büyük yüksekliğini ayarlar. Varsayılan değer `1024`'tür.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count`, en fazla ışık bileşeni sayısını ayarlar; varsayılan değer `64`'tür. [(Bileşen sayısı üst sınırı optimizasyonlarıyla ilgili bilgilere bakın)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ En fazla GUI bileşeni sayısı. [(Bileşen sayısı üst sınırı optimizasyon
 #### Max Particle Count
 GUI'de aynı anda var olabilecek en fazla parçacık sayısı.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count`, koleksiyon başına en fazla parçacık efekti düğümü sayısını ayarlar. Varsayılan değer `64`'tür.
+
 #### Max Animation Count
 GUI'deki en fazla etkin animasyon sayısı.
+
+#### Safe Area Mode
+`gui.safe_area_mode`, hangi güvenli alan kenar paylarının GUI uyarlamasını etkileyeceğini seçer:
+
+- `none` (varsayılan): Kenar paylarını yok sayar.
+- `long`: Yatay modda sol/sağ, dikey modda üst/alt kenar paylarını uygular.
+- `short`: Yatay modda üst/alt, dikey modda sol/sağ kenar paylarını uygular.
+- `both`: Dört kenar payının tümünü uygular.
+
+Bir GUI betiği, [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) ile kendi sahnesi için modu geçersiz kılabilir. Platform desteği ve özel yerleşimler için [güvenli alan yönergelerine](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) bakın.
 
 ---
 
@@ -514,10 +545,16 @@ Etiketlerin piksellere hizalanmadan görüntülenmesine izin vermek için işare
 ### Particle FX
 
 #### Max Count
-Aynı anda var olabilecek en fazla yayıcı (emitter) sayısı. [(Bileşen sayısı üst sınırı optimizasyonlarıyla ilgili bilgilere bakın)](#component-max-count-optimizations).
+`particle_fx.max_count`, en fazla parçacık efekti bileşeni sayısını ayarlar; varsayılan değer `64`'tür. [(Bileşen sayısı üst sınırı optimizasyonlarıyla ilgili bilgilere bakın)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count`, aynı anda var olabilecek en fazla parçacık efekti yayıcısı (emitter) sayısını ayarlar. Varsayılan değer `64`'tür.
 
 #### Max Particle Count
-Aynı anda var olabilecek en fazla parçacık sayısı.
+Aynı anda var olabilecek en fazla parçacık sayısı. GPU köşe arabelleğinin boyutunu sınırlar; varsayılan olarak `1024` parçacık.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count`, GPU'ya tek bir aktarımda gönderilebilecek en fazla parçacık sayısını ayarlar. Parçacık köşelerini oluşturmak için kullanılan CPU arabelleğini sınırlar. Varsayılan değer `1024`'tür.
 
 ---
 
@@ -673,6 +710,12 @@ Uygulamanın Apple Privacy Manifest dosyası. Alanın varsayılan değeri `/buil
 #### Bundle Identifier
 Paket tanımlayıcısı, macOS'un uygulamanızın güncellemelerini tanımasını sağlar. Paket kimliğiniz Apple'a kaydedilmeli ve uygulamanıza özgü olmalıdır. iOS ve macOS uygulamaları için aynı tanımlayıcıyı kullanamazsınız. Noktayla ayrılmış iki veya daha fazla bölümden oluşmalıdır. Her bölüm bir harfle başlamalıdır. Her bölüm yalnızca harflerden, rakamlardan, alt çizgi veya kısa çizgi (-) karakterinden oluşmalıdır.
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name`, en fazla 15 karakterden oluşan kısa paket adını (`CFBundleName`) belirtir.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version`, bir sayı veya `x.y.z` biçimindeki derleme numarasını (`CFBundleVersion`) belirtir. Varsayılan değer `1`'dir.
+
 #### Default Language
 Uygulamanın `Localizations` listesinde kullanıcının tercih ettiği dil bulunmuyorsa kullanılacak dil (bkz. [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Tercih edilen dil iki harfli ISO 639-1 standardında bulunuyorsa bu standardı, bulunmuyorsa üç harfli ISO 639-2 standardını kullanın.
 
@@ -751,6 +794,9 @@ IAP işlemlerini otomatik olarak tamamlamak için işaretleyin. İşaretli deği
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled`, çalışma sırasında Live Update sistemini etkinleştirir. Varsayılan olarak etkindir. Kaynakları paket dışında bırakma, indirme ve bağlama hakkında [Live Update kılavuzuna](/manuals/live-update/) bakın.
+
 #### Settings
 Paketleme sırasında kullanılacak Live Update ayarları kaynak dosyası.
 
@@ -772,6 +818,9 @@ Oyun içi profil çıkarıcıyı etkinleştirir.
 
 #### Track Cpu
 CPU kullanımı örneklemesi, hata ayıklama derlemelerinde varsayılan olarak etkindir. App Manifest aracılığıyla profil çıkarıcı desteği içeren, yayıma yönelik bir derlemede de CPU örneklemesi gerekiyorsa bu ayarı etkinleştirin.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory`, profil çıkarıcıda ayrıntılı bellek örneklemesini etkinleştirir. Varsayılan olarak devre dışıdır. HTML5'te performans maliyeti yüksek olabilir.
 
 #### Sleep Between Server Updates
 Sunucu güncellemeleri arasında beklenecek milisaniye sayısı.

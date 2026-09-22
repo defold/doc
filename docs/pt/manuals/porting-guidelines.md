@@ -86,6 +86,8 @@ Para plataformas mobile, bloqueie a orientação da tela em *game.project* ou ce
   * O vsync e o intervalo de swap na seção Display de *game.project*
 
 
+<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
+
 ## Celulares, notch e câmeras hole punch
 Tornou-se cada vez mais comum usar um pequeno recorte de lente na tela para acomodar a câmera frontal e sensores (também conhecido como notch ou câmera hole punch). Ao portar um jogo para mobile, mantenha as informações críticas dentro da área segura da plataforma.
 

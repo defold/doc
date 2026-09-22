@@ -96,6 +96,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Dependencies
 Список URL-адрес *Library URL* бібліотек проєкту. Докладніше див. у [посібнику з бібліотек](/manuals/libraries/).
 
+#### Dependencies Metadata
+`project.dependencies_metadata` включає метадані бібліотечних залежностей до пакета для виконання. Типово вимкнено. Метадані можна прочитати під час виконання за допомогою `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Користувацькі ресурси](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Include Dirs
 Розділений пробілами список каталогів вашого проєкту, до яких слід надавати доступ через механізм поширення бібліотек. Докладніше див. у [посібнику з бібліотек](/manuals/libraries/).
 
----
-
-### Script
-
-#### Shared State
-Установіть прапорець, щоб усі типи скриптів використовували спільний стан Lua.
+#### Defold Min Version
+`library.defold_min_version` задає мінімальну версію Defold/Bob, потрібну для використання цього проєкту як бібліотеки, наприклад `1.11.2`. Залиште поле порожнім, щоб не задавати мінімальну версію.
 
 ---
 
@@ -346,6 +345,12 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Gamepads
 Посилання на файл конфігурації геймпадів, який зіставляє їхні сигнали з ОС; типово `/builtins/input/default.gamepads`.
 
+#### Gamepad Database
+`input.gamepad_database` вибирає базу даних зіставлень для геймпадів у форматі SDL (`.txt`). Типове значення — `/builtins/input/gamecontrollerdb.txt`. Під час збирання проєкту її зіставлення об’єднуються з файлом *Gamepads*.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` задає зону нечутливості, яка застосовується під час виконання до зіставлень із бази даних геймпадів SDL. Типове значення — `0.2`.
+
 #### Game Binding
 Посилання на файл конфігурації введення, який зіставляє апаратне введення з діями; типово `/input/game.input_binding`.
 
@@ -486,6 +491,19 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Max Bone Matrix Texture Height
 Максимальна висота текстури матриць кісток. Використовується лише розмір, потрібний для анімацій, округлений угору до найближчого степеня двійки.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` задає максимальну ширину в пікселях текстури, створюваної для кожної сітки для зберігання змін позицій, нормалей і дотичних цільових форм морфінгу. Типове значення — `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` задає максимальну висоту в пікселях текстури, створюваної для кожної сітки для зберігання змін позицій, нормалей і дотичних цільових форм морфінгу. Типове значення — `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` задає максимальну кількість компонентів освітлення; типово `64`. [(Див. інформацію про оптимізацію максимальної кількості компонентів)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Max Particle Count
 Максимальна кількість одночасно наявних частинок у GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` задає максимальну кількість вузлів ефектів частинок на колекцію. Типове значення — `64`.
+
 #### Max Animation Count
 Максимальна кількість активних анімацій у GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` визначає, які відступи безпечної області впливають на адаптацію GUI:
+
+- `none` (типово): Ігнорувати відступи.
+- `long`: Застосовувати відступи ліворуч і праворуч в альбомній орієнтації та згори й знизу в портретній.
+- `short`: Застосовувати відступи згори й знизу в альбомній орієнтації та ліворуч і праворуч у портретній.
+- `both`: Застосовувати всі чотири відступи.
+
+Скрипт GUI може перевизначити режим для своєї сцени за допомогою [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Про підтримку платформ і власні компонування див. у [настановах щодо безпечної області](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras).
 
 ---
 
@@ -514,10 +545,16 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ### Particle FX
 
 #### Max Count
-Максимальна кількість одночасно наявних емітерів. [(Див. інформацію про оптимізацію максимальної кількості компонентів)](#component-max-count-optimizations).
+`particle_fx.max_count` задає максимальну кількість компонентів ефектів частинок; типово `64`. [(Див. інформацію про оптимізацію максимальної кількості компонентів)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` задає максимальну кількість одночасно наявних емітерів ефектів частинок. Типове значення — `64`.
 
 #### Max Particle Count
-Максимальна кількість одночасно наявних частинок.
+Максимальна кількість одночасно наявних частинок. Обмежує розмір буфера вершин GPU; типово `1024` частинки.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` задає максимальну кількість частинок за одне завантаження на GPU. Обмежує розмір буфера CPU, який використовується для створення вершин частинок. Типове значення — `1024`.
 
 ---
 
@@ -675,6 +712,12 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 #### Bundle Identifier
 Ідентифікатор пакета дає macOS змогу розпізнавати оновлення вашого застосунку. Ідентифікатор пакета має бути зареєстрований в Apple та унікальний для вашого застосунку. Не можна використовувати той самий ідентифікатор для застосунків iOS і macOS. Він має складатися з двох або більше сегментів, розділених крапкою. Кожен сегмент має починатися з літери. Кожен сегмент може містити лише літери, цифри, символ підкреслення або дефіс (-).
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` задає коротку назву пакета (`CFBundleName`), обмежену 15 символами.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` задає номер збірки (`CFBundleVersion`): число або `x.y.z`. Типове значення — `1`.
+
 #### Default Language
 Мова, яка використовується, якщо бажаної мови користувача немає в списку `Localizations` застосунку (див. [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Використовуйте дволітерний код стандарту ISO 639-1, якщо бажана мова в ньому є, або трилітерний код ISO 639-2.
 
@@ -753,6 +796,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` вмикає систему Live update під час виконання. Увімкнено за замовчуванням. Про виключення, завантаження й монтування ресурсів див. у [посібнику з Live update](/manuals/live-update/).
+
 #### Settings
 Файл ресурсу налаштувань Liveupdate, який використовується під час пакування.
 
@@ -774,6 +820,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Track Cpu
 Вибіркове вимірювання використання CPU типово ввімкнено в налагоджувальних збірках. Увімкніть це налаштування, якщо таке вимірювання також потрібне у збірці випуску, до якої через App Manifest включено підтримку профайлера.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` вмикає детальне вимірювання використання пам’яті у профайлері. Типово вимкнено. На HTML5 це може потребувати значних ресурсів.
 
 #### Sleep Between Server Updates
 Кількість мілісекунд паузи між оновленнями сервера.

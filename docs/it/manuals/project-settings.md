@@ -96,6 +96,9 @@ Abilita la compressione degli archivi durante la creazione dei bundle. Attualmen
 #### Dependencies
 Un elenco degli URL *Library URL* del progetto. Per ulteriori informazioni, consulta il [manuale delle librerie](/manuals/libraries/).
 
+#### Dependencies Metadata
+`project.dependencies_metadata` include i metadati delle dipendenze di libreria nel bundle dell'applicazione. Disabilitata per impostazione predefinita. Puoi leggere i metadati a runtime con `sys.load_resource("/.internal/dependencies.json")`.
+
 #### Custom Resources
 `custom_resources`
 :[Custom Resources](../shared/custom-resources.md)
@@ -131,12 +134,8 @@ Il file di configurazione del rendering da usare, che definisce la pipeline di r
 #### Include Dirs
 Un elenco separato da spazi delle directory del progetto da condividere tramite la condivisione delle librerie. Per ulteriori informazioni, consulta il [manuale delle librerie](/manuals/libraries/).
 
----
-
-### Script
-
-#### Shared State
-Seleziona questa opzione per condividere un unico stato Lua tra tutti i tipi di script.
+#### Defold Min Version
+`library.defold_min_version` specifica la versione minima di Defold/Bob richiesta per usare questo progetto come libreria, ad esempio `1.11.2`. Lascia vuota l'impostazione per non richiedere una versione minima.
 
 ---
 
@@ -346,6 +345,12 @@ I secondi di attesa tra le ripetizioni di un input mantenuto premuto.
 #### Gamepads
 Riferimento al file di configurazione dei gamepad, che associa i segnali dei gamepad al sistema operativo; il valore predefinito è `/builtins/input/default.gamepads`.
 
+#### Gamepad Database
+`input.gamepad_database` seleziona un database di mappature dei gamepad in formato SDL (`.txt`). Il valore predefinito è `/builtins/input/gamecontrollerdb.txt`. Le sue mappature vengono combinate con il file *Gamepads* durante la creazione della build del progetto.
+
+#### Gamepad Deadzone
+`input.gamepad_deadzone` imposta la zona morta applicata a runtime alle mappature del database SDL dei gamepad. Il valore predefinito è `0.2`.
+
 #### Game Binding
 Riferimento al file di configurazione degli input, che associa gli input hardware alle azioni; il valore predefinito è `/input/game.input_binding`.
 
@@ -486,6 +491,19 @@ La larghezza massima della texture delle matrici delle ossa. Viene usata solo la
 #### Max Bone Matrix Texture Height
 L'altezza massima della texture delle matrici delle ossa. Viene usata solo la dimensione necessaria per le animazioni, arrotondata per eccesso alla potenza di due più vicina.
 
+#### Max Morph Target Texture Width
+`model.max_morph_target_texture_width` imposta la larghezza massima in pixel della texture generata per ogni mesh per le variazioni di posizione, normale e tangente dei morph target. Il valore predefinito è `1024`.
+
+#### Max Morph Target Texture Height
+`model.max_morph_target_texture_height` imposta l'altezza massima in pixel della texture generata per ogni mesh per le variazioni di posizione, normale e tangente dei morph target. Il valore predefinito è `1024`.
+
+---
+
+### Light
+
+#### Max Count {#light-max-count}
+`light.max_count` imposta il numero massimo di componenti luce, `64` per impostazione predefinita. [(Consulta le informazioni sull'ottimizzazione del numero massimo di componenti)](#component-max-count-optimizations).
+
 ---
 
 ### GUI
@@ -496,8 +514,21 @@ Il numero massimo di componenti GUI. [(Consulta le informazioni sull'ottimizzazi
 #### Max Particle Count
 Il numero massimo di particelle simultanee nella GUI.
 
+#### Max Particlefx Count
+`gui.max_particlefx_count` imposta il numero massimo di nodi di effetti particellari per collezione. Il valore predefinito è `64`.
+
 #### Max Animation Count
 Il numero massimo di animazioni attive nella GUI.
+
+#### Safe Area Mode
+`gui.safe_area_mode` seleziona quali margini dell'area sicura influiscono sull'adattamento della GUI:
+
+- `none` (valore predefinito): ignora i margini.
+- `long`: applica i margini sinistro e destro in orientamento orizzontale e quelli superiore e inferiore in orientamento verticale.
+- `short`: applica i margini superiore e inferiore in orientamento orizzontale e quelli sinistro e destro in orientamento verticale.
+- `both`: applica tutti e quattro i margini.
+
+Uno script GUI può sovrascrivere la modalità per la propria scena con [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Consulta le [indicazioni sull'area sicura](/manuals/porting-guidelines/#mobile-phones-and-notch-and-hole-punch-cameras) per il supporto delle piattaforme e i layout personalizzati.
 
 ---
 
@@ -514,10 +545,16 @@ Seleziona questa opzione per consentire alle etichette di apparire non allineate
 ### Particle FX
 
 #### Max Count
-Il numero massimo di emettitori simultanei. [(Consulta le informazioni sull'ottimizzazione del numero massimo di componenti)](#component-max-count-optimizations).
+`particle_fx.max_count` imposta il numero massimo di componenti di effetti particellari, `64` per impostazione predefinita. [(Consulta le informazioni sull'ottimizzazione del numero massimo di componenti)](#component-max-count-optimizations).
+
+#### Max Emitter Count
+`particle_fx.max_emitter_count` imposta il numero massimo di emettitori di effetti particellari simultanei. Il valore predefinito è `64`.
 
 #### Max Particle Count
-Il numero massimo di particelle simultanee.
+Il numero massimo di particelle simultanee. Limita la dimensione del buffer dei vertici sulla GPU; il valore predefinito è `1024` particelle.
+
+#### Max Particle Buffer Count
+`particle_fx.max_particle_buffer_count` imposta il numero massimo di particelle per ogni trasferimento alla GPU. Limita il buffer della CPU usato per generare i vertici delle particelle. Il valore predefinito è `1024`.
 
 ---
 
@@ -675,6 +712,12 @@ L'Apple Privacy Manifest dell'applicazione. Il valore predefinito del campo è `
 #### Bundle Identifier
 L'identificatore del bundle permette a macOS di riconoscere gli aggiornamenti dell'applicazione. L'ID del bundle deve essere registrato presso Apple e deve essere univoco per la tua applicazione. Non puoi usare lo stesso identificatore per applicazioni iOS e macOS. Deve essere composto da due o più segmenti separati da un punto. Ogni segmento deve iniziare con una lettera e contenere solo caratteri alfanumerici, trattini bassi o trattini (-).
 
+#### Bundle Name {#osx-bundle-name}
+`osx.bundle_name` specifica il nome breve del bundle (`CFBundleName`), limitato a 15 caratteri.
+
+#### Bundle Version {#osx-bundle-version}
+`osx.bundle_version` specifica il numero della build (`CFBundleVersion`), espresso come numero o nel formato `x.y.z`. Il valore predefinito è `1`.
+
 #### Default Language
 La lingua usata se l'applicazione non include la lingua preferita dall'utente nell'elenco `Localizations` (consulta [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Usa il codice a due lettere dello standard ISO 639-1 se la lingua preferita vi è presente, altrimenti quello a tre lettere dello standard ISO 639-2.
 
@@ -753,6 +796,9 @@ Seleziona questa opzione per completare automaticamente le transazioni IAP. Se n
 
 ### Live update
 
+#### Enabled {#liveupdate-enabled}
+`liveupdate.enabled` abilita il sistema Live update a runtime. Abilitata per impostazione predefinita. Consulta il [manuale Live update](/manuals/live-update/) per sapere come escludere, scaricare e montare le risorse.
+
 #### Settings
 Il file di risorsa delle impostazioni Liveupdate da usare durante la creazione del bundle.
 
@@ -774,6 +820,9 @@ Abilita il profilatore nel gioco.
 
 #### Track Cpu
 Il campionamento dell'utilizzo della CPU è abilitato per impostazione predefinita nelle build di debug. Abilita questa impostazione quando il campionamento della CPU serve anche in una build di release che include il supporto al profilatore tramite App Manifest.
+
+#### Track Detailed Memory
+`profiler.track_detailed_memory` abilita il campionamento dettagliato della memoria nel profilatore. Disabilitata per impostazione predefinita. Può incidere sensibilmente sulle prestazioni in HTML5.
 
 #### Sleep Between Server Updates
 Il numero di millisecondi di pausa tra gli aggiornamenti del server.
