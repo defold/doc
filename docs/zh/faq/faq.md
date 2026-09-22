@@ -111,8 +111,8 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | 任意               | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (API 级别 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (API 级别 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 只要图形驱动是最新的，引擎运行时应该在大多数 64 位 Linux 发行版上运行，有关图形 API 的更多信息见下文)

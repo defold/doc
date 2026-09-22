@@ -111,8 +111,8 @@ R : Les plateformes suivantes sont prises en charge :
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Toutes             | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (niveau d'API 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (niveau d'API 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Le moteur d'exécution devrait fonctionner sur la plupart des distributions Linux 64 bits tant que les pilotes graphiques sont à jour. Voir ci-dessous pour plus d'informations sur les API graphiques.)

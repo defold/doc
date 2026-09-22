@@ -111,8 +111,8 @@ A: Obsługiwane są następujące platformy:
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Dowolna            | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (poziom API 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (poziom API 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Środowisko uruchomieniowe silnika powinno działać na większości 64-bitowych dystrybucji Linuksa, o ile sterowniki graficzne są aktualne. Więcej informacji znajdziesz poniżej, w sekcji o API graficznych.)

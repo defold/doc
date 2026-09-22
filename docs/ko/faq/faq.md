@@ -111,8 +111,8 @@ A: 다음 플랫폼을 지원합니다.
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | 모든 버전           | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (API 레벨 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (API 레벨 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 엔진 런타임은 그래픽 드라이버가 최신이면 대부분의 64-bit Linux 배포판에서 실행됩니다. 그래픽 API에 대한 자세한 내용은 아래를 참고하세요.)

@@ -111,8 +111,8 @@ A: Aşağıdaki platformlar desteklenir:
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Herhangi biri      | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (API düzeyi 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (API düzeyi 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Grafik sürücüleri güncel olduğu sürece motorun çalışma zamanı ortamının çoğu 64 bit Linux dağıtımında çalışması beklenir; grafik API'leri hakkında daha fazla bilgi için aşağıya bakın)

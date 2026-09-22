@@ -111,8 +111,8 @@ R: As seguintes plataformas são suportadas:
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Qualquer           | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (nível da API 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (nível da API 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 O runtime da engine deve rodar na maioria das distribuições Linux 64-bit, desde que os drivers gráficos estejam atualizados; veja abaixo mais informações sobre APIs gráficas.)

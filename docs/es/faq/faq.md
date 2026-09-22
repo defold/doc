@@ -111,8 +111,8 @@ A: Las siguientes plataformas son compatibles:
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Cualquiera         | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (nivel de API 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (nivel de API 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 El runtime del motor debería funcionar en la mayoría de las distribuciones Linux de 64 bits siempre que los controladores gráficos estén actualizados; consulta más abajo la información sobre las API gráficas.)

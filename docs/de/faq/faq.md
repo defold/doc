@@ -111,8 +111,8 @@ A: Die folgenden Plattformen werden unterstützt:
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Beliebig           | `x86-64`, `arm-64` |
-  | iOS                | 15.0               | `arm-64`  `x86_64` |
-  | Android            | 5.0 (API-Level 21) | `arm-32`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`           |
+  | Android            | 5.0 (API-Level 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Die Laufzeitumgebung der Engine sollte auf den meisten 64-Bit-Linux-Distributionen laufen, solange die Grafiktreiber aktuell sind. Weitere Informationen zu Grafik-APIs findest du unten.)
