@@ -17,6 +17,26 @@ Hariç tutulacak dosyalar ve klasörler, projenin kök dizinindeki `.defignore` 
 
 Bu, `/path/to/file.png` dosyasını ve `/otherpath` yolundaki her şeyi hariç tutar.
 
+Her satır bir `/` ile başlamalıdır ve projenin kök dizinine göre belirtilen proje yollarıyla karşılaştırılır. Bir kalıp, yolun kendisiyle veya üst klasörlerinden biriyle eşleşirse o yolla eşleşmiş sayılır. Eşleştirme büyük/küçük harfe duyarlıdır.
+
+### Joker karakterler
+
+Kalıplar joker karakterler içerebilir:
+
+* `*`, `/` dışında herhangi bir sayıda karakterle eşleşir
+* `?`, `/` dışında tam olarak bir karakterle eşleşir
+* `**`, herhangi bir sayıda tam klasörle eşleşir; dolayısıyla `/**/name`, herhangi bir derinlikteki `name` ile eşleşir ve `/folder/**`, klasörün kendisiyle ve içindeki her şeyle eşleşir
+
+Diğer tüm karakterler olduğu gibi eşleştirilir. Örnek:
+
+```
+/levels/*/tiled
+/**/generated
+/assets/temp_??.png
+```
+
+Bu, `/levels` yolunun her doğrudan alt klasöründeki `tiled` klasörünü (`/levels/01/tiled` gibi), projenin kök dizinindeki `/generated` dahil herhangi bir derinlikte `generated` adlı tüm klasörleri ve `/assets/temp_01.png` gibi dosyaları hariç tutar.
+
 ## `.defunload` dosyası
 
 Birden çok bağımsız modül içeren bazı büyük projelerde, düzenleyicideki bellek kullanımını ve yükleme sürelerini azaltmak için projenin bazı bölümlerini yükleme dışında tutmak isteyebilirsiniz. Bunu yapmak için yükleme dışında tutulacak yolları proje dizini altındaki bir `.defunload` dosyasında listeleyebilirsiniz.

@@ -17,6 +17,26 @@ Les fichiers et dossiers à exclure sont définis dans un fichier nommé `.defig
 
 Cela exclura le fichier `/path/to/file.png` ainsi que tout le contenu du chemin `/otherpath`.
 
+Chaque ligne doit commencer par un `/` et est comparée aux chemins du projet, exprimés par rapport à la racine du projet. Un motif correspond à un chemin s'il est égal à ce chemin ou à celui de l'un de ses dossiers parents. La correspondance est sensible à la casse.
+
+### Caractères génériques {#wildcards}
+
+Les motifs peuvent contenir des caractères génériques :
+
+* `*` correspond à un nombre quelconque de caractères, à l'exception de `/`
+* `?` correspond à exactement un caractère, à l'exception de `/`
+* `**` correspond à un nombre quelconque de dossiers entiers. Ainsi, `/**/name` correspond à `name` à n'importe quelle profondeur et `/folder/**` correspond au dossier et à tout son contenu
+
+Tous les autres caractères sont interprétés littéralement. Exemple :
+
+```
+/levels/*/tiled
+/**/generated
+/assets/temp_??.png
+```
+
+Cela exclura le dossier `tiled` dans chaque sous-dossier direct de `/levels` (par exemple `/levels/01/tiled`), tous les dossiers nommés `generated` à n'importe quelle profondeur, y compris `/generated` à la racine du projet, ainsi que les fichiers tels que `/assets/temp_01.png`.
+
 ## Le fichier `.defunload` {#the-defunload-file}
 
 Pour certains projets volumineux contenant plusieurs modules indépendants, vous pouvez souhaiter exclure certaines parties du chargement afin de réduire l'utilisation de la mémoire et les temps de chargement dans l'éditeur. Pour ce faire, vous pouvez énumérer les chemins à exclure du chargement dans un fichier `.defunload` situé dans le répertoire du projet.
