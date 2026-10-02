@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-矩阵属性也是如此；如果属性是 `Mat4` 以外的矩阵类型，仍然可以使用 `go.set` 设置数据。
+从 Defold 1.14.0 开始，`Mat2`、`Mat3` 和 `Mat4` 属性在使用 `go.set()` 和 `go.get()` 时均使用 `vmath.matrix4` 值。设置 `Mat2` 或 `Mat3` 属性时，会取矩阵左上角的 2×2 或 3×3 部分。读取时会返回一个 `vmath.matrix4`，未使用的行和列按单位矩阵填充。
+
+例如，模型材质中有一个名为 `custom_mat2`、语义类型为 `None` 的 `Mat2` 属性：
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+始终赋值完整的矩阵。矩阵属性不接受 `vmath.vector4` 等展平后的值，也不接受对单个属性子项的赋值。要更改某个元素，请在 Lua 中修改矩阵，再通过 `go.set()` 将其传回。
 
 ### 使用自定义顶点属性的示例
 

@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Lo mismo ocurre con los atributos de matriz: si el atributo es un tipo de matriz distinto de `Mat4`, aún puedes definir los datos usando `go.set`.
+Desde Defold 1.14.0, los atributos `Mat2`, `Mat3` y `Mat4` usan valores `vmath.matrix4` con `go.set()` y `go.get()`. Al definir un atributo `Mat2` o `Mat3`, se toma la parte superior izquierda de 2×2 o 3×3 de la matriz. Al leerlo, se devuelve un `vmath.matrix4` con las filas y columnas no usadas completadas a partir de una matriz identidad.
+
+Por ejemplo, con un atributo `Mat2` llamado `custom_mat2` y tipo semántico `None` en el material de un modelo:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Asigna siempre la matriz completa. Los atributos de matriz rechazan valores aplanados como `vmath.vector4` y las asignaciones a subpropiedades individuales del atributo. Para cambiar un elemento, modifica la matriz en Lua y vuelve a pasarla con `go.set()`.
 
 ### Ejemplos de uso de atributos de vértice personalizados
 

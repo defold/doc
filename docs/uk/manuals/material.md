@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Те саме стосується матричних атрибутів: якщо атрибут є матрицею іншого типу, ніж `Mat4`, ви все одно можете задати дані за допомогою `go.set`.
+Починаючи з Defold 1.14.0, атрибути `Mat2`, `Mat3` і `Mat4` використовують значення `vmath.matrix4` з `go.set()` і `go.get()`. Під час задання атрибута `Mat2` або `Mat3` використовується верхня ліва частина матриці розміром 2×2 або 3×3. Під час читання повертається `vmath.matrix4`, у якій невикористані рядки й стовпці заповнено значеннями з одиничної матриці.
+
+Наприклад, для атрибута `Mat2` з іменем `custom_mat2` і семантичним типом `None` у матеріалі моделі:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Завжди задавайте матрицю повністю. Значення у сплощеному вигляді, як-от `vmath.vector4`, і присвоєння окремим підвластивостям атрибута відхиляються для матричних атрибутів. Щоб змінити елемент, змініть матрицю в Lua й передайте її назад за допомогою `go.set()`.
 
 ### Приклади використання власних атрибутів вершин {#examples-of-using-custom-vertex-attributes}
 

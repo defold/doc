@@ -85,9 +85,9 @@ Success
 
 *.aab* ファイルは、[Google Play デベロッパーコンソール](https://play.google.com/apps/publish/) 経由で Google Play にアップロードできます。[Android bundletool](https://developer.android.com/studio/command-line/bundletool) を使い、*.aab* ファイルから *`.apk`* ファイルを生成してローカルにインストールすることもできます。
 
-## R8 による Java コードの縮小 {#shrinking-java-code-with-r8}
+## R8 による Java コードと Android リソースの縮小 {#shrinking-java-code-with-r8}
 
-R8 は、縮小、最適化、難読化によって Java コードのサイズを削減します。
+R8 は、縮小、最適化、難読化によって Java コードのサイズを削減します。Defold 1.14.0 以降を、対応する Extender ビルドサーバーと組み合わせて使用すると、拡張とその Android 依存関係が提供するレイアウト、ドローアブル、raw リソースなど、未使用の Android リソースも削除します。ゲームアーカイブ内の Defold のゲームアセットは、R8 の処理対象ではありません。
 
 ### R8 の有効化 {#enabling-r8}
 
@@ -102,9 +102,22 @@ Java コードを持つすべての拡張に、実行時に必要なクラスの
 
 **R8 Keep Rules** を空にすると、縮小を行わない D8 を使います。R8 を有効にすると、ネイティブ拡張を含まないプロジェクトでもネイティブ拡張ビルドサービスを使います。
 
+Defold 1.14.0 以降では、同じ **R8 Keep Rules** 設定で Android リソースの縮小も有効になります。この機能専用のプロジェクト設定はありません。以前の Defold SDK では、R8 による縮小はコードのみを対象とします。
+
 ### 拡張へのルールの追加 {#adding-rules-to-an-extension}
 
 拡張の保持ルールは、`manifests/android` ディレクトリ内の `build.gradle` と同じ場所に配置します。ファイルを追加し、拡張の Java クラスを保持する方法については、[Android 拡張の R8 保持ルール](/manuals/extensions/#r8-keep-rules-for-android)を参照してください。
+
+### Android リソースの保持 {#keeping-android-resources}
+
+名前を指定して動的に参照するリソースには、明示的な保持ルールが必要な場合があります。Android リソースの保持には、Java クラス用の `.keep` ルールとは別に、`tools:keep` を指定した XML ファイルを使います。たとえば、拡張で `dynamic_data` という名前の raw リソースを保持するには、`/myextension/res/android/res/raw/com_example_myextension_keep.xml` を追加します。
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+競合を避けるため、各拡張の XML 保持ファイルには一意のファイル名を使ってください。`tools:keep` の値には、リソース名をカンマ区切りで指定でき、`*` のワイルドカードも使えます。詳しくは、Android の[リソース保持ルールのドキュメント](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep)を参照してください。R8 を有効にした後は、リソースを動的に読み込む機能をリリースビルドでテストしてください。
 
 ### 難読化マッピングの保持 {#keeping-the-obfuscation-mapping}
 

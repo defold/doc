@@ -237,3 +237,16 @@ drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
 -rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
 $
 ```
+
+## 构建服务器 {#build-server}
+
+从 Defold 1.14.0 开始，Bob 根据其发行包的发布通道选择默认的原生扩展构建服务器：
+
+| Bob 发布通道 | 默认构建服务器 |
+|---|---|
+| `stable` | `https://build.defold.com` |
+| 其他任何通道，包括 `beta` 和 `alpha` | `https://build-stage.defold.com` |
+
+运行 `java -jar bob.jar --version` 可显示发布通道，以及 Bob 的版本和构建信息。`--variant` 选项控制引擎构建变体，不会改变此发布通道。
+
+传递 `--build-server <url>` 可显式选择服务器，包括[自行托管的 Extender 服务器](/manuals/extender-local-setup/)。此选项会覆盖所有发布通道的默认值。

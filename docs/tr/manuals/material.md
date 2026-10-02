@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Aynı durum matris öznitelikleri için de geçerlidir; öznitelik `Mat4` dışında bir matris türündeyse de verileri `go.set` kullanarak ayarlayabilirsiniz.
+Defold 1.14.0'dan itibaren `Mat2`, `Mat3` ve `Mat4` özniteliklerinin tümü, `go.set()` ve `go.get()` ile `vmath.matrix4` değerleri kullanır. Bir `Mat2` veya `Mat3` özniteliğini ayarlarken matrisin sol üst 2×2 veya 3×3 bölümü alınır. Okunduğunda ise kullanılmayan satır ve sütunları birim matristen doldurulmuş bir `vmath.matrix4` döndürülür.
+
+Örneğin, bir modelin materyalinde `custom_mat2` adlı ve anlamsal türü `None` olan bir `Mat2` özniteliği için:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Her zaman matrisin tamamını atayın. Matris öznitelikleri için `vmath.vector4` gibi düzleştirilmiş değerler ve özniteliğin tek tek alt özelliklerine yapılan atamalar reddedilir. Bir öğeyi değiştirmek için matrisi Lua içinde değiştirip `go.set()` ile geri geçirin.
 
 ### Özel köşe özniteliklerini kullanma örnekleri
 

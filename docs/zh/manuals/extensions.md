@@ -97,6 +97,8 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 
 [启用 R8](/manuals/android/#enabling-r8) 后，这些规则会与项目选定的保留规则文件合并。
 
+在 Defold 1.14.0 或更高版本中，配合兼容的 Extender 服务器，R8 还会缩减 Android 资源。如果扩展按名称动态查找资源，请在扩展文件夹的 `res/android/res/raw` 下添加 [XML 资源保留规则](/manuals/android/#keeping-android-resources)。
+
 ## 自定义资源 {#custom-resources}
 
 扩展可以在与 `ext.manifest` 同目录的 `ext.properties` 文件中声明自定义资源，将数据包含在游戏归档中：

@@ -85,9 +85,9 @@ Für diese Funktion muss *ADB* installiert und *USB debugging* auf dem verbunden
 
 Eine *.aab*-Datei kann über die [Google Play-Entwicklerkonsole](https://play.google.com/apps/publish/) zu Google Play hochgeladen werden. Mit dem [Android bundletool](https://developer.android.com/studio/command-line/bundletool) kannst du außerdem aus einer *.aab*-Datei eine *`.apk`*-Datei erzeugen, um sie lokal zu installieren.
 
-## Java-Code mit R8 verkleinern {#shrinking-java-code-with-r8}
+## Java-Code und Android-Ressourcen mit R8 verkleinern {#shrinking-java-code-with-r8}
 
-R8 reduziert die Größe von Java-Code durch Verkleinerung, Optimierung und Verschleierung.
+R8 reduziert die Größe von Java-Code durch Verkleinerung, Optimierung und Verschleierung. Mit Defold 1.14.0 oder neuer und einem kompatiblen Extender-Build-Server entfernt R8 außerdem ungenutzte Android-Ressourcen, etwa Layouts, Drawables und Raw-Ressourcen, die von Erweiterungen und ihren Android-Abhängigkeiten bereitgestellt werden. Spielressourcen von Defold im Spielarchiv werden von R8 nicht verarbeitet.
 
 ### R8 aktivieren {#enabling-r8}
 
@@ -102,9 +102,22 @@ Stelle sicher, dass jede Erweiterung mit Java-Code eine `.keep`-Datei für die K
 
 Wenn du **R8 Keep Rules** leer lässt, wird D8 ohne Verkleinerung verwendet. Beim Aktivieren von R8 wird der Build-Dienst für native Erweiterungen verwendet, auch für ein Projekt ohne native Erweiterungen.
 
+Ab Defold 1.14.0 wird die Verkleinerung von Android-Ressourcen mit derselben Einstellung **R8 Keep Rules** aktiviert; dafür gibt es keine separate Projekteinstellung. Ältere Defold-SDKs verkleinern mit R8 weiterhin nur Code.
+
 ### Regeln zu einer Erweiterung hinzufügen {#adding-rules-to-an-extension}
 
 Die Keep-Regeln einer Erweiterung gehören in ihr Verzeichnis `manifests/android`, neben `build.gradle`. Unter [R8-Keep-Regeln für Android-Erweiterungen](/manuals/extensions/#r8-keep-rules-for-android) erfährst du, wie du eine Datei hinzufügst und die Java-Klassen der Erweiterung erhältst.
+
+### Android-Ressourcen beibehalten {#keeping-android-resources}
+
+Ressourcen, die dynamisch über ihren Namen gesucht werden, benötigen möglicherweise explizite Keep-Regeln. Für Android-Ressourcen wird eine XML-Datei mit `tools:keep` verwendet, getrennt von den `.keep`-Regeln für Java-Klassen. Beispielsweise kann eine Erweiterung eine Raw-Ressource namens `dynamic_data` beibehalten, indem sie `/myextension/res/android/res/raw/com_example_myextension_keep.xml` hinzufügt:
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+Verwende für die XML-Keep-Datei jeder Erweiterung einen eindeutigen Dateinamen, um Konflikte zu vermeiden. Der Wert von `tools:keep` akzeptiert eine durch Kommas getrennte Liste von Ressourcennamen und unterstützt `*` als Platzhalter. Einzelheiten findest du in der Android-[Dokumentation zu Keep-Regeln für Ressourcen](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep). Teste nach dem Aktivieren von R8 die Funktionen, die Ressourcen dynamisch laden, in einem Release-Build.
 
 ### Die Zuordnung verschleierter Namen aufbewahren {#keeping-the-obfuscation-mapping}
 

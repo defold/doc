@@ -59,10 +59,6 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 现在可以使用 ZeroBrane 中提供的调试功能；您可以单步执行、检查、添加和删除断点等。
 
-::: sidenote
-调试仅在启动调试的 lua 上下文中启用。在 *game.project* 中启用 "shared_state" 意味着无论您从哪里启动，都可以调试整个应用程序。
-:::
-
 ![Stepping](images/zerobrane/code.png)
 
 如果连接尝试失败（可能是因为调试服务器未运行），您的应用程序将在连接尝试完成后继续正常运行。

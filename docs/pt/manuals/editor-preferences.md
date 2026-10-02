@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : O arquivo editado na aba selecionada no painel *Editor* será selecionado no Asset Browser (também conhecido como painel *Assets*).
 
 Lint Code on Build
-: Habilita [linting de código](/manuals/writing-code/#linting-configuration) quando o projeto é compilado. Esta opção é habilitada por padrão, mas pode ser desabilitada se o linting em um projeto grande levar tempo demais.
+: Habilita [linting de código](/manuals/writing-code/#linting-configuration) quando o projeto é compilado. Esta opção é desabilitada por padrão.
 
 Engine Arguments
 : Argumentos que serão passados ao executável dmengine quando o editor compilar e executar.

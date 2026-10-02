@@ -123,12 +123,14 @@ Her platform için hangi grafik arka uçlarının dahil edileceğini seçin. Bir
 | Alan | Platformlar | Seçenekler | Varsayılan |
 |---|---|---|---|
 | **Graphics** | Windows ve Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
-| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
 
 Linux ARM64 üzerinde **OpenGL** seçeneği, OpenGL ES arka ucunu kullanır. Android'in varsayılan birleşik seçeneği, kullanılabiliyorsa Vulkan'ı tercih eder; kullanılamıyorsa OpenGL ES'ye geçer.
+
+Defold 1.14.0'dan itibaren macOS varsayılan olarak yerel Metal arka ucunu kullanır. macOS ve iOS'ta **Vulkan** seçeneği, MoltenVK aracılığıyla Vulkan'ı kullanır. iOS simülatörü (`arm64_sim-ios`), cihazlar için belirlenen **Graphics (iOS)** seçeneğinden bağımsız olarak her zaman Metal kullanır.
 
 ## Use full text layout system
 

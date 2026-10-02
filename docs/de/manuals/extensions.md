@@ -97,6 +97,8 @@ Wenn die Erweiterung zur Laufzeit auf Annotationen angewiesen ist, füge außerd
 
 Diese Regeln werden mit der ausgewählten Keep-Datei des Projekts kombiniert, wenn [R8 aktiviert ist](/manuals/android/#enabling-r8).
 
+Mit Defold 1.14.0 oder neuer und einem kompatiblen Extender-Server verkleinert R8 auch Android-Ressourcen. Wenn die Erweiterung Ressourcen dynamisch über ihren Namen sucht, füge [XML-Keep-Regeln für Ressourcen](/manuals/android/#keeping-android-resources) unter `res/android/res/raw` im Erweiterungsordner hinzu.
+
 
 ## Benutzerdefinierte Ressourcen {#custom-resources}
 

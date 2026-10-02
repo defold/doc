@@ -123,12 +123,14 @@ Android X 대신 더 이상 사용되지 않는 Android Support Library를 사�
 | 필드 | 플랫폼 | 선택 | 기본값 |
 |---|---|---|---|
 | **Graphics** | Windows 및 Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
-| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
 
 Linux ARM64에서 **OpenGL** 선택은 OpenGL ES 백엔드를 사용합니다. Android의 결합 기본값은 사용할 수 있으면 Vulkan을 우선하고, 그렇지 않으면 OpenGL ES로 폴백합니다.
+
+Defold 1.14.0부터 macOS는 기본적으로 네이티브 Metal 백엔드를 사용합니다. macOS와 iOS에서 **Vulkan** 선택은 MoltenVK를 통해 Vulkan을 사용합니다. iOS 시뮬레이터(`arm64_sim-ios`)는 기기용 **Graphics (iOS)** 선택과 관계없이 항상 Metal을 사용합니다.
 
 ## Use full text layout system
 

@@ -543,12 +543,9 @@ end
 
 ## Defold'da Lua bağlamları
 
-Bildirdiğiniz tüm değişkenler varsayılan olarak geneldir; yani Lua çalışma zamanı bağlamının her yerinden kullanılabilirler. Defold'un *game.project* dosyasında bu bağlamı denetleyen bir *shared_state* ayarı vardır. Seçenek etkinse tüm betikler, GUI betikleri ve işleme betiği (render script) aynı Lua bağlamında değerlendirilir ve genel değişkenler her yerden görünür. Seçenek etkin değilse motor; betikleri, GUI betiklerini ve işleme betiğini ayrı bağlamlarda yürütür.
+Değişkenler `local` ile bildirilmedikçe geneldir. Tüm oyun nesnesi betikleri, GUI betikleri ve işleme betikleri (render script) tek bir Lua bağlamını paylaşır; bu nedenle genel değişkenler ve `require()` ile yüklenen modüllerin önbelleği aralarında paylaşılır. Tek bir betik örneğine ait durumu, paylaşılan genel değişkenlerde veya modül tablolarında tutmak yerine `self` içinde saklayın ya da açıkça ayrı durum tabloları oluşturun.
 
-![Bağlamlar](images/lua/lua_contexts.png)
-
-Defold, aynı betik dosyasını birkaç ayrı oyun nesnesi bileşeninde (component) kullanmanıza izin verir. Yerel olarak bildirilen tüm değişkenler, aynı betik dosyasını çalıştıran bileşenler arasında paylaşılır.
-
+Defold, aynı betik dosyasını birkaç ayrı oyun nesnesi bileşeninde (component) kullanmanıza izin verir. Betik dosyasının en üst düzeyinde `local` ile bildirilen değişkenler, o dosyayı çalıştıran bileşenler arasında paylaşılır. Bir işlevin içinde `local` ile bildirilen değişkenler ise o işlev çağrısına özgüdür.
 ```lua
 -- 'my_global_value' will be available from all scripts, gui_scripts, render script and modules (Lua files)
 my_global_value = "global scope"

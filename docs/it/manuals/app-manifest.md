@@ -123,12 +123,14 @@ Seleziona i backend grafici da includere per ciascuna piattaforma. Un'opzione co
 | Campo | Piattaforme | Opzioni | Predefinito |
 |---|---|---|---|
 | **Graphics** | Windows e Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
-| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
 
 Su Linux ARM64, l'opzione **OpenGL** usa il backend OpenGL ES. L'opzione combinata predefinita per Android preferisce Vulkan quando è disponibile e usa OpenGL ES come alternativa.
+
+A partire da Defold 1.14.0, macOS usa il backend Metal nativo per impostazione predefinita. L'opzione **Vulkan** su macOS e iOS usa Vulkan tramite MoltenVK. Il simulatore iOS (`arm64_sim-ios`) usa sempre Metal, indipendentemente dall'opzione **Graphics (iOS)** scelta per i dispositivi.
 
 ## Use full text layout system
 

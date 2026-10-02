@@ -93,6 +93,9 @@ Uygulamanın başlangıç boyutunu küçültmenin bir başka yolu, oyun içeriğ
 Dışarıda bırakılan içerik, bölümlerin tamamından kilidi açılabilen karakterlere, görünümlere, silahlara veya araçlara kadar her şey olabilir. Oyununuz çok fazla içerik barındırıyorsa yükleme sürecini, başlangıç koleksiyonu ve ilk bölümün koleksiyonu yalnızca o bölüm için gereken asgari kaynakları içerecek şekilde düzenleyin. Bunu, "Exclude" onay kutusu etkinleştirilmiş koleksiyon vekilleri (collection proxy) veya fabrikalar (factory) kullanarak yapabilirsiniz. Kaynakları oyuncunun ilerlemesine göre ayırın. Bu yaklaşım, kaynakların verimli yüklenmesini sağlar ve başlangıçtaki bellek kullanımını düşük tutar. Daha fazla bilgi için [Live Update kılavuzuna](/manuals/live-update/) bakın.
 
 ## Android'e özgü boyut optimizasyonları
+
+Kullanılmayan Java kodunu kaldırmak için [R8 küçültme işlemini](/manuals/android/#shrinking-java-code-with-r8) etkinleştirin. Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender sunucusuyla kullanıldığında bu işlem eklentilerin ve bağımlılıklarının kullanılmayan Android kaynaklarını da kaldırır.
+
 Android derlemeleri hem 32 bit hem de 64 bit CPU mimarilerini desteklemelidir. [Android için dağıtım paketi oluştururken](/manuals/android) hangi CPU mimarilerinin dahil edileceğini belirtebilirsiniz:
 
 ![Android dağıtım paketini imzalama](images/android/sign_bundle.png)

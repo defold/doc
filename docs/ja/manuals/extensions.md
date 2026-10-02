@@ -97,6 +97,8 @@ Defold は、使用制限のないクラウドビルドサーバーを無料で�
 
 これらのルールは、[R8 が有効な場合](/manuals/android/#enabling-r8)に、プロジェクトで選択した保持ルールファイルと統合されます。
 
+Defold 1.14.0 以降を、対応する Extender サーバーと組み合わせて使用すると、R8 は Android リソースも縮小します。拡張がリソースを名前で動的に参照する場合は、拡張フォルダーの `res/android/res/raw` に [XML リソース保持ルール](/manuals/android/#keeping-android-resources)を追加してください。
+
 
 ## カスタムリソース {#custom-resources}
 

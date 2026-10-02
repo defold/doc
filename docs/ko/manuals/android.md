@@ -85,9 +85,9 @@ Bundle 대화상자의 "Install on connected device" 및 "Launch installed app" 
 
 *.aab* 파일은 [Google Play developer console](https://play.google.com/apps/publish/)을 통해 Google Play에 업로드할 수 있습니다. 또한 [Android bundletool](https://developer.android.com/studio/command-line/bundletool)을 사용해 *.aab* 파일에서 *`.apk`* 파일을 생성하고 로컬에 설치할 수도 있습니다.
 
-## R8로 Java 코드 크기 줄이기 {#shrinking-java-code-with-r8}
+## R8로 Java 코드 및 Android 리소스 크기 줄이기 {#shrinking-java-code-with-r8}
 
-R8은 코드 축소, 최적화, 난독화를 통해 Java 코드의 크기를 줄입니다.
+R8은 코드 축소, 최적화, 난독화를 통해 Java 코드의 크기를 줄입니다. Defold 1.14.0 이상과 호환되는 Extender 빌드 서버에서는 익스텐션과 해당 Android 종속성이 제공하는 레이아웃, drawable, raw 리소스 등의 사용되지 않는 Android 리소스도 제거합니다. 게임 아카이브에 있는 Defold 게임 에셋은 R8이 처리하지 않습니다.
 
 ### R8 활성화하기 {#enabling-r8}
 
@@ -102,9 +102,22 @@ Java 코드를 사용하는 모든 익스텐션이 런타임에 필요한 클래
 
 **R8 Keep Rules**를 비워 두면 축소 없이 D8을 사용합니다. R8을 활성화하면 네이티브 익스텐션이 없는 프로젝트도 네이티브 익스텐션 빌드 서비스를 사용합니다.
 
+Defold 1.14.0부터는 같은 **R8 Keep Rules** 설정으로 Android 리소스 축소를 활성화하며, 이를 위한 별도의 프로젝트 설정은 없습니다. 이전 Defold SDK에서는 R8이 코드만 축소합니다.
+
 ### 익스텐션에 규칙 추가하기 {#adding-rules-to-an-extension}
 
 익스텐션의 keep 규칙은 `build.gradle` 옆의 `manifests/android` 디렉토리에 둡니다. 파일을 추가하고 익스텐션의 Java 클래스를 보존하는 방법은 [Android 익스텐션용 R8 keep 규칙](/manuals/extensions/#r8-keep-rules-for-android)을 참고하세요.
+
+### Android 리소스 보존하기 {#keeping-android-resources}
+
+이름으로 동적으로 조회하는 리소스에는 명시적인 keep 규칙이 필요할 수 있습니다. Android 리소스에는 Java 클래스용 `.keep` 규칙과 별도로 `tools:keep`가 있는 XML 파일을 사용합니다. 예를 들어 익스텐션에서 `dynamic_data`라는 raw 리소스를 보존하려면 `/myextension/res/android/res/raw/com_example_myextension_keep.xml`을 추가할 수 있습니다.
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+충돌을 피하려면 각 익스텐션의 XML keep 파일에 고유한 파일명을 사용하세요. `tools:keep` 값은 쉼표로 구분된 리소스 이름 목록과 `*` 와일드카드를 지원합니다. 자세한 내용은 Android의 [리소스 keep 규칙 문서](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep)를 참고하세요. R8을 활성화한 후에는 리소스를 동적으로 로드하는 기능을 릴리스 빌드에서 테스트하세요.
 
 ### 난독화 매핑 보관하기 {#keeping-the-obfuscation-mapping}
 

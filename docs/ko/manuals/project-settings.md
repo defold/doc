@@ -687,6 +687,8 @@ display cutout 영역까지 확장합니다.
 #### R8 Keep Rules
 `android.r8_keep_rules`는 Android 빌드에서 Java 코드의 R8 축소, 최적화, 난독화를 활성화할 `.keep` 파일을 선택합니다. 축소 없이 D8을 사용하려면 설정을 비워 둡니다.
 
+Defold 1.14.0 이상과 호환되는 Extender 빌드 서버에서는 사용되지 않는 Android 리소스도 제거합니다. 동적으로 로드하는 리소스에는 별도의 [XML keep 규칙](/manuals/android/#keeping-android-resources)이 필요할 수 있습니다.
+
 Defold의 기본 규칙을 바로 사용하려면 `/builtins/manifests/android/dmengine.keep`를 선택합니다. 익스텐션은 자체 [keep 규칙](/manuals/extensions/#r8-keep-rules-for-android)을 제공하며 이 파일과 결합됩니다.
 
 프로젝트별 규칙을 추가해야 할 때만 내장 파일을 프로젝트로 복사하세요. 커스텀 파일을 선택하면 프로젝트 규칙 전체를 대체하므로, 복사본에 내장 규칙을 보존해야 합니다.

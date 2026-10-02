@@ -543,12 +543,9 @@ end
 
 ## Contesti Lua in Defold {#lua-contexts-in-defold}
 
-Tutte le variabili che dichiari sono globali per impostazione predefinita: sono disponibili in ogni parte del contesto di runtime Lua. Defold ha un'impostazione *shared_state* in *game.project* che controlla questo contesto. Se l'opzione è attiva, tutti gli script, gli script GUI e lo script di rendering vengono valutati nello stesso contesto Lua e le variabili globali sono visibili ovunque. Se l'opzione non è attiva, il motore esegue gli script, gli script GUI e lo script di rendering in contesti separati.
+Le variabili sono globali se non vengono dichiarate con `local`. Tutti gli script degli oggetti di gioco, gli script GUI e gli script di rendering condividono un unico contesto Lua, quindi condividono anche le variabili globali e la cache dei moduli caricati con `require()`. Memorizza lo stato che appartiene a una singola istanza di script in `self`, oppure crea esplicitamente tabelle di stato separate, invece di conservarlo in variabili globali o tabelle di moduli condivise.
 
-![Contesti](images/lua/lua_contexts.png)
-
-Defold consente di usare lo stesso file di script in diversi componenti di oggetti di gioco. Le variabili dichiarate localmente sono condivise tra i componenti che eseguono lo stesso file di script.
-
+Defold consente di usare lo stesso file di script in diversi componenti di oggetti di gioco. Le variabili dichiarate con `local` al livello principale del file di script sono condivise tra i componenti che eseguono quel file. Le variabili dichiarate con `local` all'interno di una funzione sono locali a quella chiamata della funzione.
 ```lua
 -- 'my_global_value' will be available from all scripts, gui_scripts, render script and modules (Lua files)
 my_global_value = "global scope"

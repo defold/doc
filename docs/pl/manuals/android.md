@@ -84,9 +84,9 @@ Aby ta funkcja działała, musisz mieć zainstalowany *ADB* oraz włączone *USB
 
 Plik *.aab* można przesłać do Google Play przez [konsolę deweloperską Google Play](https://play.google.com/apps/publish/). Można też wygenerować plik *`.apk`* z pliku *.aab*, aby zainstalować go lokalnie za pomocą [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
-## Zmniejszanie kodu Java za pomocą R8 {#shrinking-java-code-with-r8}
+## Zmniejszanie kodu Java i zasobów Androida za pomocą R8 {#shrinking-java-code-with-r8}
 
-R8 zmniejsza rozmiar kodu Java przez usuwanie nieużywanego kodu, optymalizację i zaciemnianie nazw.
+R8 zmniejsza rozmiar kodu Java przez usuwanie nieużywanego kodu, optymalizację i zaciemnianie nazw. W wersji Defold 1.14.0 lub nowszej, przy użyciu zgodnego serwera budowania Extender, usuwa również nieużywane zasoby Androida, takie jak układy, zasoby graficzne drawable i zasoby raw dostarczane przez rozszerzenia oraz ich zależności dla Androida. Zasoby gry Defold znajdujące się w archiwum gry nie są przetwarzane przez R8.
 
 ### Włączanie R8 {#enabling-r8}
 
@@ -101,9 +101,22 @@ Upewnij się, że każde rozszerzenie zawierające kod Java dostarcza plik `.kee
 
 Pozostawienie pustego pola **R8 Keep Rules** oznacza użycie D8 bez usuwania nieużywanego kodu. Włączenie R8 wymaga usługi budowania natywnych rozszerzeń, nawet w projekcie, który takich rozszerzeń nie zawiera.
 
+Od wersji Defold 1.14.0 usuwanie nieużywanych zasobów Androida jest włączane tym samym ustawieniem **R8 Keep Rules**; nie ma dla niego osobnego ustawienia projektu. Starsze wersje SDK Defold obsługują usuwanie przez R8 wyłącznie nieużywanego kodu.
+
 ### Dodawanie reguł do rozszerzenia {#adding-rules-to-an-extension}
 
 Reguły zachowywania klas rozszerzenia należy umieścić w jego katalogu `manifests/android`, obok `build.gradle`. Sposób dodawania pliku i zachowywania klas Java rozszerzenia opisano w sekcji [reguły R8 dla rozszerzeń Androida](/manuals/extensions/#r8-keep-rules-for-android).
+
+### Zachowywanie zasobów Androida {#keeping-android-resources}
+
+Zasoby wyszukiwane dynamicznie według nazwy mogą wymagać jawnych reguł zachowywania. Zasoby Androida korzystają z pliku XML z `tools:keep`, niezależnie od reguł `.keep` dla klas Java. Na przykład rozszerzenie może zachować zasób raw o nazwie `dynamic_data`, dodając plik `/myextension/res/android/res/raw/com_example_myextension_keep.xml`:
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+Używaj unikalnej nazwy pliku XML z regułami zachowywania dla każdego rozszerzenia, aby uniknąć konfliktów. Wartość `tools:keep` przyjmuje listę nazw zasobów rozdzielonych przecinkami i obsługuje symbole wieloznaczne `*`. Szczegóły znajdziesz w [dokumentacji reguł zachowywania zasobów Androida](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep). Po włączeniu R8 przetestuj funkcje, które dynamicznie wczytują zasoby, w kompilacji wydania.
 
 ### Zachowywanie mapowania zaciemnionych nazw {#keeping-the-obfuscation-mapping}
 

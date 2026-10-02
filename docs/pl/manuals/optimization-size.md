@@ -93,6 +93,9 @@ Innym sposobem na zmniejszenie początkowego rozmiaru aplikacji jest wykluczenie
 Wykluczona zawartość może obejmować wszystko, od całych poziomów po odblokowywane postacie, skórki, bronie lub pojazdy. Jeśli twoja gra ma dużo zawartości, zorganizuj proces ładowania tak, aby kolekcja bootstrapowa i kolekcja pierwszego poziomu zawierały tylko absolutne minimum zasobów wymaganych dla tego poziomu. Osiąga się to za pomocą pełnomocników kolekcji lub fabryk z zaznaczonym polem wyboru "Exclude". Podziel zasoby zgodnie z postępem gracza. Takie podejście zapewnia wydajne ładowanie zasobów i utrzymuje niskie początkowe zużycie pamięci. Więcej informacji znajdziesz w [instrukcji Live Update](/manuals/live-update/).
 
 ## Optymalizacje rozmiaru specyficzne dla Androida
+
+Włącz [usuwanie nieużywanego kodu przez R8](/manuals/android/#shrinking-java-code-with-r8), aby usunąć nieużywany kod Java. W wersji Defold 1.14.0 lub nowszej, przy użyciu zgodnego serwera Extender, usuwa to również nieużywane zasoby Androida z rozszerzeń i ich zależności.
+
 Kompilacje na Androida muszą obsługiwać zarówno 32-bitowe, jak i 64-bitowe architektury CPU. Podczas [bundlowania dla Androida](/manuals/android) możesz określić, które architektury CPU mają zostać uwzględnione:
 
 ![Podpisywanie pakietu Android](images/android/sign_bundle.png)

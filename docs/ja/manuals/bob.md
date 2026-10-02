@@ -237,3 +237,16 @@ drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
 -rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
 $
 ```
+
+## ビルドサーバー {#build-server}
+
+Defold 1.14.0 以降では、Bob は自身の配布版のリリースチャンネルに応じて、ネイティブ拡張の既定のビルドサーバーを選択します。
+
+| Bob のリリースチャンネル | 既定のビルドサーバー |
+|---|---|
+| `stable` | `https://build.defold.com` |
+| `beta` や `alpha` を含むその他のチャンネル | `https://build-stage.defold.com` |
+
+`java -jar bob.jar --version` を実行すると、Bob のバージョンやビルド情報とともにリリースチャンネルを表示できます。`--variant` オプションはエンジンのビルドバリアントを指定するもので、このリリースチャンネルを変更しません。
+
+`--build-server <url>` を渡すと、[自分でホストする Extender サーバー](/manuals/extender-local-setup/)などのサーバーを明示的に選択できます。このオプションは、すべてのリリースチャンネルで既定値を上書きします。

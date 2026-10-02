@@ -687,6 +687,8 @@ Se a aplicação pode ou não ser depurada usando ferramentas como [GAPID](https
 #### R8 Keep Rules
 `android.r8_keep_rules` seleciona um arquivo `.keep` para ativar a remoção de código não utilizado, a otimização e a ofuscação de código Java pelo R8 em builds Android. Deixe a configuração vazia para usar o D8 sem remover código não utilizado.
 
+Com Defold 1.14.0 ou posterior e um servidor de build Extender compatível, isso também remove recursos Android não utilizados. Recursos carregados dinamicamente podem precisar de [regras XML de preservação](/manuals/android/#keeping-android-resources) separadas.
+
 Selecione `/builtins/manifests/android/dmengine.keep` para usar diretamente as regras padrão do Defold. As extensões fornecem suas próprias [regras de preservação](/manuals/extensions/#r8-keep-rules-for-android), que são combinadas com esse arquivo.
 
 Copie o arquivo integrado para seu projeto somente se precisar adicionar regras específicas do projeto. Preserve as regras integradas na cópia: selecionar um arquivo personalizado substitui o conjunto completo de regras do projeto.

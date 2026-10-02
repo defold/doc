@@ -59,10 +59,6 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 Vous pouvez maintenant utiliser les fonctionnalités de débogage de ZeroBrane : avancer pas à pas, inspecter, ajouter et supprimer des points d'arrêt, etc.
 
-::: sidenote
-Le débogage ne sera activé que pour le contexte Lua depuis lequel il est lancé. Activer "shared_state" dans *game.project* vous permet de déboguer toute votre application, quel que soit l'endroit où vous avez démarré le débogage.
-:::
-
 ![Exécution pas à pas](images/zerobrane/code.png)
 
 Si la tentative de connexion échoue (par exemple parce que le serveur de débogage n'est pas démarré), votre application continuera à fonctionner normalement après cette tentative.

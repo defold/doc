@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : 在*编辑器*面板中选定标签页中编辑的文件将在资源浏览器（也称为*资源*面板）中被选中。
 
 Lint Code on Build
-: 构建项目时启用[代码检查](/manuals/writing-code/#linting-configuration)。此选项默认启用，但如果大型项目的代码检查耗时过长，可以禁用。
+: 构建项目时启用[代码检查](/manuals/writing-code/#linting-configuration)。此选项默认禁用。
 
 Engine Arguments
 : 当编辑器构建和运行时，将传递给dmengine可执行文件的参数。

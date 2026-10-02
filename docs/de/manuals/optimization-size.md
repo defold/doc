@@ -93,6 +93,9 @@ Eine weitere Möglichkeit, die anfängliche Anwendungsgröße zu reduzieren, bes
 Ausgeschlossene Inhalte können von ganzen Levels bis zu freischaltbaren Charakteren, Skins, Waffen oder Fahrzeugen reichen. Wenn dein Spiel viele Inhalte hat, organisiere den Ladevorgang so, dass die Startsammlung und die Sammlung des ersten Levels nur die für dieses Level unbedingt erforderlichen Ressourcen enthalten. Das erreichst du mit Sammlungs-Proxys (collection proxies) oder Fabriken (factories), bei denen das Kontrollkästchen „Exclude“ aktiviert ist. Teile die Ressourcen entsprechend dem Spielfortschritt auf. Dieser Ansatz sorgt für ein effizientes Laden der Ressourcen und hält den anfänglichen Speicherverbrauch niedrig. Erfahre mehr im [Handbuch zu Live Update](/manuals/live-update/).
 
 ## Android-spezifische Größenoptimierungen {#android-specific-size-optimizations}
+
+Aktiviere die [Verkleinerung mit R8](/manuals/android/#shrinking-java-code-with-r8), um ungenutzten Java-Code zu entfernen. Mit Defold 1.14.0 oder neuer und einem kompatiblen Extender-Server werden dadurch auch ungenutzte Android-Ressourcen aus Erweiterungen und ihren Abhängigkeiten entfernt.
+
 Android-Builds müssen sowohl 32-Bit- als auch 64-Bit-CPU-Architekturen unterstützen. Wenn du [ein Bundle für Android erstellst](/manuals/android), kannst du angeben, welche CPU-Architekturen enthalten sein sollen:
 
 ![Ein Android-Bundle signieren](images/android/sign_bundle.png)

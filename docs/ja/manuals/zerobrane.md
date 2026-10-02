@@ -59,10 +59,6 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 これで ZeroBrane のデバッグ機能を使えるようになります。ステップ実行、状態の確認、ブレークポイントの追加や削除などができます。
 
-::: sidenote
-デバッグは、デバッグを開始した Lua コンテキストに対してのみ有効になります。*game.project* で "shared_state" を有効にすると、どこでデバッグを開始したかにかかわらず、アプリケーション全体をデバッグできます。
-:::
-
 ![ステップ実行](images/zerobrane/code.png)
 
 接続に失敗した場合（デバッグサーバーが起動していない場合など）、接続の試行後、アプリケーションは通常どおり実行を続けます。

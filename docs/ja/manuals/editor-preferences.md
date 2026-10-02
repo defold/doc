@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : *Editor* ペインで選択したタブで編集中のファイルを、Asset Browser（*Asset* ペインとも呼ばれます）で選択します。
 
 Lint Code on Build
-: プロジェクトをビルドするときに [コードの静的解析](/manuals/writing-code/#linting-configuration) を有効にします。このオプションは既定で有効ですが、大規模なプロジェクトで静的解析に時間がかかりすぎる場合は無効にできます。
+: プロジェクトをビルドするときに [コードの静的解析](/manuals/writing-code/#linting-configuration) を有効にします。このオプションは既定で無効です。
 
 Engine Arguments
 : エディターでビルドして実行するときに、dmengine 実行ファイルに渡す引数です。

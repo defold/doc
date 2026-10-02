@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Dasselbe gilt für Matrixattribute: Wenn das Attribut einen anderen Matrixtyp als `Mat4` hat, kannst du die Daten trotzdem mit `go.set` setzen.
+Seit Defold 1.14.0 verwenden die Attribute `Mat2`, `Mat3` und `Mat4` bei `go.set()` und `go.get()` alle Werte vom Typ `vmath.matrix4`. Beim Setzen eines Attributs vom Typ `Mat2` oder `Mat3` wird der obere linke 2×2- bzw. 3×3-Bereich der Matrix übernommen. Beim Lesen wird eine `vmath.matrix4` zurückgegeben, deren ungenutzte Zeilen und Spalten mit den Werten einer Einheitsmatrix aufgefüllt sind.
+
+Beispielsweise bei einem Attribut vom Typ `Mat2` namens `custom_mat2` mit dem semantischen Typ `None` im Material eines Modells:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Weise immer die vollständige Matrix zu. Abgeflachte Werte wie `vmath.vector4` und Zuweisungen an einzelne Untereigenschaften des Attributs werden bei Matrixattributen abgewiesen. Um ein Element zu ändern, bearbeite die Matrix in Lua und übergib sie erneut mit `go.set()`.
 
 ### Beispiele für benutzerdefinierte Vertex-Attribute {#examples-of-using-custom-vertex-attributes}
 

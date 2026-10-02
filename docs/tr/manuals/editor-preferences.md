@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : *Editor* bölmesinde seçili sekmede düzenlenen dosya, Asset Browser görünümünde (*Asset* bölmesi olarak da bilinir) seçilir.
 
 Lint Code on Build
-: Proje derlenirken [statik kod denetimini](/manuals/writing-code/#linting-configuration) etkinleştirir. Bu seçenek varsayılan olarak etkindir, ancak büyük bir projede statik kod denetimi çok uzun sürüyorsa devre dışı bırakılabilir.
+: Proje derlenirken [statik kod denetimini](/manuals/writing-code/#linting-configuration) etkinleştirir. Bu seçenek varsayılan olarak devre dışıdır.
 
 Engine Arguments
 : Düzenleyici derleyip çalıştırdığında dmengine yürütülebilir dosyasına iletilecek bağımsız değişkenler.

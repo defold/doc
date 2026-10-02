@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-matrix attribute도 마찬가지입니다. attribute가 `Mat4`가 아닌 matrix type인 경우에도 `go.set`을 사용해 데이터를 설정할 수 있습니다.
+Defold 1.14.0부터 `Mat2`, `Mat3`, `Mat4` attribute는 모두 `go.set()`과 `go.get()`에서 `vmath.matrix4` 값을 사용합니다. `Mat2` 또는 `Mat3` attribute를 설정하면 행렬의 왼쪽 위 2×2 또는 3×3 부분을 사용합니다. 읽을 때는 사용하지 않는 행과 열을 단위 행렬의 값으로 채운 `vmath.matrix4`를 반환합니다.
+
+예를 들어 모델의 메터리얼에 이름이 `custom_mat2`이고 semantic type이 `None`인 `Mat2` attribute가 있다면 다음과 같이 사용할 수 있습니다.
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+항상 행렬 전체를 할당하세요. matrix attribute에는 `vmath.vector4`처럼 평탄화한 값이나 attribute의 개별 하위 프로퍼티에 대한 할당을 사용할 수 없습니다. 원소 하나를 변경하려면 Lua에서 행렬을 수정한 뒤 `go.set()`으로 다시 전달하세요.
 
 ### 커스텀 버텍스 attribute 사용 예
 

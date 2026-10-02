@@ -59,10 +59,6 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 이제 ZeroBrane에서 사용할 수 있는 디버깅 기능을 사용할 수 있습니다. 단계 실행, 검사, 브레이크포인트 추가 및 제거 등을 할 수 있습니다.
 
-::: sidenote
-디버깅은 디버깅이 시작된 Lua 컨텍스트에서만 활성화됩니다. *game.project*에서 "shared_state"를 활성화하면 어디에서 시작했는지와 관계없이 전체 어플리케이션을 디버깅할 수 있습니다.
-:::
-
 ![단계 실행](images/zerobrane/code.png)
 
 연결 시도가 실패하면(디버깅 서버가 실행 중이지 않은 경우일 수 있음) 연결 시도가 끝난 뒤 어플리케이션은 평소처럼 계속 실행됩니다.

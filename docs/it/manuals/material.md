@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Lo stesso vale per gli attributi matrice: se l'attributo è un tipo di matrice diverso da `Mat4`, puoi comunque impostarne i dati tramite `go.set`.
+A partire da Defold 1.14.0, gli attributi `Mat2`, `Mat3` e `Mat4` usano tutti valori `vmath.matrix4` con `go.set()` e `go.get()`. Impostare un attributo `Mat2` o `Mat3` usa la parte in alto a sinistra di 2×2 o 3×3 della matrice. Leggerlo restituisce una `vmath.matrix4` con le righe e le colonne inutilizzate riempite con i valori di una matrice identità.
+
+Per esempio, con un attributo `Mat2` chiamato `custom_mat2` e tipo semantico `None` nel materiale di un modello:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Assegna sempre la matrice completa. I valori appiattiti come `vmath.vector4` e le assegnazioni a singole sottoproprietà dell'attributo vengono rifiutati per gli attributi matrice. Per cambiare un elemento, modifica la matrice in Lua e passala nuovamente con `go.set()`.
 
 ### Esempi di utilizzo degli attributi dei vertici personalizzati {#examples-of-using-custom-vertex-attributes}
 

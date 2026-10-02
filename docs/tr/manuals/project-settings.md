@@ -685,6 +685,8 @@ Ekran çentiğine kadar genişletir.
 #### R8 Keep Rules
 `android.r8_keep_rules`, Android derlemelerinde Java kodunun R8 ile küçültülmesini, optimize edilmesini ve karartılmasını etkinleştirmek için bir `.keep` dosyası seçer. D8'i küçültme yapmadan kullanmak için ayarı boş bırakın.
 
+Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender derleme sunucusuyla kullanıldığında bu işlem kullanılmayan Android kaynaklarını da kaldırır. Dinamik olarak yüklenen kaynaklar için ayrı [XML koruma kuralları](/manuals/android/#keeping-android-resources) gerekebilir.
+
 Defold'un varsayılan kurallarını doğrudan kullanmak için `/builtins/manifests/android/dmengine.keep` dosyasını seçin. Eklentiler kendi [koruma kurallarını](/manuals/extensions/#r8-keep-rules-for-android) sağlar; bu kurallar bu dosyayla birleştirilir.
 
 Yerleşik dosyayı yalnızca projeye özgü kurallar eklemeniz gerekiyorsa projenize kopyalayın. Kopyadaki yerleşik kuralları koruyun: özel bir dosya seçmek, projenin tüm kural kümesini değiştirir.

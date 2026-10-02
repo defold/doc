@@ -540,12 +540,9 @@ end
 
 ## Konteksty Lua w silniku Defold
 
-Wszystkie deklarowane zmienne są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomieniowego Lua (ang. Lua runtime context). W pliku *game.project* znajduje się opcja *shared_state*, która steruje tym zachowaniem. Jeśli jest włączona, wszystkie skrypty, skrypty GUI i skrypt renderowania są wykonywane w tym samym kontekście Lua, a zmienne globalne są widoczne wszędzie. Jeśli jest wyłączona, silnik wykonuje skrypty, skrypty GUI i skrypt renderowania w osobnych kontekstach.
+Zmienne są globalne, chyba że zadeklarowano je z użyciem `local`. Wszystkie skrypty obiektów gry, skrypty GUI i skrypty renderowania współdzielą jeden kontekst Lua, więc zmienne globalne i pamięć podręczna modułów załadowanych przez `require()` są wspólne dla wszystkich tych skryptów. Stan należący do jednej instancji skryptu przechowuj w `self` albo jawnie twórz osobne tablice stanu, zamiast przechowywać go we współdzielonych zmiennych globalnych lub tablicach modułów.
 
-![Contexts](images/lua/lua_contexts.png)
-
-Defold pozwala na użycie tego samego pliku skryptu w kilku osobnych komponentach obiektu gry. Wszystkie zmienne zadeklarowane lokalnie są udostępniane między komponentami, które używają tego samego pliku skryptu.
-
+Defold pozwala na użycie tego samego pliku skryptu w kilku osobnych komponentach obiektu gry. Zmienne zadeklarowane z użyciem `local` na najwyższym poziomie pliku skryptu są współdzielone między komponentami, które używają tego pliku. Zmienne zadeklarowane z użyciem `local` wewnątrz funkcji są lokalne dla danego wywołania funkcji.
 ```lua
 -- 'my_global_value' będzie dostępna we wszystkich skryptach, skryptach GUI, skrypcie renderowania i modułach (plikach Lua)
 my_global_value = "global scope"

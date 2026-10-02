@@ -59,10 +59,6 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 Teraz można korzystać z funkcji debugowania dostępnych w ZeroBrane: wykonywać kod krok po kroku, analizować go oraz dodawać i usuwać punkty przerwania itp.
 
-::: sidenote
-Debugowanie będzie włączone tylko dla kontekstu Lua, z którego zostało zainicjowane. Włączenie "shared_state" w *game.project* oznacza, że możesz debugować całą aplikację niezależnie od miejsca, z którego rozpoczęto debugowanie.
-:::
-
 ![Krokowanie](images/zerobrane/code.png)
 
 Jeśli próba połączenia się nie powiedzie, na przykład dlatego, że serwer debugowania nie działa, aplikacja będzie działać dalej normalnie po zakończeniu próby połączenia.

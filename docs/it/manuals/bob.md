@@ -237,3 +237,16 @@ drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
 -rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
 $
 ```
+
+## Server di build {#build-server}
+
+A partire da Defold 1.14.0, Bob seleziona il server di build predefinito per le estensioni native in base al canale di rilascio della propria distribuzione:
+
+| Canale di rilascio di Bob | Server di build predefinito |
+|---|---|
+| `stable` | `https://build.defold.com` |
+| Qualsiasi altro canale, inclusi `beta` e `alpha` | `https://build-stage.defold.com` |
+
+Esegui `java -jar bob.jar --version` per visualizzare il canale di rilascio insieme alla versione di Bob e alle informazioni sulla build. L'opzione `--variant` controlla la variante di build del motore e non cambia questo canale di rilascio.
+
+Passa `--build-server <url>` per selezionare esplicitamente un server, incluso un [server Extender ospitato autonomamente](/manuals/extender-local-setup/). Questa opzione sostituisce il valore predefinito per qualsiasi canale di rilascio.

@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : Le fichier modifié dans l'onglet sélectionné du panneau *Editor* sera sélectionné dans l'Asset Browser (également appelé panneau *Asset*).
 
 Lint Code on Build
-: Active l'[analyse statique du code](/manuals/writing-code/#linting-configuration) lors du build du projet. Cette option est activée par défaut, mais vous pouvez la désactiver si l'analyse d'un projet volumineux prend trop de temps.
+: Active l'[analyse statique du code](/manuals/writing-code/#linting-configuration) lors du build du projet. Cette option est désactivée par défaut.
 
 Engine Arguments
 : Arguments transmis à l'exécutable dmengine lorsque l'éditeur compile et exécute le projet.

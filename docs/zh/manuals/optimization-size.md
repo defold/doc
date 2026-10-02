@@ -93,6 +93,9 @@ Defold 不进行压缩，因此开发人员必须针对每种音频格式专门�
 排除的内容可以是整个关卡，也可以是可解锁的角色、皮肤、武器或车辆。如果您的游戏有很多内容，请组织加载过程，使引导集合和第一个关卡集合包含该关卡所需的最低限度资源。您可以通过使用启用了"排除"复选框的集合代理或工厂来实现这一点。根据玩家的进度分割资源。这种方法确保了高效的资源加载并保持初始内存使用量低。在[Live Update 手册](/manuals/live-update/)中了解更多信息。
 
 ## Android 特定的大小优化
+
+启用 [R8 缩减](/manuals/android/#shrinking-java-code-with-r8) 可移除未使用的 Java 代码。在 Defold 1.14.0 或更高版本中，配合兼容的 Extender 服务器，这还会移除扩展及其依赖项中未使用的 Android 资源。
+
 Android 构建必须支持 32 位和 64 位 CPU 架构。当您为 [Android 打包](/manuals/android)时，您可以指定要包含的 CPU 架构：
 
 ![签名 Android 捆绑包](images/android/sign_bundle.png)

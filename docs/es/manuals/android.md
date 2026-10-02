@@ -85,9 +85,9 @@ Para que esta funcionalidad funcione, necesitarás tener *ADB* instalado y *USB 
 
 Un archivo *.aab* se puede subir a Google Play mediante la [consola para desarrolladores de Google Play](https://play.google.com/apps/publish/). También es posible generar un archivo *`.apk`* a partir de un archivo *.aab* para instalarlo localmente usando [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
-## Reducir el código Java con R8 {#shrinking-java-code-with-r8}
+## Reducir el código Java y los recursos de Android con R8 {#shrinking-java-code-with-r8}
 
-R8 reduce el tamaño del código Java mediante eliminación de código no usado, optimización y ofuscación.
+R8 reduce el tamaño del código Java mediante eliminación de código no usado, optimización y ofuscación. Con Defold 1.14.0 o posterior y un servidor de build Extender compatible, también elimina recursos de Android no usados, como layouts, drawables y recursos sin procesar proporcionados por las extensiones y sus dependencias de Android. R8 no procesa los assets de Defold incluidos en el archivo del juego.
 
 ### Activar R8 {#enabling-r8}
 
@@ -102,9 +102,22 @@ Asegúrate de que cada extensión con código Java proporcione un archivo `.keep
 
 Dejar **R8 Keep Rules** vacío usa D8 sin eliminar código. Al activar R8 se usa el servicio de compilación de extensiones nativas, incluso en un proyecto sin extensiones nativas.
 
+A partir de Defold 1.14.0, la misma configuración **R8 Keep Rules** activa la eliminación de recursos de Android no usados; no hay una configuración de proyecto aparte para ello. Los SDK de Defold anteriores mantienen la eliminación de código no usado con R8 únicamente.
+
 ### Agregar reglas a una extensión {#adding-rules-to-an-extension}
 
 Las reglas de conservación de una extensión van en su directorio `manifests/android`, junto a `build.gradle`. Consulta [reglas de conservación de R8 para extensiones de Android](/manuals/extensions/#r8-keep-rules-for-android) para saber cómo agregar un archivo y conservar las clases Java de la extensión.
+
+### Conservar recursos de Android {#keeping-android-resources}
+
+Los recursos que se buscan dinámicamente por nombre pueden necesitar reglas explícitas de conservación. Los recursos de Android usan un archivo XML con `tools:keep`, separado de las reglas `.keep` para las clases Java. Por ejemplo, una extensión puede conservar un recurso sin procesar llamado `dynamic_data` agregando `/myextension/res/android/res/raw/com_example_myextension_keep.xml`:
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+Usa un nombre de archivo único para el archivo XML de conservación de cada extensión para evitar conflictos. El valor de `tools:keep` admite una lista de nombres de recursos separados por comas y comodines `*`. Consulta la [documentación de Android sobre reglas de conservación de recursos](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep) para obtener más información. Después de activar R8, prueba en una build de release las funcionalidades que cargan recursos dinámicamente.
 
 ### Conservar el mapa de ofuscación {#keeping-the-obfuscation-mapping}
 

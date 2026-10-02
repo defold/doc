@@ -110,12 +110,14 @@ brief: В этом руководстве описано, как использ�
 | Поле | Платформы | Варианты | По умолчанию |
 |---|---|---|---|
 | **Graphics** | Windows и Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
-| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
 
 В Linux ARM64 вариант **OpenGL** использует backend OpenGL ES. Комбинированный вариант Android по умолчанию предпочитает Vulkan, а если он недоступен, переходит на OpenGL ES.
+
+Начиная с Defold 1.14.0, macOS по умолчанию использует нативный бэкенд Metal. Вариант **Vulkan** на macOS и iOS использует Vulkan через MoltenVK. Симулятор iOS (`arm64_sim-ios`) всегда использует Metal независимо от выбранного для устройств варианта **Graphics (iOS)**.
 
 ## Use full text layout system
 

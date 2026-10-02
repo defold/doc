@@ -97,6 +97,8 @@ Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합
 
 [R8을 활성화하면](/manuals/android/#enabling-r8) 이 규칙들을 프로젝트에서 선택한 keep 파일과 결합합니다.
 
+Defold 1.14.0 이상과 호환되는 Extender 서버에서는 R8이 Android 리소스도 축소합니다. 익스텐션이 이름으로 리소스를 동적으로 조회한다면 익스텐션 폴더의 `res/android/res/raw` 아래에 [XML 리소스 keep 규칙](/manuals/android/#keeping-android-resources)을 추가하세요.
+
 
 ## 커스텀 리소스 {#custom-resources}
 

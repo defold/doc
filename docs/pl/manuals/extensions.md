@@ -97,6 +97,8 @@ Jeśli rozszerzenie korzysta z adnotacji w czasie działania, dodaj również:
 
 Te reguły są łączone z wybranym plikiem reguł projektu po [włączeniu R8](/manuals/android/#enabling-r8).
 
+W wersji Defold 1.14.0 lub nowszej, przy użyciu zgodnego serwera Extender, R8 usuwa również nieużywane zasoby Androida. Jeśli rozszerzenie wyszukuje zasoby dynamicznie według nazwy, dodaj [reguły zachowywania zasobów w formacie XML](/manuals/android/#keeping-android-resources) w katalogu `res/android/res/raw` w folderze rozszerzenia.
+
 
 ## Zasoby niestandardowe {#custom-resources}
 

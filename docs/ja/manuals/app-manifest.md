@@ -123,12 +123,14 @@ Android X の代わりに、非推奨の Android Support Library を使用しま
 | フィールド | プラットフォーム | 選択肢 | 既定値 |
 |---|---|---|---|
 | **Graphics** | Windows と Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
-| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
 
 Linux ARM64 では、**OpenGL** を選択すると OpenGL ES バックエンドを使用します。Android の既定値である組み合わせでは、Vulkan が利用できれば優先し、利用できない場合は OpenGL ES にフォールバックします。
+
+Defold 1.14.0 以降では、macOS は既定でネイティブの Metal バックエンドを使用します。macOS と iOS の **Vulkan** の選択肢は、MoltenVK 経由で Vulkan を使用します。iOS シミュレーター（`arm64_sim-ios`）は、実機向けの **Graphics (iOS)** の選択にかかわらず、常に Metal を使用します。
 
 ## Use full text layout system
 

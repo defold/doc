@@ -97,6 +97,8 @@ Eklenti çalışma sırasında ek açıklamalara (annotation) dayanıyorsa şunu
 
 Bu kurallar, [R8 etkinleştirildiğinde](/manuals/android/#enabling-r8) projenin seçilen koruma dosyasıyla birleştirilir.
 
+Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender sunucusuyla kullanıldığında R8, Android kaynaklarını da küçültür. Eklenti kaynakları adlarıyla dinamik olarak arıyorsa eklenti klasöründeki `res/android/res/raw` dizinine [XML kaynak koruma kuralları](/manuals/android/#keeping-android-resources) ekleyin.
+
 
 ## Özel kaynaklar {#custom-resources}
 

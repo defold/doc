@@ -85,9 +85,9 @@ Success
 
 一个 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传到 Google Play。也可以使用 *.aab* 文件制作 *.apk* 以便使用 [`bundletool`](https://developer.android.com/studio/command-line/bundletool) 在本地安装。
 
-## 使用 R8 缩减 Java 代码 {#shrinking-java-code-with-r8}
+## 使用 R8 缩减 Java 代码和 Android 资源 {#shrinking-java-code-with-r8}
 
-R8 通过缩减、优化和混淆来减小 Java 代码的大小。
+R8 通过缩减、优化和混淆来减小 Java 代码的大小。在 Defold 1.14.0 或更高版本中，配合兼容的 Extender 构建服务器，R8 还会移除未使用的 Android 资源，例如扩展及其 Android 依赖项提供的布局、可绘制资源和原始资源。R8 不会处理游戏归档中的 Defold 游戏资源。
 
 ### 启用 R8 {#enabling-r8}
 
@@ -102,9 +102,22 @@ r8_keep_rules = /builtins/manifests/android/dmengine.keep
 
 将 **R8 Keep Rules** 留空会使用 D8，不执行缩减。启用 R8 会使用原生扩展构建服务，即使项目没有原生扩展也是如此。
 
+从 Defold 1.14.0 开始，同一个 **R8 Keep Rules** 设置也会启用 Android 资源缩减，无需单独的项目设置。较旧的 Defold SDK 中，R8 仍然只缩减代码。
+
 ### 向扩展添加规则 {#adding-rules-to-an-extension}
 
 扩展的保留规则应放在其 `manifests/android` 目录中，与 `build.gradle` 位于同一位置。有关如何添加文件并保留扩展的 Java 类，请参阅 [Android 扩展的 R8 保留规则](/manuals/extensions/#r8-keep-rules-for-android)。
+
+### 保留 Android 资源 {#keeping-android-resources}
+
+按名称动态查找的资源可能需要显式的保留规则。Android 资源使用包含 `tools:keep` 的 XML 文件，与 Java 类的 `.keep` 规则分开。例如，扩展可以通过添加 `/myextension/res/android/res/raw/com_example_myextension_keep.xml`，保留名为 `dynamic_data` 的原始资源：
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+每个扩展的 XML 保留规则文件应使用唯一文件名，以避免冲突。`tools:keep` 的值接受以逗号分隔的资源名称列表，并支持 `*` 通配符。详情请参阅 Android 的[资源保留规则文档](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep)。启用 R8 后，请在 Release 构建中测试动态加载资源的功能。
 
 ### 保存混淆映射 {#keeping-the-obfuscation-mapping}
 

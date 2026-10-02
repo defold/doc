@@ -85,9 +85,9 @@ Bu özelliğin çalışması için *ADB* kurulu olmalı ve bağlı cihazda *USB 
 
 Bir *.aab* dosyası [Google Play geliştirici konsolu](https://play.google.com/apps/publish/) üzerinden Google Play'e yüklenebilir. [Android bundletool](https://developer.android.com/studio/command-line/bundletool) kullanarak bir *.aab* dosyasından yerel olarak kurmak üzere bir *`.apk`* dosyası oluşturmak da mümkündür.
 
-## R8 ile Java kodunu küçültme {#shrinking-java-code-with-r8}
+## R8 ile Java kodunu ve Android kaynaklarını küçültme {#shrinking-java-code-with-r8}
 
-R8, küçültme, optimizasyon ve karartma (obfuscation) yoluyla Java kodunun boyutunu azaltır.
+R8, küçültme, optimizasyon ve karartma (obfuscation) yoluyla Java kodunun boyutunu azaltır. Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender derleme sunucusuyla kullanıldığında eklentilerin ve Android bağımlılıklarının sağladığı yerleşimler (layout), çizilebilir kaynaklar (drawable) ve ham kaynaklar gibi kullanılmayan Android kaynaklarını da kaldırır. Oyun arşivindeki Defold oyun varlıkları R8 tarafından işlenmez.
 
 ### R8'i etkinleştirme {#enabling-r8}
 
@@ -102,9 +102,22 @@ Java kodu içeren her eklentinin, çalışma sırasında ihtiyaç duyduğu sın�
 
 **R8 Keep Rules** alanı boş bırakıldığında küçültme işlemi yapılmadan D8 kullanılır. R8 etkinleştirildiğinde, yerel kod eklentileri (native extension) olmayan bir projede bile yerel kod eklentisi derleme hizmeti kullanılır.
 
+Defold 1.14.0'dan itibaren Android kaynaklarını küçültme işlemi de aynı **R8 Keep Rules** ayarıyla etkinleştirilir; bunun için ayrı bir proje ayarı yoktur. Eski Defold SDK'larında R8 küçültme işlemi yalnızca kodu kapsar.
+
 ### Bir eklentiye kurallar ekleme
 
 Bir eklentinin koruma kuralları, eklentinin `manifests/android` dizininde, `build.gradle` dosyasının yanında bulunur. Bir dosyanın nasıl ekleneceğini ve eklentinin Java sınıflarının nasıl korunacağını öğrenmek için [Android eklentileri için R8 koruma kuralları](/manuals/extensions/#r8-keep-rules-for-android) bölümüne bakın.
+
+### Android kaynaklarını koruma {#keeping-android-resources}
+
+Adlarıyla dinamik olarak aranan kaynaklar için açık koruma kuralları gerekebilir. Android kaynakları, Java sınıfları için kullanılan `.keep` kurallarından ayrı olarak `tools:keep` içeren bir XML dosyası kullanır. Örneğin bir eklenti, `/myextension/res/android/res/raw/com_example_myextension_keep.xml` dosyasını ekleyerek `dynamic_data` adlı bir ham kaynağı koruyabilir:
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+Çakışmaları önlemek için her eklentinin XML koruma dosyasına benzersiz bir dosya adı verin. `tools:keep` değeri, virgülle ayrılmış bir kaynak adı listesi kabul eder ve `*` joker karakterini destekler. Ayrıntılar için Android'in [kaynak koruma kuralları belgelerine](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep) bakın. R8'i etkinleştirdikten sonra kaynakları dinamik olarak yükleyen özellikleri yayıma yönelik bir derlemede test edin.
 
 ### Karartma eşlemesini saklama
 

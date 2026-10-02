@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-行列属性でも同様に、属性が `Mat4` 以外の行列型であっても、`go.set` を使ってデータを設定できます。
+Defold 1.14.0 以降では、`Mat2`、`Mat3`、`Mat4` の属性はすべて、`go.set()` と `go.get()` で `vmath.matrix4` の値を使用します。`Mat2` または `Mat3` 属性を設定すると、行列の左上の 2×2 または 3×3 の部分が使われます。取得すると、使われていない行と列を単位行列の値で補った `vmath.matrix4` が返されます。
+
+たとえば、モデルのマテリアルに `custom_mat2` という名前でセマンティック型が `None` の `Mat2` 属性がある場合は、次のように使えます。
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+必ず行列全体を代入してください。行列属性に対して、`vmath.vector4` のような平坦化した値や、属性の個々のサブプロパティへの代入は認められません。要素を変更するには、Lua で行列を変更し、`go.set()` で設定し直してください。
 
 ### カスタム頂点属性の使用例 {#examples-of-using-custom-vertex-attributes}
 

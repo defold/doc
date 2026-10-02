@@ -110,12 +110,14 @@ App Manifest 设置控制是否将分析器代码链接到构建中。*game.proj
 | 字段 | 平台 | 选项 | 默认值 |
 |---|---|---|---|
 | **Graphics** | Windows 和 Linux | OpenGL、Vulkan、OpenGL & Vulkan | OpenGL |
-| **Graphics (macOS)** | macOS | OpenGL、Metal、Vulkan、OpenGL & Metal、OpenGL & Vulkan | Vulkan |
+| **Graphics (macOS)** | macOS | OpenGL、Metal、Vulkan、OpenGL & Metal、OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL、Metal、Vulkan、OpenGL & Metal、OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan、OpenGL、Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL、WebGPU、WebGL & WebGPU | WebGL |
 
 在 Linux ARM64 上，**OpenGL** 选项使用 OpenGL ES 后端。Android 的默认组合选项会在 Vulkan 可用时优先使用 Vulkan，否则回退到 OpenGL ES。
+
+从 Defold 1.14.0 开始，macOS 默认使用原生 Metal 后端。macOS 和 iOS 上的 **Vulkan** 选项通过 MoltenVK 使用 Vulkan。iOS 模拟器（`arm64_sim-ios`）始终使用 Metal，不受面向设备的 **Graphics (iOS)** 选项影响。
 
 ## 使用完整文本布局系统
 

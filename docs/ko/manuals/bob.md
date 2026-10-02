@@ -237,3 +237,16 @@ drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
 -rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
 $
 ```
+
+## 빌드 서버 {#build-server}
+
+Defold 1.14.0부터 Bob은 배포본의 릴리스 채널에 따라 기본 네이티브 익스텐션 빌드 서버를 선택합니다.
+
+| Bob 릴리스 채널 | 기본 빌드 서버 |
+|---|---|
+| `stable` | `https://build.defold.com` |
+| `beta`와 `alpha`를 포함한 그 밖의 모든 채널 | `https://build-stage.defold.com` |
+
+`java -jar bob.jar --version`을 실행하면 Bob 버전 및 빌드 정보와 함께 릴리스 채널이 표시됩니다. `--variant` 옵션은 엔진 빌드 variant를 제어하며 이 릴리스 채널을 변경하지 않습니다.
+
+[직접 호스팅하는 Extender 서버](/manuals/extender-local-setup/) 등을 명시적으로 선택하려면 `--build-server <url>`을 전달하세요. 이 옵션은 모든 릴리스 채널에서 기본값을 재정의합니다.

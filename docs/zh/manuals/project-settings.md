@@ -719,6 +719,8 @@ Firebase Cloud Messaging 应用 ID。
 
 `android.r8_keep_rules` 选择一个 `.keep` 文件，以在 Android 构建中启用 R8 对 Java 代码的缩减、优化和混淆。将该设置留空会使用 D8，不执行缩减。
 
+在 Defold 1.14.0 或更高版本中，配合兼容的 Extender 构建服务器，这还会移除未使用的 Android 资源。动态加载的资源可能需要单独的 [XML 保留规则](/manuals/android/#keeping-android-resources)。
+
 选择 `/builtins/manifests/android/dmengine.keep` 可直接使用 Defold 的默认规则。扩展提供自己的[保留规则](/manuals/extensions/#r8-keep-rules-for-android)，这些规则会与此文件合并。
 
 仅当需要添加项目特定规则时，才将内置文件复制到项目中。请在副本中保留内置规则：选择自定义文件会替换完整的项目规则集。

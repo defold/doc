@@ -59,10 +59,6 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 Artık ZeroBrane'in hata ayıklama özelliklerini kullanabilirsiniz; kodda adım adım ilerleyebilir, inceleme yapabilir, kesme noktası (breakpoint) ekleyip kaldırabilir ve benzeri işlemler yapabilirsiniz.
 
-::: sidenote
-Hata ayıklama yalnızca başlatıldığı Lua bağlamı (Lua context) için etkinleştirilir. *game.project* dosyasında "shared_state" ayarını etkinleştirdiğinizde, hata ayıklamayı nerede başlattığınızdan bağımsız olarak uygulamanızın tamamında hata ayıklayabilirsiniz.
-:::
-
 ![Adım adım ilerleme](images/zerobrane/code.png)
 
 Bağlantı girişimi başarısız olursa (örneğin hata ayıklama sunucusu çalışmadığı için), uygulamanız bağlantı girişiminin ardından normal şekilde çalışmaya devam eder.

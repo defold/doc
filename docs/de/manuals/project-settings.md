@@ -685,6 +685,8 @@ Gibt an, ob sich die Anwendung mit Werkzeugen wie [GAPID](https://github.com/goo
 #### R8 Keep Rules
 `android.r8_keep_rules` wählt eine `.keep`-Datei aus, um die Verkleinerung, Optimierung und Verschleierung von Java-Code mit R8 in Android-Builds zu aktivieren. Lasse die Einstellung leer, um D8 ohne Verkleinerung zu verwenden.
 
+Mit Defold 1.14.0 oder neuer und einem kompatiblen Extender-Build-Server werden dadurch auch ungenutzte Android-Ressourcen entfernt. Dynamisch geladene Ressourcen benötigen möglicherweise separate [XML-Keep-Regeln](/manuals/android/#keeping-android-resources).
+
 Wähle `/builtins/manifests/android/dmengine.keep`, um die Standardregeln von Defold direkt zu verwenden. Erweiterungen liefern eigene [Regeln zum Beibehalten von Code](/manuals/extensions/#r8-keep-rules-for-android), die mit dieser Datei kombiniert werden.
 
 Kopiere die integrierte Datei nur dann in dein Projekt, wenn du projektspezifische Regeln hinzufügen musst. Behalte die integrierten Regeln in der Kopie bei: Die Auswahl einer benutzerdefinierten Datei ersetzt den gesamten Regelsatz des Projekts.

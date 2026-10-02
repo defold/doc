@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : Plik edytowany na wybranej karcie w panelu *Editor* zostanie zaznaczony w Asset Browser, znanym też jako panel *Asset*.
 
 Lint Code on Build
-: Włącza [lintowanie kodu](/manuals/writing-code/#linting-configuration) podczas budowania projektu. Ta opcja jest włączona domyślnie, ale można ją wyłączyć, jeśli lintowanie w dużym projekcie trwa zbyt długo.
+: Włącza [lintowanie kodu](/manuals/writing-code/#linting-configuration) podczas budowania projektu. Ta opcja jest domyślnie wyłączona.
 
 Engine Arguments
 : Argumenty przekazywane do pliku wykonywalnego dmengine, gdy edytor buduje i uruchamia projekt.

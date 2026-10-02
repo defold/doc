@@ -687,6 +687,8 @@ Android デバイスでキーボード入力を取得する方法を指定しま
 #### R8 Keep Rules
 `android.r8_keep_rules` で `.keep` ファイルを選択すると、Android ビルドで Java コードの R8 による縮小、最適化、難読化が有効になります。縮小を行わない D8 を使うには、設定を空にします。
 
+Defold 1.14.0 以降を、対応する Extender ビルドサーバーと組み合わせて使用すると、未使用の Android リソースも削除します。動的に読み込むリソースには、別途 [XML 保持ルール](/manuals/android/#keeping-android-resources)が必要な場合があります。
+
 Defold の既定のルールを直接使うには、`/builtins/manifests/android/dmengine.keep` を選択します。拡張は独自の[保持ルール](/manuals/extensions/#r8-keep-rules-for-android)を提供し、このファイルと統合されます。
 
 プロジェクト固有のルールを追加する必要がある場合にのみ、組み込みファイルをプロジェクトにコピーしてください。コピーには組み込みのルールを保持してください。カスタムファイルを選択すると、プロジェクトのルールセット全体が置き換えられます。

@@ -93,6 +93,9 @@ Outra forma de reduzir o tamanho inicial da aplicação é excluir partes do con
 O conteúdo excluído pode ser qualquer coisa, desde níveis inteiros até personagens desbloqueáveis, skins, armas ou veículos. Se seu jogo tem muito conteúdo, organize o processo de carregamento para que a coleção bootstrap e a coleção do primeiro nível incluam apenas os recursos mínimos necessários para esse nível. Você faz isso usando proxies de coleção ou fábricas com a caixa de seleção "Exclude" habilitada. Divida os recursos de acordo com o progresso do jogador. Essa abordagem garante carregamento eficiente de recursos e mantém baixo o uso inicial de memória. Saiba mais no [manual do Live Update](/manuals/live-update/).
 
 ## Otimizações de tamanho específicas do Android
+
+Ative a [remoção por R8](/manuals/android/#shrinking-java-code-with-r8) para remover código Java não utilizado. Com Defold 1.14.0 ou posterior e um servidor Extender compatível, isso também remove recursos Android não utilizados das extensões e suas dependências.
+
 Builds Android devem oferecer suporte a arquiteturas de CPU de 32 bits e 64 bits. Ao [empacotar para Android](/manuals/android), você pode especificar quais arquiteturas de CPU incluir:
 
 ![Signing Android bundle](images/android/sign_bundle.png)

@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : Die Datei, die in der ausgewählten Registerkarte des Bereichs *Editor* bearbeitet wird, wird im Asset Browser (auch als Bereich *Asset* bekannt) ausgewählt.
 
 Lint Code on Build
-: Aktiviert die [statische Codeprüfung](/manuals/writing-code/#linting-configuration) beim Erstellen eines Builds des Projekts. Diese Option ist standardmäßig aktiviert, kann aber deaktiviert werden, wenn die statische Codeprüfung in einem großen Projekt zu viel Zeit beansprucht.
+: Aktiviert die [statische Codeprüfung](/manuals/writing-code/#linting-configuration) beim Erstellen eines Builds des Projekts. Diese Option ist standardmäßig deaktiviert.
 
 Engine Arguments
 : Argumente, die an die ausführbare Datei dmengine übergeben werden, wenn der Editor einen Build erstellt und startet.

@@ -27,7 +27,7 @@ Track Active Tab in Asset Browser
 : *Editor* pane에서 선택된 탭으로 편집 중인 파일이 Asset Browser(*Asset* pane이라고도 함)에서 선택됩니다.
 
 Lint Code on Build
-: 프로젝트가 빌드될 때 [코드 린팅](/manuals/writing-code/#linting-configuration)을 활성화합니다. 이 옵션은 기본으로 활성화되어 있지만, 대규모 프로젝트에서 린팅에 시간이 너무 오래 걸리면 비활성화할 수 있습니다.
+: 프로젝트가 빌드될 때 [코드 린팅](/manuals/writing-code/#linting-configuration)을 활성화합니다. 이 옵션은 기본적으로 비활성화되어 있습니다.
 
 Engine Arguments
 : 에디터가 빌드하고 실행할 때 dmengine 실행 파일에 전달할 인자입니다.

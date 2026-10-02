@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-To samo dotyczy atrybutów macierzowych. Jeśli atrybut jest macierzą inną niż `Mat4`, nadal możesz ustawić dane za pomocą `go.set`.
+Od wersji Defold 1.14.0 wszystkie atrybuty `Mat2`, `Mat3` i `Mat4` używają wartości `vmath.matrix4` z funkcjami `go.set()` i `go.get()`. Ustawienie atrybutu `Mat2` lub `Mat3` pobiera lewą górną część macierzy o rozmiarze 2×2 lub 3×3. Odczyt zwraca `vmath.matrix4`, w której nieużywane wiersze i kolumny są wypełnione wartościami z macierzy jednostkowej.
+
+Na przykład dla atrybutu `Mat2` o nazwie `custom_mat2` i typie semantycznym `None` w materiale modelu:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Zawsze przypisuj całą macierz. Spłaszczone wartości, takie jak `vmath.vector4`, oraz przypisania do poszczególnych podwłaściwości atrybutu są odrzucane dla atrybutów macierzowych. Aby zmienić element, zmodyfikuj macierz w Lua i przekaż ją ponownie za pomocą `go.set()`.
 
 ### Przykłady użycia własnych atrybutów wierzchołków
 

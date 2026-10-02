@@ -97,6 +97,8 @@ Se l'estensione dipende da annotazioni a runtime, includi anche:
 
 Queste regole vengono combinate con il file di conservazione selezionato nel progetto quando [R8 è abilitato](/manuals/android/#enabling-r8).
 
+Con Defold 1.14.0 o versioni successive e un server Extender compatibile, R8 rimuove anche le risorse Android inutilizzate. Se l'estensione cerca risorse dinamicamente per nome, aggiungi [regole XML di conservazione delle risorse](/manuals/android/#keeping-android-resources) in `res/android/res/raw` nella cartella dell'estensione.
+
 
 ## Risorse personalizzate {#custom-resources}
 
