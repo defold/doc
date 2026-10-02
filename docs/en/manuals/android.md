@@ -85,9 +85,9 @@ For this feature to work, you will need *ADB* installed and *USB debugging* enab
 
 An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *`.apk`* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
-## Shrinking Java code with R8
+## Shrinking Java code and Android resources with R8 {#shrinking-java-code-with-r8}
 
-R8 reduces the size of Java code through shrinking, optimization and obfuscation.
+R8 reduces the size of Java code through shrinking, optimization and obfuscation. With Defold 1.14.0 or later and a compatible Extender build server, it also removes unused Android resources, such as layouts, drawables and raw resources supplied by extensions and their Android dependencies. Defold game assets in the game archive are not processed by R8.
 
 ### Enabling R8
 
@@ -102,9 +102,22 @@ Make sure every extension with Java code provides a `.keep` file for the classes
 
 Leaving **R8 Keep Rules** empty uses D8 without shrinking. Enabling R8 uses the native extension build service, even for a project without native extensions.
 
+Android resource shrinking is enabled by the same **R8 Keep Rules** setting; there is no separate project setting for it. Older Defold SDKs retain code-only R8 shrinking. If you host your own [Extender server](/manuals/extender-local-setup/).
+
 ### Adding rules to an extension
 
 Keep rules for an extension belong in its `manifests/android` directory, next to `build.gradle`. See [R8 keep rules for Android extensions](/manuals/extensions/#r8-keep-rules-for-android) for how to add a file and preserve the extension's Java classes.
+
+### Keeping Android resources
+
+Resources looked up dynamically by name may need explicit keep rules. Android resources use an XML file with `tools:keep`, separately from the `.keep` rules for Java classes. For example, an extension can preserve a raw resource named `dynamic_data` by adding `/myextension/res/android/res/raw/com_example_myextension_keep.xml`:
+
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/dynamic_data" />
+```
+
+Use a unique filename for each extension's XML keep file to avoid conflicts. The `tools:keep` value accepts a comma-separated list of resource names and supports `*` wildcards. See Android's [resource keep rules documentation](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep) for details. Test features that load resources dynamically in a release build after enabling R8.
 
 ### Keeping the obfuscation mapping
 

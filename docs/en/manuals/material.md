@@ -156,7 +156,22 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-The same is true for matrix attributes, if the attribute is a matrix type other than a `Mat4` you can still set the data using `go.set`.
+Since Defold 1.14.0, `Mat2`, `Mat3` and `Mat4` attributes all use `vmath.matrix4` values with `go.set()` and `go.get()`. Setting a `Mat2` or `Mat3` attribute takes the upper-left 2×2 or 3×3 part of the matrix. Reading it returns a `vmath.matrix4` with the unused rows and columns filled from an identity matrix.
+
+For example, with a `Mat2` attribute named `custom_mat2` and semantic type `None` in a model's material:
+
+```lua
+local value = vmath.matrix4()
+value.m00 = 2
+value.m11 = 3
+go.set("#model", "custom_mat2", value)
+
+local result = go.get("#model", "custom_mat2")
+print(result.m00, result.m11) -- 2, 3
+print(result.m22, result.m33) -- 1, 1 (identity padding)
+```
+
+Always assign the complete matrix. Flattened values such as `vmath.vector4` and assignments to individual attribute sub-properties are rejected for matrix attributes. To change an element, modify the matrix in Lua and pass it back with `go.set()`.
 
 ### Examples of using custom vertex attributes
 

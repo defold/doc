@@ -93,6 +93,9 @@ Another way of reducing initial application size is to exclude parts of the game
 Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. If your game has a lot of content, organize the loading process so that the bootstrap collection and the first level collection include the bare minimum resources required for that level. You achieve this by using collection proxies or factories with the "Exclude" checkbox enabled. Split resources according to the player's progress. This approach ensures efficient resource loading and keeps initial memory usage low. Learn more in the [Live Update manual](/manuals/live-update/).
 
 ## Android specific size optimizations
+
+Enable [R8 shrinking](/manuals/android/#shrinking-java-code-with-r8) to remove unused Java code. With Defold 1.14.0 or later and a compatible Extender server, this also removes unused Android resources from extensions and their dependencies.
+
 Android builds must support both 32-bit and 64-bit CPU architectures. When you [bundle for Android](/manuals/android) you can specify which CPU architectures to include:
 
 ![Signing Android bundle](images/android/sign_bundle.png)

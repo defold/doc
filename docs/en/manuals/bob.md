@@ -237,3 +237,16 @@ drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
 -rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
 $
 ```
+
+## Build server
+
+Since Defold 1.14.0, Bob selects the default native extension build server from the release channel of its distribution:
+
+| Bob release channel | Default build server |
+|---|---|
+| `stable` | `https://build.defold.com` |
+| Any other channel, including `beta` and `alpha` | `https://build-stage.defold.com` |
+
+Run `java -jar bob.jar --version` to display the release channel together with Bob's version and build information. The `--variant` option controls the engine build variant and does not change this release channel.
+
+Pass `--build-server <url>` to select a server explicitly, including a [self-hosted Extender server](/manuals/extender-local-setup/). This option overrides the default for every release channel.
