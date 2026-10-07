@@ -314,6 +314,7 @@ namespaces
 nativeaot
 NativeAOT
 natively
+NDA
 NDK
 NES
 normals
