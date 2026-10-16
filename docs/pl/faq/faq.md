@@ -98,7 +98,7 @@ A: Obsługiwane są następujące platformy:
 
   | System             | Wersja             | Architektury       |
   | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | macOS              | 12.0 Monterey      | `x86-64`, `arm-64` |
   | Windows            | 10                 | `x86-64`           |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
@@ -108,7 +108,7 @@ A: Obsługiwane są następujące platformy:
 
   | System             | Wersja             | Architektury       |
   | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | macOS              | 12.0 Monterey      | `x86-64`, `arm-64` |
   | Windows            | Vista              | `x86-64`           |
   | Linux (2)          | Dowolna            | `x86-64`, `arm-64` |
   | iOS                | 15.0               | `arm-64`           |
