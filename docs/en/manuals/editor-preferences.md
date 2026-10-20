@@ -71,7 +71,7 @@ Format on save
 
 To open script files from the Defold Editor directly in Visual Studio Code, you must set the following settings by specifying the path to the executable file:
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

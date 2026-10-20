@@ -71,7 +71,7 @@ Format on save
 
 Betik dosyalarını Defold düzenleyicisinden doğrudan Visual Studio Code'da açmak için yürütülebilir dosyanın yolunu belirterek aşağıdaki ayarları yapmanız gerekir:
 
-- macOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- macOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

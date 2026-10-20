@@ -71,7 +71,7 @@ Format on save
 
 Um Skriptdateien aus dem Defold-Editor direkt in Visual Studio Code zu öffnen, musst du die folgenden Einstellungen vornehmen und dabei den Pfad zur ausführbaren Datei angeben:
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

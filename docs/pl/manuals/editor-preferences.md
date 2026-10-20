@@ -69,7 +69,7 @@ Format on save
 
 Aby otwierać pliki skryptów z Defold Editor bezpośrednio w Visual Studio Code, ustaw poniższe wartości, podając ścieżkę do pliku wykonywalnego:
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

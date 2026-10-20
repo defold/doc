@@ -71,7 +71,7 @@ Format on save
 
 要从Defold编辑器直接在Visual Studio Code中打开脚本文件，必须通过指定可执行文件的路径来设置以下设置：
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

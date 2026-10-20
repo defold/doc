@@ -71,7 +71,7 @@ Format on save
 
 Defold Editor에서 Visual Studio Code로 스크립트 파일을 직접 열려면 실행 파일 경로를 지정하여 다음 설정을 구성해야 합니다:
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

@@ -71,7 +71,7 @@ Format on save
 
 Щоб відкривати файли скриптів із редактора Defold безпосередньо у Visual Studio Code, задайте наведені нижче налаштування, вказавши шлях до виконуваного файлу:
 
-- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Electron`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 
