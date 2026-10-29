@@ -95,6 +95,18 @@ Discover these routes through `/openapi.json`, then check `/recording/capabiliti
 
 The HTTP service shares the recorder with Lua. HTTP starts enable application audio by default when supported; Lua starts default to video only. Only recordings started through HTTP have a downloadable `file` receipt. Before downloading, wait for `pending: false`, `finalized: true` and `file.state: "complete"`, then [verify the file's size and SHA-256](/manuals/recording/#download-and-release-the-file). See [sharing the recorder](/manuals/recording/#sharing-the-recorder-with-http-clients) when combining Lua and HTTP clients.
 
+## Metal GPU trace endpoint
+
+Since Defold 1.14.1, macOS debug engines expose `/profiler/gputrace` for capturing Metal GPU traces. The route appears in `/openapi.json` only on macOS. Capture requires the native Metal adapter and `METAL_CAPTURE_ENABLED=1` in the engine's launch environment. A request returns HTTP 501 with `error.code: "gputrace_unsupported"` if capture is unavailable.
+
+| Endpoint | Purpose |
+| --- | --- |
+| `POST /profiler/gputrace` | Schedule capture to a writable absolute `.gputrace` path; `frames` defaults to `1` and may be `1`–`10000`. |
+| `GET /profiler/gputrace` | Read the current or most recent capture's state, path and frame counts. |
+| `DELETE /profiler/gputrace` | Cancel a pending capture or finish an active capture after the current rendered frame; retain the trace on disk. |
+
+Accepted requests return HTTP 200 with `ok: true` and a `data` object. Capture progresses asynchronously: poll `GET` until `data.state` is `complete`, `canceled` or `failed`. Native startup failures are reported in `data.error`. The trace is written on the engine host. See the [Metal GPU trace capture guide](/manuals/profiling/#metal-gpu-trace-capture) for launch commands, support discovery, capture examples and opening the result in Xcode.
+
 ## Extension-defined runtime routes
 
 In debug builds, the native extension SDK can provide access to the engine web server. An extension can register a route prefix on that server and expose operations that depend on runtime data.

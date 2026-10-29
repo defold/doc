@@ -9,6 +9,7 @@ Defold includes profiling tools integrated with the engine and build pipeline. T
 
 * The basic profiler and in-game visual profiler are available on all platforms.
 * The [Remotery profiler](https://github.com/Celtoys/Remotery) and interactive web frame profiler are available on desktop and mobile platforms.
+* macOS debug builds using Metal can save [GPU traces](#metal-gpu-trace-capture) for inspection in Xcode.
 * HTML5 builds can publish Defold scopes to the browser's Web Performance API.
 
 The **Profiler** setting in the [App Manifest](/manuals/app-manifest/#profiler) controls whether profiler code is linked into a build. **Debug Only** is the default, **None** excludes it, and **Always** includes it in both debug and release builds. The `profiler` settings in *game.project* control runtime behavior but do not link excluded profiler code back into a build. In particular, **Track CPU** controls CPU usage sampling; it is separate from the App Manifest choice.
@@ -126,6 +127,84 @@ Showing load times sorts the table by total load time, with the slowest resource
 Load and callback times include any nested dependency work. Do not sum totals across resources to calculate startup time, since the same work can appear in more than one resource's measurement. The **Preload**, **Read** and **Create** columns also do not account for all of the total load time; the log provides the additional stages.
 
 An em dash (`—`) means no completed measurement is available, for example because profiling was disabled or the initial load has not finished. A measured zero is displayed as `0.000`. Measurements describe the initial load: cache hits and hot reloads leave them unchanged, and unloading a resource removes its retained measurement.
+
+## Metal GPU trace capture
+
+Since Defold 1.14.1, the [engine HTTP service](/manuals/engine-service/#metal-gpu-trace-endpoint) can capture Metal GPU commands to a *.gputrace* document on macOS. Open the completed trace in Xcode to inspect the captured frames. This feature is built into the debug engine.
+
+### Launch and check support
+
+Create a macOS [Debug bundle](/manuals/bundling/#release-vs-debug) with the native Metal graphics backend included. If you use an App Manifest, select a **Graphics (macOS)** option that includes Metal; see [graphics backends](/manuals/app-manifest/#graphics).
+
+Launch the bundle's executable from a terminal with `METAL_CAPTURE_ENABLED=1` and select the Metal adapter. Replace the bundle path and executable name in this example:
+
+```sh
+METAL_CAPTURE_ENABLED=1 \
+    "/absolute/path/MyGame.app/Contents/MacOS/MyGame" --graphics-adapter=metal
+```
+
+The environment variable must be set when the engine starts. Setting it only in a terminal used for HTTP requests does not enable capture in an already running engine.
+
+In a second terminal, use the [engine service port printed in the log](/manuals/engine-service/#availability-and-port-discovery). The following examples use `curl` and `jq`:
+
+```sh
+ENGINE_URL="http://127.0.0.1:<port>"
+curl -fsS "$ENGINE_URL/openapi.json" | jq '.paths["/profiler/gputrace"]'
+curl -sS -i "$ENGINE_URL/profiler/gputrace"
+```
+
+The route is registered only on macOS. A `null` entry in the OpenAPI document means this engine does not expose it. Even when the route is present, capture support depends on the graphics adapter and launch environment. `GET /profiler/gputrace` returns HTTP 501 with `error.code: "gputrace_unsupported"` when Metal capture is unavailable. Check that the engine is using Metal and was launched with `METAL_CAPTURE_ENABLED=1` before proceeding. A supported request returns HTTP 200 with capture status.
+
+### Capture and inspect frames
+
+Choose a writable absolute output path ending in `.gputrace`, with an existing parent directory and no trace already at that path. The path is on the computer running the engine. For a local engine, this example creates a fresh temporary directory and requests one frame:
+
+```sh
+GPU_TRACE_DIR=$(mktemp -d /tmp/defold-gputrace.XXXXXX)
+GPU_TRACE_PATH="$GPU_TRACE_DIR/frame.gputrace"
+GPU_TRACE_REQUEST=$(jq -n --arg path "$GPU_TRACE_PATH" '{path: $path, frames: 1}')
+curl -fsS -X POST \
+    -H 'Content-Type: application/json' \
+    --data "$GPU_TRACE_REQUEST" \
+    "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+`frames` is optional, defaults to `1`, and accepts integers from `1` to `10000`. Capture starts before the next rendered frame and stops after the requested number of complete frames have been submitted. Keep the game rendering while waiting. Only one capture can be pending or active; another start request returns HTTP 409 with `error.code: "gputrace_active"`.
+
+`POST` returns HTTP 200 with `ok: true` and `data.state: "pending"` when the capture is scheduled. Capture completion is reported by later status requests. Repeat the status request until `data.state` becomes `complete`, `canceled` or `failed`:
+
+```sh
+curl -fsS "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+| `data.state` | Meaning |
+| --- | --- |
+| `idle` | No capture has been scheduled. |
+| `pending` | Capture is waiting for rendering to begin. |
+| `capturing` | Capture is active; `data.frames_captured` reports completed frames. |
+| `complete` | Capture has finished and the trace can be opened. |
+| `canceled` | A pending capture was canceled before it started. |
+| `failed` | Capture could not start; inspect `data.error` for the native error. |
+
+`GET` describes the current or most recent capture. Check that `data.path` matches your requested path. A failed capture still returns HTTP 200 with `ok: true`; inspect `data.state` and `data.error` to determine the result. For an automated client, poll with a delay and a timeout.
+
+After the state is `complete`, open the trace in Xcode on the engine's Mac:
+
+```sh
+open -a Xcode "$GPU_TRACE_PATH"
+```
+
+The HTTP endpoint returns status; the trace is saved at `data.path` on the engine host. For a remote engine, retrieve the completed document from that host before opening it locally.
+
+### Cancel or stop a capture
+
+To cancel a pending capture or finish an active capture early:
+
+```sh
+curl -fsS -X DELETE "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+A pending capture changes to `canceled`. For an active capture, `data.stop_requested` becomes `true`, and capture finishes after the current rendered frame is submitted. Continue polling `GET` until it reaches a terminal state. `DELETE` leaves any trace already written on disk. If no capture is pending or active, it returns HTTP 409 with `error.code: "gputrace_inactive"`.
 
 ## HTML5 browser performance timeline
 
