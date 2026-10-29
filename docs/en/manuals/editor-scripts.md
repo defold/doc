@@ -243,6 +243,7 @@ editor.transact({
 #### Editing tilesources
 
 In addition to outline properties, tilesources define the following properties:
+
 - `animations` - a list of animation nodes of the tilesource
 - `collision_groups` - a list of collision group nodes of the tilesource
 - `tile_collision_groups` - a table of collision group assignments for tiles in the tilesource
@@ -251,8 +252,8 @@ For example, here is how you can setup a tilesource:
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +263,25 @@ editor.transact({
     })
 })
 ```
+
+Since Defold 1.14.1, animation nodes expose `frames` instead of `start_tile` and `end_tile`. It is a Lua array of one-based tile numbers in animation order. Unlike the *Frames* text field in the editor, editor scripts take an integer array, not a string such as `"2-6"`. Expand ranges into individual tile numbers in the array. Tiles can appear in any order and may be repeated.
+
+To read and modify the `walk` animation from the example above:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Changing the returned array does not update the animation until you pass it to `editor.tx.set()` and apply the transaction. See the [Tile source manual](/manuals/tilesource/#tile-source-flip-book-animations) for tile numbering and playback settings.
 
 #### Editing tilemaps
 
