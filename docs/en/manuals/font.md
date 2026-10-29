@@ -23,7 +23,7 @@ For TrueType and OpenType fonts, the *Mode* property selects how glyphs are rend
 
 Since Defold 1.14.1, newly created font resources use **Vector** mode and **Dynamic** glyph generation. Existing font resources keep their Bitmap or SDF mode. BMFont sources always use their supplied bitmap.
 
-Vector mode is not supported on OpenGL ES 2 or WebGL 1. Use Bitmap or SDF fonts when targeting those graphics backends; there is no automatic fallback from Vector to SDF.
+Vector mode requires graphics support for `RGBA16F` and `R32UI` textures and is not supported on OpenGL ES 2 or WebGL 1. Use Bitmap or SDF fonts and matching materials when targeting unsupported graphics adapters; there is no automatic fallback from Vector to SDF. See [Vector fonts](#vector-fonts) for setup.
 
 ## Offline or Runtime fonts
 
@@ -149,6 +149,35 @@ Use a material that matches the font mode. The font resource's *Material* is use
 | BMFont (`.fnt`) | `/builtins/fonts/font-fnt.material` | `/builtins/fonts/label-fnt.material` |
 
 Changing *Mode* in the font editor switches between the corresponding built-in Bitmap, SDF and Vector materials when one of those materials is already assigned to the font. Custom materials are not replaced automatically. Check the *Material* property on any Label components that use the font as well.
+
+## Vector fonts
+
+Since Defold 1.14.1, Vector fonts render glyph faces from curves so they remain sharp as the displayed text size changes. To set up a font that generates its glyphs at runtime:
+
+1. Create a `.font` resource, for example `/fonts/ui.font`, and select a TrueType or OpenType source in its *Font* property. The built-in `/builtins/fonts/vera_mo_bd.ttf` can be used for ordinary text.
+2. Set *Mode* to **Vector**, *Glyph Generation* to **Dynamic**, and *Material* to `/builtins/fonts/font-vector.material`. These are the defaults for newly created font resources.
+3. Enable **Use full text layout system** in an App Manifest assigned to your project. Follow [Enabling Runtime Fonts](#enabling-runtime-fonts) to configure the custom engine.
+4. Enable [Shader ▸ Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) in *game.project*.
+5. Assign the font to a [Label](/manuals/label/) or add it to a GUI scene's *Fonts* and select it on a [text node](/manuals/gui-text/). For a Label, also set the component's *Material* to `/builtins/fonts/label-vector.material`. Set the component or node's *Font Size* to the desired display size.
+
+Vector glyph faces use curve textures, but enabled outlines and shadows still generate SDF bitmap data and consume glyph-cache texture memory. *Outline/Shadow Bitmap Size* sets that bitmap resolution independently of the Label or GUI text node's *Font Size*. Set *Outline Alpha* and *Shadow Alpha* to `0` when those effects are not needed to avoid generating their bitmap data.
+
+### Color emoji
+
+Vector fonts can render COLRv1 color emoji, including palette colors and linear and radial gradients. Bitmap and SDF modes do not render COLRv1 colors. Use the Dynamic Vector setup above, then add a COLRv1 emoji font as a fallback to the font collection. Ordinary text continues using the original font.
+
+For example, copy the COLRv1 [Noto Color Emoji font](https://github.com/google/fonts/blob/main/ofl/notocoloremoji/NotoColorEmoji-Regular.ttf) into your project as `/fonts/NotoColorEmoji-Regular.ttf`. Choose the COLRv1 version: other emoji fonts may use a different color format even when their filename ends in `.ttf`.
+
+Append `/fonts/NotoColorEmoji-Regular.ttf` to **Project ▸ Custom Resources** in *game.project*. With no other custom resources, the setting is:
+
+```ini
+[project]
+custom_resources = /fonts/NotoColorEmoji-Regular.ttf
+```
+
+A font path written in Lua does not cause the font file to be bundled. [Custom Resources](/manuals/project-settings/#custom-resources) makes this source font available to [`font.add_font()`](/ref/font/#font.add_font), which loads it through the resource system. Pass the source font's string path when loading it from the bundle.
+
+Add the fallback once per shared font resource. The change affects every Label and GUI text node using that font, and adding the same fallback twice raises an error. If using both the [Label example](/manuals/label/#vector-fonts-and-color-emoji) and the [GUI example](/manuals/gui-text/#vector-fonts-and-color-emoji) with the same `.font`, coordinate initialization so the fallback is added once before either example prewarms or displays text. The examples prewarm the complete text after adding the fallback and display it when the callback succeeds.
 
 ## Distance field fonts
 

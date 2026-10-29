@@ -21,6 +21,30 @@ Set the *Font* property to the font you want to use and make sure to set the *Ma
 
 ![Font and material](images/label/font_material.png)
 
+## Vector fonts and color emoji
+
+To use a Vector font, follow the [Vector font setup](/manuals/font/#vector-fonts), assign the `.font` resource to the Label's *Font* property, and set the Label's *Material* to `/builtins/fonts/label-vector.material`. Use *Font Size* to control the displayed size.
+
+For color emoji, also complete the [COLRv1 fallback and bundling setup](/manuals/font/#color-emoji). The example below assumes a Label with the id `label` and a script on the same game object. Leave the Label's *Text* empty to display the greeting only after its glyphs are ready:
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+The ordinary letters use the original font, and the emoji use the added color font. If other Labels or GUI text nodes share this font resource, initialize the fallback in one place and reuse it.
+
 ## Label properties
 
 Apart from the properties *Id*, *Position*, *Rotation* and *Scale* the following component specific properties exist:
