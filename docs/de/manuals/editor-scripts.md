@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ Im Handler `run` kannst du den Zustand des Editors im Arbeitsspeicher abfragen u
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)
@@ -317,7 +318,7 @@ Viele Eigenschaften von Partikeleffekten sind Kurven oder Kurven mit Streuung (d
 - `x` - die x-Koordinate des Punktes; sie sollte bei 0 beginnen und bei 1 enden
 - `y` - der Wert des Punktes
 - `tx` (0 bis 1) und `ty` (-1 bis 1) - Tangenten des Punktes. Bei einem Winkel von 80 Grad sollte `tx` zum Beispiel `math.cos(math.rad(80))` und `ty` entsprechend `math.sin(math.rad(80))` sein.
-Kurven mit Streuung haben zusätzlich die numerische Eigenschaft `spread`. 
+Kurven mit Streuung haben zusätzlich die numerische Eigenschaft `spread`.
 
 So könnte beispielsweise das Setzen einer Alphakurve über die Partikellebensdauer für einen bereits vorhandenen Emitter aussehen:
 ```lua
@@ -717,9 +718,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## Ausführungsmodi {#execution-modes}
 
-Die Laufzeitumgebung für Editor-Skripte verwendet 2 Ausführungsmodi, die für Editor-Skripte weitgehend transparent sind: **sofortige Ausführung (immediate)** und **länger laufende Ausführung (long-running)**. 
+Die Laufzeitumgebung für Editor-Skripte verwendet 2 Ausführungsmodi, die für Editor-Skripte weitgehend transparent sind: **sofortige Ausführung (immediate)** und **länger laufende Ausführung (long-running)**.
 
-Die **sofortige Ausführung** wird verwendet, wenn der Editor so schnell wie möglich eine Antwort vom Skript benötigt. Beispielsweise werden die `active`-Callbacks von Menübefehlen in diesem Modus ausgeführt, da diese Prüfungen im UI-Thread des Editors als Reaktion auf die Interaktion mit dem Editor stattfinden und die Benutzeroberfläche innerhalb desselben Frames aktualisieren sollen. 
+Die **sofortige Ausführung** wird verwendet, wenn der Editor so schnell wie möglich eine Antwort vom Skript benötigt. Beispielsweise werden die `active`-Callbacks von Menübefehlen in diesem Modus ausgeführt, da diese Prüfungen im UI-Thread des Editors als Reaktion auf die Interaktion mit dem Editor stattfinden und die Benutzeroberfläche innerhalb desselben Frames aktualisieren sollen.
 
 Die **länger laufende Ausführung** wird verwendet, wenn der Editor keine sofortige Antwort vom Skript benötigt. Beispielsweise werden die `run`-Callbacks von Menübefehlen im Modus für **länger laufende Ausführung** ausgeführt, sodass das Skript mehr Zeit für seine Arbeit in Anspruch nehmen kann.
 

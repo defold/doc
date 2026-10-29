@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ Dentro do handler `run`, você pode consultar e alterar o estado em memória do 
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)

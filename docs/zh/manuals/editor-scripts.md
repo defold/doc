@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ return M
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)
@@ -719,9 +720,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## 执行模式 {#execution-modes}
 
-编辑器脚本运行时使用两种执行模式，这些模式对编辑器脚本基本上是透明的：**即时**和**长时间运行**。 
+编辑器脚本运行时使用两种执行模式，这些模式对编辑器脚本基本上是透明的：**即时**和**长时间运行**。
 
-**即时**模式用于编辑器需要尽快从脚本接收响应的情况。例如，菜单命令的 `active` 回调在即时模式下执行，因为这些检查是在编辑器 UI 线程上响应与编辑器的用户交互而执行的，并且应该在同一帧内更新 UI。 
+**即时**模式用于编辑器需要尽快从脚本接收响应的情况。例如，菜单命令的 `active` 回调在即时模式下执行，因为这些检查是在编辑器 UI 线程上响应与编辑器的用户交互而执行的，并且应该在同一帧内更新 UI。
 
 **长时间运行**模式用于编辑器不需要脚本即时响应的情况。例如，菜单命令的 `run` 回调在**长时间运行**模式下执行，允许脚本有更多时间来完成其工作。
 

@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ Nel gestore `run` puoi interrogare e modificare lo stato dell'editor in memoria.
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)
@@ -317,7 +318,7 @@ Molte proprietà degli effetti particellari sono curve o curve con dispersione (
 - `x` - la coordinata x del punto; deve partire da 0 e terminare a 1
 - `y` - il valore del punto
 - `tx` (da 0 a 1) e `ty` (da -1 a 1) - componenti della tangente nel punto. Ad esempio, per un angolo di 80 gradi, `tx` deve essere `math.cos(math.rad(80))` e `ty` deve essere `math.sin(math.rad(80))`.
-Le curve con dispersione hanno anche una proprietà numerica `spread`. 
+Le curve con dispersione hanno anche una proprietà numerica `spread`.
 
 Ad esempio, per impostare la curva del valore alfa lungo la durata di vita delle particelle di un emettitore già esistente, puoi usare:
 ```lua
@@ -717,9 +718,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## Modalità di esecuzione {#execution-modes}
 
-Il runtime degli script dell'editor usa 2 modalità di esecuzione, perlopiù trasparenti agli script dell'editor: **immediata** e **di lunga durata**. 
+Il runtime degli script dell'editor usa 2 modalità di esecuzione, perlopiù trasparenti agli script dell'editor: **immediata** e **di lunga durata**.
 
-La modalità **immediata** viene usata quando l'editor deve ricevere una risposta dallo script il più rapidamente possibile. Ad esempio, le callback `active` dei comandi di menu vengono eseguite in modalità immediata perché queste verifiche avvengono sul thread dell'interfaccia utente dell'editor in risposta alle interazioni dell'utente e devono aggiornare l'interfaccia entro lo stesso frame. 
+La modalità **immediata** viene usata quando l'editor deve ricevere una risposta dallo script il più rapidamente possibile. Ad esempio, le callback `active` dei comandi di menu vengono eseguite in modalità immediata perché queste verifiche avvengono sul thread dell'interfaccia utente dell'editor in risposta alle interazioni dell'utente e devono aggiornare l'interfaccia entro lo stesso frame.
 
 La modalità **di lunga durata** viene usata quando l'editor non ha bisogno di una risposta istantanea dallo script. Ad esempio, le callback `run` dei comandi di menu vengono eseguite in modalità **di lunga durata**, consentendo allo script di impiegare più tempo per completare il proprio lavoro.
 

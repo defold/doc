@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ Düzenleyici, `get_commands()` işlevinin her biri ayrı bir komutu açıklayan 
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)
@@ -317,7 +318,7 @@ Birçok parçacık efekti özelliği, eğri veya yayılımlı eğri (curve sprea
 - `x` - noktanın x koordinatı; 0 ile başlayıp 1 ile bitmesi önerilir
 - `y` - noktanın değeri
 - `tx` (0 ile 1 arasında) ve `ty` (-1 ile 1 arasında) - noktanın teğetleri. Örneğin 80 derecelik bir açı için `tx` değerinin `math.cos(math.rad(80))`, `ty` değerinin ise `math.sin(math.rad(80))` olması önerilir.
-Yayılımlı eğriler ayrıca sayısal bir `spread` özelliğine sahiptir. 
+Yayılımlı eğriler ayrıca sayısal bir `spread` özelliğine sahiptir.
 
 Örneğin mevcut bir yayıcı için parçacığın yaşam süresi boyunca alfa değerini belirleyen eğriyi ayarlamak şöyle görünebilir:
 ```lua
@@ -717,9 +718,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## Yürütme modları {#execution-modes}
 
-Düzenleyici betiklerinin çalışma zamanı ortamı, düzenleyici betiklerinin çoğunlukla ayrıca ele alması gerekmeyen 2 yürütme modu kullanır: **anında (immediate)** ve **uzun süren (long-running)**. 
+Düzenleyici betiklerinin çalışma zamanı ortamı, düzenleyici betiklerinin çoğunlukla ayrıca ele alması gerekmeyen 2 yürütme modu kullanır: **anında (immediate)** ve **uzun süren (long-running)**.
 
-**Anında** modu, düzenleyicinin betikten mümkün olan en hızlı şekilde yanıt alması gerektiğinde kullanılır. Örneğin menü komutlarının `active` geri çağırımları anında modunda yürütülür; çünkü bu denetimler, kullanıcının düzenleyiciyle etkileşimine yanıt olarak düzenleyicinin kullanıcı arayüzü iş parçacığında yapılır ve kullanıcı arayüzünü aynı kare içinde güncellemelidir. 
+**Anında** modu, düzenleyicinin betikten mümkün olan en hızlı şekilde yanıt alması gerektiğinde kullanılır. Örneğin menü komutlarının `active` geri çağırımları anında modunda yürütülür; çünkü bu denetimler, kullanıcının düzenleyiciyle etkileşimine yanıt olarak düzenleyicinin kullanıcı arayüzü iş parçacığında yapılır ve kullanıcı arayüzünü aynı kare içinde güncellemelidir.
 
 **Uzun süren** modu, düzenleyicinin betikten anında yanıt alması gerekmediğinde kullanılır. Örneğin menü komutlarının `run` geri çağırımları **uzun süren** modunda yürütülür; böylece betik, işini tamamlamak için daha fazla zaman kullanabilir.
 
