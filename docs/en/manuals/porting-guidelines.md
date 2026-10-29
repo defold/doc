@@ -93,6 +93,53 @@ Defold has built-in safe-area support on Android and iOS. Set `gui.safe_area_mod
 
 The [Safe Area extension](/extension-safearea) remains an alternative for legacy projects or workflows that need behavior beyond the built-in APIs; it is not required for standard Android and iOS safe-area handling.
 
+### Reserved screen areas
+
+Since Defold 1.14.1, [`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) reports individual regions that obstruct the game window, such as camera cutouts and the Dynamic Island. Use these rectangles when positioning content around individual obstructions. Use `window.get_safe_area()` when you need a single safe layout rectangle and its edge insets.
+
+The result is an array of tables with `x`, `y`, `width` and `height` fields. Each rectangle is clipped to the game window. The origin is at the bottom left: `x` is the left edge and `y` is the bottom edge, in window pixels matching [`window.get_size()`](/ref/window/#window.get_size). These coordinates are independent of GUI adjustment and the logical resolution in *game.project*, so account for your GUI transforms before using them as node positions.
+
+Platform support is:
+
+- **iOS 27.1 and later:** active occlusions reported by UIKit, including its interaction margins.
+- **Android 9 (API level 28) and later:** display cutout rectangles.
+
+The function returns an empty table on unsupported platforms and OS versions, or when no obstructions are reported for the window. An empty table does not mean the entire window is safe for important content: folds, system bars, keyboards and gesture regions are outside this API. Use `window.get_safe_area()` for the platform's safe rectangle.
+
+### Refreshing areas after window events
+
+Query reserved areas during initialization and again on every [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED) callback. After the first query, changes to reserved-area geometry also trigger this event on supported platforms, even when the window size stays the same. Each returned table is a snapshot; saved tables are not updated automatically.
+
+On iOS, this event is also sent after orientation transitions and safe-area inset changes. A 180° landscape rotation can move a camera cutout or the Dynamic Island to the other side while both the window dimensions and safe-area insets stay the same. Refresh your geometry on the event even if `data.width` and `data.height` equal their previous values.
+
+The following script keeps both sets of geometry current:
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- Update your UI using the new safe rectangle and reserved areas.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- Refresh even when the width and height have not changed.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+Only one window event listener can be registered at a time. If your game already has one, add this refresh logic to that listener. Replacing the saved array on each refresh also clears obsolete rectangles when the result becomes empty.
+
 
 ## Platform specific guidelines
 

@@ -116,6 +116,10 @@ home_indicator_mode = auto_hide
 
 Rebundle and test on a device with a Home Indicator. iOS decides when the indicator is visible; choosing *Auto Hide* does not guarantee that it stays hidden. On iOS 26 and later, the system may hide it in both *System* and *Auto Hide* modes. See [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) for all values and their gesture behavior.
 
+### Reserved areas and rotation
+
+In Defold 1.14.1, `window.get_reserved_areas()` reports camera cutouts and the Dynamic Island on iOS 27.1 and later, including UIKit's interaction margins. iOS orientation transitions also send `window.WINDOW_EVENT_RESIZED`, including rotations that leave the window dimensions and safe-area insets unchanged. Refresh any UI placement based on these areas on every resize callback. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinates, limitations and a refresh example.
+
 ### Updating a custom Info.plist
 
 The built-in base manifest, `/builtins/manifests/ios/Info.plist`, includes the input and orientation updates introduced in Defold 1.14.1. Projects using this template receive those updates automatically. If you select a custom file in *game.project* under *iOS ▸ Info.plist*, update it explicitly when upgrading.
