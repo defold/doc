@@ -63,7 +63,7 @@ Note that the default material has shadow rendering disabled for performance rea
 : The font resource to use for this label.
 
 *Material*
-: The material to use for rendering this label. Make sure to select a material that is created for the font type that you use (bitmap, distance field or BMFont).
+: The material to use for rendering this label. Select a material that matches the font's mode or source (Bitmap, SDF, Vector or BMFont). See [Font materials](/manuals/font/#font-materials) for the matching built-in Label materials.
 
 ### Blend modes
 :[blend-modes](../shared/blend-modes.md)

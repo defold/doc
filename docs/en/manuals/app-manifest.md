@@ -134,7 +134,7 @@ Since Defold 1.14.0, macOS uses the native Metal backend by default. The **Vulka
 
 ## Use full text layout system
 
-If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option together with `font.runtime_generation` in *game.project* to use runtime generation for SDF fonts from TrueType (`.ttf`) or OpenType (`.otf`) resources. Runtime generation from `.otf` resources is supported since Defold 1.13.2. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
+If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option to use runtime generation for TrueType (`.ttf`) or OpenType (`.otf`) fonts, and set *Glyph Generation* to **Dynamic** in each font resource that needs it. Dynamic generation supports both **SDF** and **Vector** modes. Since Defold 1.14.1, the former `font.runtime_generation` setting in *game.project* is deprecated and has no effect. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text
