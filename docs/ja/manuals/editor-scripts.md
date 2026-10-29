@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ return M
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)
@@ -317,7 +318,7 @@ editor.transact({
 - `x` - ポイントの x 座標です。0で始まり、1で終わるようにします。
 - `y` - ポイントの値です。
 - `tx`（0から1）と `ty`（-1から1）- ポイントの接線です。たとえば角度が80度の場合、`tx` は `math.cos(math.rad(80))`、`ty` は `math.sin(math.rad(80))` にします。
-カーブスプレッドには、数値の `spread` プロパティもあります。 
+カーブスプレッドには、数値の `spread` プロパティもあります。
 
 たとえば、既存のエミッターに対し、パーティクルの寿命にわたるアルファ値のカーブを次のように設定できます。
 ```lua
@@ -719,9 +720,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## 実行モード {#execution-modes}
 
-エディタースクリプトのランタイムには、 **即時（immediate）** と **長時間実行（long-running）** という2つの実行モードがあります。エディタースクリプトでは、ほとんどの場合、その違いを意識する必要はありません。 
+エディタースクリプトのランタイムには、 **即時（immediate）** と **長時間実行（long-running）** という2つの実行モードがあります。エディタースクリプトでは、ほとんどの場合、その違いを意識する必要はありません。
 
-**即時**モードは、エディターがスクリプトからの応答をできるだけ早く受け取る必要がある場合に使われます。たとえば、メニューコマンドの `active` コールバックは即時モードで実行されます。これは、ユーザーのエディター操作に応じてエディターの UI スレッド上で確認処理が行われ、同じフレーム内に UI を更新する必要があるためです。 
+**即時**モードは、エディターがスクリプトからの応答をできるだけ早く受け取る必要がある場合に使われます。たとえば、メニューコマンドの `active` コールバックは即時モードで実行されます。これは、ユーザーのエディター操作に応じてエディターの UI スレッド上で確認処理が行われ、同じフレーム内に UI を更新する必要があるためです。
 
 **長時間実行**モードは、エディターがスクリプトから瞬時の応答を必要としない場合に使われます。たとえば、メニューコマンドの `run` コールバックは**長時間実行**モードで実行されるため、スクリプトは処理の完了までにより多くの時間を使えます。
 

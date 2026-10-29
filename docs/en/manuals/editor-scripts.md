@@ -100,7 +100,7 @@ function M.get_commands()
       },
       active = function(opts)
         local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
+        return path:match("%.lua$") or path:match("%.script$")
       end,
       run = function(opts)
         local text = editor.get(opts.selection, "text")
@@ -116,7 +116,8 @@ function M.get_commands()
         selection = {type = "resource", cardinality = "one"}
       },
       active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
+        local path = editor.get(opts.selection, "path")
+        return path:match("%.json$")
       end,
       run = function(opts)
         local path = editor.get(opts.selection, "path")
@@ -157,8 +158,8 @@ Inside the `run` handler, you can query and change the in-memory editor state. Q
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") 
-       and editor.can_set(node, "rotation") 
+    return editor.can_set(node, "position")
+       and editor.can_set(node, "rotation")
        and editor.can_set(node, "scale")
   end,
   run = function(opts)
@@ -317,7 +318,7 @@ Many particlefx properties are curves or curve spreads (i.e. curve + some random
 - `x` - the x coordinate of the point, should start at 0 and end at 1
 - `y` - the value of the point
 - `tx` (0 to 1) and `ty` (-1 to 1) - tangents of the point. E.g., for an 80-degree angle, `tx` should be `math.cos(math.rad(80))` and `ty` should be `math.sin(math.rad(80))`.
-Curve spreads additionally have a `spread` number property. 
+Curve spreads additionally have a `spread` number property.
 
 For example, setting a particle lifetime alpha curve for an already existing emitter might look like this:
 ```lua
@@ -717,9 +718,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## Execution modes
 
-The editor script runtime uses 2 execution modes that are mostly transparent to editor scripts: **immediate** and **long-running**. 
+The editor script runtime uses 2 execution modes that are mostly transparent to editor scripts: **immediate** and **long-running**.
 
-**Immediate** mode is used when the editor needs to receive a response from the script as fast as possible. For instance, menu commands' `active` callbacks are executed in immediate mode, because these checks are performed on the editors UI thread in response to user interacting with the editor, and should update the UI within the same frame. 
+**Immediate** mode is used when the editor needs to receive a response from the script as fast as possible. For instance, menu commands' `active` callbacks are executed in immediate mode, because these checks are performed on the editors UI thread in response to user interacting with the editor, and should update the UI within the same frame.
 
 **Long-running** mode is used when the editor doesn't need an instantaneous response from the script. For example, menu commands' `run` callbacks are executed in a **long-running** mode, allowing the script to take more time to complete its work.
 
