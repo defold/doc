@@ -848,6 +848,34 @@ If set, use the app manifest to customize the engine build. This allows you to r
 
 ---
 
+### Debugger
+
+Since Defold 1.14.1, these settings control the native Lua DAP listener in debug and headless engines. Web and release builds do not provide the TCP debugger. Add these settings by editing *game.project* as text, or use [configuration overrides on engine startup](#setting-config-values-on-engine-startup). They are not shown in the project settings form. The editor configures the listener automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+
+For example, to start a local listener and wait for a client to configure breakpoints before startup scripts run:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` starts the listener during engine startup when set to `1`. Disabled by default (`0`). A running game can also start the listener with [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running).
+
+#### Address {#debugger-address}
+`debugger.address` is the IPv4 address on which the listener accepts connections. The default, `127.0.0.1`, accepts local connections only. Use a device interface address or `0.0.0.0` for [remote connections](/manuals/debugging-game-logic/#remote-targets).
+
+#### Port {#debugger-port}
+`debugger.port` is the TCP listening port, from `0` to `65535`. The default is `8172`. Set it to `0` to select an available port, which the engine reports in its log.
+
+#### Wait {#debugger-wait}
+`debugger.wait` makes the engine wait for the client to finish configuring the debug session, including breakpoints, before running startup scripts. Disabled by default (`0`). Set it to `1` together with `debugger.enabled=1` to debug startup code. Starting the listener later with `debugger.start()` does not wait or pause the game. See the [startup and attach guide](/manuals/debugging-game-logic/#native-dap-connections).
+
+---
+
 ### Profiler
 
 The App Manifest **Profiler** setting controls whether profiler code is linked into debug and release builds. The settings below control the runtime behavior of profiler code that is present in the selected build. See the [Profiling manual](/manuals/profiling/) for details.

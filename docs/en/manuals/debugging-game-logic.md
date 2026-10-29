@@ -132,7 +132,11 @@ Connect your DAP client to `127.0.0.1:8172`. The engine waits for the client to 
 | `debugger.port` | `8172` | TCP listening port. Use `0` to select an available port. |
 | `debugger.wait` | `0` | Set to `1` to wait for the debugger client's configuration before running startup scripts. |
 
-The engine log reports the selected address and port. With `debugger.wait=0`, the game starts immediately and you can attach later. For local debug launches, the editor selects an available port automatically.
+You can also add these values to the [Debugger section of game.project](/manuals/project-settings/#debugger). The editor configures the listener automatically for <kbd>Debug ▸ Start/Attach</kbd>, so manual configuration is only needed when starting the listener yourself.
+
+The engine log reports the selected address and port. With `debugger.wait=0`, the game starts immediately and you can attach later. With `debugger.wait=1`, it waits until the client has finished configuring the session, including breakpoints. For local debug launches, the editor selects an available port automatically.
+
+Disconnecting a client resumes execution and leaves the listener available for another attachment. A disconnect while waiting for startup configuration also releases the engine. If the listener cannot start, the engine logs the error and continues startup; you can retry from Lua with `debugger.start(0)` to select an available port.
 
 ### Enabling the listener while running
 
@@ -147,6 +151,8 @@ end
 
 `debugger.start([port [, address]])` returns the listening port immediately. It does not wait for a client or pause the game. Omitted arguments use `debugger.port` and `debugger.address`; passing `0` selects an available port. Repeated calls return the existing listener's port and do not change its address or port. The `debugger` module is provided by native debug and headless engines.
 
+The port must be an integer from `0` to `65535`. Pass `nil` as the first argument to override only the address. Invalid arguments or a failure to bind the listener raise a Lua error.
+
 ### Remote targets
 
 For a direct connection from another computer, bind the listener to the device's IPv4 interface or to `0.0.0.0` (all IPv4 interfaces). For example, use `debugger.start(8172, "0.0.0.0")`, or add `--config=debugger.address=0.0.0.0` to the startup command above. Connect the client to the device's actual IP address and allow TCP access to the listening port. `0.0.0.0` is a bind address, not the address to enter in the client.
@@ -157,9 +163,38 @@ The debugger can evaluate Lua and has no authentication. Enable remote access on
 
 ### External clients
 
-Use a client that supports attaching directly to a DAP server over TCP. Configure its source mapping to the folder containing `game.project` (the DAP `localRoot` attach argument). Start the engine listener first, then attach the client. A concrete [VS Code configuration](https://github.com/defold/defold/blob/1.14.1-beta/engine/debugger/README.md#vs-code) is available in the native debugger guide.
+Use a client that supports attaching directly to a DAP server over TCP. Configure its source mapping to the folder containing `game.project` (the DAP `localRoot` attach argument). Start the engine listener first, then attach the client.
 
 The [legacy ZeroBrane workflow](/manuals/zerobrane) uses MobDebug, a different protocol. Its debugger server cannot connect to the native DAP listener.
+
+#### VS Code
+
+Install the [Lua Debug extension](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug) (`actboy168.lua-debug`), open the folder containing `game.project` in VS Code, and add this configuration to `.vscode/launch.json`:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+If VS Code opens a `.script`, `.gui_script` or `.render_script` file as plain text, select **Lua** from the language indicator in the status bar before setting breakpoints.
+
+Set a breakpoint, for example in a script's `init()` function. Start the engine using the [startup command above](#starting-the-listener), then select **Attach to Defold Lua** in VS Code's **Run and Debug** view. With `debugger.wait=1`, the engine runs startup scripts after the client has installed the breakpoints. Set `stopOnEntry` to `true` if you also want to pause at the next Lua line after attachment.
+
+VS Code's [`debugServer` setting](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug) connects directly to the engine's local TCP listener. The `address` field is required by Lua Debug's attach configuration. If you change the listener port, update both fields. `localRoot` must point to the project folder so the client can map the engine's Lua source names to your files.
+
+For a remote engine, forward its DAP port to localhost and put the forwarded port in both fields, or use a DAP client that connects directly to the remote host.
 
 ## Breakpoints Tab
 
