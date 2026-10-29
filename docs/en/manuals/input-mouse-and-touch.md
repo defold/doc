@@ -39,6 +39,28 @@ end
 `MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well.
 :::
 
+### Distinguishing mouse clicks from touch
+
+Since Defold 1.14.1, `action.source` distinguishes a physical mouse press from a click simulated by touch, including the initial press. Bind `MOUSE_BUTTON_LEFT` to `mouse_button_left` and use this code in a script or GUI script:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+A touch simulated as a mouse click reports `hash("touch")` even without a separate Touch Trigger. You do not need an `action.touch` table or a previous movement event to identify the tap. See [Input device source](/manuals/input/#input-device-source) for all source values and how sources work when several bindings share an action name.
+
 ## Mouse wheel
 Mouse wheel inputs detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold does not currently support fine grained scroll input on touch pads.)
 
@@ -55,11 +77,12 @@ end
 ## Mouse movement
 Mouse movement is handled separately. Mouse movement events are not received unless at least one mouse trigger is set up in your input bindings.
 
-Mouse movement are not bound in the input bindings but `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position.
+Pointer movement is not bound to an action name: `action_id` is `nil` and the `action` table contains the pointer's position and movement delta. Its source is `hash("mouse")` for a physical mouse or `hash("touch")` for movement simulated from touch. Accelerometer samples also use `action_id == nil`, so check the source to distinguish them, as shown in [Input device source](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

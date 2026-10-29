@@ -111,7 +111,7 @@ Any component that is on the stack containing an `on_input()` function will have
 : The current script instance.
 
 `action_id`
-: The hashed name of the action, as set up in the input bindings.
+: The hashed name of the action, as set up in the input bindings, or `nil` for pointer movement and accelerometer samples. Use `action.source` to distinguish these unnamed actions.
 
 `action`
 : A table containing the useful data about the action, like the value of the input, its location (absolute and delta positions), whether button input was `pressed` etc. See [on_input()](/ref/go#on_input) for details on the available action fields.
@@ -129,6 +129,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### Input device source
+
+Since Defold 1.14.1, `action.source` identifies the input device category independently of the action name. It is available in both script and GUI script `on_input()` callbacks and is one of these hashes:
+
+| `action.source` | Input category |
+|-----------------|----------------|
+| `hash("keyboard")` | Individual key input from Key Triggers. |
+| `hash("text")` | Text and marked-text input from Text Triggers, including text entered with a physical keyboard. |
+| `hash("mouse")` | Physical mouse buttons, wheel input and pointer movement. |
+| `hash("touch")` | Touch input, including mouse clicks and pointer movement simulated from touch. |
+| `hash("gamepad")` | Gamepad input, including raw input and connection events. |
+| `hash("accelerometer")` | Accelerometer samples. |
+
+Compare `action.source` with a hash, such as `hash("touch")`, rather than a string. For example, a left mouse button action can come from either a physical mouse or a tap. The source distinguishes them even on the initial press; see [Distinguishing mouse clicks from touch](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+When several devices share a named action, their contributions can be combined. Sources are processed in this order: keyboard, text, mouse, then touch; the last source contributing to the action is reported. Key and mouse button releases keep the previous source unless another input contributes in the same frame. Gamepad actions remain separate per controller. Use separate action names when you need to handle each binding independently.
+
+Pointer movement and accelerometer samples have no action name, so both use `action_id == nil`. They arrive in separate callbacks: pointer movement has coordinates and a mouse or touch source, while accelerometer samples have `acc_x`, `acc_y` and `acc_z` and an accelerometer source. If both occur in a frame, each callback can be consumed independently. Accelerometer samples are delivered even if their values have not changed.
+
+The following example handles these unnamed actions. Set up at least one Mouse Trigger to receive pointer movement, and enable [Use Accelerometer](/manuals/project-settings/#use-accelerometer) on a supported device to receive accelerometer samples:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 
