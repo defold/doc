@@ -15,7 +15,7 @@ Defold needs all the assets used in your project to be located somewhere in the 
 ![Importing files](images/graphics/import.png)
 
 ::: sidenote
-Defold supports images in the PNG and JPEG image formats. PNG images must be in 32 bit RGBA format. Other image formats need to be converted before they can be used.
+Use PNG or JPEG images for atlases and tile sources. PNG images must be in 32 bit RGBA format. Since Defold 1.14.1, [KTX2 source textures](/manuals/importing-graphics/#ktx2-textures) can also be imported for use as model textures.
 :::
 
 
@@ -26,7 +26,7 @@ When the assets are imported into Defold they can be used by the various compone
 * Images can be used to create many kinds of visual components frequently used in 2D games. Read more about [how to import and use 2D graphics here](/manuals/importing-graphics).
 * Sounds can be used by the [Sound component](/manuals/sound) to play sounds.
 * Fonts are used by the [Label component](/manuals/label) and by [text nodes](/manuals/gui-text) in a GUI.
-* glTF models (*.gltf* and *.glb*) can be used by the [Model component](/manuals/model) to show 3D models with animations. Since Defold 1.14.1, expand these files in the *Assets* pane to browse their meshes, generated materials and embedded images. Embedded images can be used directly; include any externally referenced images and buffers as separate project files. When selecting a scene or mesh in a Model component, the editor can offer to fill its material and texture bindings. Choose <kbd>Auto Fill</kbd> to apply them, replacing existing bindings, or <kbd>Keep Current</kbd> to preserve your own. Read more about [how to import and use 3D models here](/manuals/importing-models).
+* glTF models (*.gltf* and *.glb*) can be used by the [Model component](/manuals/model) to show 3D models with animations. Since Defold 1.14.1, expand these files in the *Assets* pane to browse their meshes, generated materials and embedded images. Embedded images can be used directly; include any externally referenced images and buffers as separate project files. [Draco- and Meshopt-compressed geometry](/manuals/importing-models/#compressed-geometry) is also supported and is decoded during import/build. When selecting a scene or mesh in a Model component, the editor can offer to fill its material and texture bindings. Choose <kbd>Auto Fill</kbd> to apply them, replacing existing bindings, or <kbd>Keep Current</kbd> to preserve your own. Read more about [how to import and use 3D models here](/manuals/importing-models).
 
 
 ## Editing external assets

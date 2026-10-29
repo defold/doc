@@ -18,7 +18,7 @@ To import a model, drag and drop the *.gltf* or *.glb* file into the Defold edit
 glTF can be stored in two common ways:
 
 * *.glb* is a single binary file. It contains the model data and may also contain packed texture images. This is convenient when you want to move or store a model as one file.
-* *.gltf* is a text-based JSON file. It usually references a separate *.bin* file for mesh data and separate texture images such as *.png* or *.jpg*. When using this variant, add all referenced files to the project and keep their relative paths intact.
+* *.gltf* is a text-based JSON file. It usually references a separate *.bin* file for mesh data and separate texture images such as *.png*, *.jpg* or *.ktx2*. When using this variant, add all referenced files to the project and keep their relative paths intact.
 
 Since Defold 1.14.1, embedded images can be used directly from a glTF or GLB file without extracting them into separate assets. External image and buffer files must still be imported with the model, with their relative paths preserved.
 
@@ -30,11 +30,30 @@ Since Defold 1.13.2, a [Model component](/manuals/model/#model-properties) can s
 If a model created with an older version of Defold changes position or orientation after being reimported, correct the transform in Blender or another authoring tool and export the *.gltf* or *.glb* file again.
 :::
 
+### Compressed geometry
+
+Since Defold 1.14.1, *.gltf* and *.glb* sources can contain geometry compressed with Draco or Meshopt. The supported glTF compression extensions are:
+
+| Compression | glTF extension |
+| --- | --- |
+| Draco | `KHR_draco_mesh_compression` |
+| Meshopt | `EXT_meshopt_compression` and `KHR_meshopt_compression` |
+
+Export or optimize your glTF 2.0 asset using one of these extensions, then import it using the same steps as an uncompressed model. Include any external buffers and textures and preserve their relative paths. Assign the imported file to a Model component's *Scene* property as usual.
+
+Defold decodes the compressed geometry during import and build. The resulting model uses Defold's normal runtime geometry representation. This support does not enable Draco or Meshopt compression in the running engine, and a smaller source file does not guarantee a smaller game bundle.
+
 ### Browsing the imported scene
 
 Expand a *.gltf* or *.glb* file in the *Assets* pane to browse its meshes, generated materials and embedded images. Opening the scene previews it with its defined materials and textures. You can also open an individual mesh for a preview.
 
 The resources exposed inside the file are read-only. To create an editable Model resource for a mesh, copy the mesh and paste it into a project folder. The resulting *.model* file still references the imported glTF or GLB file. To change the source geometry or embedded images, edit the asset in your authoring tool and export it again.
+
+### KTX2 textures
+
+Since Defold 1.14.1, model textures can use *.ktx2* sources, either as external files or as images embedded in a *.gltf* or *.glb* file. Import external files alongside the model. Embedded KTX2 images appear under the scene in the *Assets* pane and can be assigned directly to material texture fields or through <kbd>Auto Fill</kbd>.
+
+[Texture profiles](/manuals/texture-profiles/#ktx2-source-textures) determine whether to keep the KTX2 source format or convert it to the configured output formats. **Keep KTX2 Format** preserves the source encoding format when texture compression is enabled, but image processing can still require re-encoding. Check the format's support on your target devices and account for possible additional quality loss when recompressing an already compressed texture. See [KTX2 input formats and previews](/manuals/importing-graphics/#ktx2-textures).
 
 ## Using a model
 Once you have imported the model, use it in a [Model component](/manuals/model):
