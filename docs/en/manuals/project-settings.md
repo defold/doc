@@ -163,6 +163,8 @@ The height in pixels of the application window.
 #### High Dpi
 Creates a high dpi back buffer on displays that support it. Typically the game will render in double the resolution than what is set in the *Width* and *Height* settings, which will still be the logical resolution used in scripts and properties.
 
+On HTML5, use [Min Pixel Ratio](#min-pixel-ratio) and [Max Pixel Ratio](#max-pixel-ratio) to bound the rendering scale when this setting is enabled.
+
 #### Samples
 How many samples to use for super sampling anti-aliasing. It sets the `GLFW_FSAA_SAMPLES` window hint. A value of `0` means that anti-aliasing is turned off.
 
@@ -796,6 +798,14 @@ When enabled this option will print information about the engine and engine vers
 
 #### Scale Mode
 Specifies which method to use to scale the game canvas.
+
+#### Min Pixel Ratio
+`html5.min_pixel_ratio` sets the minimum number of canvas render pixels per CSS pixel when [High Dpi](#high-dpi) is enabled. The default is `0`, which disables the lower bound. Positive fractional values are supported, including values below `1`.
+
+#### Max Pixel Ratio
+`html5.max_pixel_ratio` sets the maximum number of canvas render pixels per CSS pixel when [High Dpi](#high-dpi) is enabled. The default is `0`, which disables the upper bound. Positive fractional values are supported, including values below `1`.
+
+Both limits must be finite, non-negative numbers. When both bounds are enabled, the minimum must not exceed the maximum. With *High Dpi* disabled, the ratio is `1` and neither bound is applied. These limits affect rendering resolution while preserving the canvas's CSS display size. See [Pixel ratio limits](/manuals/html5/#pixel-ratio-limits) for a configuration example.
 
 #### Retry Count
 The number of retries after a failed download during startup, including network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly file. The initial request is separate. Archive-file verification has its own retry limit; see [download verification](/manuals/html5/#download-verification) and `Retry Time`.
