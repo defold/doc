@@ -44,6 +44,8 @@ To run the debugger, select <kbd>Debug ▸ Start/Attach</kbd>. This starts the g
 
 To attach to a device, select it under <kbd>Project ▸ Targets</kbd>, then choose <kbd>Debug ▸ Start/Attach</kbd>. Attachment pauses at the next Lua line. The editor starts the native listener automatically for supported local and remote targets. See [Remote targets](#remote-targets) for connection requirements, or [Native DAP connections](#native-dap-connections) to connect an external debugger.
 
+![overview](images/debugging/overview.png)
+
 As soon as the debugger is attached, you have control of the execution of the game through the debugger control buttons in the console, or through the <kbd>Debug</kbd> menu:
 
 Break
@@ -68,7 +70,9 @@ Step Over
 
   ![step](images/debugging/step.png)
 
-Stepping follows Lua source lines.
+::: sidenote
+Stepping follows Lua source lines. A step can revisit the same line, for example when a loop repeats, so it does not always advance to the next line in the file.
+:::
 
 Step Into
 : ![step in](images/debugging/step_in.svg){width=60px .left}
@@ -101,6 +105,8 @@ Setting conditional breakpoints
 
 Evaluating Lua expressions
 : With the game paused, select a frame in the *Call Stack*, type a Lua expression or statement in the bottom of the console, and press <kbd>Enter</kbd>. Evaluation uses the selected frame's locals, upvalues, and globals. Table results include their nested contents.
+
+  ![console](images/debugging/console.png)
 
   You can also change values through assignments, for example `self.score = 100` in a frame where `self` is available. Evaluated code has the same effects on game state as code executed by your game.
 

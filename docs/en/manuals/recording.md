@@ -215,7 +215,3 @@ Rejected requests return JSON with `error.code` and `error.message`. For trouble
 | 500 | Recording startup, storage initialization or file preparation/read failed. Inspect the error message; a failed capture also reports `failure` in status. |
 | 501 | Video or the requested audio is unsupported. Inspect capabilities; use `audio: false` if only audio is unavailable. |
 | 507 | The service's retained-file limit was reached. Download and delete completed files before starting another recording. |
-
-## Migrating from older recording APIs
-
-The native MP4 recorder replaces the VP8/IVF recorder. The `start_record` and `stop_record` system messages have been removed. Use `recorder.start()` and `recorder.stop()` or the HTTP routes above, and wait for their asynchronous completion before consuming the MP4.

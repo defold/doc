@@ -67,8 +67,6 @@ Set the *Font* property to the font file. For a `.ttf` or `.otf` source, select 
 
 ![Font properties with Vector mode and Dynamic glyph generation](images/font/font_properties.png)
 
-<!-- Screenshot from the Defold release announcement: https://github.com/user-attachments/assets/1158d185-adad-4e5b-aa3d-b01c9d3225d9 -->
-
 Use *Font Size* on a Label component or GUI text node to change the displayed text size. For Vector fonts, *Outline/Shadow Bitmap Size* controls the resolution of the effect bitmaps, independently of the displayed text size.
 
 ## Properties
@@ -111,6 +109,10 @@ Use *Font Size* on a Label component or GUI text node to change the displayed te
 
 *Shadow Alpha*
 : The transparency of the generated shadow. 0.0--1.0.
+
+::: sidenote
+The built-in Bitmap font shader supports shadows in both *Single Layer* and *Multi Layer* render modes. For generated Bitmap fonts that use *Single Layer* rendering and do not need shadows, a custom material can use `/builtins/fonts/font-singlelayer.fp`. SDF and Vector fonts require shaders matching their mode; see [Font materials](#font-materials).
+:::
 
 *Shadow Blur*
 : The amount of blur applied to the generated shadow. Set to 0 for a sharp shadow.
@@ -183,6 +185,8 @@ Add the fallback once per shared font resource. The change affects every Label a
 
 Distance field fonts store the distance to the edge of the glyph in the texture instead of bitmap data. When the engine renders the font, a special shader is required to interpret the distance data and use that to draw the glyph. Distance field fonts are more resource intensive than bitmap fonts, but allow for greater sizing flexibility.
 
+![Distance field font](images/font/df_font.png)
+
 Select **SDF** in *Mode* and choose **Static** or **Dynamic** in *Glyph Generation*. Use *`/builtins/fonts/font-df.material`* for the font and *`/builtins/fonts/label-df.material`* for Label components, or custom materials that handle distance field data.
 
 ## Bitmap BMFonts
@@ -202,6 +206,8 @@ To create a BMFont, you need to use a tool that can generate the appropriate fil
 * [Glyph Designer](https://71squared.com/glyphdesigner), a commercial macOS tool from 71 Squared.
 * [bmGlyph](https://www.bmglyph.com), a commercial macOS tool from Sovapps.
 :::
+
+![BMfont](images/font/bm_font.png)
 
 Set the font's *Material* to *`/builtins/fonts/font-fnt.material`*. For Label components, use *`/builtins/fonts/label-fnt.material`*.
 

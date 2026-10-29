@@ -50,7 +50,6 @@ You may also use **Frame Selection** (<kbd>F</kbd>) to focus the camera on the c
 
 The **Scene View Axis Gizmo** appears in the bottom-right corner of the scene view in 3D mode. It shows the camera's orientation relative to the world axes: **X** is red, **Y** is green and **Z** is blue.
 
-<!-- Illustration from the Defold release notes: https://github.com/user-attachments/assets/880f480d-98b5-48cc-8304-c4c79e02b8ab -->
 ![Scene view with the axis gizmo in the bottom-right corner](images/editor/axis_gizmo.gif)
 
 | Control | Action |

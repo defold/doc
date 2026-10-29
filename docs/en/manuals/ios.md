@@ -120,58 +120,6 @@ Rebundle and test on a device with a Home Indicator. iOS decides when the indica
 
 `window.get_reserved_areas()` reports camera cutouts and the Dynamic Island on iOS 27.1 and later, including UIKit's interaction margins. iOS orientation transitions also send `window.WINDOW_EVENT_RESIZED`, including rotations that leave the window dimensions and safe-area insets unchanged. Refresh any UI placement based on these areas on every resize callback. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinates, limitations and a refresh example.
 
-### Updating a custom Info.plist
-
-The built-in base manifest, `/builtins/manifests/ios/Info.plist`, includes the required input and orientation entries. Projects using this template receive these settings automatically. If you select a custom file in *game.project* under *iOS ▸ Info.plist*, update it explicitly when upgrading.
-
-Copy the current built-in template into your project and reapply your customizations, or merge the following changes into your existing file. Place these entries inside the top-level `<dict>` and replace any existing values for the same keys. Apply the changes to all build variants.
-
-#### Indirect pointer input
-
-Enable `UIApplicationSupportsIndirectInputEvents` so iOS can distinguish mouse and trackpad input from touch:
-
-```xml
-<key>UIApplicationSupportsIndirectInputEvents</key>
-<true/>
-```
-
-This allows `action.source` to distinguish a physical mouse press from a click simulated by touch, including the initial press. See [Input device source](/manuals/input/#input-device-source) for the source values available in script and GUI script callbacks.
-
-#### Orientation support
-
-Defold declares portrait and landscape support in the UIKit orientation arrays to avoid the letterboxed compatibility mode for landscape games on iPhone Duo. The game's orientation policy is applied at runtime using a separate `DefoldSupportedInterfaceOrientations` list.
-
-Replace the existing `UISupportedInterfaceOrientations` and `UISupportedInterfaceOrientations~ipad` arrays with the values below, and move the generated `orientation-support` list into `DefoldSupportedInterfaceOrientations`:
-
-```xml
-<key>UISupportedInterfaceOrientations</key>
-<array>
-    <string>UIInterfaceOrientationPortrait</string>
-    <string>UIInterfaceOrientationLandscapeLeft</string>
-    <string>UIInterfaceOrientationLandscapeRight</string>
-</array>
-<key>UISupportedInterfaceOrientations~ipad</key>
-<array>
-    <string>UIInterfaceOrientationPortrait</string>
-    <string>UIInterfaceOrientationPortraitUpsideDown</string>
-    <string>UIInterfaceOrientationLandscapeLeft</string>
-    <string>UIInterfaceOrientationLandscapeRight</string>
-</array>
-<key>DefoldSupportedInterfaceOrientations</key>
-<array>
-    {{#orientation-support}}
-    <string>UIInterfaceOrientation{{.}}</string>
-    {{/orientation-support}}
-</array>
-```
-
-Keep the Mustache tags (`{{#orientation-support}}`, `{{.}}` and `{{/orientation-support}}`) in the template. The bundler generates the runtime orientation list from the [Display settings](/manuals/project-settings/#display) in *game.project*:
-
-- With *Dynamic Orientation* unchecked, *Width* greater than *Height* selects landscape; otherwise it selects portrait.
-- With *Dynamic Orientation* checked, the list includes both portrait and landscape orientations.
-
-Keep both portrait and landscape in the UIKit arrays even for a game with a fixed orientation. On iPhone Duo's inner display, UIKit can ignore orientation restrictions, so the game must still [adapt to changes in window size](/manuals/adapting-graphics-to-screen-size).
-
 ### Custom Info.plist and local target discovery
 
 The built-in iOS `Info.plist` contains the Bonjour service and local-network usage description required for automatic Editor target discovery in non-release builds. A custom `Info.plist` replaces that built-in base manifest. If a custom manifest is used for a debug build and you need target discovery, profiling, hot reload, or log streaming over the local network, include these entries:

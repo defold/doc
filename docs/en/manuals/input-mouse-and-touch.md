@@ -61,7 +61,7 @@ end
 
 A touch simulated as a mouse click reports `hash("touch")` even without a separate Touch Trigger. You do not need an `action.touch` table or a previous movement event to identify the tap. See [Input device source](/manuals/input/#input-device-source) for all source values and how sources work when several bindings share an action name.
 
-On iOS, a custom `Info.plist` must enable `UIApplicationSupportsIndirectInputEvents` for this distinction to work. See [Indirect pointer input](/manuals/ios/#indirect-pointer-input) for the required entry. The built-in manifest already enables it.
+On iOS, a custom `Info.plist` must enable `UIApplicationSupportsIndirectInputEvents` for this distinction to work. The built-in manifest already enables it.
 
 ## Mouse wheel
 Mouse wheel inputs detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold does not currently support fine grained scroll input on touch pads.)

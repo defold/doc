@@ -47,6 +47,8 @@ Learn more about the tile source resource in the [Tile source manual](/manuals/t
 
 Learn more about bitmap fonts in the [Fonts manual](/manuals/font/#bitmap-bmfonts).
 
+  ![BMfont](images/font/bm_font.png)
+
 
 ## Using Defold assets
 

@@ -301,7 +301,7 @@ editor.transact({
 })
 ```
 
-Animation nodes expose `frames` instead of `start_tile` and `end_tile`. It is a Lua array of one-based tile numbers in animation order. Unlike the *Frames* text field in the editor, editor scripts take an integer array, not a string such as `"2-6"`. Expand ranges into individual tile numbers in the array. Tiles can appear in any order and may be repeated.
+Animation nodes expose a `frames` property containing a Lua array of one-based tile numbers in animation order. Unlike the *Frames* text field in the editor, editor scripts take an integer array, not a string such as `"2-6"`. Expand ranges into individual tile numbers in the array. Tiles can appear in any order and may be repeated.
 
 To read and modify the `walk` animation from the example above:
 
