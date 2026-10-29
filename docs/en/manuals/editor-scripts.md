@@ -50,7 +50,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.editor_sha1` — a string, SHA1 of Defold editor
 - `editor.get(node_id, property)` — get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files or directories. Example of returned value: `"/main/game.script"`
-  - `"children"` — list of children resource paths for directory resources
+  - `"children"` — list of children resource paths for directory resources. To traverse resources inside files as well, see [Traversing project resources](#traversing-project-resources).
   - `"parent"` — parent editor node for an Outline node that has a parent
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
   - for atlases: `images` (list of editor nodes for images in the atlas) and `animations` (list of animation nodes)
@@ -72,6 +72,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.properties(node_id)` — return a sorted, context-sensitive list of property names that can be read from a node, for example `pprint(editor.properties("/game.project"))`. Use the `editor.can_*` functions to check whether a listed property can also be changed, reset, added to, or reordered.
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error.
 - `editor.can_set(node_id, property)` — check if `editor.tx.set()` transaction step with this property won't throw an error.
+- `editor.resource_children(path)` — list the resource paths directly inside a folder or file, including resources contained in glTF/GLB files. See [Traversing project resources](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — create a directory if it does not exist, and all non-existent parent directories.
 - `editor.create_resources(resources)` — create 1 or more resources, either from templates or with custom content
 - `editor.delete_directory(resource_path)` — delete a directory if it exists, and all existent child directories and files.
@@ -147,6 +148,42 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
 - `id` - command identifier string, used e.g. for persisting the last used bundle command in `prefs`
 - `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"`, `"Scene"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
 - `run` - a callback that is executed when user selects the menu item.
+
+### Traversing project resources
+
+Since Defold 1.14.1, `editor.resource_children(path)` returns an array of resource paths directly inside a folder or file. Both the input path and the returned paths start with `/`, relative to the project root. Use `/` to start at the project root. A *.gltf* or *.glb* file can expose meshes, materials and embedded images as resource children, just as it does in the *Assets* pane.
+
+If your script walks directories with `editor.get(path, "children")`, switch its traversal to `editor.resource_children(path)` and visit every returned path. Files can also contain resources, so restricting recursion to paths whose `editor.resource_attributes(path).is_directory` is `true` will skip those contents.
+
+The function returns an empty table (`{}`) for a folder or file with no resource children. A nonexistent path raises an error; if a path might be missing, check `editor.resource_attributes(path).exists` before querying its children. Resource children follow the *Assets* hierarchy. Game objects inside a collection are accessed through `editor.get(collection_path, "children")`.
+
+For example, save this as `list_resources.editor_script` and select **Project → Reload Editor Scripts**. Right-click a folder or a *.gltf* or *.glb* file in *Assets*, then select **List Resource Contents** to print its resource tree to the console:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Use commands to change the in-memory editor state
 

@@ -49,6 +49,8 @@ Expand a *.gltf* or *.glb* file in the *Assets* pane to browse its meshes, gener
 
 The resources exposed inside the file are read-only. To create an editable Model resource for a mesh, copy the mesh and paste it into a project folder. The resulting *.model* file still references the imported glTF or GLB file. To change the source geometry or embedded images, edit the asset in your authoring tool and export it again.
 
+Editor scripts can enumerate these resources with `editor.resource_children(path)`. See [Traversing project resources](/manuals/editor-scripts/#traversing-project-resources) for an example that recursively visits resources inside folders and glTF/GLB files.
+
 ### KTX2 textures
 
 Since Defold 1.14.1, model textures can use *.ktx2* sources, either as external files or as images embedded in a *.gltf* or *.glb* file. Import external files alongside the model. Embedded KTX2 images appear under the scene in the *Assets* pane and can be assigned directly to material texture fields or through <kbd>Auto Fill</kbd>.
