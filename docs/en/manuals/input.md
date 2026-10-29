@@ -17,7 +17,7 @@ Devices
   1. Keyboard (single key as well as text input)
   2. Mouse (position, button clicks and mouse wheel actions)
   3. Single and multi-touch (on iOS and Android devices and HTML5 on mobile)
-  4. Gamepads (as supported through the operating system and mapped in the [gamepads](/manuals/input-gamepads/#gamepads-settings-file) file)
+  4. Gamepads (using [controller mappings and platform support](/manuals/input-gamepads/#gamepads-settings-file))
 
 Input bindings
 : Before input is sent to a script the raw input from the device is translated into meaningful *actions* via the input bindings table.
