@@ -50,13 +50,43 @@ The created component has a set of properties that should be set:
 When you have a sound component set up properly, you can cause it to play its sound by calling [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Each playback is a separate *voice*. `sound.play()` returns its numeric playback identifier (`play_id`); save this ID to [control that individual voice](#controlling-individual-voices).
 
 ::: sidenote
 A sound will continue to play even if the game object the sound component belonged to is deleted. You can call [`sound.stop()`](/ref/sound/#sound.stop:url) to stop the sound (see below).
 :::
 Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
+
+### Controlling individual voices
+
+Since Defold 1.14.1, [`sound.set_gain()`](/ref/sound/#sound.set_gain) and [`sound.set_pan()`](/ref/sound/#sound.set_pan) accept an optional third argument with a `play_id`. Use the ID returned by `sound.play()` and the URL of the same sound component:
+
+```lua
+function init(self)
+    -- Save the ID of a voice that will start in one second.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Start another voice on the same component.
+    sound.play("go#sound")
+
+    -- Change only the delayed voice.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+These targeted calls leave other voices and the component's gain and pan defaults unchanged. They work for delayed and paused voices, so the new values apply when the voice starts or resumes. An unknown ID or an ID whose playback has finished has no effect.
+
+Omit `play_id` to update all voices and the component defaults used for future playback:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Passing `{ play_id = nil }` also omits the ID. If you clear a saved ID when playback ends, check that it is not `nil` before using it for a targeted update.
 
 ## Stopping the sound
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 The sound system has 4 levels of gain:
 
 - The gain set on the sound component.
-- The gain set when starting the sound via a call to `sound.play()` or when changing the gain on the voice via a call to `sound.set_gain()`.
+- The gain set when starting the sound via a call to `sound.play()` or when changing the gain on [one or all voices](#controlling-individual-voices) via a call to `sound.set_gain()`.
 - The gain set on the group via a [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) function call.
 - The gain set on the `master` group. This can be altered with `sound.set_group_gain(hash("master"), gain)`.
 
