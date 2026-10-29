@@ -78,6 +78,21 @@ The `/post` route is used by development operations such as hot reload, reboot, 
 
 These routes are development infrastructure, and additional profiler and resource-inspection routes exist in the engine implementation.
 
+## Recording endpoints
+
+Since Defold 1.14.1, desktop debug engines also expose native MP4 recording through the following routes. They are omitted from release, headless, mobile and web builds, and when **Exclude Record** is enabled in the [App Manifest](/manuals/app-manifest/#exclude-record).
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /recording/capabilities` | Discover video/audio support, backend requirements and the recording service's `instance_id` |
+| `GET /recording/status` | Read the current operation, asynchronous progress and finalized file information |
+| `POST /recording/start` | Request recording and receive its `operation_id` |
+| `POST /recording/stop` | Request stopping and finalization for the specified operation |
+| `GET /recording/files/{id}` | Download a finalized MP4 |
+| `DELETE /recording/files/{id}` | Delete a completed file retained by the service |
+
+Discover these routes through `/openapi.json`, then check `/recording/capabilities` for the current platform's support. Recording mutations require the `X-Recording-Instance` header, and stopping also requires the accepted `operation_id`. Start and stop are asynchronous; wait for finalization before downloading the file. See the [recording manual](/manuals/recording/#recording-through-http) for the complete workflow.
+
 ## Extension-defined runtime routes
 
 In debug builds, the native extension SDK can provide access to the engine web server. An extension can register a route prefix on that server and expose operations that depend on runtime data.

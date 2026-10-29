@@ -34,7 +34,7 @@ Control rig and model functionality, or select None to exclude model and rig com
 
 ## Exclude Record
 
-Excluded the video recording capability from the engine (see the [`start_record`](https://defold.com/ref/sys/#start_record) message documentation).
+Exclude native MP4 recording, the [`recorder` Lua module](/ref/recorder/) and the recording HTTP service from desktop debug builds. Recording is already omitted from release, headless, mobile and web builds. See the [recording manual](/manuals/recording) for the workflow introduced in Defold 1.14.1.
 
 
 ## Profiler

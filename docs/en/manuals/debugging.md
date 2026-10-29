@@ -10,3 +10,4 @@ Defold contains an integrated Lua debugger with an inspection facility. Together
 * Learn more about [debugging your game logic](/manuals/debugging-game-logic).
 * Learn how to [connect to the native Lua DAP debugger](/manuals/debugging-game-logic/#native-dap-connections) from an external client.
 * Learn more about [debugging native code](/manuals/debugging-native-code).
+* Learn how to [record the game window to an MP4 file](/manuals/recording) from Lua or development tools.
