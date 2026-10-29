@@ -83,6 +83,16 @@ When you click on the <kbd>Create bundle</kbd> button you will be prompted to se
 
 Select the requested graphics context through [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Its default is WebGL 2; request WebGL 1 to test or target that context on browsers that support both versions.
 
+Since Defold 1.14.1, WebGL 1 shaders are excluded by default. Disable [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) to include them, whether requesting WebGL 1 directly or allowing fallback from WebGL 2. To request WebGL 1 explicitly, set both options in *game.project*:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
 ## Download verification
 
 The HTML5 loader checks the sizes of downloaded engine and archive files by default. Failed checks cause downloads to be retried before the loader reports an error:

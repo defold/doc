@@ -305,7 +305,7 @@ The texture profiles file to use for this project, `/builtins/graphics/default.t
 Verify the return value after each graphics call and report any errors in the log.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` selects the WebGL context version to request for HTML5. Valid values are `1` (WebGL 1) and `2` (WebGL 2, the default). Set it to `1` to target or test WebGL 1 even on a browser that supports WebGL 2. Keep [Exclude GLES 2.0](#exclude-gles-20) disabled when targeting WebGL 1 so the required shaders are included.
+`graphics.webgl_version_hint` selects the WebGL context version to request for HTML5. Valid values are `1` (WebGL 1) and `2` (WebGL 2, the default). Set it to `1` to target or test WebGL 1 even on a browser that supports WebGL 2. Disable [Exclude GLES 2.0](#exclude-gles-20) when targeting WebGL 1 so the required shaders are included.
 
 #### OpenGL Version Hint
 OpenGL context version hint. If a specific version is selected, this will be used as the minimum version required (does not apply to OpenGL ES).
@@ -324,7 +324,16 @@ Set the 'core' OpenGL profile hint when creating the context. The core profile r
 ### Shader
 
 #### Exclude GLES 2.0
-Don't compile shaders for devices running OpenGLES 2.0 / WebGL 1.0.
+`shader.exclude_gles_sm100` excludes shaders for OpenGLES 2.0 and WebGL 1.0. Enabled by default (`1`) since Defold 1.14.1.
+
+To target these graphics APIs or allow fallback to them, uncheck **Shader ▸ Exclude GLES 2.0** in *game.project*, or set:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+Existing projects that did not explicitly set this option also use the new default when upgrading to Defold 1.14.1. Set it to `0` explicitly if the project needs OpenGLES 2.0 or WebGL 1.0 support.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` sets the default global precision qualifier for floating-point values in cross-compiled GLSL ES shaders. Valid values are `mediump` and `highp`; the default is `mediump`.
