@@ -1,11 +1,17 @@
 ---
-title: Debugging with ZeroBrane Studio
-brief: This manual explains how to use ZeroBrane Studio to debug Lua code in Defold.
+title: Debugging with ZeroBrane Studio (Defold 1.14.0 and earlier)
+brief: This manual covers the legacy MobDebug integration with ZeroBrane Studio used before Defold 1.14.1.
 ---
 
 # Debugging Lua scripts with ZeroBrane Studio
 
-Defold contains a built-in debugger, but it is also possible to run the free and open-source Lua IDE _ZeroBrane Studio_ as an external debugger. ZeroBrane Studio needs to be installed in order to use the debugging features. The program is cross-platform and runs on both macOS and Windows.
+::: important
+These instructions apply to Defold versions before 1.14.1. Defold 1.14.1 removes the bundled `builtins.scripts.mobdebug` module and switches the editor to the native Debug Adapter Protocol (DAP) debugger. The examples below require the older bundled module and do not work as written in 1.14.1 or later.
+
+For current versions, use the [integrated debugger](/manuals/debugging-game-logic/#running-the-debugger) or follow the [native DAP connection guide](/manuals/debugging-game-logic/#native-dap-connections) for external clients. ZeroBrane's MobDebug server cannot accept a DAP connection.
+:::
+
+In older Defold versions, the free and open-source Lua IDE _ZeroBrane Studio_ can be used as an external debugger through MobDebug. ZeroBrane Studio needs to be installed to follow this legacy workflow. The program is cross-platform and runs on both macOS and Windows.
 
 Download "ZeroBrane Studio" from http://studio.zerobrane.com
 
@@ -45,6 +51,7 @@ In ZeroBrane, open the file you added `dbg.start()` to fix this error.
 :::
 
 ```lua
+-- Legacy MobDebug integration: Defold 1.14.0 and earlier.
 dbg = require "builtins.scripts.mobdebug"
 dbg.start()
 ```
@@ -70,6 +77,7 @@ As debugging happens over regular network connections (TCP), this allows for deb
 The only change needed is to the command which starts the debugging. By default, `start()` will try to connect to localhost, but for remote debugging, we need to manually specify the address to ZeroBrane's debugging server, like this:
 
 ```lua
+-- Legacy MobDebug integration: Defold 1.14.0 and earlier.
 dbg = require "builtins.scripts.mobdebug"
 dbg.start("192.168.5.101")
 ```

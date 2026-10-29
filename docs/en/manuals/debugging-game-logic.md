@@ -38,15 +38,17 @@ Note that you probably want to update this data every frame so posting the messa
 
 ## Running the debugger
 
-To run the debugger, select <kbd>Debug ▸ Start/Attach</kbd> which either starts up the game with the debugger attached or attaches the debugger to an already running game.
+Since Defold 1.14.1, the editor uses the engine's native Debug Adapter Protocol (DAP) server. Use a native debug or headless engine from the same Defold version. Release engines and Web builds do not provide the TCP debugger, and the current editor cannot connect to older engines that only support MobDebug. No `require "builtins.scripts.mobdebug"` call is needed or available in current versions.
 
-![overview](images/debugging/overview.png)
+To run the debugger, select <kbd>Debug ▸ Start/Attach</kbd>. This starts the game with the debugger attached, or attaches to an already running game. When starting a game for debugging, the editor installs enabled breakpoints before startup scripts run, so you can set a breakpoint in `init()` before launching.
+
+To attach to a device, select it under <kbd>Project ▸ Targets</kbd>, then choose <kbd>Debug ▸ Start/Attach</kbd>. Attachment pauses at the next Lua line. The editor starts the native listener automatically for supported local and remote targets. See [Remote targets](#remote-targets) for connection requirements, or [Native DAP connections](#native-dap-connections) to connect an external debugger.
 
 As soon as the debugger is attached, you have control of the execution of the game through the debugger control buttons in the console, or through the <kbd>Debug</kbd> menu:
 
 Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
-  Break execution of the game immediately. The game will break at its current point. You are now able to inspect the state of the game, advance the game step by step, or continue running it until the next breakpoint. The current point of execution is marked in the code editor:
+  Pause Lua execution at the next source line. You are now able to inspect the state of the game, advance the game step by step, or continue running it until the next breakpoint. The current point of execution is marked in the code editor:
 
   ![script](images/debugging/script.png)
 
@@ -66,9 +68,7 @@ Step Over
 
   ![step](images/debugging/step.png)
 
-::: sidenote
-A line of Lua code does not correspond to a single expression. Stepping in the debugger moves ahead one expression at a time, meaning that currently you may have to hit the step button more than once to advance to the next line.
-:::
+Stepping follows Lua source lines.
 
 Step Into
 : ![step in](images/debugging/step_in.svg){width=60px .left}
@@ -100,14 +100,66 @@ Setting conditional breakpoints
   To edit the breakpoint condition, right-click in the column just right of the line numbers in the code editor, or select <kbd>Edit ▸ Edit Breakpoint</kbd> from the menu.
 
 Evaluating Lua expressions
-: With the debugger attached and the game stopped at a breakpoint, a Lua runtime is available with the current context. Type Lua expressions in the bottom of the console and press <kbd>Enter</kbd> to evaluate them:
+: With the game paused, select a frame in the *Call Stack*, type a Lua expression or statement in the bottom of the console, and press <kbd>Enter</kbd>. Evaluation uses the selected frame's locals, upvalues, and globals. Table results include their nested contents.
 
-  ![console](images/debugging/console.png)
+  You can also change values through assignments, for example `self.score = 100` in a frame where `self` is available. Evaluated code has the same effects on game state as code executed by your game.
 
-  It is currently not possible to modify variables through the evaluator.
+Inspecting variables
+: Select a frame in the *Call Stack* to inspect its locals and upvalues in the *Variables* view. Expand `_G` to inspect globals, and expand tables or `self` to inspect their fields. The editor preserves expanded paths, selection, and scroll position when stepping, switching frames, or refreshing after evaluation, while fetching current values.
 
 Detaching the debugger
-: Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately.
+: Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately. Use <kbd>Debug ▸ Start/Attach</kbd> to attach again without restarting the game.
+
+## Native DAP connections
+
+For an external DAP client, start the listener in a native Defold debug or headless engine, then connect the client to the engine's address and port. This workflow is available since Defold 1.14.1. The editor handles listener setup automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+
+### Starting the listener
+
+Build your project first. From the project directory containing `build/default/game.projectc`, run the native debug engine with these [startup configuration overrides](/manuals/project-settings/#setting-config-values-on-engine-startup):
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+Connect your DAP client to `127.0.0.1:8172`. The engine waits for the client to configure breakpoints before running startup scripts.
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | Set to `1` to start the listener during engine startup. |
+| `debugger.address` | `127.0.0.1` | IPv4 address on which to listen. The default accepts connections from the same computer. |
+| `debugger.port` | `8172` | TCP listening port. Use `0` to select an available port. |
+| `debugger.wait` | `0` | Set to `1` to wait for the debugger client's configuration before running startup scripts. |
+
+The engine log reports the selected address and port. With `debugger.wait=0`, the game starts immediately and you can attach later. For local debug launches, the editor selects an available port automatically.
+
+### Enabling the listener while running
+
+To enable the listener from a script without restarting the game:
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])` returns the listening port immediately. It does not wait for a client or pause the game. Omitted arguments use `debugger.port` and `debugger.address`; passing `0` selects an available port. Repeated calls return the existing listener's port and do not change its address or port. The `debugger` module is provided by native debug and headless engines.
+
+### Remote targets
+
+For a direct connection from another computer, bind the listener to the device's IPv4 interface or to `0.0.0.0` (all IPv4 interfaces). For example, use `debugger.start(8172, "0.0.0.0")`, or add `--config=debugger.address=0.0.0.0` to the startup command above. Connect the client to the device's actual IP address and allow TCP access to the listening port. `0.0.0.0` is a bind address, not the address to enter in the client.
+
+The Defold editor requests this remote bind automatically and uses port `8172 + project.instance_index` for remote targets. It cannot discover a dynamically selected remote port. If you already started the remote listener on localhost or a different port, restart the engine before attaching from the editor.
+
+The debugger can evaluate Lua and has no authentication. Enable remote access only on a trusted development network.
+
+### External clients
+
+Use a client that supports attaching directly to a DAP server over TCP. Configure its source mapping to the folder containing `game.project` (the DAP `localRoot` attach argument). Start the engine listener first, then attach the client. A concrete [VS Code configuration](https://github.com/defold/defold/blob/1.14.1-beta/engine/debugger/README.md#vs-code) is available in the native debugger guide.
+
+The [legacy ZeroBrane workflow](/manuals/zerobrane) uses MobDebug, a different protocol. Its debugger server cannot connect to the native DAP listener.
 
 ## Breakpoints Tab
 
