@@ -67,7 +67,9 @@ Set the *Font* property to the font file. For a `.ttf` or `.otf` source, select 
 
 ![Font properties with Vector mode and Dynamic glyph generation](images/font/font_properties.png)
 
-Use *Font Size* on a Label component or GUI text node to change the displayed text size. For Vector fonts, *Outline/Shadow Bitmap Size* controls the resolution of the effect bitmaps, independently of the displayed text size.
+For Vector fonts, use *Font Size* on a Label component or GUI text node to change the displayed text size. *Outline/Shadow Bitmap Size* controls the resolution of the effect bitmaps independently of the displayed text size.
+
+For Bitmap and SDF fonts, set *Size* in the font resource to choose the generated glyph size. BMFont sizes come from the source `.fnt` file. To change the displayed size of these fonts, scale the Label component or GUI text node.
 
 ## Properties
 
