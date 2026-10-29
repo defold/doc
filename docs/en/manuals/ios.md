@@ -103,6 +103,58 @@ Press *Create Bundle* and you will then be prompted to specify where on your com
 
 You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
 
+### Updating a custom Info.plist
+
+The built-in base manifest, `/builtins/manifests/ios/Info.plist`, includes the input and orientation updates introduced in Defold 1.14.1. Projects using this template receive those updates automatically. If you select a custom file in *game.project* under *iOS ▸ Info.plist*, update it explicitly when upgrading.
+
+Copy the current built-in template into your project and reapply your customizations, or merge the following changes into your existing file. Place these entries inside the top-level `<dict>` and replace any existing values for the same keys. Apply the changes to all build variants.
+
+#### Indirect pointer input
+
+Enable `UIApplicationSupportsIndirectInputEvents` so iOS can distinguish mouse and trackpad input from touch:
+
+```xml
+<key>UIApplicationSupportsIndirectInputEvents</key>
+<true/>
+```
+
+This allows `action.source` to distinguish a physical mouse press from a click simulated by touch, including the initial press. See [Input device source](/manuals/input/#input-device-source) for the source values available in script and GUI script callbacks.
+
+#### Orientation support
+
+Defold 1.14.1 declares portrait and landscape support in the UIKit orientation arrays to avoid the letterboxed compatibility mode for landscape games on iPhone Duo. The game's orientation policy is applied at runtime using a separate `DefoldSupportedInterfaceOrientations` list.
+
+Replace the existing `UISupportedInterfaceOrientations` and `UISupportedInterfaceOrientations~ipad` arrays with the values below, and move the generated `orientation-support` list into `DefoldSupportedInterfaceOrientations`:
+
+```xml
+<key>UISupportedInterfaceOrientations</key>
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+<key>UISupportedInterfaceOrientations~ipad</key>
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+<key>DefoldSupportedInterfaceOrientations</key>
+<array>
+    {{#orientation-support}}
+    <string>UIInterfaceOrientation{{.}}</string>
+    {{/orientation-support}}
+</array>
+```
+
+Keep the Mustache tags (`{{#orientation-support}}`, `{{.}}` and `{{/orientation-support}}`) in the template. The bundler generates the runtime orientation list from the [Display settings](/manuals/project-settings/#display) in *game.project*:
+
+- With *Dynamic Orientation* unchecked, *Width* greater than *Height* selects landscape; otherwise it selects portrait.
+- With *Dynamic Orientation* checked, the list includes both portrait and landscape orientations.
+
+Keep both portrait and landscape in the UIKit arrays even for a game with a fixed orientation. On iPhone Duo's inner display, UIKit can ignore orientation restrictions, so the game must still [adapt to changes in window size](/manuals/adapting-graphics-to-screen-size).
+
 ### Custom Info.plist and local target discovery
 
 The built-in iOS `Info.plist` contains the Bonjour service and local-network usage description required for automatic Editor target discovery in non-release builds. A custom `Info.plist` replaces that built-in base manifest. If a custom manifest is used for a debug build and you need target discovery, profiling, hot reload, or log streaming over the local network, include these entries:

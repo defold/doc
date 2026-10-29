@@ -625,7 +625,11 @@ The bundle short name (15 characters) (see [`CFBundleName`](https://developer.ap
 The bundle version, either a number or x.y.z. (see [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-If specified, use this *`Info.plist`* file instead of the built-in iOS base manifest when bundling your app. The built-in manifest contains the local-network and Bonjour entries needed for Editor target discovery in non-release builds. If you supply a custom manifest and need target discovery, profiling, hot reload, or log streaming on a device, preserve those entries as described in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
+If specified, use this *`Info.plist`* file instead of the built-in iOS base manifest, `/builtins/manifests/ios/Info.plist`, when bundling your app. Projects using the built-in template receive manifest updates automatically; custom files need to be updated explicitly.
+
+For Defold 1.14.1, custom manifests must enable `UIApplicationSupportsIndirectInputEvents` for input source detection and move the generated orientation list into `DefoldSupportedInterfaceOrientations`, while keeping portrait and landscape support in the UIKit orientation arrays. See [Updating a custom Info.plist](/manuals/ios/#updating-a-custom-infoplist) for the required entries.
+
+The built-in manifest also contains the local-network and Bonjour entries needed for Editor target discovery in non-release builds. If you supply a custom manifest and need target discovery, profiling, hot reload, or log streaming on a device, preserve those entries as described in [Custom Info.plist and local target discovery](/manuals/ios/#custom-infoplist-and-local-target-discovery).
 
 #### Privacy Manifest
 The Apple Privacy Manifest for the application. The field will default to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
