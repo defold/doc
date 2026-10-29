@@ -103,6 +103,19 @@ Press *Create Bundle* and you will then be prompted to specify where on your com
 
 You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
 
+### Home Indicator behavior
+
+Since Defold 1.14.1, you can choose *Home Indicator Mode* in the *iOS* section of *game.project*. The default, *Deferred*, protects all screen edges and requires two swipes to return Home. Choose *System* to use normal system gestures, including a single swipe to return Home.
+
+Choose *Auto Hide* to use normal system gestures and also request automatic hiding of the Home Indicator. You can set this mode directly in *game.project*:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Rebundle and test on a device with a Home Indicator. iOS decides when the indicator is visible; choosing *Auto Hide* does not guarantee that it stays hidden. On iOS 26 and later, the system may hide it in both *System* and *Auto Hide* modes. See [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) for all values and their gesture behavior.
+
 ### Updating a custom Info.plist
 
 The built-in base manifest, `/builtins/manifests/ios/Info.plist`, includes the input and orientation updates introduced in Defold 1.14.1. Projects using this template receive those updates automatically. If you select a custom file in *game.project* under *iOS ▸ Info.plist*, update it explicitly when upgrading.

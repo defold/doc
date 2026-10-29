@@ -603,6 +603,17 @@ Max number of game object factories. [(See information about component max count
 
 ### iOS
 
+#### Home Indicator Mode
+`ios.home_indicator_mode` controls system gestures at the screen edges and whether the game requests automatic hiding of the Home Indicator. Available since Defold 1.14.1.
+
+| Value | System gestures | Request automatic hiding |
+|-------|-----------------|--------------------------|
+| `deferred` (default) | Protects all screen edges by deferring system gestures. Returning Home requires two swipes. | No |
+| `system` | Uses normal system gestures, allowing a single swipe to return Home. | No |
+| `auto_hide` | Uses normal system gestures, allowing a single swipe to return Home. | Yes |
+
+iOS controls the indicator's actual visibility. Automatic hiding is a request, and on iOS 26 and later the system may hide the indicator in both `system` and `auto_hide` modes. See [Home Indicator behavior](/manuals/ios/#home-indicator-behavior) for a configuration example.
+
 #### App Icon 57x57--180x180
 Image file (.png) to use as application icon at given width and height dimensions `W` &times; `H`.
 
