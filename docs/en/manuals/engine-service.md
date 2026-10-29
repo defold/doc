@@ -93,6 +93,8 @@ Since Defold 1.14.1, desktop debug engines also expose native MP4 recording thro
 
 Discover these routes through `/openapi.json`, then check `/recording/capabilities` for the current platform's support. Recording mutations require the `X-Recording-Instance` header, and stopping also requires the accepted `operation_id`. Start and stop are asynchronous; wait for finalization before downloading the file. See the [recording manual](/manuals/recording/#recording-through-http) for the complete workflow.
 
+The HTTP service shares the recorder with Lua. HTTP starts enable application audio by default when supported; Lua starts default to video only. Only recordings started through HTTP have a downloadable `file` receipt. Before downloading, wait for `pending: false`, `finalized: true` and `file.state: "complete"`, then [verify the file's size and SHA-256](/manuals/recording/#download-and-release-the-file). See [sharing the recorder](/manuals/recording/#sharing-the-recorder-with-http-clients) when combining Lua and HTTP clients.
+
 ## Extension-defined runtime routes
 
 In debug builds, the native extension SDK can provide access to the engine web server. An extension can register a route prefix on that server and expose operations that depend on runtime data.

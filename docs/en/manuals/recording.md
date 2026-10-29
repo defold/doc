@@ -25,6 +25,8 @@ The recorder captures the game window's content at its native size in physical p
 
 Use [`recorder.start()`](/ref/recorder/#recorder.start) with a writable output path and a callback. The parent directory must exist; [`sys.get_save_file()`](/ref/sys/#sys.get_save_file) supplies a suitable application save path. An existing output file may be overwritten. Lua recordings belong to the caller and remain on disk after the engine exits.
 
+Paths use the Windows ANSI code page on Windows and UTF-8 elsewhere, as with Lua file I/O. The callback's `result.path` preserves the path passed to `recorder.start()`.
+
 This `.script` example records for five seconds after capture starts:
 
 ```lua
@@ -80,11 +82,17 @@ The result also contains `path`, `width`, `height`, `fps` and `audio`. Read or u
 
 Audio is **disabled by default in Lua**. Set `audio = true` to request application audio on a supported platform. Requesting unsupported audio returns an error.
 
+### Sharing the recorder with HTTP clients
+
+`recorder.stop()` targets the current shared recording, including one started through HTTP. It returns an error while an operation is pending or when no recording is active. If an HTTP client stops a Lua recording, the original Lua callback still receives its completion event. Starting through HTTP does not create a Lua callback; use HTTP status to observe its completion.
+
+HTTP status can describe a Lua recording, but its `file` field is `null`: the service only prepares downloads for recordings started through HTTP. Read a Lua recording from `result.path` after `EVENT_STOPPED`.
+
 ## Recording through HTTP
 
 The recording routes use the engine service port printed in the game log. Discover them through `/openapi.json` as described in the [engine service manual](/manuals/engine-service/#discovering-operations-through-openapi). A headless or release engine will not expose them.
 
-The following commands use a POSIX shell, `curl` and `jq`. Run them in the same shell and replace `<port>` with the running engine's port. First query capabilities and retain the service identity:
+The following commands use a POSIX shell, `curl` and `jq`; the download verification step also uses Python 3. Run them in the same shell and replace `<port>` with the running engine's port. First query capabilities and retain the service identity:
 
 ```sh
 set -eu
@@ -110,13 +118,17 @@ OPERATION_ID=$(printf '%s\n' "$START" | jq -er '.operation_id')
 printf '%s\n' "$START" | jq
 ```
 
-HTTP 202 means the request was accepted. Re-run the following status command until `pending` is `false` and `active` is `true`. Confirm that `operation_id` still matches the accepted start response. If `state` is `failed`, inspect `failure` instead of continuing. If an automatic stop has already finalized the recording, proceed to [download the file](#download-and-release-the-file).
+HTTP 202 means the request was accepted. Re-run the following status command until `pending` is `false` and `active` is `true`. The check rejects a response for another operation and reports capture or file-preparation failures. If an automatic stop has already finalized the recording, continue with [finalization](#stop-and-wait-for-finalization) before downloading.
 
 ```sh
 STATUS=$(curl -fsS \
     -H "X-Recording-Instance: $INSTANCE_ID" \
     "$ENGINE_URL/recording/status")
-printf '%s\n' "$STATUS" | jq
+printf '%s\n' "$STATUS" | jq -e --argjson id "$OPERATION_ID" '
+    if .operation_id != $id then error("Recording operation changed")
+    elif .state == "failed" then error(.failure)
+    elif .file.state == "failed" then error("Recording file preparation failed")
+    else . end'
 ```
 
 Let the game run for the duration you want to capture, then request a stop. If the window resized and the recording already completed, skip the stop request and continue with finalization below.
@@ -135,7 +147,9 @@ STOP=$(curl -fsS -X POST \
 printf '%s\n' "$STOP" | jq
 ```
 
-HTTP 202 only accepts the stop request. Repeat the status command until `pending` is `false`, `finalized` is `true`, and `file.state` is `complete`. File preparation can continue after native capture has finished. Do not use a file whose state is `pending` or `failed`.
+HTTP 202 only accepts the stop request. Repeat the status command until `pending` is `false`, `finalized` is `true`, and `file.state` is `complete`. The service prepares the file's size and SHA-256 after native capture finishes, so `state: "complete"` and `finalized: true` alone do not mean the download is ready. Stop waiting if `state` or `file.state` becomes `failed`; do not download a file whose state is `pending` or `failed`.
+
+An automated client should poll with a delay and a timeout, checking the retained operation ID on every response. Allow the engine to keep updating while waiting for capture and finalization.
 
 ### Download and release the file
 
@@ -146,10 +160,35 @@ FILE_URL=$(printf '%s\n' "$STATUS" | jq -er --argjson id "$OPERATION_ID" \
     'select(.operation_id == $id and .pending == false and .finalized == true and .file.state == "complete") | .file.url')
 curl -fsS -H "X-Recording-Instance: $INSTANCE_ID" \
     "$ENGINE_URL$FILE_URL" -o capture.mp4
-printf '%s\n' "$STATUS" | jq '.file | {size, sha256}'
+printf '%s\n' "$STATUS" > capture.json
 ```
 
-Compare the downloaded file's byte size and SHA-256 with the values in the response. A GET without a `Range` header downloads the whole MP4. The service also supports closed byte ranges, such as `Range: bytes=0-1023`, if a client needs partial downloads.
+Keep the completed status receipt in `capture.json` with the MP4. `/recording/status` describes the current operation, so a later recording replaces the status response even while earlier HTTP files remain available.
+
+Verify the downloaded file's byte size and SHA-256 before using it or deleting the service's copy:
+
+```sh
+python3 - <<'PY'
+import hashlib
+import json
+from pathlib import Path
+
+receipt = json.loads(Path("capture.json").read_text(encoding="utf-8"))
+capture = Path("capture.mp4")
+if capture.stat().st_size != receipt["file"]["size"]:
+    raise SystemExit("Recording download size mismatch")
+
+digest = hashlib.sha256()
+with capture.open("rb") as stream:
+    for chunk in iter(lambda: stream.read(65536), b""):
+        digest.update(chunk)
+if digest.hexdigest() != receipt["file"]["sha256"]:
+    raise SystemExit("Recording download SHA-256 mismatch")
+print("Verified capture.mp4")
+PY
+```
+
+A GET without a `Range` header downloads the whole MP4. The service also supports closed byte ranges, such as `Range: bytes=0-1023`, if a client needs partial downloads. Verify the assembled file against the same receipt.
 
 After downloading and verifying the file, you can release the service's retained copy:
 
@@ -158,13 +197,24 @@ curl -fsS -X DELETE -H "X-Recording-Instance: $INSTANCE_ID" \
     "$ENGINE_URL$FILE_URL"
 ```
 
-HTTP recording files remain available until explicitly deleted or the engine shuts down or reboots. Download them before closing the engine.
+HTTP recording files remain available until explicitly deleted or the engine shuts down or reboots. Download them before closing the engine. The service retains at most 128 files; delete completed files you have saved to make room for further recordings.
 
 ### Keeping operation identities together
 
 Every POST and DELETE requires `X-Recording-Instance`. The examples also send it on status and download requests to reject responses from a replacement engine. Keep `instance_id`, `operation_id` and the file information together: the service identity changes on restart or reboot, and a new process can reuse operation numbers.
 
 A missing identity returns HTTP 400. A stale identity, stale stop operation or deleted file returns HTTP 410. Do not fetch a new identity and reuse it to retry an old operation. Discover the new service and start a new recording instead.
+
+### Handling HTTP failures
+
+Rejected requests return JSON with `error.code` and `error.message`. For troubleshooting, run the individual `curl` request with `-i` and without `-f` to see the HTTP status and error body.
+
+| HTTP status | What to check |
+| --- | --- |
+| 409 | Another recording is active or pending, the current recording is not ready to stop, or the file is still being prepared. Read status before retrying. |
+| 500 | Recording startup, storage initialization or file preparation/read failed. Inspect the error message; a failed capture also reports `failure` in status. |
+| 501 | Video or the requested audio is unsupported. Inspect capabilities; use `audio: false` if only audio is unavailable. |
+| 507 | The service's retained-file limit was reached. Download and delete completed files before starting another recording. |
 
 ## Migrating from older recording APIs
 
