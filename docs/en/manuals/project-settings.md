@@ -381,6 +381,9 @@ Where to find the project build data, in URI format.
 #### Max Resources
 The max number of resources that can be loaded at the same time.
 
+#### Profile
+Since Defold 1.14.1, `resource.profile` enables resource loading timings and INFO-level logs for each completed or failed load. Disabled by default (`0`). Enable it (`1`) before launching the game to measure startup loads. The resource profiler shows retained initial-load measurements for currently loaded resources; click **Capture**, then **Show load times** to inspect them. See [Resource loading times](/manuals/profiling/#resource-loading-times) for the timing columns and how to interpret them.
+
 ---
 
 ### Network

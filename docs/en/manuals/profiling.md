@@ -88,8 +88,8 @@ The [Max Sample Count setting](/manuals/project-settings/#max-sample-count) limi
 ### Resource profiler
 The Resource profiler allows you to inspect your game while it is running and analyze resource use in detail. To access the profiler:
 
-1. Start your game on your target device.
-2. Open a browser and browse to http://localhost:8002
+1. Start a debug build of your game on your target device.
+2. Open the [engine service address](/manuals/engine-service/#availability-and-port-discovery) in a browser: `http://<address>:<port>/`. Use the address and port reported by the running engine in the console.
 
 The resource profiler is divided into 2 sections, one showing a hierarchical view of the collections, game objects and components currently instantiated in your game, and the other showing all currently loaded resources.
 
@@ -100,6 +100,32 @@ Collection view
 
 Resources view
 : The resources view shows all resources currently loaded into memory, their size and the number of references to each resource. This is useful when optimizing memory usage in your application when you need to understand what is loaded into memory at any given time.
+
+#### Resource loading times
+
+Since Defold 1.14.1, you can also inspect how long individual resources take to load. Enable [Resource → Profile](/manuals/project-settings/#profile) in *game.project* before launching the game. In the text view, this setting is:
+
+```ini
+[resource]
+profile = 1
+```
+
+The setting is disabled by default. Restart the game after enabling it to measure startup loads. Each completed or failed load writes an INFO-level log entry with the resource path, total time, and times for preload, read, create, post-create, queue and wait stages. Cache hits do not produce new loading records.
+
+In the resource profiler, click **Capture**, then **Show load times** to reveal the timing columns. **Capture** refreshes the view of retained measurements; it does not enable profiling or measure earlier loads retroactively.
+
+| Column | Meaning |
+| --- | --- |
+| **Load (ms)** | Total elapsed time for the initial load, including dependencies, post-create work, queueing and waiting. |
+| **Preload (ms)** | Time spent preparing the resource in its preload callback. |
+| **Read (ms)** | Time spent reading the resource data. |
+| **Create (ms)** | Time spent creating the runtime resource in its create callback. |
+
+Showing load times sorts the table by total load time, with the slowest resources first. Click a timing column heading to sort by that stage; click it again to reverse the order. The bars in the **Load** column show each total relative to the slowest visible resource. Click **Hide load times** to hide the columns again.
+
+Load and callback times include any nested dependency work. Do not sum totals across resources to calculate startup time, since the same work can appear in more than one resource's measurement. The **Preload**, **Read** and **Create** columns also do not account for all of the total load time; the log provides the additional stages.
+
+An em dash (`—`) means no completed measurement is available, for example because profiling was disabled or the initial load has not finished. A measured zero is displayed as `0.000`. Measurements describe the initial load: cache hits and hot reloads leave them unchanged, and unloading a resource removes its retained measurement.
 
 ## HTML5 browser performance timeline
 
