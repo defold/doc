@@ -120,7 +120,7 @@ The high-level order of *script* component Lua callback stages is:
 Each game object component in the main collection is traversed. If any of these components has a script with a `fixed_update()`/`update()`/`late_update()` function, then that will be called. If the component is a collection proxy, each component in the proxy collection is recursively updated with all the steps in the `Update` phase.
 
 ::: sidenote
-The order in which game object component `update()` functions are called is unspecified. You should not assume that the engine updates objects belonging to the same collection in a certain order. The same is true for `fixed_update()` and `late_update()` (since 1.12.0).
+The order in which game object component `update()` functions are called is unspecified. You should not assume that the engine updates objects belonging to the same collection in a certain order. The same is true for `fixed_update()` and `late_update()`.
 :::
 
 #### Physics
@@ -204,7 +204,7 @@ The number of frame updates per second (which equals the number of update-loop r
 
 #### Engine throttling
 
-Defold 1.12.0 introduced an engine throttling API that can skip engine updates and rendering entirely, while still detecting input. Any input wakes up the engine again, and the engine can re-enter throttling after a cooldown.
+Defold provides an engine throttling API that can skip engine updates and rendering entirely, while still detecting input. Any input wakes up the engine again, and the engine can re-enter throttling after a cooldown.
 
 See `sys.set_engine_throttle()` API for details and usage examples.
 

@@ -230,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : The resolved suffix appended to archive URLs, based on `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true` when the archive prefix specifies an HTTP or HTTPS origin, including a protocol-relative URL such as `//cdn.example.com/archive`. It is `false` for relative archive prefixes. Available since Defold 1.13.2.
+: `true` when the archive prefix specifies an HTTP or HTTPS origin, including a protocol-relative URL such as `//cdn.example.com/archive`. It is `false` for relative archive prefixes.
 
 DEFOLD_ARCHIVE_ORIGIN
-: The archive origin, including the scheme, host and optional port, or an empty string when no origin is specified. A protocol-relative prefix produces a protocol-relative origin. Used for the preconnect hint and available since Defold 1.13.2.
+: The archive origin, including the scheme, host and optional port, or an empty string when no origin is specified. A protocol-relative prefix produces a protocol-relative origin. Used for the preconnect hint.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true` if the bundle includes a WebAssembly engine, either `wasm-web` or `wasm_pthread-web`.

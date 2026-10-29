@@ -58,7 +58,7 @@ Orthographic Mode
 
 ## Using the camera
 
-All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via sending an `acquire_camera_focus` message to the camera component. The old acquire and release messages are still available, but it is recommended to instead use the `enable` and `disable` messages like for any other component that you wish to enable or disable:
+All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. There is no need to explicitly enable a camera via sending an `acquire_camera_focus` message to the camera component. The old acquire and release messages are still available, but it is recommended to instead use the `enable` and `disable` messages like for any other component that you wish to enable or disable:
 
 ```lua
 msg.post("#camera", "disable")

@@ -165,8 +165,6 @@ The debugger can evaluate Lua and has no authentication. Enable remote access on
 
 Use a client that supports attaching directly to a DAP server over TCP. Configure its source mapping to the folder containing `game.project` (the DAP `localRoot` attach argument). Start the engine listener first, then attach the client.
 
-The [legacy ZeroBrane workflow](/manuals/zerobrane) uses MobDebug, a different protocol. Its debugger server cannot connect to the native DAP listener.
-
 #### VS Code
 
 Install the [Lua Debug extension](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug) (`actboy168.lua-debug`), open the folder containing `game.project` in VS Code, and add this configuration to `.vscode/launch.json`:

@@ -162,7 +162,7 @@ end
 sound.set_group_gain("master", 1.995)
 ```
 
-Defold 1.10.2 corrected a long-standing attenuation of roughly 3 dB in the sound mixer. If an older project's mix compensated for that attenuation and sounds louder after upgrading, retune the global **Sound ▸ Gain** setting or the affected group gains.
+Older Defold versions applied an attenuation of roughly 3 dB in the sound mixer. If an older project's mix compensated for that attenuation and sounds louder after upgrading, retune the global **Sound ▸ Gain** setting or the affected group gains.
 
 ## Gating sounds
 

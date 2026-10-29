@@ -131,7 +131,7 @@ Windows and Linux use separate fields. The **DX12** option selects DirectX 12 on
 
 On Linux ARM64, the **OpenGL** choice uses the OpenGL ES backend. The Android combined default prefers Vulkan when available and falls back to OpenGL ES.
 
-Since Defold 1.14.0, macOS uses the native Metal backend by default. The **Vulkan** choice on macOS and iOS uses Vulkan through MoltenVK. The iOS simulator (`arm64_sim-ios`) always uses Metal, regardless of the **Graphics (iOS)** choice for devices.
+macOS uses the native Metal backend by default. The **Vulkan** choice on macOS and iOS uses Vulkan through MoltenVK. The iOS simulator (`arm64_sim-ios`) always uses Metal, regardless of the **Graphics (iOS)** choice for devices.
 
 ## Use full text layout system
 

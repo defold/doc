@@ -106,7 +106,7 @@ Make sure every extension with Java code provides a `.keep` file for the classes
 
 Leaving **R8 Keep Rules** empty uses D8 without shrinking. Enabling R8 uses the native extension build service, even for a project without native extensions.
 
-Starting with Defold 1.14.0, Android resource shrinking is enabled by the same **R8 Keep Rules** setting; there is no separate project setting for it. Older Defold SDKs retain code-only R8 shrinking.
+Android resource shrinking is enabled by the same **R8 Keep Rules** setting; there is no separate project setting for it. Older Defold SDKs retain code-only R8 shrinking.
 
 ### Adding rules to an extension
 

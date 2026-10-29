@@ -23,9 +23,9 @@ glTF can be stored in two common ways:
 Embedded images can be used directly from a glTF or GLB file without extracting them into separate assets. External image and buffer files must still be imported with the model, with their relative paths preserved.
 
 ::: sidenote
-Starting with Defold 1.13.0, Defold preserves the positions and transforms from the imported glTF file and does not automatically re-center the model during import. The editor preview and runtime use the imported transforms consistently: skinned or bone-parented meshes preserve their local, skeleton-relative transforms, while rigid meshes retain their flattened world placement.
+Defold preserves the positions and transforms from the imported glTF file and does not automatically re-center the model during import. The editor preview and runtime use the imported transforms consistently: skinned or bone-parented meshes preserve their local, skeleton-relative transforms, while rigid meshes retain their flattened world placement.
 
-Since Defold 1.13.2, a [Model component](/manuals/model/#model-properties) can select a single named mesh from the imported scene. Leaving its *Mesh* field empty uses the whole scene and preserves the transforms described above. Selecting a mesh uses its local geometry without the glTF node transforms, so place it using the model component or game object's transform.
+A [Model component](/manuals/model/#model-properties) can select a single named mesh from the imported scene. Leaving its *Mesh* field empty uses the whole scene and preserves the transforms described above. Selecting a mesh uses its local geometry without the glTF node transforms, so place it using the model component or game object's transform.
 
 If a model created with an older version of Defold changes position or orientation after being reimported, correct the transform in Blender or another authoring tool and export the *.gltf* or *.glb* file again.
 :::

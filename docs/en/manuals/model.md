@@ -23,10 +23,10 @@ With the model created you need to specify a number of properties:
 Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Scene*
-: The glTF *.gltf* or *.glb* file that contains the model's geometry. If the file contains morph targets, they are imported together with the scene. This property was named *Mesh* before Defold 1.13.2.
+: The glTF *.gltf* or *.glb* file that contains the model's geometry. If the file contains morph targets, they are imported together with the scene. This property was previously named *Mesh*.
 
 *Mesh*
-: An optional named mesh from the selected *Scene*, available since Defold 1.13.2. Leave this field empty to render the whole scene with its imported transforms. Select a mesh to render that mesh once in its local coordinates, without the glTF node transforms. Position, rotate and scale the model component or its game object to place the selected mesh.
+: An optional named mesh from the selected *Scene*. Leave this field empty to render the whole scene with its imported transforms. Select a mesh to render that mesh once in its local coordinates, without the glTF node transforms. Position, rotate and scale the model component or its game object to place the selected mesh.
 
 *Create GO Bones*
 : Check this to create a game object for every bone of the model. You can use the game objects to attach other game objects such as weapons to hand bones and so on. 

@@ -112,7 +112,7 @@ By setting the *Pivot* property you can change the alignment mode for the text.
 You can manipulate labels in runtime by getting and setting the label text as well as the various other properties.
 
 `text`
-: The text content of the label (`string`). Available through `go.get()` and `go.set()` since Defold 1.13.2.
+: The text content of the label (`string`). Available through `go.get()` and `go.set()`.
 
 `color`
 : The label color (`vector4`)
@@ -140,7 +140,7 @@ end
 ```
 
 ::: sidenote
-Since Defold 1.13.2, `label.set_text()` and `label.get_text()` are deprecated in favor of the `text` property. The old functions remain available for compatibility. The old setter queues a message, while `go.set()` updates the text immediately.
+`label.set_text()` and `label.get_text()` are deprecated in favor of the `text` property. The old functions remain available for compatibility. The old setter queues a message, while `go.set()` updates the text immediately.
 :::
 
 ```lua

@@ -11,7 +11,7 @@ Fonts are used to render text on Label components and GUI text nodes. Defold sup
 - OpenType
 - BMFont
 
-Since Defold 1.13.2, both the legacy and full text layout engines support TrueType outlines and OpenType CFF1/CFF2 outlines, including runtime generation from `.ttf` and `.otf` resources.
+Both the legacy and full text layout engines support TrueType outlines and OpenType CFF1/CFF2 outlines, including runtime generation from `.ttf` and `.otf` resources.
 
 For information about styling individual text spans and working with links and inline sprites, see the [Rich text markup manual](/manuals/font-richtext).
 
