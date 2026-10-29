@@ -99,7 +99,7 @@ If you also wish to support high resolution retina screens you can enable this i
 
 High DPI lets the game use the display's pixel density for its rendering resolution. The *Width* and *Height* settings still define the project's logical resolution, while the rendering scale depends on the platform and display. For example, at a scale of 2, images imported at twice their intended size and drawn at 0.5x can retain their detail on a dense display.
 
-On HTML5, the scale starts with the browser's device pixel ratio. Since Defold 1.14.1, `html5.min_pixel_ratio` and `html5.max_pixel_ratio` can bound this scale when `display.high_dpi` is enabled. Each limit defaults to `0` (disabled), and fractional ratios, including values below `1`, are supported. These limits change the canvas rendering resolution while preserving its CSS display size. With High DPI disabled, the ratio stays at `1`. See [Pixel ratio limits](/manuals/html5/#pixel-ratio-limits) for an example that caps rendering on dense displays.
+On HTML5, the scale starts with the browser's device pixel ratio. `html5.min_pixel_ratio` and `html5.max_pixel_ratio` can bound this scale when `display.high_dpi` is enabled. Each limit defaults to `0` (disabled), and fractional ratios, including values below `1`, are supported. These limits change the canvas rendering resolution while preserving its CSS display size. With High DPI disabled, the ratio stays at `1`. See [Pixel ratio limits](/manuals/html5/#pixel-ratio-limits) for an example that caps rendering on dense displays.
 
 
 ## Creating an adaptive GUI

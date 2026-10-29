@@ -62,7 +62,7 @@ Each message sent to a component will cause it to play another instance of the s
 
 ### Controlling individual voices
 
-Since Defold 1.14.1, [`sound.set_gain()`](/ref/sound/#sound.set_gain) and [`sound.set_pan()`](/ref/sound/#sound.set_pan) accept an optional third argument with a `play_id`. Use the ID returned by `sound.play()` and the URL of the same sound component:
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) and [`sound.set_pan()`](/ref/sound/#sound.set_pan) accept an optional third argument with a `play_id`. Use the ID returned by `sound.play()` and the URL of the same sound component:
 
 ```lua
 function init(self)

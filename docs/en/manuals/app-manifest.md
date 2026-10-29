@@ -34,7 +34,7 @@ Control rig and model functionality, or select None to exclude model and rig com
 
 ## Exclude Record
 
-Exclude native MP4 recording, the [`recorder` Lua module](/ref/recorder/) and the recording HTTP service from desktop debug builds. Recording is already omitted from release, headless, mobile and web builds. See the [recording manual](/manuals/recording) for the workflow introduced in Defold 1.14.1.
+Exclude native MP4 recording, the [`recorder` Lua module](/ref/recorder/) and the recording HTTP service from desktop debug builds. Recording is already omitted from release, headless, mobile and web builds. See the [recording manual](/manuals/recording) for the workflow.
 
 
 ## Profiler
@@ -118,7 +118,7 @@ Use the deprecated Android Support Library instead of Android X. [More info](htt
 
 Select which graphics backends to include for each platform. A combined choice includes multiple backends so the engine can fall back when its preferred backend is unavailable. Including more backends increases engine size.
 
-Since Defold 1.14.1, Windows and Linux use separate fields. The **DX12** option selects DirectX 12 on Windows.
+Windows and Linux use separate fields. The **DX12** option selects DirectX 12 on Windows.
 
 | Field | Platforms | Choices | Default |
 |---|---|---|---|
@@ -135,7 +135,7 @@ Since Defold 1.14.0, macOS uses the native Metal backend by default. The **Vulka
 
 ## Use full text layout system
 
-If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option to use runtime generation for TrueType (`.ttf`) or OpenType (`.otf`) fonts, and set *Glyph Generation* to **Dynamic** in each font resource that needs it. Dynamic generation supports both **SDF** and **Vector** modes. Since Defold 1.14.1, the former `font.runtime_generation` setting in *game.project* is deprecated and has no effect. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
+If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option to use runtime generation for TrueType (`.ttf`) or OpenType (`.otf`) fonts, and set *Glyph Generation* to **Dynamic** in each font resource that needs it. Dynamic generation supports both **SDF** and **Vector** modes. The former `font.runtime_generation` setting in *game.project* is deprecated and has no effect. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text

@@ -7,7 +7,7 @@ brief: This manual explains how to use built-in PBR materials and customize phys
 
 Physically Based Rendering (PBR) is a shading approach that models how light interacts with surfaces using physical principles. Material properties such as base color, metallic factor and roughness describe the surface independently of the scene's lighting.
 
-Since Defold 1.14.1, built-in glTF materials provide PBR lighting. Defold also exposes imported glTF 2.0 material properties and supported Khronos extension data to custom shaders.
+Built-in glTF materials provide PBR lighting. Defold also exposes imported glTF 2.0 material properties and supported Khronos extension data to custom shaders.
 
 ## Built-in PBR materials
 

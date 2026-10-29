@@ -41,7 +41,7 @@ end
 
 ### Distinguishing mouse clicks from touch
 
-Since Defold 1.14.1, `action.source` distinguishes a physical mouse press from a click simulated by touch, including the initial press. Bind `MOUSE_BUTTON_LEFT` to `mouse_button_left` and use this code in a script or GUI script:
+`action.source` distinguishes a physical mouse press from a click simulated by touch, including the initial press. Bind `MOUSE_BUTTON_LEFT` to `mouse_button_left` and use this code in a script or GUI script:
 
 ```lua
 function init(self)

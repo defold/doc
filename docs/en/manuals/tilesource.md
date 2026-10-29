@@ -68,7 +68,7 @@ Frames
 
 The editor displays consecutive runs of at least three frames as ranges. For example, `1, 2, 3` becomes `1-3`, while `1, 2` stays as two tile numbers. Frame order and repetitions are preserved. The list must contain at least one frame, and every tile number must exist in the source image.
 
-Since Defold 1.14.1, *Frames* replaces *Start Tile* and *End Tile*. The editor converts valid ranges in older tile source files to frame lists. For editor scripts, use the `frames` integer array instead of `start_tile` and `end_tile`; see [Editing tilesources](/manuals/editor-scripts/#editing-tilesources).
+*Frames* replaces *Start Tile* and *End Tile*. The editor converts valid ranges in older tile source files to frame lists. For editor scripts, use the `frames` integer array instead of `start_tile` and `end_tile`; see [Editing tilesources](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
 : Specifies how the animation should play through the *Frames* list:

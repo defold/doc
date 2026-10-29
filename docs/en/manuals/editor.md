@@ -132,7 +132,7 @@ On the bottom bar of the Editor you can find a narrow space in which the Status 
 
 ## Player window placement
 
-Since Defold 1.14.1, desktop players launched from the editor remember their normal windowed size and position across launches and engine reboots. Placement is saved separately for each project and player instance. A single-player launch shares its placement with the first player when you launch several instances.
+Desktop players launched from the editor remember their normal windowed size and position across launches and engine reboots. Placement is saved separately for each project and player instance. A single-player launch shares its placement with the first player when you launch several instances.
 
 If you move or resize the game window, a later launch restores that placement. A remembered size is used while the configured window dimensions are unchanged; changing those dimensions makes the next launch use the new size. On Linux Wayland, only the size is restored because the desktop compositor controls window positioning.
 

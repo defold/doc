@@ -5,7 +5,7 @@ brief: This manual explains how to record the game window to MP4 using Lua or th
 
 # Video recording
 
-Since Defold 1.14.1, Defold can record the game window to an H.264 video in an MP4 file through the [`recorder` Lua module](/ref/recorder/) or the [engine HTTP service](/manuals/engine-service/#recording-endpoints). Both interfaces share one recorder, so only one recording can start, run or finalize at a time.
+Defold can record the game window to an H.264 video in an MP4 file through the [`recorder` Lua module](/ref/recorder/) or the [engine HTTP service](/manuals/engine-service/#recording-endpoints). Both interfaces share one recorder, so only one recording can start, run or finalize at a time.
 
 ## Availability
 
@@ -218,4 +218,4 @@ Rejected requests return JSON with `error.code` and `error.message`. For trouble
 
 ## Migrating from older recording APIs
 
-Defold 1.14.1 replaces the VP8/IVF recorder. The `start_record` and `stop_record` system messages have been removed. Use `recorder.start()` and `recorder.stop()` or the HTTP routes above, and wait for their asynchronous completion before consuming the MP4.
+The native MP4 recorder replaces the VP8/IVF recorder. The `start_record` and `stop_record` system messages have been removed. Use `recorder.start()` and `recorder.stop()` or the HTTP routes above, and wait for their asynchronous completion before consuming the MP4.

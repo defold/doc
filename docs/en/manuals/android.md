@@ -87,7 +87,7 @@ An *.aab* file can be uploaded to Google Play via the [Google Play developer con
 
 ## Display cutouts
 
-In Defold 1.14.1, `window.get_reserved_areas()` reports display cutout rectangles on Android 9 (API level 28) and later. Use `window.get_safe_area()` when you need a safe layout rectangle. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinate units, behavior on unsupported platforms, and how to refresh your layout when the reported areas change.
+`window.get_reserved_areas()` reports display cutout rectangles on Android 9 (API level 28) and later. Use `window.get_safe_area()` when you need a safe layout rectangle. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinate units, behavior on unsupported platforms, and how to refresh your layout when the reported areas change.
 
 ## Shrinking Java code and Android resources with R8 {#shrinking-java-code-with-r8}
 

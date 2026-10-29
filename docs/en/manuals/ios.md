@@ -105,7 +105,7 @@ You specify what icon to use for the app, the launch screen storyboard and so fo
 
 ### Home Indicator behavior
 
-Since Defold 1.14.1, you can choose *Home Indicator Mode* in the *iOS* section of *game.project*. The default, *Deferred*, protects all screen edges and requires two swipes to return Home. Choose *System* to use normal system gestures, including a single swipe to return Home.
+You can choose *Home Indicator Mode* in the *iOS* section of *game.project*. The default, *Deferred*, protects all screen edges and requires two swipes to return Home. Choose *System* to use normal system gestures, including a single swipe to return Home.
 
 Choose *Auto Hide* to use normal system gestures and also request automatic hiding of the Home Indicator. You can set this mode directly in *game.project*:
 
@@ -118,11 +118,11 @@ Rebundle and test on a device with a Home Indicator. iOS decides when the indica
 
 ### Reserved areas and rotation
 
-In Defold 1.14.1, `window.get_reserved_areas()` reports camera cutouts and the Dynamic Island on iOS 27.1 and later, including UIKit's interaction margins. iOS orientation transitions also send `window.WINDOW_EVENT_RESIZED`, including rotations that leave the window dimensions and safe-area insets unchanged. Refresh any UI placement based on these areas on every resize callback. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinates, limitations and a refresh example.
+`window.get_reserved_areas()` reports camera cutouts and the Dynamic Island on iOS 27.1 and later, including UIKit's interaction margins. iOS orientation transitions also send `window.WINDOW_EVENT_RESIZED`, including rotations that leave the window dimensions and safe-area insets unchanged. Refresh any UI placement based on these areas on every resize callback. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinates, limitations and a refresh example.
 
 ### Updating a custom Info.plist
 
-The built-in base manifest, `/builtins/manifests/ios/Info.plist`, includes the input and orientation updates introduced in Defold 1.14.1. Projects using this template receive those updates automatically. If you select a custom file in *game.project* under *iOS ▸ Info.plist*, update it explicitly when upgrading.
+The built-in base manifest, `/builtins/manifests/ios/Info.plist`, includes the required input and orientation entries. Projects using this template receive these settings automatically. If you select a custom file in *game.project* under *iOS ▸ Info.plist*, update it explicitly when upgrading.
 
 Copy the current built-in template into your project and reapply your customizations, or merge the following changes into your existing file. Place these entries inside the top-level `<dict>` and replace any existing values for the same keys. Apply the changes to all build variants.
 
@@ -139,7 +139,7 @@ This allows `action.source` to distinguish a physical mouse press from a click s
 
 #### Orientation support
 
-Defold 1.14.1 declares portrait and landscape support in the UIKit orientation arrays to avoid the letterboxed compatibility mode for landscape games on iPhone Duo. The game's orientation policy is applied at runtime using a separate `DefoldSupportedInterfaceOrientations` list.
+Defold declares portrait and landscape support in the UIKit orientation arrays to avoid the letterboxed compatibility mode for landscape games on iPhone Duo. The game's orientation policy is applied at runtime using a separate `DefoldSupportedInterfaceOrientations` list.
 
 Replace the existing `UISupportedInterfaceOrientations` and `UISupportedInterfaceOrientations~ipad` arrays with the values below, and move the generated `orientation-support` list into `DefoldSupportedInterfaceOrientations`:
 

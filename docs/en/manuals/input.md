@@ -134,7 +134,7 @@ end
 
 ### Input device source
 
-Since Defold 1.14.1, `action.source` identifies the input device category independently of the action name. It is available in both script and GUI script `on_input()` callbacks and is one of these hashes:
+`action.source` identifies the input device category independently of the action name. It is available in both script and GUI script `on_input()` callbacks and is one of these hashes:
 
 | `action.source` | Input category |
 |-----------------|----------------|

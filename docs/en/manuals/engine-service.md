@@ -25,7 +25,7 @@ When the editor starts a debug engine, it requests a dynamically assigned servic
 INFO:ENGINE: Engine service started on port <port>
 ```
 
-Since Defold 1.14.1, the engine also logs the full OpenAPI discovery URL using its actual address and assigned port:
+The engine also logs the full OpenAPI discovery URL using its actual address and assigned port:
 
 ```text
 INFO:ENGINE: OpenAPI: http://<address>:<port>/openapi.json
@@ -41,7 +41,7 @@ Server is accessible on localhost (`127.0.0.1`) at a given port:
 
 ## Discovering operations through OpenAPI
 
-Since Defold 1.14.1, `GET /openapi.json` returns an OpenAPI 3.0.3 document describing the runtime HTTP API. Use the engine service port from the log. For a local engine, replace `<port>` below with that port:
+`GET /openapi.json` returns an OpenAPI 3.0.3 document describing the runtime HTTP API. Use the engine service port from the log. For a local engine, replace `<port>` below with that port:
 
 ```sh
 ENGINE_URL="http://127.0.0.1:<port>"
@@ -80,7 +80,7 @@ These routes are development infrastructure, and additional profiler and resourc
 
 ## Recording endpoints
 
-Since Defold 1.14.1, desktop debug engines also expose native MP4 recording through the following routes. They are omitted from release, headless, mobile and web builds, and when **Exclude Record** is enabled in the [App Manifest](/manuals/app-manifest/#exclude-record).
+Desktop debug engines also expose native MP4 recording through the following routes. They are omitted from release, headless, mobile and web builds, and when **Exclude Record** is enabled in the [App Manifest](/manuals/app-manifest/#exclude-record).
 
 | Endpoint | Purpose |
 | --- | --- |
@@ -97,7 +97,7 @@ The HTTP service shares the recorder with Lua. HTTP starts enable application au
 
 ## Metal GPU trace endpoint
 
-Since Defold 1.14.1, macOS debug engines expose `/profiler/gputrace` for capturing Metal GPU traces. The route appears in `/openapi.json` only on macOS. Capture requires the native Metal adapter and `METAL_CAPTURE_ENABLED=1` in the engine's launch environment. A request returns HTTP 501 with `error.code: "gputrace_unsupported"` if capture is unavailable.
+On macOS, debug engines expose `/profiler/gputrace` for capturing Metal GPU traces. The route appears in `/openapi.json` only on macOS. Capture requires the native Metal adapter and `METAL_CAPTURE_ENABLED=1` in the engine's launch environment. A request returns HTTP 501 with `error.code: "gputrace_unsupported"` if capture is unavailable.
 
 | Endpoint | Purpose |
 | --- | --- |
@@ -126,7 +126,7 @@ An extension-defined runtime automation API should:
 
 In a native extension's application initialization callback, obtain the server with `dmEngine::GetWebServer(app_params)` and register handlers only when the returned handle is non-null. See the [extension lifecycle](/manuals/extensions/#extension-lifecycle) for the callback setup.
 
-Since Defold 1.14.1, the four-argument `dmWebServer::AddHandler()` overload accepts an OpenAPI 3.0.3 Paths Object as a JSON string. The object has route paths as its top-level keys. Each path must start with the registered prefix and must not already be documented by another handler. Use inline schemas, or references to paths in the resulting document.
+The four-argument `dmWebServer::AddHandler()` overload accepts an OpenAPI 3.0.3 Paths Object as a JSON string. The object has route paths as its top-level keys. Each path must start with the registered prefix and must not already be documented by another handler. Use inline schemas, or references to paths in the resulting document.
 
 For example, this helper registers a callback and its status endpoint description:
 

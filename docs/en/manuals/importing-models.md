@@ -20,7 +20,7 @@ glTF can be stored in two common ways:
 * *.glb* is a single binary file. It contains the model data and may also contain packed texture images. This is convenient when you want to move or store a model as one file.
 * *.gltf* is a text-based JSON file. It usually references a separate *.bin* file for mesh data and separate texture images such as *.png*, *.jpg* or *.ktx2*. When using this variant, add all referenced files to the project and keep their relative paths intact.
 
-Since Defold 1.14.1, embedded images can be used directly from a glTF or GLB file without extracting them into separate assets. External image and buffer files must still be imported with the model, with their relative paths preserved.
+Embedded images can be used directly from a glTF or GLB file without extracting them into separate assets. External image and buffer files must still be imported with the model, with their relative paths preserved.
 
 ::: sidenote
 Starting with Defold 1.13.0, Defold preserves the positions and transforms from the imported glTF file and does not automatically re-center the model during import. The editor preview and runtime use the imported transforms consistently: skinned or bone-parented meshes preserve their local, skeleton-relative transforms, while rigid meshes retain their flattened world placement.
@@ -32,7 +32,7 @@ If a model created with an older version of Defold changes position or orientati
 
 ### Compressed geometry
 
-Since Defold 1.14.1, *.gltf* and *.glb* sources can contain geometry compressed with Draco or Meshopt. The supported glTF compression extensions are:
+*.gltf* and *.glb* sources can contain geometry compressed with Draco or Meshopt. The supported glTF compression extensions are:
 
 | Compression | glTF extension |
 | --- | --- |
@@ -53,7 +53,7 @@ Editor scripts can enumerate these resources with `editor.resource_children(path
 
 ### KTX2 textures
 
-Since Defold 1.14.1, model textures can use *.ktx2* sources, either as external files or as images embedded in a *.gltf* or *.glb* file. Import external files alongside the model. Embedded KTX2 images appear under the scene in the *Assets* pane and can be assigned directly to material texture fields or through <kbd>Auto Fill</kbd>.
+Model textures can use *.ktx2* sources, either as external files or as images embedded in a *.gltf* or *.glb* file. Import external files alongside the model. Embedded KTX2 images appear under the scene in the *Assets* pane and can be assigned directly to material texture fields or through <kbd>Auto Fill</kbd>.
 
 [Texture profiles](/manuals/texture-profiles/#ktx2-source-textures) determine whether to keep the KTX2 source format or convert it to the configured output formats. **Keep KTX2 Format** preserves the source encoding format when texture compression is enabled, but image processing can still require re-encoding. Check the format's support on your target devices and account for possible additional quality loss when recompressing an already compressed texture. See [KTX2 input formats and previews](/manuals/importing-graphics/#ktx2-textures).
 

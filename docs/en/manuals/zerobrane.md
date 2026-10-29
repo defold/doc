@@ -1,12 +1,12 @@
 ---
 title: Debugging with ZeroBrane Studio (Defold 1.14.0 and earlier)
-brief: This manual covers the legacy MobDebug integration with ZeroBrane Studio used before Defold 1.14.1.
+brief: This manual covers the legacy MobDebug integration with ZeroBrane Studio.
 ---
 
 # Debugging Lua scripts with ZeroBrane Studio
 
 ::: important
-These instructions apply to Defold versions before 1.14.1. Defold 1.14.1 removes the bundled `builtins.scripts.mobdebug` module and switches the editor to the native Debug Adapter Protocol (DAP) debugger. The examples below require the older bundled module and do not work as written in 1.14.1 or later.
+These instructions apply to legacy Defold versions that bundle `builtins.scripts.mobdebug`. Current versions use the native Debug Adapter Protocol (DAP) debugger and no longer include that module. The examples below require the legacy module and do not work as written with current versions.
 
 For current versions, use the [integrated debugger](/manuals/debugging-game-logic/#running-the-debugger) or follow the [native DAP connection guide](/manuals/debugging-game-logic/#native-dap-connections) for external clients. ZeroBrane's MobDebug server cannot accept a DAP connection.
 :::

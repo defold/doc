@@ -50,7 +50,7 @@ Depending on the material there will be one or more texture properties:
 *Texture*
 : This property should point to the texture image that you want applied to the object. It can be a separate project asset or an embedded image exposed under a glTF or GLB file in the *Assets* pane.
 
-Since Defold 1.14.1, selecting a glTF or GLB *Scene*, or changing its *Mesh* selection, can offer to fill the material and texture bindings. <kbd>Auto Fill</kbd> replaces existing bindings with those from the source; <kbd>Keep Current</kbd> preserves your bindings while applying the new scene or mesh selection. See the [model import workflow](/manuals/importing-models/#using-a-model).
+Selecting a glTF or GLB *Scene*, or changing its *Mesh* selection, can offer to fill the material and texture bindings. <kbd>Auto Fill</kbd> replaces existing bindings with those from the source; <kbd>Keep Current</kbd> preserves your bindings while applying the new scene or mesh selection. See the [model import workflow](/manuals/importing-models/#using-a-model).
 
 
 ## Editor manipulation
@@ -116,7 +116,7 @@ The following built-in materials are available in `/builtins/materials/`:
 | Skinned (animated), non-instanced | `model_skinned.material` | `gltf_skinned.material` |
 | Skinned (animated), instanced | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Since Defold 1.14.1, the `gltf` materials provide built-in metallic/roughness lighting using the imported glTF material data. See the [PBR manual](/manuals/physically-based-rendering/#built-in-pbr-materials) for texture bindings, lights and custom shaders.
+The `gltf` materials provide built-in metallic/roughness lighting using the imported glTF material data. See the [PBR manual](/manuals/physically-based-rendering/#built-in-pbr-materials) for texture bindings, lights and custom shaders.
 
 All of these built-in materials use local vertex space. For skinned models, local vertex space allows the vertex shader to perform skinning on the GPU using a bone-matrix texture; local vertex space is also required for model instancing. A custom material intended for GPU-skinned or instanced models should therefore use the *Local* vertex-space setting.
 

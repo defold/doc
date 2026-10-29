@@ -95,7 +95,7 @@ exclude_gles_sm100 = 0
 
 ## Pixel ratio limits
 
-Since Defold 1.14.1, `html5.min_pixel_ratio` and `html5.max_pixel_ratio` control how many canvas render pixels are used per CSS pixel. The canvas's CSS size determines how large the game appears on the page; its rendering resolution determines how many pixels the engine draws.
+`html5.min_pixel_ratio` and `html5.max_pixel_ratio` control how many canvas render pixels are used per CSS pixel. The canvas's CSS size determines how large the game appears on the page; its rendering resolution determines how many pixels the engine draws.
 
 Enable *High Dpi* in the *Display* section of *game.project* to use these limits. The browser's device pixel ratio is then clamped to the enabled bounds. Both limits default to `0`, which disables that bound. Values must be finite and non-negative; if both are positive, the minimum must not exceed the maximum.
 

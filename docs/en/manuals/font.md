@@ -21,7 +21,7 @@ For TrueType and OpenType fonts, the *Mode* property selects how glyphs are rend
 - **SDF** (signed distance field) stores distances to glyph edges in a texture, allowing more flexible scaling than Bitmap.
 - **Vector** renders glyph faces from curve data, keeping them sharp when scaled. Outline and shadow effects still use bitmap data.
 
-Since Defold 1.14.1, newly created font resources use **Vector** mode and **Dynamic** glyph generation. Existing font resources keep their Bitmap or SDF mode. BMFont sources always use their supplied bitmap.
+Newly created font resources use **Vector** mode and **Dynamic** glyph generation. Existing font resources keep their Bitmap or SDF mode. BMFont sources always use their supplied bitmap.
 
 Vector mode requires graphics support for `RGBA16F` and `R32UI` textures and is not supported on OpenGL ES 2 or WebGL 1. Use Bitmap or SDF fonts and matching materials when targeting unsupported graphics adapters; there is no automatic fallback from Vector to SDF. See [Vector fonts](#vector-fonts) for setup.
 
@@ -67,7 +67,7 @@ Set the *Font* property to the font file. For a `.ttf` or `.otf` source, select 
 
 ![Font properties with Vector mode and Dynamic glyph generation](images/font/font_properties.png)
 
-<!-- Screenshot from the Defold 1.14.1 beta announcement: https://github.com/user-attachments/assets/1158d185-adad-4e5b-aa3d-b01c9d3225d9 -->
+<!-- Screenshot from the Defold release announcement: https://github.com/user-attachments/assets/1158d185-adad-4e5b-aa3d-b01c9d3225d9 -->
 
 Use *Font Size* on a Label component or GUI text node to change the displayed text size. For Vector fonts, *Outline/Shadow Bitmap Size* controls the resolution of the effect bitmaps, independently of the displayed text size.
 
@@ -152,7 +152,7 @@ Changing *Mode* in the font editor switches between the corresponding built-in B
 
 ## Vector fonts
 
-Since Defold 1.14.1, Vector fonts render glyph faces from curves so they remain sharp as the displayed text size changes. To set up a font that generates its glyphs at runtime:
+Vector fonts render glyph faces from curves so they remain sharp as the displayed text size changes. To set up a font that generates its glyphs at runtime:
 
 1. Create a `.font` resource, for example `/fonts/ui.font`, and select a TrueType or OpenType source in its *Font* property. The built-in `/builtins/fonts/vera_mo_bd.ttf` can be used for ordinary text.
 2. Set *Mode* to **Vector**, *Glyph Generation* to **Dynamic**, and *Material* to `/builtins/fonts/font-vector.material`. These are the defaults for newly created font resources.
@@ -258,7 +258,7 @@ New font resources already use Vector mode and Dynamic generation, but still req
 
 ### Migrating from earlier versions
 
-Since Defold 1.14.1, `font.runtime_generation` in *game.project* is deprecated and has no effect. If your project previously enabled runtime fonts with that setting, set *Glyph Generation* to **Dynamic** in each SDF or Vector font that needs runtime generation. Keep **Use full text layout system** enabled in the App Manifest. You can then remove the obsolete project setting.
+`font.runtime_generation` in *game.project* is deprecated and has no effect. If your project previously enabled runtime fonts with that setting, set *Glyph Generation* to **Dynamic** in each SDF or Vector font that needs runtime generation. Keep **Use full text layout system** enabled in the App Manifest. You can then remove the obsolete project setting.
 
 Existing font files are not automatically changed to Vector or Dynamic. The former *Output Format* choices map to *Mode*: Bitmap remains Bitmap, and Distance Field becomes SDF. Font files without a per-resource Dynamic setting use Static generation.
 

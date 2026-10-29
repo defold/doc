@@ -128,7 +128,7 @@ If two [path settings](#path-settings) matches the same file and the path uses d
 : One or more texture formats to generate. If several formats are specified, textures for each format are generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
 
 *Keep KTX2 Format*
-: Since Defold 1.14.1, keeps a KTX2 source's encoding format instead of using the platform's *Formats* alternatives. Unchecked by default (`keep_ktx2_format: false`). Other image types, such as PNG and JPEG, continue to use *Formats*. Keeping a compressed source format requires texture compression to be enabled. See [KTX2 source textures](#ktx2-source-textures) for processing and compatibility details.
+: Keeps a KTX2 source's encoding format instead of using the platform's *Formats* alternatives. Unchecked by default (`keep_ktx2_format: false`). Other image types, such as PNG and JPEG, continue to use *Formats*. Keeping a compressed source format requires texture compression to be enabled. See [KTX2 source textures](#ktx2-source-textures) for processing and compatibility details.
 
 *Mipmaps*
 : If checked, mipmaps are generated for the platform. Unchecked by default.

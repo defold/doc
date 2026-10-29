@@ -95,7 +95,7 @@ The [Safe Area extension](/extension-safearea) remains an alternative for legacy
 
 ### Reserved screen areas
 
-Since Defold 1.14.1, [`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) reports individual regions that obstruct the game window, such as camera cutouts and the Dynamic Island. Use these rectangles when positioning content around individual obstructions. Use `window.get_safe_area()` when you need a single safe layout rectangle and its edge insets.
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) reports individual regions that obstruct the game window, such as camera cutouts and the Dynamic Island. Use these rectangles when positioning content around individual obstructions. Use `window.get_safe_area()` when you need a single safe layout rectangle and its edge insets.
 
 The result is an array of tables with `x`, `y`, `width` and `height` fields. Each rectangle is clipped to the game window. The origin is at the bottom left: `x` is the left edge and `y` is the bottom edge, in window pixels matching [`window.get_size()`](/ref/window/#window.get_size). These coordinates are independent of GUI adjustment and the logical resolution in *game.project*, so account for your GUI transforms before using them as node positions.
 

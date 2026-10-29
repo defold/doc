@@ -182,7 +182,7 @@ On Windows, only XBox 360 controllers are currently supported. To hook up your 3
 
 Gamepads are supported in Android builds and generate the same input actions as on other platforms. Support is based on the [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input).
 
-Since Defold 1.14.1, Android controller GUIDs and the raw layout used by SDL mappings follow SDL's Android conventions. Defold selects a mapping in this order:
+Android controller GUIDs and the raw layout used by SDL mappings follow SDL's Android conventions. Defold selects a mapping in this order:
 
 1. A matching GUID entry from the configured SDL gamepad database.
 2. A matching legacy `.gamepads` entry for the device name.

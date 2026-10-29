@@ -10,7 +10,7 @@ Defold supports many kinds of visual components frequently used in 2D games. You
 ![Importing files](images/graphics/import.png)
 
 ::: sidenote
-Use PNG or JPEG images for atlases and tile sources. Since Defold 1.14.1, KTX2 source textures can also be imported for use as model textures; see below.
+Use PNG or JPEG images for atlases and tile sources. KTX2 source textures can also be imported for use as model textures; see below.
 :::
 
 ## KTX2 textures

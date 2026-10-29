@@ -38,7 +38,7 @@ Note that you probably want to update this data every frame so posting the messa
 
 ## Running the debugger
 
-Since Defold 1.14.1, the editor uses the engine's native Debug Adapter Protocol (DAP) server. Use a native debug or headless engine from the same Defold version. Release engines and Web builds do not provide the TCP debugger, and the current editor cannot connect to older engines that only support MobDebug. No `require "builtins.scripts.mobdebug"` call is needed or available in current versions.
+The editor uses the engine's native Debug Adapter Protocol (DAP) server. Use a native debug or headless engine from the same Defold version. Release engines and Web builds do not provide the TCP debugger, and the current editor cannot connect to older engines that only support MobDebug. No `require "builtins.scripts.mobdebug"` call is needed or available in current versions.
 
 To run the debugger, select <kbd>Debug ▸ Start/Attach</kbd>. This starts the game with the debugger attached, or attaches to an already running game. When starting a game for debugging, the editor installs enabled breakpoints before startup scripts run, so you can set a breakpoint in `init()` before launching.
 
@@ -112,7 +112,7 @@ Detaching the debugger
 
 ## Native DAP connections
 
-For an external DAP client, start the listener in a native Defold debug or headless engine, then connect the client to the engine's address and port. This workflow is available since Defold 1.14.1. The editor handles listener setup automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+For an external DAP client, start the listener in a native Defold debug or headless engine, then connect the client to the engine's address and port. The editor handles listener setup automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
 
 ### Starting the listener
 

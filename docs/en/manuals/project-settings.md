@@ -154,7 +154,7 @@ If the time step becomes too large during a single frame, it will be capped to t
 
 ### Display
 
-Since Defold 1.14.1, desktop players launched from the editor can restore a window size saved during an earlier run. Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to clear remembered sizes and return to the configured size while keeping saved window positions. See [player window placement and reset](/manuals/editor/#player-window-placement) for details.
+Desktop players launched from the editor can restore a window size saved during an earlier run. Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to clear remembered sizes and return to the configured size while keeping saved window positions. See [player window placement and reset](/manuals/editor/#player-window-placement) for details.
 
 #### Width
 The width in pixels of the application window.
@@ -214,7 +214,7 @@ Clear color alpha channel, used by the render script and when the window is crea
 ### Font
 
 #### Runtime Generation
-Deprecated since Defold 1.14.1. The `font.runtime_generation` setting has no effect. Set *Glyph Generation* to **Dynamic** in each SDF or Vector font resource that needs runtime generation, and enable **Use full text layout system** in the App Manifest. See [Enabling Runtime Fonts](/manuals/font/#enabling-runtime-fonts) for setup and migration instructions.
+Deprecated. The `font.runtime_generation` setting has no effect. Set *Glyph Generation* to **Dynamic** in each SDF or Vector font resource that needs runtime generation, and enable **Use full text layout system** in the App Manifest. See [Enabling Runtime Fonts](/manuals/font/#enabling-runtime-fonts) for setup and migration instructions.
 
 ---
 
@@ -328,7 +328,7 @@ Set the 'core' OpenGL profile hint when creating the context. The core profile r
 ### Shader
 
 #### Exclude GLES 2.0
-`shader.exclude_gles_sm100` excludes shaders for OpenGLES 2.0 and WebGL 1.0. Enabled by default (`1`) since Defold 1.14.1.
+`shader.exclude_gles_sm100` excludes shaders for OpenGLES 2.0 and WebGL 1.0. Enabled by default (`1`).
 
 To target these graphics APIs or allow fallback to them, uncheck **Shader ▸ Exclude GLES 2.0** in *game.project*, or set:
 
@@ -337,7 +337,7 @@ To target these graphics APIs or allow fallback to them, uncheck **Shader ▸ Ex
 exclude_gles_sm100 = 0
 ```
 
-Existing projects that did not explicitly set this option also use the new default when upgrading to Defold 1.14.1. Set it to `0` explicitly if the project needs OpenGLES 2.0 or WebGL 1.0 support.
+Projects that do not explicitly set this option use the default. Set it to `0` explicitly if the project needs OpenGLES 2.0 or WebGL 1.0 support.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` sets the default global precision qualifier for floating-point values in cross-compiled GLSL ES shaders. Valid values are `mediump` and `highp`; the default is `mediump`.
@@ -384,7 +384,7 @@ Where to find the project build data, in URI format.
 The max number of resources that can be loaded at the same time.
 
 #### Profile
-Since Defold 1.14.1, `resource.profile` enables resource loading timings and INFO-level logs for each completed or failed load. Disabled by default (`0`). Enable it (`1`) before launching the game to measure startup loads. The resource profiler shows retained initial-load measurements for currently loaded resources; click **Capture**, then **Show load times** to inspect them. See [Resource loading times](/manuals/profiling/#resource-loading-times) for the timing columns and how to interpret them.
+`resource.profile` enables resource loading timings and INFO-level logs for each completed or failed load. Disabled by default (`0`). Enable it (`1`) before launching the game to measure startup loads. The resource profiler shows retained initial-load measurements for currently loaded resources; click **Capture**, then **Show load times** to inspect them. See [Resource loading times](/manuals/profiling/#resource-loading-times) for the timing columns and how to interpret them.
 
 ---
 
@@ -611,7 +611,7 @@ Max number of game object factories. [(See information about component max count
 ### iOS
 
 #### Home Indicator Mode
-`ios.home_indicator_mode` controls system gestures at the screen edges and whether the game requests automatic hiding of the Home Indicator. Available since Defold 1.14.1.
+`ios.home_indicator_mode` controls system gestures at the screen edges and whether the game requests automatic hiding of the Home Indicator.
 
 | Value | System gestures | Request automatic hiding |
 |-------|-----------------|--------------------------|
@@ -645,7 +645,7 @@ The bundle version, either a number or x.y.z. (see [`CFBundleVersion`](https://d
 #### Info.plist
 If specified, use this *`Info.plist`* file instead of the built-in iOS base manifest, `/builtins/manifests/ios/Info.plist`, when bundling your app. Projects using the built-in template receive manifest updates automatically; custom files need to be updated explicitly.
 
-For Defold 1.14.1, custom manifests must enable `UIApplicationSupportsIndirectInputEvents` for input source detection and move the generated orientation list into `DefoldSupportedInterfaceOrientations`, while keeping portrait and landscape support in the UIKit orientation arrays. See [Updating a custom Info.plist](/manuals/ios/#updating-a-custom-infoplist) for the required entries.
+Custom manifests must enable `UIApplicationSupportsIndirectInputEvents` for input source detection and move the generated orientation list into `DefoldSupportedInterfaceOrientations`, while keeping portrait and landscape support in the UIKit orientation arrays. See [Updating a custom Info.plist](/manuals/ios/#updating-a-custom-infoplist) for the required entries.
 
 The built-in manifest also contains the local-network and Bonjour entries needed for Editor target discovery in non-release builds. If you supply a custom manifest and need target discovery, profiling, hot reload, or log streaming on a device, preserve those entries as described in [Custom Info.plist and local target discovery](/manuals/ios/#custom-infoplist-and-local-target-discovery).
 
@@ -852,7 +852,7 @@ If set, use the app manifest to customize the engine build. This allows you to r
 
 ### Debugger
 
-Since Defold 1.14.1, these settings control the native Lua DAP listener in debug and headless engines. Web and release builds do not provide the TCP debugger. Add these settings by editing *game.project* as text, or use [configuration overrides on engine startup](#setting-config-values-on-engine-startup). They are not shown in the project settings form. The editor configures the listener automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+These settings control the native Lua DAP listener in debug and headless engines. Web and release builds do not provide the TCP debugger. Add these settings by editing *game.project* as text, or use [configuration overrides on engine startup](#setting-config-values-on-engine-startup). They are not shown in the project settings form. The editor configures the listener automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
 
 For example, to start a local listener and wait for a client to configure breakpoints before startup scripts run:
 

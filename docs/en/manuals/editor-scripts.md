@@ -151,7 +151,7 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
 
 ### Traversing project resources
 
-Since Defold 1.14.1, `editor.resource_children(path)` returns an array of resource paths directly inside a folder or file. Both the input path and the returned paths start with `/`, relative to the project root. Use `/` to start at the project root. A *.gltf* or *.glb* file can expose meshes, materials and embedded images as resource children, just as it does in the *Assets* pane.
+`editor.resource_children(path)` returns an array of resource paths directly inside a folder or file. Both the input path and the returned paths start with `/`, relative to the project root. Use `/` to start at the project root. A *.gltf* or *.glb* file can expose meshes, materials and embedded images as resource children, just as it does in the *Assets* pane.
 
 If your script walks directories with `editor.get(path, "children")`, switch its traversal to `editor.resource_children(path)` and visit every returned path. Files can also contain resources, so restricting recursion to paths whose `editor.resource_attributes(path).is_directory` is `true` will skip those contents.
 
@@ -301,7 +301,7 @@ editor.transact({
 })
 ```
 
-Since Defold 1.14.1, animation nodes expose `frames` instead of `start_tile` and `end_tile`. It is a Lua array of one-based tile numbers in animation order. Unlike the *Frames* text field in the editor, editor scripts take an integer array, not a string such as `"2-6"`. Expand ranges into individual tile numbers in the array. Tiles can appear in any order and may be repeated.
+Animation nodes expose `frames` instead of `start_tile` and `end_tile`. It is a Lua array of one-based tile numbers in animation order. Unlike the *Frames* text field in the editor, editor scripts take an integer array, not a string such as `"2-6"`. Expand ranges into individual tile numbers in the array. Tiles can appear in any order and may be repeated.
 
 To read and modify the `walk` animation from the example above:
 

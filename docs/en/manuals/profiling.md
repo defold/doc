@@ -104,7 +104,7 @@ Resources view
 
 #### Resource loading times
 
-Since Defold 1.14.1, you can also inspect how long individual resources take to load. Enable [Resource → Profile](/manuals/project-settings/#profile) in *game.project* before launching the game. In the text view, this setting is:
+You can also inspect how long individual resources take to load. Enable [Resource → Profile](/manuals/project-settings/#profile) in *game.project* before launching the game. In the text view, this setting is:
 
 ```ini
 [resource]
@@ -130,7 +130,7 @@ An em dash (`—`) means no completed measurement is available, for example beca
 
 ## Metal GPU trace capture
 
-Since Defold 1.14.1, the [engine HTTP service](/manuals/engine-service/#metal-gpu-trace-endpoint) can capture Metal GPU commands to a *.gputrace* document on macOS. Open the completed trace in Xcode to inspect the captured frames. This feature is built into the debug engine.
+The [engine HTTP service](/manuals/engine-service/#metal-gpu-trace-endpoint) can capture Metal GPU commands to a *.gputrace* document on macOS. Open the completed trace in Xcode to inspect the captured frames. This feature is built into the debug engine.
 
 ### Launch and check support
 
