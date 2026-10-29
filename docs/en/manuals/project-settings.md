@@ -154,6 +154,8 @@ If the time step becomes too large during a single frame, it will be capped to t
 
 ### Display
 
+Since Defold 1.14.1, desktop players launched from the editor can restore a window size saved during an earlier run. Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to clear remembered sizes and return to the configured size while keeping saved window positions. See [player window placement and reset](/manuals/editor/#player-window-placement) for details.
+
 #### Width
 The width in pixels of the application window.
 
