@@ -1,7 +1,7 @@
 | System   | Graphics API               | Note                     |
 |----------|----------------------------|--------------------------|
 | macOS    | Metal, OpenGL 3.3 or Vulkan | Metal is the default since Defold 1.14.0; Vulkan via MoltenVK |
-| Windows  | OpenGL 3.3 or Vulkan 1.1   |                          |
+| Windows  | OpenGL 3.3, Vulkan 1.1 or DirectX 12 | OpenGL is the default; select backends in the [app manifest](/manuals/app-manifest/#graphics) |
 | Linux x86-64 | OpenGL 3.3 or Vulkan 1.1 |                        |
 | Linux ARM64  | OpenGL ES or Vulkan 1.1   | EGL/GLES is the default |
 | Android  | OpenGLES 3.0 or Vulkan 1.1 | Optional fallback to OpenGLES 2.0 (see below) |

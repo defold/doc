@@ -9,8 +9,6 @@ The application manifest controls which features and backends are linked into th
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
 # Applying the manifest
 
 In `game.project`, assign the manifest to `Native Extensions` -> `App Manifest`.
@@ -118,11 +116,14 @@ Use the deprecated Android Support Library instead of Android X. [More info](htt
 
 ## Graphics
 
-Select which graphics backends to include for each platform. A combined choice includes both backends so the preferred backend can fall back when it is unavailable.
+Select which graphics backends to include for each platform. A combined choice includes multiple backends so the engine can fall back when its preferred backend is unavailable. Including more backends increases engine size.
+
+Since Defold 1.14.1, Windows and Linux use separate fields. The **DX12** option selects DirectX 12 on Windows.
 
 | Field | Platforms | Choices | Default |
 |---|---|---|---|
-| **Graphics** | Windows and Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
