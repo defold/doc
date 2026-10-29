@@ -48,7 +48,9 @@ In addition to the properties above there will also be a field to assign a mater
 Depending on the material there will be one or more texture properties:
 
 *Texture*
-: This property should point to the texture image file that you want applied to the object.
+: This property should point to the texture image that you want applied to the object. It can be a separate project asset or an embedded image exposed under a glTF or GLB file in the *Assets* pane.
+
+Since Defold 1.14.1, selecting a glTF or GLB *Scene*, or changing its *Mesh* selection, can offer to fill the material and texture bindings. <kbd>Auto Fill</kbd> replaces existing bindings with those from the source; <kbd>Keep Current</kbd> preserves your bindings while applying the new scene or mesh selection. See the [model import workflow](/manuals/importing-models/#using-a-model).
 
 
 ## Editor manipulation

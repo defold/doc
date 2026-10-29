@@ -11,7 +11,7 @@ Since Defold 1.14.1, built-in glTF materials provide PBR lighting. Defold also e
 
 ## Built-in PBR materials
 
-Assign a glTF or GLB file to the *Scene* property of a [Model component](/manuals/model). When the editor offers to fill in materials and textures, accepting the offer applies the scene's generated material bindings, replacing existing bindings if present. These materials use the built-in glTF shaders. You can also assign materials and textures manually.
+Assign a glTF or GLB file to the *Scene* property of a [Model component](/manuals/model). When the editor offers to fill in materials and textures, choose <kbd>Auto Fill</kbd> to apply the scene's generated material bindings, replacing existing bindings if present. These materials use the built-in glTF shaders and can reference embedded images directly. Choose <kbd>Keep Current</kbd> to preserve your bindings and assign materials and textures manually. See the [model import workflow](/manuals/importing-models/#using-a-model) for browsing embedded resources and selecting individual meshes.
 
 The following materials are available in `/builtins/materials/`. Choose the variant that matches your model and whether it uses instancing:
 
