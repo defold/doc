@@ -105,6 +105,7 @@ cutscenes
 ds
 dt
 dae
+DAP
 deadzone
 debuggable
 decrypt
@@ -131,6 +132,7 @@ DotNet
 drawables
 dropdown
 dSYM
+DX
 EDN
 EFIGS
 EGL
@@ -194,10 +196,12 @@ GPUs
 Gradle
 Grafana
 GUI
+GUID
 GUIs
 haxe
 HarfBuzz
 HD
+HDR
 hercule
 hidpi
 Hiero
@@ -254,6 +258,7 @@ khronos
 KiB
 Klayton
 Kowalski
+KTX
 LargeXxxhdpi
 leaderboard
 leaderboards
@@ -296,6 +301,7 @@ mille
 minification
 minifying
 minimap
+mip
 mipmap
 mipmapping
 mipmaps
@@ -318,6 +324,7 @@ NDA
 NDK
 NES
 normals
+Noto
 NPC
 NUL
 NVDA
@@ -349,6 +356,7 @@ playtesting
 plist
 PNG
 Poki
+POSIX
 PowerManager
 pprint
 pragma
@@ -362,6 +370,7 @@ preconnect
 prehash
 preinitialization
 preload
+premultiplication
 premultiplied
 premultiply
 prepending
@@ -370,6 +379,7 @@ preprocessor
 prerendered
 preselect
 prewarm
+prewarms
 Pro
 procedurally
 profi
@@ -396,7 +406,9 @@ raycast
 reactively
 readme
 rebundle
+recompressing
 reconfiguring
+redeclare
 reimported
 reindent
 Remotery
@@ -405,6 +417,7 @@ Rendy
 repo
 retune
 Revolute
+RG
 rgb
 rgba
 Ritzl
@@ -420,6 +433,7 @@ SD
 SDK
 SDKs
 SDL
+SDL's
 SDF
 Sergey
 sha
@@ -474,6 +488,7 @@ TestFlight
 texcoord
 texel
 texels
+texturec
 thrusted
 Tilegrid
 tilemap
@@ -519,12 +534,15 @@ uncompress
 undoable
 unloader
 unlockable
+unmapped
+UNORM
 Unreferenced
 unscaled
 unstripped
 untrusted
 upscaled
 upscaling
+upvalues
 URI
 userdata
 UTF

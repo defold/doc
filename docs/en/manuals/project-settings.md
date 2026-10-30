@@ -154,7 +154,7 @@ If the time step becomes too large during a single frame, it will be capped to t
 
 ### Display
 
-Desktop players launched from the editor can restore a window size saved during an earlier run. Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to clear remembered sizes and return to the configured size while keeping saved window positions. See [player window placement and reset](/manuals/editor/#player-window-placement) for details.
+On desktop platforms, engine windows opened from the editor can restore a size saved during an earlier run. Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to clear remembered sizes and return to the configured size while keeping saved window positions. See [engine window placement and reset](/manuals/editor/#engine-window-placement) for details.
 
 #### Width
 The width in pixels of the application window.
@@ -848,7 +848,7 @@ If set, use the app manifest to customize the engine build. This allows you to r
 
 ### Debugger
 
-These settings control the native Lua DAP listener in debug and headless engines. Web and release builds do not provide the TCP debugger. Add these settings by editing *game.project* as text, or use [configuration overrides on engine startup](#setting-config-values-on-engine-startup). They are not shown in the project settings form. The editor configures the listener automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+These settings control [debugger connections](/manuals/debugging-game-logic/#native-dap-connections) in native debug and headless builds. Release and Web builds do not support attaching the debugger. Add these settings by editing *game.project* as text, or use [configuration overrides on engine startup](#setting-config-values-on-engine-startup). They are not shown in the project settings form. The editor configures the connection automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
 
 For example, to start a local listener and wait for a client to configure breakpoints before startup scripts run:
 

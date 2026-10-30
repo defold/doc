@@ -38,11 +38,11 @@ Note that you probably want to update this data every frame so posting the messa
 
 ## Running the debugger
 
-The editor uses the engine's native Debug Adapter Protocol (DAP) server. Use a native debug or headless engine from the same Defold version. Release engines and Web builds do not provide the TCP debugger, and the current editor cannot connect to older engines that only support MobDebug. No `require "builtins.scripts.mobdebug"` call is needed or available in current versions.
+The Lua debugger is available in native debug and headless builds. Use an engine from the same Defold version as the editor. Release and Web builds do not support attaching the debugger.
 
 To run the debugger, select <kbd>Debug ▸ Start/Attach</kbd>. This starts the game with the debugger attached, or attaches to an already running game. When starting a game for debugging, the editor installs enabled breakpoints before startup scripts run, so you can set a breakpoint in `init()` before launching.
 
-To attach to a device, select it under <kbd>Project ▸ Targets</kbd>, then choose <kbd>Debug ▸ Start/Attach</kbd>. Attachment pauses at the next Lua line. The editor starts the native listener automatically for supported local and remote targets. See [Remote targets](#remote-targets) for connection requirements, or [Native DAP connections](#native-dap-connections) to connect an external debugger.
+To attach to a device, select it under <kbd>Project ▸ Targets</kbd>, then choose <kbd>Debug ▸ Start/Attach</kbd>. Attachment pauses at the next Lua line. The editor sets up the debugger connection automatically for supported local and remote targets. See [Remote targets](#remote-targets) for connection requirements, or learn how to [connect an external debugger](#native-dap-connections).
 
 ![overview](images/debugging/overview.png)
 
@@ -118,7 +118,9 @@ Detaching the debugger
 
 ## Native DAP connections
 
-For an external DAP client, start the listener in a native Defold debug or headless engine, then connect the client to the engine's address and port. The editor handles listener setup automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+The engine provides a native Debug Adapter Protocol (DAP) server over TCP. For an external DAP client, start the listener in a native Defold debug or headless engine, then connect the client to the engine's address and port. The editor handles listener setup automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+
+The current editor cannot connect to older engines that only support MobDebug. No `require "builtins.scripts.mobdebug"` call is needed or available in current versions.
 
 ### Starting the listener
 
@@ -196,7 +198,7 @@ If VS Code opens a `.script`, `.gui_script` or `.render_script` file as plain te
 
 Set a breakpoint, for example in a script's `init()` function. Start the engine using the [startup command above](#starting-the-listener), then select **Attach to Defold Lua** in VS Code's **Run and Debug** view. With `debugger.wait=1`, the engine runs startup scripts after the client has installed the breakpoints. Set `stopOnEntry` to `true` if you also want to pause at the next Lua line after attachment.
 
-VS Code's [`debugServer` setting](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug) connects directly to the engine's local TCP listener. The `address` field is required by Lua Debug's attach configuration. If you change the listener port, update both fields. `localRoot` must point to the project folder so the client can map the engine's Lua source names to your files.
+VS Code's [`debugServer` setting](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug) connects directly to the engine's local TCP listener. The `address` field is required by the Lua Debug extension's attach configuration. If you change the listener port, update both fields. `localRoot` must point to the project folder so the client can map the engine's Lua source names to your files.
 
 For a remote engine, forward its DAP port to localhost and put the forwarded port in both fields, or use a DAP client that connects directly to the remote host.
 
