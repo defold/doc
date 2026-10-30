@@ -85,6 +85,10 @@ For this feature to work, you will need *ADB* installed and *USB debugging* enab
 
 An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *`.apk`* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Display cutouts
+
+`window.get_reserved_areas()` reports display cutout rectangles on Android 9 (API level 28) and later. Use `window.get_safe_area()` when you need a safe layout rectangle. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinate units, behavior on unsupported platforms, and how to refresh your layout when the reported areas change.
+
 ## Shrinking Java code and Android resources with R8 {#shrinking-java-code-with-r8}
 
 R8 reduces the size of Java code through shrinking, optimization and obfuscation. With Defold 1.14.0 or later and a compatible Extender build server, it also removes unused Android resources, such as layouts, drawables and raw resources supplied by extensions and their Android dependencies. Defold game assets in the game archive are not processed by R8.
@@ -102,7 +106,7 @@ Make sure every extension with Java code provides a `.keep` file for the classes
 
 Leaving **R8 Keep Rules** empty uses D8 without shrinking. Enabling R8 uses the native extension build service, even for a project without native extensions.
 
-Starting with Defold 1.14.0, Android resource shrinking is enabled by the same **R8 Keep Rules** setting; there is no separate project setting for it. Older Defold SDKs retain code-only R8 shrinking.
+Android resource shrinking is enabled by the same **R8 Keep Rules** setting; there is no separate project setting for it. Older Defold SDKs retain code-only R8 shrinking.
 
 ### Adding rules to an extension
 

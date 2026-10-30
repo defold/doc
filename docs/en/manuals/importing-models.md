@@ -18,29 +18,62 @@ To import a model, drag and drop the *.gltf* or *.glb* file into the Defold edit
 glTF can be stored in two common ways:
 
 * *.glb* is a single binary file. It contains the model data and may also contain packed texture images. This is convenient when you want to move or store a model as one file.
-* *.gltf* is a text-based JSON file. It usually references a separate *.bin* file for mesh data and separate texture images such as *.png* or *.jpg*. When using this variant, add all referenced files to the project and keep their relative paths intact.
+* *.gltf* is a text-based JSON file. It usually references a separate *.bin* file for mesh data and separate texture images such as *.png*, *.jpg* or *.ktx2*. When using this variant, add all referenced files to the project and keep their relative paths intact.
 
-If the model should use a texture in Defold, import the texture image as a separate asset. Even when the source glTF/GLB file contains embedded images, textures must be assigned to the Model component through the component material texture properties.
-
-![Imported model assets](images/model/assets_gltf.png)
+Embedded images can be used directly from a glTF or GLB file without extracting them into separate assets. External image and buffer files must still be imported with the model, with their relative paths preserved.
 
 ::: sidenote
-Starting with Defold 1.13.0, Defold preserves the positions and transforms from the imported glTF file and does not automatically re-center the model during import. The editor preview and runtime use the imported transforms consistently: skinned or bone-parented meshes preserve their local, skeleton-relative transforms, while rigid meshes retain their flattened world placement.
+Defold preserves the positions and transforms from the imported glTF file and does not automatically re-center the model during import. The editor preview and runtime use the imported transforms consistently: skinned or bone-parented meshes preserve their local, skeleton-relative transforms, while rigid meshes retain their flattened world placement.
 
-Since Defold 1.13.2, a [Model component](/manuals/model/#model-properties) can select a single named mesh from the imported scene. Leaving its *Mesh* field empty uses the whole scene and preserves the transforms described above. Selecting a mesh uses its local geometry without the glTF node transforms, so place it using the model component or game object's transform.
+A [Model component](/manuals/model/#model-properties) can select a single named mesh from the imported scene. Leaving its *Mesh* field empty uses the whole scene and preserves the transforms described above. Selecting a mesh uses its local geometry without the glTF node transforms, so place it using the model component or game object's transform.
 
 If a model created with an older version of Defold changes position or orientation after being reimported, correct the transform in Blender or another authoring tool and export the *.gltf* or *.glb* file again.
 :::
+
+### Compressed geometry
+
+*.gltf* and *.glb* sources can contain geometry compressed with Draco or Meshopt. The supported glTF compression extensions are:
+
+| Compression | glTF extension |
+| --- | --- |
+| Draco | `KHR_draco_mesh_compression` |
+| Meshopt | `EXT_meshopt_compression` and `KHR_meshopt_compression` |
+
+Export or optimize your glTF 2.0 asset using one of these extensions, then import it using the same steps as an uncompressed model. Include any external buffers and textures and preserve their relative paths. Assign the imported file to a Model component's *Scene* property as usual.
+
+Defold decodes the compressed geometry during import and build. The resulting model uses Defold's normal runtime geometry representation. This support does not enable Draco or Meshopt compression in the running engine, and a smaller source file does not guarantee a smaller game bundle.
+
+### Browsing the imported scene
+
+Expand a *.gltf* or *.glb* file in the *Assets* pane to browse its meshes, generated materials and embedded images. Opening the scene previews it with its defined materials and textures. You can also open an individual mesh for a preview.
+
+The resources exposed inside the file are read-only. To create an editable Model resource for a mesh, copy the mesh and paste it into a project folder. The resulting *.model* file still references the imported glTF or GLB file. To change the source geometry or embedded images, edit the asset in your authoring tool and export it again.
+
+Editor scripts can enumerate these resources with `editor.resource_children(path)`. See [Traversing project resources](/manuals/editor-scripts/#traversing-project-resources) for an example that recursively visits resources inside folders and glTF/GLB files.
+
+### KTX2 textures
+
+Model textures can use *.ktx2* sources, either as external files or as images embedded in a *.gltf* or *.glb* file. Import external files alongside the model. Embedded KTX2 images appear under the scene in the *Assets* pane and can be assigned directly to material texture fields or through <kbd>Auto Fill</kbd>.
+
+[Texture profiles](/manuals/texture-profiles/#ktx2-source-textures) determine whether to keep the KTX2 source format or convert it to the configured output formats. **Keep KTX2 Format** preserves the source encoding format when texture compression is enabled, but image processing can still require re-encoding. Check the format's support on your target devices and account for possible additional quality loss when recompressing an already compressed texture. See [KTX2 input formats and previews](/manuals/importing-graphics/#ktx2-textures).
 
 ## Using a model
 Once you have imported the model, use it in a [Model component](/manuals/model):
 
 1. Create a Model file from the *Assets* pane with <kbd>New... ▸ Model</kbd>, or add a Model component directly to a game object with <kbd>Add Component ▸ Model</kbd>.
-2. Set the *Scene* property to the imported *.gltf* or *.glb* file. Leave *Mesh* empty to use the whole scene, or select a named mesh to use only its local geometry.
-3. For an animated model, set the *Skeleton* property to the *.gltf* or *.glb* file containing the skeleton. This is often the same file used for *Scene* when mesh, skeleton and animations are exported together.
-4. Create an *Animation Set* file for the animations and assign it to the *Animations* property. Set *Default Animation* if you want an animation to start automatically.
-5. Set the *Material* property to a material suitable for the model. The built-in *model.material*, *model_instanced.material*, *model_skinned.material* and *model_skinned_instanced.material* files are useful starting points. The skinned materials use local vertex space so skinning can run on the GPU; custom materials for GPU-skinned or instanced models should also use local vertex space. See the [Model manual](/manuals/model/#material) for the graphics-adapter requirement.
-6. Set the material texture properties, such as *Texture*, to the imported texture image files. If the material uses multiple textures, assign each texture in the corresponding material texture field.
+2. Set the *Scene* property to the imported *.gltf* or *.glb* file.
+3. When the *Auto Fill Model Fields?* dialog appears, choose <kbd>Auto Fill</kbd> to assign the scene's generated materials and referenced textures. This replaces existing material and texture bindings. Choose <kbd>Keep Current</kbd> to preserve your bindings; the new scene selection still takes effect.
+4. Leave *Mesh* empty to use the whole scene, or select a named mesh to use only its local geometry. Changing the mesh selection can show the same dialog: selecting a mesh offers its materials, while clearing the selection offers all materials in the scene. <kbd>Keep Current</kbd> preserves bindings while applying the new mesh selection.
+5. For an animated model, set the *Skeleton* property to the *.gltf* or *.glb* file containing the skeleton. This is often the same file used for *Scene* when mesh, skeleton and animations are exported together.
+6. Create an *Animation Set* file for the animations and assign it to the *Animations* property. Set *Default Animation* if you want an animation to start automatically.
+
+The editor offers to fill bindings when the selected glTF or GLB source exposes materials. It resolves both embedded images and external image references. The generated materials use the built-in glTF shaders; see the [PBR manual](/manuals/physically-based-rendering/#built-in-pbr-materials) for lighting and supported material effects.
+
+### Assigning materials and textures manually
+
+If you choose <kbd>Keep Current</kbd>, or need custom shading, set each *Material* property to a suitable material. The built-in `gltf` materials provide PBR shading; the built-in `model` materials and your own materials are also available. See the [Model manual](/manuals/model/#material) for the static, skinned and instanced variants and their requirements.
+
+Assign each texture to the corresponding material texture field. You can use an embedded image exposed under the glTF or GLB file in the *Assets* pane, or a separate image asset in the project. For materials with multiple samplers, match each texture to its intended sampler; the [PBR manual lists the built-in glTF sampler names](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 
 ## Exporting to glTF
@@ -57,13 +90,13 @@ Defold imposes some limitations on exported animation data:
 * Animations are also linearly interpolated. If you do more advanced curve interpolation the animations needs to be prebaked from the exporter.
 
 ### Requirements
-When you export a model, keep in mind that glTF support can differ between tools and engines. Use glTF 2.0, make sure the model has correct UV coordinates if it uses textures, and import texture images separately when they should be assigned to a Model component.
+When you export a model, keep in mind that glTF support can differ between tools and engines. Use glTF 2.0 and make sure the model has correct UV coordinates if it uses textures. Images can be embedded in the glTF or GLB file, or stored in separate files referenced by the scene. Include all external image and buffer files when importing the model into Defold.
 
 While our ambition is to fully support the glTF format, we're not fully there yet.
 If a feature is missing, please make a feature request for it in [our repo](https://github.com/defold/defold/issues)
 
 ### Exporting a texture
-If you do not already have a texture for your model you can use Blender to generate a texture. You should do this before you remove extra materials from the model. Start by selecting the mesh and all of its vertices:
+If you want to create a texture image manually, you can export the UV layout from Blender as a template. Start by selecting the mesh and all of its vertices:
 
 ![Select all](images/model/blender_select_all_vertices.png)
 

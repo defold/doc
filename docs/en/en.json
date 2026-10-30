@@ -1783,6 +1783,10 @@
                     {
                         "path": "/manuals/debugging-game-and-system-logs",
                         "name": "Reading game and system logs"
+                    },
+                    {
+                        "path": "/manuals/recording",
+                        "name": "Video recording"
                     }
                 ]
             },

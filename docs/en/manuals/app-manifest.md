@@ -9,8 +9,6 @@ The application manifest controls which features and backends are linked into th
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
 # Applying the manifest
 
 In `game.project`, assign the manifest to `Native Extensions` -> `App Manifest`.
@@ -36,7 +34,7 @@ Control rig and model functionality, or select None to exclude model and rig com
 
 ## Exclude Record
 
-Excluded the video recording capability from the engine (see the [`start_record`](https://defold.com/ref/sys/#start_record) message documentation).
+Exclude native MP4 recording, the [`recorder` Lua module](/ref/recorder/) and the recording HTTP service from desktop debug builds. Recording is already omitted from release, headless, mobile and web builds. See the [recording manual](/manuals/recording) for the workflow.
 
 
 ## Profiler
@@ -118,11 +116,14 @@ Use the deprecated Android Support Library instead of Android X. [More info](htt
 
 ## Graphics
 
-Select which graphics backends to include for each platform. A combined choice includes both backends so the preferred backend can fall back when it is unavailable.
+Select which graphics backends to include for each platform. A combined choice includes multiple backends so the engine can fall back when its preferred backend is unavailable. Including more backends increases engine size.
+
+Windows and Linux use separate fields. The **DX12** option selects DirectX 12 on Windows.
 
 | Field | Platforms | Choices | Default |
 |---|---|---|---|
-| **Graphics** | Windows and Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -130,11 +131,11 @@ Select which graphics backends to include for each platform. A combined choice i
 
 On Linux ARM64, the **OpenGL** choice uses the OpenGL ES backend. The Android combined default prefers Vulkan when available and falls back to OpenGL ES.
 
-Since Defold 1.14.0, macOS uses the native Metal backend by default. The **Vulkan** choice on macOS and iOS uses Vulkan through MoltenVK. The iOS simulator (`arm64_sim-ios`) always uses Metal, regardless of the **Graphics (iOS)** choice for devices.
+macOS uses the native Metal backend by default. The **Vulkan** choice on macOS and iOS uses Vulkan through MoltenVK. The iOS simulator (`arm64_sim-ios`) always uses Metal, regardless of the **Graphics (iOS)** choice for devices.
 
 ## Use full text layout system
 
-If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option together with `font.runtime_generation` in *game.project* to use runtime generation for SDF fonts from TrueType (`.ttf`) or OpenType (`.otf`) resources. Runtime generation from `.otf` resources is supported since Defold 1.13.2. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
+If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option to use runtime generation for TrueType (`.ttf`) or OpenType (`.otf`) fonts, and set *Glyph Generation* to **Dynamic** in each font resource that needs it. Dynamic generation supports both **SDF** and **Vector** modes. The former `font.runtime_generation` setting in *game.project* is deprecated and has no effect. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text

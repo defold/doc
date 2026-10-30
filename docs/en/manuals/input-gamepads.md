@@ -104,11 +104,23 @@ end
 ```
 
 ## Gamepads settings file
-Gamepad input setup uses a separate mapping file for each hardware gamepad type. Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
+
+Gamepad mappings translate a controller's buttons, axes and hats into the standard controls used by your input bindings. Defold combines two mapping sources configured in the *Input* section of *game.project*:
+
+| Setting | Mapping format | Default |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | SDL-format text database, matched using the controller's GUID | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Legacy `.gamepads` entries for device names and platforms | `/builtins/input/default.gamepads` |
+
+SDL database mappings and automatic platform mappings use [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Legacy `.gamepads` entries define their own dead zones. On Android, a controller without a database entry may also receive an [automatic mapping](#gamepads-on-android).
+
+### Legacy .gamepads mappings
+
+A `.gamepads` file can contain mappings for multiple controllers. Existing legacy mappings remain supported. Defold includes mappings for common controllers in the default file:
 
 ![Gamepad settings](images/input/gamepads.png)
 
-If you need to create a new gamepad settings file, we have a simple tool to help:
+If you need to create a legacy `.gamepads` mapping on a desktop platform, the following tool can help. For Android, first use the [diagnostics below](#diagnosing-an-android-controller) to check the selected mapping and raw layout.
 
 [Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -124,7 +136,7 @@ The tool will ask you to press different buttons on your connected controller. I
 
 ### Unidentified gamepads
 
-When a gamepad is connected and no mapping exists for the gamepad the gamepad will only generate `connected`, `disconnected` and `raw` actions. In this case you need to manually map the raw gamepad data to actions in your game.
+When neither a configured mapping nor an automatic platform mapping is available, the gamepad only generates the actions bound to `Connected`, `Disconnected` and `Raw`. You can add a controller mapping or handle its raw input in your game. A missing SDL database entry alone does not mean that the controller is unidentified: Android can provide mapped controls based on the device's reported capabilities.
 
 It is possible to check if an input action for a gamepad is from an unknown gamepad or not by reading the `gamepad_unknown` value from the `action`:
 
@@ -138,7 +150,7 @@ function on_input(self, action_id, action)
         end
     end
 end
-``` 
+```
 
 ## Gamepads in HTML5
 Gamepads are supported in HTML5 builds and generate the same input events as on other platforms. Support for gamepads is based on the [Gamepad API](https://www.w3.org/TR/gamepad/) which is supported in most browsers ([refer to this support chart](https://caniuse.com/?search=gamepad)). If the browser doesn't support the Gamepad API Defold will silently ignore any Gamepad triggers in your project. You can check if the browser supports the Gamepad API by checking if the `getGamepads` function exists on the `navigator` object:
@@ -168,9 +180,55 @@ On Windows, only XBox 360 controllers are currently supported. To hook up your 3
 
 ## Gamepads on Android
 
-Gamepads are supported in Android builds and generate the same input events as on other platforms. Support for gamepads is based on the [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input). The Android input events will be translated to Defold gamepad events using the same *gamepad* file as described above.
+Gamepads are supported in Android builds and generate the same input actions as on other platforms. Support is based on the [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input).
 
-When adding additional gamepad bindings on Android you can use the following lookup tables to translate from the Android input events to *gamepad* file values:
+Android controller GUIDs and the raw layout used by SDL mappings follow SDL's Android conventions. Defold selects a mapping in this order:
+
+1. A matching GUID entry from the configured SDL gamepad database.
+2. A matching legacy `.gamepads` entry for the device name.
+3. An automatic mapping based on the buttons and axes reported by the Android device, if eligible.
+4. Raw input only, with `action.gamepad_unknown` set to `true`.
+
+The automatic fallback requires an Android capability GUID reporting at least one standard face button. Controllers reporting Nintendo's vendor ID require a dedicated mapping and are excluded from this fallback. Automatic mapping therefore does not cover every controller, but an eligible controller can generate normal button and stick actions without a database entry.
+
+Legacy mappings continue to use the original Android button and axis layout. The fixed tables below describe that layout; SDL database mappings use SDL's layout, and the automatic fallback produces standard mapped controls.
+
+### Diagnosing an Android controller
+
+Before authoring a mapping, run a debug build on the Android device and inspect the connection and raw input. In your input bindings, add `Connected` as `gamepad_connected`, `Disconnected` as `gamepad_disconnected`, and `Raw` as `raw`. Also bind the buttons and sticks you want to test. Add this `.script` to a game object:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("gamepad_connected") then
+        print("Gamepad:", action.gamepad, action.gamepad_name)
+        print("GUID:", action.gamepad_guid)
+        print("Unmapped:", action.gamepad_unknown)
+    elseif action_id == hash("gamepad_disconnected") then
+        print("Disconnected gamepad:", action.gamepad)
+    elseif action_id == hash("raw") then
+        print("Raw gamepad:", action.gamepad)
+        pprint(action.gamepad_buttons)
+        pprint(action.gamepad_axis)
+        pprint(action.gamepad_hats)
+    elseif action.gamepad ~= nil then
+        print("Mapped gamepad action:", action.gamepad, action_id, action.value)
+    end
+end
+```
+
+The name and GUID are supplied with the connected action. `gamepad_unknown == false` means a mapping was selected, including an automatic mapping; test each control to check that the mapping is correct. The [engine connection log](/manuals/debugging-game-and-system-logs) includes the GUID and reports automatic, legacy or raw fallback use.
+
+If the controller is unmapped or its controls are incorrect, record its name, GUID and raw button/axis/hat values on the Android device. Use an Android SDL mapping for that GUID in the configured *Gamepad Database*, or add a legacy `.gamepads` entry for its device name. Test again after rebuilding and reconnecting the controller.
+
+Raw indices depend on the selected layout. An unidentified Android controller uses the legacy raw layout, so do not copy those indices into an SDL database entry. The Lua raw-input arrays start at index `1`, while mapping indices start at `0`.
+
+### Legacy Android mapping tables
+
+Use the following tables when writing a legacy `.gamepads` mapping. These indices remain valid for existing legacy bindings; they do not describe the SDL database or automatic mapping layouts.
 
 | Key event to button index   | Index |
 |-----------------------------|-------|
@@ -226,4 +284,4 @@ When adding additional gamepad bindings on Android you can use the following loo
 
 ([Android `MotionEvent` definitions](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
 
-Use this lookup table in combination with a gamepad test app from the Google Play Store to figure out which key event each button on your gamepad is mapped to.
+Compare the Android key and motion events reported by the device with these tables when assigning indices in a legacy `.gamepads` entry.

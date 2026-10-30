@@ -189,7 +189,7 @@ Frustum culling is implemented in the engine per component type. Current status:
 
 
 ::: sidenote
-Starting with Defold 1.13.0, component primitives use counter-clockwise vertex winding, with the primitive normal pointing towards the camera. Sprites, GUI nodes, tilemaps (tilegrids), and Particle FX use the same winding as other component types, so the same face-culling settings can be used for all components.
+Component primitives use counter-clockwise vertex winding, with the primitive normal pointing towards the camera. Sprites, GUI nodes, tilemaps (tilegrids), and Particle FX use the same winding as other component types, so the same face-culling settings can be used for all components.
 
 This may affect projects that set face culling for components other than models. If a component is unexpectedly culled, make sure back faces are selected with `render.set_cull_face(graphics.FACE_TYPE_BACK)`, or remove the `render.set_cull_face()` call to use the default `graphics.FACE_TYPE_BACK` mode.
 :::

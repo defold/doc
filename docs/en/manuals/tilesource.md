@@ -50,28 +50,33 @@ Collision
 
 ## Tile source flip-book animations
 
-To define an animation in a tile source the animation frame tiles must lie next to each other in a sequence left to right. The sequence can wrap from one row to the next. All newly created tile sources have a default animation named "`anim`". You can add new animations by <kbd>right clicking</kbd> the tile source root in the *Outline* and selecting <kbd>Add ▸ Animation</kbd>.
+To define an animation in a tile source, select the tiles to play using the animation's *Frames* property. Tiles can appear in any order, including repetitions, so you do not need to rearrange the source image. All newly created tile sources have a default animation named "`anim`". You can add new animations by <kbd>right clicking</kbd> the tile source root in the *Outline* and selecting <kbd>Add ▸ Animation</kbd>.
 
 Selecting an animation displays the animation *Properties*.
-
-![Tile Source animation](images/tilemap/animation.png)
 
 Id
 : The identity of the animation. Must be unique for the tile source.
 
-Start Tile
-: The first tile of the animation. Numbering starts at 1 in the top left corner and goes to the right, line by line down to the bottom right corner.
+Frames
+: The tile numbers in animation order, separated by commas. Numbering starts at 1 in the top left corner and goes to the right, line by line down to the bottom right corner. You can repeat tile numbers and use inclusive ranges in either direction.
 
-End Tile
-: The last tile of the animation.
+| Frames | Expanded sequence |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+The editor displays consecutive runs of at least three frames as ranges. For example, `1, 2, 3` becomes `1-3`, while `1, 2` stays as two tile numbers. Frame order and repetitions are preserved. The list must contain at least one frame, and every tile number must exist in the source image.
+
+*Frames* replaces *Start Tile* and *End Tile*. The editor converts valid ranges in older tile source files to frame lists. For editor scripts, use the `frames` integer array instead of `start_tile` and `end_tile`; see [Editing tilesources](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
-: Specifies how the animation should play:
+: Specifies how the animation should play through the *Frames* list:
 
   - `None` does not play back at all, the first image is displayed.
   - `Once Forward` plays the animation one time from the first to the last image.
   - `Once Backward` plays the animation one time from the last to the first image.
-  - `Once Ping Pong` plays the animation one time from the first to the last image and then back to the first image.
+  - `Once Ping Pong` plays the animation one time from the first to the last image and then back to the second image.
   - `Loop Forward` plays the animation repeatedly from the first to the last image.
   - `Loop Backward` plays the animation repeatedly from the last to the first image.
   - `Loop Ping Pong` plays the animation repeatedly from the first to the last image and then back to the first image.

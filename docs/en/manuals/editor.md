@@ -130,6 +130,22 @@ On the bottom bar of the Editor you can find a narrow space in which the Status 
 - when a new update is available a clickable button `Update Available` will be visible - check section Updating the Editor in this manual below.
 - when building or bundling a progress of it will be presented there.
 
+## Engine window placement
+
+On desktop platforms, engine windows opened from the editor remember their normal windowed size and position across launches and engine reboots. Placement is saved separately for each project and engine instance. Launching a single engine instance uses the same saved placement as the first instance when launching several.
+
+If you move or resize the engine window, a later launch restores that placement. A remembered size is used while the configured window dimensions are unchanged; changing those dimensions makes the next launch use the new size. On Linux Wayland, only the size is restored because the desktop compositor controls window positioning.
+
+### Resetting the engine window size
+
+Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to return to the configured size. This command:
+
+- Clears remembered window sizes for all engine instances in the current project, including instances that are not running.
+- Clears the selected simulated resolution and turns off **Rotated Device**.
+- Keeps saved window positions.
+
+Windows for the selected running engine instances are resized to the project's [Display Width and Height](/manuals/project-settings/#display). You can also reset with no engine running; the next launch uses the configured size. Moving or resizing the window afterward saves its new placement again.
+
 ## Panes Size and Visibility
 
 Panes size can be adjusted inside the Editor by <kbd>Dragging</kbd> the section borders between all described above 6 Panes.

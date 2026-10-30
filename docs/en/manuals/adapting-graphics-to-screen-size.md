@@ -97,7 +97,9 @@ If you also wish to support high resolution retina screens you can enable this i
 
 ![](images/screen_size/highdpi-enabled.png)
 
-This will create a high dpi back buffer on displays that support it. The game will render in double the resolution than what is set in the Width and Height settings, which will still be the logical resolution used in scripts and properties. This means that all measurements stay the same and any content that is rendered at 1x scale will look the same. But if you import high res images and scale them to 0.5x they will be high dpi on screen.
+High DPI lets the game use the display's pixel density for its rendering resolution. The *Width* and *Height* settings still define the project's logical resolution, while the rendering scale depends on the platform and display. For example, at a scale of 2, images imported at twice their intended size and drawn at 0.5x can retain their detail on a dense display.
+
+On HTML5, the scale starts with the browser's device pixel ratio. `html5.min_pixel_ratio` and `html5.max_pixel_ratio` can bound this scale when `display.high_dpi` is enabled. Each limit defaults to `0` (disabled), and fractional ratios, including values below `1`, are supported. These limits change the canvas rendering resolution while preserving its CSS display size. With High DPI disabled, the ratio stays at `1`. See [Pixel ratio limits](/manuals/html5/#pixel-ratio-limits) for an example that caps rendering on dense displays.
 
 
 ## Creating an adaptive GUI

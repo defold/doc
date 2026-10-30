@@ -154,6 +154,8 @@ If the time step becomes too large during a single frame, it will be capped to t
 
 ### Display
 
+On desktop platforms, engine windows opened from the editor can restore a size saved during an earlier run. Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to clear remembered sizes and return to the configured size while keeping saved window positions. See [engine window placement and reset](/manuals/editor/#engine-window-placement) for details.
+
 #### Width
 The width in pixels of the application window.
 
@@ -162,6 +164,8 @@ The height in pixels of the application window.
 
 #### High Dpi
 Creates a high dpi back buffer on displays that support it. Typically the game will render in double the resolution than what is set in the *Width* and *Height* settings, which will still be the logical resolution used in scripts and properties.
+
+On HTML5, use [Min Pixel Ratio](#min-pixel-ratio) and [Max Pixel Ratio](#max-pixel-ratio) to bound the rendering scale when this setting is enabled.
 
 #### Samples
 How many samples to use for super sampling anti-aliasing. It sets the `GLFW_FSAA_SAMPLES` window hint. A value of `0` means that anti-aliasing is turned off.
@@ -210,7 +214,7 @@ Clear color alpha channel, used by the render script and when the window is crea
 ### Font
 
 #### Runtime Generation
-Use runtime font generation.
+Deprecated. The `font.runtime_generation` setting has no effect. Set *Glyph Generation* to **Dynamic** in each SDF or Vector font resource that needs runtime generation, and enable **Use full text layout system** in the App Manifest. See [Enabling Runtime Fonts](/manuals/font/#enabling-runtime-fonts) for setup and migration instructions.
 
 ---
 
@@ -305,7 +309,7 @@ The texture profiles file to use for this project, `/builtins/graphics/default.t
 Verify the return value after each graphics call and report any errors in the log.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` selects the WebGL context version to request for HTML5. Valid values are `1` (WebGL 1) and `2` (WebGL 2, the default). Set it to `1` to target or test WebGL 1 even on a browser that supports WebGL 2. Keep [Exclude GLES 2.0](#exclude-gles-20) disabled when targeting WebGL 1 so the required shaders are included.
+`graphics.webgl_version_hint` selects the WebGL context version to request for HTML5. Valid values are `1` (WebGL 1) and `2` (WebGL 2, the default). Set it to `1` to target or test WebGL 1 even on a browser that supports WebGL 2. Disable [Exclude GLES 2.0](#exclude-gles-20) when targeting WebGL 1 so the required shaders are included.
 
 #### OpenGL Version Hint
 OpenGL context version hint. If a specific version is selected, this will be used as the minimum version required (does not apply to OpenGL ES).
@@ -324,7 +328,16 @@ Set the 'core' OpenGL profile hint when creating the context. The core profile r
 ### Shader
 
 #### Exclude GLES 2.0
-Don't compile shaders for devices running OpenGLES 2.0 / WebGL 1.0.
+`shader.exclude_gles_sm100` excludes shaders for OpenGLES 2.0 and WebGL 1.0. Enabled by default (`1`).
+
+To target these graphics APIs or allow fallback to them, uncheck **Shader ▸ Exclude GLES 2.0** in *game.project*, or set:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+Projects that do not explicitly set this option use the default. Set it to `0` explicitly if the project needs OpenGLES 2.0 or WebGL 1.0 support.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` sets the default global precision qualifier for floating-point values in cross-compiled GLSL ES shaders. Valid values are `mediump` and `highp`; the default is `mediump`.
@@ -369,6 +382,9 @@ Where to find the project build data, in URI format.
 
 #### Max Resources
 The max number of resources that can be loaded at the same time.
+
+#### Profile
+`resource.profile` enables resource loading timings and INFO-level logs for each completed or failed load. Disabled by default (`0`). Enable it (`1`) before launching the game to measure startup loads. The resource profiler shows retained initial-load measurements for currently loaded resources; click **Capture**, then **Show load times** to inspect them. See [Resource loading times](/manuals/profiling/#resource-loading-times) for the timing columns and how to interpret them.
 
 ---
 
@@ -594,6 +610,17 @@ Max number of game object factories. [(See information about component max count
 
 ### iOS
 
+#### Home Indicator Mode
+`ios.home_indicator_mode` controls system gestures at the screen edges and whether the game requests automatic hiding of the Home Indicator.
+
+| Value | System gestures | Request automatic hiding |
+|-------|-----------------|--------------------------|
+| `deferred` (default) | Protects all screen edges by deferring system gestures. Returning Home requires two swipes. | No |
+| `system` | Uses normal system gestures, allowing a single swipe to return Home. | No |
+| `auto_hide` | Uses normal system gestures, allowing a single swipe to return Home. | Yes |
+
+iOS controls the indicator's actual visibility. Automatic hiding is a request, and on iOS 26 and later the system may hide the indicator in both `system` and `auto_hide` modes. See [Home Indicator behavior](/manuals/ios/#home-indicator-behavior) for a configuration example.
+
 #### App Icon 57x57--180x180
 Image file (.png) to use as application icon at given width and height dimensions `W` &times; `H`.
 
@@ -616,7 +643,7 @@ The bundle short name (15 characters) (see [`CFBundleName`](https://developer.ap
 The bundle version, either a number or x.y.z. (see [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-If specified, use this *`Info.plist`* file instead of the built-in iOS base manifest when bundling your app. The built-in manifest contains the local-network and Bonjour entries needed for Editor target discovery in non-release builds. If you supply a custom manifest and need target discovery, profiling, hot reload, or log streaming on a device, preserve those entries as described in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
+If specified, use this *`Info.plist`* file instead of the built-in iOS base manifest, `/builtins/manifests/ios/Info.plist`, when bundling your app. Projects using the built-in template receive manifest updates automatically; custom files need to be updated explicitly.
 
 #### Privacy Manifest
 The Apple Privacy Manifest for the application. The field will default to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -685,7 +712,7 @@ Whether or not the application can be debugged using tools such as [GAPID](https
 #### R8 Keep Rules
 `android.r8_keep_rules` selects a `.keep` file to enable R8 shrinking, optimization and obfuscation of Java code in Android builds. Leave the setting empty to use D8 without shrinking.
 
-With Defold 1.14.0 or later and a compatible Extender build server, this also removes unused Android resources. Resources loaded dynamically may need separate [XML keep rules](/manuals/android/#keeping-android-resources).
+With a compatible Extender build server, this also removes unused Android resources. Resources loaded dynamically may need separate [XML keep rules](/manuals/android/#keeping-android-resources).
 
 Select `/builtins/manifests/android/dmengine.keep` to use Defold's default rules directly. Extensions supply their own [keep rules](/manuals/extensions/#r8-keep-rules-for-android), which are combined with this file.
 
@@ -773,6 +800,14 @@ When enabled this option will print information about the engine and engine vers
 #### Scale Mode
 Specifies which method to use to scale the game canvas.
 
+#### Min Pixel Ratio
+`html5.min_pixel_ratio` sets the minimum number of canvas render pixels per CSS pixel when [High Dpi](#high-dpi) is enabled. The default is `0`, which disables the lower bound. Positive fractional values are supported, including values below `1`.
+
+#### Max Pixel Ratio
+`html5.max_pixel_ratio` sets the maximum number of canvas render pixels per CSS pixel when [High Dpi](#high-dpi) is enabled. The default is `0`, which disables the upper bound. Positive fractional values are supported, including values below `1`.
+
+Both limits must be finite, non-negative numbers. When both bounds are enabled, the minimum must not exceed the maximum. With *High Dpi* disabled, the ratio is `1` and neither bound is applied. These limits affect rendering resolution while preserving the canvas's CSS display size. See [Pixel ratio limits](/manuals/html5/#pixel-ratio-limits) for a configuration example.
+
 #### Retry Count
 The number of retries after a failed download during startup, including network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly file. The initial request is separate. Archive-file verification has its own retry limit; see [download verification](/manuals/html5/#download-verification) and `Retry Time`.
 
@@ -808,6 +843,34 @@ Liveupdate settings resource file to use during bundling.
 
 #### _App Manifest_
 If set, use the app manifest to customize the engine build. This allows you to remove unused parts from the engine to decrease the final binary size. Learn how to exclude unused feature [in the application manifest manual](/manuals/app-manifest).
+
+---
+
+### Debugger
+
+These settings control [debugger connections](/manuals/debugging-game-logic/#native-dap-connections) in native debug and headless builds. Release and Web builds do not support attaching the debugger. Add these settings by editing *game.project* as text, or use [configuration overrides on engine startup](#setting-config-values-on-engine-startup). They are not shown in the project settings form. The editor configures the connection automatically when you use <kbd>Debug ▸ Start/Attach</kbd>.
+
+For example, to start a local listener and wait for a client to configure breakpoints before startup scripts run:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` starts the listener during engine startup when set to `1`. Disabled by default (`0`). A running game can also start the listener with [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running).
+
+#### Address {#debugger-address}
+`debugger.address` is the IPv4 address on which the listener accepts connections. The default, `127.0.0.1`, accepts local connections only. Use a device interface address or `0.0.0.0` for [remote connections](/manuals/debugging-game-logic/#remote-targets).
+
+#### Port {#debugger-port}
+`debugger.port` is the TCP listening port, from `0` to `65535`. The default is `8172`. Set it to `0` to select an available port, which the engine reports in its log.
+
+#### Wait {#debugger-wait}
+`debugger.wait` makes the engine wait for the client to finish configuring the debug session, including breakpoints, before running startup scripts. Disabled by default (`0`). Set it to `1` together with `debugger.enabled=1` to debug startup code. Starting the listener later with `debugger.start()` does not wait or pause the game. See the [startup and attach guide](/manuals/debugging-game-logic/#native-dap-connections).
 
 ---
 

@@ -26,6 +26,31 @@ Text nodes have a set of special properties:
 *Line Break*
 : Text alignment follows the pivot setting and setting this property allows the text to flow over several lines. The width of the node determines where the text will wrap.
 
+## Vector fonts and color emoji
+
+Follow the [Vector font setup](/manuals/font/#vector-fonts), add the `.font` resource to the GUI scene's *Fonts*, and select it on the text node. Set the font resource's *Material* to `/builtins/fonts/font-vector.material`. Use the node's *Font Size* to control the displayed size.
+
+For color emoji, also complete the [COLRv1 fallback and bundling setup](/manuals/font/#color-emoji). Create a text node with the id `text`, leave its *Text* empty, and add the following to the GUI scene's `.gui_script`:
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) returns the font name within the GUI scene; [`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) resolves that name to the font resource used by `font.add_font()`. Other nodes and Labels sharing that resource also receive the fallback, so initialize it only once. The text is set after prewarming succeeds.
+
 ## Alignment
 
 By setting the node pivot you can change the alignment mode for the text.
