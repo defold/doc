@@ -75,7 +75,10 @@ The optional *manifests* folder of an extension contains additional files used i
   * Extensions with Java code should include an [R8 keep-rule file](#r8-keep-rules-for-android) (`.keep`) for the classes they need at runtime.
 * `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
   * The folder can also contain a `Podfile` file with dependencies to be [resolved by Cocoapods](/manuals/extensions-cocoapods).
+  * The folder can also contain a `SwiftPackages.json` file with dependencies to be [resolved by Swift Package Manager](/manuals/extensions-spm).
 * `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
+  * The folder can also contain a `Podfile` file with dependencies to be [resolved by Cocoapods](/manuals/extensions-cocoapods).
+  * The folder can also contain a `SwiftPackages.json` file with dependencies to be [resolved by Swift Package Manager](/manuals/extensions-spm).
 * `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](/manuals/extensions-manifest-merge-tool)).
 
 
