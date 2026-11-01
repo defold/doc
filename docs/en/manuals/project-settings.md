@@ -569,6 +569,9 @@ Number of position iterations for the Box2D 2.2 physics solver.
 #### Sub Step Count
 Number of sub-steps for the Box2D 3.x physics solver.
 
+#### Worker Count
+`box2d.worker_count` sets the number of background workers per physics world for Box2D 3.x. The default is `0`; the supported range is `0`–`31`. The main thread also participates. This setting is read at startup and cannot be changed at runtime. Unsupported targets use the calling thread. Each physics tick completes before gameplay continues. See [Box2D worker threads](/manuals/physics/#box2d-worker-threads) for platform support and performance guidance.
+
 ---
 
 ### Collection proxy

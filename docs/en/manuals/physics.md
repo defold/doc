@@ -33,6 +33,22 @@ In general it is required that the physics simulation is scaled for it to work w
 It is recommended to update the physics engine at regular intervals to ensure a stable simulation (as opposed to updating at possibly irregular frame-rate dependent intervals). You can use a fixed update for physics by checking the [Use Fixed Timestep setting](/manuals/project-settings/#physics) of the Physics section in the *game.project* file. The update frequency is controlled by the [Fixed Update Frequency setting](/manuals/project-settings/#engine) of the Engine section in the *game.project* file. When using a fixed timestep for physics it is also recommended to use the `fixed_update(self, dt)` lifecycle function to interact with the collision objects of your game, for instance when applying forces to them.
 
 
+### Box2D worker threads
+
+With **Box2D Version 3** selected in the App Manifest, you can distribute physics work across CPU cores using **Box2D → Worker Count** in *game.project*:
+
+```ini
+[box2d]
+worker_count = 3
+```
+
+The default is `0`, which runs physics on the calling thread. Values from `0` to `31` specify background workers **per physics world**; the main thread also participates. Each top-level collection has its own physics world and worker pool. The setting is read at startup and cannot be changed at runtime. It does not enable workers for the legacy Box2D implementation or Bullet.
+
+Each physics tick finishes before gameplay continues. Scripts, transform updates and event delivery remain on the main thread, and synchronous queries keep their existing behavior. Workers do not change the physics update frequency. When a game update contains several fixed physics ticks, batched physics events are delivered after each tick, before the next one begins. Using [`physics.set_event_listener()`](/ref/stable/physics/#physics.set_event_listener) also allows contact data to be collected on workers before the batch reaches Lua.
+
+Worker support currently uses the native scheduler primitives on Windows, Linux, macOS, Android and iOS builds with thread support. On unsupported targets, the engine logs a warning and uses the calling thread. Profile your game with workers enabled and disabled: small physics workloads can be slower because scheduling adds overhead.
+
+
 ## Caveats and common issues
 
 Collection proxies
