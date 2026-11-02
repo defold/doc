@@ -135,7 +135,7 @@ macOS uses the native Metal backend by default. The **Vulkan** choice on macOS a
 
 ## Use full text layout system
 
-If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option to use runtime generation for TrueType (`.ttf`) or OpenType (`.otf`) fonts, and set *Glyph Generation* to **Dynamic** in each font resource that needs it. Dynamic generation supports both **SDF** and **Vector** modes. The former `font.runtime_generation` setting in *game.project* is deprecated and has no effect. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
+If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option to use runtime generation for TrueType (`.ttf`) or OpenType (`.otf`) fonts, and set *Glyph Generation* to **Dynamic** in each font resource that needs it. Dynamic generation supports both **SDF** and **Vector** modes. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text

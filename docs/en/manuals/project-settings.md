@@ -211,13 +211,6 @@ Clear color alpha channel, used by the render script and when the window is crea
 
 ---
 
-### Font
-
-#### Runtime Generation
-Deprecated. The `font.runtime_generation` setting has no effect. Set *Glyph Generation* to **Dynamic** in each SDF or Vector font resource that needs runtime generation, and enable **Use full text layout system** in the App Manifest. See [Enabling Runtime Fonts](/manuals/font/#enabling-runtime-fonts) for setup and migration instructions.
-
----
-
 ### Physics
 
 #### Max Collision Object Count

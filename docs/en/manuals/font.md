@@ -264,13 +264,6 @@ Runtime generation is configured per font resource:
 
 New font resources already use Vector mode and Dynamic generation, but still require the App Manifest configuration above.
 
-### Migrating from earlier versions
-
-`font.runtime_generation` in *game.project* is deprecated and has no effect. If your project previously enabled runtime fonts with that setting, set *Glyph Generation* to **Dynamic** in each SDF or Vector font that needs runtime generation. Keep **Use full text layout system** enabled in the App Manifest. You can then remove the obsolete project setting.
-
-Existing font files are not automatically changed to Vector or Dynamic. The former *Output Format* choices map to *Mode*: Bitmap remains Bitmap, and Distance Field becomes SDF. Font files without a per-resource Dynamic setting use Static generation.
-
-
 ### Font Scripting
 
 #### Prewarming glyph cache
