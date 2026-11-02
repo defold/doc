@@ -15,7 +15,7 @@ Defold needs all the assets used in your project to be located somewhere in the 
 ![Importing files](images/graphics/import.png)
 
 ::: sidenote
-Use PNG or JPEG images for atlases and tile sources. PNG images must be in 32 bit RGBA format. [KTX2 source textures](/manuals/importing-graphics/#ktx2-textures) can also be imported for use as model textures.
+Use PNG or JPEG images for atlases and tile sources. PNG support includes RGB, RGBA and indexed color (palette) images. [KTX2 source textures](/manuals/importing-graphics/#ktx2-textures) can also be imported for use as model textures.
 :::
 
 
