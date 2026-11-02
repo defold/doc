@@ -120,7 +120,7 @@ A `.gamepads` file can contain mappings for multiple controllers. Existing legac
 
 ![Gamepad settings](images/input/gamepads.png)
 
-If you need to create a legacy `.gamepads` mapping on a desktop platform, the following tool can help. For Android, first use the [diagnostics below](#diagnosing-an-android-controller) to check the selected mapping and raw layout.
+If you need to create a legacy `.gamepads` mapping on a desktop platform, the following tool can help. For Android, see [Gamepads on Android](#gamepads-on-android).
 
 [Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -136,7 +136,7 @@ The tool will ask you to press different buttons on your connected controller. I
 
 ### Unidentified gamepads
 
-When neither a configured mapping nor an automatic platform mapping is available, the gamepad only generates the actions bound to `Connected`, `Disconnected` and `Raw`. You can add a controller mapping or handle its raw input in your game. A missing SDL database entry alone does not mean that the controller is unidentified: Android can provide mapped controls based on the device's reported capabilities.
+When neither a configured mapping nor an automatic platform mapping is available, the gamepad only generates the actions bound to `Connected`, `Disconnected` and `Raw`. You can add a controller mapping or handle its raw input in your game.
 
 It is possible to check if an input action for a gamepad is from an unknown gamepad or not by reading the `gamepad_unknown` value from the `action`:
 
@@ -180,108 +180,6 @@ On Windows, only XBox 360 controllers are currently supported. To hook up your 3
 
 ## Gamepads on Android
 
-Gamepads are supported in Android builds and generate the same input actions as on other platforms. Support is based on the [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input).
+Gamepads are supported in Android builds and generate the same input actions as on other platforms. Defold uses the configured [gamepad mappings](#gamepads-settings-file) and can automatically map some controllers that have no matching entry.
 
-Android controller GUIDs and the raw layout used by SDL mappings follow SDL's Android conventions. Defold selects a mapping in this order:
-
-1. A matching GUID entry from the configured SDL gamepad database.
-2. A matching legacy `.gamepads` entry for the device name.
-3. An automatic mapping based on the buttons and axes reported by the Android device, if eligible.
-4. Raw input only, with `action.gamepad_unknown` set to `true`.
-
-The automatic fallback requires an Android capability GUID reporting at least one standard face button. Controllers reporting Nintendo's vendor ID require a dedicated mapping and are excluded from this fallback. Automatic mapping therefore does not cover every controller, but an eligible controller can generate normal button and stick actions without a database entry.
-
-Legacy mappings continue to use the original Android button and axis layout. The fixed tables below describe that layout; SDL database mappings use SDL's layout, and the automatic fallback produces standard mapped controls.
-
-### Diagnosing an Android controller
-
-Before authoring a mapping, run a debug build on the Android device and inspect the connection and raw input. In your input bindings, add `Connected` as `gamepad_connected`, `Disconnected` as `gamepad_disconnected`, and `Raw` as `raw`. Also bind the buttons and sticks you want to test. Add this `.script` to a game object:
-
-```lua
-function init(self)
-    msg.post(".", "acquire_input_focus")
-end
-
-function on_input(self, action_id, action)
-    if action_id == hash("gamepad_connected") then
-        print("Gamepad:", action.gamepad, action.gamepad_name)
-        print("GUID:", action.gamepad_guid)
-        print("Unmapped:", action.gamepad_unknown)
-    elseif action_id == hash("gamepad_disconnected") then
-        print("Disconnected gamepad:", action.gamepad)
-    elseif action_id == hash("raw") then
-        print("Raw gamepad:", action.gamepad)
-        pprint(action.gamepad_buttons)
-        pprint(action.gamepad_axis)
-        pprint(action.gamepad_hats)
-    elseif action.gamepad ~= nil then
-        print("Mapped gamepad action:", action.gamepad, action_id, action.value)
-    end
-end
-```
-
-The name and GUID are supplied with the connected action. `gamepad_unknown == false` means a mapping was selected, including an automatic mapping; test each control to check that the mapping is correct. The [engine connection log](/manuals/debugging-game-and-system-logs) includes the GUID and reports automatic, legacy or raw fallback use.
-
-If the controller is unmapped or its controls are incorrect, record its name, GUID and raw button/axis/hat values on the Android device. Use an Android SDL mapping for that GUID in the configured *Gamepad Database*, or add a legacy `.gamepads` entry for its device name. Test again after rebuilding and reconnecting the controller.
-
-Raw indices depend on the selected layout. An unidentified Android controller uses the legacy raw layout, so do not copy those indices into an SDL database entry. The Lua raw-input arrays start at index `1`, while mapping indices start at `0`.
-
-### Legacy Android mapping tables
-
-Use the following tables when writing a legacy `.gamepads` mapping. These indices remain valid for existing legacy bindings; they do not describe the SDL database or automatic mapping layouts.
-
-| Key event to button index   | Index |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Android `KeyEvent` definitions](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Motion event to axis index  | Index |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Android `MotionEvent` definitions](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Compare the Android key and motion events reported by the device with these tables when assigning indices in a legacy `.gamepads` entry.
+If a controller is unidentified or its controls are incorrect, test it on the Android device and add or update its mapping. See [Unidentified gamepads](#unidentified-gamepads) and [Raw gamepads](#raw-gamepads) for troubleshooting.
