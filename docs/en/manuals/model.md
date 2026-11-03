@@ -23,10 +23,10 @@ With the model created you need to specify a number of properties:
 Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Scene*
-: The glTF *.gltf* or *.glb* file that contains the model's geometry. If the file contains morph targets, they are imported together with the scene. This property was named *Mesh* before Defold 1.13.2.
+: The glTF *.gltf* or *.glb* file that contains the model's geometry. If the file contains morph targets, they are imported together with the scene. This property was previously named *Mesh*.
 
 *Mesh*
-: An optional named mesh from the selected *Scene*, available since Defold 1.13.2. Leave this field empty to render the whole scene with its imported transforms. Select a mesh to render that mesh once in its local coordinates, without the glTF node transforms. Position, rotate and scale the model component or its game object to place the selected mesh.
+: An optional named mesh from the selected *Scene*. Leave this field empty to render the whole scene with its imported transforms. Select a mesh to render that mesh once in its local coordinates, without the glTF node transforms. Position, rotate and scale the model component or its game object to place the selected mesh.
 
 *Create GO Bones*
 : Check this to create a game object for every bone of the model. You can use the game objects to attach other game objects such as weapons to hand bones and so on. 
@@ -43,17 +43,14 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
 In addition to the properties above there will also be a field to assign a material for every mesh of the model:
 
 *Material*
-: Set this property to a material you have created that is suitable for a textured 3D object. There are a number of built-in materials that you can use as a starting point:
-
-  * Use *model.material* for static non-instanced models
-  * Use *model_instanced.material* for static instanced models
-  * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
+: Set this property to a material suitable for the model. Use a built-in `gltf` material for physically based rendering of glTF material properties, a built-in `model` material for general model shading, or your own custom material. See the [material variants below](#material) and the [PBR manual](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 Depending on the material there will be one or more texture properties:
 
 *Texture*
-: This property should point to the texture image file that you want applied to the object.
+: This property should point to the texture image that you want applied to the object. It can be a separate project asset or an embedded image exposed under a glTF or GLB file in the *Assets* pane.
+
+Selecting a glTF or GLB *Scene*, or changing its *Mesh* selection, can offer to fill the material and texture bindings. <kbd>Auto Fill</kbd> replaces existing bindings with those from the source; <kbd>Keep Current</kbd> preserves your bindings while applying the new scene or mesh selection. See the [model import workflow](/manuals/importing-models/#using-a-model).
 
 
 ## Editor manipulation
@@ -110,14 +107,18 @@ A model also has a number of different properties that can be manipulated using 
 
 3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the glTF *.gltf* or *.glb* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
 
-There are a number of built-in materials that you can use as a starting point:
+The following built-in materials are available in `/builtins/materials/`:
 
-  * Use *model.material* for static non-instanced models
-  * Use *model_instanced.material* for static instanced models
-  * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
+| Model type | General model shading | glTF PBR shading |
+|---|---|---|
+| Static, non-instanced | `model.material` | `gltf.material` |
+| Static, instanced | `model_instanced.material` | `gltf_instanced.material` |
+| Skinned (animated), non-instanced | `model_skinned.material` | `gltf_skinned.material` |
+| Skinned (animated), instanced | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-The built-in model materials use local vertex space. For skinned models, local vertex space allows the vertex shader to perform skinning on the GPU using a bone-matrix texture; local vertex space is also required for model instancing. A custom material intended for GPU-skinned or instanced models should therefore use the *Local* vertex-space setting.
+The `gltf` materials provide built-in metallic/roughness lighting using the imported glTF material data. See the [PBR manual](/manuals/physically-based-rendering/#built-in-pbr-materials) for texture bindings, lights and custom shaders.
+
+All of these built-in materials use local vertex space. For skinned models, local vertex space allows the vertex shader to perform skinning on the GPU using a bone-matrix texture; local vertex space is also required for model instancing. A custom material intended for GPU-skinned or instanced models should therefore use the *Local* vertex-space setting.
 
 The bone-matrix cache uses an `RGBA32F` texture. If the active graphics adapter does not support that texture format, Defold cannot create an animated Model component that uses a local-space material. On OpenGL ES 2.0 and WebGL 1.0, support therefore depends on the adapter's floating-point texture extension. For compatibility with an adapter that lacks it, use a custom world-space material, which uses CPU skinning and cannot use model instancing. The cache dimensions can be adjusted with the [Model project settings](/manuals/project-settings/#model).
 
@@ -134,7 +135,7 @@ If you need to create custom materials for your models, see the [Material docume
 
 ## Rendering
 
-The default render script is tailor made for 2D games and does not work with 3D models. But by copying the default render script and adding a handful of lines of code to the render script you can enable rendering of your models. For instance:
+The default render script draws materials with the `model` tag, including the built-in model and glTF materials. To render them in a custom render script, create a matching predicate and draw it with a view and projection suitable for your scene. For instance:
 
   ```lua
 

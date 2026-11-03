@@ -172,7 +172,7 @@ We will use a modern pipeline with GLSL in version 140 - to do so, we'll declare
     ```
     The exact `aspect` value depends on how the example is set up. If the effect is rendered on a full-screen quad with a known display size, the aspect ratio can be hardcoded for the tutorial. If the effect needs to support arbitrary window sizes, pass the resolution as a fragment constant and place it inside a GLSL 140 uniform block.
 
-    Time is also set up here. It is passed to the shader as `uniform float iGlobalTime`. Defold (since 1.12.3) provides time to shaders via a special `Time` constant that we'll use.
+    Time is also set up here. It is passed to the shader as `uniform float iGlobalTime`. Defold provides time to shaders via a special `Time` constant that we'll use.
 
     In modern Defold, non-opaque uniforms are declared inside uniform blocks.
     In the fragment shader we declare it like this:
@@ -323,7 +323,7 @@ Save the fragment shader program. The model should now be nicely textured with a
 
 ## Animation
 
-The final piece of the puzzle is the introduction of time to make the stars move. Defold (since 1.12.3) provides this automatically through a fragment constant of type `Time`.
+The final piece of the puzzle is the introduction of time to make the stars move. Defold provides this automatically through a fragment constant of type `Time`.
 
 1. Open *star-nest.material*.
 2. Add a *Fragment Constant* and name it "time".

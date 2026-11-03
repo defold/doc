@@ -103,6 +103,23 @@ Press *Create Bundle* and you will then be prompted to specify where on your com
 
 You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
 
+### Home Indicator behavior
+
+You can choose *Home Indicator Mode* in the *iOS* section of *game.project*. The default, *Deferred*, protects all screen edges and requires two swipes to return Home. Choose *System* to use normal system gestures, including a single swipe to return Home.
+
+Choose *Auto Hide* to use normal system gestures and also request automatic hiding of the Home Indicator. You can set this mode directly in *game.project*:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Rebundle and test on a device with a Home Indicator. iOS decides when the indicator is visible; choosing *Auto Hide* does not guarantee that it stays hidden. On iOS 26 and later, the system may hide it in both *System* and *Auto Hide* modes. See [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) for all values and their gesture behavior.
+
+### Reserved areas and rotation
+
+`window.get_reserved_areas()` reports camera cutouts and the Dynamic Island on iOS 27.1 and later, including UIKit's interaction margins. iOS orientation transitions also send `window.WINDOW_EVENT_RESIZED`, including rotations that leave the window dimensions and safe-area insets unchanged. Refresh any UI placement based on these areas on every resize callback. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinates, limitations and a refresh example.
+
 ### Custom Info.plist and local target discovery
 
 The built-in iOS `Info.plist` contains the Bonjour service and local-network usage description required for automatic Editor target discovery in non-release builds. A custom `Info.plist` replaces that built-in base manifest. If a custom manifest is used for a debug build and you need target discovery, profiling, hot reload, or log streaming over the local network, include these entries:

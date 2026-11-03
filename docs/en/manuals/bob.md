@@ -240,7 +240,7 @@ $
 
 ## Build server
 
-Since Defold 1.14.0, Bob selects the default native extension build server from the release channel of its distribution:
+Bob selects the default native extension build server from the release channel of its distribution:
 
 | Bob release channel | Default build server |
 |---|---|

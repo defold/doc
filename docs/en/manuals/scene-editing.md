@@ -46,6 +46,22 @@ These controls are available in visual editors:
 
 You may also use **Frame Selection** (<kbd>F</kbd>) to focus the camera on the current selection.
 
+### Axis gizmo
+
+The **Scene View Axis Gizmo** appears in the bottom-right corner of the scene view in 3D mode. It shows the camera's orientation relative to the world axes: **X** is red, **Y** is green and **Z** is blue.
+
+![Scene view with the axis gizmo in the bottom-right corner](images/editor/axis_gizmo.gif)
+
+| Control | Action |
+| --- | --- |
+| <kbd>Left Mouse Click</kbd> on an axis handle | Align the camera to view along that axis. The opposite handles provide views from the other side. |
+| Click an already aligned axis handle | Switch to the opposite view along the same axis. |
+| Hold <kbd>Left Mouse Button</kbd> and drag the gizmo | Orbit around the camera's current focus point. You can drag from an axis handle or the circular area around the handles, without holding a modifier key. |
+
+Axis alignment preserves the camera's focus point, distance and projection. Use **Frame Selection** (<kbd>F</kbd>) first to focus on an object, then use the gizmo to inspect it from different directions. Standard pan, zoom and <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd> orbit controls remain available.
+
+The gizmo is available with both perspective and orthographic projection in 3D mode. In 2D mode it is hidden; use **Align/Realign Camera 2D/3D** in the [toolbar](#toolbar-overview), or press <kbd>.</kbd>, to switch to 3D. Use the separate [camera projection toggle](#camera-type-perspective-vs-orthographic) to choose perspective or orthographic projection. The gizmo controls the Scene Editor's view of your scene.
+
 ## 2D and 3D scene orientation
 
 The scene view can be used in both 2D and 3D workflows:
@@ -56,7 +72,7 @@ The scene view can be used in both 2D and 3D workflows:
   - Use a **perspective** camera,
   - Choose an appropriate grid plane (often **Y** for “ground”).
 
-You can access these functions via the toolbar and the **View** menu.
+You can access these functions via the toolbar and the **View** menu. Use the [axis gizmo](#axis-gizmo) in 3D mode to align the view to an axis or orbit with the mouse.
 
 ![Scene Editor 3D](images/editor/3d_scene.png)
 

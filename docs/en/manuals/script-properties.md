@@ -64,7 +64,7 @@ Script properties are parsed when building the project. Value expressions are no
 
 ### Text properties
 
-Since Defold 1.13.2, a string default defines a text property. Text properties support UTF-8 and newline characters and are edited in a multiline field in the editor:
+A string default defines a text property. Text properties support UTF-8 and newline characters and are edited in a multiline field in the editor:
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")

@@ -7,7 +7,7 @@ brief: Defold supports joints for 2D physics. This manual explains how to create
 
 A joint connects two collision objects using a constraint. Defold supports joints in both 2D and 3D physics, through different APIs.
 
-This manual describes the 2D joints exposed by the `physics` module. Since Defold 1.13.2, 3D projects can create and control constraints through [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), including hinges, sliders and springs. Use that API with rigid bodies obtained through [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+This manual describes the 2D joints exposed by the `physics` module. 3D projects can create and control constraints through [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), including hinges, sliders and springs. Use that API with rigid bodies obtained through [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
 
 The supported joint types in the 2D `physics` API are:
 

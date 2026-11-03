@@ -83,6 +83,39 @@ When you click on the <kbd>Create bundle</kbd> button you will be prompted to se
 
 Select the requested graphics context through [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Its default is WebGL 2; request WebGL 1 to test or target that context on browsers that support both versions.
 
+Since Defold 1.14.1, WebGL 1 shaders are excluded by default. Disable [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) to include them, whether requesting WebGL 1 directly or allowing fallback from WebGL 2. To request WebGL 1 explicitly, set both options in *game.project*:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Pixel ratio limits
+
+`html5.min_pixel_ratio` and `html5.max_pixel_ratio` control how many canvas render pixels are used per CSS pixel. The canvas's CSS size determines how large the game appears on the page; its rendering resolution determines how many pixels the engine draws.
+
+Enable *High Dpi* in the *Display* section of *game.project* to use these limits. The browser's device pixel ratio is then clamped to the enabled bounds. Both limits default to `0`, which disables that bound. Values must be finite and non-negative; if both are positive, the minimum must not exceed the maximum.
+
+For example, cap the ratio at `1.5` to limit rendering resolution on dense displays:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+On a browser reporting a device pixel ratio of `3`, a canvas displayed at 800 × 600 CSS pixels will render at 1200 × 900 pixels with this configuration. Its displayed size stays the same. On a browser reporting a ratio of `1`, the same canvas still renders at 800 × 600 pixels because the maximum does not raise the ratio.
+
+Fractional ratios below `1` are also supported: for example, a maximum of `0.75` renders fewer pixels than the CSS display size. A minimum above the browser's device pixel ratio increases the rendering resolution for supersampling. The limits apply to all four *Scale Mode* options while preserving their CSS layout.
+
+With *High Dpi* disabled, the ratio stays at `1`, regardless of the limits. On HTML5, [`window.get_display_scale()`](/ref/window/#window.get_display_scale) returns the effective rendering ratio after applying the High DPI setting and limits.
+
 ## Download verification
 
 The HTML5 loader checks the sizes of downloaded engine and archive files by default. Failed checks cause downloads to be retried before the loader reports an error:
@@ -130,7 +163,7 @@ In *game.project* it is possible to turn-off the `Fullscreen` button and the `Ma
 Defold provides a dark and light theme for the `index.html`. The light theme is set by default but it is possible to change by changing `Custom CSS` file. There is also four predefined scale modes to chose from in the `Scale Mode` field.
 
 ::: important
-The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in *game.project* (`Display` section)
+With *High Dpi* enabled in the *Display* section of *game.project*, all scale modes use the effective pixel ratio, including any [pixel ratio limits](#pixel-ratio-limits), to size the canvas rendering buffer.
 :::
 
 ### Downscale Fit and Fit
@@ -146,7 +179,7 @@ For the `Stretch` mode canvas size will be changed to fully fill the inner size 
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-With `No Scale` mode the canvas size is exactly the same as you predefined in *game.project* file, `[display]` section.
+With `No Scale` mode the canvas's CSS width and height match the *Width* and *Height* values in the *Display* section of *game.project*. Its rendering resolution still uses the effective pixel ratio.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
@@ -197,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : The resolved suffix appended to archive URLs, based on `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true` when the archive prefix specifies an HTTP or HTTPS origin, including a protocol-relative URL such as `//cdn.example.com/archive`. It is `false` for relative archive prefixes. Available since Defold 1.13.2.
+: `true` when the archive prefix specifies an HTTP or HTTPS origin, including a protocol-relative URL such as `//cdn.example.com/archive`. It is `false` for relative archive prefixes.
 
 DEFOLD_ARCHIVE_ORIGIN
-: The archive origin, including the scheme, host and optional port, or an empty string when no origin is specified. A protocol-relative prefix produces a protocol-relative origin. Used for the preconnect hint and available since Defold 1.13.2.
+: The archive origin, including the scheme, host and optional port, or an empty string when no origin is specified. A protocol-relative prefix produces a protocol-relative origin. Used for the preconnect hint.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true` if the bundle includes a WebAssembly engine, either `wasm-web` or `wasm_pthread-web`.

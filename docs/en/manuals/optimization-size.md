@@ -94,7 +94,7 @@ Excluded content can be anything from entire levels to unlockable characters, sk
 
 ## Android specific size optimizations
 
-Enable [R8 shrinking](/manuals/android/#shrinking-java-code-with-r8) to remove unused Java code. With Defold 1.14.0 or later and a compatible Extender server, this also removes unused Android resources from extensions and their dependencies.
+Enable [R8 shrinking](/manuals/android/#shrinking-java-code-with-r8) to remove unused Java code. With a compatible Extender server, this also removes unused Android resources from extensions and their dependencies.
 
 Android builds must support both 32-bit and 64-bit CPU architectures. When you [bundle for Android](/manuals/android) you can specify which CPU architectures to include:
 
