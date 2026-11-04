@@ -154,7 +154,7 @@ The Swift keys of the `ios` platform apply to both devices and the simulator. A 
 
 The Swift runtime is part of iOS 12.2 and later and of macOS 10.14.4 and later. The Swift code is built for the minimum iOS and macOS versions that the engine supports, and the application uses the Swift runtime of the operating system. Use an `#available` check before calling APIs that are newer than the minimum version.
 
-A few parts of the runtime are part of the operating system only from a later version. For example, Swift concurrency (`async`, `await` and `Task`) is part of iOS 15 and macOS 12, and `Span` is part of iOS 26 and macOS 26. If the minimum version is older and your Swift code uses such a feature, the application needs an extra library to run on those devices. You don't have to do anything for this: the build server finds the libraries that the engine uses, as Xcode does, and adds them to the application. On iOS they are placed in the `Frameworks` folder of the application and are signed together with the rest of its code.
+A few parts of the runtime are part of the operating system only from a later version. For example, Swift concurrency (`async`, `await` and `Task`) is part of iOS 15 and macOS 12. If the minimum version is older and your Swift code uses such a feature, the application needs an extra library to run on those devices. You don't have to do anything for this: the build server finds the libraries that the engine uses, as Xcode does, and adds them to the application. On iOS they are placed in the `Frameworks` folder of the application and are signed together with the rest of its code.
 
 The minimum versions are set by the Defold version and the build server, not by the project.
 
