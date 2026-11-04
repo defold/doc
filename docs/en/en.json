@@ -2071,6 +2071,10 @@
                         "name": "Cocoapod dependencies"
                     },
                     {
+                        "path": "/manuals/extensions-spm",
+                        "name": "Swift Package Manager dependencies"
+                    },
+                    {
                         "path": "/manuals/extensions-script-api",
                         "name": "Adding auto-complete definition"
                     },
