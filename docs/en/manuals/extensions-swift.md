@@ -143,7 +143,7 @@ platforms:
   * `-O`, `-Osize` and `-Onone` - The optimization level. The default is `-O`.
   * `-suppress-warnings`
 * `additionalSwiftIncludePaths` - Folders that the Swift compiler searches for headers and modules, in addition to the `include` folder of the extension.
-* `additionalFrameworkSearchPaths` - Folders that the Swift compiler searches for frameworks, in addition to the `lib/<platform>` folder of the extension.
+* `additionalFrameworkSearchPaths` - Folders that are searched for frameworks, in addition to the `lib/<platform>` folder of the extension. This is not specific to Swift: the folders are used by the Swift compiler, by the C++ and Objective-C++ compiler for the sources of the extension, and by the linker.
 
 The paths are relative to the extension folder, must stay inside of it, and may only contain letters, digits and `._+-/`.
 
