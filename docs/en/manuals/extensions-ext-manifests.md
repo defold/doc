@@ -68,6 +68,7 @@ Allowed keys are for platform specific compile flags are:
 * `libs` - Additional libraries to include when linking
 * `defines` - Defines to set when building
 * `swiftFlags` - Flags that should be passed to the Swift compiler (iOS and macOS). Only a fixed set of flags is allowed, see [Swift in native extensions](/manuals/extensions-swift#compiler-options).
+* `additionalSwiftIncludePaths`, `additionalFrameworkSearchPaths` - Folders in the extension that the Swift compiler searches for headers, modules and frameworks (iOS and macOS), see [Swift in native extensions](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` - Extra package name that should be generated (Android)
 * `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
 * `aaptExcludeResourceDirs` - Regexp (or exact names) of resource directories to exclude (Android)
