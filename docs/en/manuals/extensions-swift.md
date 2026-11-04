@@ -82,7 +82,7 @@ To use Objective-C or C declarations from Swift, add a bridging header named `<M
 #import "mynative.h"
 ```
 
-If the header exists, it is imported into the Swift module automatically. Headers it includes are searched in the `include` folder of the extension and in the folders added with `-I` in `swiftFlags` (see below).
+If the header exists, it is imported into the Swift module automatically. Headers it includes are searched in the `include` folder of the extension and in the folders listed in `additionalSwiftIncludePaths` (see below).
 
 Apple frameworks, such as `Foundation`, `UIKit` or `StoreKit`, are imported from Swift with a normal `import`. The frameworks listed in `frameworks` and `weakFrameworks` of the `ext.manifest` are linked as usual. Most system frameworks are linked automatically when the Swift code imports them.
 
@@ -127,7 +127,9 @@ platforms:
     ios:
         context:
             defines: ["MY_DEFINE"]
-            swiftFlags: ["-strict-concurrency=complete", "-I", "include"]
+            swiftFlags: ["-strict-concurrency=complete"]
+            additionalSwiftIncludePaths: ["vendor/headers"]
+            additionalFrameworkSearchPaths: ["vendor/frameworks"]
     osx:
         context:
             defines: ["MY_DEFINE"]
@@ -140,9 +142,12 @@ platforms:
   * `-enforce-exclusivity=checked|unchecked`
   * `-O`, `-Osize` and `-Onone` - The optimization level. The default is `-O`.
   * `-suppress-warnings`
-  * `-I <path>` and `-F <path>` - Add a folder that is searched for headers and modules, or for frameworks. The flag and its path are two separate list items, and the path is relative to the extension folder and must stay inside of it.
+* `additionalSwiftIncludePaths` - Folders that the Swift compiler searches for headers and modules, in addition to the `include` folder of the extension.
+* `additionalFrameworkSearchPaths` - Folders that the Swift compiler searches for frameworks, in addition to the `lib/<platform>` folder of the extension.
 
-The `swiftFlags` of the `ios` platform apply to both devices and the simulator. A build server that predates Swift support rejects the `swiftFlags` key with a `Manifest context variable unsupported` error, and the project then fails to build until the Defold version and the build server are updated.
+The paths are relative to the extension folder, must stay inside of it, and may only contain letters, digits and `._+-/`.
+
+The Swift keys of the `ios` platform apply to both devices and the simulator. A build server that predates Swift support rejects them with a `Manifest context variable unsupported` error, and the project then fails to build until the Defold version and the build server are updated.
 
 
 ## Minimum OS versions
