@@ -33,6 +33,7 @@ Each tool can debug certain platforms:
 * VSCode - Windows, macOS (lldb), Linux (lldb/gdb) + platforms supporting gdbserver
 * Xcode -  macOS, iOS ([learn more](/manuals/debugging-native-code-ios))
 * Android Studio - Android ([learn more](/manuals/debugging-native-code-android))
+* Chrome and Firefox developer tools - HTML5 ([learn more](/manuals/debugging-native-code-html5))
 * WinDBG - Windows
 * lldb/gdb - macOS, Linux, (iOS)
 * ios-deploy - iOS (via lldb)
@@ -83,7 +84,7 @@ It is important that you match the correct engine with the callstack, otherwise 
 * Android - the `projecttitle.apk.symbols/lib/` bundle output folder contains the debug symbols for the target architectures.
 * Linux - the executable contain the debug symbols.
 * Windows - the `dmengine.pdb` file in `build/x86_64-win32` contains the debug symbols for Windows builds.
-* HTML5 - the `<project_name>_symbols` directory alongside the HTML5 bundle contains `<project_name>_wasm.js.symbols` and, when the `wasm_pthread-web` architecture is selected, `<project_name>_pthread_wasm.js.symbols`.
+* HTML5 - the `<project_name>_symbols` directory alongside the HTML5 bundle contains `<project_name>_wasm.js.symbols` and, when the `wasm_pthread-web` architecture is selected, `<project_name>_pthread_wasm.js.symbols`. Depending on the build, the bundle folder also contains the DWARF sidecar `<project_name>.wasm.debug.wasm`. See [Debugging native code on HTML5](/manuals/debugging-native-code-html5/#symbolicate-a-callstack).
 
 ::: important
 It is very important that your save the debug symbols somewhere for each public release you make of your game and that you know which release the debug symbols belong to. You will not be able to debug any native crashes if you do not have the debug symbols! Also, you should keep an `unstripped` version of the engine. This allows for the best symbolication of the callstack.

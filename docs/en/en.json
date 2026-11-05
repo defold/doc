@@ -1781,6 +1781,10 @@
                         "name": "Debugging native code on iOS"
                     },
                     {
+                        "path": "/manuals/debugging-native-code-html5",
+                        "name": "Debugging native code on HTML5"
+                    },
+                    {
                         "path": "/manuals/debugging-game-and-system-logs",
                         "name": "Reading game and system logs"
                     },
