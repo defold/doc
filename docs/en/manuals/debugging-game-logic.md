@@ -113,6 +113,9 @@ Evaluating Lua expressions
 Inspecting variables
 : Select a frame in the *Call Stack* to inspect its locals and upvalues in the *Variables* view. Expand `_G` to inspect globals, and expand tables or `self` to inspect their fields. The editor preserves expanded paths, selection, and scroll position when stepping, switching frames, or refreshing after evaluation, while fetching current values.
 
+Inspecting variables by hovering
+: With the game stopped at a breakpoint, hover the mouse over a variable in the code editor to see its current value. Simple values show directly in the tooltip. Tables open as an expandable tree that you can navigate, and each row has a copy button that copies the value to the clipboard. Hovering a dotted expression such as `self.position.y` shows the value of the full expression.
+
 Detaching the debugger
 : Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately. Use <kbd>Debug ▸ Start/Attach</kbd> to attach again without restarting the game.
 
