@@ -110,7 +110,7 @@ The Objective-C headers of a package can be imported in the bridging header, in 
 #import <Sentry/Sentry.h>
 ```
 
-Declare the package in the `SwiftPackages.json` of the extension that uses it. The build server builds the packages first and then the Swift code of the extension. If a package needs a newer OS than the minimum version of the engine, set it as `minVersion` in the `SwiftPackages.json`, and the Swift code of the extension is built for that version too. CocoaPods dependencies are not yet available from Swift code, use them from the Objective-C++ file.
+Declare the package in the `SwiftPackages.json` of the extension that uses it. The build server builds the packages first and then the Swift code of the extension. If a package needs a newer OS than the minimum version of the engine, set it as `minVersion` in the `SwiftPackages.json`, and the Swift code of the extension is built for that version too. Using CocoaPods dependencies from Swift code is not supported. Use them from the Objective-C++ file and pass what is needed to the Swift code.
 
 
 ## Compiler options
@@ -159,7 +159,7 @@ The minimum version of a build is the one that the engine supports, which is set
 ## Limitations
 
 * An extension still needs a C++ or Objective-C++ file with `DM_DECLARE_EXTENSION`. Swift code cannot yet register the extension or call the Defold SDK (`dmsdk`) itself. A build with only `.swift` files fails to link with an undefined symbol error named after the extension.
-* Swift code can use [Swift packages](/manuals/extensions-spm), but not CocoaPods dependencies. Use pods from the Objective-C++ file and pass what is needed to the Swift code.
+* Using CocoaPods dependencies from Swift code is not supported. Use them from the Objective-C++ file and pass what is needed to the Swift code.
 * Only the Swift 5 language mode is supported. C++ interoperability is not enabled.
 * Swift sources are supported by Defold versions that include this feature. A build server with an older SDK fails with a `Swift sources are not supported by this Defold SDK version` error.
 * Swift sources are not compiled when building the `library` artifact (`--build-artifacts library` in [Bob](/manuals/bob)), so an Objective-C++ file that imports `<Module>-Swift.h` fails to compile there.
