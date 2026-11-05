@@ -7,7 +7,7 @@ brief: Defold obsługuje łączenia dla fizyki 2D. Ta instrukcja wyjaśnia, jak 
 
 Łączenie wiąże dwa obiekty kolizji za pomocą ograniczenia. Defold obsługuje łączenia zarówno w fizyce 2D, jak i 3D, przez różne API.
 
-Ta instrukcja opisuje łączenia 2D udostępniane przez moduł `physics`. Od wersji Defold 1.13.2 projekty 3D mogą tworzyć ograniczenia, w tym zawiasy, suwaki i sprężyny, oraz nimi sterować przez [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/). Używaj tego API z ciałami sztywnymi uzyskanymi przez [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+Ta instrukcja opisuje łączenia 2D udostępniane przez moduł `physics`. Projekty 3D mogą tworzyć ograniczenia, w tym zawiasy, suwaki i sprężyny, oraz nimi sterować przez [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/). Używaj tego API z ciałami sztywnymi uzyskanymi przez [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
 
 API `physics` dla 2D obsługuje następujące typy łączeń:
 

@@ -7,7 +7,7 @@ brief: Bu kılavuz fare ve dokunma girdisinin nasıl çalıştığını açıkla
 Defold'da girdinin (input) genel olarak nasıl çalıştığını, girdinin nasıl alındığını ve betik dosyalarınızın girdiyi hangi sırayla aldığını öğrenmeniz önerilir. Girdi sistemi hakkında daha fazla bilgi için [Girdiye genel bakış kılavuzuna](/manuals/input) bakın.
 :::
 
-# Fare tetikleyicileri
+# Fare tetikleyicileri {#mouse-triggers}
 Fare tetikleyicileri (mouse triggers), fare düğmelerinden ve tekerleklerinden gelen girdiyi oyun eylemlerine bağlamanızı sağlar.
 
 ![](images/input/mouse_bindings.png)
@@ -20,7 +20,7 @@ Fare tetikleyicileri (mouse triggers), fare düğmelerinden ve tekerleklerinden 
 Aşağıdaki örnekler, yukarıdaki görüntüde gösterilen eylemleri kullanır. Tüm girdilerde olduğu gibi, girdi eylemlerinize (input action) istediğiniz adı verebilirsiniz.
 :::
 
-## Fare düğmeleri
+## Fare düğmeleri {#mouse-buttons}
 Fare düğmeleri `pressed`, `released` ve `repeated` olayları üretir. Aşağıdaki örnek, sol fare düğmesinin girdisinin (basılma veya bırakılma) nasıl algılandığını gösterir:
 
 ```lua
@@ -39,7 +39,31 @@ end
 `MOUSE_BUTTON_LEFT` (veya `MOUSE_BUTTON_1`) girdi eylemleri, tekli dokunma girdileri için de gönderilir.
 :::
 
-## Fare tekerleği
+### Fare tıklamalarını dokunmadan ayırt etme {#distinguishing-mouse-clicks-from-touch}
+
+`action.source`, ilk basma anı dahil, fiziksel fare basmasını dokunmayla benzetilen bir tıklamadan ayırt eder. `MOUSE_BUTTON_LEFT` girdisini `mouse_button_left` eylemine bağlayın ve şu kodu bir betikte veya GUI betiğinde kullanın:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Fare tıklaması olarak benzetilen bir dokunma, ayrı bir Touch Trigger olmadan bile `hash("touch")` bildirir. Dokunmayı tanımak için bir `action.touch` tablosuna veya önceki bir hareket olayına ihtiyaç yoktur. Tüm kaynak değerleri ve birden çok eşlemenin aynı eylem adını paylaştığında kaynakların nasıl çalıştığı için [Girdi cihazının kaynağı](/manuals/input/#input-device-source) bölümüne bakın.
+
+iOS'ta bu ayrımın çalışması için özel bir `Info.plist` dosyası `UIApplicationSupportsIndirectInputEvents` özelliğini etkinleştirmelidir. Yerleşik bildirim bunu zaten etkinleştirir.
+
+## Fare tekerleği {#mouse-wheel}
 Fare tekerleği girdileri kaydırma eylemlerini algılar. Tekerlek döndürüldüğünde `action.value` alanı `1`, aksi durumda `0` olur. (Kaydırma eylemleri, düğmeye basma gibi işlenir. Defold şu anda dokunmatik yüzeylerde hassas kaydırma girdisini desteklemez.)
 
 ```lua
@@ -52,14 +76,15 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Fare hareketi
+## Fare hareketi {#mouse-movement}
 Fare hareketi ayrı olarak işlenir. Girdi eşlemelerinizde (input binding) en az bir fare tetikleyicisi ayarlanmadıkça fare hareketi olayları alınmaz.
 
-Fare hareketi girdi eşlemelerinde bir eyleme bağlanmaz; bunun yerine `action_id` değeri `nil` olarak ayarlanır ve `action` tablosu farenin konumu ve konumundaki değişimle doldurulur.
+İşaretçi hareketi bir eylem adına bağlanmaz: `action_id` değeri `nil` olur ve `action` tablosu işaretçinin konumunu ve hareket farkını içerir. Kaynağı, fiziksel fare için `hash("mouse")`, dokunmadan benzetilen hareket için `hash("touch")` olur. İvmeölçer örnekleri de `action_id == nil` kullandığı için [Girdi cihazının kaynağı](/manuals/input/#input-device-source) bölümünde gösterildiği gibi bunları ayırt etmek üzere kaynağı kontrol edin.
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)
@@ -67,15 +92,15 @@ function on_input(self, action_id, action)
 end
 ```
 
-# Dokunma tetikleyicileri
+# Dokunma tetikleyicileri {#touch-triggers}
 Tekli dokunma (single-touch) ve çoklu dokunma (multi-touch) türündeki tetikleyiciler, iOS ve Android cihazlarda hem yerel uygulamalarda hem de HTML5 dağıtım paketlerinde kullanılabilir.
 
 ![](images/input/touch_bindings.png)
 
-## Tekli dokunma
+## Tekli dokunma {#single-touch}
 Tekli dokunma türündeki tetikleyiciler, girdi eşlemelerinin Touch Triggers bölümünden ayarlanmaz. Bunun yerine **`MOUSE_BUTTON_LEFT` veya `MOUSE_BUTTON_1` için fare düğmesi girdisini ayarladığınızda tekli dokunma tetikleyicileri otomatik olarak ayarlanır**.
 
-## Çoklu dokunma
+## Çoklu dokunma {#multi-touch}
 Çoklu dokunma türündeki tetikleyiciler, eylem tablosunun içindeki `touch` adlı tabloyu doldurur. Tablonun elemanları `1`--`N` aralığındaki tam sayılarla indekslenir; burada `N`, dokunma noktalarının sayısıdır. Tablodaki her eleman girdi verileri içeren alanlar barındırır:
 
 ```lua
@@ -99,13 +124,13 @@ end
 :::
 
 
-## Nesnelere tıklamayı veya dokunmayı algılama
+## Nesnelere tıklamayı veya dokunmayı algılama {#detecting-click-or-tap-on-objects}
 Kullanıcının görsel bir bileşene (component) ne zaman tıkladığını veya dokunduğunu algılamak, birçok oyunda ihtiyaç duyulan çok yaygın bir işlemdir. Bu, kullanıcının bir düğmeyle veya başka bir kullanıcı arayüzü (UI) öğesiyle etkileşimi olabilir. Strateji oyununda oyuncunun yönettiği bir birim, zindan keşif oyununda bir bölümdeki hazine veya rol yapma oyununda (RPG) görev veren bir karakter gibi bir oyun nesnesiyle (game object) etkileşim de olabilir. Kullanılacak yaklaşım, görsel bileşenin türüne göre değişir.
 
-### GUI düğümleriyle etkileşimi algılama
+### GUI düğümleriyle etkileşimi algılama {#detecting-interaction-with-gui-nodes}
 Kullanıcı arayüzü öğeleri için `gui.pick_node(node, x, y)` işlevi bulunur. Bu işlev, belirtilen koordinatın bir GUI düğümünün (GUI node) sınırları içinde olup olmamasına göre `true` veya `false` döndürür. Daha fazla bilgi için [API belgelerine](/ref/gui/#gui.pick_node:node-x-y), [işaretçinin öğe üzerinde olmasını algılama örneğine](/examples/gui/pointer_over/) veya [düğme örneğine](/examples/gui/button/) bakın.
 
-### Oyun nesneleriyle etkileşimi algılama
+### Oyun nesneleriyle etkileşimi algılama {#detecting-interaction-with-game-objects}
 Kamera ötelemesi ve işleme betiğinin (render script) izdüşümü gibi etkenler gerekli hesaplamaları etkilediğinden, oyun nesneleriyle etkileşimi algılamak daha karmaşıktır. Oyun nesneleriyle etkileşimi algılamak için iki genel yaklaşım vardır:
 
   1. Kullanıcının etkileşim kurabileceği oyun nesnelerinin konumunu ve boyutunu takip edin ve fare ya da dokunma koordinatının bu nesnelerden herhangi birinin sınırları içinde olup olmadığını kontrol edin.

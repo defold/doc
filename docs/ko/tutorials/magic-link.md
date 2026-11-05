@@ -217,7 +217,7 @@ end
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale_xy(0.18)     -- render scaled down without changing Z
+    go.set_scale_xy(0.18)     -- Z를 변경하지 않고 축소하여 렌더링합니다
 
     if self.color ~= nil then
         sprite.play_flipbook("#sprite", self.color)
@@ -304,7 +304,7 @@ end
 ```lua
 -- connector.script
 function init(self)
-    go.set_scale_xy(0.18)           -- Scale in 2D without changing Z.
+    go.set_scale_xy(0.18)           -- Z를 변경하지 않고 2D로 스케일링합니다.
     go.set(".", "position.z", 1)    -- 위에 놓습니다.
 end
 ```
@@ -314,7 +314,8 @@ end
 ```lua
 -- board.script
 --
--- x, y에 있는 블록과 같은 색인 이웃 블록 목록을 반환합니다.
+-- x, y에 있는 블록과 색상이 같은
+-- 이웃 블록의 목록을 반환합니다
 --
 local function same_color_neighbors(self, x, y)
     local f = function (v)
@@ -551,7 +552,7 @@ end
 ```lua
 -- block.script
 function init(self)
-    go.set_scale_xy(0.18) -- render scaled down without changing Z
+    go.set_scale_xy(0.18) -- Z를 변경하지 않고 축소하여 렌더링합니다
 
     self.fx1 = nil
     self.fx2 = nil

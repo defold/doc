@@ -120,7 +120,7 @@ Die grundsätzliche Reihenfolge der Lua-Callback-Phasen von *Skriptkomponenten* 
 Jede Spielobjektkomponente in der Hauptsammlung wird durchlaufen. Wenn eine dieser Komponenten ein Skript mit einer Funktion `fixed_update()`/`update()`/`late_update()` besitzt, wird diese aufgerufen. Ist die Komponente ein Sammlungs-Proxy, wird jede Komponente in der vom Proxy geladenen Sammlung rekursiv mit allen Schritten der Phase `Update` aktualisiert.
 
 ::: sidenote
-Die Reihenfolge, in der die `update()`-Funktionen der Spielobjektkomponenten aufgerufen werden, ist nicht festgelegt. Du solltest nicht davon ausgehen, dass die Engine Objekte derselben Sammlung in einer bestimmten Reihenfolge aktualisiert. Dasselbe gilt für `fixed_update()` und `late_update()` (seit 1.12.0).
+Die Reihenfolge, in der die `update()`-Funktionen von Spielobjektkomponenten aufgerufen werden, ist nicht festgelegt. Du solltest nicht annehmen, dass die Engine Objekte derselben Sammlung in einer bestimmten Reihenfolge aktualisiert. Dasselbe gilt für `fixed_update()` und `late_update()`.
 :::
 
 #### Physik {#physics}
@@ -204,7 +204,7 @@ Die Anzahl der Frame-Aktualisierungen pro Sekunde (die der Anzahl der Durchläuf
 
 #### Drosselung der Engine {#engine-throttling}
 
-Defold 1.12.0 führte eine API zum Drosseln der Engine ein, mit der sich Engine-Aktualisierungen und Rendering vollständig überspringen lassen, während Eingaben weiterhin erkannt werden. Jede Eingabe weckt die Engine wieder auf. Nach einer Wartezeit kann die Engine erneut in den gedrosselten Zustand wechseln.
+Defold bietet eine API zur Drosselung der Engine, mit der Engine-Aktualisierungen und Rendering vollständig übersprungen werden können, während Eingaben weiterhin erkannt werden. Jede Eingabe aktiviert die Engine wieder; nach einer Abkühlphase kann die Engine erneut in den gedrosselten Zustand wechseln.
 
 Weitere Informationen und Anwendungsbeispiele findest du in der API zu `sys.set_engine_throttle()`.
 

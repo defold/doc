@@ -7,7 +7,8 @@ brief: 本手册介绍了如何在 iOS 和 macOS 构建中使用 CocoaPods 解�
 
 [CocoaPods](https://cocoapods.org/) 是 Swift 和 Objective-C Cocoa 项目的依赖管理器。CocoaPods 通常用于管理和集成 Xcode 项目中的依赖。Defold 在为 iOS 和 macOS 构建时不使用 Xcode，但它仍然使用 Cocoapods 在构建服务器上解析依赖。
 
-## 解析依赖
+
+## 解析依赖 {#resolving-dependencies}
 
 原生扩展可以在 `manifests/ios` 和 `manifests/osx` 文件夹中包含 `Podfile` 文件来指定扩展依赖。例如：
 
@@ -24,3 +25,5 @@ pod 'FirebaseInstallations', '10.22.0'
 
 * [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile)
+
+许多 SDK 也以 Swift 包形式发布。按照 [Swift Package Manager 手册](/manuals/extensions-spm)的说明，可以用它们替代 CocoaPods，或与 CocoaPods 一同使用。

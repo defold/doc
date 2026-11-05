@@ -11,20 +11,30 @@ Schriftarten werden verwendet, um Text in Beschriftungskomponenten (label compon
 - OpenType
 - BMFont
 
-Seit Defold 1.13.2 unterstützen sowohl die bisherige als auch die vollständige Textlayout-Engine TrueType-Konturen und OpenType-CFF1/CFF2-Konturen, einschließlich der Erzeugung zur Laufzeit aus `.ttf`- und `.otf`-Ressourcen.
+Sowohl die bisherige als auch die vollständige Textlayout-Engine unterstützen TrueType-Konturen und OpenType-CFF1-/CFF2-Konturen, einschließlich der Erzeugung zur Laufzeit aus `.ttf`- und `.otf`-Ressourcen.
 
 Informationen zum Gestalten einzelner Textabschnitte und zum Arbeiten mit Links und eingebetteten Sprites findest du im [Handbuch zur Rich-Text-Auszeichnung](/manuals/font-richtext).
 
-Schriftarten, die du deinem Projekt hinzufügst, werden automatisch in ein Texturformat umgewandelt, das Defold rendern kann. Es stehen zwei Verfahren zum Rendern von Schriftarten zur Verfügung, die jeweils eigene Vor- und Nachteile haben:
+Bei TrueType- und OpenType-Schriftarten wählt die Eigenschaft *Mode* aus, wie Glyphen gerendert werden:
 
-- Bitmap
-- Distanzfeld
+- **Bitmap** verwendet gerasterte Glyphenbilder.
+- **SDF** (signed distance field) speichert Abstände zu Glyphenkanten in einer Textur und ermöglicht dadurch eine flexiblere Skalierung als Bitmap.
+- **Vector** rendert die Glyphenflächen aus Kurvendaten, sodass sie beim Skalieren scharf bleiben. Kontur- und Schatteneffekte verwenden weiterhin Bitmap-Daten.
+
+Neu erstellte Schriftartenressourcen verwenden den Modus **Vector** und die Glyphenerzeugung **Dynamic**. Bestehende Schriftartenressourcen behalten ihren Bitmap- oder SDF-Modus. BMFont-Quellen verwenden immer ihre mitgelieferte Bitmap.
+
+Der Vector-Modus benötigt Grafikunterstützung für Texturen vom Typ `RGBA16F` und `R32UI` und wird unter OpenGL ES 2 und WebGL 1 nicht unterstützt. Verwende für nicht unterstützte Grafikadapter Bitmap- oder SDF-Schriftarten mit passenden Materialien; es gibt keinen automatischen Rückfall von Vector auf SDF. Die Einrichtung beschreibt [Vektorschriftarten](#vector-fonts).
 
 ## Offline- oder Laufzeitschriftarten {#offline-or-runtime-fonts}
 
-Standardmäßig erfolgt die Umwandlung in gerasterte Glyphenbilder während des Builds (offline). Das hat den Nachteil, dass für jede Schriftart während des Builds alle möglichen Glyphen gerastert werden müssen. Dabei können sehr große Texturen entstehen, die Speicher belegen und außerdem das Bundle vergrößern.
+Die Eigenschaft *Glyph Generation* bestimmt, wann die Glyphendaten der jeweiligen Schriftart erzeugt werden:
 
-Bei Verwendung von „Laufzeitschriftarten“ (runtime fonts) werden die `.ttf`- und `.otf`-Schriftarten unverändert in das Bundle aufgenommen, und die Rasterisierung erfolgt bei Bedarf zur Laufzeit. Das minimiert sowohl den Speicherverbrauch zur Laufzeit als auch die Bundle-Größe.
+- **Static** erzeugt die ausgewählten Glyphen beim Build (offline). *Characters* und *All Chars* bestimmen, welche Glyphen enthalten sind. Die Quelldatei `.ttf` oder `.otf` wird nicht für die Erzeugung zur Laufzeit in das Bundle aufgenommen.
+- **Dynamic** nimmt die Quelldatei `.ttf` oder `.otf` in das Bundle auf und erzeugt Glyphen bei Bedarf zur Laufzeit. *Prewarm Text* bereitet Glyphen beim Laden der Schriftart vor. Weitere Glyphen können später bei Bedarf erzeugt werden.
+
+SDF- und Vektorschriftarten unterstützen beide Möglichkeiten. Bitmap-Schriftarten und BMFont-Quellen verwenden Static. Jede Schriftartenressource wird unabhängig konfiguriert, sodass ein Projekt statische und dynamische Schriftarten kombinieren kann.
+
+Die dynamische Erzeugung kann die Bundle-Größe und den Speicherbedarf zur Laufzeit reduzieren, besonders bei Schriftarten mit großen Zeichensätzen. Sie benötigt das vollständige Textlayoutsystem in der Engine; siehe [Laufzeitschriftarten aktivieren](#enabling-runtime-fonts).
 
 ## Unterstützung für Textlayout (z. B. von rechts nach links) {#text-layout-support-eg-right-to-left}
 
@@ -51,11 +61,15 @@ Um eine Schriftressource zur Verwendung in Defold zu erstellen, lege eine neue F
 
 Gib der neuen Schriftressource einen Namen und klicke auf <kbd>Ok</kbd>. Die neue Schriftressource wird nun im Editor geöffnet.
 
-![Neue Schriftressource](images/font/new_font.png)
-
 Ziehe die Schriftart, die du verwenden möchtest, in den Browser *Assets* und lege sie an einer geeigneten Stelle ab.
 
-Setze die Eigenschaft *Font* auf die Schriftdatei und passe die Schrifteigenschaften nach Bedarf an.
+Setze die Eigenschaft *Font* auf die Schriftartendatei. Wähle für eine `.ttf`- oder `.otf`-Quelle *Mode* und *Glyph Generation* und konfiguriere die übrigen Eigenschaften nach Bedarf. Führe bei dynamischer Erzeugung zusätzlich die [Einrichtung für Laufzeitschriftarten](#enabling-runtime-fonts) durch.
+
+![Schriftarteneigenschaften mit Vector-Modus und dynamischer Glyphenerzeugung](images/font/font_properties.png)
+
+Verwende bei Vektorschriftarten *Font Size* an einer Beschriftungskomponente oder einem GUI-Textknoten, um die angezeigte Textgröße zu ändern. *Outline/Shadow Bitmap Size* steuert die Auflösung der Effekt-Bitmaps unabhängig von der angezeigten Textgröße.
+
+Setze bei Bitmap- und SDF-Schriftarten *Size* in der Schriftartenressource, um die erzeugte Glyphengröße zu wählen. BMFont-Größen stammen aus der Quelldatei `.fnt`. Skaliere die Beschriftungskomponente oder den GUI-Textknoten, um die angezeigte Größe dieser Schriftarten zu ändern.
 
 ## Eigenschaften {#properties}
 
@@ -63,25 +77,28 @@ Setze die Eigenschaft *Font* auf die Schriftdatei und passe die Schrifteigenscha
 : Die TTF-, OTF- oder *`.fnt`*-Datei, aus der die Schriftdaten erzeugt werden.
 
 *Material*
-: Das Material, das zum Rendern dieser Schriftart verwendet wird. Achte darauf, es für Distanzfeldschriften und BMFonts zu ändern (Einzelheiten dazu findest du weiter unten).
+: Das Material zum Rendern dieser Schriftart. Es muss zum Schriftartenmodus passen; siehe [Schriftartenmaterialien](#font-materials).
 
-*Output Format*
-: Der Typ der erzeugten Schriftdaten.
+*Mode*
+: Die Rendertechnik für eine `.ttf`- oder `.otf`-Quelle: **Bitmap**, **SDF** oder **Vector**. Sie ersetzt die bisherige Eigenschaft *Output Format*. Bei BMFont-Quellen wird diese Eigenschaft nicht angezeigt.
 
-  - `TYPE_BITMAP` wandelt die importierte OTF- oder TTF-Datei in eine Schriftbogentextur um, deren Bitmap-Daten zum Rendern von Textknoten verwendet werden. Die Farbkanäle codieren die Zeichenform, den Umriss und den Schlagschatten. Bei *`.fnt`*-Dateien wird die Bitmap der Quelltextur unverändert verwendet.
-  - `TYPE_DISTANCE_FIELD` Die importierte Schriftart wird in eine Schriftbogentextur umgewandelt, deren Pixeldaten Abstände zum Rand der Schriftzeichen statt Bildschirmpixel darstellen. Einzelheiten findest du weiter unten.
+*Glyph Generation*
+: **Static** erzeugt Glyphendaten beim Build. **Dynamic** erzeugt sie zur Laufzeit und benötigt das [vollständige Textlayoutsystem](#enabling-runtime-fonts). Diese Eigenschaft ist für SDF- und Vektorschriftarten verfügbar. Im Bitmap-Modus ist sie auf Static festgelegt; bei BMFont-Quellen wird sie nicht angezeigt.
 
 *Render Mode*
-: Der Rendermodus für das Rendern von Glyphen.
+: Die Anordnung der Ebenen für erzeugte Bitmap-Schriftarten. Diese Eigenschaft wird nur im Bitmap-Modus für `.ttf`- und `.otf`-Quellen angezeigt. Für SDF-, Vector- und BMFont-Quellen wählt Defold die Ebenenanordnung automatisch.
 
-  - `MODE_SINGLE_LAYER` erzeugt für jedes Zeichen ein einzelnes Quad.
-  - `MODE_MULTI_LAYER` erzeugt separate Quads für die Glyphenform, den Umriss und die Schatten. Die Ebenen werden von hinten nach vorne gerendert. Dadurch verdeckt ein Zeichen keine zuvor gerenderten Zeichen, wenn der Umriss breiter als der Abstand zwischen den Glyphen ist. Dieser Rendermodus ermöglicht außerdem den korrekten Versatz des Schlagschattens entsprechend den Eigenschaften Shadow X/Y in der Schriftressource.
+  - **Single Layer** erzeugt ein einzelnes Quad für jedes Zeichen.
+  - **Multi Layer** erzeugt separate Quads für Glyphenform, Kontur und Schatten. Die Ebenen werden von hinten nach vorn gerendert. Dadurch verdeckt ein Zeichen keine zuvor gerenderten Zeichen, wenn die Kontur breiter als der Abstand zwischen Glyphen ist. Außerdem ermöglicht dies Schattenversätze über die Eigenschaften *Shadow X/Y*.
 
 *Size*
-: Die Zielgröße der Glyphen in Pixeln.
+: Die Glyphengröße in Pixeln beim Erzeugen von Bitmap- oder SDF-Schriftartendaten. Bei BMFont-Quellen wird die Größe aus der `.fnt`-Datei gelesen und kann hier nicht bearbeitet werden.
+
+*Outline/Shadow Bitmap Size*
+: Ersetzt im Vector-Modus *Size*. Die Eigenschaft steuert die Bitmap-Auflösung aktivierter Kontur- und Schatteneffekte sowohl bei statischer als auch bei dynamischer Erzeugung. Sind beide Effekte deaktiviert, ist sie ebenfalls deaktiviert, da die Glyphenflächen Kurvendaten verwenden. Eine Änderung von *Font Size* an einer Beschriftung oder einem GUI-Textknoten verändert diese gemeinsam genutzte Bitmap-Auflösung nicht.
 
 *Antialias*
-: Gibt an, ob die Schriftart beim Übertragen in die Ziel-Bitmap mit Kantenglättung versehen werden soll. Setze den Wert auf 0, wenn du die Schrift pixelgenau rendern möchtest.
+: Legt fest, ob beim Erzeugen von Bitmap-Schriftartendaten Kantenglättung angewendet wird. Deaktiviere dies für pixelgenaues Rendering. Diese Eigenschaft wird nur im Bitmap-Modus für `.ttf`- und `.otf`-Quellen angezeigt.
 
 *Alpha*
 : Die Transparenz der Glyphe. 0.0--1.0, wobei 0.0 transparent und 1.0 undurchsichtig bedeutet.
@@ -96,19 +113,20 @@ Setze die Eigenschaft *Font* auf die Schriftdatei und passe die Schrifteigenscha
 : Die Transparenz des erzeugten Schattens. 0.0--1.0.
 
 ::: sidenote
-Die Shader der integrierten Schriftmaterialien ermöglichen Schatten sowohl im einlagigen als auch im mehrlagigen Rendermodus. Wenn du weder mehrlagiges Schriftrendering noch Schatten benötigst, verwendest du am besten einen einfacheren Shader wie *`builtins/font-singlelayer.fp`*.
+Der integrierte Shader für Bitmap-Schriftarten unterstützt Schatten sowohl im Rendermodus *Single Layer* als auch in *Multi Layer*. Für erzeugte Bitmap-Schriftarten mit *Single Layer*, die keine Schatten benötigen, kann ein benutzerdefiniertes Material `/builtins/fonts/font-singlelayer.fp` verwenden. SDF- und Vektorschriftarten benötigen Shader, die zu ihrem Modus passen; siehe [Schriftartenmaterialien](#font-materials).
 :::
 
 *Shadow Blur*
-: Bei Bitmap-Schriften gibt diese Einstellung an, wie oft ein kleiner Weichzeichnungskern auf jede Glyphe der Schriftart angewendet wird. Bei Distanzfeldschriften entspricht sie der tatsächlichen Breite der Weichzeichnung in Pixeln.
+: Die Stärke der Unschärfe des erzeugten Schattens. Setze den Wert für einen scharfen Schatten auf 0.
 
 *Shadow X/Y*
-: Der horizontale und vertikale Versatz des erzeugten Schattens in Pixeln. Diese Einstellung wirkt sich nur auf den Glyphenschatten aus, wenn Render Mode auf `MODE_MULTI_LAYER` gesetzt ist.
+: Der horizontale und vertikale Versatz des erzeugten Schattens in Pixeln. Verwende bei erzeugten Bitmap-Schriftarten den Rendermodus *Multi Layer*, um diese Versätze anzuwenden. Für SDF- und Vektorschriftarten wählt Defold die passenden Ebenen automatisch.
 
 *Characters*
-: Die Zeichen, die in die Schriftart aufgenommen werden sollen. Standardmäßig enthält dieses Feld die druckbaren ASCII-Zeichen (Zeichencodes 32-126). Du kannst in diesem Feld Zeichen hinzufügen oder entfernen, um mehr oder weniger Zeichen in die Schriftart aufzunehmen.
+: Bei statischer Erzeugung die Zeichen, die in der erstellten Schriftart enthalten sein sollen. Standardmäßig enthält dieses Feld die druckbaren ASCII-Zeichen (Zeichencodes 32–126). Füge Zeichen hinzu oder entferne sie, um festzulegen, welche Glyphen zur Laufzeit verfügbar sind.
 
-Bei Laufzeitschriftarten dient dieser Text dazu, den Cache mit den passenden Glyphen vorab zu füllen. Dies geschieht beim Laden. Siehe `font.prewarm_text()`.
+*Prewarm Text*
+: Ersetzt bei dynamischer Erzeugung *Characters*. Der Text dient beim Laden der Schriftart zum Erzeugen von Glyphen und Vorbereiten des Caches. Er beschränkt nicht, welche Zeichen später erzeugt werden können. Du kannst Text auch aus einem Skript mit [`font.prewarm_text()`](/ref/font/#font.prewarm_text) vorbereiten.
 
 ::: sidenote
 Die druckbaren ASCII-Zeichen sind:
@@ -116,12 +134,54 @@ Leerzeichen ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B 
 :::
 
 *All Chars*
-: Wenn du diese Eigenschaft aktivierst, werden alle in der Quelldatei verfügbaren Glyphen in die Ausgabe aufgenommen.
+: Nimmt bei statischer Erzeugung jede in der Quelle verfügbare Glyphe auf, statt die Schriftart auf *Characters* zu beschränken. Bei dynamischen Schriftarten ist diese Eigenschaft ausgeblendet.
 
 *Cache Width/Height*
-: Begrenzt die Größe der Bitmap für den Glyphen-Cache. Wenn die Engine Text rendert, sucht sie die Glyphe in der Cache-Bitmap. Ist sie dort nicht vorhanden, wird sie vor dem Rendern zum Cache hinzugefügt. Wenn die Cache-Bitmap zu klein ist, um alle von der Engine zu rendernden Glyphen aufzunehmen, wird ein Fehler gemeldet (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
+: Begrenzt die Größe der Glyphen-Cache-Bitmap, die Bitmap- und SDF-Schriftarten sowie Kontur- und Schatteneffekte im Vector-Modus verwenden. Beim Rendern von Text sucht die Engine die Glyphe in der Cache-Bitmap. Fehlt sie dort, wird sie vor dem Rendern zum Cache hinzugefügt. Ist die Cache-Bitmap zu klein für alle Glyphen, die die Engine rendern soll, wird ein Fehler gemeldet (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
 
   Bei einem Wert von 0 wird die Cache-Größe automatisch festgelegt und kann auf höchstens 2048x4096 anwachsen.
+
+## Schriftartenmaterialien {#font-materials}
+
+Verwende ein Material, das zum Schriftartenmodus passt. GUI-Textknoten verwenden *Material* der Schriftartenressource. Beschriftungskomponenten haben eine separate Eigenschaft *Material*, die ebenfalls zur Schriftart passen muss:
+
+| Schriftartenmodus oder Quelle | Schriftartenmaterial für GUI-Text | Material der Beschriftungskomponente |
+| --- | --- | --- |
+| Bitmap | `/builtins/fonts/font.material` | `/builtins/fonts/label.material` |
+| SDF | `/builtins/fonts/font-df.material` | `/builtins/fonts/label-df.material` |
+| Vector | `/builtins/fonts/font-vector.material` | `/builtins/fonts/label-vector.material` |
+| BMFont (`.fnt`) | `/builtins/fonts/font-fnt.material` | `/builtins/fonts/label-fnt.material` |
+
+Wenn du *Mode* im Schriftarteneditor änderst, wird zwischen den entsprechenden integrierten Bitmap-, SDF- und Vector-Materialien gewechselt, sofern bereits eines dieser Materialien zugewiesen ist. Benutzerdefinierte Materialien werden nicht automatisch ersetzt. Prüfe auch *Material* aller Beschriftungskomponenten, die diese Schriftart verwenden.
+
+## Vektorschriftarten {#vector-fonts}
+
+Vektorschriftarten rendern Glyphenflächen aus Kurven, sodass sie bei Änderungen der angezeigten Textgröße scharf bleiben. So richtest du eine Schriftart ein, die ihre Glyphen zur Laufzeit erzeugt:
+
+1. Erstelle eine `.font`-Ressource, beispielsweise `/fonts/ui.font`, und wähle in ihrer Eigenschaft *Font* eine TrueType- oder OpenType-Quelle aus. Für gewöhnlichen Text kannst du die integrierte `/builtins/fonts/vera_mo_bd.ttf` verwenden.
+2. Setze *Mode* auf **Vector**, *Glyph Generation* auf **Dynamic** und *Material* auf `/builtins/fonts/font-vector.material`. Dies sind die Standardwerte neu erstellter Schriftartenressourcen.
+3. Aktiviere **Use full text layout system** in einem dem Projekt zugewiesenen Anwendungsmanifest. Folge [Laufzeitschriftarten aktivieren](#enabling-runtime-fonts), um die benutzerdefinierte Engine zu konfigurieren.
+4. Aktiviere [Shader ▸ Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) in *game.project*.
+5. Weise die Schriftart einer [Beschriftung](/manuals/label/) zu oder füge sie zu *Fonts* einer GUI-Szene hinzu und wähle sie an einem [Textknoten](/manuals/gui-text/) aus. Setze bei einer Beschriftung außerdem *Material* der Komponente auf `/builtins/fonts/label-vector.material`. Setze *Font Size* der Komponente oder des Knotens auf die gewünschte Anzeigegröße.
+
+Vektorglyphenflächen verwenden Kurventexturen; aktivierte Konturen und Schatten erzeugen jedoch weiterhin SDF-Bitmap-Daten und belegen Texturspeicher im Glyphen-Cache. *Outline/Shadow Bitmap Size* legt diese Bitmap-Auflösung unabhängig von *Font Size* der Beschriftung oder des GUI-Textknotens fest. Setze *Outline Alpha* und *Shadow Alpha* auf `0`, wenn du diese Effekte nicht benötigst, um die Erzeugung ihrer Bitmap-Daten zu vermeiden.
+
+### Farbige Emojis {#color-emoji}
+
+Vektorschriftarten können farbige COLRv1-Emojis rendern, einschließlich Palettenfarben sowie linearer und radialer Farbverläufe. Die Modi Bitmap und SDF rendern keine COLRv1-Farben. Verwende die obige Einrichtung mit Dynamic und Vector und ergänze die Schriftartensammlung um eine COLRv1-Emoji-Schriftart als Ausweichschrift. Gewöhnlicher Text verwendet weiterhin die ursprüngliche Schriftart.
+
+Kopiere beispielsweise die COLRv1-[Schriftart Noto Color Emoji](https://github.com/google/fonts/blob/main/ofl/notocoloremoji/NotoColorEmoji-Regular.ttf) als `/fonts/NotoColorEmoji-Regular.ttf` in dein Projekt. Wähle die COLRv1-Version: Andere Emoji-Schriftarten können ein anderes Farbformat verwenden, auch wenn ihr Dateiname auf `.ttf` endet.
+
+Ergänze `/fonts/NotoColorEmoji-Regular.ttf` unter **Project ▸ Custom Resources** in *game.project*. Ohne weitere benutzerdefinierte Ressourcen lautet die Einstellung:
+
+```ini
+[project]
+custom_resources = /fonts/NotoColorEmoji-Regular.ttf
+```
+
+Ein in Lua angegebener Schriftartenpfad bewirkt nicht, dass die Schriftartendatei in das Bundle aufgenommen wird. [Custom Resources](/manuals/project-settings/#custom-resources) macht diese Quellschriftart für [`font.add_font()`](/ref/font/#font.add_font) verfügbar, das sie über das Ressourcensystem lädt. Übergib beim Laden aus dem Bundle den Pfad der Quellschriftart als Zeichenfolge.
+
+Füge die Ausweichschrift pro gemeinsam genutzter Schriftartenressource nur einmal hinzu. Die Änderung betrifft alle Beschriftungen und GUI-Textknoten, die diese Schriftart verwenden; zweimaliges Hinzufügen derselben Ausweichschrift löst einen Fehler aus. Wenn du das [Beschriftungsbeispiel](/manuals/label/#vector-fonts-and-color-emoji) und das [GUI-Beispiel](/manuals/gui-text/#vector-fonts-and-color-emoji) mit derselben `.font` verwendest, stimme die Initialisierung so ab, dass die Ausweichschrift einmal hinzugefügt wird, bevor eines der Beispiele Text vorbereitet oder anzeigt. Die Beispiele bereiten nach dem Hinzufügen der Ausweichschrift den vollständigen Text vor und zeigen ihn an, wenn der Callback Erfolg meldet.
 
 ## Distanzfeldschriften {#distance-field-fonts}
 
@@ -129,7 +189,7 @@ Distanzfeldschriften (distance field fonts) speichern statt Bitmap-Daten den Abs
 
 ![Distanzfeldschrift](images/font/df_font.png)
 
-Achte beim Erstellen der Schriftressource darauf, die Eigenschaft *Material* auf *`builtins/fonts/font-df.material`* (oder ein anderes Material, das Distanzfelddaten verarbeiten kann) zu setzen. Andernfalls verwendet die Schriftart beim Rendern auf den Bildschirm nicht den richtigen Shader.
+Wähle **SDF** unter *Mode* und **Static** oder **Dynamic** unter *Glyph Generation*. Verwende *`/builtins/fonts/font-df.material`* für die Schriftart und *`/builtins/fonts/label-df.material`* für Beschriftungskomponenten oder benutzerdefinierte Materialien, die Distanzfelddaten verarbeiten.
 
 ## Bitmap-Schriften im BMFont-Format {#bitmap-bmfonts}
 
@@ -137,7 +197,7 @@ Neben erzeugten Bitmaps unterstützt Defold vorab gerasterte Bitmap-Schriften im
 
 Diese Schriftarten bieten keinen Leistungsvorteil gegenüber Bitmap-Schriften, die aus TrueType- oder OpenType-Schriftdateien erzeugt werden. Sie können jedoch beliebige Grafiken, Farben und Schatten direkt im Bild enthalten.
 
-Füge die erzeugten Dateien *`.fnt`* und *`.png`* deinem Defold-Projekt hinzu. Diese Dateien sollten sich im selben Ordner befinden. Erstelle eine neue Schriftressource und setze die Eigenschaft *font* auf die *`.fnt`*-Datei. Achte darauf, dass *output_format* auf `TYPE_BITMAP` gesetzt ist. Defold erzeugt keine Bitmap, sondern verwendet die im PNG bereitgestellte.
+Füge die erzeugten Dateien *`.fnt`* und *`.png`* deinem Defold-Projekt hinzu. Sie sollten im selben Ordner liegen. Erstelle eine neue Schriftartendatei und setze *Font* auf die *`.fnt`*-Datei. Defold verwendet die mitgelieferte Bitmap und liest ihre Größe aus der `.fnt`-Datei. *Mode* und *Glyph Generation* werden bei BMFont-Quellen nicht angezeigt.
 
 ::: sidenote
 Um eine BMFont zu erstellen, benötigst du ein Werkzeug, das die entsprechenden Dateien erzeugen kann. Dafür gibt es mehrere Möglichkeiten:
@@ -151,7 +211,7 @@ Um eine BMFont zu erstellen, benötigst du ein Werkzeug, das die entsprechenden 
 
 ![BMFont](images/font/bm_font.png)
 
-Damit die Schriftart korrekt gerendert wird, vergiss beim Erstellen der Schriftressource nicht, die Materialeigenschaft auf *`builtins/fonts/font-fnt.material`* zu setzen.
+Setze *Material* der Schriftart auf *`/builtins/fonts/font-fnt.material`*. Verwende für Beschriftungskomponenten *`/builtins/fonts/label-fnt.material`*.
 
 ## Artefakte und bewährte Vorgehensweisen {#artifacts-and-best-practices}
 
@@ -169,10 +229,10 @@ Distanzfeldschriften müssen in einer Zielgröße gerendert werden, die groß ge
 
 ![Artefakte bei Distanzfeldschriften](images/font/df_artifacts.png)
 
-Wenn du keine Schatten oder Umrisse benötigst, setze deren jeweilige Alphawerte auf null. Andernfalls werden weiterhin Schatten- und Umrissdaten erzeugt, die unnötig Speicher belegen.
+Wenn du keine Schatten oder Konturen benötigst, setze ihre jeweiligen Alpha-Werte auf null. Andernfalls werden weiterhin Schatten- und Konturdaten erzeugt, die unnötig Speicher belegen. Im Vector-Modus verhindert das Deaktivieren beider Effekte die Erzeugung ihrer Bitmap-Daten; die Glyphenflächen verwenden weiterhin Kurvendaten.
 
 ## Schrift-Cache {#font-cache}
-Eine Schriftressource in Defold führt zur Laufzeit zu zwei Dingen: einer Textur und den Schriftdaten.
+Bitmap- und SDF-Schriftartenressourcen verwenden zur Laufzeit eine Glyphen-Cache-Textur und Schriftartendaten. Vektorschriftarten speichern ihre Glyphenflächen als Kurvendaten und verwenden für aktivierte Kontur- und Schatteneffekte einen Bitmap-Cache. Das nachfolgend beschriebene Texturlayout gilt für Bitmap- und SDF-Schriftarten.
 
 * Die Schriftdaten bestehen aus einer Liste von Glypheneinträgen, die jeweils grundlegende Informationen zur Unterschneidung und die Bitmap-Daten der Glyphe enthalten.
 * Die Textur wird intern „Glyphen-Cache-Textur“ genannt und beim Rendern von Text mit einer bestimmten Schriftart verwendet.
@@ -194,42 +254,27 @@ Weitere Informationen zu Shader-Uniforms findest du im [Shader-Handbuch](/manual
 
 ## Laufzeitschriftarten aktivieren {#enabling-runtime-fonts}
 
-Für Schriftarten vom Typ SDF ist die Erzeugung zur Laufzeit möglich, wenn du TrueType- (`.ttf`) oder OpenType-Schriftarten (`.otf`) verwendest. Die Erzeugung zur Laufzeit aus `.otf`-Ressourcen wird seit Defold 1.13.2 unterstützt.
-Dieser Ansatz kann die Downloadgröße und den Speicherverbrauch eines Defold-Spiels zur Laufzeit erheblich reduzieren.
-Der kleine Nachteil besteht darin, dass die Erzeugung jeder Glyphe asynchron erfolgt.
+Die Erzeugung zur Laufzeit wird pro Schriftartenressource konfiguriert:
 
-* Aktiviere die Funktion, indem du `font.runtime_generation` in game.project setzt.
+1. Öffne die `.font`-Ressource und wähle eine TrueType- (`.ttf`) oder OpenType-Quelle (`.otf`).
+2. Setze *Mode* auf **SDF** oder **Vector** und *Glyph Generation* auf **Dynamic**.
+3. Wähle die passenden [Schriftarten- und Beschriftungsmaterialien](#font-materials).
+4. Füge ein [Anwendungsmanifest](/manuals/app-manifest) hinzu, weise es unter *Native Extensions ▸ App Manifest* in *game.project* zu und aktiviere **Use full text layout system**. Dadurch wird eine benutzerdefinierte Engine mit Glyphenerzeugung zur Laufzeit und vollständigem Textlayout erstellt.
+5. Setze *Prewarm Text* auf Text, der kurz nach dem Laden der Schriftart angezeigt wird. Verwende für später benötigten Text [`font.prewarm_text()`](/ref/font/#font.prewarm_text) und warte vor der Anzeige auf den Callback.
 
-* Füge ein [Anwendungsmanifest](/manuals/app-manifest) hinzu und aktiviere die Option `Use full text layout system`.
-Dadurch wird eine angepasste Engine erstellt, in der diese Funktion aktiviert ist.
-
-::: sidenote
-Diese Funktion ist derzeit experimentell, soll aber in Zukunft zum Standardarbeitsablauf werden.
-:::
-
-::: important
-Die Einstellung `font.runtime_generation` wirkt sich auf alle `.ttf`- und `.otf`-Schriftarten im Projekt aus.
-:::
-
+Neue Schriftartenressourcen verwenden bereits den Vector-Modus und dynamische Erzeugung, benötigen aber trotzdem die obige Konfiguration des Anwendungsmanifests.
 
 ### Schriftarten per Skript steuern {#font-scripting}
 
 #### Den Glyphen-Cache vorab füllen {#prewarming-glyph-cache}
 
-Um Laufzeitschriftarten leichter verwenden zu können, unterstützen sie das Vorabfüllen des Glyphen-Caches.
-Das bedeutet, dass die unter *Characters* in der Schriftressource aufgeführten Glyphen erzeugt werden.
+Dynamische Schriftarten erzeugen beim Laden die von *Prewarm Text* benötigten Glyphen. Das Feld wird als zu layoutender Text interpretiert, sodass der Cache für die dafür erforderlichen Glyphen vorbereitet wird. *All Chars* ist für dynamische Schriftarten nicht verfügbar.
 
-::: sidenote
-Wenn `All Chars` ausgewählt ist, wird der Cache nicht vorab gefüllt, da dies dem Zweck widerspricht, nicht alle Glyphen gleichzeitig erzeugen zu müssen.
-:::
-
-Wenn das Feld `Characters` der `.fontc`-Datei ausgefüllt ist, wird sein Inhalt als Text verwendet, um zu ermitteln, welche Glyphen im Glyphen-Cache aktualisiert werden müssen.
-
-Du kannst den Glyphen-Cache auch manuell aktualisieren, indem du `font.prewarm_text(font_collection, text, callback)` aufrufst. Ein Callback informiert dich darüber, wann alle fehlenden Glyphen zum Glyphen-Cache hinzugefügt wurden und der Text auf dem Bildschirm angezeigt werden kann.
+Du kannst für eine dynamische Schriftart auch `font.prewarm_text(font_collection, text, callback)` aufrufen. Der Callback teilt dir mit, wann alle fehlenden Glyphen zum Cache hinzugefügt wurden und der Text angezeigt werden kann. Diese Funktion kann nicht mit statischen Schriftarten verwendet werden.
 
 ### Schriftarten zu einer Schriftsammlung hinzufügen oder daraus entfernen {#addingremoving-fonts-to-a-font-collection}
 
-Bei Laufzeitschriftarten kannst du Schriftarten (`.ttf`) zu einer Schriftsammlung hinzufügen oder daraus entfernen.
+Bei dynamischen Schriftarten können Quellschriftarten (`.ttf` oder `.otf`) einer Schriftartensammlung hinzugefügt oder daraus entfernt werden.
 Das ist nützlich, wenn eine große Schriftart in mehrere Dateien für verschiedene Zeichensätze (z. B. CJK) aufgeteilt wurde.
 
 ::: important

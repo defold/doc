@@ -56,7 +56,7 @@ Defold предоставляет точку входа для нативных 
 : Эта опциональная папка содержит все включаемые файлы.
 
 *lib*
-: Эта опциональная папка содержит все скомпилированные библиотеки, от которых зависит расширение. Файлы библиотек должны быть помещены в подпапки с именем `platform`, или `architecure-platform`, в зависимости от того, какие архитектуры поддерживаются вашими библиотеками.
+: Эта опциональная папка содержит все скомпилированные библиотеки, от которых зависит расширение. Файлы библиотек должны быть помещены в подпапки с именем `platform`, или `architecture-platform`, в зависимости от того, какие архитектуры поддерживаются вашими библиотеками.
 
   :[platforms](../shared/platforms.md)
 
@@ -64,18 +64,21 @@ Defold предоставляет точку входа для нативных 
 : Эта опциональная папка содержит дополнительные файлы, используемые в процессе сборки или комплектации. Подробнее см. ниже.
 
 *res*
-: Эта опциональная папка содержит любые дополнительные ресурсы, от которых зависит расширение. Файлы ресурсов должны быть помещены в подпапки, названные по `platform`, или `architecure-platform`, как и подпапки `lib`. Также допускается подпапка `common`, содержащая файлы ресурсов, общие для всех платформ.
+: Эта опциональная папка содержит любые дополнительные ресурсы, от которых зависит расширение. Файлы ресурсов должны быть помещены в подпапки, названные по `platform`, или `architecture-platform`, как и подпапки `lib`. Также допускается подпапка `common`, содержащая файлы ресурсов, общие для всех платформ.
 
 ### Файлы манифеста
 
-Опциональная папка *manifests* расширения содержит дополнительные файлы, используемые в процессе сборки и комплектации. Файлы должны быть помещены во вложенные папки, названные по `платформе`:
+Опциональная папка *manifests* расширения содержит дополнительные файлы, используемые в процессе сборки и комплектации. Файлы должны быть помещены во вложенные папки, названные по `platform`:
 
 * `android` - В эту папку помещается файл-заглушка манифеста, который будет объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
   * Папка также может содержать файл `build.gradle` с зависимостями, которые должны быть [разрешены Gradle](/manuals/extensions-gradle) ([пример](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)).
   * Расширения с Java-кодом должны содержать [файл правил сохранения R8](#r8-keep-rules-for-android) (`.keep`) для классов, необходимых во время выполнения.
 * `ios` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
   * Папка также может содержать файл `Podfile` с зависимостями, которые должны быть [разрешены через Cocoapods](/manuals/extensions-cocoapods).
+  * Папка также может содержать файл `SwiftPackages.json` с зависимостями, которые должны быть [разрешены через Swift Package Manager](/manuals/extensions-spm).
 * `osx` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
+  * Папка также может содержать файл `Podfile` с зависимостями, которые должны быть [разрешены через Cocoapods](/manuals/extensions-cocoapods).
+  * Папка также может содержать файл `SwiftPackages.json` с зависимостями, которые должны быть [разрешены через Swift Package Manager](/manuals/extensions-spm).
 * `web` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Defold предоставляет точку входа для нативных 
 
 Эти правила объединяются с выбранным файлом правил проекта, когда [R8 включён](/manuals/android/#enabling-r8).
 
-В Defold 1.14.0 и новее при использовании совместимого сервера Extender R8 также удаляет неиспользуемые ресурсы Android. Если расширение загружает ресурсы динамически по имени, добавьте [XML-правила сохранения ресурсов](/manuals/android/#keeping-android-resources) в каталог `res/android/res/raw` папки расширения.
+При использовании совместимого сервера Extender R8 также удаляет неиспользуемые ресурсы Android. Если расширение загружает ресурсы динамически по имени, добавьте [XML-правила сохранения ресурсов](/manuals/android/#keeping-android-resources) в каталог `res/android/res/raw` папки расширения.
 
 ## Пользовательские ресурсы {#custom-resources}
 
@@ -148,23 +151,23 @@ name: "MyExtension"
 
 ```cpp
 // myextension.cpp
-// Определения расширения lib
+// Extension lib defines
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// включаем Defold SDK
+// include the Defold SDK
 #include <dmsdk/sdk.h>
 
 static int Reverse(lua_State* L)
 {
-    // Количество ожидаемых элементов в стеке Lua после того, 
-    // как эта структура выйдет из области видимости
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
     DM_LUA_STACK_CHECK(L, 1);
 
-    // Проверка и получение строки параметра из стека
+    // Check and get parameter string from stack
     char* str = (char*)luaL_checkstring(L, 1);
 
-    // Развернем строку
+    // Reverse the string
     int len = strlen(str);
     for(int i = 0; i < len / 2; i++) {
         const char a = str[i];
@@ -173,14 +176,14 @@ static int Reverse(lua_State* L)
         str[len - i - 1] = a;
     }
 
-    // Поместим развернутую строку в стек
+    // Put the reverse string on the stack
     lua_pushstring(L, str);
 
-    // Вернем значение 1
+    // Return 1 item
     return 1;
 }
 
-// Функции, открытые для Lua
+// Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
     {"reverse", Reverse},
@@ -191,7 +194,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // Регистрация имен Lua
+    // Register lua names
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -205,7 +208,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Инициализация Lua
+    // Init Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -222,16 +225,16 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// Defold SDK использует макрос для установки точек входа расширения:
+// Defold SDK uses a macro for setting up extension entry points:
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
-// MyExtension это символ C++, который содержит все соответствующие данные расширения.
-// Он должно совпадать с полем имени в `ext.manifest`
+// MyExtension is the C++ symbol that holds all relevant extension data.
+// It must match the name field in the `ext.manifest`
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Обратите внимание на макрос `DM_DECLARE_EXTENSION`, который используется для объявления различных точек входа в код расширения. Первый аргумент `символ` должен соответствовать имени, указанному в *ext.manifest*. Для этого простого примера нет необходимости в точках входа `update` или `on_event`, поэтому в этих местах макросу присваивается `0`.
+Обратите внимание на макрос `DM_DECLARE_EXTENSION`, который используется для объявления различных точек входа в код расширения. Первый аргумент `symbol` должен соответствовать имени, указанному в *ext.manifest*. Для этого простого примера нет необходимости в точках входа `update` или `on_event`, поэтому в этих местах макросу присваивается `0`.
 
 Теперь осталось только создать проект (<kbd>Project ▸ Build</kbd>). Это загрузит расширение в конструктор расширений, который запустит движок с включенным в него новым расширением. Если сборщик столкнется с какими-либо ошибками, появится диалог с ошибками сборки.
 
@@ -246,7 +249,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 Вот и все! Мы создали полностью работающее нативное расширение.
 
 
-## Жизненный цикл расширения
+## Жизненный цикл расширения {#extension-lifecycle}
 
 Как мы видели выше, макрос `DM_DECLARE_EXTENSION` используется для объявления различных точек входа в код расширения:
 
@@ -274,12 +277,12 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 
 Следующие идентификаторы определяются разработчиком на каждой соответствующей платформе:
 
-* DM_PLATFORM_WINDOWS
-* DM_PLATFORM_OSX
-* DM_PLATFORM_IOS
-* DM_PLATFORM_ANDROID
-* DM_PLATFORM_LINUX
-* DM_PLATFORM_HTML5
+* `DM_PLATFORM_WINDOWS`
+* `DM_PLATFORM_OSX`
+* `DM_PLATFORM_IOS`
+* `DM_PLATFORM_ANDROID`
+* `DM_PLATFORM_LINUX`
+* `DM_PLATFORM_HTML5`
 
 ## Построение журналов сервера {#build-server-logs}
 

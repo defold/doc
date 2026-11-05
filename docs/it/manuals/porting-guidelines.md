@@ -93,6 +93,53 @@ Defold offre un supporto integrato per l'area sicura su Android e iOS. Imposta `
 
 L'[estensione Safe Area](/extension-safearea) rimane un'alternativa per i progetti meno recenti o per i flussi di lavoro che richiedono comportamenti aggiuntivi rispetto alle API integrate; non è necessaria per la gestione standard dell'area sicura su Android e iOS.
 
+### Aree riservate dello schermo {#reserved-screen-areas}
+
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) riporta le singole regioni che ostruiscono la finestra del gioco, come i ritagli della fotocamera e la Dynamic Island. Usa questi rettangoli per posizionare il contenuto attorno alle singole ostruzioni. Usa `window.get_safe_area()` quando ti serve un unico rettangolo sicuro per il layout con i relativi margini dai bordi.
+
+Il risultato è un array di tabelle con i campi `x`, `y`, `width` e `height`. Ogni rettangolo viene ritagliato ai limiti della finestra del gioco. L'origine è in basso a sinistra: `x` è il bordo sinistro e `y` è il bordo inferiore, in pixel della finestra corrispondenti a [`window.get_size()`](/ref/window/#window.get_size). Queste coordinate sono indipendenti dall'adattamento GUI e dalla risoluzione logica di *game.project*: considera quindi le trasformazioni GUI prima di usarle come posizioni dei nodi.
+
+Il supporto delle piattaforme è il seguente:
+
+- **iOS 27.1 e versioni successive:** occlusioni attive riportate da UIKit, compresi i relativi margini di interazione.
+- **Android 9 (livello API 28) e versioni successive:** rettangoli dei ritagli dello schermo.
+
+La funzione restituisce una tabella vuota sulle piattaforme e versioni del sistema operativo non supportate o quando non vengono riportate ostruzioni per la finestra. Una tabella vuota non significa che l'intera finestra sia sicura per i contenuti importanti: pieghe, barre di sistema, tastiere e regioni dei gesti non rientrano in questa API. Usa `window.get_safe_area()` per il rettangolo sicuro della piattaforma.
+
+### Aggiornamento delle aree dopo gli eventi della finestra {#refreshing-areas-after-window-events}
+
+Interroga le aree riservate durante l'inizializzazione e nuovamente a ogni callback [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED). Dopo la prima interrogazione, anche le modifiche alla geometria delle aree riservate generano questo evento sulle piattaforme supportate, pur se le dimensioni della finestra rimangono invariate. Ogni tabella restituita è un'istantanea; le tabelle salvate non vengono aggiornate automaticamente.
+
+Su iOS, questo evento viene inviato anche dopo le transizioni di orientamento e le modifiche ai margini dell'area sicura. Una rotazione orizzontale di 180° può spostare il ritaglio della fotocamera o la Dynamic Island dall'altro lato, lasciando invariate sia le dimensioni della finestra sia i margini dell'area sicura. Aggiorna la geometria all'evento anche se `data.width` e `data.height` sono uguali ai valori precedenti.
+
+Lo script seguente mantiene aggiornati entrambi gli insiemi di geometrie:
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- Update your UI using the new safe rectangle and reserved areas.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- Refresh even when the width and height have not changed.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+È possibile registrare un solo listener degli eventi della finestra alla volta. Se il gioco ne ha già uno, aggiungi questa logica di aggiornamento a quel listener. Sostituire l'array salvato a ogni aggiornamento elimina anche i rettangoli obsoleti quando il risultato diventa vuoto.
+
 
 ## Linee guida specifiche per piattaforma {#platform-specific-guidelines}
 

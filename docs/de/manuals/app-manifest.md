@@ -9,8 +9,6 @@ Das Anwendungsmanifest (app manifest) steuert, welche Funktionen und Backends in
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
 # Das Manifest anwenden {#applying-the-manifest}
 
 Weise das Manifest in `game.project` unter `Native Extensions` -> `App Manifest` zu.
@@ -36,7 +34,7 @@ Steuere die Funktionalität von Rigs und Modellen (models), oder wähle None aus
 
 ## Exclude Record
 
-Schließt die Videoaufnahmefunktion aus der Engine aus (siehe die Dokumentation zur Nachricht [`start_record`](https://defold.com/ref/sys/#start_record)).
+Schließt die native MP4-Aufnahme, das [Lua-Modul `recorder`](/ref/recorder/) und den HTTP-Aufnahmedienst aus Desktop-Debug-Builds aus. In Release-, Headless-, Mobil- und Web-Builds ist die Aufnahme bereits ausgeschlossen. Den Ablauf beschreibt das [Aufnahmehandbuch](/manuals/recording).
 
 
 ## Profiler
@@ -118,11 +116,14 @@ Verwendet die veraltete und zur Ablösung vorgesehene Android Support Library an
 
 ## Graphics
 
-Wähle für jede Plattform aus, welche Grafik-Backends eingebunden werden sollen. Eine kombinierte Auswahl bindet beide Backends ein, sodass auf das andere Backend zurückgegriffen werden kann, wenn das bevorzugte nicht verfügbar ist.
+Wähle für jede Plattform aus, welche Grafik-Backends eingebunden werden sollen. Eine kombinierte Auswahl bindet mehrere Backends ein, sodass die Engine auf ein anderes zurückgreifen kann, wenn ihr bevorzugtes Backend nicht verfügbar ist. Zusätzliche Backends vergrößern die Engine.
+
+Windows und Linux verwenden separate Felder. Die Option **DX12** wählt unter Windows DirectX 12 aus.
 
 | Feld | Plattformen | Auswahlmöglichkeiten | Standard |
 |---|---|---|---|
-| **Graphics** | Windows und Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -130,11 +131,11 @@ Wähle für jede Plattform aus, welche Grafik-Backends eingebunden werden sollen
 
 Unter Linux ARM64 verwendet die Auswahl **OpenGL** das OpenGL-ES-Backend. Die kombinierte Standardeinstellung für Android bevorzugt Vulkan, sofern es verfügbar ist, und greift andernfalls auf OpenGL ES zurück.
 
-Seit Defold 1.14.0 verwendet macOS standardmäßig das native Metal-Backend. Die Auswahl **Vulkan** verwendet unter macOS und iOS Vulkan über MoltenVK. Der iOS-Simulator (`arm64_sim-ios`) verwendet immer Metal, unabhängig von der Auswahl **Graphics (iOS)** für Geräte.
+macOS verwendet standardmäßig das native Metal-Backend. Die Auswahl **Vulkan** verwendet unter macOS und iOS Vulkan über MoltenVK. Der iOS-Simulator (`arm64_sim-ios`) verwendet immer Metal, unabhängig von der Auswahl **Graphics (iOS)** für Geräte.
 
 ## Use full text layout system
 
-Wenn diese Option aktiviert ist (`true`), wird das vollständige Textlayoutsystem für die Textformung eingebunden, einschließlich der Unterstützung für Sprachen, die von rechts nach links geschrieben werden. Aktiviere diese Option zusammen mit `font.runtime_generation` in *game.project*, um SDF-Schriftarten zur Laufzeit aus TrueType- (`.ttf`) oder OpenType-Ressourcen (`.otf`) zu erzeugen. Die Erzeugung zur Laufzeit aus `.otf`-Ressourcen wird seit Defold 1.13.2 unterstützt. Weitere Informationen findest du im [Schriftartenhandbuch](/manuals/font/#enabling-runtime-fonts).
+Wenn diese Option aktiviert ist (`true`), wird das vollständige Textlayoutsystem für die Textformung eingebunden, einschließlich der Unterstützung für Sprachen, die von rechts nach links geschrieben werden. Aktiviere sie, um TrueType- (`.ttf`) oder OpenType-Schriftarten (`.otf`) zur Laufzeit zu erzeugen, und setze *Glyph Generation* in jeder Schriftartenressource, die dies benötigt, auf **Dynamic**. Die dynamische Erzeugung unterstützt sowohl **SDF** als auch **Vector**. Weitere Informationen findest du im [Schriftartenhandbuch](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text

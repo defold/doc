@@ -3,11 +3,11 @@ title: Defold 3D模型
 brief: 本手册介绍了如何将3D模型、骨骼和动画带入您的游戏之中。
 ---
 
-# 模型组件
+# 模型组件 {#model-component}
 
 Defold 本质上是一个3D引擎。即使您只使用2D材质，所有渲染也是在3D中完成的，只是正交投影到屏幕上。Defold允许您通过在集合中包含3D资产或_模型_来充分利用完整的3D内容。您可以仅使用3D资产构建纯3D游戏，或者根据需要混合3D和2D内容。
 
-## 创建模型组件
+## 创建模型组件 {#creating-a-model-component}
 
 模型组件的创建方式与任何其他游戏对象组件一样。您可以通过两种方式完成：
 
@@ -18,17 +18,15 @@ Defold 本质上是一个3D引擎。即使您只使用2D材质，所有渲染也
 
 创建模型后，您需要指定多个属性：
 
-<a id="model-properties"></a>
-
-### 模型属性
+### 模型属性 {#model-properties}
 
 除了*Id*、*位置*和*旋转*属性外，还存在以下组件特定属性：
 
 *Scene*
-: 包含模型几何体的 glTF *.gltf* 或 *.glb* 文件。如果文件包含变形目标，它们会与场景一起导入。在 Defold 1.13.2 之前，此属性名为 *Mesh*。
+: 包含模型几何体的 glTF *.gltf* 或 *.glb* 文件。如果文件包含变形目标，它们会与场景一起导入。此属性以前名为 *Mesh*。
 
 *Mesh*
-: 所选 *Scene* 中的可选命名网格，自 Defold 1.13.2 起可用。将此字段留空可使用导入的变换渲染整个场景。选择一个网格会在其局部坐标中渲染一次该网格，不应用 glTF 节点变换。通过移动、旋转和缩放模型组件或其游戏对象来放置选定的网格。
+: 所选 *Scene* 中的可选命名网格。将此字段留空可使用导入的变换渲染整个场景。选择一个网格会在其局部坐标中渲染一次该网格，不应用 glTF 节点变换。通过移动、旋转和缩放模型组件或其游戏对象来放置选定的网格。
 
 *Create GO Bones*
 : 勾选此项会为模型的每根骨骼创建一个游戏对象。您可以使用这些游戏对象将其他游戏对象附加到骨骼上，例如把武器附加到手部骨骼等。
@@ -45,29 +43,27 @@ Defold 本质上是一个3D引擎。即使您只使用2D材质，所有渲染也
 除了上述属性之外，还会有一个字段用于为模型的每个网格指定材质：
 
 *Material*
-: 将此属性设置为您创建的适合纹理 3D 对象的材质。有多个内置材质可作为起点：
-
-  * 使用 *model.material* 用于静态非实例化模型
-  * 使用 *model_instanced.material* 用于静态实例化模型
-  * 使用 *model_skinned.material* 用于蒙皮（动画）非实例化模型
-  * 使用 *model_skinned_instanced.material* 用于蒙皮（动画）实例化模型
+: 将此属性设为适合模型的材质。使用内置 `gltf` 材质可对 glTF 材质属性进行基于物理的渲染，内置 `model` 材质适合常规模型着色，也可以使用自定义材质。请参阅[下方的材质变体](#material)和 [PBR 手册](/manuals/physically-based-rendering/#built-in-pbr-materials)。
 
 根据材质的不同，会有一个或多个纹理属性：
 
 *Texture*
-: 此属性应指向您想要应用到对象上的纹理图像文件。
+: 此属性应指向要应用到对象的纹理图像。它可以是独立的项目资源，也可以是 *Assets* 面板中 glTF 或 GLB 文件下暴露的内嵌图像。
 
-## 编辑器操作
+选择 glTF 或 GLB *Scene*，或改变其 *Mesh* 选择时，可能会提示填充材质和纹理绑定。<kbd>Auto Fill</kbd> 用源文件的绑定替换现有绑定；<kbd>Keep Current</kbd> 则在应用新的场景或网格选择时保留绑定。请参阅[模型导入流程](/manuals/importing-models/#using-a-model)。
+
+
+## 编辑器操作 {#editor-manipulation}
 
 有了模型组件后，您就可以自由地使用常规的*场景编辑器*工具编辑和操作组件和/或封装游戏对象，以按照您的喜好移动、旋转和缩放模型。
 
-## 运行时操作
+## 运行时操作 {#runtime-manipulation}
 
 您可以通过多种不同的函数和属性在运行时操作模型（有关用法请参阅[API文档](/ref/model/)）。
 
 ![游戏中的Wiggler](images/model/runtime.png)
 
-### 运行时动画
+### 运行时动画 {#runtime-animation}
 
 Defold为在运行时控制动画提供了强大的支持。更多内容请参阅[模型动画手册](/manuals/model-animation)：
 
@@ -87,7 +83,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 
 模型也可以使用 glTF 变形目标动画。变形目标权重会像其他模型动画一样通过 `model.play_anim()` 进行动画处理，并且可以在运行时使用 [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) 和 [`model.set_blend_weights()`](/ref/model#model.set_blend_weights) 读取或覆盖。详情请参阅模型动画手册中的[变形目标部分](/manuals/model-animation#morph-targets)。
 
-### 更改属性
+### 更改属性 {#changing-properties}
 
 模型还有许多不同的属性，可以使用`go.get()`和`go.set()`进行操作：
 
@@ -111,21 +107,25 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 
 3D软件通常允许您在对象顶点上设置属性，比如着色和纹理。这些信息会进入您从3D软件导出的 glTF *.gltf* 或 *.glb* 文件中。根据您游戏的需求，您必须为您的对象选择和/或创建合适的_高性能_材质。材质将_着色器程序_与一组用于对象渲染的参数结合起来。
 
-有多个内置材质可作为起点：
+`/builtins/materials/` 中提供以下内置材质：
 
-  * 使用 *model.material* 用于静态非实例化模型
-  * 使用 *model_instanced.material* 用于静态实例化模型
-  * 使用 *model_skinned.material* 用于蒙皮（动画）非实例化模型
-  * 使用 *model_skinned_instanced.material* 用于蒙皮（动画）实例化模型
+| 模型类型 | 常规模型着色 | glTF PBR 着色 |
+|---|---|---|
+| 静态、非实例化 | `model.material` | `gltf.material` |
+| 静态、实例化 | `model_instanced.material` | `gltf_instanced.material` |
+| 蒙皮（动画）、非实例化 | `model_skinned.material` | `gltf_skinned.material` |
+| 蒙皮（动画）、实例化 | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-内置模型材质使用局部顶点空间。对于蒙皮模型，局部顶点空间使顶点着色器能够使用骨骼矩阵纹理在 GPU 上执行蒙皮；模型实例化也需要局部顶点空间。因此，用于 GPU 蒙皮或实例化模型的自定义材质应使用 *Local* 顶点空间设置。
+`gltf` 材质使用导入的 glTF 材质数据提供内置的金属度/粗糙度光照。纹理绑定、光源和自定义着色器请参阅 [PBR 手册](/manuals/physically-based-rendering/#built-in-pbr-materials)。
+
+所有这些内置材质都使用局部顶点空间。对于蒙皮模型，局部顶点空间允许顶点着色器通过骨骼矩阵纹理在 GPU 上执行蒙皮；模型实例化也要求局部顶点空间。因此，用于 GPU 蒙皮或实例化模型的自定义材质应将顶点空间设为 *Local*。
 
 骨骼矩阵缓存使用 `RGBA32F` 纹理。如果当前图形适配器不支持该纹理格式，Defold 将无法创建使用局部空间材质的动画 Model 组件。因此，在 OpenGL ES 2.0 和 WebGL 1.0 上，支持情况取决于适配器的浮点纹理扩展。为兼容缺少该扩展的适配器，请使用自定义世界空间材质；它使用 CPU 蒙皮，且不能使用模型实例化。可通过[模型项目设置](/manuals/project-settings/#model)调整缓存尺寸。
 
 如果您需要为模型创建自定义材质，请参阅[材质文档](/manuals/material)获取信息。[着色器手册](/manuals/shader)包含有关着色器程序如何工作的信息。
 
 
-### 材质常量
+### 材质常量 {#material-constants}
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
@@ -133,9 +133,9 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 : 模型的颜色色调（`vector4`）。`vector4`用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
 
 
-## 渲染
+## 渲染 {#rendering}
 
-默认渲染脚本是为2D游戏量身定制的，不适用于3D模型。但是通过复制默认渲染脚本并向渲染脚本添加少量代码行，您就可以启用模型的渲染。例如：
+默认渲染脚本会绘制带 `model` 标签的材质，包括内置 model 和 glTF 材质。要在自定义渲染脚本中渲染它们，请创建匹配的谓词，并使用适合场景的视图和投影矩阵绘制。例如：
 
   ```lua
 
@@ -148,7 +148,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
     ...
     render.set_depth_mask(true)
     render.enable_state(graphics.STATE_DEPTH_TEST)
-    render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
+    render.set_projection(stretch_projection(-1000, 1000))  -- 正交投影
     render.draw(self.model_pred)
     render.set_depth_mask(false)
     ...

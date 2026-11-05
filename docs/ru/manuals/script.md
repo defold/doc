@@ -35,82 +35,82 @@ Defold выполняет Lua-скрипты как часть жизненно�
 #### `init(self)`
 : Вызывается при инициализации компонента.
 
-  ```lua
-  function init(self)
-      -- Эти переменные доступны в течение всего времени существования экземпляра компонента
-      self.my_var = "something"
-      self.age = 0
-  end
-  ```
+```lua
+function init(self)
+  -- Эти переменные доступны в течение всего времени существования экземпляра компонента
+  self.my_var = "something"
+  self.age = 0
+end
+```
 
 #### `final(self)`
 : Вызывается при удалении компонента. Это полезно для очистки, например, если были порождены игровые объекты, которые должны быть удалены при удалении компонента.
 
-  ```lua
-  function final(self)
-      if self.my_var == "something" then
-          -- провести чистку
-      end
+```lua
+function final(self)
+  if self.my_var == "something" then
+      -- провести чистку
   end
-  ```
+end
+```
 
 #### `fixed_update(self, dt)`
 : Обновление, не зависящее от частоты кадров. Параметр `dt` содержит дельту времени с момента предыдущего обновления. Эта функция вызывается `0-N` раз в зависимости от тайминга кадра и частоты фиксированного обновления. Она вызывается только когда в *game.project* включен параметр `Physics` → `Use Fixed Timestep`, а `Engine` → `Fixed Update Frequency` больше 0. Полезна, когда требуется управлять физическими объектами через равные интервалы времени, чтобы добиться стабильной симуляции.
 
-  ```lua
-  function fixed_update(self, dt)
-      msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
-  end
-  ```
+```lua
+function fixed_update(self, dt)
+  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+end
+```
 
 #### `update(self, dt)`
 : Вызывается один раз в каждом кадре после колбэка `fixed_update()` у всех скриптов, если включен fixed timestep. Параметр `dt` содержит дельту времени с момента предыдущего кадра.
 
-  ```lua
-  function update(self, dt)
-      self.age = self.age + dt -- increase age with the timestep
-  end
-  ```
+```lua
+function update(self, dt)
+  self.age = self.age + dt -- увеличить возраст на длительность шага
+end
+```
 
 #### `late_update(self, dt)`
 : Вызывается один раз в каждом кадре после колбэка `update()` у всех скриптов, но непосредственно перед рендерингом. Параметр `dt` содержит дельту времени с момента предыдущего кадра.
 
-  ```lua
-  function late_update(self, dt)
-      go.set_position("/camera", self.final_camera_position)
-  end
-  ```
+```lua
+function late_update(self, dt)
+  go.set_position("/camera", self.final_camera_position)
+end
+```
 
 #### `on_message(self, message_id, message, sender)`
 : При отправке сообщений компоненту Script через [`msg.post()`](/ref/msg#msg.post) движок вызывает эту функцию компонента-приемника. За подробностями обращайтесь к [руководству по передаче сообщений](/manuals/message-passing).
 
-    ```lua
-    function on_message(self, message_id, message, sender)
-        if message_id == hash("increase_score") then
-            self.total_score = self.total_score + message.score
-        end
+```lua
+function on_message(self, message_id, message, sender)
+    if message_id == hash("increase_score") then
+        self.total_score = self.total_score + message.score
     end
-    ```
+end
+```
 
 #### `on_input(self, action_id, action)`
 : Если этот компонент получил фокус ввода (см. [`acquire_input_focus`](/ref/go/#acquire_input_focus)), движок вызывает эту функцию когда ввод зарегистрирован. За подробностями обращайтесь к [руководству по вводу](/manuals/input).
 
-    ```lua
-    function on_input(self, action_id, action)
-        if action_id == hash("touch") and action.pressed then
-            print("Touch", action.x, action.y)
-        end
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        print("Touch", action.x, action.y)
     end
-    ```
+end
+```
 
 #### `on_reload(self)`
 : Эта функция вызывается при перезагрузке скрипта с помощью горячей перезагрузки в редакторе (<kbd>Edit ▸ Reload Resource</kbd>). Очень удобно для отладки, тестирования и оптимизации. За подробностями обращайтесь к [руководству по горячей перезагрузке](/manuals/hot-reload).
 
-  ```lua
-  function on_reload(self)
-      print(self.age) -- вывести возраст данного игрового объекта
-  end
-  ```
+```lua
+function on_reload(self)
+  print(self.age) -- вывести возраст данного игрового объекта
+end
+```
 
 
 ## Реактивная логика
@@ -137,18 +137,18 @@ function update(self, dt)
         self.state = "waiting"
     end
     if self.counter >= 5.0 and self.state == "second" then
-        -- отправить сообщение через 5 секунд после получения "ответа"
+        -- отправить сообщение через 5 секунд после получения "response"
         msg.post("another_object", "another_message")
-        -- Nil the state so we don’t reach this state block again.
+        -- Присвоить состоянию nil, чтобы больше не попадать в этот блок состояния.
         self.state = nil
     end
 end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("response") then
-        -- “first” state done. enter next
+        -- состояние “first” завершено; перейти к следующему
         self.state = "second"
-        -- zero the counter
+        -- обнулить счётчик
         self.counter = 0
     end
 end
@@ -172,7 +172,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("response") then
-		-- Подождать 5 секунды, затем вызвать send_second()
+		-- Подождать 5 секунд, затем вызвать send_second()
 		timer.delay(5, false, send_second)
 	end
 end

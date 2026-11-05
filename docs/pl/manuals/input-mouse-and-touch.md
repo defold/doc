@@ -21,7 +21,7 @@ Poniższe przykłady używają akcji pokazanych na obrazku powyżej. Jak w przyp
 :::
 
 ## Przyciski myszy
-Przyciski myszy generują zdarzenia `naciśnięcia`, `zwolnienia` i `powtórzenia`. Poniższy przykład pokazuje, jak wykryć wejście z lewego przycisku myszy (zarówno przy naciśnięciu, jak i przy zwolnieniu):
+Przyciski myszy generują zdarzenia `pressed` (naciśnięcie), `released` (zwolnienie) i `repeated` (powtórzenie). Poniższy przykład pokazuje, jak wykryć wejście z lewego przycisku myszy (zarówno przy naciśnięciu, jak i przy zwolnieniu):
 
 ```lua
 function on_input(self, action_id, action)
@@ -39,6 +39,30 @@ end
 Akcje wejścia `MOUSE_BUTTON_LEFT` (lub `MOUSE_BUTTON_1`) są wysyłane także dla pojedynczego dotyku.
 :::
 
+### Odróżnianie kliknięć myszy od dotyku {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` odróżnia fizyczne naciśnięcie myszy od kliknięcia symulowanego dotykiem, także przy pierwszym naciśnięciu. Powiąż `MOUSE_BUTTON_LEFT` z `mouse_button_left` i użyj tego kodu w skrypcie lub skrypcie GUI:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Dotknięcie symulowane jako kliknięcie myszy zgłasza `hash("touch")` nawet bez osobnego Touch Trigger. Do rozpoznania dotknięcia nie potrzebujesz tabeli `action.touch` ani wcześniejszego zdarzenia ruchu. Sekcja [Źródło urządzenia wejściowego](/manuals/input/#input-device-source) opisuje wszystkie wartości źródła i ich działanie, gdy kilka wiązań współdzieli nazwę akcji.
+
+W systemie iOS własny `Info.plist` musi włączać `UIApplicationSupportsIndirectInputEvents`, aby to rozróżnienie działało. Wbudowany manifest już je włącza.
+
 ## Kółko myszy
 Wejścia z kółka myszy wykrywają przewijanie. Pole `action.value` ma wartość `1`, jeśli kółko zostało przewinięte, i `0` w przeciwnym razie. Zdarzenia przewijania są traktowane jak naciśnięcia przycisków. Obecnie Defold nie obsługuje precyzyjnego przewijania na gładzikach.
 
@@ -55,11 +79,12 @@ end
 ## Ruch myszy
 Ruch myszy jest obsługiwany osobno. Zdarzenia ruchu myszy nie są odbierane, jeśli nie skonfigurujesz przynajmniej jednego wyzwalacza myszy.
 
-Ruch myszy nie jest powiązany w <kbd>input bindings</kbd>, ale `action_id` ma wartość `nil`, a tabela `action` zawiera położenie myszy oraz zmianę jej położenia.
+Ruch wskaźnika nie jest powiązany z nazwą akcji: `action_id` ma wartość `nil`, a tabela `action` zawiera położenie wskaźnika i zmianę położenia. Źródłem jest `hash("mouse")` dla fizycznej myszy lub `hash("touch")` dla ruchu symulowanego dotykiem. Próbki akcelerometru również używają `action_id == nil`, dlatego sprawdzaj źródło, aby je rozróżnić, jak pokazano w sekcji [Źródło urządzenia wejściowego](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- pozwól obiektowi gry podążać za ruchem myszy/dotyku
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

@@ -164,7 +164,7 @@ Deixe o objeto de jogo sem escala e na origem. Mais tarde, ao renderizar o quad,
     void main()
     {
       vec4 color = texture2D(original, var_texcoord0.xy);
-      // Dessatura a cor amostrada da textura original
+      // Desaturate the color sampled from the original texture
       float grey = color.r * 0.3 + color.g * 0.59 + color.b * 0.11;
       gl_FragColor = vec4(grey, grey, grey, 1.0);
     }

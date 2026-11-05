@@ -3,11 +3,11 @@ title: Defold'da 3B modeller
 brief: Bu kılavuz, 3B modelleri, iskeletleri ve animasyonları oyununuza nasıl aktaracağınızı açıklar.
 ---
 
-# Model bileşeni
+# Model bileşeni {#model-component}
 
 Defold temelde bir 3B motordur. Yalnızca 2B içerikle çalışırken bile tüm işleme (rendering) 3B olarak yapılır, ancak ekrana ortografik izdüşümle yansıtılır. Defold, 3B varlıkları (asset), yani _modelleri_ (model) koleksiyonlarınıza (collection) ekleyerek tamamen 3B içerik kullanmanıza olanak tanır. Yalnızca 3B varlıklarla tamamen 3B oyunlar geliştirebilir veya 3B ve 2B içeriği istediğiniz gibi birleştirebilirsiniz.
 
-## Model bileşeni oluşturma
+## Model bileşeni oluşturma {#creating-a-model-component}
 
 Model bileşenleri (model component), diğer oyun nesnesi (game object) bileşenleri gibi oluşturulur. Bunu iki şekilde yapabilirsiniz:
 
@@ -23,10 +23,10 @@ Modeli oluşturduktan sonra bazı özellikleri belirtmeniz gerekir:
 *Id*, *Position* ve *Rotation* özelliklerine ek olarak bileşene özgü şu özellikler bulunur:
 
 *Scene*
-: Modelin geometrisini içeren glTF *.gltf* veya *.glb* dosyası. Dosya biçim hedefleri (morph target) içeriyorsa bunlar sahneyle birlikte içe aktarılır. Bu özelliğin adı Defold 1.13.2 öncesinde *Mesh* idi.
+: Modelin geometrisini içeren glTF *.gltf* veya *.glb* dosyası. Dosya biçim hedefleri (morph target) içeriyorsa bunlar sahneyle birlikte içe aktarılır. Bu özelliğin önceki adı *Mesh* idi.
 
 *Mesh*
-: Seçili *Scene* içindeki isteğe bağlı, adlandırılmış bir örgü (mesh); Defold 1.13.2 sürümünden beri kullanılabilir. Sahnenin tamamını içe aktarılan dönüşümleriyle işlemek için bu alanı boş bırakın. Bir örgüyü glTF düğüm dönüşümleri olmadan kendi yerel koordinatlarında bir kez işlemek için o örgüyü seçin. Seçilen örgüyü yerleştirmek için model bileşenini veya oyun nesnesini konumlandırın, döndürün ve ölçekleyin.
+: Seçili *Scene* içindeki isteğe bağlı, adlandırılmış bir örgü (mesh). Sahnenin tamamını içe aktarılan dönüşümleriyle işlemek için bu alanı boş bırakın. Bir örgüyü glTF düğüm dönüşümleri olmadan kendi yerel koordinatlarında bir kez işlemek için o örgüyü seçin. Seçilen örgüyü yerleştirmek için model bileşenini veya oyun nesnesini konumlandırın, döndürün ve ölçekleyin.
 
 *Create GO Bones*
 : Modelin her kemiği için bir oyun nesnesi oluşturmak üzere bu seçeneği işaretleyin. Bu oyun nesnelerini, örneğin silah gibi başka oyun nesnelerini el kemiklerine bağlamak için kullanabilirsiniz. 
@@ -43,30 +43,27 @@ Modeli oluşturduktan sonra bazı özellikleri belirtmeniz gerekir:
 Yukarıdaki özelliklere ek olarak modelin her örgüsüne bir materyal (material) atamak için bir alan da bulunur:
 
 *Material*
-: Bu özellik için dokulu bir 3B nesneye uygun olacak şekilde oluşturduğunuz bir materyal seçin. Başlangıç noktası olarak kullanabileceğiniz birkaç yerleşik materyal vardır:
-
-  * Örnek oluşturma (instancing) kullanılmayan statik modeller için *model.material* kullanın
-  * Örnek oluşturma kullanılan statik modeller için *model_instanced.material* kullanın
-  * İskelete bağlı (animasyonlu), örnek oluşturma kullanılmayan modeller için *model_skinned.material* kullanın
-  * İskelete bağlı (animasyonlu), örnek oluşturma kullanılan modeller için *model_skinned_instanced.material* kullanın
+: Bu özelliği modele uygun bir materyale ayarlayın. glTF materyal özelliklerini fiziksel tabanlı işlemek için yerleşik bir `gltf` materyali, genel model gölgelendirmesi için yerleşik bir `model` materyali veya kendi özel materyalinizi kullanın. [Aşağıdaki materyal çeşitlerine](#material) ve [PBR kılavuzuna](/manuals/physically-based-rendering/#built-in-pbr-materials) bakın.
 
 Materyale bağlı olarak bir veya daha fazla doku (texture) özelliği bulunur:
 
 *Texture*
-: Bu özelliğin, nesneye uygulamak istediğiniz doku görüntüsü dosyasını göstermesi önerilir.
+: Bu özellik, nesneye uygulanmasını istediğiniz doku görüntüsünü göstermelidir. Görüntü, ayrı bir proje varlığı veya *Assets* panelinde bir glTF ya da GLB dosyasının altında sunulan gömülü bir görüntü olabilir.
+
+Bir glTF veya GLB *Scene* seçildiğinde ya da *Mesh* seçimi değiştirildiğinde materyal ve doku eşlemelerini doldurma önerilebilir. <kbd>Auto Fill</kbd>, mevcut eşlemeleri kaynaktakilerle değiştirir; <kbd>Keep Current</kbd>, yeni sahne veya örgü seçimini uygularken eşlemelerinizi korur. [Model içe aktarma iş akışına](/manuals/importing-models/#using-a-model) bakın.
 
 
-## Düzenleyicide değiştirme
+## Düzenleyicide değiştirme {#editor-manipulation}
 
 Model bileşenini ekledikten sonra standart *Scene Editor* araçlarıyla bileşeni ve/veya onu içeren oyun nesnesini düzenleyip değiştirebilir, modeli istediğiniz gibi taşıyabilir, döndürebilir ve ölçekleyebilirsiniz.
 
-## Çalışma sırasında değiştirme
+## Çalışma sırasında değiştirme {#runtime-manipulation}
 
 Modelleri çalışma sırasında çeşitli işlevler ve özellikler aracılığıyla değiştirebilirsiniz (kullanım için [API belgelerine](/ref/model/) bakın).
 
 ![Oyun içinde Wiggler](images/model/runtime.png)
 
-### Çalışma sırasında animasyon
+### Çalışma sırasında animasyon {#runtime-animation}
 
 Defold, animasyonu çalışma sırasında kontrol etmek için güçlü destek sunar. [Model animasyonu kılavuzunda](/manuals/model-animation) daha fazla bilgi bulabilirsiniz:
 
@@ -86,7 +83,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 
 Modeller glTF biçim hedefi animasyonlarını da kullanabilir. Biçim hedefi ağırlıklarına diğer model animasyonlarında olduğu gibi `model.play_anim()` ile animasyon uygulanır. Bu ağırlıklar çalışma sırasında [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) ve [`model.set_blend_weights()`](/ref/model#model.set_blend_weights) kullanılarak okunabilir veya geçersiz kılınabilir. Ayrıntılar için model animasyonu kılavuzundaki [biçim hedefleri bölümüne](/manuals/model-animation#morph-targets) bakın.
 
-### Özellikleri değiştirme
+### Özellikleri değiştirme {#changing-properties}
 
 Bir modelin `go.get()` ve `go.set()` kullanılarak değiştirilebilen çeşitli özellikleri de vardır:
 
@@ -110,21 +107,25 @@ Bir modelin `go.get()` ve `go.set()` kullanılarak değiştirilebilen çeşitli 
 
 3B yazılımlar genellikle nesnenizin köşelerinde (vertex) renklendirme ve doku kaplama gibi özellikler ayarlamanıza olanak tanır. Bu bilgiler, 3B yazılımınızdan dışa aktardığınız glTF *.gltf* veya *.glb* dosyasına yazılır. Oyununuzun gereksinimlerine bağlı olarak nesneleriniz için uygun ve _iyi performans gösteren_ materyaller seçmeniz ve/veya oluşturmanız gerekir. Bir materyal, _gölgelendirici programlarını_ (shader program) nesnenin işlenmesi için kullanılan bir dizi parametreyle birleştirir.
 
-Başlangıç noktası olarak kullanabileceğiniz birkaç yerleşik materyal vardır:
+Aşağıdaki yerleşik materyaller `/builtins/materials/` altında bulunur:
 
-  * Örnek oluşturma (instancing) kullanılmayan statik modeller için *model.material* kullanın
-  * Örnek oluşturma kullanılan statik modeller için *model_instanced.material* kullanın
-  * İskelete bağlı (animasyonlu), örnek oluşturma kullanılmayan modeller için *model_skinned.material* kullanın
-  * İskelete bağlı (animasyonlu), örnek oluşturma kullanılan modeller için *model_skinned_instanced.material* kullanın
+| Model türü | Genel model gölgelendirmesi | glTF PBR gölgelendirmesi |
+|---|---|---|
+| Statik, örnek oluşturma kullanılmayan | `model.material` | `gltf.material` |
+| Statik, örnek oluşturma kullanılan | `model_instanced.material` | `gltf_instanced.material` |
+| İskelete bağlı (animasyonlu), örnek oluşturma kullanılmayan | `model_skinned.material` | `gltf_skinned.material` |
+| İskelete bağlı (animasyonlu), örnek oluşturma kullanılan | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Yerleşik model materyalleri yerel köşe uzayını (local vertex space) kullanır. İskelete bağlı modellerde yerel köşe uzayı, köşe gölgelendiricisinin bir kemik matrisi dokusu kullanarak GPU üzerinde iskelete bağlama (skinning) işlemini gerçekleştirmesini sağlar; model örneği oluşturma işlemi için de yerel köşe uzayı gereklidir. Bu nedenle, GPU üzerinde iskelete bağlanan veya örnek oluşturma kullanılan modeller için tasarlanan özel bir materyalin *Local* köşe uzayı ayarını kullanması önerilir.
+`gltf` materyalleri, içe aktarılan glTF materyal verilerini kullanarak yerleşik metaliklik/pürüzlülük aydınlatması sağlar. Doku eşlemeleri, ışıklar ve özel gölgelendiriciler için [PBR kılavuzuna](/manuals/physically-based-rendering/#built-in-pbr-materials) bakın.
+
+Bu yerleşik materyallerin tümü yerel köşe uzayını (local vertex space) kullanır. İskelete bağlı modellerde yerel köşe uzayı, köşe gölgelendiricisinin bir kemik matrisi dokusu kullanarak GPU üzerinde iskelete bağlama (skinning) işlemini gerçekleştirmesini sağlar; model örneği oluşturma işlemi için de yerel köşe uzayı gereklidir. Bu nedenle, GPU üzerinde iskelete bağlanan veya örnek oluşturma kullanılan modeller için tasarlanan özel bir materyalin *Local* köşe uzayı ayarını kullanması önerilir.
 
 Kemik matrisi önbelleği bir `RGBA32F` dokusu kullanır. Etkin grafik bağdaştırıcısı bu doku biçimini desteklemiyorsa Defold, yerel uzay materyali kullanan animasyonlu bir Model bileşeni oluşturamaz. Bu nedenle OpenGL ES 2.0 ve WebGL 1.0 üzerindeki destek, bağdaştırıcının kayan noktalı doku uzantısına bağlıdır. Bu uzantıya sahip olmayan bir bağdaştırıcıyla uyumluluk için, CPU üzerinde iskelete bağlama yapan ve model örneği oluşturmayı desteklemeyen özel bir dünya uzayı materyali kullanın. Önbellek boyutları [Model proje ayarları](/manuals/project-settings/#model) ile ayarlanabilir.
 
 Modelleriniz için özel materyaller oluşturmanız gerekiyorsa bilgi için [Materyal belgelerine](/manuals/material) bakın. [Gölgelendirici kılavuzu](/manuals/shader), gölgelendirici programlarının nasıl çalıştığı hakkında bilgi içerir.
 
 
-### Materyal sabitleri
+### Materyal sabitleri {#material-constants}
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
@@ -132,9 +133,9 @@ Modelleriniz için özel materyaller oluşturmanız gerekiyorsa bilgi için [Mat
 : Modelin renk çarpanı (`vector4`). Renk çarpanı `vector4` ile temsil edilir; x, y, z ve w sırasıyla kırmızı, yeşil, mavi ve alfa renk çarpanlarına karşılık gelir.
 
 
-## İşleme
+## İşleme {#rendering}
 
-Varsayılan işleme betiği (render script), 2B oyunlar için özel olarak hazırlanmıştır ve 3B modellerle çalışmaz. Ancak varsayılan işleme betiğini kopyalayıp betiğe birkaç satır kod ekleyerek modellerinizin işlenmesini etkinleştirebilirsiniz. Örneğin:
+Varsayılan işleme betiği (render script), yerleşik model ve glTF materyalleri dahil, `model` etiketine sahip materyalleri çizer. Bunları özel bir işleme betiğinde işlemek için eşleşen bir yüklem (predicate) oluşturun ve sahnenize uygun görünüm ve izdüşümle çizin. Örneğin:
 
   ```lua
 

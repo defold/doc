@@ -3,7 +3,7 @@ title: Propiedades en Defold
 brief: Este manual explica qué tipos de propiedades existen en Defold y cómo se usan y se animan.
 ---
 
-# Propiedades
+# Propiedades {#properties}
 
 Defold expone propiedades para objetos de juego (Game objects), componentes (Components) y nodos GUI que se pueden leer, definir y animar. Existen los siguientes tipos de propiedades:
 
@@ -42,7 +42,7 @@ local same_color = gui.get(node, "color")
 gui.set(node, "color.x", 1)
 ```
 
-## Propiedades de objetos de juego y componentes
+## Propiedades de objetos de juego y componentes {#game-object-and-component-properties}
 
 Todos los objetos de juego, y algunos tipos de componente, tienen propiedades que se pueden leer y manipular en tiempo de ejecución. Obtén estos valores con [`go.get()`](/ref/go#go.get) y defínelos con [`go.set()`](/ref/go#go.set). Según el tipo del valor de la propiedad, puedes animar los valores con [`go.animate()`](/ref/go#go.animate). Un pequeño conjunto de propiedades es de solo lectura.
 
@@ -102,7 +102,7 @@ También existen funciones específicas para trabajar con la transformación del
 
 | propiedad  | descripción                            | tipo            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
-| *text* | El contenido de texto del label. Disponible desde Defold 1.13.2. | `string` | `get+set`{.mark} |
+| *text* | El contenido de texto de la etiqueta. | `string` | `get+set`{.mark} |
 | *scale* | La escala del label. | `vector3` | `get+set`{.mark} |
 | *scale.xy* | La escala del label a lo largo de los ejes X e Y. | `vector3` | `get+set`{.mark}|
 | *color*     | El color del label. | `vector4` | `get+set`{.mark} |
@@ -113,7 +113,7 @@ También existen funciones específicas para trabajar con la transformación del
 | *font* | La fuente que usa el label. | `hash` | `get+set`{.mark}|
 
 
-## Propiedades de nodos GUI
+## Propiedades de nodos GUI {#gui-node-properties}
 
 Los nodos GUI tienen funciones getter y setter específicas de cada propiedad, como `gui.get_position()` y `gui.set_position()`. Como alternativa, las propiedades integradas que se indican a continuación pueden leerse y escribirse con `gui.get(node, property)` y `gui.set(node, property, value)`. Otros valores de nodo pueden seguir requiriendo sus funciones específicas. Las constantes de material de los nodos GUI también usan las funciones genéricas. Para direccionar un componente de una propiedad vectorial, agrega su nombre; por ejemplo, `gui.set(node, "color.x", 1)`.
 

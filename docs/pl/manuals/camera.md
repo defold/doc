@@ -56,7 +56,7 @@ Orthographic Mode
   Ta opcja jest dostępna tylko wtedy, gdy włączone jest `Orthographic Projection`.
 
 
-## Używanie kamery
+## Używanie kamery {#using-the-camera}
 
 Wszystkie kamery są automatycznie włączane i aktualizowane w każdej klatce, a moduł Lua `camera` jest dostępny we wszystkich kontekstach skryptowych. Od Defold 1.8.1 nie trzeba już jawnie włączać kamery przez wysłanie do komponentu wiadomości `acquire_camera_focus`. Stare wiadomości acquire i release nadal istnieją, ale zaleca się używanie wiadomości `enable` i `disable`, tak samo jak w przypadku innych komponentów, które chcesz włączać i wyłączać:
 
@@ -68,37 +68,36 @@ msg.post("#camera", "enable")
 Aby wyświetlić listę wszystkich obecnie dostępnych kamer, możesz użyć `camera.get_cameras()`:
 
 ```lua
--- Uwaga: wywołania render są dostępne tylko w skrypcie renderującym.
---        Funkcji camera.get_cameras() można używać wszędzie,
---        ale render.set_camera tylko w skrypcie renderującym.
+-- Uwaga: funkcje render są dostępne tylko w skrypcie do renderowania.
+--       Funkcji camera.get_cameras() można używać w dowolnym miejscu,
+--       ale render.set_camera można używać tylko w skrypcie do renderowania.
 
 for k,v in pairs(camera.get_cameras()) do
-    -- tabela kamer zawiera URL-e wszystkich kamer
+    -- tabela kamer zawiera adresy URL wszystkich kamer
     render.set_camera(v)
-    -- tutaj wykonaj renderowanie; wszystko, co zostanie tu narysowane
-    -- z użyciem materiałów korzystających z macierzy widoku i projekcji,
-    -- będzie używać macierzy z tej kamery.
+    -- tutaj wykonaj renderowanie — wszystko, co używa materiałów z określonymi
+    -- macierzami widoku i projekcji, będzie używać macierzy kamery.
 end
--- aby wyłączyć kamerę, przekaż nil (albo nie podawaj argumentów) do render.set_camera.
--- po tym wywołaniu wszystkie operacje renderowania będą używać macierzy widoku i projekcji
--- ustawionych bezpośrednio w kontekście renderowania (render.set_view i render.set_projection)
+-- aby wyłączyć kamerę, przekaż nil (lub nie podawaj żadnych argumentów) do render.set_camera.
+-- po tym wywołaniu wszystkie funkcje render będą używać macierzy widoku i projekcji
+-- ustawionych w kontekście renderowania (render.set_view i render.set_projection)
 render.set_camera()
 ```
 
 Moduł skryptowy `camera` udostępnia wiele funkcji do manipulowania kamerą. Poniżej kilka przykładów; pełną listę znajdziesz w [dokumentacji API](/ref/camera/).
 
 ```lua
-camera.get_aspect_ratio(camera) -- pobierz współczynnik proporcji
-camera.get_far_z(camera) -- pobierz far z
+camera.get_aspect_ratio(camera) -- pobierz proporcje obrazu
+camera.get_far_z(camera) -- pobierz odległość dalszej płaszczyzny z
 camera.get_fov(camera) -- pobierz pole widzenia
-camera.get_orthographic_mode(camera) -- pobierz tryb ortograficzny (jedna z wartości camera.ORTHO_MODE_*)
-camera.get_orthographic_zoom(camera) -- pobierz mnożnik zoomu kontrolowany przez użytkownika
-camera.get_orthographic_auto_zoom(camera) -- pobierz zoom obliczony automatycznie
-camera.set_aspect_ratio(camera, ratio) -- ustaw współczynnik proporcji
-camera.set_far_z(camera, far_z) -- ustaw far z
-camera.set_near_z(camera, near_z) -- ustaw near z
+camera.get_orthographic_mode(camera) -- pobierz tryb ortograficzny (jedną z wartości camera.ORTHO_MODE_*)
+camera.get_orthographic_zoom(camera) -- pobierz mnożnik przybliżenia ustawiany przez użytkownika
+camera.get_orthographic_auto_zoom(camera) -- pobierz automatycznie obliczone przybliżenie
+camera.set_aspect_ratio(camera, ratio) -- ustaw proporcje obrazu
+camera.set_far_z(camera, far_z) -- ustaw odległość dalszej płaszczyzny z
+camera.set_near_z(camera, near_z) -- ustaw odległość bliższej płaszczyzny z
 camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- ustaw tryb ortograficzny
-... I tak dalej
+... And so forth
 ```
 
 Kamera jest identyfikowana przez URL, czyli pełną ścieżkę komponentu w scenie, obejmującą kolekcję, obiekt gry, do którego należy, oraz id komponentu. W tym przykładzie do identyfikacji komponentu kamery z tej samej kolekcji użyjesz URL `/go#camera`, a przy dostępie do kamery z innej kolekcji albo ze skryptu renderującego użyjesz `main:/go#camera`.
@@ -234,14 +233,12 @@ function init(self)
             local design_width = DISPLAY_WIDTH / initial_zoom
             local design_height = DISPLAY_HEIGHT / initial_zoom
 
-            -- maksymalny zoom: upewnij się, że początkowe wymiary projektu
-            -- wypełnią ekran i wyjdą poza jego granice
+            -- maksymalne przybliżenie: początkowe wymiary projektu mają wypełniać ekran i wykraczać poza jego granice
             local zoom = math.max(window_width / design_width, window_height / design_height) / display_scale
 
-            -- minimalny zoom: upewnij się, że początkowe wymiary projektu
-            -- zmieszczą się w granicach ekranu
+            -- minimalne przybliżenie: początkowe wymiary projektu mają zostać pomniejszone i zmieścić się w granicach ekranu
             --local zoom = math.min(window_width / design_width, window_height / design_height) / display_scale
-            
+
             go.set("#camera", "orthographic_zoom", zoom)
         end
     end)
@@ -288,7 +285,7 @@ local world_position = camera.screen_to_world(
 Funkcja [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) wykonuje konwersję odwrotną. Zwraca współrzędne X i Y w pikselach ekranu oraz wartość Z zgodną z tą samą konwencją głębokości widoku, dlatego jej wynik można ponownie przekazać do `camera.screen_to_world()`:
 
 ```lua
--- Update the cached world transform first if the object moved this frame.
+-- Najpierw zaktualizuj zapamiętaną transformację świata, jeśli obiekt przesunął się w tej klatce.
 go.update_world_transform("/marker")
 local world_position = go.get_world_position("/marker")
 local screen_position = camera.world_to_screen(world_position, "#camera")

@@ -120,7 +120,7 @@ A ordem de alto nível das etapas de callback Lua de componentes de *script* é:
 Cada componente de objeto de jogo na coleção principal é percorrido. Se algum desses componentes tiver um script com uma função `fixed_update()`/`update()`/`late_update()`, ela será chamada. Se o componente for um proxy de coleção, cada componente na coleção do proxy é atualizado recursivamente com todas as etapas da fase `Update`.
 
 ::: sidenote
-A ordem em que as funções `update()` dos componentes de objetos de jogo são chamadas não é especificada. Você não deve assumir que a engine atualiza objetos pertencentes à mesma coleção em uma determinada ordem. O mesmo vale para `fixed_update()` e `late_update()` (desde a 1.12.0).
+A ordem de chamada das funções `update()` dos componentes dos objetos de jogo não é especificada. Você não deve presumir que a engine atualiza objetos da mesma coleção em uma ordem específica. O mesmo vale para `fixed_update()` e `late_update()`.
 :::
 
 #### Física
@@ -204,7 +204,7 @@ O número de atualizações de frame por segundo (que equivale ao número de exe
 
 #### Limitação de ritmo da engine
 
-O Defold 1.12.0 introduziu uma API de limitação de ritmo da engine (engine throttling) que pode pular completamente atualizações da engine e renderização, ainda detectando entrada. Qualquer entrada desperta a engine novamente, e a engine pode voltar à limitação após um período de espera.
+O Defold oferece uma API de limitação da engine que pode suspender completamente as atualizações e a renderização, mantendo a detecção de entrada. Qualquer entrada reativa a engine, que pode voltar ao estado de limitação após um período de espera.
 
 Consulte a API `sys.set_engine_throttle()` para detalhes e exemplos de uso.
 

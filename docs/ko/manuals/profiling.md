@@ -9,6 +9,7 @@ Defold에는 엔진과 빌드 파이프라인에 통합된 프로파일링 도�
 
 * 기본 프로파일러와 게임 내 비주얼 프로파일러는 모든 플랫폼에서 사용할 수 있습니다.
 * [Remotery 프로파일러](https://github.com/Celtoys/Remotery)와 대화형 웹 프레임 프로파일러는 데스크탑과 모바일 플랫폼에서 사용할 수 있습니다.
+* Metal을 사용하는 macOS 디버그 빌드는 Xcode에서 검사할 [GPU 트레이스](#metal-gpu-trace-capture)를 저장할 수 있습니다.
 * HTML5 빌드는 Defold scope를 브라우저의 Web Performance API에 게시할 수 있습니다.
 
 [App Manifest](/manuals/app-manifest/#profiler)의 **Profiler** 설정은 프로파일러 코드를 빌드에 링크할지 제어합니다. 기본값은 **Debug Only**이며, **None**은 코드를 제외하고 **Always**는 디버그 빌드와 릴리스 빌드 모두에 포함합니다. *game.project*의 `profiler` 설정은 런타임 동작을 제어하지만 제외된 프로파일러 코드를 빌드에 다시 링크하지는 않습니다. 특히 **Track CPU**는 CPU 사용량 sampling을 제어하며 App Manifest 선택과는 별개입니다.
@@ -88,8 +89,8 @@ LuaMem 값은 Lua 가비지 컬렉터가 보고한 Lua VM의 메모리 사용량
 ### 리소스 프로파일러
 리소스 프로파일러를 사용하면 실행 중인 게임을 검사하고 리소스 사용량을 자세히 분석할 수 있습니다. 프로파일러에 접근하려면:
 
-1. 타겟 기기에서 게임을 시작합니다.
-2. 브라우저를 열고 http://localhost:8002 로 이동합니다.
+1. 타겟 기기에서 게임의 디버그 빌드를 시작합니다.
+2. 브라우저에서 [엔진 서비스 주소](/manuals/engine-service/#availability-and-port-discovery)인 `http://<address>:<port>/`를 엽니다. 실행 중인 엔진이 콘솔에 보고한 주소와 포트를 사용하세요.
 
 리소스 프로파일러는 두 섹션으로 나뉩니다. 하나는 게임에 현재 인스턴스화된 컬렉션, 게임 오브젝트, 컴포넌트의 계층 뷰를 표시하고, 다른 하나는 현재 로드된 모든 리소스를 표시합니다.
 
@@ -100,6 +101,110 @@ LuaMem 값은 Lua 가비지 컬렉터가 보고한 Lua VM의 메모리 사용량
 
 리소스 뷰
 : 리소스 뷰는 현재 메모리에 로드된 모든 리소스와 각 리소스의 크기 및 참조 수를 표시합니다. 어플리케이션의 메모리 사용량을 최적화할 때 특정 시점에 무엇이 메모리에 로드되어 있는지 이해해야 하는 경우 유용합니다.
+
+#### 리소스 로드 시간 {#resource-loading-times}
+
+개별 리소스를 로드하는 데 걸리는 시간도 검사할 수 있습니다. 게임을 시작하기 전에 *game.project*의 [Resource → Profile](/manuals/project-settings/#profile)을 활성화하세요. 텍스트 뷰에서는 다음과 같이 설정합니다:
+
+```ini
+[resource]
+profile = 1
+```
+
+이 설정은 기본적으로 비활성화되어 있습니다. 시작 시 로드를 측정하려면 활성화한 후 게임을 다시 시작하세요. 완료되거나 실패한 로드마다 리소스 경로, 총 시간, preload, read, create, post-create, queue, wait 단계의 시간을 담은 INFO 레벨 로그 항목을 기록합니다. 캐쉬 적중은 새 로드 기록을 만들지 않습니다.
+
+리소스 프로파일러에서 **Capture**, **Show load times**를 차례로 클릭하면 시간 열이 나타납니다. **Capture**는 보관된 측정값의 표시를 갱신할 뿐, 프로파일링을 활성화하거나 이전 로드를 소급하여 측정하지 않습니다.
+
+| 열 | 의미 |
+| --- | --- |
+| **Load (ms)** | 종속성, post-create 작업, 대기열 및 대기를 포함한 최초 로드의 총 경과 시간입니다. |
+| **Preload (ms)** | preload 콜백에서 리소스를 준비하는 데 걸린 시간입니다. |
+| **Read (ms)** | 리소스 데이터를 읽는 데 걸린 시간입니다. |
+| **Create (ms)** | create 콜백에서 런타임 리소스를 생성하는 데 걸린 시간입니다. |
+
+로드 시간을 표시하면 가장 느린 리소스부터 총 로드 시간 순으로 정렬합니다. 시간 열 제목을 클릭하면 해당 단계로 정렬하고, 다시 클릭하면 순서가 뒤집힙니다. **Load** 열의 막대는 현재 보이는 가장 느린 리소스 대비 각 총 시간을 표시합니다. 열을 다시 숨기려면 **Hide load times**를 클릭하세요.
+
+로드 및 콜백 시간에는 중첩된 종속성 작업도 포함됩니다. 같은 작업이 여러 리소스의 측정값에 포함될 수 있으므로 시작 시간을 계산할 때 리소스별 총 시간을 합산하지 마세요. **Preload**, **Read**, **Create** 열만으로도 총 로드 시간을 모두 설명할 수는 없습니다. 추가 단계는 로그에서 확인할 수 있습니다.
+
+긴 대시(`—`)는 완료된 측정값이 없다는 뜻입니다. 프로파일링이 비활성화되어 있거나 최초 로드가 아직 끝나지 않은 경우 등이 해당합니다. 측정된 0은 `0.000`으로 표시됩니다. 측정값은 최초 로드를 설명합니다. 캐쉬 적중과 핫 리로드는 값을 바꾸지 않으며 리소스를 언로드하면 보관된 측정값이 제거됩니다.
+
+## Metal GPU 트레이스 캡처 {#metal-gpu-trace-capture}
+
+[엔진 HTTP 서비스](/manuals/engine-service/#metal-gpu-trace-endpoint)는 macOS에서 Metal GPU 명령을 *.gputrace* 문서로 캡처할 수 있습니다. 완료된 트레이스를 Xcode에서 열어 캡처한 프레임을 검사하세요. 이 기능은 디버그 엔진에 내장되어 있습니다.
+
+### 실행 및 지원 확인 {#launch-and-check-support}
+
+네이티브 Metal 그래픽 백엔드를 포함한 macOS [Debug 번들](/manuals/bundling/#release-vs-debug)을 만듭니다. App Manifest를 사용한다면 Metal을 포함하는 **Graphics (macOS)** 옵션을 선택하세요. [그래픽 백엔드](/manuals/app-manifest/#graphics)를 참고하세요.
+
+터미널에서 `METAL_CAPTURE_ENABLED=1`로 번들의 실행 파일을 실행하고 Metal 어댑터를 선택합니다. 다음 예제의 번들 경로와 실행 파일 이름을 바꾸세요:
+
+```sh
+METAL_CAPTURE_ENABLED=1 \
+    "/absolute/path/MyGame.app/Contents/MacOS/MyGame" --graphics-adapter=metal
+```
+
+환경 변수는 엔진이 시작할 때 설정되어 있어야 합니다. HTTP 요청용 터미널에서만 설정해도 이미 실행 중인 엔진의 캡처는 활성화되지 않습니다.
+
+다른 터미널에서 [로그에 표시된 엔진 서비스 포트](/manuals/engine-service/#availability-and-port-discovery)를 사용합니다. 다음 예제는 `curl`과 `jq`를 사용합니다:
+
+```sh
+ENGINE_URL="http://127.0.0.1:<port>"
+curl -fsS "$ENGINE_URL/openapi.json" | jq '.paths["/profiler/gputrace"]'
+curl -sS -i "$ENGINE_URL/profiler/gputrace"
+```
+
+이 경로는 macOS에서만 등록됩니다. OpenAPI 문서의 항목이 `null`이면 이 엔진이 경로를 제공하지 않는다는 뜻입니다. 경로가 있어도 캡처 지원은 그래픽 어댑터와 실행 환경에 따라 달라집니다. Metal 캡처를 사용할 수 없으면 `GET /profiler/gputrace`는 `error.code: "gputrace_unsupported"`가 있는 HTTP 501을 반환합니다. 진행하기 전에 엔진이 Metal을 사용하고 `METAL_CAPTURE_ENABLED=1`로 실행되었는지 확인하세요. 지원되는 요청은 캡처 상태를 포함한 HTTP 200을 반환합니다.
+
+### 프레임 캡처 및 검사 {#capture-and-inspect-frames}
+
+`.gputrace`로 끝나는 쓰기 가능한 절대 출력 경로를 선택합니다. 상위 디렉토리는 존재해야 하고 그 경로에 기존 트레이스가 없어야 합니다. 경로는 엔진을 실행하는 컴퓨터의 경로입니다. 로컬 엔진에서 다음 예제는 새 임시 디렉토리를 만들고 한 프레임을 요청합니다:
+
+```sh
+GPU_TRACE_DIR=$(mktemp -d /tmp/defold-gputrace.XXXXXX)
+GPU_TRACE_PATH="$GPU_TRACE_DIR/frame.gputrace"
+GPU_TRACE_REQUEST=$(jq -n --arg path "$GPU_TRACE_PATH" '{path: $path, frames: 1}')
+curl -fsS -X POST \
+    -H 'Content-Type: application/json' \
+    --data "$GPU_TRACE_REQUEST" \
+    "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+`frames`는 선택 사항이며 기본값은 `1`, 허용 값은 `1`부터 `10000`까지의 정수입니다. 캡처는 다음 렌더링 프레임 전에 시작하고 요청한 수의 완전한 프레임을 제출한 후 멈춥니다. 기다리는 동안 게임이 계속 렌더링되도록 하세요. 대기 중이거나 활성인 캡처는 하나만 가능하며, 추가 시작 요청은 `error.code: "gputrace_active"`가 있는 HTTP 409를 반환합니다.
+
+캡처가 예약되면 `POST`는 `ok: true`와 `data.state: "pending"`을 포함한 HTTP 200을 반환합니다. 캡처 완료는 이후 상태 요청으로 보고됩니다. `data.state`가 `complete`, `canceled`, `failed` 중 하나가 될 때까지 상태 요청을 반복하세요:
+
+```sh
+curl -fsS "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+| `data.state` | 의미 |
+| --- | --- |
+| `idle` | 예약된 캡처가 없습니다. |
+| `pending` | 렌더링 시작을 기다리고 있습니다. |
+| `capturing` | 캡처가 진행 중입니다. `data.frames_captured`는 완료된 프레임 수를 보고합니다. |
+| `complete` | 캡처가 끝났으며 트레이스를 열 수 있습니다. |
+| `canceled` | 대기 중인 캡처가 시작 전에 취소되었습니다. |
+| `failed` | 캡처를 시작하지 못했습니다. 네이티브 오류는 `data.error`를 확인하세요. |
+
+`GET`은 현재 또는 최근 캡처를 설명합니다. `data.path`가 요청한 경로와 일치하는지 확인하세요. 실패한 캡처도 `ok: true`가 있는 HTTP 200을 반환하므로 `data.state`와 `data.error`로 결과를 판별합니다. 자동 클라이언트는 지연과 시간 제한을 두고 조회하세요.
+
+상태가 `complete`가 되면 엔진의 Mac에서 Xcode로 트레이스를 엽니다:
+
+```sh
+open -a Xcode "$GPU_TRACE_PATH"
+```
+
+HTTP 엔드포인트는 상태를 반환하며, 트레이스는 엔진 호스트의 `data.path`에 저장됩니다. 원격 엔진은 로컬에서 열기 전에 해당 호스트에서 완료된 문서를 가져오세요.
+
+### 캡처 취소 또는 중지 {#cancel-or-stop-a-capture}
+
+대기 중인 캡처를 취소하거나 활성 캡처를 일찍 마치려면:
+
+```sh
+curl -fsS -X DELETE "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+대기 중인 캡처는 `canceled`로 바뀝니다. 활성 캡처는 `data.stop_requested`가 `true`로 바뀌고 현재 렌더링 프레임을 제출한 후 끝납니다. 종료 상태에 도달할 때까지 `GET`으로 계속 조회하세요. `DELETE`는 이미 디스크에 기록된 트레이스를 유지합니다. 대기 중이거나 활성인 캡처가 없으면 `error.code: "gputrace_inactive"`가 있는 HTTP 409를 반환합니다.
 
 ## HTML5 브라우저 performance timeline
 

@@ -26,7 +26,7 @@ Quando a pontuação alcança a pontuação total, a marca de high-score aparece
 A função `setup()` garante que os nodes tenham os valores iniciais corretos. Ao chamar `setup()` a partir de `on_reload()`, garantimos que tudo seja configurado corretamente sempre que o script for recarregado pelo Defold Editor.
 
 ```lua
--- file: level_complete.gui_script
+-- arquivo: level_complete.gui_script
 
 -- velocidade com que a pontuacao e incrementada por segundo
 local score_inc_speed = 51100

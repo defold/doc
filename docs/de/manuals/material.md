@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Seit Defold 1.14.0 verwenden die Attribute `Mat2`, `Mat3` und `Mat4` bei `go.set()` und `go.get()` alle Werte vom Typ `vmath.matrix4`. Beim Setzen eines Attributs vom Typ `Mat2` oder `Mat3` wird der obere linke 2×2- bzw. 3×3-Bereich der Matrix übernommen. Beim Lesen wird eine `vmath.matrix4` zurückgegeben, deren ungenutzte Zeilen und Spalten mit den Werten einer Einheitsmatrix aufgefüllt sind.
+Attribute vom Typ `Mat2`, `Mat3` und `Mat4` verwenden bei `go.set()` und `go.get()` Werte vom Typ `vmath.matrix4`. Beim Setzen eines `Mat2`- oder `Mat3`-Attributs wird der obere linke 2×2- beziehungsweise 3×3-Teil der Matrix verwendet. Beim Lesen wird eine `vmath.matrix4` zurückgegeben, deren ungenutzte Zeilen und Spalten aus einer Einheitsmatrix aufgefüllt sind.
 
 Beispielsweise bei einem Attribut vom Typ `Mat2` namens `custom_mat2` mit dem semantischen Typ `None` im Material eines Modells:
 

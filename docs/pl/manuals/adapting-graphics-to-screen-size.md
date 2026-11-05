@@ -97,7 +97,9 @@ Jeśli chcesz także wspierać ekrany Retina, możesz włączyć tę opcję w pl
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Spowoduje to utworzenie bufora wysokiego DPI na ekranach, które to obsługują. Gra będzie renderowana w rozdzielczości dwukrotnie większej niż ta ustawiona w polach Width i Height, które nadal pozostaną logiczną rozdzielczością używaną w skryptach i właściwościach. Oznacza to, że wszystkie wartości pomiarów pozostaną takie same, a zawartość renderowana w skali 1x będzie wyglądała tak samo. Jeśli jednak zaimportujesz obrazy w wysokiej rozdzielczości i przeskalujesz je do 0.5x, będą one wyświetlane na ekranie jako High DPI.
+High DPI pozwala grze wykorzystywać gęstość pikseli ekranu do określenia rozdzielczości renderowania. Ustawienia *Width* i *Height* nadal definiują logiczną rozdzielczość projektu, a skala renderowania zależy od platformy i wyświetlacza. Na przykład przy skali 2 obrazy zaimportowane w rozmiarze dwukrotnie większym od docelowego i rysowane w skali 0.5x mogą zachować szczegóły na ekranie o dużej gęstości pikseli.
+
+W HTML5 skala początkowo odpowiada współczynnikowi pikseli urządzenia zgłaszanemu przez przeglądarkę. Ustawienia `html5.min_pixel_ratio` i `html5.max_pixel_ratio` mogą ograniczać tę skalę, gdy włączone jest `display.high_dpi`. Każdy limit ma domyślną wartość `0` (wyłączony); obsługiwane są również wartości ułamkowe, w tym mniejsze niż `1`. Limity zmieniają rozdzielczość renderowania elementu canvas, zachowując jego rozmiar wyświetlania określony przez CSS. Przy wyłączonym High DPI współczynnik pozostaje równy `1`. Przykład ograniczania renderowania na ekranach o dużej gęstości pikseli znajdziesz w sekcji [Limity współczynnika pikseli](/manuals/html5/#pixel-ratio-limits).
 
 
 ## Tworzenie adaptacyjnego GUI

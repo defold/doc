@@ -32,7 +32,7 @@ Les formes de capsule sont prises en charge uniquement avec la physique 3D (conf
 :::
 
 ### Formes complexes {#complex-shapes}
-Les formes complexes peuvent utiliser la géométrie d'une tilemap ou les données d'une enveloppe convexe. Depuis Defold 1.13.2, les objets de collision 3D peuvent également créer des enveloppes convexes et des formes de maillage triangulé à partir des maillages de scènes glTF ou GLB.
+Les formes complexes peuvent utiliser la géométrie d'une tilemap ou les données d'une enveloppe convexe. Les objets de collision 3D peuvent également créer des enveloppes convexes et des formes de maillage triangulé à partir des maillages de scènes glTF ou GLB.
 
 ## Formes Hull et Mesh en 3D {#hull-and-mesh-shapes-in-3d}
 

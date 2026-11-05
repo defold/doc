@@ -18,29 +18,62 @@ Um ein Modell zu importieren, ziehe die Datei im Format *.gltf* oder *.glb* in d
 glTF kann auf zwei gängige Arten gespeichert werden:
 
 * *.glb* ist eine einzelne Binärdatei. Sie enthält die Modelldaten und kann auch eingebettete Texturbilder enthalten. Das ist praktisch, wenn du ein Modell als eine Datei verschieben oder speichern möchtest.
-* *.gltf* ist eine textbasierte JSON-Datei. Sie verweist normalerweise auf eine separate Datei im Format *.bin* für Mesh-Daten und separate Texturbilder, etwa im Format *.png* oder *.jpg*. Wenn du diese Variante verwendest, füge dem Projekt alle referenzierten Dateien hinzu und behalte ihre relativen Pfade bei.
+* *.gltf* ist eine textbasierte JSON-Datei. Sie referenziert gewöhnlich eine separate *.bin*-Datei für Mesh-Daten und separate Texturbilder wie *.png*, *.jpg* oder *.ktx2*. Füge bei dieser Variante alle referenzierten Dateien zum Projekt hinzu und erhalte ihre relativen Pfade.
 
-Wenn das Modell in Defold eine Textur verwenden soll, importiere das Texturbild als separates Asset. Auch wenn die glTF-/GLB-Quelldatei eingebettete Bilder enthält, müssen Texturen der Modellkomponente (model component) über die Materialtextureigenschaften der Komponente zugewiesen werden.
-
-![Importierte Modell-Assets](images/model/assets_gltf.png)
+Eingebettete Bilder können direkt aus einer glTF- oder GLB-Datei verwendet werden, ohne sie in separate Assets zu extrahieren. Externe Bild- und Pufferdateien müssen weiterhin zusammen mit dem Modell importiert werden; ihre relativen Pfade müssen erhalten bleiben.
 
 ::: sidenote
-Ab Defold 1.13.0 behält Defold die Positionen und Transformationen aus der importierten glTF-Datei bei und zentriert das Modell beim Import nicht mehr automatisch neu. Die Editorvorschau und die Laufzeitumgebung verwenden die importierten Transformationen einheitlich: Meshes mit Skinning oder mit einem Knochen als übergeordnetem Objekt behalten ihre lokalen, auf das Skelett bezogenen Transformationen bei, während starre Meshes ihre nach dem Auflösen der Hierarchie resultierende Platzierung in Weltkoordinaten behalten.
+Defold erhält Positionen und Transformationen aus der importierten glTF-Datei und zentriert das Modell beim Import nicht automatisch neu. Editorvorschau und Laufzeit verwenden die importierten Transformationen einheitlich: Meshes mit Skinning oder einem Knochen als Elternobjekt behalten ihre lokalen, skelettrelativen Transformationen; starre Meshes behalten ihre zusammengefasste Platzierung im Weltkoordinatensystem.
 
-Seit Defold 1.13.2 kann eine [Modellkomponente](/manuals/model/#model-properties) ein einzelnes benanntes Mesh aus der importierten Szene auswählen. Wenn du ihr Feld *Mesh* leer lässt, wird die gesamte Szene verwendet und die oben beschriebenen Transformationen bleiben erhalten. Wenn du ein Mesh auswählst, wird seine lokale Geometrie ohne die Transformationen der glTF-Knoten verwendet. Platziere es daher mithilfe der Transformation der Modellkomponente oder des Spielobjekts (game object).
+Eine [Modellkomponente](/manuals/model/#model-properties) kann ein einzelnes benanntes Mesh aus der importierten Szene auswählen. Ein leeres Feld *Mesh* verwendet die gesamte Szene und erhält die oben beschriebenen Transformationen. Die Auswahl eines Meshes verwendet dessen lokale Geometrie ohne glTF-Knotentransformationen; platziere es daher über die Transformation der Modellkomponente oder des Spielobjekts.
 
 Wenn sich die Position oder Ausrichtung eines Modells, das mit einer älteren Defold-Version erstellt wurde, nach einem erneuten Import ändert, korrigiere die Transformation in Blender oder einem anderen Erstellungswerkzeug und exportiere die Datei im Format *.gltf* oder *.glb* erneut.
 :::
+
+### Komprimierte Geometrie {#compressed-geometry}
+
+*.gltf*- und *.glb*-Quellen können mit Draco oder Meshopt komprimierte Geometrie enthalten. Folgende glTF-Komprimierungserweiterungen werden unterstützt:
+
+| Komprimierung | glTF-Erweiterung |
+| --- | --- |
+| Draco | `KHR_draco_mesh_compression` |
+| Meshopt | `EXT_meshopt_compression` und `KHR_meshopt_compression` |
+
+Exportiere oder optimiere dein glTF-2.0-Asset mit einer dieser Erweiterungen und importiere es anschließend wie ein unkomprimiertes Modell. Beziehe externe Puffer und Texturen ein und erhalte ihre relativen Pfade. Weise die importierte Datei wie gewohnt der Eigenschaft *Scene* einer Modellkomponente zu.
+
+Defold dekodiert die komprimierte Geometrie beim Import und Build. Das resultierende Modell verwendet Defolds normale Geometriedarstellung zur Laufzeit. Diese Unterstützung aktiviert keine Draco- oder Meshopt-Komprimierung in der laufenden Engine, und eine kleinere Quelldatei garantiert kein kleineres Spiel-Bundle.
+
+### Die importierte Szene durchsuchen {#browsing-the-imported-scene}
+
+Klappe eine *.gltf*- oder *.glb*-Datei im Bereich *Assets* auf, um ihre Meshes, erzeugten Materialien und eingebetteten Bilder zu durchsuchen. Beim Öffnen der Szene wird sie mit ihren definierten Materialien und Texturen angezeigt. Du kannst auch einzelne Meshes für eine Vorschau öffnen.
+
+Die innerhalb der Datei bereitgestellten Ressourcen sind schreibgeschützt. Um eine bearbeitbare Modellressource für ein Mesh zu erstellen, kopiere das Mesh und füge es in einen Projektordner ein. Die resultierende *.model*-Datei referenziert weiterhin die importierte glTF- oder GLB-Datei. Bearbeite das Asset in deinem Erstellungswerkzeug und exportiere es erneut, um Quellgeometrie oder eingebettete Bilder zu ändern.
+
+Editorskripte können diese Ressourcen mit `editor.resource_children(path)` auflisten. Unter [Projektressourcen durchlaufen](/manuals/editor-scripts/#traversing-project-resources) findest du ein Beispiel, das Ressourcen in Ordnern und glTF-/GLB-Dateien rekursiv besucht.
+
+### KTX2-Texturen {#ktx2-textures}
+
+Modelltexturen können *.ktx2*-Quellen verwenden, entweder als externe Dateien oder als in *.gltf*- oder *.glb*-Dateien eingebettete Bilder. Importiere externe Dateien zusammen mit dem Modell. Eingebettete KTX2-Bilder erscheinen unter der Szene im Bereich *Assets* und können direkt den Texturfeldern von Materialien oder über <kbd>Auto Fill</kbd> zugewiesen werden.
+
+[Texturprofile](/manuals/texture-profiles/#ktx2-source-textures) bestimmen, ob das KTX2-Quellformat erhalten oder in die konfigurierten Ausgabeformate umgewandelt wird. **Keep KTX2 Format** erhält das Kodierungsformat der Quelle bei aktivierter Texturkomprimierung; Bildverarbeitung kann dennoch eine erneute Kodierung erfordern. Prüfe die Formatunterstützung auf deinen Zielgeräten und berücksichtige mögliche zusätzliche Qualitätsverluste bei erneuter Komprimierung einer bereits komprimierten Textur. Siehe [KTX2-Eingabeformate und Vorschau](/manuals/importing-graphics/#ktx2-textures).
 
 ## Ein Modell verwenden {#using-a-model}
 Nachdem du das Modell importiert hast, verwende es in einer [Modellkomponente](/manuals/model):
 
 1. Erstelle im Bereich *Assets* mit <kbd>New... ▸ Model</kbd> eine Model-Datei oder füge einem Spielobjekt mit <kbd>Add Component ▸ Model</kbd> direkt eine Modellkomponente hinzu.
-2. Setze die Eigenschaft *Scene* auf die importierte Datei im Format *.gltf* oder *.glb*. Lass *Mesh* leer, um die gesamte Szene zu verwenden, oder wähle ein benanntes Mesh aus, um nur seine lokale Geometrie zu verwenden.
-3. Setze bei einem animierten Modell die Eigenschaft *Skeleton* auf die Datei im Format *.gltf* oder *.glb*, die das Skelett enthält. Dies ist häufig dieselbe Datei, die für *Scene* verwendet wird, wenn Mesh, Skelett und Animationen zusammen exportiert werden.
-4. Erstelle für die Animationen eine Datei vom Typ *Animation Set* und weise sie der Eigenschaft *Animations* zu. Lege *Default Animation* fest, wenn eine Animation automatisch starten soll.
-5. Setze die Eigenschaft *Material* auf ein für das Modell geeignetes Material. Die integrierten Dateien *model.material*, *model_instanced.material*, *model_skinned.material* und *model_skinned_instanced.material* sind nützliche Ausgangspunkte. Die Materialien für Skinning verwenden lokale Vertex-Koordinaten, damit das Skinning auf der GPU ausgeführt werden kann. Benutzerdefinierte Materialien für Modelle mit GPU-Skinning oder Instancing sollten ebenfalls lokale Vertex-Koordinaten verwenden. Die Anforderung an den Grafikadapter findest du im [Handbuch zu Modellen](/manuals/model/#material).
-6. Setze die Materialtextureigenschaften, etwa *Texture*, auf die importierten Texturbilddateien. Wenn das Material mehrere Texturen verwendet, weise jede Textur im entsprechenden Texturfeld des Materials zu.
+2. Setze die Eigenschaft *Scene* auf die importierte *.gltf*- oder *.glb*-Datei.
+3. Wähle im Dialog *Auto Fill Model Fields?* <kbd>Auto Fill</kbd>, um die erzeugten Materialien und referenzierten Texturen der Szene zuzuweisen. Dies ersetzt vorhandene Material- und Texturbindungen. Wähle <kbd>Keep Current</kbd>, um deine Bindungen zu behalten; die neue Szenenauswahl wird trotzdem übernommen.
+4. Lasse *Mesh* leer, um die gesamte Szene zu verwenden, oder wähle ein benanntes Mesh, um nur dessen lokale Geometrie zu nutzen. Beim Ändern der Mesh-Auswahl kann derselbe Dialog erscheinen: Die Auswahl eines Meshes bietet dessen Materialien an; beim Leeren der Auswahl werden alle Materialien der Szene angeboten. <kbd>Keep Current</kbd> erhält die Bindungen und übernimmt dabei die neue Mesh-Auswahl.
+5. Setze bei einem animierten Modell *Skeleton* auf die *.gltf*- oder *.glb*-Datei mit dem Skelett. Oft ist dies dieselbe Datei wie bei *Scene*, wenn Mesh, Skelett und Animationen gemeinsam exportiert werden.
+6. Erstelle eine Datei *Animation Set* für die Animationen und weise sie der Eigenschaft *Animations* zu. Setze *Default Animation*, wenn eine Animation automatisch starten soll.
+
+Der Editor bietet das Ausfüllen der Bindungen an, wenn die ausgewählte glTF- oder GLB-Quelle Materialien bereitstellt. Dabei löst er sowohl eingebettete Bilder als auch externe Bildreferenzen auf. Die erzeugten Materialien verwenden die integrierten glTF-Shader; Informationen zu Beleuchtung und unterstützten Materialeffekten findest du im [PBR-Handbuch](/manuals/physically-based-rendering/#built-in-pbr-materials).
+
+### Materialien und Texturen manuell zuweisen {#assigning-materials-and-textures-manually}
+
+Wenn du <kbd>Keep Current</kbd> wählst oder eigene Schattierung benötigst, setze jede Eigenschaft *Material* auf ein geeignetes Material. Die integrierten `gltf`-Materialien bieten PBR-Schattierung; außerdem stehen die integrierten `model`-Materialien und eigene Materialien zur Verfügung. Das [Modellhandbuch](/manuals/model/#material) beschreibt Varianten für statische, geskinte und instanzierte Modelle sowie deren Anforderungen.
+
+Weise jede Textur dem entsprechenden Texturfeld des Materials zu. Du kannst ein eingebettetes Bild unter der glTF- oder GLB-Datei im Bereich *Assets* oder ein separates Bild-Asset im Projekt verwenden. Ordne bei Materialien mit mehreren Samplern jede Textur dem vorgesehenen Sampler zu; das [PBR-Handbuch listet die integrierten glTF-Samplernamen auf](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 
 ## Nach glTF exportieren {#exporting-to-gltf}
@@ -57,13 +90,13 @@ Defold legt einige Einschränkungen für exportierte Animationsdaten fest:
 * Animationen werden außerdem linear interpoliert. Wenn du eine komplexere Kurveninterpolation verwendest, müssen die Animationen vom Exporter vorberechnet werden.
 
 ### Anforderungen {#requirements}
-Beachte beim Export eines Modells, dass sich die glTF-Unterstützung zwischen Werkzeugen und Engines unterscheiden kann. Verwende glTF 2.0, stelle sicher, dass das Modell korrekte UV-Koordinaten hat, wenn es Texturen verwendet, und importiere Texturbilder separat, wenn sie einer Modellkomponente zugewiesen werden sollen.
+Beachte beim Exportieren eines Modells, dass sich die glTF-Unterstützung zwischen Werkzeugen und Engines unterscheiden kann. Verwende glTF 2.0 und stelle bei texturierten Modellen korrekte UV-Koordinaten sicher. Bilder können in die glTF- oder GLB-Datei eingebettet oder als separate, von der Szene referenzierte Dateien gespeichert werden. Importiere alle externen Bild- und Pufferdateien zusammen mit dem Modell in Defold.
 
 Unser Ziel ist es, das glTF-Format vollständig zu unterstützen, aber dieses Ziel haben wir noch nicht ganz erreicht.
 Wenn eine Funktion fehlt, reiche bitte einen Funktionswunsch in [unserem Repository](https://github.com/defold/defold/issues) ein.
 
 ### Eine Textur exportieren {#exporting-a-texture}
-Wenn du noch keine Textur für dein Modell hast, kannst du mit Blender eine Textur erzeugen. Das solltest du tun, bevor du zusätzliche Materialien aus dem Modell entfernst. Wähle zunächst das Mesh und alle seine Vertices aus:
+Wenn du ein Texturbild manuell erstellen möchtest, kannst du das UV-Layout aus Blender als Vorlage exportieren. Wähle zunächst das Mesh und alle seine Vertices aus:
 
 ![Alle auswählen](images/model/blender_select_all_vertices.png)
 

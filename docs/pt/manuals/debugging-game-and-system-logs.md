@@ -5,7 +5,7 @@ brief: Este manual explica como ler logs do jogo e do sistema.
 
 # Log do jogo e do sistema
 
-O log do jogo mostra toda a saída da engine, das extensões nativas e da lógica do seu jogo. Os comandos [print()](/ref/base/#print:...) e [pprint()](/ref/builtins/?q=pprint#pprint:v) podem ser usados nos seus scripts e módulos Lua para mostrar informações no log do jogo. Você pode usar as funções no [`namespace dmLog`](/ref/dmLog/) para escrever no log do jogo a partir de extensões nativas. O log do jogo pode ser lido no editor, em uma janela de terminal, usando ferramentas específicas de plataforma ou a partir de um arquivo de log.
+O log do jogo mostra toda a saída da engine, das extensões nativas e da lógica do seu jogo. Os comandos [print()](/ref/base/#print:...) e [pprint()](/ref/builtins/?q=pprint#pprint:v) podem ser usados nos seus scripts e módulos Lua para mostrar informações no log do jogo. Você pode usar as funções no namespace [`dmLog`](/ref/dmLog/) para escrever no log do jogo a partir de extensões nativas. O log do jogo pode ser lido no editor, em uma janela de terminal, usando ferramentas específicas de plataforma ou a partir de um arquivo de log.
 
 Logs do sistema são gerados pelo sistema operacional e podem fornecer informações adicionais que ajudam a identificar um problema. Os logs do sistema podem conter stack traces de travamentos e avisos de pouca memória.
 
@@ -78,7 +78,7 @@ Você tem várias opções para ler logs do jogo e do sistema no iOS:
 Para iniciar o jogo e anexar o depurador, você precisará de uma ferramenta chamada [ios-deploy](https://github.com/phonegap/ios-deploy). Instale e depure seu jogo executando o seguinte em um terminal:
 
 ```txt
-$ ios-deploy --debug --bundle <path_to_game.app> # OBSERVAÇÃO: não é o arquivo .ipa
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
 ```
 
 Isso instalará o app no seu dispositivo, iniciará o app e anexará automaticamente um depurador LLDB a ele. Se você é novo no LLDB, leia [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).

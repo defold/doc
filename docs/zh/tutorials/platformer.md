@@ -205,21 +205,21 @@ ExciteMike 为[超级马里奥兄弟 3](http://meyermike.com/wp/?p=175)和[超�
 ```lua
 -- player.script
 
--- 这些是机制的调整参数，随时可以更改以获得不同的感觉
+-- 这些参数用于调整游戏机制，可以自由修改以获得不同的手感
 -- 左右移动的加速度
 local move_acceleration = 3500
--- 在空中时使用的加速度系数
+-- 角色在空中时使用的加速度系数
 local air_acceleration_factor = 0.8
--- 左右最大速度
+-- 左右移动的最大速度
 local max_speed = 450
 -- 将玩家向下拉的重力，以像素为单位
 local gravity = -1000
 -- 跳跃时的起跳速度，以像素为单位
 local jump_takeoff_speed = 550
--- 双击必须发生的时间才能被视为跳跃（仅用于鼠标/触摸控制）
+-- 两次点击必须在此时间内发生才被视为跳跃（仅用于鼠标/触摸控制）
 local touch_jump_timeout = 0.2
 
--- 预哈希 ID 提高性能
+-- 预先计算 ID 的哈希可提高性能
 local msg_contact_point_response = hash("contact_point_response")
 local msg_animation_done = hash("animation_done")
 local group_obstacle = hash("obstacle")
@@ -233,35 +233,35 @@ local anim_jump = hash("jump")
 local anim_fall = hash("fall")
 
 function init(self)
-    -- 这让我们可以在此脚本中处理输入
+    -- 使我们能够在此脚本中处理输入
     msg.post(".", "acquire_input_focus")
 
-    -- 初始玩家速度
+    -- 玩家的初始速度
     self.velocity = vmath.vector3(0, 0, 0)
-    -- 用于跟踪碰撞和分离的支持变量
+    -- 用于跟踪碰撞和分离的辅助变量
     self.correction = vmath.vector3()
     -- 玩家是否站在地面上
     self.ground_contact = false
-    -- 移动输入，范围在 [-1,1]
+    -- 移动输入，范围为 [-1,1]
     self.move_input = 0
     -- 当前正在播放的动画
     self.anim = nil
-    -- 控制使用鼠标/触摸时的跳跃窗口的计时器
+    -- 使用鼠标/触摸时控制跳跃时间窗口的计时器
     self.touch_jump_timer = 0
 end
 
 local function play_animation(self, anim)
-    -- 只播放尚未播放的动画
+    -- 只播放当前未在播放的动画
     if self.anim ~= anim then
-        -- 告诉精灵播放动画
+        -- 通知精灵播放动画
         sprite.play_flipbook("#sprite", anim)
-        -- 记住正在播放的动画
+        -- 记录当前正在播放的动画
         self.anim = anim
     end
 end
 
 local function update_animations(self)
-    -- 确保玩家角色面向正确的方向
+    -- 确保玩家角色朝向正确方向
     sprite.set_hflip("#sprite", self.move_input < 0)
     -- 确保播放正确的动画
     if self.ground_contact then
@@ -282,36 +282,36 @@ end
 function update(self, dt)
     -- 根据输入确定目标速度
     local target_speed = self.move_input * max_speed
-    -- 计算我们当前速度与目标速度之间的差异
+    -- 计算当前速度与目标速度之差
     local speed_diff = target_speed - self.velocity.x
-    -- 要在此帧上积分的完整加速度
+    -- 此帧积分所使用的总加速度
     local acceleration = vmath.vector3(0, gravity, 0)
     if speed_diff ~= 0 then
-        -- 设置加速度在差异方向上起作用
+        -- 将加速度方向设为速度差的方向
         if speed_diff < 0 then
             acceleration.x = -move_acceleration
         else
             acceleration.x = move_acceleration
         end
-        -- 在空中时减少加速度，以提供较慢的感觉
+        -- 角色在空中时减小加速度，营造更缓慢的感觉
         if not self.ground_contact then
             acceleration.x = air_acceleration_factor * acceleration.x
         end
     end
-    -- 计算当前帧的速度变化（dv 是 delta-velocity 的缩写）
+    -- 计算此帧的速度增量（dv 是 delta-velocity 的缩写）
     local dv = acceleration * dt
-    -- 检查 dv 是否超过预期的速度差异，如果是，则限制它
+    -- 检查 dv 是否超过预期的速度差，若超过则限制它
     if math.abs(dv.x) > math.abs(speed_diff) then
         dv.x = speed_diff
     end
-    -- 保存当前速度以供以后使用
-    -- (self.velocity，现在是前一帧使用的速度)
+    -- 保存当前速度，供稍后使用
+    -- （self.velocity 目前仍是上一帧使用的速度）
     local v0 = self.velocity
-    -- 通过添加速度变化来计算新速度
+    -- 加上速度增量，计算新的速度
     self.velocity = self.velocity + dv
-    -- 通过积分速度计算当前帧的平移
+    -- 对速度积分，计算此帧的位移
     local dp = (v0 + self.velocity) * dt * 0.5
-    -- 将其应用于玩家角色
+    -- 将其应用到玩家角色
     go.set_position(go.get_position() + dp)
 
     -- 更新跳跃计时器
@@ -321,7 +321,7 @@ function update(self, dt)
 
     update_animations(self)
 
-    -- 重置易变状态
+    -- 重置临时状态
     self.correction = vmath.vector3()
     self.move_input = 0
     self.ground_contact = false
@@ -329,23 +329,23 @@ function update(self, dt)
 end
 
 local function handle_obstacle_contact(self, normal, distance)
-    -- 将校正向量投影到接触法线上
-    -- (对于第一个接触点，校正向量是 0 向量)
+    -- 将修正向量投影到接触法线上
+    -- （处理第一个接触点时，修正向量为零向量）
     local proj = vmath.dot(self.correction, normal)
-    -- 计算我们需要为这个接触点进行的补偿
+    -- 计算此接触点所需的补偿
     local comp = (distance - proj) * normal
-    -- 将其添加到校正向量
+    -- 将其加入修正向量
     self.correction = self.correction + comp
-    -- 将补偿应用于玩家角色
+    -- 将补偿应用到玩家角色
     go.set_position(go.get_position() + comp)
-    -- 检查法线是否足够向上以考虑玩家站在地面上
-    -- (0.7 大致等于与纯垂直方向 45 度的偏差)
+    -- 检查法线是否足够朝上，以判断玩家是否站在地面上
+    -- （0.7 大约相当于偏离正竖直方向 45 度）
     if normal.y > 0.7 then
         self.ground_contact = true
     end
     -- 将速度投影到法线上
     proj = vmath.dot(self.velocity, normal)
-    -- 如果投影为负，意味着部分速度指向接触点
+    -- 如果投影为负数，说明一部分速度指向接触点
     if proj < 0 then
         -- 在这种情况下移除该分量
         self.velocity = self.velocity - proj * normal
@@ -353,9 +353,9 @@ local function handle_obstacle_contact(self, normal, distance)
 end
 
 function on_message(self, message_id, message, sender)
-    -- 检查我们是否收到了接触点消息
+    -- 检查是否收到接触点消息
     if message_id == msg_contact_point_response then
-        -- 检查对象是否是我们认为的障碍物
+        -- 检查对象是否被视为障碍物
         if message.group == group_obstacle then
             handle_obstacle_contact(self, message.normal, message.distance)
         end
@@ -363,8 +363,8 @@ function on_message(self, message_id, message, sender)
 end
 
 local function jump(self)
-    -- 只允许从地面跳跃
-    -- (用计数器扩展以执行二段跳等操作)
+    -- 只允许从地面起跳
+    -- （可以添加计数器来扩展此逻辑，实现二段跳等功能）
     if self.ground_contact then
         -- 设置起跳速度
         self.velocity.y = jump_takeoff_speed
@@ -383,9 +383,9 @@ end
 
 function on_input(self, action_id, action)
     if action_id == input_left then
-        self.move_input = -1
+        self.move_input = -action.value
     elseif action_id == input_right then
-        self.move_input = 1
+        self.move_input = action.value
     elseif action_id == input_jump then
         if action.pressed then
             jump(self)
@@ -393,13 +393,23 @@ function on_input(self, action_id, action)
             abort_jump(self)
         end
     elseif action_id == input_touch then
-        if action.pressed then
-            -- 重置跳跃计时器
+        -- 向触摸点移动
+        local diff = action.x - go.get_position().x
+        -- 只有距离较远（超过 10 像素）时才提供输入
+        if math.abs(diff) > 10 then
+            -- 距离不足 100 像素时减速
+            self.move_input = diff / 100
+            -- 将输入限制在 [-1,1] 范围内
+            self.move_input = math.min(1, math.max(-1, self.move_input))
+        end
+        if action.released then
+            -- 开始记录距上次释放的时间，以判断是否即将跳跃
             self.touch_jump_timer = touch_jump_timeout
-        elseif action.released and self.touch_jump_timer > 0 then
-            -- 如果计时器仍在运行，则执行跳跃
-            jump(self)
-            self.touch_jump_timer = 0
+        elseif action.pressed then
+            -- 双击时跳跃
+            if self.touch_jump_timer > 0 then
+                jump(self)
+            end
         end
     end
 end

@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Defold 1.14.0부터 `Mat2`, `Mat3`, `Mat4` attribute는 모두 `go.set()`과 `go.get()`에서 `vmath.matrix4` 값을 사용합니다. `Mat2` 또는 `Mat3` attribute를 설정하면 행렬의 왼쪽 위 2×2 또는 3×3 부분을 사용합니다. 읽을 때는 사용하지 않는 행과 열을 단위 행렬의 값으로 채운 `vmath.matrix4`를 반환합니다.
+`Mat2`, `Mat3`, `Mat4` 속성은 모두 `go.set()`과 `go.get()`에서 `vmath.matrix4` 값을 사용합니다. `Mat2` 또는 `Mat3` 속성을 설정하면 행렬의 왼쪽 위 2×2 또는 3×3 부분을 사용합니다. 읽을 때는 사용하지 않는 행과 열을 단위 행렬의 값으로 채운 `vmath.matrix4`를 반환합니다.
 
 예를 들어 모델의 메터리얼에 이름이 `custom_mat2`이고 semantic type이 `None`인 `Mat2` attribute가 있다면 다음과 같이 사용할 수 있습니다.
 
@@ -188,24 +188,24 @@ out vec2 var_texcoord0;
 
 void main()
 {
-  // transform에서 position 추출
+  // Extract position from the transform
   vec2 atlas_pos = texture_transform_2d[2].xy;
-  // transform에서 scale 추출
+  // Extract the scale from the transform
   vec2 atlas_size = vec2(
       length(texture_transform_2d[0].xy),
       length(texture_transform_2d[1].xy)
   );
-  // 로컬 UV(0..1)로 변환
+  // convert to local UV (0..1)
   vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
 
-  // 또는 UV 좌표가 이미 0..1 범위에 있다면,
-  // transform을 곱해 바로 아틀라스 공간으로 변환할 수 있습니다.
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
   vec2 transformedUv = texture_transform_2d * texcoord0;
 
-  // 값을 프래그먼트 쉐이더로 전달
+  // Pass the value into the fragment shader
   var_texcoord0 = localUV;
 
-  // ... 버텍스 쉐이더의 나머지 부분
+  // ... rest of vertex shader
 }
 ```
 
@@ -238,12 +238,12 @@ void main()
 버텍스 쉐이더에는 여러 인스턴스별 attribute가 지정되어 있습니다.
 
 ```glsl
-// 버텍스별 attributes
+// Per vertex attributes
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 attribute mediump vec3 normal;
 
-// 인스턴스별 attributes
+// Per instance attributes
 attribute mediump mat4 mtx_world;
 attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;

@@ -3,7 +3,7 @@ title: Defold'da çarpışma nesneleri
 brief: Çarpışma nesnesi, bir oyun nesnesine fiziksel davranış kazandırmak için kullandığınız bir bileşendir. Çarpışma nesnesinin fiziksel özellikleri ve uzamsal bir şekli vardır.
 ---
 
-# Çarpışma nesneleri
+# Çarpışma nesneleri {#collision-objects}
 
 Çarpışma nesnesi (collision object), bir oyun nesnesine (game object) fiziksel davranış kazandırmak için kullandığınız bir bileşendir (component). Çarpışma nesnesinin ağırlık, geri sekme katsayısı ve sürtünme gibi fiziksel özellikleri vardır; uzayda kapladığı bölgeyi, bileşene eklediğiniz bir veya daha fazla _şekil_ belirler. Defold aşağıdaki çarpışma nesnesi türlerini destekler:
 
@@ -20,26 +20,26 @@ Tetikleyiciler
 : Tetikleyiciler (triggers), basit çarpışmaları kaydeden nesnelerdir. Tetikleyiciler, işlem yükü düşük çarpışma nesneleridir. Fizik dünyasıyla etkileşmek yerine onu okumaları bakımından [ışın sorgularına](/manuals/physics-ray-casts) benzerler. Yalnızca bir isabeti kaydetmesi gereken nesneler (mermi gibi) için veya bir nesne belirli bir noktaya ulaştığında belirli eylemleri tetiklemek istediğiniz oyun mantığının bir parçası olarak uygundurlar. Tetikleyiciler, hesaplama açısından kinematik nesnelerden daha az kaynak tüketir ve mümkün olduğunda bunların yerine kullanılmaları önerilir.
 
 
-## Çarpışma nesnesi bileşeni ekleme
+## Çarpışma nesnesi bileşeni ekleme {#adding-a-collision-object-component}
 
 Çarpışma nesnesi bileşeninin *Properties* değerleri, türünü ve fiziksel özelliklerini belirler. Ayrıca fizik nesnesinin bütün şeklini tanımlayan bir veya daha fazla *Shapes* öğesi içerir.
 
 Bir oyun nesnesine çarpışma nesnesi bileşeni eklemek için:
 
 1. *Outline* görünümünde oyun nesnesine <kbd>sağ tıklayın</kbd> ve bağlam menüsünden <kbd>Add Component ▸ Collision Object</kbd> seçeneğini seçin. Bu işlem, hiç şekil içermeyen yeni bir bileşen oluşturur.
-2. Yeni bileşene <kbd>sağ tıklayın</kbd> ve <kbd>Add Shape</kbd> seçeneğini seçin, ardından bir şekil seçin: 3B fizik kullanan projelerde <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> veya <kbd>Mesh</kbd>; 2B fizik kullanan projelerde <kbd>Box</kbd> veya <kbd>Circle</kbd>. Hull ve Mesh şekilleri Defold 1.13.2 sürümünden beri kullanılabilir ve bir glTF veya GLB sahnesindeki adlandırılmış bir örgüyü (mesh) kullanır. Bileşene birden fazla şekil ekleyebilirsiniz. Ayrıca *Collision Shape* özelliği aracılığıyla bir karo haritası (tilemap) veya `.convexshape` kaynağı kullanabilirsiniz.
+2. Yeni bileşene <kbd>sağ tıklayın</kbd> ve <kbd>Add Shape</kbd> seçeneğini seçin, ardından bir şekil seçin: 3B fizik kullanan projelerde <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> veya <kbd>Mesh</kbd>; 2B fizik kullanan projelerde <kbd>Box</kbd> veya <kbd>Circle</kbd>. Hull ve Mesh şekilleri bir glTF veya GLB sahnesindeki adlandırılmış bir örgüyü (mesh) kullanır. Bileşene birden fazla şekil ekleyebilirsiniz. Ayrıca *Collision Shape* özelliği aracılığıyla bir karo haritası (tilemap) veya `.convexshape` kaynağı kullanabilirsiniz.
 3. Şekilleri düzenlemek için taşıma, döndürme ve ölçekleme araçlarını kullanın.
 4. Bileşeni *Outline* görünümünde seçin ve çarpışma nesnesinin *Properties* değerlerini düzenleyin.
 
 ![Fizik çarpışma nesnesi](images/physics/collision_object.png)
 
 
-## Çarpışma şekli ekleme
+## Çarpışma şekli ekleme {#adding-a-collision-shape}
 
 Bir çarpışma bileşeni, 3B fizikte dışbükey zarflar (hulls) ve üçgen örgüler dahil birden fazla gömülü şekil içerebilir veya bir karo haritası ya da dışbükey şekil kaynağı kullanabilir. Çeşitli şekiller ve bunları bir çarpışma bileşenine ekleme hakkında daha fazla bilgi için [Çarpışma şekilleri kılavuzuna](/manuals/physics-shapes) bakın.
 
 
-## Çarpışma nesnesinin özellikleri
+## Çarpışma nesnesinin özellikleri {#collision-object-properties}
 
 Id
 : Bileşenin kimliği.
@@ -102,7 +102,7 @@ Generate Trigger Events
 : Etkinleştirildiğinde bu nesnenin tetikleyici olayları göndermesine izin verir
 
 
-## Çalışma zamanı özellikleri
+## Çalışma zamanı özellikleri {#runtime-properties}
 
 Bir fizik nesnesinin `go.get()` ve `go.set()` kullanılarak okunabilen ve değiştirilebilen çeşitli özellikleri vardır:
 

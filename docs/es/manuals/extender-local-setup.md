@@ -44,9 +44,9 @@ Cuando tengas instalado el software mencionado arriba, sigue estos pasos para in
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # establece la versión necesaria de Extender y de la herramienta de fusión de manifiestos
-    # las versiones se pueden encontrar en la página de releases de GitHub https://github.com/defold/extender/releases
-    # o puedes obtener la versión más reciente (consulta el ejemplo de código de abajo)
+    # set necessary version of Extender and Manifest merge tool
+    # versions can be found at Github release page https://github.com/defold/extender/releases
+    # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
     MANIFESTMERGETOOL_VERSION=1.3.0
     echo "Download prebuild jars to ${APPLICATION_DIR}"

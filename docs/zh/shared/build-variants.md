@@ -6,7 +6,7 @@
   * Release
   * Headless
 
-这些不同版本也被称为 `构建变体`
+这些不同版本也被称为 `Build variants`（构建变体）
 
 ::: sidenote
 当您选择 <kbd>Project ▸ Build</kbd> 时，您将始终获得调试版本。

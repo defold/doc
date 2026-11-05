@@ -154,6 +154,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 ### Display
 
+데스크톱 플랫폼에서 에디터로 연 엔진 창은 이전 실행에서 저장한 크기를 복원할 수 있습니다. 저장된 창 위치는 유지하면서 기억한 크기를 지우고 설정된 크기로 돌아가려면 <kbd>Debug ▸ Reset Simulated Resolution</kbd>을 선택하세요. 자세한 내용은 [엔진 창 배치와 초기화](/manuals/editor/#engine-window-placement)를 참고하세요.
+
 #### Width
 어플리케이션 창의 너비입니다. 단위는 픽셀입니다.
 
@@ -162,6 +164,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### High Dpi
 지원되는 디스플레이에서 high dpi 백 버퍼를 생성합니다. 일반적으로 게임은 *Width* 및 *Height* 설정에 지정된 값보다 두 배 높은 해상도로 렌더링되지만, 스크립트와 프로퍼티에서 사용하는 논리 해상도는 여전히 해당 설정값입니다.
+
+HTML5에서는 이 설정을 활성화했을 때 [Min Pixel Ratio](#min-pixel-ratio)와 [Max Pixel Ratio](#max-pixel-ratio)로 렌더링 배율을 제한할 수 있습니다.
 
 #### Samples
 슈퍼 샘플링 안티앨리어싱에 사용할 샘플 수입니다. 이 값은 `GLFW_FSAA_SAMPLES` window hint를 설정합니다. 값이 `0`이면 안티앨리어싱이 꺼집니다.
@@ -204,13 +208,6 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Clear Color Alpha
 렌더 스크립트와 창 생성 시 사용하는 clear color의 alpha 채널입니다.
-
----
-
-### Font
-
-#### Runtime Generation
-런타임 폰트 생성을 사용합니다.
 
 ---
 
@@ -305,7 +302,8 @@ fixed timestep을 사용할 때 시뮬레이션의 최대 step 수입니다(3D�
 각 그래픽 호출 후 반환값을 확인하고 오류가 있으면 로그에 보고합니다.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint`는 HTML5에서 요청할 WebGL 컨텍스트 버전을 선택합니다. 유효한 값은 `1`(WebGL 1)과 `2`(기본값, WebGL 2)입니다. WebGL 2를 지원하는 브라우저에서도 WebGL 1을 대상으로 하거나 테스트하려면 `1`로 설정합니다. WebGL 1을 대상으로 할 때는 필요한 쉐이더가 포함되도록 [Exclude GLES 2.0](#exclude-gles-20)을 비활성화 상태로 두세요.
+
+`graphics.webgl_version_hint`는 HTML5에서 요청할 WebGL 컨텍스트 버전을 선택합니다. 유효한 값은 `1`(WebGL 1)과 `2`(WebGL 2, 기본값)입니다. WebGL 2를 지원하는 브라우저에서도 WebGL 1을 타겟으로 하거나 테스트하려면 `1`로 설정하세요. WebGL 1을 타겟으로 할 때는 필요한 쉐이더가 포함되도록 [Exclude GLES 2.0](#exclude-gles-20)을 비활성화합니다.
 
 #### OpenGL Version Hint
 OpenGL 컨텍스트 버전 hint입니다. 특정 버전을 선택하면 이 버전이 필요한 최소 버전으로 사용됩니다(OpenGL ES에는 적용되지 않음).
@@ -324,7 +322,17 @@ OpenGL 컨텍스트 버전 hint입니다. 특정 버전을 선택하면 이 버�
 ### Shader
 
 #### Exclude GLES 2.0
-OpenGLES 2.0 / WebGL 1.0을 실행하는 장치용 쉐이더를 컴파일하지 않습니다.
+
+`shader.exclude_gles_sm100`은 OpenGLES 2.0과 WebGL 1.0용 쉐이더를 제외합니다. 기본적으로 활성화되어 있습니다(`1`).
+
+이 그래픽 API를 타겟으로 하거나 대체 백엔드로 허용하려면 *game.project*의 **Shader ▸ Exclude GLES 2.0**을 해제하거나 다음과 같이 설정합니다:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+이 옵션을 명시적으로 지정하지 않은 프로젝트는 기본값을 사용합니다. OpenGLES 2.0 또는 WebGL 1.0 지원이 필요하면 명시적으로 `0`으로 설정하세요.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float`는 cross-compile된 GLSL ES 쉐이더에서 부동 소수점 값의 기본 전역 precision qualifier를 설정합니다. 유효한 값은 `mediump`와 `highp`이며 기본값은 `mediump`입니다.
@@ -369,6 +377,10 @@ OpenGLES 2.0 / WebGL 1.0을 실행하는 장치용 쉐이더를 컴파일하지 
 
 #### Max Resources
 동시에 로드할 수 있는 리소스의 최대 수입니다.
+
+#### Profile {#profile}
+
+`resource.profile`은 완료되거나 실패한 각 로드의 리소스 로드 시간과 INFO 레벨 로그를 활성화합니다. 기본값은 비활성화(`0`)입니다. 시작 시 로드를 측정하려면 게임 실행 전에 활성화(`1`)하세요. 리소스 프로파일러는 현재 로드된 리소스의 보관된 최초 로드 측정값을 표시합니다. **Capture**, **Show load times**를 차례로 클릭해 검사하세요. 시간 열과 해석 방법은 [리소스 로드 시간](/manuals/profiling/#resource-loading-times)을 참고하세요.
 
 ---
 
@@ -502,6 +514,7 @@ bone matrix 텍스쳐의 최대 높이입니다. 애니메이션에 필요한 �
 ### Light
 
 #### Max Count {#light-max-count}
+
 `light.max_count`는 라이트 컴포넌트의 최대 수를 설정하며, 기본값은 `64`입니다. [(component max count optimizations 정보 보기)](#component-max-count-optimizations).
 
 ---
@@ -594,6 +607,18 @@ Box2D 3.x 물리 solver의 sub-step 수입니다.
 
 ### iOS
 
+#### Home Indicator Mode {#home-indicator-mode}
+
+`ios.home_indicator_mode`는 화면 가장자리의 시스템 제스처와 게임이 홈 인디케이터 자동 숨김을 요청할지 여부를 제어합니다.
+
+| 값 | 시스템 제스처 | 자동 숨김 요청 |
+|-------|-----------------|--------------------------|
+| `deferred`(기본값) | 시스템 제스처를 지연하여 모든 화면 가장자리를 보호합니다. 홈으로 돌아가려면 두 번 스와이프해야 합니다. | 아니요 |
+| `system` | 일반 시스템 제스처를 사용하여 한 번의 스와이프로 홈으로 돌아갈 수 있습니다. | 아니요 |
+| `auto_hide` | 일반 시스템 제스처를 사용하여 한 번의 스와이프로 홈으로 돌아갈 수 있습니다. | 예 |
+
+인디케이터의 실제 표시는 iOS가 제어합니다. 자동 숨김은 요청이며, iOS 26 이상에서는 시스템이 `system`과 `auto_hide` 모드 모두에서 인디케이터를 숨길 수 있습니다. 설정 예제는 [홈 인디케이터 동작](/manuals/ios/#home-indicator-behavior)을 참고하세요.
+
 #### App Icon 57x57--180x180
 지정한 너비와 높이 `W` &times; `H` 크기의 어플리케이션 아이콘으로 사용할 이미지 파일(.png)입니다.
 
@@ -609,14 +634,17 @@ Storyboard 파일(.storyboard)입니다. 만드는 방법에 대한 자세한 �
 #### Bundle Identifier
 번들 식별자는 iOS가 앱 업데이트를 인식할 수 있게 합니다. 번들 ID는 Apple에 등록되어야 하며 앱마다 고유해야 합니다. iOS 앱과 macOS 앱에 같은 식별자를 사용할 수 없습니다. 점으로 구분된 둘 이상의 segment로 구성되어야 합니다. 각 segment는 문자로 시작해야 합니다. 각 segment는 영숫자 문자, 밑줄 또는 하이픈(-) 문자로만 구성되어야 합니다([`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) 참고).
 
-#### Bundle Name
+#### Bundle Name {#osx-bundle-name}
+
 번들 짧은 이름(15자)입니다([`CFBundleName`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) 참고).
 
-#### Bundle Version
+#### Bundle Version {#osx-bundle-version}
+
 번들 버전입니다. 숫자 또는 x.y.z입니다([`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) 참고).
 
 #### Info.plist
-지정하면 앱을 번들링할 때 내장 iOS 기본 메니페스트 대신 이 *`Info.plist`* 파일을 사용합니다. 내장 메니페스트에는 릴리스가 아닌 빌드에서 에디터 타겟을 검색하는 데 필요한 로컬 네트워크 및 Bonjour 항목이 들어 있습니다. 커스텀 메니페스트를 제공하면서 디바이스의 타겟 검색, 프로파일링, 핫 리로드 또는 로그 스트리밍이 필요하다면 [iOS 매뉴얼](/manuals/ios/#creating-an-ios-application-bundle)에 설명된 항목을 유지하세요.
+
+지정하면 앱 번들링 시 내장 iOS 기본 메니페스트인 `/builtins/manifests/ios/Info.plist` 대신 이 *`Info.plist`* 파일을 사용합니다. 내장 템플릿을 사용하는 프로젝트는 메니페스트 업데이트를 자동으로 받지만 커스텀 파일은 명시적으로 갱신해야 합니다.
 
 #### Privacy Manifest
 어플리케이션의 Apple Privacy Manifest입니다. 이 필드는 기본적으로 `/builtins/manifests/ios/PrivacyInfo.xcprivacy`를 사용합니다.
@@ -687,7 +715,7 @@ display cutout 영역까지 확장합니다.
 #### R8 Keep Rules
 `android.r8_keep_rules`는 Android 빌드에서 Java 코드의 R8 축소, 최적화, 난독화를 활성화할 `.keep` 파일을 선택합니다. 축소 없이 D8을 사용하려면 설정을 비워 둡니다.
 
-Defold 1.14.0 이상과 호환되는 Extender 빌드 서버에서는 사용되지 않는 Android 리소스도 제거합니다. 동적으로 로드하는 리소스에는 별도의 [XML keep 규칙](/manuals/android/#keeping-android-resources)이 필요할 수 있습니다.
+호환되는 Extender 빌드 서버에서는 사용하지 않는 Android 리소스도 제거합니다. 동적으로 로드하는 리소스에는 별도의 [XML 유지 규칙](/manuals/android/#keeping-android-resources)이 필요할 수 있습니다.
 
 Defold의 기본 규칙을 바로 사용하려면 `/builtins/manifests/android/dmengine.keep`를 선택합니다. 익스텐션은 자체 [keep 규칙](/manuals/extensions/#r8-keep-rules-for-android)을 제공하며 이 파일과 결합됩니다.
 
@@ -775,6 +803,16 @@ wasm 파일의 스트리밍을 활성화합니다(더 빠르고 메모리를 덜
 #### Scale Mode
 게임 canvas를 스케일하는 데 사용할 방법을 지정합니다.
 
+#### Min Pixel Ratio {#min-pixel-ratio}
+
+`html5.min_pixel_ratio`는 [High Dpi](#high-dpi)가 활성화되었을 때 CSS 픽셀당 캔버스 렌더링 픽셀 수의 최솟값을 설정합니다. 기본값은 `0`이며 하한을 비활성화합니다. `1` 미만을 포함한 양의 소수를 지원합니다.
+
+#### Max Pixel Ratio {#max-pixel-ratio}
+
+`html5.max_pixel_ratio`는 [High Dpi](#high-dpi)가 활성화되었을 때 CSS 픽셀당 캔버스 렌더링 픽셀 수의 최댓값을 설정합니다. 기본값은 `0`이며 상한을 비활성화합니다. `1` 미만을 포함한 양의 소수를 지원합니다.
+
+두 제한은 모두 유한한 음이 아닌 수여야 합니다. 두 경계가 모두 활성화되면 최솟값은 최댓값을 넘으면 안 됩니다. *High Dpi*가 비활성화되어 있으면 비율은 `1`이며 어느 경계도 적용되지 않습니다. 이 제한은 캔버스의 CSS 표시 크기를 유지하면서 렌더링 해상도에 영향을 줍니다. 설정 예제는 [픽셀 비율 제한](/manuals/html5/#pixel-ratio-limits)을 참고하세요.
+
 #### Retry Count
 시작 중 다운로드가 실패한 후 재시도하는 횟수입니다. 엔진의 JavaScript 또는 WebAssembly 파일에서 발생한 네트워크 오류, 실패한 HTTP 상태 및 크기 불일치가 포함됩니다. 최초 요청은 별도로 계산합니다. 아카이브 파일 검증에는 자체 재시도 제한이 있습니다. [다운로드 검증](/manuals/html5/#download-verification)과 `Retry Time`을 참고하세요.
 
@@ -799,6 +837,7 @@ IAP 트랜잭션을 자동으로 완료하려면 체크합니다. 체크하지 �
 ### Live update
 
 #### Enabled {#liveupdate-enabled}
+
 `liveupdate.enabled`는 런타임에 Live update 시스템을 활성화합니다. 기본적으로 활성화되어 있습니다. 리소스를 제외하고, 다운로드하고, 마운트하는 방법은 [Live update 매뉴얼](/manuals/live-update/)을 참고하세요.
 
 #### Settings
@@ -810,6 +849,38 @@ IAP 트랜잭션을 자동으로 완료하려면 체크합니다. 체크하지 �
 
 #### _App Manifest_
 설정하면 app manifest를 사용하여 엔진 빌드를 커스터마이즈합니다. 이를 통해 엔진에서 사용하지 않는 부분을 제거하여 최종 바이너리 크기를 줄일 수 있습니다. 사용하지 않는 기능을 제외하는 방법은 [application manifest 매뉴얼](/manuals/app-manifest)에서 확인하세요.
+
+---
+
+### Debugger {#debugger}
+
+이 설정은 네이티브 디버그 및 헤드리스 빌드의 [디버거 연결](/manuals/debugging-game-logic/#native-dap-connections)을 제어합니다. 릴리스와 웹 빌드는 디버거 연결을 지원하지 않습니다. *game.project*를 텍스트로 편집하여 추가하거나 [엔진 시작 시 설정 재정의](#setting-config-values-on-engine-startup)를 사용합니다. 프로젝트 설정 폼에는 표시되지 않습니다. <kbd>Debug ▸ Start/Attach</kbd>를 사용하면 에디터가 연결을 자동으로 설정합니다.
+
+예를 들어 로컬 리스너를 시작하고 시작 스크립트 실행 전에 클라이언트의 중단점 설정을 기다리려면:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+
+`debugger.enabled`를 `1`로 설정하면 엔진 시작 시 리스너를 시작합니다. 기본값은 비활성화(`0`)입니다. 실행 중인 게임에서도 [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running)로 리스너를 시작할 수 있습니다.
+
+#### Address {#debugger-address}
+
+`debugger.address`는 리스너가 연결을 받는 IPv4 주소입니다. 기본값 `127.0.0.1`은 로컬 연결만 받습니다. [원격 연결](/manuals/debugging-game-logic/#remote-targets)에는 기기의 인터페이스 주소나 `0.0.0.0`을 사용하세요.
+
+#### Port {#debugger-port}
+
+`debugger.port`는 `0`부터 `65535`까지의 TCP 수신 포트입니다. 기본값은 `8172`입니다. `0`으로 설정하면 사용 가능한 포트를 선택하여 엔진 로그에 보고합니다.
+
+#### Wait {#debugger-wait}
+
+`debugger.wait`는 시작 스크립트를 실행하기 전에 클라이언트가 중단점을 포함한 디버그 세션 설정을 마칠 때까지 엔진을 기다리게 합니다. 기본값은 비활성화(`0`)입니다. 시작 코드를 디버깅하려면 `debugger.enabled=1`과 함께 `1`로 설정하세요. 나중에 `debugger.start()`로 리스너를 시작하는 경우에는 기다리거나 게임을 일시 정지하지 않습니다. [시작 및 연결 가이드](/manuals/debugging-game-logic/#native-dap-connections)를 참고하세요.
 
 ---
 
@@ -837,15 +908,15 @@ CPU 사용량 sampling은 디버그 빌드에서 기본적으로 활성화됩니
 
 ---
 
-## 엔진 시작 시 config 값 설정하기
+## 엔진 시작 시 config 값 설정하기 {#setting-config-values-on-engine-startup}
 
 엔진이 시작될 때 *game.project* 설정을 재정의하는 config 값을 커맨드 라인에서 제공할 수 있습니다.
 
 ```bash
-# 부트스트랩 컬렉션 지정
+# Specify a bootstrap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
-# 두 개의 커스텀 config 값 설정
+# Set two custom config values
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
@@ -879,46 +950,46 @@ my_property.private = 1
 
 ```
 [my_extension]
-// `type` - 값 문자열 파싱에 사용
-my_property.type = string // 다음 값 중 하나: bool, string, number, integer, string_array, resource
+// `type` - used for the value string parsing
+my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
-// `help` - 에디터에서 help tooltip으로 표시
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
-// `default` - 사용자가 값을 직접 설정하지 않았을 때 기본값으로 사용되는 값
+// `default` - value used as default if user didn't set value manually
 my_property.default = string
 
-// `private` - 번들 과정에서 사용되지만 번들 자체에서는 제거되는 private 값
-my_property.private = 1 // boolean 값 1 또는 0
+// `private` - private value used during the bundle process but will be removed from the bundle itself
+my_property.private = 1 // boolean value 1 or 0
 
-// `label` - 에디터 input label
+// `label` - editor input label
 my_property.label = My Awesome Property
 
-// `minimum` 및/또는 `maximum` - numeric 프로퍼티의 유효 범위, 에디터 UI에서 검증됨
+// `minimum` and/or `maximum` - valid range for numeric properties, validated in the editor UI
 my_property.minimum = 0
 my_property.maximum = 255
 
-// `options` - 에디터 UI의 drop-down 선택지, 쉼표로 구분된 value[:label] 쌍
+// `options` - drop-down choices for the editor UI, comma-separated value[:label] pairs
 my_property.options = android: Android, ios: iOS
 
-// `resource` 타입만:
-my_property.filter = jpg,png // resource selector dialog에서 허용되는 파일 확장자
-my_property.preserve-extension = 1 // 빌드된 확장자 대신 원래 리소스 확장자를 사용
+// `resource` type only:
+my_property.filter = jpg,png // allowed file extensions for resource selector dialog
+my_property.preserve-extension = 1 // use original resource extension instead of a built one
 
 // deprecation
-my_property.deprecated = 1 // 프로퍼티를 deprecated로 표시
-my_property.severity-default = warning // deprecated 프로퍼티가 지정되었지만 기본값으로 설정된 경우
-my_property.severity-override = error  // deprecated 프로퍼티가 지정되고 기본값이 아닌 값으로 설정된 경우
+my_property.deprecated = 1 // mark property as deprecated
+my_property.severity-default = warning // if deprecated property is specified, but set to a default value
+my_property.severity-override = error  // if deprecated property is specified and set to a non-default value
 
 ```
 추가로 설정 카테고리에 다음 속성을 설정할 수 있습니다.
 ```
 [my_extension]
-// `group` - game.project 카테고리 그룹. 예: Main, Platforms, Components, Runtime, Distribution
+// `group` - game.project category group, e.g. Main, Platforms, Components, Runtime, Distribution
 group = Runtime
-// `title` - 표시될 카테고리 title
+// `title` - displayed category title
 title = My Awesome Extension
-// `help` - 표시될 카테고리 help
+// `help` - displayed category help
 help = Settings for My Awesome Extension
 ```
 

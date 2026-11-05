@@ -26,6 +26,31 @@ I nodi di testo hanno alcune proprietà specifiche:
 *Line Break*
 : L'allineamento del testo segue l'impostazione del pivot; attivando questa proprietà, il testo può andare a capo su più righe. La larghezza del nodo determina il punto in cui il testo va a capo.
 
+## Font vettoriali ed emoji a colori {#vector-fonts-and-color-emoji}
+
+Segui la [configurazione dei font vettoriali](/manuals/font/#vector-fonts), aggiungi la risorsa `.font` a *Fonts* della scena GUI e selezionala sul nodo di testo. Imposta *Material* della risorsa font su `/builtins/fonts/font-vector.material`. Usa *Font Size* del nodo per controllare le dimensioni visualizzate.
+
+Per le emoji a colori, completa anche la [configurazione del ripiego COLRv1 e del bundle](/manuals/font/#color-emoji). Crea un nodo di testo con l'ID `text`, lascia vuoto *Text* e aggiungi quanto segue al `.gui_script` della scena GUI:
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) restituisce il nome del font nella scena GUI; [`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) risolve quel nome nella risorsa font usata da `font.add_font()`. Anche gli altri nodi e Label che condividono quella risorsa ricevono il font di ripiego, quindi inizializzalo una sola volta. Il testo viene impostato dopo il completamento del preriscaldamento.
+
 ## Allineamento {#alignment}
 
 Impostando il pivot del nodo puoi cambiare la modalità di allineamento del testo.

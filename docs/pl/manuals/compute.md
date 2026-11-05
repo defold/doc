@@ -106,7 +106,7 @@ render.dispatch_compute(32, 32, 32, {constants = constants})
 
 Obecnie generowanie jakiegokolwiek rodzaju danych wyjściowych z programu compute jest możliwe tylko za pomocą `storage textures`. Tekstura storage jest podobna do „zwykłej tekstury”, ale oferuje więcej funkcji i możliwości konfiguracji. Jak sugeruje nazwa, tekstury storage mogą służyć jako ogólny bufor, z którego program compute może odczytywać i do którego może zapisywać dane. Ten sam bufor możesz potem powiązać z innym programem shadera do odczytu.
 
-Aby utworzyć teksturę storage w Defold, musisz zrobić to ze zwykłego pliku `.script`. Skrypty do renderowania nie mają tej funkcjonalności, ponieważ tekstury dynamiczne trzeba tworzyć przez API `zasobów`, które jest dostępne tylko w zwykłych plikach `.script`.
+Aby utworzyć teksturę storage w Defold, musisz zrobić to ze zwykłego pliku `.script`. Skrypty do renderowania nie mają tej funkcjonalności, ponieważ tekstury dynamiczne trzeba tworzyć przez API `resource`, które jest dostępne tylko w zwykłych plikach `.script`.
 
 ```lua
 -- W pliku .script:
@@ -139,17 +139,17 @@ end
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 
-// określ zasoby wejściowe
+// specify the input resources
 uniform vec4 color;
 uniform sampler2D texture_in;
 
-// określ obraz wyjściowy
+// specify the output image
 layout(rgba32f) uniform image2D texture_out;
 
 void main()
 {
-    // To nie jest szczególnie ciekawy shader, ale pokazuje,
-    // jak czytać z tekstury i bufora stałych oraz zapisywać do tekstury storage
+    // This isn't a particularly interesting shader, but it demonstrates
+    // how to read from a texture and constant buffer and write to a storage texture
 
     ivec2 tex_coord   = ivec2(gl_GlobalInvocationID.xy);
     vec4 output_value = vec4(0.0, 0.0, 0.0, 1.0);
@@ -157,7 +157,7 @@ void main()
     vec4 input_value = texture(texture_in, tex_coord_uv);
     output_value.rgb = input_value.rgb * color.rgb;
 
-    // Zapisz wartość wyjściową do tekstury storage
+    // Write the output value to the storage texture
     imageStore(texture_out, tex_coord, output_value);
 }
 ```

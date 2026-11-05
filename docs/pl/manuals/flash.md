@@ -39,7 +39,7 @@ We Flashu instancje klipów filmowych można dodawać do sceny ręcznie, przeci�
 
 Jak wspomniano wcześniej, Defold nie ma pojęcia osi czasu. Zamiast tego obiekty gry są organizowane w kolekcjach. Kolekcje są kontenerami, czyli prefabami, które przechowują obiekty gry i inne kolekcje. W najprostszym przypadku gra może składać się tylko z jednej kolekcji. Częściej Defold korzysta z wielu kolekcji, dodanych ręcznie do bootstrapowej kolekcji `main` albo wczytywanych dynamicznie przez [collection proxy](/manuals/collection-proxy). Pojęcie wczytywania "poziomów" lub "ekranów" nie ma bezpośredniego odpowiednika we Flashu.
 
-W przykładzie poniżej kolekcja `main` zawiera trzy instancje klipu filmowego `logo` (na liście po prawej, w oknie *Outline*), widoczne jako obiekty gry `logo` po lewej, w oknie *Assets*:
+W poniższym przykładzie kolekcja `main` zawiera trzy instancje (wymienione po prawej w oknie *Outline*) obiektu gry `logo` (widocznego po lewej w przeglądarce *Assets*):
 
 ![manual game objects](images/flash/manual_game_objects.png)
 

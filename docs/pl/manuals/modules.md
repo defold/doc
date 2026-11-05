@@ -142,22 +142,22 @@ Korzystanie z tabeli stanu
 
   ```lua
   local M = {}
-  
+
   function M.alter_state(the_state, v)
       the_state.value = the_state.value + v
   end
-  
+
   function M.get_state(the_state)
       return the_state.value
   end
-  
+
   function M.new(v)
       local state = {
           value = v
       }
       return state
   end
-  
+
   return M
   ```
   
@@ -175,23 +175,23 @@ Korzystanie z metatablic
 
   ```lua
   local M = {}
-  
+
   function M:alter_state(v)
       -- self jest dodawane jako pierwszy argument, gdy używa się notacji ":"
       self.value = self.value + v
   end
-  
+
   function M:get_state()
       return self.value
   end
-  
+
   function M.new(v)
       local state = {
           value = v
       }
       return setmetatable(state, { __index = M })
   end
-  
+
   return M
   ```
 
@@ -209,23 +209,23 @@ Korzystanie z domknięć
 
   ```lua
   local M = {}
-  
+
   function M.new(v)
       local state = {
           value = v
       }
-  
+
       state.alter_state = function(v)
           state.value = state.value + v
       end
-  
+
       state.get_state = function()
           return state.value
       end
-  
+
       return state
   end
-  
+
   return M
   ```
 
@@ -235,5 +235,5 @@ Korzystanie z domknięć
   local m = require "main.mymodule"
   local my_state = m.new(42)
   my_state.alter_state(1)
-  print(my_state.get_state()) 
+  print(my_state.get_state())
   ```

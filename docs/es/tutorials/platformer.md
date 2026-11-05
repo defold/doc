@@ -148,7 +148,7 @@ La gravedad tirará continuamente del personaje hacia abajo otra vez, lo que da 
 1. Cuando se presiona la entrada, haz:
 
     ```lua
-    -- jump_takeoff_speed is a constant defined elsewhere
+    -- jump_takeoff_speed es una constante definida en otra parte
     self.velocity.y = jump_takeoff_speed
     ```
 
@@ -157,9 +157,9 @@ La gravedad tirará continuamente del personaje hacia abajo otra vez, lo que da 
 2. Cuando se suelta la entrada, haz:
 
     ```lua
-    -- cut the jump short if we are still going up
+    -- corta el salto si todavía estamos subiendo
     if self.velocity.y > 0 then
-        -- scale down the upwards speed
+        -- reduce la velocidad hacia arriba
         self.velocity.y = self.velocity.y * 0.5
     end
     ```

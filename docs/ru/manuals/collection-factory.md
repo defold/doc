@@ -104,20 +104,20 @@ end
 
   ```lua
   function init(self)
-      -- No factory resources are loaded when the collection factory’s
-      -- parent collection is loaded. Calling create without
-      -- having called load will create the resources synchronously.
-      self.go_ids = collecionfactory.create("#collectionfactory")
+      -- Ресурсы фабрики не загружаются при загрузке родительской
+      -- коллекции фабрики коллекций. Вызов create без предварительного
+      -- вызова load создаст ресурсы синхронно.
+      self.go_ids = collectionfactory.create("#collectionfactory")
   end
 
   function final(self)
-      -- Delete game objects. Will decref resources.
-      -- In this case resources are deleted since the collection
-      -- factory component holds no reference.
+      -- Удалить игровые объекты. Счётчики ссылок на ресурсы уменьшатся.
+      -- В этом случае ресурсы удаляются, поскольку компонент
+      -- фабрики коллекций не удерживает ссылок.
       go.delete(self.go_ids)
 
-      -- Calling unload will do nothing since factory holds
-      -- no references
+      -- Вызов unload ничего не сделает, поскольку фабрика
+      -- не удерживает ссылок
       collectionfactory.unload("#factory")
   end
   ```
@@ -127,24 +127,24 @@ end
 
   ```lua
   function load_complete(self, url, result)
-      -- Loading is complete, resources are ready to spawn
+      -- Загрузка завершена, ресурсы готовы к созданию экземпляров
       self.go_ids = collectionfactory.create(url)
   end
 
   function init(self)
-      -- No factory resources are loaded when the collection factory’s
-      -- parent collection is loaded. Calling load will load the resources.
+      -- Ресурсы фабрики не загружаются при загрузке родительской
+      -- коллекции фабрики коллекций. Вызов load загрузит ресурсы.
       collectionfactory.load("#factory", load_complete)
   end
 
   function final(self)
-      -- Delete game object. Will decref resources.
-      -- In this case resources aren’t deleted since the collection factory
-      -- component still holds a reference.
+      -- Удалить игровой объект. Счётчики ссылок на ресурсы уменьшатся.
+      -- В этом случае ресурсы не удаляются, поскольку компонент фабрики коллекций
+      -- всё ещё удерживает ссылку.
       go.delete(self.go_ids)
 
-      -- Calling unload will decref resources held by the factory component,
-      -- resulting in resources being destroyed.
+      -- Вызов unload уменьшит счётчики ссылок на ресурсы, удерживаемые компонентом фабрики,
+      -- что приведёт к удалению ресурсов.
       collectionfactory.unload("#factory")
   end
   ```

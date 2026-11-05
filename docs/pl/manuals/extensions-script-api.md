@@ -12,31 +12,31 @@ Edytor Defold udostępnia podpowiedzi autouzupełniania dla wszystkich funkcji A
 Plik definicji API skryptu ma rozszerzenie `.script_api`. Musi być zapisany w formacie [YAML](https://yaml.org/) i znajdować się razem z plikami rozszerzenia. Oczekiwany format definicji API skryptu wygląda tak:
 
 ```yml
-- name: Nazwa rozszerzenia
+- name: The name of the extension
   type: table
-  desc: Opis rozszerzenia
+  desc: Extension description
   members:
-  - name: Nazwa pierwszego elementu
-    type: Typ elementu
-    desc: Opis elementu
-    # jeśli typ elementu to "function"
+  - name: Name of the first member
+    type: Member type
+    desc: Member description
+    # if member type is "function"
     parameters:
-    - name: Nazwa pierwszego parametru
-      type: Typ parametru
-      desc: Opis parametru
-    - name: Nazwa drugiego parametru
-      type: Typ parametru
-      desc: Opis parametru
-    # jeśli typ elementu to "function"
+    - name: Name of the first parameter
+      type: Parameter type
+      desc: Parameter description
+    - name: Name of the second parameter
+      type: Parameter type
+      desc: Parameter description
+    # if member type is "function"
     returns:
-    - name: Nazwa pierwszej wartości zwracanej
-      type: Typ wartości zwracanej
-      desc: Opis wartości zwracanej
+    - name: Name of first return value
+      type: Return value type
+      desc: Return value description
     examples:
-    - desc: Pierwszy przykład użycia elementu
-    - desc: Drugi przykład użycia elementu
+    - desc: First example of member usage
+    - desc: Second example of member usage
 
-  - name: Nazwa drugiego elementu
+  - name: Name of the second member
     ...
 ```
 

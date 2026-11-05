@@ -3,7 +3,7 @@ title: Defold 项目设置
 brief: 本手册介绍了 Defold 中项目特定设置的工作方式。
 ---
 
-# 项目设置
+# 项目设置 {#project-settings}
 
 文件 *game.project* 包含所有项目级别的设置。它必须保存在项目的根文件夹中，并且必须命名为 *game.project*。引擎在启动和运行您的游戏时做的第一件事就是查找这个文件。
 
@@ -12,7 +12,7 @@ brief: 本手册介绍了 Defold 中项目特定设置的工作方式。
 ![Project settings](images/project-settings/settings.jpg)
 
 
-## 文件格式
+## 文件格式 {#file-format}
 
 *game.project* 中的设置通常在 Defold 内部修改，但该文件也可以在任何标准文本编辑器中编辑。该文件遵循 INI 文件格式标准，如下所示：
 
@@ -49,7 +49,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 :::
 
 
-## 部分和设置
+## 部分和设置 {#sections-and-settings}
 
 下面是所有可用的设置，按类别排列。
 
@@ -154,6 +154,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 ### Display
 
+在桌面平台上，从编辑器打开的引擎窗口可以恢复此前运行时保存的大小。选择 <kbd>Debug ▸ Reset Simulated Resolution</kbd> 可清除记住的大小并恢复配置尺寸，同时保留保存的窗口位置。详见[引擎窗口位置与重置](/manuals/editor/#engine-window-placement)。
+
 #### Width
 应用程序窗口的宽度（以像素为单位）。
 
@@ -162,6 +164,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### High Dpi
 在支持的显示器上创建高 dpi 后缓冲区。通常游戏将以比*宽度*和*高度*设置中设置的分辨率高一倍的分辨率渲染，这仍然是脚本和属性中使用的逻辑分辨率。
+
+在 HTML5 上，启用此设置时，可使用 [Min Pixel Ratio](#min-pixel-ratio) 和 [Max Pixel Ratio](#max-pixel-ratio) 限制渲染比例。
 
 #### Samples
 用于超级采样抗锯齿的样本数量。它设置 `GLFW_FSAA_SAMPLES` 窗口提示。值为 `0` 表示关闭抗锯齿。
@@ -204,13 +208,6 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Clear Color Alpha
 清除颜色 Alpha 通道，由渲染脚本和创建窗口时使用。
-
----
-
-### Font
-
-#### Runtime Generation
-使用运行时字体生成。
 
 ---
 
@@ -305,7 +302,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 验证每次图形调用后的返回值并在日志中报告任何错误。
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` 选择 HTML5 请求的 WebGL 上下文版本。有效值为 `1`（WebGL 1）和 `2`（WebGL 2，默认值）。设置为 `1`，即可在支持 WebGL 2 的浏览器中面向或测试 WebGL 1。面向 WebGL 1 时，请保持 [Exclude GLES 2.0](#exclude-gles-20) 禁用，以包含所需的着色器。
+`graphics.webgl_version_hint` 选择 HTML5 要请求的 WebGL 上下文版本。有效值为 `1`（WebGL 1）和 `2`（WebGL 2，默认值）。设为 `1`，即使浏览器支持 WebGL 2，也可以针对 WebGL 1 开发或测试。面向 WebGL 1 时，请禁用 [Exclude GLES 2.0](#exclude-gles-20)，以包含所需着色器。
 
 #### OpenGL Version Hint
 OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需的最低版本（不适用于 OpenGL ES）。
@@ -324,7 +321,16 @@ OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需�
 ### Shader
 
 #### Exclude GLES 2.0
-不为运行 OpenGLES 2.0 / WebGL 1.0 的设备编译着色器。
+`shader.exclude_gles_sm100` 排除 OpenGLES 2.0 和 WebGL 1.0 着色器。默认启用（`1`）。
+
+要支持这些图形 API 或允许回退到它们，请在 *game.project* 中取消勾选 **Shader ▸ Exclude GLES 2.0**，或设置：
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+未显式设置此选项的项目会使用默认值。如果项目需要 OpenGLES 2.0 或 WebGL 1.0 支持，请显式设为 `0`。
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` 设置交叉编译的 GLSL ES 着色器中浮点值的默认全局精度限定符。有效值为 `mediump` 和 `highp`；默认为 `mediump`。
@@ -369,6 +375,9 @@ OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需�
 
 #### Max Resources
 可以同时加载的资源的最大数量。
+
+#### Profile
+`resource.profile` 启用资源加载计时，并为每次完成或失败的加载输出 INFO 级别日志。默认禁用（`0`）。请在启动游戏前启用（`1`），以测量启动加载。资源分析器显示当前已加载资源保留的首次加载测量值；点击 **Capture**，再点击 **Show load times** 进行检查。各耗时列及其解读请参阅[资源加载耗时](/manuals/profiling/#resource-loading-times)。
 
 ---
 
@@ -574,7 +583,6 @@ Box2D 步骤计数。
 ### Collection proxy
 
 #### Max Count
-
 集合代理的最大数量。[(有关组件最大数量优化的信息)](#component-max-count-optimizations)。
 
 ---
@@ -582,7 +590,6 @@ Box2D 步骤计数。
 ### Collection factory
 
 #### Max Count
-
 集合工厂的最大数量。[(有关组件最大数量优化的信息)](#component-max-count-optimizations)。
 
 ---
@@ -590,59 +597,57 @@ Box2D 步骤计数。
 ### Factory
 
 #### Max Count
-
 游戏对象工厂的最大数量。[(有关组件最大数量优化的信息)](#component-max-count-optimizations)。
 
 ---
 
 ### iOS
 
-#### App Icon 57x57--180x180
+#### Home Indicator Mode
+`ios.home_indicator_mode` 控制屏幕边缘的系统手势，以及游戏是否请求自动隐藏 Home Indicator。
 
+| 值 | 系统手势 | 请求自动隐藏 |
+|-------|-----------------|--------------------------|
+| `deferred`（默认值） | 通过延迟系统手势保护所有屏幕边缘。返回主屏幕需要滑动两次。 | 否 |
+| `system` | 使用正常系统手势，允许一次滑动返回主屏幕。 | 否 |
+| `auto_hide` | 使用正常系统手势，允许一次滑动返回主屏幕。 | 是 |
+
+iOS 控制指示条的实际可见性。自动隐藏只是一项请求；在 iOS 26 及更高版本上，系统可能在 `system` 和 `auto_hide` 模式下都隐藏指示条。配置示例请参阅 [Home Indicator 行为](/manuals/ios/#home-indicator-behavior)。
+
+#### App Icon 57x57--180x180
 用作给定宽度和高度尺寸 `W` × `H` 的应用图标的图像文件 (.png)。
 
 #### Launch Screen
-
 Storyboard 文件 (.storyboard)。了解如何在 [iOS 手册](/manuals/ios/#creating-a-storyboard) 中创建一个。
 
 #### Icons Asset
-
 包含应用图标的图标资源文件 (.car)。
 
 #### Prerendered Icons
-
 （iOS 6 及更早版本）如果您的图标是预渲染的，请勾选此项。如果未勾选，图标将自动添加光泽高亮。
 
 #### Bundle Identifier
-
 捆绑标识符让 iOS 识别您应用的任何更新。您的捆绑 ID 必须在 Apple 注册，并且对您的应用是唯一的。您不能对 iOS 和 macOS 应用使用相同的标识符。必须由两个或多个用点分隔的段组成。每个段必须以字母开头。每个段只能包含字母数字字母、下划线或连字符 (-) 字符（参见 [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)）。
 
 #### Bundle Name
-
 捆绑短名称（15 个字符）（参见 [`CFBundleName`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)）。
 
 #### Bundle Version
-
 捆绑版本，可以是数字或 x.y.z（参见 [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)）。
 
 #### Info.plist
-
-如果指定，打包应用时将使用此 *`Info.plist`* 文件代替内置 iOS 基础清单。内置清单包含非 Release 构建中编辑器目标发现所需的本地网络和 Bonjour 条目。如果提供自定义清单，并且需要在设备上进行目标发现、性能分析、热重载或日志流传输，请按 [iOS 手册](/manuals/ios/#creating-an-ios-application-bundle)所述保留这些条目。
+指定后，打包应用时将使用此 *`Info.plist`* 文件，替代内置 iOS 基础清单 `/builtins/manifests/ios/Info.plist`。使用内置模板的项目会自动获得清单更新；自定义文件则需要显式更新。
 
 #### Privacy Manifest
-
 应用的 Apple 隐私清单。该字段将默认为 `/builtins/manifests/ios/PrivacyInfo.xcprivacy`。
 
 #### Custom Entitlements
-
 如果指定，提供的配置文件（`.entitlements`、`.xcent`、`.plist`）中的权限将与打包应用时提供的配置文件中的权限合并。
 
 #### Default Language
-
 如果应用在 `Localizations` 列表中没有用户的首选语言时使用的语言（参见 [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)）。如果首选语言在那里可用，请使用两字母 ISO 639-1 标准或三字母 ISO 639-2。
 
 #### Localizations
-
 此字段包含逗号分隔的字符串，标识支持本地化的语言名称或 ISO 语言指示符（参见 [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)）。
 
 ---
@@ -650,76 +655,59 @@ Storyboard 文件 (.storyboard)。了解如何在 [iOS 手册](/manuals/ios/#cre
 ### Android
 
 #### App Icon 36x36--192x192
-
 用作给定宽度和高度尺寸 `W` × `H` 的应用图标的图像文件 (.png)。
 
 #### Push Icon Small--LargeXxxhdpi
-
 用作 Android 上自定义推送通知图标的图像文件 (.png)。图标将自动用于本地或远程推送通知。如果未设置，默认将使用应用图标。
 
 #### Push Field Title
-
 指定应使用哪个有效负载 JSON 字段作为通知标题。将此设置留空会使推送默认使用应用名称作为标题。
 
 #### Push Field Text
-
 指定应使用哪个有效负载 JSON 字段作为通知文本。如果留空，将使用 `alert` 字段中的文本，就像在 iOS 上一样。
 
 #### Version Code
-
 指示应用版本的整数值。为每个后续更新增加该值。
 
 #### Minimum SDK Version
-
 应用运行所需的最低 API 级别（`android:minSdkVersion`）。
 
 #### Target SDK Version
-
 应用针对的 API 级别（`android:targetSdkVersion`）。
 
 #### Package
-
 包标识符。必须由两个或多个用点分隔的段组成。每个段必须以字母开头。每个段只能包含字母数字字母或下划线字符。
 
 #### GCM Sender Id
-
 Google Cloud Messaging 发送者 ID。将其设置为 Google 分配的字符串以启用推送通知。
 
 #### FCM Application Id
-
 Firebase Cloud Messaging 应用 ID。
 
 #### Manifest
-
-如果设置，在打包时使用指定的 Android 清单 XML 文件。自定义清单会替换 Defold 的内置基础清单。原生扩展的清单片段仍会合并到其中，但它不会自动继承内置基础清单之后的变更，因此升级时请将自定义清单与当前内置清单比较。对于游戏，请在 `<application>` 元素上设置 `android:appCategory="game"`。对于非游戏应用，仅在 Android 定义的某个[应用类别](https://developer.android.com/guide/topics/manifest/application-element#appCategory)能够准确描述该应用时，才设置 `android:appCategory`。
+设置后，打包时会使用指定的 Android 清单 XML 文件。自定义清单会替换 Defold 的内置基础清单。原生扩展的清单片段仍会合并进去，但不会自动继承内置基础清单的后续变化，因此升级时请将自定义清单与当前内置清单比较。对于游戏，请在 `<application>` 元素上设置 `android:appCategory="game"`。对于非游戏应用，仅当 Android 定义的[应用类别](https://developer.android.com/guide/topics/manifest/application-element#appCategory)能准确描述应用时，才设置 `android:appCategory`。
 
 #### Iap Provider
-
 指定要使用的商店。有效选项是 `Amazon` 和 `GooglePlay`。有关更多信息，请参考 [extension-iap](/extension-iap/)。
 
 #### Input Method
-
 指定在 Android 设备上获取键盘输入的方法。有效选项是 `KeyEvent`（旧方法）和 `HiddenInputField`（新方法）。
 
 #### Immersive Mode
-
 如果设置，隐藏导航和状态栏，并让您的应用捕获屏幕上的所有触摸事件。
 
 #### Display Cutout
-
 扩展到显示屏切口。
 
 #### Debuggable
-
 应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具进行调试。这将在 Android 清单中设置 `android:debuggable` 标志（[官方文档](https://developer.android.com/guide/topics/manifest/application-element#debug)）。
 
 <a id="proguard-config"></a>
 
 #### R8 Keep Rules
-
 `android.r8_keep_rules` 选择一个 `.keep` 文件，以在 Android 构建中启用 R8 对 Java 代码的缩减、优化和混淆。将该设置留空会使用 D8，不执行缩减。
 
-在 Defold 1.14.0 或更高版本中，配合兼容的 Extender 构建服务器，这还会移除未使用的 Android 资源。动态加载的资源可能需要单独的 [XML 保留规则](/manuals/android/#keeping-android-resources)。
+使用兼容的 Extender 构建服务器时，此设置还会移除未使用的 Android 资源。动态加载的资源可能需要单独的 [XML 保留规则](/manuals/android/#keeping-android-resources)。
 
 选择 `/builtins/manifests/android/dmengine.keep` 可直接使用 Defold 的默认规则。扩展提供自己的[保留规则](/manuals/extensions/#r8-keep-rules-for-android)，这些规则会与此文件合并。
 
@@ -728,7 +716,6 @@ Firebase Cloud Messaging 应用 ID。
 有关如何启用 R8 并在发布包中保留其混淆映射，请参阅 [Android 手册](/manuals/android/#shrinking-java-code-with-r8)。
 
 #### Extract Native Libraries
-
 指定包安装程序是否将原生库从 APK 提取到文件系统。如果设置为 `false`，您的原生库将以未压缩的形式存储在 APK 中。虽然您的 APK 可能更大，但您的应用程序加载速度更快，因为库在运行时直接从 APK 加载。这将在 Android 清单中设置 `android:extractNativeLibs` 标志（[官方文档](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)）。
 
 ---
@@ -736,35 +723,27 @@ Firebase Cloud Messaging 应用 ID。
 ### macOS
 
 #### App Icon
-
 用作 macOS 应用图标的捆绑图标文件 (.icns)。
 
 #### Info.plist
-
 如果设置，在打包时使用指定的 info.plist 文件。
 
 #### Privacy Manifest
-
 应用的 Apple 隐私清单。该字段将默认为 `/builtins/manifests/osx/PrivacyInfo.xcprivacy`。
 
 #### Bundle Identifier
-
 捆绑标识符让 macOS 识别您应用的更新。您的捆绑 ID 必须在 Apple 注册，并且对您的应用是唯一的。您不能对 iOS 和 macOS 应用使用相同的标识符。必须由两个或多个用点分隔的段组成。每个段必须以字母开头。每个段只能包含字母数字字母、下划线或连字符 (-) 字符。
 
 #### Bundle Name {#osx-bundle-name}
-
 `osx.bundle_name` 指定捆绑短名称（`CFBundleName`），长度限制为 15 个字符。
 
 #### Bundle Version {#osx-bundle-version}
-
 `osx.bundle_version` 指定构建编号（`CFBundleVersion`），可以是一个数字或 `x.y.z`。默认值为 `1`。
 
 #### Default Language
-
 如果应用在 `Localizations` 列表中没有用户的首选语言时使用的语言（参见 [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)）。如果首选语言在那里可用，请使用两字母 ISO 639-1 标准或三字母 ISO 639-2。
 
 #### Localizations
-
 此字段包含逗号分隔的字符串，标识支持本地化的语言名称或 ISO 语言指示符（参见 [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)）。
 
 ---
@@ -772,7 +751,6 @@ Firebase Cloud Messaging 应用 ID。
 ### Windows
 
 #### App Icon
-
 用作 Windows 应用图标的图像文件 (.ico)。有关如何创建 .ico 文件的更多信息，请参阅 [Windows 手册](/manuals/windows)。
 
 ---
@@ -782,67 +760,59 @@ Firebase Cloud Messaging 应用 ID。
 有关这些选项的更多信息，请参阅 [HTML5 平台手册](/manuals/html5/)。
 
 #### Heap Size
-
 Emscripten 要使用的堆大小（以兆字节为单位）。
 
 #### .html Shell
-
 在打包时使用指定的模板 HTML 文件。默认为 `/builtins/manifests/web/engine_template.html`。
 
 #### Custom .css
-
 在打包时使用指定的主题 CSS 文件。默认为 `/builtins/manifests/web/light_theme.css`。
 
 #### Splash Image
-
 如果设置，在打包时使用指定的启动图像代替 Defold 徽标。
 
 #### Archive Location Prefix
-
 为 HTML5 打包时，游戏数据被拆分为一个或多个存档数据文件。当引擎启动游戏时，这些存档文件被读入内存。使用此设置指定数据的位置。
 
 #### Archive Location Suffix
-
 要附加到存档文件的后缀。例如，对于强制来自 CDN 的非缓存内容（例如 `?version2`）很有用。
 
 #### Engine Arguments
-
 将传递给引擎的参数列表。
 
 #### Wasm Streaming
-
 启用 wasm 文件的流式传输（更快且使用更少的内存，但需要 `application/wasm` MIME 类型）。
 
 #### Show Fullscreen Button
-
 在 `index.html` 文件中启用全屏按钮。
 
 #### Show Made With Defold
-
 在 `index.html` 文件中启用 Made With Defold 链接。
 
 #### Show Console Banner
-
 启用此选项将在引擎启动时在浏览器控制台中打印有关引擎和引擎版本的信息（使用 `console.log()`）。
 
 #### Scale Mode
-
 指定用于缩放游戏画布的方法。
 
-#### Retry Count
+#### Min Pixel Ratio
+`html5.min_pixel_ratio` 设置启用 [High Dpi](#high-dpi) 时，每个 CSS 像素对应的最少画布渲染像素数。默认为 `0`，表示禁用下限。支持正的小数值，包括小于 `1` 的值。
 
+#### Max Pixel Ratio
+`html5.max_pixel_ratio` 设置启用 [High Dpi](#high-dpi) 时，每个 CSS 像素对应的最多画布渲染像素数。默认为 `0`，表示禁用上限。支持正的小数值，包括小于 `1` 的值。
+
+两项限制必须为有限的非负数。两项边界都启用时，最小值不能超过最大值。禁用 *High Dpi* 时，比例为 `1`，两项边界都不应用。这些限制影响渲染分辨率，同时保留画布的 CSS 显示尺寸。配置示例请参阅[像素比限制](/manuals/html5/#pixel-ratio-limits)。
+
+#### Retry Count
 启动期间下载失败后的重试次数，包括网络错误、失败的 HTTP 状态，以及引擎 JavaScript 或 WebAssembly 文件的大小不匹配。初次请求不计入重试次数。归档文件验证有自己的重试上限；请参阅[下载验证](/manuals/html5/#download-verification)和 `Retry Time`。
 
 #### Retry Time
-
 下载失败时尝试下载文件之间等待的秒数（参见 `Retry Count`）。
 
 #### Verify Downloaded File Size
-
 `html5.verify_downloaded_file_size` 检查下载的引擎和归档文件是否符合预期大小。默认启用（`true`）。仅当服务器、代理或 CDN 有意重写文件并改变其大小时，才将其设置为 `false`。验证失败会触发下载重试，耗尽重试后启动失败。引擎下载与归档文件验证的重试上限不同；请参阅[下载验证](/manuals/html5/#download-verification)。
 
 #### Transparent Graphics Context
-
 如果您希望图形上下文具有透明背景，请勾选此项。
 
 ---
@@ -850,7 +820,6 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 ### IAP
 
 #### Auto Finish Transactions
-
 勾选以自动完成 IAP 交易。如果未勾选，您需要在成功交易后显式调用 `iap.finish()`。
 
 ---
@@ -858,11 +827,9 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 ### Live update
 
 #### Enabled {#liveupdate-enabled}
-
 `liveupdate.enabled` 在运行时启用实时更新系统。默认启用。有关如何排除、下载和挂载资源，请参阅[实时更新手册](/manuals/live-update/)。
 
 #### Settings
-
 在打包期间要使用的实时更新设置资源文件。
 
 ---
@@ -870,8 +837,35 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 ### Native extension
 
 #### _App Manifest_
-
 如果设置，使用应用清单自定义引擎构建。这允许您从引擎中删除未使用的部分以减少最终二进制文件的大小。了解如何在 [应用清单手册](/manuals/app-manifest) 中排除未使用的功能。
+
+---
+
+### Debugger
+
+这些设置控制原生调试和无头构建中的[调试器连接](/manuals/debugging-game-logic/#native-dap-connections)。发布和 Web 构建不支持附加调试器。请以文本方式编辑 *game.project* 来添加这些设置，或使用[引擎启动配置覆盖项](#setting-config-values-on-engine-startup)。它们不显示在项目设置表单中。使用 <kbd>Debug ▸ Start/Attach</kbd> 时，编辑器会自动配置连接。
+
+例如，启动本地监听器，并等待客户端在启动脚本运行前配置断点：
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+将 `debugger.enabled` 设为 `1`，会在引擎启动时启动监听器。默认禁用（`0`）。运行中的游戏也可以通过 [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running) 启动监听器。
+
+#### Address {#debugger-address}
+`debugger.address` 是监听器接受连接的 IPv4 地址。默认值 `127.0.0.1` 仅接受本地连接。[远程连接](/manuals/debugging-game-logic/#remote-targets)请使用设备接口地址或 `0.0.0.0`。
+
+#### Port {#debugger-port}
+`debugger.port` 是 TCP 监听端口，范围为 `0` 到 `65535`。默认为 `8172`。设为 `0` 会选择可用端口，引擎会在日志中报告该端口。
+
+#### Wait {#debugger-wait}
+`debugger.wait` 使引擎在运行启动脚本前，等待客户端完成调试会话配置（包括断点）。默认禁用（`0`）。将其设为 `1` 并同时设置 `debugger.enabled=1`，即可调试启动代码。稍后使用 `debugger.start()` 启动监听器不会等待或暂停游戏。请参阅[启动和附加指南](/manuals/debugging-game-logic/#native-dap-connections)。
 
 ---
 
@@ -880,40 +874,34 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 App Manifest 的 **Profiler** 设置控制是否将分析器代码链接到 Debug 和 Release 构建中。以下设置控制所选构建中已存在的分析器代码的运行时行为。详情请参阅[性能分析手册](/manuals/profiling/)。
 
 #### Enabled
-
 启用游戏内性能分析器。
 
 #### Track Cpu
-
 Debug 构建默认启用 CPU 使用率采样。当通过 App Manifest 包含了分析器支持的 Release 构建也需要 CPU 采样时，请启用此设置。
 
 #### Track Detailed Memory
-
 `profiler.track_detailed_memory` 启用性能分析器中的详细内存采样。默认禁用。在 HTML5 上可能会产生较大的性能开销。
 
 #### Sleep Between Server Updates
-
 服务器更新之间休眠的毫秒数。
 
 #### Performance Timeline Enabled
-
 启用浏览器内性能时间线（仅限 HTML5）。
 
 #### Max Sample Count
-
 `profiler.max_sample_count` 是每个线程每帧记录的分析器样本数上限。默认值为 `4096`，最小值为 `128`。仅当正常性能分析确实超出限制时才提高此值；请先检查原生扩展性能分析代码中是否存在不匹配的 scope begin/end 调用。
 
 ---
 
-## 在引擎启动时设置配置值
+## 在引擎启动时设置配置值 {#setting-config-values-on-engine-startup}
 
 当引擎启动时，可以从命令行提供配置值，以覆盖 *game.project* 设置：
 
 ```bash
-# 指定引导集合
+# Specify a bootstrap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
-# 设置两个自定义配置值
+# Set two custom config values
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
@@ -921,7 +909,7 @@ $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
-local my_value2 = sys.get_config_string("test2.my_value2")
+local my_value2 = sys.get_config_string("test.my_value2")
 local my_flag = sys.get_config_boolean("test.my_flag", false)
 ```
 
@@ -929,7 +917,7 @@ local my_flag = sys.get_config_boolean("test.my_flag", false)
 :[Component max count optimizations](../shared/component-max-count-optimizations.md)
 
 
-## 自定义项目设置
+## 自定义项目设置 {#custom-project-settings}
 
 可以为主项目或[原生扩展](/manuals/extensions/)定义自定义设置。主项目的自定义设置必须在项目根目录的 `game.properties` 文件中定义。项目和获取的库依赖项中任何位置名为 `ext.properties` 的文件都会被发现，不要求旁边存在 `ext.manifest`。所有发现的扩展元数据会先合并，然后应用根目录的 `game.properties` 文件，并可覆盖这些元数据。
 
@@ -947,46 +935,46 @@ my_property.private = 1
 
 ```
 [my_extension]
-// `type` - 用于值字符串解析
-my_property.type = string // 以下值之一：bool, string, number, integer, string_array, resource
+// `type` - used for the value string parsing
+my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
-// `help` - 在编辑器中显示为帮助工具提示
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
-// `default` - 如果用户未手动设置值，则用作默认值
+// `default` - value used as default if user didn't set value manually
 my_property.default = string
 
-// `private` - 打包过程中使用的私有值，但将从打包本身中删除
-my_property.private = 1 // 布尔值 1 或 0
+// `private` - private value used during the bundle process but will be removed from the bundle itself
+my_property.private = 1 // boolean value 1 or 0
 
-// `label` - 编辑器输入标签
+// `label` - editor input label
 my_property.label = My Awesome Property
 
-// `minimum` 和/或 `maximum` - 数值属性的有效范围，在编辑器 UI 中验证
+// `minimum` and/or `maximum` - valid range for numeric properties, validated in the editor UI
 my_property.minimum = 0
 my_property.maximum = 255
 
-// `options` - 编辑器 UI 的下拉选择，逗号分隔的 value[:label] 对
+// `options` - drop-down choices for the editor UI, comma-separated value[:label] pairs
 my_property.options = android: Android, ios: iOS
 
-// 仅 `resource` 类型：
-my_property.filter = jpg,png // 资源选择器对话框的允许文件扩展名
-my_property.preserve-extension = 1 // 使用原始资源扩展名而不是构建的扩展名
+// `resource` type only:
+my_property.filter = jpg,png // allowed file extensions for resource selector dialog
+my_property.preserve-extension = 1 // use original resource extension instead of a built one
 
-// 弃用
-my_property.deprecated = 1 // 将属性标记为已弃用
-my_property.severity-default = warning // 如果指定了已弃用的属性，但设置为默认值
-my_property.severity-override = error  // 如果指定了已弃用的属性并设置为非默认值
+// deprecation
+my_property.deprecated = 1 // mark property as deprecated
+my_property.severity-default = warning // if deprecated property is specified, but set to a default value
+my_property.severity-override = error  // if deprecated property is specified and set to a non-default value
 
 ```
 此外，您可以在设置类别上设置以下属性：
 ```
 [my_extension]
-// `group` - game.project 类别组，例如 Main, Platforms, Components, Runtime, Distribution
+// `group` - game.project category group, e.g. Main, Platforms, Components, Runtime, Distribution
 group = Runtime
-// `title` - 显示的类别标题
+// `title` - displayed category title
 title = My Awesome Extension
-// `help` - 显示的类别帮助
+// `help` - displayed category help
 help = Settings for My Awesome Extension
 ```
 

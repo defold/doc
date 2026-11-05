@@ -7,7 +7,7 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 
 *Label* 组件在游戏空间中渲染一段文本。默认情况下，它会与所有精灵和图块图形一起排序和绘制。该组件有一组属性，用于控制文本的渲染方式。Defold的GUI支持文本，但在游戏世界中放置GUI元素可能比较棘手。Labels使这一过程变得更加简单。
 
-## 创建 label
+## 创建 label {#creating-a-label}
 
 要创建一个 Label 组件, 在游戏对象上 <kbd>右键点击</kbd> 选择 <kbd>Add Component ▸ Label</kbd>.
 
@@ -21,7 +21,31 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 
 ![Font and material](images/label/font_material.png)
 
-## Label 属性
+## 矢量字体与彩色表情符号 {#vector-fonts-and-color-emoji}
+
+要使用 Vector 字体，请按照[矢量字体设置](/manuals/font/#vector-fonts)，将 `.font` 资源分配给标签的 *Font* 属性，并将标签的 *Material* 设为 `/builtins/fonts/label-vector.material`。使用 *Font Size* 控制显示大小。
+
+对于彩色表情符号，还需完成 [COLRv1 后备字体和打包设置](/manuals/font/#color-emoji)。以下示例假定有一个 id 为 `label` 的标签，并且同一游戏对象上附有脚本。将标签的 *Text* 留空，只在字形准备完成后显示问候语：
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- 为这个共享字体资源添加后备字体，只需添加一次。
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+普通字母使用原来的字体，表情符号使用添加的彩色字体。如果其他标签或 GUI 文本节点共用该字体资源，请在一个位置初始化后备字体并复用它。
+
+## Label 属性 {#label-properties}
 
 除了*Id*、*Position*、*Rotation*和*Scale*属性外，还存在以下组件特有属性：
 
@@ -63,12 +87,12 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 : 用于此标签的字体资源。
 
 *Material*
-: 用于渲染此标签的材质。确保选择为您使用的字体类型（位图、距离场或BMFont）创建的材质。
+: 渲染该标签时使用的材质。请选择与字体模式或源（Bitmap、SDF、Vector 或 BMFont）匹配的材质。对应的内置标签材质请参阅[字体材质](/manuals/font/#font-materials)。
 
-### 混合模式
+### 混合模式 {#blend-modes}
 :[blend-modes](../shared/blend-modes.md)
 
-### 轴心点和对齐
+### 轴心点和对齐 {#pivot-and-alignment}
 
 通过设置*Pivot*属性，您可以更改文本的对齐模式。
 
@@ -83,12 +107,12 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 
 ![Text alignment](images/label/align.png)
 
-## 运行时操作
+## 运行时操作 {#runtime-manipulation}
 
 您可以在运行时通过获取和设置标签文本以及其他各种属性来操作标签。
 
 `text`
-: 标签的文本内容（`string`）。自 Defold 1.13.2 起，可通过 `go.get()` 和 `go.set()` 访问。
+: 标签的文本内容（`string`），可通过 `go.get()` 和 `go.set()` 访问。
 
 `color`
 : 标签颜色（`vector4`）
@@ -107,8 +131,8 @@ brief: 本手册解释了如何使用label组件在游戏世界中为游戏对�
 
 ```lua
 function init(self)
-    -- Set the text of the "my_label" component in the same game object
-    -- as this script.
+    -- 设置 "my_label" 组件的文本；该组件与此脚本
+    -- 位于同一个游戏对象中。
     go.set("#my_label", "text", "New text")
     local text = go.get("#my_label", "text")
     print(text) -- New text
@@ -116,7 +140,7 @@ end
 ```
 
 ::: sidenote
-自 Defold 1.13.2 起，`label.set_text()` 和 `label.get_text()` 已弃用，推荐改用 `text` 属性。旧函数仍然可用，以保持兼容性。旧的设置函数会将消息加入队列，而 `go.set()` 会立即更新文本。
+`label.set_text()` 和 `label.get_text()` 已弃用，请改用 `text` 属性。旧函数仍保留以维持兼容。旧的 setter 会将消息加入队列，而 `go.set()` 会立即更新文本。
 :::
 
 ```lua
@@ -135,6 +159,6 @@ function init(self)
 end
 ```
 
-## 项目配置
+## 项目配置 {#project-configuration}
 
 *game.project*文件中有一些与标签相关的[项目设置](/manuals/project-settings#label)。

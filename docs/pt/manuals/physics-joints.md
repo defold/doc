@@ -7,7 +7,7 @@ brief: O Defold suporta joints para física 2D. Este manual explica como criar e
 
 Uma junta conecta dois objetos de colisão por meio de uma restrição. O Defold oferece suporte a juntas tanto na física 2D quanto na 3D, por meio de APIs diferentes.
 
-Este manual descreve as juntas 2D expostas pelo módulo `physics`. Desde o Defold 1.13.2, projetos 3D podem criar e controlar restrições por meio de [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), incluindo dobradiças, deslizadores e molas. Use essa API com corpos rígidos obtidos por meio de [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+Este manual descreve as juntas 2D expostas pelo módulo `physics`. Projetos 3D podem criar e controlar restrições por meio de [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), incluindo dobradiças, controles deslizantes e molas. Use essa API com corpos rígidos obtidos por meio de [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
 
 Os tipos de junta compatíveis com a API 2D `physics` são:
 

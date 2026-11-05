@@ -104,11 +104,23 @@ end
 ```
 
 ## Gamepad-Einstellungsdatei {#gamepads-settings-file}
-Zum Einrichten der Gamepad-Eingabe wird für jeden Gamepad-Hardwaretyp eine separate Zuordnungsdatei verwendet. Die Zuordnungen für bestimmte Gamepad-Modelle werden in einer *gamepads*-Datei festgelegt. Defold enthält eine integrierte gamepads-Datei mit Einstellungen für gängige Gamepads:
+
+Gamepad-Zuordnungen übersetzen Tasten, Achsen und Steuerkreuze eines Controllers in die Standardsteuerungen deiner Eingabebindungen. Defold kombiniert zwei Zuordnungsquellen, die im Abschnitt *Input* von *game.project* konfiguriert werden:
+
+| Einstellung | Zuordnungsformat | Standard |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | Textdatenbank im SDL-Format, Zuordnung anhand der GUID des Controllers | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Bisherige `.gamepads`-Einträge für Gerätenamen und Plattformen | `/builtins/input/default.gamepads` |
+
+SDL-Datenbankzuordnungen und automatische Plattformzuordnungen verwenden [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Bisherige `.gamepads`-Einträge definieren ihre eigenen Totzonen. Unter Android kann ein Controller ohne Datenbankeintrag auch eine [automatische Zuordnung](#gamepads-on-android) erhalten.
+
+### Bisherige .gamepads-Zuordnungen {#legacy-gamepads-mappings}
+
+Eine `.gamepads`-Datei kann Zuordnungen für mehrere Controller enthalten. Bestehende bisherige Zuordnungen werden weiterhin unterstützt. Die Standarddatei von Defold enthält Zuordnungen für gängige Controller:
 
 ![Gamepad-Einstellungen](images/input/gamepads.png)
 
-Wenn du eine neue Gamepad-Einstellungsdatei erstellen musst, steht dir dafür ein einfaches Werkzeug zur Verfügung:
+Wenn du auf einer Desktop-Plattform eine bisherige `.gamepads`-Zuordnung erstellen musst, kann das folgende Werkzeug helfen. Für Android siehe [Gamepads unter Android](#gamepads-on-android).
 
 [Klicke hier, um gdc.zip herunterzuladen](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -124,7 +136,7 @@ Das Werkzeug fordert dich auf, verschiedene Tasten auf deinem verbundenen Contro
 
 ### Nicht identifizierte Gamepads {#unidentified-gamepads}
 
-Wenn ein Gamepad verbunden wird und keine Zuordnung dafür vorhanden ist, erzeugt es nur die Aktionen `connected`, `disconnected` und `raw`. In diesem Fall musst du die Gamepad-Rohdaten manuell den Aktionen in deinem Spiel zuordnen.
+Wenn weder eine konfigurierte noch eine automatische Plattformzuordnung verfügbar ist, erzeugt das Gamepad nur die an `Connected`, `Disconnected` und `Raw` gebundenen Aktionen. Du kannst eine Controller-Zuordnung hinzufügen oder die Roheingaben im Spiel verarbeiten.
 
 Du kannst prüfen, ob eine Eingabeaktion für ein Gamepad von einem unbekannten Gamepad stammt, indem du den Wert `gamepad_unknown` aus `action` ausliest:
 
@@ -138,7 +150,7 @@ function on_input(self, action_id, action)
         end
     end
 end
-``` 
+```
 
 ## Gamepads in HTML5
 Gamepads werden in HTML5-Builds unterstützt und erzeugen dieselben Eingabeereignisse wie auf anderen Plattformen. Die Gamepad-Unterstützung basiert auf der [Gamepad API](https://www.w3.org/TR/gamepad/), die von den meisten Browsern unterstützt wird ([siehe diese Kompatibilitätsübersicht](https://caniuse.com/?search=gamepad)). Wenn der Browser die Gamepad API nicht unterstützt, ignoriert Defold alle Gamepad-Eingabeauslöser in deinem Projekt ohne Meldung. Du kannst feststellen, ob der Browser die Gamepad API unterstützt, indem du prüfst, ob die Funktion `getGamepads` am Objekt `navigator` vorhanden ist:
@@ -168,62 +180,6 @@ Unter Windows werden derzeit nur XBox-360-Controller unterstützt. Um deinen 360
 
 ## Gamepads unter Android {#gamepads-on-android}
 
-Gamepads werden in Android-Builds unterstützt und erzeugen dieselben Eingabeereignisse wie auf anderen Plattformen. Die Gamepad-Unterstützung basiert auf dem [Android-Eingabesystem für Tasten- und Bewegungsereignisse](https://developer.android.com/training/game-controllers/controller-input). Die Android-Eingabeereignisse werden mithilfe derselben *gamepad*-Datei wie oben beschrieben in Defold-Gamepad-Ereignisse umgewandelt.
+Gamepads werden in Android-Builds unterstützt und erzeugen dieselben Eingabeaktionen wie auf anderen Plattformen. Defold verwendet die konfigurierten [Gamepad-Zuordnungen](#gamepads-settings-file) und kann einige Controller ohne passenden Eintrag automatisch zuordnen.
 
-Wenn du unter Android zusätzliche Gamepad-Bindungen hinzufügst, kannst du die folgenden Zuordnungstabellen verwenden, um Android-Eingabeereignisse in Werte für die *gamepad*-Datei zu übersetzen:
-
-| Tastenereignis zu Tastenindex | Index |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Android-Definitionen für `KeyEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Bewegungsereignis zu Achsenindex | Index |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Android-Definitionen für `MotionEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Verwende diese Zuordnungstabelle zusammen mit einer Gamepad-Test-App aus dem Google Play Store, um herauszufinden, welchem Tastenereignis jede Taste deines Gamepads zugeordnet ist.
+Wird ein Controller nicht erkannt oder funktionieren seine Steuerungen falsch, teste ihn auf dem Android-Gerät und ergänze oder aktualisiere seine Zuordnung. Hinweise zur Fehlerbehebung findest du unter [Nicht erkannte Gamepads](#unidentified-gamepads) und [Gamepad-Roheingaben](#raw-gamepads).

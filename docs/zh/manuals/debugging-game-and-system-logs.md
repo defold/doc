@@ -78,7 +78,7 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 要启动游戏并附加调试器，您需要一个名为[ios-deploy](https://github.com/phonegap/ios-deploy)的工具。通过在终端中运行以下命令来安装和调试您的游戏：
 
 ```txt
-$ ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
 ```
 
 这将在您的设备上安装应用程序，启动它并自动将LLDB调试器附加到它。如果您是LLDB的新手，请阅读[LLDB入门](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html)。

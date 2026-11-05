@@ -38,7 +38,11 @@ Observe que provavelmente você vai querer atualizar esses dados a cada frame, e
 
 ## Executando o depurador
 
-Para executar o depurador, selecione <kbd>Debug ▸ Start/Attach</kbd>, o que inicia o jogo com o depurador anexado ou anexa o depurador a um jogo que já está em execução.
+O depurador Lua está disponível em builds nativos de depuração e headless. Use uma engine da mesma versão do Defold que o editor. Builds de release e Web não permitem conectar o depurador.
+
+Para executar o depurador, selecione <kbd>Debug ▸ Start/Attach</kbd>. Isso inicia o jogo com o depurador conectado ou o conecta a um jogo já em execução. Ao iniciar um jogo para depuração, o editor instala os pontos de interrupção habilitados antes de executar os scripts de inicialização, permitindo definir um ponto de interrupção em `init()` antes de iniciar.
+
+Para conectar a um dispositivo, selecione-o em <kbd>Project ▸ Targets</kbd> e escolha <kbd>Debug ▸ Start/Attach</kbd>. A conexão pausa a execução na próxima linha Lua. O editor configura a conexão do depurador automaticamente para alvos locais e remotos compatíveis. Consulte [Alvos remotos](#remote-targets) para conhecer os requisitos de conexão ou veja como [conectar um depurador externo](#native-dap-connections).
 
 ![visão geral](images/debugging/overview.png)
 
@@ -46,7 +50,7 @@ Assim que o depurador é anexado, você tem controle da execução do jogo pelos
 
 Break
 : ![pausar](images/debugging/pause.svg){width=60px .left}
-  Interrompe imediatamente a execução do jogo. O jogo será interrompido no ponto atual. Agora você pode inspecionar o estado do jogo, avançar passo a passo ou continuar a execução até o próximo breakpoint. O ponto atual de execução é marcado no editor de código:
+  Pausa a execução Lua na próxima linha do código-fonte. Você pode então inspecionar o estado do jogo, avançar passo a passo ou continuar a execução até o próximo ponto de interrupção. O ponto atual de execução é marcado no editor de código:
 
   ![script](images/debugging/script.png)
 
@@ -67,7 +71,7 @@ Step Over
   ![step](images/debugging/step.png)
 
 ::: sidenote
-Uma linha de código Lua não corresponde a uma única expressão. Avançar no depurador move uma expressão por vez, o que significa que, atualmente, talvez você precise pressionar o botão de passo mais de uma vez para avançar para a próxima linha.
+O avanço passo a passo segue as linhas do código-fonte Lua. Um passo pode voltar à mesma linha, por exemplo quando um loop se repete, portanto nem sempre avança para a próxima linha do arquivo.
 :::
 
 Step Into
@@ -100,14 +104,103 @@ Definindo breakpoints condicionais
   Para editar a condição do breakpoint, clique com o botão direito na coluna logo à direita dos números de linha no editor de código ou selecione <kbd>Edit ▸ Edit Breakpoint</kbd> no menu.
 
 Avaliando expressões Lua
-: Com o depurador anexado e o jogo parado em um breakpoint, um runtime Lua fica disponível com o contexto atual. Digite expressões Lua na parte inferior do console e pressione <kbd>Enter</kbd> para avaliá-las:
+: Com o jogo pausado, selecione um frame em *Call Stack*, digite uma expressão ou instrução Lua na parte inferior do console e pressione <kbd>Enter</kbd>. A avaliação usa as variáveis locais, upvalues e globais do frame selecionado. Resultados que são tabelas incluem seu conteúdo aninhado.
 
   ![console](images/debugging/console.png)
 
-  Atualmente não é possível modificar variáveis pelo avaliador.
+  Você também pode alterar valores por meio de atribuições, por exemplo `self.score = 100` em um frame no qual `self` esteja disponível. O código avaliado tem os mesmos efeitos sobre o estado do jogo que o código executado pelo próprio jogo.
+
+Inspecionando variáveis
+: Selecione um frame em *Call Stack* para inspecionar suas variáveis locais e upvalues na visualização *Variables*. Expanda `_G` para inspecionar variáveis globais, e expanda tabelas ou `self` para inspecionar seus campos. O editor preserva os caminhos expandidos, a seleção e a posição de rolagem ao avançar passo a passo, trocar de frame ou atualizar após uma avaliação, enquanto busca os valores atuais.
 
 Desanexando o depurador
-: Selecione <kbd>Debug ▸ Detach Debugger</kbd> para desanexar o depurador do jogo. Ele continuará executando imediatamente.
+: Selecione <kbd>Debug ▸ Detach Debugger</kbd> para desconectar o depurador do jogo. O jogo continuará a execução imediatamente. Use <kbd>Debug ▸ Start/Attach</kbd> para conectar novamente sem reiniciar o jogo.
+
+## Conexões DAP nativas {#native-dap-connections}
+
+A engine oferece um servidor nativo do Debug Adapter Protocol (DAP) sobre TCP. Para usar um cliente DAP externo, inicie a escuta em uma engine nativa de depuração ou headless do Defold e conecte o cliente ao endereço e à porta da engine. O editor configura a escuta automaticamente quando você usa <kbd>Debug ▸ Start/Attach</kbd>.
+
+O editor atual não pode se conectar a engines antigas que oferecem suporte apenas a MobDebug. A chamada `require "builtins.scripts.mobdebug"` não é necessária nem está disponível nas versões atuais.
+
+### Iniciando a escuta {#starting-the-listener}
+
+Primeiro, faça o build do projeto. No diretório do projeto que contém `build/default/game.projectc`, execute a engine nativa de depuração com estas [substituições de configuração na inicialização](/manuals/project-settings/#setting-config-values-on-engine-startup):
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+Conecte seu cliente DAP a `127.0.0.1:8172`. A engine aguarda o cliente configurar os pontos de interrupção antes de executar os scripts de inicialização.
+
+| Configuração | Padrão | Finalidade |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | Defina como `1` para iniciar a escuta durante a inicialização da engine. |
+| `debugger.address` | `127.0.0.1` | Endereço IPv4 de escuta. O padrão aceita conexões do mesmo computador. |
+| `debugger.port` | `8172` | Porta TCP de escuta. Use `0` para selecionar uma porta disponível. |
+| `debugger.wait` | `0` | Defina como `1` para aguardar a configuração do cliente de depuração antes de executar os scripts de inicialização. |
+
+Você também pode adicionar esses valores à [seção Debugger de game.project](/manuals/project-settings/#debugger). O editor configura a escuta automaticamente para <kbd>Debug ▸ Start/Attach</kbd>, portanto a configuração manual só é necessária quando você inicia a escuta por conta própria.
+
+O log da engine informa o endereço e a porta selecionados. Com `debugger.wait=0`, o jogo inicia imediatamente e você pode conectar depois. Com `debugger.wait=1`, ele aguarda o cliente concluir a configuração da sessão, incluindo os pontos de interrupção. Em inicializações locais de depuração, o editor seleciona automaticamente uma porta disponível.
+
+Desconectar um cliente retoma a execução e mantém a escuta disponível para outra conexão. Uma desconexão durante a espera pela configuração de inicialização também libera a engine. Se a escuta não puder iniciar, a engine registra o erro e continua a inicialização; você pode tentar novamente a partir do Lua com `debugger.start(0)` para selecionar uma porta disponível.
+
+### Habilitando a escuta durante a execução {#enabling-the-listener-while-running}
+
+Para habilitar a escuta a partir de um script sem reiniciar o jogo:
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])` retorna imediatamente a porta de escuta. Não aguarda um cliente nem pausa o jogo. Argumentos omitidos usam `debugger.port` e `debugger.address`; passar `0` seleciona uma porta disponível. Chamadas repetidas retornam a porta da escuta existente e não alteram seu endereço nem sua porta. O módulo `debugger` é fornecido pelas engines nativas de depuração e headless.
+
+A porta deve ser um número inteiro entre `0` e `65535`. Passe `nil` como primeiro argumento para substituir apenas o endereço. Argumentos inválidos ou uma falha ao vincular a escuta geram um erro Lua.
+
+### Alvos remotos {#remote-targets}
+
+Para uma conexão direta a partir de outro computador, vincule a escuta à interface IPv4 do dispositivo ou a `0.0.0.0` (todas as interfaces IPv4). Por exemplo, use `debugger.start(8172, "0.0.0.0")` ou adicione `--config=debugger.address=0.0.0.0` ao comando de inicialização acima. Conecte o cliente ao endereço IP real do dispositivo e permita acesso TCP à porta de escuta. `0.0.0.0` é um endereço de vinculação, não o endereço que deve ser informado no cliente.
+
+O editor Defold solicita essa vinculação remota automaticamente e usa a porta `8172 + project.instance_index` para alvos remotos. Ele não consegue descobrir uma porta remota selecionada dinamicamente. Se você já iniciou a escuta remota em localhost ou em outra porta, reinicie a engine antes de conectar pelo editor.
+
+O depurador pode avaliar código Lua e não possui autenticação. Habilite o acesso remoto apenas em uma rede de desenvolvimento confiável.
+
+### Clientes externos {#external-clients}
+
+Use um cliente que permita conectar diretamente a um servidor DAP sobre TCP. Configure seu mapeamento de código-fonte para a pasta que contém `game.project` (o argumento de conexão DAP `localRoot`). Inicie a escuta da engine primeiro e depois conecte o cliente.
+
+#### VS Code {#vs-code}
+
+Instale a [extensão Lua Debug](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug) (`actboy168.lua-debug`), abra a pasta que contém `game.project` no VS Code e adicione esta configuração a `.vscode/launch.json`:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+Se o VS Code abrir um arquivo `.script`, `.gui_script` ou `.render_script` como texto simples, selecione **Lua** no indicador de linguagem da barra de status antes de definir pontos de interrupção.
+
+Defina um ponto de interrupção, por exemplo na função `init()` de um script. Inicie a engine usando o [comando de inicialização acima](#starting-the-listener) e selecione **Attach to Defold Lua** na visualização **Run and Debug** do VS Code. Com `debugger.wait=1`, a engine executa os scripts de inicialização após o cliente instalar os pontos de interrupção. Defina `stopOnEntry` como `true` se também quiser pausar na próxima linha Lua após a conexão.
+
+A [configuração `debugServer`](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug) do VS Code conecta diretamente à escuta TCP local da engine. O campo `address` é exigido pela configuração de conexão da extensão Lua Debug. Se alterar a porta de escuta, atualize ambos os campos. `localRoot` deve apontar para a pasta do projeto para que o cliente possa mapear os nomes dos arquivos-fonte Lua da engine aos seus arquivos.
+
+Para uma engine remota, encaminhe sua porta DAP para localhost e coloque a porta encaminhada em ambos os campos, ou use um cliente DAP que conecte diretamente ao host remoto.
 
 ## Aba Breakpoints
 

@@ -240,7 +240,7 @@ $
 
 ## Server di build {#build-server}
 
-A partire da Defold 1.14.0, Bob seleziona il server di build predefinito per le estensioni native in base al canale di rilascio della propria distribuzione:
+Bob seleziona il server di build predefinito per le estensioni native in base al canale di rilascio della propria distribuzione:
 
 | Canale di rilascio di Bob | Server di build predefinito |
 |---|---|

@@ -11,20 +11,30 @@ brief: 이 매뉴얼은 Defold가 폰트를 처리하는 방식과 게임에서 
 - OpenType
 - BMFont
 
-Defold 1.13.2부터 레거시 텍스트 레이아웃 엔진과 전체 텍스트 레이아웃 엔진 모두 TrueType 외곽선과 OpenType CFF1/CFF2 외곽선을 지원하며, `.ttf` 및 `.otf` 리소스의 런타임 생성도 지원합니다.
+레거시 및 전체 텍스트 레이아웃 엔진 모두 TrueType 외곽선과 OpenType CFF1/CFF2 외곽선을 지원하며, `.ttf` 및 `.otf` 리소스의 런타임 생성도 지원합니다.
 
 개별 텍스트 구간에 스타일을 적용하고 링크와 인라인 스프라이트를 사용하는 방법은 [리치 텍스트 마크업 매뉴얼](/manuals/font-richtext)을 참고하세요.
 
-프로젝트에 추가된 폰트는 Defold가 렌더링할 수 있는 텍스쳐 포멧으로 자동 변환됩니다. 폰트 렌더링 기술은 두 가지가 있으며, 각각 고유한 장점과 단점이 있습니다.
+TrueType 및 OpenType 폰트에서는 *Mode* 프로퍼티로 글리프 렌더링 방식을 선택합니다:
 
-- 비트맵
-- 디스턴스 필드
+- **Bitmap**은 래스터화한 글리프 이미지를 사용합니다.
+- **SDF**(signed distance field)는 텍스쳐에 글리프 경계까지의 거리를 저장하여 Bitmap보다 유연하게 크기를 조절할 수 있습니다.
+- **Vector**는 곡선 데이터에서 글리프 면을 렌더링하여 크기를 바꿔도 선명함을 유지합니다. 외곽선과 그림자 효과는 여전히 비트맵 데이터를 사용합니다.
+
+새로 만든 폰트 리소스는 **Vector** 모드와 **Dynamic** 글리프 생성을 사용합니다. 기존 폰트 리소스는 Bitmap 또는 SDF 모드를 유지합니다. BMFont 소스는 항상 제공된 비트맵을 사용합니다.
+
+Vector 모드는 `RGBA16F`와 `R32UI` 텍스쳐를 지원하는 그래픽 기능이 필요하며 OpenGL ES 2나 WebGL 1에서는 지원되지 않습니다. 미지원 그래픽 어댑터를 타겟으로 할 때는 Bitmap 또는 SDF 폰트와 해당 메터리얼을 사용하세요. Vector에서 SDF로 자동 전환되지 않습니다. 설정 방법은 [벡터 폰트](#vector-fonts)를 참고하세요.
 
 ## 오프라인 또는 런타임 폰트
 
-기본적으로 래스터화된 글리프 이미지로 변환하는 작업은 빌드 시점(오프라인)에 이루어집니다. 이 방식은 각 폰트가 빌드 단계에서 가능한 모든 글리프를 래스터화해야 하므로, 메모리를 소비하고 번들 크기도 늘릴 수 있는 매우 큰 텍스쳐가 생성될 수 있다는 단점이 있습니다.
+*Glyph Generation* 프로퍼티는 각 폰트의 글리프 데이터를 언제 생성할지 선택합니다:
 
-"runtime fonts"를 사용하면 `.ttf` 및 `.otf` 폰트가 원본 그대로 번들에 포함되고, 래스터화는 런타임에 필요할 때 수행됩니다. 이렇게 하면 런타임 메모리 사용량과 번들 크기를 모두 최소화할 수 있습니다.
+- **Static**은 빌드 시점(오프라인)에 선택한 글리프를 생성합니다. *Characters*와 *All Chars*로 포함할 글리프를 제어합니다. 원본 `.ttf` 또는 `.otf` 파일은 런타임 생성을 위해 번들에 포함되지 않습니다.
+- **Dynamic**은 원본 `.ttf` 또는 `.otf` 파일을 번들에 포함하고 런타임에 필요에 따라 글리프를 생성합니다. *Prewarm Text*는 폰트가 로드될 때 글리프를 준비합니다. 다른 글리프는 나중에 필요할 때 생성할 수 있습니다.
+
+SDF와 Vector 폰트는 두 방식을 모두 지원합니다. Bitmap 폰트와 BMFont 소스는 Static 생성을 사용합니다. 각 폰트 리소스를 독립적으로 설정하므로 한 프로젝트에서 Static과 Dynamic 폰트를 함께 사용할 수 있습니다.
+
+동적 생성은 특히 문자 집합이 큰 폰트에서 번들 크기와 런타임 메모리 사용량을 줄일 수 있습니다. 엔진의 전체 텍스트 레이아웃 시스템이 필요합니다. [런타임 폰트 활성화](#enabling-runtime-fonts)를 참고하세요.
 
 <a id="text-layout-support-eg-right-to-left"></a>
 
@@ -53,11 +63,15 @@ Defold에서 사용할 폰트를 만들려면 메뉴에서 <kbd>File ▸ New...<
 
 새 폰트 파일의 이름을 지정하고 <kbd>Ok</kbd>를 클릭합니다. 그러면 새 폰트 파일이 에디터에서 열립니다.
 
-![New font](images/font/new_font.png)
-
 사용할 폰트를 *Assets* 브라우저로 드래그해 적절한 위치에 놓습니다.
 
-*Font* 프로퍼티를 폰트 파일로 설정하고 필요에 따라 폰트 프로퍼티를 설정합니다.
+*Font* 프로퍼티를 폰트 파일로 설정합니다. `.ttf` 또는 `.otf` 소스는 *Mode*와 *Glyph Generation*을 선택하고 나머지 프로퍼티를 필요에 맞게 설정합니다. Dynamic 생성을 사용할 때는 [런타임 폰트 설정](#enabling-runtime-fonts)도 완료하세요.
+
+![Font properties with Vector mode and Dynamic glyph generation](images/font/font_properties.png)
+
+Vector 폰트의 표시 크기는 Label 컴포넌트나 GUI 텍스트 노드의 *Font Size*로 변경합니다. *Outline/Shadow Bitmap Size*는 표시 크기와 독립적으로 효과 비트맵의 해상도를 제어합니다.
+
+Bitmap과 SDF 폰트에서는 폰트 리소스의 *Size*로 생성할 글리프 크기를 선택합니다. BMFont 크기는 원본 `.fnt` 파일에서 가져옵니다. 이러한 폰트의 표시 크기를 바꾸려면 Label 컴포넌트나 GUI 텍스트 노드를 스케일링합니다.
 
 ## 프로퍼티 {#properties}
 
@@ -65,25 +79,28 @@ Defold에서 사용할 폰트를 만들려면 메뉴에서 <kbd>File ▸ New...<
 : 폰트 데이터를 생성하는 데 사용할 TTF, OTF 또는 *`.fnt`* 파일입니다.
 
 *Material*
-: 이 폰트를 렌더링할 때 사용할 메터리얼입니다. 디스턴스 필드와 BMFonts를 사용할 때는 이 값을 변경해야 합니다. 자세한 내용은 아래를 참고하세요.
+: 폰트 렌더링에 사용할 메터리얼입니다. 폰트 모드와 일치해야 합니다. [폰트 메터리얼](#font-materials)을 참고하세요.
 
-*Output Format*
-: 생성되는 폰트 데이터의 타입입니다.
+*Mode*
+: `.ttf` 또는 `.otf` 소스의 렌더링 기법으로 **Bitmap**, **SDF**, **Vector**를 선택합니다. 이전의 *Output Format* 프로퍼티를 대체합니다. BMFont 소스에는 표시되지 않습니다.
 
-  - `TYPE_BITMAP`은 임포트한 OTF 또는 TTF 파일을 폰트 시트 텍스쳐로 변환하며, 비트맵 데이터를 사용해 텍스트 노드를 렌더링합니다. 컬러 채널은 글자 면 모양, 외곽선, 드롭 섀도우를 인코딩하는 데 사용됩니다. *`.fnt`* 파일의 경우 소스 텍스쳐 비트맵이 그대로 사용됩니다.
-  - `TYPE_DISTANCE_FIELD`는 임포트한 폰트를 폰트 시트 텍스쳐로 변환하며, 픽셀 데이터가 화면 픽셀이 아니라 폰트 가장자리까지의 거리를 나타냅니다. 자세한 내용은 아래를 참고하세요.
+*Glyph Generation*
+: **Static**은 빌드 시점에 글리프 데이터를 생성합니다. **Dynamic**은 런타임에 생성하며 [전체 텍스트 레이아웃 시스템](#enabling-runtime-fonts)이 필요합니다. 이 프로퍼티는 SDF와 Vector 폰트에 사용할 수 있습니다. Bitmap 모드에서는 Static으로 고정되며 BMFont 소스에는 표시되지 않습니다.
 
 *Render Mode*
-: 글리프 렌더링에 사용할 렌더 모드입니다.
+: 생성된 Bitmap 폰트의 레이어 구성입니다. `.ttf`와 `.otf` 소스의 Bitmap 모드에서만 표시됩니다. SDF, Vector, BMFont 소스의 레이어 구성은 Defold가 자동으로 선택합니다.
 
-  - `MODE_SINGLE_LAYER`는 각 문자마다 하나의 쿼드를 생성합니다.
-  - `MODE_MULTI_LAYER`는 글리프 모양, 외곽선, 그림자에 대해 각각 별도의 쿼드를 생성합니다. 레이어는 뒤에서 앞으로 순서대로 렌더링되므로, 외곽선이 글리프 사이의 거리보다 넓더라도 문자가 이전에 렌더링된 문자를 가리지 않습니다. 이 렌더 모드는 폰트 리소스의 Shadow X/Y 프로퍼티에 지정된 대로 드롭 섀도우 오프셋도 올바르게 적용합니다.
+  - **Single Layer**는 문자마다 하나의 쿼드를 만듭니다.
+  - **Multi Layer**는 글리프 모양, 외곽선, 그림자의 쿼드를 각각 만듭니다. 레이어는 뒤에서 앞으로 렌더링하므로 외곽선이 글리프 간격보다 넓어도 앞서 렌더링한 문자를 가리지 않습니다. *Shadow X/Y* 프로퍼티의 그림자 오프셋도 사용할 수 있습니다.
 
 *Size*
-: 글리프의 목표 크기입니다. 단위는 픽셀입니다.
+: Bitmap 또는 SDF 폰트 데이터 생성에 사용할 글리프 크기(픽셀)입니다. BMFont 소스는 `.fnt` 파일에서 크기를 읽으며 여기에서 수정할 수 없습니다.
+
+*Outline/Shadow Bitmap Size*
+: Vector 모드에서 *Size*를 대체합니다. Static과 Dynamic 생성 모두에서 활성화된 외곽선과 그림자 효과의 비트맵 해상도를 제어합니다. 두 효과가 모두 꺼져 있으면 글리프 면은 곡선 데이터를 사용하므로 이 프로퍼티도 비활성화됩니다. Label이나 GUI 텍스트 노드의 *Font Size*를 바꿔도 이 공유 비트맵 해상도는 바뀌지 않습니다.
 
 *Antialias*
-: 폰트를 타겟 비트맵에 bake할 때 안티알리아싱을 적용할지 여부입니다. 픽셀 퍼펙트 폰트 렌더링을 원한다면 0으로 설정하세요.
+: Bitmap 폰트 데이터를 생성할 때 글리프에 안티알리아싱을 적용할지 여부입니다. 픽셀 퍼펙트 렌더링에는 비활성화하세요. `.ttf`와 `.otf` 소스의 Bitmap 모드에서만 표시됩니다.
 
 *Alpha*
 : 글리프의 투명도입니다. 범위는 0.0--1.0이며, 0.0은 투명, 1.0은 불투명을 의미합니다.
@@ -98,19 +115,20 @@ Defold에서 사용할 폰트를 만들려면 메뉴에서 <kbd>File ▸ New...<
 : 생성된 그림자의 투명도입니다. 범위는 0.0--1.0입니다.
 
 ::: sidenote
-그림자 지원은 내장 폰트 메터리얼 쉐이더에서 활성화되며, 단일 레이어와 다중 레이어 렌더 모드를 모두 처리합니다. 레이어드 폰트 렌더링이나 그림자 지원이 필요하지 않다면 *`builtins/font-singlelayer.fp`* 같은 더 단순한 쉐이더를 사용하는 것이 좋습니다.
+내장 Bitmap 폰트 쉐이더는 *Single Layer*와 *Multi Layer* 렌더 모드 모두에서 그림자를 지원합니다. *Single Layer* 렌더링을 사용하고 그림자가 필요 없는 생성형 Bitmap 폰트는 커스텀 메터리얼에서 `/builtins/fonts/font-singlelayer.fp`를 사용할 수 있습니다. SDF와 Vector 폰트는 모드에 맞는 쉐이더가 필요합니다. [폰트 메터리얼](#font-materials)을 참고하세요.
 :::
 
 *Shadow Blur*
-: 비트맵 폰트의 경우 이 설정은 각 폰트 글리프에 작은 블러 커널을 적용하는 횟수를 나타냅니다. 디스턴스 필드 폰트의 경우 이 설정은 실제 블러의 픽셀 너비와 같습니다.
+: 생성된 그림자에 적용할 블러 양입니다. 선명한 그림자는 0으로 설정합니다.
 
 *Shadow X/Y*
-: 생성된 그림자의 가로 및 세로 오프셋입니다. 단위는 픽셀입니다. 이 설정은 Render Mode가 `MODE_MULTI_LAYER`로 설정된 경우에만 글리프 그림자에 영향을 줍니다.
+: 생성된 그림자의 가로 및 세로 오프셋(픽셀)입니다. 생성형 Bitmap 폰트에서는 *Multi Layer* 렌더 모드를 사용해야 오프셋이 적용됩니다. SDF와 Vector 폰트는 Defold가 적절한 레이어를 자동으로 선택합니다.
 
 *Characters*
-: 폰트에 포함할 문자입니다. 기본적으로 이 필드에는 ASCII 출력 가능 문자(문자 코드 32-126)가 포함됩니다. 이 필드에서 문자를 추가하거나 제거해 폰트에 더 많거나 더 적은 문자를 포함할 수 있습니다.
+: Static 생성에서 빌드된 폰트에 포함할 문자입니다. 기본적으로 ASCII 출력 가능 문자(문자 코드 32-126)가 들어 있습니다. 문자를 추가하거나 제거하여 런타임에 사용할 글리프를 제어합니다.
 
-런타임 폰트의 경우 이 텍스트는 올바른 글리프로 캐쉬를 미리 준비하는 역할을 합니다. 이 작업은 로드 시점에 수행됩니다. `font.prewarm_text()`를 참고하세요.
+*Prewarm Text*
+: Dynamic 생성에서 *Characters*를 대체합니다. 폰트가 로드될 때 이 텍스트로 글리프를 생성하고 캐쉬를 미리 준비합니다. 이후 생성할 수 있는 문자를 제한하지는 않습니다. 스크립트의 [`font.prewarm_text()`](/ref/font/#font.prewarm_text)로도 텍스트를 미리 준비할 수 있습니다.
 
 ::: sidenote
 ASCII 출력 가능 문자는 다음과 같습니다:
@@ -118,12 +136,54 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 :::
 
 *All Chars*
-: 이 프로퍼티를 체크하면 소스 파일에서 사용할 수 있는 모든 글리프가 출력에 포함됩니다.
+: Static 생성에서 *Characters*로 제한하지 않고 소스의 모든 글리프를 포함합니다. Dynamic 폰트에서는 숨겨집니다.
 
 *Cache Width/Height*
-: 글리프 캐쉬 비트맵의 크기를 제한합니다. 엔진이 텍스트를 렌더링할 때 캐쉬 비트맵에서 글리프를 찾습니다. 글리프가 캐쉬에 없으면 렌더링 전에 캐쉬에 추가됩니다. 캐쉬 비트맵이 너무 작아서 엔진이 렌더링하라는 모든 글리프를 담을 수 없으면 에러가 발생합니다(`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
+: Bitmap 및 SDF 폰트와 Vector 외곽선/그림자 효과가 사용하는 글리프 캐쉬 비트맵의 크기를 제한합니다. 엔진은 텍스트를 렌더링할 때 캐쉬 비트맵에서 글리프를 찾습니다. 없으면 렌더링 전에 캐쉬에 추가합니다. 요청된 모든 글리프를 담기에 캐쉬 비트맵이 너무 작으면 오류가 발생합니다(`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
 
   0으로 설정하면 캐쉬 크기가 자동으로 설정되며, 최대 2048x4096까지 커집니다.
+
+## 폰트 메터리얼 {#font-materials}
+
+폰트 모드와 일치하는 메터리얼을 사용하세요. GUI 텍스트 노드는 폰트 리소스의 *Material*을 사용합니다. Label 컴포넌트에는 별도의 *Material* 프로퍼티가 있으며 이것도 폰트와 일치해야 합니다:
+
+| 폰트 모드 또는 소스 | GUI 텍스트용 폰트 메터리얼 | Label 컴포넌트 메터리얼 |
+| --- | --- | --- |
+| Bitmap | `/builtins/fonts/font.material` | `/builtins/fonts/label.material` |
+| SDF | `/builtins/fonts/font-df.material` | `/builtins/fonts/label-df.material` |
+| Vector | `/builtins/fonts/font-vector.material` | `/builtins/fonts/label-vector.material` |
+| BMFont (`.fnt`) | `/builtins/fonts/font-fnt.material` | `/builtins/fonts/label-fnt.material` |
+
+폰트에 내장 Bitmap, SDF, Vector 메터리얼 중 하나가 이미 할당되어 있으면 폰트 에디터에서 *Mode*를 변경할 때 해당 모드의 내장 메터리얼로 전환합니다. 커스텀 메터리얼은 자동으로 교체되지 않습니다. 폰트를 사용하는 Label 컴포넌트의 *Material* 프로퍼티도 확인하세요.
+
+## 벡터 폰트 {#vector-fonts}
+
+벡터 폰트는 곡선으로 글리프 면을 렌더링하므로 텍스트 표시 크기를 바꿔도 선명함을 유지합니다. 런타임에 글리프를 생성하는 폰트를 설정하려면:
+
+1. `/fonts/ui.font` 같은 `.font` 리소스를 만들고 *Font* 프로퍼티에서 TrueType 또는 OpenType 소스를 선택합니다. 일반 텍스트에는 내장 `/builtins/fonts/vera_mo_bd.ttf`를 사용할 수 있습니다.
+2. *Mode*를 **Vector**, *Glyph Generation*을 **Dynamic**, *Material*을 `/builtins/fonts/font-vector.material`로 설정합니다. 새 폰트 리소스의 기본값입니다.
+3. 프로젝트에 지정한 App Manifest에서 **Use full text layout system**을 활성화합니다. [런타임 폰트 활성화](#enabling-runtime-fonts)에 따라 커스텀 엔진을 설정하세요.
+4. *game.project*에서 [Shader ▸ Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20)을 활성화합니다.
+5. 폰트를 [Label](/manuals/label/)에 지정하거나 GUI 씬의 *Fonts*에 추가하고 [텍스트 노드](/manuals/gui-text/)에서 선택합니다. Label은 컴포넌트의 *Material*도 `/builtins/fonts/label-vector.material`로 설정합니다. 컴포넌트나 노드의 *Font Size*를 원하는 표시 크기로 설정합니다.
+
+벡터 글리프의 면은 곡선 텍스쳐를 사용하지만 활성화된 외곽선과 그림자는 여전히 SDF 비트맵 데이터를 생성하고 글리프 캐쉬 텍스쳐 메모리를 사용합니다. *Outline/Shadow Bitmap Size*는 Label이나 GUI 텍스트 노드의 *Font Size*와 독립적으로 비트맵 해상도를 설정합니다. 효과가 필요하지 않으면 *Outline Alpha*와 *Shadow Alpha*를 `0`으로 설정하여 비트맵 데이터 생성을 피하세요.
+
+### 컬러 이모지 {#color-emoji}
+
+벡터 폰트는 팔레트 색상과 선형/방사형 그라디언트를 포함한 COLRv1 컬러 이모지를 렌더링할 수 있습니다. Bitmap과 SDF 모드는 COLRv1 색상을 렌더링하지 않습니다. 위의 Dynamic Vector 설정을 사용한 다음 폰트 컬렉션의 대체 폰트로 COLRv1 이모지 폰트를 추가하세요. 일반 텍스트는 원래 폰트를 계속 사용합니다.
+
+예를 들어 COLRv1 [Noto Color Emoji 폰트](https://github.com/google/fonts/blob/main/ofl/notocoloremoji/NotoColorEmoji-Regular.ttf)를 프로젝트에 `/fonts/NotoColorEmoji-Regular.ttf`로 복사합니다. 반드시 COLRv1 버전을 선택하세요. 다른 이모지 폰트는 파일명이 `.ttf`로 끝나더라도 다른 색상 포멧을 사용할 수 있습니다.
+
+*game.project*의 **Project ▸ Custom Resources**에 `/fonts/NotoColorEmoji-Regular.ttf`를 추가합니다. 다른 커스텀 리소스가 없다면 설정은 다음과 같습니다:
+
+```ini
+[project]
+custom_resources = /fonts/NotoColorEmoji-Regular.ttf
+```
+
+Lua에 폰트 경로를 작성하는 것만으로 폰트 파일이 번들에 포함되지는 않습니다. [Custom Resources](/manuals/project-settings/#custom-resources)는 리소스 시스템을 통해 폰트를 로드하는 [`font.add_font()`](/ref/font/#font.add_font)에서 원본 폰트를 사용할 수 있게 합니다. 번들에서 로드할 때 원본 폰트의 문자열 경로를 전달하세요.
+
+공유 폰트 리소스마다 대체 폰트를 한 번만 추가하세요. 변경은 해당 폰트를 사용하는 모든 Label과 GUI 텍스트 노드에 적용되며, 같은 대체 폰트를 두 번 추가하면 오류가 발생합니다. 같은 `.font`로 [Label 예제](/manuals/label/#vector-fonts-and-color-emoji)와 [GUI 예제](/manuals/gui-text/#vector-fonts-and-color-emoji)를 함께 사용한다면, 어느 예제든 텍스트를 미리 준비하거나 표시하기 전에 대체 폰트를 한 번만 추가하도록 초기화를 조정하세요. 예제는 대체 폰트를 추가한 후 전체 텍스트를 미리 준비하고 콜백이 성공하면 표시합니다.
 
 ## 디스턴스 필드 폰트
 
@@ -131,7 +191,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 ![Distance field font](images/font/df_font.png)
 
-폰트를 만들 때 *Material* 프로퍼티를 *`builtins/fonts/font-df.material`*(또는 디스턴스 필드 데이터를 처리할 수 있는 다른 메터리얼)로 변경해야 합니다. 그렇지 않으면 폰트가 화면에 렌더링될 때 올바른 쉐이더를 사용하지 않습니다.
+*Mode*에서 **SDF**, *Glyph Generation*에서 **Static** 또는 **Dynamic**을 선택합니다. 폰트에는 *`/builtins/fonts/font-df.material`*, Label 컴포넌트에는 *`/builtins/fonts/label-df.material`*을 사용하거나 디스턴스 필드 데이터를 처리하는 커스텀 메터리얼을 사용합니다.
 
 ## 비트맵 BMFonts {#bitmap-bmfonts}
 
@@ -139,7 +199,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 이런 타입의 폰트는 TrueType 또는 OpenType 폰트 파일에서 생성된 비트맵 폰트에 비해 성능 향상을 제공하지는 않지만, 임의의 그래픽, 색상, 그림자를 이미지에 직접 포함할 수 있습니다.
 
-생성된 *`.fnt`* 및 *`.png`* 파일을 Defold 프로젝트에 추가합니다. 이 파일들은 같은 폴더에 있어야 합니다. 새 폰트 파일을 만들고 *font* 프로퍼티를 *`.fnt`* 파일로 설정합니다. *output_format*이 `TYPE_BITMAP`으로 설정되어 있는지 확인하세요. Defold는 비트맵을 생성하지 않고 PNG에서 제공된 비트맵을 사용합니다.
+생성된 *`.fnt`*와 *`.png`* 파일을 Defold 프로젝트에 추가합니다. 두 파일은 같은 폴더에 있어야 합니다. 새 폰트 파일을 만들고 *Font* 프로퍼티를 *`.fnt`* 파일로 설정합니다. Defold는 제공된 비트맵을 사용하고 `.fnt` 파일에서 크기를 읽습니다. BMFont 소스에는 *Mode*와 *Glyph Generation*이 표시되지 않습니다.
 
 ::: sidenote
 BMFont를 만들려면 적절한 파일을 생성할 수 있는 도구를 사용해야 합니다. 여러 선택지가 있습니다.
@@ -153,7 +213,7 @@ BMFont를 만들려면 적절한 파일을 생성할 수 있는 도구를 사용
 
 ![BMfont](images/font/bm_font.png)
 
-폰트가 올바르게 렌더링되도록 하려면 폰트를 만들 때 material 프로퍼티를 *`builtins/fonts/font-fnt.material`*로 설정하는 것을 잊지 마세요.
+폰트의 *Material*을 *`/builtins/fonts/font-fnt.material`*로 설정합니다. Label 컴포넌트에는 *`/builtins/fonts/label-fnt.material`*을 사용합니다.
 
 ## 아티팩트와 모범 사례
 
@@ -171,11 +231,11 @@ BMFont를 만들려면 적절한 파일을 생성할 수 있는 도구를 사용
 
 ![Distance field artifacts](images/font/df_artifacts.png)
 
-그림자나 외곽선 지원이 필요하지 않다면 각각의 알파 값을 0으로 설정하세요. 그렇지 않으면 그림자와 외곽선 데이터가 계속 생성되어 불필요한 메모리를 차지합니다.
+그림자나 외곽선이 필요하지 않으면 각각의 알파 값을 0으로 설정하세요. 그렇지 않으면 그림자와 외곽선 데이터가 계속 생성되어 불필요한 메모리를 사용합니다. Vector 모드에서 두 효과를 모두 비활성화하면 효과의 비트맵 데이터 생성을 피할 수 있으며 글리프 면은 계속 곡선 데이터를 사용합니다.
 
 ## 폰트 캐쉬
 
-Defold의 폰트 리소스는 런타임에 텍스쳐와 폰트 데이터, 두 가지로 나타납니다.
+Bitmap과 SDF 폰트 리소스는 런타임에 글리프 캐쉬 텍스쳐와 폰트 데이터를 사용합니다. Vector 폰트는 글리프 면을 곡선 데이터로 저장하고, 활성화된 외곽선과 그림자 효과에 비트맵 캐쉬를 사용합니다. 아래의 텍스쳐 레이아웃 설명은 Bitmap과 SDF 폰트에 적용됩니다.
 
 * 폰트 데이터는 글리프 항목 목록으로 구성되며, 각 항목에는 기본 커닝 정보와 해당 글리프의 비트맵 데이터가 들어 있습니다.
 * 텍스쳐는 내부적으로 "glyph cache texture"라고 불리며, 특정 폰트의 텍스트를 렌더링할 때 사용됩니다.
@@ -197,42 +257,27 @@ Defold의 폰트 리소스는 런타임에 텍스쳐와 폰트 데이터, 두 �
 
 ## 런타임 폰트 활성화 {#enabling-runtime-fonts}
 
-TrueType(`.ttf`) 또는 OpenType(`.otf`) 폰트를 사용할 때 SDF 타입 폰트에 런타임 생성을 사용할 수 있습니다. `.otf` 리소스의 런타임 생성은 Defold 1.13.2부터 지원됩니다.
-이 방식은 Defold 게임의 다운로드 크기와 런타임 메모리 사용량을 크게 줄일 수 있습니다.
-작은 단점은 각 글리프를 생성하는 작업이 비동기적이라는 점입니다.
+런타임 생성은 폰트 리소스마다 설정합니다:
 
-* `game.project`에서 `font.runtime_generation`을 설정해 이 기능을 활성화합니다.
+1. `.font` 리소스를 열고 TrueType(`.ttf`) 또는 OpenType(`.otf`) 소스를 선택합니다.
+2. *Mode*를 **SDF** 또는 **Vector**, *Glyph Generation*을 **Dynamic**으로 설정합니다.
+3. 해당하는 [폰트 및 Label 메터리얼](#font-materials)을 선택합니다.
+4. [App Manifest](/manuals/app-manifest)를 추가하여 *game.project*의 *Native Extensions ▸ App Manifest*에 지정하고 **Use full text layout system**을 활성화합니다. 런타임 폰트 생성과 전체 텍스트 레이아웃을 지원하는 커스텀 엔진이 빌드됩니다.
+5. 폰트 로드 직후에 표시할 텍스트를 *Prewarm Text*에 지정합니다. 나중에 필요한 텍스트는 [`font.prewarm_text()`](/ref/font/#font.prewarm_text)를 사용하고 콜백을 기다린 후 표시하세요.
 
-* [App Manifest](/manuals/app-manifest)를 추가하고 `Use full text layout system` 옵션을 활성화합니다.
-이렇게 하면 이 기능이 활성화된 커스텀 엔진이 빌드됩니다.
-
-::: sidenote
-이 기능은 현재 실험적 기능이지만, 앞으로 기본 워크플로우로 사용할 의도로 제공됩니다.
-:::
-
-::: important
-`font.runtime_generation` 설정은 프로젝트의 모든 `.ttf` 및 `.otf` 폰트에 영향을 줍니다.
-:::
-
+새 폰트 리소스는 이미 Vector 모드와 Dynamic 생성을 사용하지만 위의 App Manifest 설정은 여전히 필요합니다.
 
 ### 폰트 스크립팅
 
 #### 글리프 캐쉬 프리워밍
 
-런타임 폰트를 더 쉽게 사용할 수 있도록, 런타임 폰트는 글리프 캐쉬 프리워밍을 지원합니다.
-이는 폰트의 *Characters*에 나열된 글리프를 폰트가 생성한다는 뜻입니다.
+Dynamic 폰트는 폰트를 로드할 때 *Prewarm Text*에 필요한 글리프를 생성합니다. 이 필드는 레이아웃할 텍스트로 해석하므로 해당 텍스트에 필요한 글리프가 캐쉬에 준비됩니다. Dynamic 폰트에서는 *All Chars*를 사용할 수 없습니다.
 
-::: sidenote
-`All Chars`가 선택되어 있으면 모든 글리프를 한 번에 생성하지 않으려는 목적에 어긋나므로 프리워밍이 수행되지 않습니다.
-:::
-
-`.fontc` 파일의 `Characters` 필드가 설정되어 있으면, 이 값은 글리프 캐쉬에서 어떤 글리프를 업데이트해야 하는지 알아내기 위한 텍스트로 사용됩니다.
-
-`font.prewarm_text(font_collection, text, callback)`을 호출해 글리프 캐쉬를 수동으로 업데이트할 수도 있습니다. 이 함수는 누락된 모든 글리프가 글리프 캐쉬에 추가되어 텍스트를 화면에 표시해도 안전한 시점을 알려 주는 콜백을 제공합니다.
+Dynamic 폰트에는 `font.prewarm_text(font_collection, text, callback)`을 호출할 수도 있습니다. 누락된 모든 글리프가 캐쉬에 추가되어 안전하게 텍스트를 표시할 수 있으면 콜백이 알려줍니다. 이 함수는 Static 폰트에 사용할 수 없습니다.
 
 ### 폰트 컬렉션에 폰트 추가/제거
 
-런타임 폰트에서는 폰트 컬렉션에 폰트(`.ttf`)를 추가하거나 제거할 수 있습니다.
+Dynamic 폰트에서는 폰트 컬렉션에 원본 폰트(`.ttf` 또는 `.otf`)를 추가하거나 제거할 수 있습니다.
 이는 큰 폰트를 여러 문자 세트(예: CJK)에 맞춰 여러 파일로 분할한 경우 유용합니다.
 
 ::: important
@@ -241,22 +286,22 @@ TrueType(`.ttf`) 또는 OpenType(`.otf`) 폰트를 사용할 때 SDF 타입 폰�
 
 ```lua
 function init(self)
-    -- Get the target font collection.
+    -- 대상 폰트 컬렉션을 가져옵니다.
     self.font_collection = go.get("#label", "font")
 
-    -- Get the first font assigned to the selected language collection.
+    -- 선택한 언어 컬렉션에 지정된 첫 번째 폰트를 가져옵니다.
     local language_collection = go.get("localization_japanese#label", "font")
     local font_info = font.get_info(language_collection)
     self.language_ttf_hash = font_info.fonts[1].path_hash
 
-    -- Associate it with the target collection and increase its reference count.
+    -- 대상 컬렉션에 연결하고 참조 횟수를 늘립니다.
     font.add_font(self.font_collection, self.language_ttf_hash)
 end
 ```
 
 ```lua
 function final(self)
-    -- Remove the association and release the font reference.
+    -- 연결을 제거하고 폰트 참조를 해제합니다.
     font.remove_font(self.font_collection, self.language_ttf_hash)
 end
 ```

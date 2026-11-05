@@ -78,7 +78,7 @@ Masz kilka sposobów odczytywania logów gry i systemu na iOS:
 Aby uruchomić grę i dołączyć debugger, potrzebujesz narzędzia [ios-deploy](https://github.com/phonegap/ios-deploy). Zainstaluj je i uruchom debugowanie gry, wpisując w terminalu:
 
 ```txt
-$ ios-deploy --debug --bundle <path_to_game.app> # UWAGA: to nie jest plik .ipa
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
 ```
 
 To polecenie zainstaluje aplikację na urządzeniu, uruchomi ją i automatycznie dołączy do niej debugger LLDB. Jeśli dopiero zaczynasz z LLDB, przeczytaj [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).

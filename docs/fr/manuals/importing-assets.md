@@ -15,7 +15,7 @@ Defold exige que toutes les ressources utilisées dans votre projet se trouvent 
 ![Importation de fichiers](images/graphics/import.png)
 
 ::: sidenote
-Defold prend en charge les images aux formats PNG et JPEG. Les images PNG doivent être au format RGBA 32 bits. Les autres formats d'image doivent être convertis avant de pouvoir être utilisés.
+Utilisez des images PNG ou JPEG pour les atlas et les sources de tuiles. La prise en charge de PNG inclut les images RGB, RGBA et à couleurs indexées (palette). Vous pouvez également importer des [textures source KTX2](/manuals/importing-graphics/#ktx2-textures) pour les utiliser comme textures de modèles.
 :::
 
 
@@ -26,7 +26,7 @@ Une fois les ressources importées dans Defold, elles peuvent être utilisées p
 * Les images peuvent servir à créer de nombreux types de composants visuels fréquemment utilisés dans les jeux 2D. Pour en savoir plus, consultez [les instructions d'importation et d'utilisation des éléments graphiques 2D](/manuals/importing-graphics).
 * Les sons peuvent être utilisés par le [composant Sound](/manuals/sound) pour lire des sons.
 * Les polices sont utilisées par le [composant Label](/manuals/label) et par les [nœuds de texte](/manuals/gui-text) dans une interface graphique.
-* Les modèles glTF (*.gltf* et *.glb*) peuvent être utilisés par le [composant Model](/manuals/model) pour afficher des modèles 3D avec des animations. Importez toutes les images de texture utilisées par le modèle en tant que ressources distinctes et affectez-les aux propriétés de texture du matériau du composant Model. Pour en savoir plus, consultez [les instructions d'importation et d'utilisation des modèles 3D](/manuals/importing-models).
+* Les modèles glTF (*.gltf* et *.glb*) peuvent être utilisés par le [composant Model](/manuals/model) pour afficher des modèles 3D animés. Développez ces fichiers dans le panneau *Assets* pour parcourir leurs maillages, matériaux générés et images intégrées. Les images intégrées sont utilisables directement ; incluez les images et tampons référencés à l'extérieur dans des fichiers de projet distincts. La [géométrie compressée avec Draco ou Meshopt](/manuals/importing-models/#compressed-geometry) est également prise en charge et décodée lors de l'importation ou du build. Lorsque vous sélectionnez une scène ou un maillage dans un composant Model, l'éditeur peut proposer de renseigner ses liaisons de matériaux et de textures. Choisissez <kbd>Auto Fill</kbd> pour les appliquer en remplaçant les liaisons existantes, ou <kbd>Keep Current</kbd> pour conserver les vôtres. Pour en savoir plus, consultez [l'importation et l'utilisation de modèles 3D](/manuals/importing-models).
 
 
 ## Modification des ressources externes {#editing-external-assets}

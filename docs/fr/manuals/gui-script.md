@@ -51,6 +51,12 @@ Pour attacher le script à un composant (component) d'interface graphique, ouvre
 
 Si le composant d'interface graphique a été ajouté à un objet de jeu quelque part dans votre jeu, le script s'exécutera désormais.
 
+## Entrées {#input}
+
+Pour recevoir les entrées dans un script GUI, envoyez `msg.post(".", "acquire_input_focus")` depuis `init()` et traitez les actions dans `on_input(self, action_id, action)`.
+
+Les scripts GUI utilisent les mêmes hachages `action.source` que les scripts d'objets de jeu ; vous pouvez donc distinguer un clic de souris physique d'un toucher dès l'appui initial. Consultez [Source du périphérique d'entrée](/manuals/input/#input-device-source) et l'[exemple de souris et de tactile](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch). Le déplacement du pointeur et les mesures de l'accéléromètre utilisent tous deux `action_id == nil` ; utilisez leur source pour les distinguer.
+
 ## L'espace de noms « gui » {#the-gui-namespace}
 
 Les scripts d'interface graphique ont accès à l'espace de noms (namespace) `gui` et à [toutes les fonctions `gui`](/ref/gui). L'espace de noms `go` n'est pas disponible ; vous devez donc placer la logique des objets de jeu dans des composants script distincts et faire communiquer les scripts d'interface graphique et les scripts d'objet de jeu. Toute tentative d'utilisation des fonctions `go` provoquera une erreur :

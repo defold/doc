@@ -3,7 +3,7 @@ title: Defold ile iOS platformu için geliştirme
 brief: Bu kılavuz, Defold'da iOS cihazları için oyun ve uygulama derlemeyi ve çalıştırmayı açıklar.
 ---
 
-# iOS için geliştirme
+# iOS için geliştirme {#ios-development}
 
 ::: sidenote
 iOS için oyun paketleme yalnızca Defold düzenleyicisinin Mac sürümünde kullanılabilir.
@@ -11,7 +11,7 @@ iOS için oyun paketleme yalnızca Defold düzenleyicisinin Mac sürümünde kul
 
 iOS, derlediğiniz ve telefonunuzda veya tabletinizde çalıştırmak istediğiniz _her_ uygulamanın Apple tarafından verilmiş bir sertifika ve sağlama profiliyle (provisioning profile) imzalanmasını _zorunlu kılar_. Bu kılavuz, oyununuzu iOS için paketlerken izlemeniz gereken adımları açıklar. Geliştirme sırasında oyununuzu [geliştirme uygulaması](/manuals/dev-app) üzerinden çalıştırmak genellikle tercih edilir; çünkü bu yöntem, içeriği ve kodu doğrudan cihazınızda çalışma sırasında yeniden yüklemenize (hot reload) olanak tanır.
 
-## Apple'ın kod imzalama süreci
+## Apple'ın kod imzalama süreci {#apples-code-signing-process}
 
 iOS uygulamalarının güvenliği birkaç bileşenden oluşur. [Apple'ın iOS Developer Program](https://developer.apple.com/programs/) programına kaydolarak gerekli araçlara erişebilirsiniz. Kaydolduktan sonra [Apple Developer Member Center](https://developer.apple.com/membercenter/index.action) sayfasına gidin.
 
@@ -50,7 +50,7 @@ Cihaz tanımlayıcısı (UDID)
   2. Alanın *UDID* olarak değişmesi için *Serial Number* alanına bir kez tıklayın. Art arda tıklarsanız cihazla ilgili çeşitli bilgiler gösterilir. *UDID* görünene kadar tıklamaya devam edin.
   3. Uzun UDID dizesine sağ tıklayın ve tanımlayıcıyı panoya kopyalamak için <kbd>Copy</kbd> seçeneğini seçin. Böylece cihazı Apple Developer Member Center'da kaydederken UDID alanına kolayca yapıştırabilirsiniz.
 
-## Ücretsiz Apple geliştirici hesabıyla geliştirme
+## Ücretsiz Apple geliştirici hesabıyla geliştirme {#developing-using-a-free-apple-developer-account}
 
 Xcode 7'den itibaren herkes Xcode'u kurup ücretsiz olarak cihaz üzerinde geliştirme yapabilir. iOS Developer Program programına kaydolmanız gerekmez. Bunun yerine Xcode, geliştirici olarak sizin için otomatik olarak bir sertifika (1 yıl geçerli) ve belirli cihazınızdaki uygulamanız için bir sağlama profili (bir hafta geçerli) oluşturur.
 
@@ -103,7 +103,24 @@ Simülatör dağıtım paketleri yalnızca Apple Silicon Mac'lerdeki iOS Simulat
 
 Uygulamada kullanılacak simgeyi, açılış ekranının arayüz taslağını (storyboard) ve benzeri ayarları *game.project* proje ayarları dosyasının [iOS bölümünde](/manuals/project-settings/#ios) belirtirsiniz.
 
-### Özel Info.plist ve yerel hedef keşfi
+### Ana ekran göstergesinin davranışı {#home-indicator-behavior}
+
+*game.project* dosyasının *iOS* bölümünde *Home Indicator Mode* seçebilirsiniz. Varsayılan *Deferred* seçeneği, tüm ekran kenarlarını korur ve ana ekrana dönmek için iki kaydırma gerektirir. Ana ekrana tek kaydırmayla dönme dahil normal sistem hareketlerini kullanmak için *System* seçeneğini seçin.
+
+Normal sistem hareketlerini kullanmanın yanı sıra ana ekran göstergesinin otomatik olarak gizlenmesini de istemek için *Auto Hide* seçeneğini seçin. Bu modu doğrudan *game.project* dosyasında ayarlayabilirsiniz:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Yeniden paketleyin ve ana ekran göstergesi olan bir cihazda test edin. Göstergenin ne zaman görüneceğine iOS karar verir; *Auto Hide* seçeneği göstergenin gizli kalacağını garanti etmez. iOS 26 ve sonraki sürümlerde sistem, hem *System* hem de *Auto Hide* modunda göstergeyi gizleyebilir. Tüm değerler ve hareket davranışları için [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) bölümüne bakın.
+
+### Ayrılmış alanlar ve döndürme {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()`, iOS 27.1 ve sonraki sürümlerde UIKit'in etkileşim kenar boşlukları dahil kamera kesiklerini ve Dynamic Island alanını bildirir. iOS yönelim geçişleri, pencere boyutlarını ve güvenli alan kenar boşluklarını değiştirmeyen dönüşler dahil, `window.WINDOW_EVENT_RESIZED` olayı da gönderir. Bu alanlara dayalı arayüz yerleşimini her yeniden boyutlandırma geri çağırımında yenileyin. Koordinatlar, sınırlamalar ve yenileme örneği için [Ayrılmış ekran alanları](/manuals/porting-guidelines/#reserved-screen-areas) bölümüne bakın.
+
+### Özel Info.plist ve yerel hedef keşfi {#custom-infoplist-and-local-target-discovery}
 
 Yerleşik iOS `Info.plist` dosyası, yayıma yönelik olmayan derlemelerde düzenleyicinin hedefleri otomatik keşfetmesi için gereken Bonjour hizmetini ve yerel ağ kullanım açıklamasını içerir. Özel bir `Info.plist`, bu yerleşik temel bildirimin yerini alır. Bir hata ayıklama derlemesinde özel bildirim kullanıyorsanız ve yerel ağ üzerinden hedef keşfine, profil çıkarmaya, çalışma sırasında yeniden yüklemeye veya günlük akışına ihtiyacınız varsa şu girdileri ekleyin:
 
@@ -122,7 +139,7 @@ Mustache koşulu, keşif girdilerinin yayıma yönelik dağıtım paketlerine da
 
 :[Build Variants](../shared/build-variants.md)
 
-## Bağlı bir iPhone'a dağıtım paketi kurma ve başlatma
+## Bağlı bir iPhone'a dağıtım paketi kurma ve başlatma {#installing-and-launching-bundle-on-a-connected-iphone}
 
 Derlenen dağıtım paketini, düzenleyicinin Bundle iletişim kutusundaki `Install on connected device` ve `Launch installed app` onay kutularını kullanarak kurabilir ve başlatabilirsiniz:
 
@@ -183,7 +200,7 @@ Forum kullanıcısı Sergey Lerg, [bu süreci gösteren bir video öğretici](ht
 Arayüz taslağı dosyasını edindikten sonra *game.project* dosyasından ona başvurabilirsiniz.
 
 
-### Simge varlık kataloğu oluşturma
+### Simge varlık kataloğu oluşturma {#creating-an-icon-asset-catalog}
 
 Varlık kataloğu (asset catalog) kullanmak, uygulamanızın simgelerini yönetmek için Apple'ın tercih ettiği yöntemdir. Hatta App Store listelemesinde kullanılan simgeyi sağlamanın tek yolu budur. Varlık kataloğunu, arayüz taslağıyla aynı şekilde Xcode kullanarak oluşturursunuz. Xcode'u başlatın ve yeni bir proje oluşturun. iOS ve Single View App seçeneklerini seçin:
 
@@ -226,7 +243,7 @@ App Store simgesine *game.project* dosyasından başvurmanız gerekmez. Simge, i
 :::
 
 
-## iOS uygulama dağıtım paketi kurma
+## iOS uygulama dağıtım paketi kurma {#installing-an-ios-application-bundle}
 
 Düzenleyici, iOS uygulama dağıtım paketi olan bir *.ipa* dosyası yazar. Dosyayı cihazınıza kurmak için aşağıdaki araçlardan birini kullanabilirsiniz:
 
@@ -254,7 +271,7 @@ open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 :[Apple Privacy Manifest](../shared/apple-privacy-manifest.md)
 
 
-## İhracat uygunluğu bilgileri
+## İhracat uygunluğu bilgileri {#export-compliance-information}
 
 Oyununuzu App Store'a gönderirken oyununuzdaki şifreleme kullanımıyla ilgili ihracat uygunluğu bilgileri sağlamanız istenir. [Apple bunun neden gerekli olduğunu açıklıyor](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations):
 
@@ -269,5 +286,5 @@ Defold motorundaki bu şifreleme kullanımları, Amerika Birleşik Devletleri ve
 
 Projenizin muaf olduğunu düşünüyorsanız projenin `Info.plist` dosyasında [`ITSAppUsesNonExemptEncryption`](https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption) anahtarını `False` olarak ayarlayın. Daha fazla ayrıntı için [Uygulama bildirimleri](/manuals/extensions-manifest-merge-tool) kılavuzuna bakın.
 
-## Sık sorulan sorular
+## Sık sorulan sorular {#faq}
 :[iOS FAQ](../shared/ios-faq.md)

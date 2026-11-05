@@ -50,7 +50,7 @@ return M
 - `editor.editor_sha1` — Defold 에디터의 SHA1 문자열입니다.
 - `editor.get(node_id, property)` — 에디터 안의 어떤 노드 값을 가져옵니다. 에디터의 노드는 스크립트 또는 컬렉션 파일, 컬렉션 안의 게임 오브젝트, 리소스로 로드된 json 파일 등 다양한 엔티티입니다. `node_id`는 에디터가 에디터 스크립트에 전달하는 userdata입니다. 또는 노드 id 대신 리소스 경로를 전달할 수 있습니다. 예: `"/main/game.script"`. `property`는 문자열입니다. 현재 지원되는 프로퍼티는 다음과 같습니다.
   - `"path"` — *resources*, 즉 파일이나 디렉토리로 존재하는 엔티티의 프로젝트 폴더 기준 파일 경로입니다. 반환값 예: `"/main/game.script"`
-  - `"children"` — 디렉토리 리소스의 자식 리소스 경로 목록입니다.
+  - `"children"` — 디렉토리 리소스의 자식 리소스 경로 목록입니다. 파일 내부의 리소스까지 순회하려면 [프로젝트 리소스 순회](#traversing-project-resources)를 참고하세요.
   - `"parent"` — 부모가 있는 Outline 노드의 부모 에디터 노드입니다.
   - `"text"` — 스크립트 파일이나 json처럼 텍스트로 편집할 수 있는 리소스의 텍스트 컨텐츠입니다. 반환값 예: `"function init(self)\nend"`. 파일을 저장하지 않은 채 편집할 수 있고, 이 편집 내용은 `"text"` 프로퍼티에 액세스할 때만 사용할 수 있으므로, 이는 `io.open()`으로 파일을 읽는 것과 같지 않다는 점에 주의하세요.
   - 아틀라스: `images`(아틀라스 안 이미지의 에디터 노드 목록)와 `animations`(애니메이션 노드 목록)
@@ -72,6 +72,7 @@ return M
 - `editor.properties(node_id)` — 노드에서 읽을 수 있는 프로퍼티 이름을 context에 맞게 정렬한 목록으로 반환합니다. 예: `pprint(editor.properties("/game.project"))`. 나열된 프로퍼티를 변경, reset, 추가 또는 순서 변경할 수 있는지는 `editor.can_*` 함수로 확인하세요.
 - `editor.can_get(node_id, property)` — 이 프로퍼티를 가져올 수 있는지 확인하여 `editor.get()`이 오류를 던지지 않게 합니다.
 - `editor.can_set(node_id, property)` — 이 프로퍼티를 사용하는 `editor.tx.set()` 트랜잭션 단계가 오류를 던지지 않을지 확인합니다.
+- `editor.resource_children(path)` — glTF/GLB 파일에 포함된 리소스를 비롯하여 폴더나 파일 바로 아래의 리소스 경로를 나열합니다. [프로젝트 리소스 순회](#traversing-project-resources)를 참고하세요.
 - `editor.create_directory(resource_path)` — 디렉토리가 없으면 생성하고, 존재하지 않는 모든 부모 디렉토리도 생성합니다.
 - `editor.create_resources(resources)` — 템플릿 또는 커스텀 컨텐츠로 리소스를 1개 이상 생성합니다.
 - `editor.delete_directory(resource_path)` — 디렉토리가 있으면 삭제하고, 존재하는 모든 자식 디렉토리와 파일도 삭제합니다.
@@ -147,6 +148,42 @@ return M
 - `id` - 커맨드 식별자 문자열입니다. 예를 들어 마지막으로 사용한 bundle 커맨드를 `prefs`에 유지하는 데 사용됩니다.
 - `active` - 커맨드가 활성 상태인지 확인하기 위해 실행되는 콜백이며, boolean을 반환해야 합니다. `locations`에 `"Assets"`, `"Scene"` 또는 `"Outline"`이 포함되어 있으면 컨텍스트 메뉴를 표시할 때 `active`가 호출됩니다. locations에 `"Edit"` 또는 `"View"`가 포함되어 있으면 키보드 입력이나 마우스 클릭 같은 모든 사용자 상호작용마다 active가 호출되므로, `active`는 비교적 빠르게 실행되도록 해야 합니다.
 - `run` - 사용자가 메뉴 항목을 선택했을 때 실행되는 콜백입니다.
+
+### 프로젝트 리소스 순회 {#traversing-project-resources}
+
+`editor.resource_children(path)`는 폴더나 파일 바로 아래의 리소스 경로 배열을 반환합니다. 입력 경로와 반환 경로 모두 프로젝트 루트를 기준으로 `/`로 시작합니다. 프로젝트 루트에서 시작하려면 `/`를 사용하세요. *.gltf* 또는 *.glb* 파일은 *Assets* 창에서와 마찬가지로 메쉬, 메터리얼, 내장 이미지를 자식 리소스로 노출할 수 있습니다.
+
+스크립트가 `editor.get(path, "children")`으로 디렉토리를 순회한다면 `editor.resource_children(path)`로 바꾸고 반환되는 모든 경로를 방문하세요. 파일에도 리소스가 들어 있을 수 있으므로 `editor.resource_attributes(path).is_directory`가 `true`인 경로만 재귀 탐색하면 파일 내부 컨텐츠를 건너뛰게 됩니다.
+
+자식 리소스가 없는 폴더나 파일에는 빈 테이블(`{}`)을 반환합니다. 존재하지 않는 경로는 오류를 발생시킵니다. 경로가 없을 수 있다면 자식을 조회하기 전에 `editor.resource_attributes(path).exists`를 확인하세요. 자식 리소스는 *Assets* 계층구조를 따릅니다. 컬렉션 내부의 게임 오브젝트에는 `editor.get(collection_path, "children")`으로 접근합니다.
+
+예를 들어 다음을 `list_resources.editor_script`로 저장하고 **Project → Reload Editor Scripts**를 선택합니다. *Assets*에서 폴더나 *.gltf*, *.glb* 파일을 오른쪽 클릭한 다음 **List Resource Contents**를 선택하면 리소스 트리가 콘솔에 출력됩니다:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### 커맨드로 메모리 내 에디터 상태 변경하기 {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -251,8 +288,8 @@ outline 프로퍼티 외에도 tilesource는 다음 프로퍼티를 정의합니
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +299,25 @@ editor.transact({
     })
 })
 ```
+
+애니메이션 노드의 `frames` 프로퍼티에는 애니메이션 순서대로 나열한, 1부터 시작하는 타일 번호의 Lua 배열이 들어 있습니다. 에디터의 *Frames* 텍스트 필드와 달리 에디터 스크립트는 `"2-6"` 같은 문자열 대신 정수 배열을 받습니다. 범위는 개별 타일 번호로 펼쳐 배열에 넣으세요. 타일은 임의의 순서로 지정할 수 있고 반복해도 됩니다.
+
+위 예제의 `walk` 애니메이션을 읽고 수정하려면:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- 애니메이션은 이제 {2, 3, 4, 5, 6, 2}를 사용합니다.
+        break
+    end
+end
+```
+
+반환된 배열을 변경하기만 해서는 애니메이션이 갱신되지 않습니다. 배열을 `editor.tx.set()`에 전달하고 트랜잭션을 적용해야 합니다. 타일 번호와 재생 설정은 [타일 소스 매뉴얼](/manuals/tilesource/#tile-source-flip-book-animations)을 참고하세요.
 
 #### 타일맵 편집 {#editing-tilemaps}
 
@@ -318,7 +374,7 @@ editor.transact({
 - `x` - point의 x 좌표이며, 0에서 시작해 1에서 끝나야 합니다.
 - `y` - point의 값입니다.
 - `tx`(0에서 1)와 `ty`(-1에서 1) - point의 tangent입니다. 예를 들어 80도 각도의 경우 `tx`는 `math.cos(math.rad(80))`, `ty`는 `math.sin(math.rad(80))`여야 합니다.
-커브 스프레드에는 추가로 `spread` 숫자형 프로퍼티가 있습니다.
+커브 스프레드에는 추가로 숫자 프로퍼티인 `spread`가 있습니다.
 
 예를 들어 이미 존재하는 emitter에 파티클 lifetime alpha 커브를 설정하는 코드는 다음과 같을 수 있습니다.
 ```lua
@@ -718,9 +774,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## 실행 모드 {#execution-modes}
 
-에디터 스크립트 런타임은 에디터 스크립트 입장에서는 대부분 투명한 2가지 실행 모드, 즉 **immediate**와 **long-running**을 사용합니다.
+에디터 스크립트 런타임은 스크립트에서 대부분 신경 쓰지 않아도 되는 두 가지 실행 모드, **즉시 실행(immediate)**과 **장기 실행(long-running)**을 사용합니다.
 
-**Immediate** 모드는 에디터가 가능한 한 빠르게 스크립트에서 응답을 받아야 할 때 사용됩니다. 예를 들어 메뉴 커맨드의 `active` 콜백은 immediate 모드에서 실행됩니다. 이 확인 작업은 사용자가 에디터와 상호작용하는 것에 대한 응답으로 에디터 UI thread에서 수행되고, 같은 frame 안에서 UI를 업데이트해야 하기 때문입니다.
+**즉시 실행** 모드는 에디터가 스크립트의 응답을 최대한 빨리 받아야 할 때 사용됩니다. 예를 들어 메뉴 명령의 `active` 콜백은 사용자와 에디터의 상호작용에 응답하여 에디터의 UI 스레드에서 검사되며 같은 프레임 안에 UI를 갱신해야 하므로 즉시 실행 모드로 실행됩니다.
 
 **Long-running** 모드는 에디터가 스크립트에서 즉각적인 응답을 받을 필요가 없을 때 사용됩니다. 예를 들어 메뉴 커맨드의 `run` 콜백은 **long-running** 모드에서 실행되므로, 스크립트가 작업을 완료하는 데 더 많은 시간을 사용할 수 있습니다.
 

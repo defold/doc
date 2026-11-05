@@ -94,6 +94,54 @@ Defold intègre la prise en charge de la zone sûre sur Android et iOS. Définis
 L'[extension Safe Area](/extension-safearea) reste une solution possible pour les anciens projets ou les flux de travail qui nécessitent un comportement allant au-delà des API intégrées ; elle n'est pas nécessaire pour la gestion standard de la zone sûre sur Android et iOS.
 
 
+### Zones réservées de l'écran {#reserved-screen-areas}
+
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) indique les régions individuelles qui obstruent la fenêtre du jeu, comme les découpes de caméra et la Dynamic Island. Utilisez ces rectangles pour placer le contenu autour de chaque obstruction. Utilisez `window.get_safe_area()` lorsqu'il vous faut un seul rectangle sûr pour la mise en page et ses marges par rapport aux bords.
+
+Le résultat est un tableau de tables comportant les champs `x`, `y`, `width` et `height`. Chaque rectangle est limité à la fenêtre du jeu. L'origine se trouve en bas à gauche : `x` est le bord gauche et `y` le bord inférieur, en pixels de fenêtre correspondant à [`window.get_size()`](/ref/window/#window.get_size). Ces coordonnées sont indépendantes de l'ajustement GUI et de la résolution logique de *game.project* ; tenez donc compte de vos transformations GUI avant de les utiliser comme positions de nœuds.
+
+La prise en charge par plateforme est la suivante :
+
+- **iOS 27.1 et versions ultérieures :** obstructions actives signalées par UIKit, y compris ses marges d'interaction.
+- **Android 9 (niveau d'API 28) et versions ultérieures :** rectangles des découpes de l'écran.
+
+La fonction renvoie une table vide sur les plateformes et versions du système non prises en charge, ou lorsqu'aucune obstruction n'est signalée pour la fenêtre. Une table vide ne signifie pas que toute la fenêtre est sûre pour du contenu important : les plis, barres système, claviers et zones de gestes ne relèvent pas de cette API. Utilisez `window.get_safe_area()` pour obtenir le rectangle sûr de la plateforme.
+
+### Rafraîchir les zones après les événements de fenêtre {#refreshing-areas-after-window-events}
+
+Interrogez les zones réservées à l'initialisation, puis à chaque callback [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED). Après la première interrogation, les changements de géométrie des zones réservées déclenchent aussi cet événement sur les plateformes compatibles, même si la taille de la fenêtre ne change pas. Chaque table renvoyée est un instantané ; les tables conservées ne sont pas mises à jour automatiquement.
+
+Sur iOS, cet événement est également envoyé après les transitions d'orientation et les modifications des marges de la zone sûre. Une rotation de 180° en paysage peut déplacer une découpe de caméra ou la Dynamic Island vers le côté opposé sans modifier les dimensions de la fenêtre ni les marges de la zone sûre. Rafraîchissez votre géométrie à cet événement même si `data.width` et `data.height` sont identiques aux valeurs précédentes.
+
+Le script suivant maintient les deux ensembles de géométrie à jour :
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- Update your UI using the new safe rectangle and reserved areas.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- Refresh even when the width and height have not changed.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+Un seul écouteur d'événements de fenêtre peut être enregistré à la fois. Si votre jeu en possède déjà un, ajoutez cette logique de rafraîchissement à cet écouteur. Remplacer le tableau conservé à chaque rafraîchissement supprime également les rectangles périmés lorsque le résultat devient vide.
+
+
 ## Recommandations propres aux plateformes {#platform-specific-guidelines}
 
 ### Android {#android}

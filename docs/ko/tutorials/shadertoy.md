@@ -69,7 +69,7 @@ Blender는 [blender.org](https://www.blender.org)에서 다운로드할 수 있�
     ```glsl
     #version 140
 
-    // 위치는 월드 공간 기준입니다
+    // positions are in world space
     in vec4 position;
     in vec2 texcoord0;
 
@@ -138,21 +138,21 @@ GLSL 버전 140의 최신 파이프라인을 사용할 것입니다. 이를 위�
     Defold는 버텍스 쉐이더에서 프래그먼트 쉐이더로 텍스쳐 좌표를 보간된 변수로 전달하며, 값은 UV 좌표(범위 0--1)입니다. 버텍스 쉐이더에서는 `out` qualifier로 다음과 같이 선언합니다.
 
     ```glsl
-    // star-nest.vp에서
+    // in star-nest.vp
     out vec2 var_texcoord0;
     ```
 
      프래그먼트 쉐이더에서는 같은 값을 `in` qualifier로 받습니다.
 
     ```glsl
-    // star-nest.fp에서
+    // in star-nest.fp
     in vec2 var_texcoord0;
     ```
 
     그런 다음 GLSL 140에서는 `out` qualifier로 명시적인 프래그먼트 출력을 선언합니다.
 
     ```glsl
-    // star-nest.fp에서
+    // in star-nest.fp
     out vec4 out_fragColor;
     ```
 
@@ -172,7 +172,7 @@ GLSL 버전 140의 최신 파이프라인을 사용할 것입니다. 이를 위�
     ```
     정확한 `aspect` 값은 예제가 어떻게 설정되어 있는지에 따라 달라집니다. 효과가 알려진 디스플레이 크기의 풀 스크린 quad에 렌더링된다면 이 튜토리얼에서는 종횡비를 하드코딩할 수 있습니다. 효과가 임의의 창 크기를 지원해야 한다면 해상도를 프래그먼트 상수로 전달하고 GLSL 140 uniform block 안에 넣습니다.
 
-    여기서는 시간도 설정합니다. 시간은 `uniform float iGlobalTime`으로 쉐이더에 전달됩니다. Defold(1.12.3부터)는 특수 `Time` 상수를 통해 쉐이더에 시간을 제공하며, 이 튜토리얼에서는 그것을 사용합니다.
+    여기서 시간도 설정합니다. 쉐이더에는 `uniform float iGlobalTime`으로 전달합니다. Defold는 특수한 `Time` 상수로 쉐이더에 시간을 제공하며 이를 사용할 것입니다.
 
     최신 Defold에서는 non-opaque uniform을 uniform block 안에 선언합니다.
     프래그먼트 쉐이더에서는 다음과 같이 선언합니다.
@@ -208,7 +208,7 @@ GLSL 버전 140의 최신 파이프라인을 사용할 것입니다. 이를 위�
 #version 140 // <1>
 
 // Star Nest by Pablo Román Andrioli
-// 이 컨텐츠는 MIT License에 따라 제공됩니다.
+// This content is under the MIT License.
 
 #define iterations 17
 #define formuparam 0.53
@@ -236,7 +236,7 @@ uniform fragment_inputs // <4>
 
 void main() // <5>
 {
-	// 좌표와 방향을 얻습니다
+	// get coords and direction
 	vec2 res = vec2(1.0, 1.0); // <6>
 	vec2 uv = var_texcoord0.xy * res.xy - 0.5;
 	vec3 dir = vec3(uv * zoom, 1.0);
@@ -257,7 +257,7 @@ void main() // <5>
 	from.xz *= rot1;
 	from.xy *= rot2;
 
-	// 볼류메트릭 렌더링
+	// volumetric rendering
 	float s = 0.1;
 	float fade = 1.0;
 	vec3 v = vec3(0.0);
@@ -265,41 +265,41 @@ void main() // <5>
 	for (int r = 0; r < volsteps; r++) {
 		vec3 p = from + s * dir * 0.5;
 
-		// 타일링 접기
+		// tiling fold
 		p = abs(vec3(tile) - mod(p, vec3(tile * 2.0)));
 
 		float pa = 0.0;
 		float a = 0.0;
 
 		for (int i = 0; i < iterations; i++) {
-			// 마법 공식
+			// the magic formula
 			p = abs(p) / dot(p, p) - formuparam;
 
-			// 평균 변화량의 절댓값 합
+			// absolute sum of average change
 			a += abs(length(p) - pa);
 			pa = length(p);
 		}
 
-		// 암흑 물질
+		// dark matter
 		float dm = max(0.0, darkmatter - a * a * 0.001);
 
 		a *= a * a;
 
-		// 암흑 물질, 가까운 곳은 렌더링하지 않습니다
+		// dark matter, don't render near
 		if (r > 6) {
 			fade *= 1.0 - dm;
 		}
 
 		v += fade;
 
-		// 거리에 따른 색상 지정
+		// coloring based on distance
 		v += vec3(s, s * s, s * s * s * s) * a * brightness * fade;
 
 		fade *= distfading;
 		s += stepsize;
 	}
 
-	// 색상 조정
+	// color adjust
 	v = mix(vec3(length(v)), v, saturation);
 
 	out_fragColor = vec4(v * 0.01, 1.0); // <9>
@@ -323,7 +323,7 @@ void main() // <5>
 
 ## 애니메이션 {#animation}
 
-퍼즐의 마지막 조각은 별이 움직이도록 시간을 도입하는 것입니다. Defold(1.12.3부터)는 `Time` 타입의 프래그먼트 상수를 통해 이를 자동으로 제공합니다.
+마지막 단계는 별을 움직이도록 시간을 도입하는 것입니다. Defold는 `Time` 타입의 프래그먼트 상수로 시간을 자동으로 제공합니다.
 
 1. *star-nest.material*을 엽니다.
 2. *Fragment Constant*를 추가하고 이름을 "time"으로 지정합니다.

@@ -3,7 +3,7 @@ title: Defold 中的碰撞对象
 brief: 碰撞对象是用于给游戏对象赋予物理行为的组件。碰撞对象具有物理属性和空间形状。
 ---
 
-# 碰撞对象
+# 碰撞对象 {#collision-objects}
 
 碰撞对象是用于给游戏对象赋予物理行为的组件。碰撞对象具有物理属性，如重量、弹性和摩擦力，其空间范围由您附加到组件的一个或多个 _形状_ 定义。Defold 支持以下类型的碰撞对象：
 
@@ -20,26 +20,26 @@ Triggers
 : 触发器是注册简单碰撞的对象。触发器是轻量级的碰撞对象。它们类似于[射线投射](/manuals/physics-ray-casts)，因为它们读取物理世界而不是与之交互。它们非常适合只需要记录命中（如子弹）的对象，或者作为游戏逻辑的一部分，当对象到达特定点时触发某些动作。触发器在计算上比运动学对象更便宜，如果可能，应该优先使用它们。
 
 
-## 添加碰撞对象组件
+## 添加碰撞对象组件 {#adding-a-collision-object-component}
 
 碰撞对象组件有一组 *属性*，用于设置其类型和物理属性。它还包含一个或多个定义物理对象整体形状的 *形状*。
 
 要向游戏对象添加碰撞对象组件：
 
 1. 在 *大纲* 视图中，<kbd>右键点击</kbd>游戏对象并从上下文菜单中选择 <kbd>Add Component ▸ Collision Object</kbd>。这将创建一个没有形状的新组件。
-2. <kbd>右键点击</kbd>新组件并选择 <kbd>Add Shape</kbd>，然后选择形状：使用 3D 物理的项目可选 <kbd>Box</kbd>、<kbd>Capsule</kbd>、<kbd>Sphere</kbd>、<kbd>Hull</kbd> 或 <kbd>Mesh</kbd>；使用 2D 物理的项目可选 <kbd>Box</kbd> 或 <kbd>Circle</kbd>。Hull 和 Mesh 形状自 Defold 1.13.2 起可用，使用 glTF 或 GLB 场景中的命名网格。您可以向组件添加多个形状，也可以通过 *Collision Shape* 属性使用瓦片地图或 `.convexshape` 资源。
+2. <kbd>右键单击</kbd>新组件并选择 <kbd>Add Shape</kbd>，然后选择形状：使用 3D 物理的项目可以选择 <kbd>Box</kbd>、<kbd>Capsule</kbd>、<kbd>Sphere</kbd>、<kbd>Hull</kbd> 或 <kbd>Mesh</kbd>；使用 2D 物理的项目可以选择 <kbd>Box</kbd> 或 <kbd>Circle</kbd>。Hull 和 Mesh 形状使用 glTF 或 GLB 场景中的命名网格。可以向组件添加多个形状，也可以通过 *Collision Shape* 属性使用瓦片地图或 `.convexshape` 资源。
 3. 使用移动、旋转和缩放工具编辑形状。
 4. 在 *大纲* 中选择组件并编辑碰撞对象的 *属性*。
 
 ![Physics collision object](images/physics/collision_object.png)
 
 
-## 添加碰撞形状
+## 添加碰撞形状 {#adding-a-collision-shape}
 
 碰撞组件可以包含多个内嵌形状，包括 3D 物理中的凸包和三角网格，也可以使用瓦片地图或凸形状资源。在[碰撞形状手册](/manuals/physics-shapes)中了解有关各种形状以及如何将它们添加到碰撞组件的更多信息。
 
 
-## 碰撞对象属性
+## 碰撞对象属性 {#collision-object-properties}
 
 Id
 : 组件的标识符。
@@ -102,7 +102,7 @@ Generate Trigger Events
 : 如果启用，将允许此对象发送触发器事件
 
 
-## 运行时属性
+## 运行时属性 {#runtime-properties}
 
 物理对象有许多不同的属性，可以使用 `go.get()` 和 `go.set()` 读取和更改：
 

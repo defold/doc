@@ -77,12 +77,12 @@ Facebook Instant Games 전용 HTML5 어플리케이션 번들의 특별 버전�
 [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) 설정을 사용하면 `game.arcd` 안에 배치해야 하는 에셋을 구성할 수 있습니다(압축 적용).
 이 에셋들은 [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) 함수를 통해 액세스할 수 있습니다.
 
-## 릴리스 vs 디버그
+## 릴리스 vs 디버그 {#release-vs-debug}
 
 어플리케이션 번들을 만들 때 디버그 번들이나 릴리스 번들을 만들 수 있는 옵션이 있습니다. 두 번들의 차이는 작지만 기억해 두어야 할 중요한 차이가 있습니다.
 
 * 릴리스 빌드에는 기본적으로 [프로파일러](/manuals/profiling)가 포함되지 않습니다. 디버그 빌드와 릴리스 빌드 모두에 프로파일러 지원을 포함하려면 [App Manifest](/manuals/app-manifest/#profiler)의 **Profiler**를 **Always**로 설정하세요.
-* 릴리스 빌드에는 [스크린 레코더](/ref/sys/#start_record)가 포함되지 않습니다
+* 릴리스 빌드에는 [영상 녹화](/manuals/recording)나 [`recorder` Lua 모듈](/ref/recorder/)이 포함되지 않습니다. [App Manifest](/manuals/app-manifest/#exclude-record)에서 **Exclude Record**를 활성화하지 않은 데스크톱 디버그 빌드에서 녹화를 사용할 수 있습니다.
 * 릴리스 빌드는 `print()` 호출의 출력이나 네이티브 익스텐션의 출력을 표시하지 않습니다
 * 릴리스 빌드에서는 `sys.get_engine_info()`의 `is_debug` 값이 `false`로 설정됩니다
 * 릴리스 빌드는 `tostring()`을 호출할 때 `hash` 값에 대한 역방향 조회를 수행하지 않습니다. 실제로는 `url` 또는 `hash` 타입 값에 대해 `tostring()`을 호출하면 원래 문자열이 아니라 숫자 표현이 반환된다는 뜻입니다(`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)

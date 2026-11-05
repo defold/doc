@@ -3,7 +3,7 @@ title: 为Defold编写原生扩展
 brief: 本手册解释了如何为Defold游戏引擎编写原生扩展，以及如何通过零配置云构建器进行编译。
 ---
 
-# 原生扩展
+# 原生扩展 {#native-extensions}
 
 如果您需要与外部软件或硬件进行底层交互，而 Lua 无法满足需求，Defold SDK 允许您根据目标平台使用 C、C++、C#、Objective-C、Java 或 JavaScript 为引擎编写扩展。原生扩展的典型用例包括：
 
@@ -15,7 +15,7 @@ brief: 本手册解释了如何为Defold游戏引擎编写原生扩展，以及�
 C# 支持是实验性的，用于原生扩展，而不是 Defold 脚本组件。它使用 .NET 9 NativeAOT 生成静态库；将 `.cs` 源文件添加到扩展的 `src` 文件夹，构建服务就会生成项目文件。目标平台支持取决于当前 NativeAOT 和构建服务的能力。最新工作流程和经测试的设置请参阅官方[原生扩展语言示例](https://github.com/defold/example-languages)。
 :::
 
-## 构建服务器
+## 构建服务器 {#the-build-server}
 
 Defold通过基于云的构建解决方案，为零配置原生扩展提供了入口点。任何开发并添加到游戏项目中的原生扩展（无论是直接添加还是通过[库项目](/manuals/libraries/)添加），都将成为普通项目内容的一部分。无需构建特殊版本的引擎并分发给团队成员，这一过程会自动处理——任何构建和运行项目的团队成员都将获得一个包含所有原生扩展的项目特定引擎可执行文件。
 
@@ -23,7 +23,7 @@ Defold通过基于云的构建解决方案，为零配置原生扩展提供了�
 
 Defold免费提供云构建服务器，没有任何使用限制。服务器托管在欧洲，发送本地代码的URL在[编辑器首选项窗口](/manuals/editor-preferences/#extensions)中配置，或通过[bob](/manuals/bob/#usage)的`--build-server`命令行选项配置。如果您希望设置自己的服务器，请[遵循这些说明](/manuals/extender-local-setup)。
 
-## 项目布局
+## 项目布局 {#project-layout}
 
 要创建新扩展，请在项目根目录中创建一个文件夹。此文件夹将包含与扩展相关的所有设置、源代码、库和资源。扩展构建器会识别文件夹结构并收集任何源文件和库。
 
@@ -66,7 +66,7 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 *res*
 : 此可选文件夹包含扩展所依赖的任何额外资源。资源文件应像`lib`子文件夹一样，放置在按`platform`或`architecture-platform`命名的子文件夹中。还允许使用`common`子文件夹，包含所有平台通用的资源文件。
 
-### 清单文件
+### 清单文件 {#manifest-files}
 
 扩展的可选*manifests*文件夹包含构建和打包过程中使用的其他文件。文件应放置在按`platform`命名的子文件夹中：
 
@@ -75,7 +75,10 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
   * 包含 Java 代码的扩展应提供 [R8 保留规则文件](#r8-keep-rules-for-android)（`.keep`），以保留运行时需要的类。
 * `ios` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
   * 该文件夹还可以包含一个`Podfile`文件，其中包含要[由Cocoapods解析的依赖项](/manuals/extensions-cocoapods)。
+  * 此目录还可以包含 `SwiftPackages.json` 文件，其中的依赖由 [Swift Package Manager 解析](/manuals/extensions-spm)。
 * `osx` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
+  * 此目录还可以包含 `Podfile` 文件，其中的依赖由 [Cocoapods 解析](/manuals/extensions-cocoapods)。
+  * 此目录还可以包含 `SwiftPackages.json` 文件，其中的依赖由 [Swift Package Manager 解析](/manuals/extensions-spm)。
 * `web` - 此文件夹接受要合并到主应用程序中的清单存根文件（[如此处所述](/manuals/extensions-manifest-merge-tool)）。
 
 
@@ -97,7 +100,8 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 
 [启用 R8](/manuals/android/#enabling-r8) 后，这些规则会与项目选定的保留规则文件合并。
 
-在 Defold 1.14.0 或更高版本中，配合兼容的 Extender 服务器，R8 还会缩减 Android 资源。如果扩展按名称动态查找资源，请在扩展文件夹的 `res/android/res/raw` 下添加 [XML 资源保留规则](/manuals/android/#keeping-android-resources)。
+使用兼容的 Extender 服务器时，R8 也会缩减 Android 资源。如果扩展按名称动态查找资源，请在扩展目录的 `res/android/res/raw` 下添加 [XML 资源保留规则](/manuals/android/#keeping-android-resources)。
+
 
 ## 自定义资源 {#custom-resources}
 
@@ -124,12 +128,12 @@ end
 
 有关自定义资源与捆绑资源的区别，请参阅[文件访问](/manuals/file-access/#custom-resources)。
 
-## 共享扩展
+## 共享扩展 {#sharing-an-extension}
 
 扩展在项目中被视为与其他资产一样，可以以相同方式共享。如果原生扩展文件夹作为库文件夹添加，它可以作为项目依赖项共享给其他人使用。有关更多信息，请参考[库项目手册](/manuals/libraries/)。
 
 
-## 一个简单的扩展示例
+## 一个简单的扩展示例 {#a-simple-example-extension}
 
 让我们构建一个非常简单的扩展。首先，我们创建一个新的根文件夹*`myextension`*并添加一个包含扩展名"`MyExtension`"的*`ext.manifest`*文件。请注意，该名称是一个C++符号，必须与`DM_DECLARE_EXTENSION`的第一个参数匹配（见下文）。
 
@@ -246,7 +250,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 就是这样！我们已经创建了一个完全可用的原生扩展。
 
 
-## 扩展生命周期
+## 扩展生命周期 {#extension-lifecycle}
 
 如上所述，`DM_DECLARE_EXTENSION` 宏用于声明扩展代码中的各种入口点：
 
@@ -270,7 +274,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
   * 扩展 `final`
   * 扩展 `app_final`
 
-## 已定义的平台标识符
+## 已定义的平台标识符 {#defined-platform-identifiers}
 
 构建器在每个相应平台上定义了以下标识符：
 
@@ -285,8 +289,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 
 当项目使用原生扩展时，构建服务器日志可用。构建服务器日志（`log.txt`）在项目构建时与自定义引擎一起下载，并存储在项目的 `.internal/%platform%/build.zip` 文件中，同时也解压到项目的构建文件夹中。
 
-
-## 扩展示例
+## 扩展示例 {#example-extensions}
 
 * [基础扩展示例](https://github.com/defold/template-native-extension)（本手册中的扩展）
 * [Android扩展示例](https://github.com/defold/extension-android)

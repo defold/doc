@@ -117,8 +117,8 @@ number
   print(10.0) --> '10'
   print(10.000000000001) --> '10.000000000001'
 
-  a = 5 -- integer
-  b = 7/3 -- float
+  a = 5 -- liczba całkowita
+  b = 7/3 -- liczba zmiennoprzecinkowa
   print(a - b) --> '2.6666666666667'
   ```
 
@@ -158,13 +158,13 @@ string
   print("\097bc") --> "abc"
 
   multi_line_string = [[
-  Oto kawałek tekstu, który rozciąga się na wiele linii. To jest wszystko
-  umieszczone w ciągu znaków i czasami jest to bardzo przydatne.
+  Here is a chunk of text that runs over several lines. This is all
+  put into the string and is sometimes very handy.
   ]]
   ```
 
 function
-: Funkcje w Lua są wartościami pierwszej klasy, co oznacza, że można je przekazywać jako parametry do funkcji i zwracać jako wartości. Zmienne przypisane do funkcji zawierają referencję do funkcji. Możesz przypisywać zmienne do anonimowych funkcji, ale Lua dostarcza składni ułatwiającej pracę (`function nazwa(param1, param2) ... end`).
+: Funkcje w Lua są wartościami pierwszej klasy, co oznacza, że można je przekazywać jako parametry do funkcji i zwracać jako wartości. Zmienne przypisane do funkcji zawierają referencję do funkcji. Możesz przypisywać zmienne do anonimowych funkcji, ale Lua dostarcza składni ułatwiającej pracę (`function name(param1, param2) ... end`).
 
   ```lua
   -- Przypisz 'my_plus' do funkcji
@@ -436,7 +436,7 @@ function my_func(a, b)
 
     print(x) --> nil. 'x' nie jest dostępne poza zakresem do-end
     print(foo) --> nil. 'foo' jest zadeklarowane po 'my_func'
-    print(foo_global) --> "value 2", ponieważ jest globalna
+    print(foo_global) --> "value 2"
 end
 
 local foo = "value 1"

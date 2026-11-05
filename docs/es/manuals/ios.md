@@ -3,7 +3,7 @@ title: Desarrollo de Defold para la plataforma iOS
 brief: Este manual explica cómo crear y ejecutar juegos y apps en dispositivos iOS en Defold.
 ---
 
-# Desarrollo en iOS
+# Desarrollo en iOS {#ios-development}
 
 ::: sidenote
 Crear un bundle de un juego para iOS solo está disponible en la versión para Mac del editor Defold.
@@ -11,7 +11,7 @@ Crear un bundle de un juego para iOS solo está disponible en la versión para M
 
 iOS requiere que _cualquier_ app que crees y quieras ejecutar en tu teléfono o tablet _deba_ estar firmada con un certificado emitido por Apple y un perfil provisional. Este manual explica los pasos necesarios para crear un bundle de tu juego para iOS. Durante el desarrollo, suele ser preferible ejecutar tu juego mediante la [app de desarrollo](/manuals/dev-app), ya que te permite recargar contenido y código en caliente directamente en tu dispositivo.
 
-## Proceso de firmado de código de Apple
+## Proceso de firmado de código de Apple {#apples-code-signing-process}
 
 La seguridad asociada con las apps iOS consta de varios componentes. Puedes acceder a las herramientas necesarias registrándote en el [iOS Developer Program de Apple](https://developer.apple.com/programs/). Cuando te hayas inscrito, ve al [Developer Member Center de Apple](https://developer.apple.com/membercenter/index.action).
 
@@ -50,7 +50,7 @@ Identificador de dispositivo (UDID)
   2. Haz click una vez en *Serial Number* para que el campo cambie a *UDID*. Si haces click varias veces, aparecerán varios datos del dispositivo. Sigue haciendo click hasta que se muestre *UDID*.
   3. Haz click derecho en la cadena larga del UDID y selecciona <kbd>Copy</kbd> para copiar el identificador al portapapeles, de modo que puedas pegarlo fácilmente en el campo UDID al registrar el dispositivo en Developer Member Center de Apple.
 
-## Desarrollar con una cuenta gratuita de desarrollador de Apple
+## Desarrollar con una cuenta gratuita de desarrollador de Apple {#developing-using-a-free-apple-developer-account}
 
 Desde Xcode 7, cualquiera puede instalar Xcode y desarrollar en dispositivo de forma gratuita. No tienes que registrarte en el iOS Developer Program. En su lugar, Xcode emitirá automáticamente un certificado para ti como desarrollador (válido durante 1 año) y un perfil provisional para tu app (válido durante una semana) en tu dispositivo específico.
 
@@ -103,7 +103,24 @@ Pulsa *Create Bundle* y se te pedirá que especifiques en qué lugar de tu compu
 
 Puedes especificar qué icono usar para la app, el storyboard de pantalla de lanzamiento, etc. en el archivo de configuración del proyecto *game.project*, en la [sección iOS](/manuals/project-settings/#ios).
 
-### Info.plist personalizado y descubrimiento de targets locales
+### Comportamiento del indicador de inicio {#home-indicator-behavior}
+
+Puedes elegir *Home Indicator Mode* en la sección *iOS* de *game.project*. El valor predeterminado, *Deferred*, protege todos los bordes de la pantalla y requiere dos deslizamientos para volver al inicio. Elige *System* para usar los gestos normales del sistema, incluido un solo deslizamiento para volver al inicio.
+
+Elige *Auto Hide* para usar los gestos normales del sistema y solicitar además que el indicador de inicio se oculte automáticamente. Puedes establecer este modo directamente en *game.project*:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Vuelve a crear el bundle y pruébalo en un dispositivo con indicador de inicio. iOS decide cuándo se muestra el indicador; elegir *Auto Hide* no garantiza que permanezca oculto. En iOS 26 y versiones posteriores, el sistema puede ocultarlo tanto en *System* como en *Auto Hide*. Consulta [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) para conocer todos los valores y su comportamiento de gestos.
+
+### Áreas reservadas y rotación {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()` devuelve los recortes de cámara y la Dynamic Island en iOS 27.1 y versiones posteriores, incluidos los márgenes de interacción de UIKit. Las transiciones de orientación de iOS también envían `window.WINDOW_EVENT_RESIZED`, incluidas las rotaciones que no cambian las dimensiones de la ventana ni los márgenes del área segura. Actualiza la posición de cualquier interfaz basada en estas áreas en cada callback de redimensionado. Consulta [Áreas reservadas de la pantalla](/manuals/porting-guidelines/#reserved-screen-areas) para conocer las coordenadas, las limitaciones y un ejemplo de actualización.
+
+### Info.plist personalizado y descubrimiento de targets locales {#custom-infoplist-and-local-target-discovery}
 
 El `Info.plist` integrado de iOS contiene el servicio Bonjour y la descripción de uso de la red local necesarios para el descubrimiento automático de targets del editor en builds que no son release. Un `Info.plist` personalizado sustituye ese manifiesto base integrado. Si se usa un manifiesto personalizado para una build debug y necesitas descubrimiento de targets, profiling, hot reload o streaming de logs por la red local, incluye estas entradas:
 
@@ -122,7 +139,7 @@ La condición Mustache excluye las entradas de descubrimiento de los bundles rel
 
 :[Build Variants](../shared/build-variants.md)
 
-## Instalar y ejecutar un bundle en un iPhone conectado
+## Instalar y ejecutar un bundle en un iPhone conectado {#installing-and-launching-bundle-on-a-connected-iphone}
 
 Puedes instalar y ejecutar el bundle creado usando las casillas `Install on connected device` y `Launch installed app` del editor en el diálogo Bundle:
 
@@ -183,7 +200,7 @@ El usuario del foro Sergey Lerg preparó [un video tutorial que muestra el proce
 Una vez que tengas el archivo storyboard, puedes referenciarlo desde *game.project*.
 
 
-### Crear un asset catalog de iconos
+### Crear un asset catalog de iconos {#creating-an-icon-asset-catalog}
 
 Usar un asset catalog es la forma preferida por Apple de gestionar los iconos de tu aplicación. De hecho, es la única forma de proporcionar el icono usado en la ficha de la App Store. Creas un asset catalog de la misma manera que un storyboard, usando Xcode. Inicia Xcode y crea un proyecto nuevo. Selecciona iOS y Single View App:
 
@@ -226,7 +243,7 @@ No es necesario referenciar el icono de la App Store desde *game.project*. Se ex
 :::
 
 
-## Instalar un bundle de aplicación iOS
+## Instalar un bundle de aplicación iOS {#installing-an-ios-application-bundle}
 
 El editor escribe un archivo *.ipa*, que es un bundle de aplicación iOS. Para instalar el archivo en tu dispositivo, puedes usar una de las siguientes herramientas:
 
@@ -238,23 +255,23 @@ El editor escribe un archivo *.ipa*, que es un bundle de aplicación iOS. Para i
 También puedes usar la herramienta de línea de comando `xcrun simctl` para trabajar con los simuladores de iOS disponibles mediante Xcode:
 
 ```
-# mostrar una lista de dispositivos disponibles
+# show a list of available devices
 xcrun simctl list
 
-# arrancar un simulador de iPhone X
+# boot an iPhone X simulator
 xcrun simctl boot "iPhone X"
 
-# instalar your.app en un simulador arrancado
+# install your.app to a booted simulator
 xcrun simctl install booted your.app
 
-# iniciar el simulador
+# launch the simulator
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
 
 :[Apple Privacy Manifest](../shared/apple-privacy-manifest.md)
 
 
-## Información de cumplimiento de exportación
+## Información de cumplimiento de exportación {#export-compliance-information}
 
 Cuando envíes tu juego a la App Store, se te pedirá que proporciones información de cumplimiento de exportación con respecto al uso de cifrado en tu juego. [Apple explica por qué esto es necesario](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations):
 

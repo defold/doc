@@ -30,28 +30,28 @@ brief: 本手册介绍了开发原生扩展的最佳实践。
 ```
     /root
         /input
-        /main                            -- 实际示例项目的所有文件
+        /main                            -- All the files for the actual example project
             /...
-        /myextension                     -- 扩展的实际根文件夹
+        /myextension                     -- The actual root folder of the extension
             ext.manifest
-            /include                     -- 外部包含，其他扩展使用
+            /include                     -- External includes, used by other extensions
             /libs
-                /<platform>              -- 所有支持平台的外部库
+                /<platform>              -- External libraries for all supported platforms
             /src
-                myextension.cpp          -- 扩展的 Lua api 和扩展生命周期函数
-                                            还包含你的 Lua api 函数的通用实现。
-                myextension_private.h    -- 每个平台将实现的内部 api（即 `myextension_Init` 等）
-                myextension.mm           -- 如果 iOS/macOS 需要原生调用。为 iOS/macOS 实现 `myextension_Init` 等
-                myextension_android.cpp  -- 如果 Android 需要 JNI 调用。为 Android 实现 `myextension_Init` 等
+                myextension.cpp          -- The extension Lua api and the extension life cycle functions
+                                            Also contains generic implementations of your Lua api functions.
+                myextension_private.h    -- Your internal api that each platform will implement (I.e. `myextension_Init` etc)
+                myextension.mm           -- If native calls are needed for iOS/macOS. Implements `myextension_Init` etc for iOS/macOS
+                myextension_android.cpp  -- If JNI calls are needed for Android. Implements `myextension_Init` etc for Android
                 /java
-                    /<platform>          -- Android 需要的任何 java 文件
-            /res                         -- 平台需要的任何资源
+                    /<platform>          -- Any java files needed for Android
+            /res                         -- Any resources needed for a platform
             /external
-                README.md                -- 关于如何构建或打包任何外部库的说明/脚本
-        /bundleres                       -- 应该打包的资源（参见 game.project 和 [bundle_resources 设置]([physics scale setting](/manuals/project-settings/#project)）
+                README.md                -- Notes/scripts on how to build or package any external libraries
+        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
             /<platform>
         game.project
-        game.appmanifest                 -- 任何额外的应用配置信息
+        game.appmanifest                 -- Any extra app configuration info
 ```
 
 注意，`myextension.mm` 和 `myextension_android.cpp` 只有在为该平台进行特定的原生调用时才需要。

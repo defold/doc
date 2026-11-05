@@ -31,7 +31,7 @@ Ahora vamos a deshabilitar el sprite cuando el juego inicia, para hacerlo aparec
 
 ```lua
 function init(self)
-msg.post("#body", "disable") -- <1&gt;
+    msg.post("#body", "disable") -- <1>
 end
 ```
 1. No te preocupes si no acabas de entender el '#'. Más tarde se explicará.
@@ -169,10 +169,10 @@ Cuando obtenemos el identificador de un objeto, el motor siempre devolverá un h
 
 ```lua
 local my_id = go.get_id()
-print(my_id) --&gt; hash: [/path/to/the/object]
+print(my_id) --> hash: [/path/to/the/object]
 
 local spawned_id = factory.create("#some_factory")
-print(spawned_id) --&gt; hash: [/instance42]
+print(spawned_id) --> hash: [/instance42]
 ```
 
 Puedes usar un identificador de este tipo en lugar de una identificación de cadena o construir de cero. Sin embargo, ten en cuenta que una identificación hash corresponde a la ruta al objeto, es decir, una dirección absoluta:
@@ -189,7 +189,7 @@ go.set_position(pos, spawned_id)
 local other_id = hash("/path/to/the/object")
 go.set_position(pos, other_id)
 
--- This will not work! Relative addresses must be given as strings.
+-- Esto no funcionará. Las direcciones relativas deben proporcionarse como cadenas.
 local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
@@ -222,7 +222,7 @@ y el controlador de "buddy" en team_2 es:
 Podemos enviarles mensaje así:
 
 ```lua
--- Send "hello" to the manager script and team buddy bean
+-- Envía "hello" al script manager y al compañero bean del equipo
 msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
@@ -232,23 +232,23 @@ msg.post("main:/team_2/buddy#controller", "hello_buddy")
 Los objetos URL también se pueden construir mediante Lua:
 
 ```lua
--- Construct URL object from a string:
+-- Construir un objeto URL a partir de una cadena:
 local my_url = msg.url("main:/manager#controller")
-print(my_url) --&gt; url: [main:/manager#controller]
-print(my_url.socket) --&gt; 786443 (internal numeric value)
-print(my_url.path) --&gt; hash: [/manager]
-print(my_url.fragment) --&gt; hash: [controller]
+print(my_url) --> url: [main:/manager#controller]
+print(my_url.socket) --> 786443 (internal numeric value)
+print(my_url.path) --> hash: [/manager]
+print(my_url.fragment) --> hash: [controller]
 
--- Construct URL from parameters:
+-- Construir una URL a partir de parámetros:
 local my_url = msg.url("main", "/manager", "controller")
-print(my_url) --&gt; url: [main:/manager#controller]
+print(my_url) --> url: [main:/manager#controller]
 
--- Build from empty URL object:
+-- Construir a partir de un objeto URL vacío:
 local my_url = msg.url()
-my_url.socket = "main" -- specify by valid name
-my_url.path = hash("/manager") -- specify as string or hash
-my_url.fragment = "controller" -- specify as string or hash
+my_url.socket = "main" -- especifica un nombre válido
+my_url.path = hash("/manager") -- especifica una cadena o un hash
+my_url.fragment = "controller" -- especifica una cadena o un hash
 
--- Post to target specified by URL
+-- Enviar al destino especificado por la URL
 msg.post(my_url, "hello_manager!")
 ```

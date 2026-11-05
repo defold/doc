@@ -39,6 +39,30 @@ end
 `MOUSE_BUTTON_LEFT`（または `MOUSE_BUTTON_1`）の入力アクションは、シングルタッチ入力でも送信されます。
 :::
 
+### マウスクリックとタッチの区別 {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` は、最初の押下を含め、物理マウスの押下とタッチが模擬するクリックを区別します。`MOUSE_BUTTON_LEFT` を `mouse_button_left` に割り当て、スクリプトまたは GUI スクリプトで以下を使います。
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+タッチをマウスクリックとして模擬する場合、別の Touch Trigger がなくても `hash("touch")` を報告します。タップを識別するために、`action.touch` テーブルや、先行する移動イベントは必要ありません。すべての入力元の値と、複数のバインディングがアクション名を共有する場合の動作は、[入力デバイスの種類](/manuals/input/#input-device-source)を参照してください。
+
+iOS でこの区別を機能させるには、カスタムの `Info.plist` で `UIApplicationSupportsIndirectInputEvents` を有効にする必要があります。組み込みのマニフェストでは、すでに有効になっています。
+
 ## マウスホイール {#mouse-wheel}
 マウスホイール入力はスクロール操作を検出します。ホイールがスクロールされた場合、`action.value` フィールドは `1` になり、それ以外の場合は `0` になります。（スクロール操作は、ボタンを押す操作と同じように扱われます。現在、Defold はタッチパッドでの細かなスクロール入力をサポートしていません。）
 
@@ -55,11 +79,12 @@ end
 ## マウスの移動 {#mouse-movement}
 マウスの移動は別個に処理されます。入力バインディング（input binding）に少なくとも1つのマウストリガーを設定しない限り、マウスの移動イベントは受信されません。
 
-マウスの移動は入力バインディングではバインドされませんが、`action_id` は `nil` に設定され、`action` テーブルにはマウスの位置と移動量が格納されます。
+ポインター移動はアクション名に割り当てられません。`action_id` は `nil` で、`action` テーブルにはポインターの位置と移動差分が含まれます。入力元は、物理マウスなら `hash("mouse")`、タッチから模擬した移動なら `hash("touch")` です。加速度センサーのサンプルも `action_id == nil` を使うため、[入力デバイスの種類](/manuals/input/#input-device-source)の例のように入力元を確認して区別します。
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

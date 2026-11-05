@@ -3,11 +3,11 @@ title: Articulaciones de físicas en Defold
 brief: Defold admite articulaciones para físicas 2D. Este manual explica cómo crear articulaciones y trabajar con ellas.
 ---
 
-# Articulaciones
+# Articulaciones {#joints}
 
 Una articulación (joint) conecta dos objetos de colisión mediante una restricción. Defold admite articulaciones tanto en físicas 2D como 3D, mediante APIs distintas.
 
-Este manual describe las articulaciones 2D expuestas por el módulo `physics`. Desde Defold 1.13.2, los proyectos 3D pueden crear y controlar restricciones mediante [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), incluidas bisagras, correderas y resortes. Usa esa API con cuerpos rígidos obtenidos mediante [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+Este manual describe las articulaciones 2D expuestas por el módulo `physics`. Los proyectos 3D pueden crear y controlar restricciones mediante [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), incluidas bisagras, deslizadores y resortes. Usa esa API con cuerpos rígidos obtenidos mediante [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
 
 Los tipos de articulación compatibles con la API 2D `physics` son:
 
@@ -18,7 +18,7 @@ Los tipos de articulación compatibles con la API 2D `physics` son:
 * **Slider (physics.JOINT_TYPE_SLIDER)** - Una articulación deslizante permite la traslación relativa de dos objetos de colisión a lo largo de un eje especificado e impide la rotación relativa. En Box2D se conoce como [Prismatic joint](https://box2d.org/documentation/group__prismatic__joint.html#details).
 * **Wheel (physics.JOINT_TYPE_WHEEL)** - Una articulación de rueda restringe un punto en `bodyB` a una línea en `bodyA`. La articulación de rueda también proporciona un resorte de suspensión. En Box2D se conoce como  [Wheel joint](https://box2d.org/documentation/group__wheel__joint.html#details).
 
-## Crear articulaciones
+## Crear articulaciones {#creating-joints}
 
 Las articulaciones 2D descritas aquí se crean programáticamente usando [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
@@ -32,7 +32,7 @@ physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test
 
 Lo anterior creará una articulación fija con id `my_test_joint`, conectada entre los dos objetos de colisión `obj_a#collisionobject` y `obj_b#collisionobject`. La articulación está conectada 10 píxeles a la derecha del centro del objeto de colisión `obj_a#collisionobject` y 20 píxeles por encima del centro del objeto de colisión `obj_b#collisionobject`. La longitud máxima de la articulación es de 20 píxeles.
 
-## Destruir articulaciones
+## Destruir articulaciones {#destroying-joints}
 
 Una articulación se puede destruir usando [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id):
 
@@ -41,7 +41,7 @@ Una articulación se puede destruir usando [`physics.destroy_joint()`](/ref/phys
 physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
 ```
 
-## Leer y actualizar articulaciones
+## Leer y actualizar articulaciones {#reading-from-and-updating-joints}
 
 Las propiedades de una articulación se pueden leer usando [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) y definir usando [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties):
 
@@ -56,6 +56,6 @@ function update(self, dt)
 end
 ```
 
-## Obtener la fuerza y el torque de reacción de una articulación
+## Obtener la fuerza y el torque de reacción de una articulación {#get-joint-reaction-force-and-torque}
 
 La fuerza y el torque de reacción aplicados a una articulación se pueden leer usando [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) y [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id).

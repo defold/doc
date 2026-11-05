@@ -23,10 +23,10 @@ Une fois le modèle créé, vous devez définir plusieurs propriétés :
 Outre les propriétés *Id*, *Position* et *Rotation*, les propriétés suivantes sont propres à ce composant :
 
 *Scene*
-: Le fichier glTF *.gltf* ou *.glb* qui contient la géométrie du modèle. Si le fichier contient des cibles de morphing, elles sont importées avec la scène. Cette propriété s'appelait *Mesh* avant Defold 1.13.2.
+: Le fichier glTF *.gltf* ou *.glb* qui contient la géométrie du modèle. Si le fichier contient des cibles de morphing, elles sont importées avec la scène. Cette propriété s'appelait auparavant *Mesh*.
 
 *Mesh*
-: Un maillage nommé facultatif de la *Scene* sélectionnée, disponible depuis Defold 1.13.2. Laissez ce champ vide pour afficher toute la scène avec ses transformations importées. Sélectionnez un maillage pour l'afficher une fois dans ses coordonnées locales, sans les transformations des nœuds glTF. Positionnez, faites pivoter et mettez à l'échelle le composant Model ou son objet de jeu pour placer le maillage sélectionné.
+: Un maillage nommé facultatif de la *Scene* sélectionnée. Laissez ce champ vide pour afficher toute la scène avec ses transformations importées. Sélectionnez un maillage pour l'afficher une fois dans ses coordonnées locales, sans les transformations des nœuds glTF. Positionnez, faites pivoter et mettez à l'échelle le composant Model ou son objet de jeu pour placer le maillage sélectionné.
 
 *Create GO Bones*
 : Cochez cette option pour créer un objet de jeu pour chaque os du modèle. Vous pouvez utiliser ces objets de jeu pour y attacher d'autres objets de jeu, par exemple des armes aux os des mains. 
@@ -43,17 +43,14 @@ Outre les propriétés *Id*, *Position* et *Rotation*, les propriétés suivante
 En plus des propriétés ci-dessus, un champ permet d'affecter un matériau à chaque maillage du modèle :
 
 *Material*
-: Définissez cette propriété sur un matériau que vous avez créé et qui convient à un objet 3D texturé. Plusieurs matériaux intégrés peuvent vous servir de point de départ :
-
-  * Utilisez *model.material* pour les modèles statiques sans instanciation
-  * Utilisez *model_instanced.material* pour les modèles statiques avec instanciation
-  * Utilisez *model_skinned.material* pour les modèles déformés par squelette (animés) sans instanciation
-  * Utilisez *model_skinned_instanced.material* pour les modèles déformés par squelette (animés) avec instanciation
+: Définissez cette propriété sur un matériau adapté au modèle. Utilisez un matériau `gltf` intégré pour le rendu physiquement réaliste des propriétés de matériau glTF, un matériau `model` intégré pour l'ombrage général des modèles, ou votre propre matériau personnalisé. Consultez les [variantes de matériaux ci-dessous](#material) et le [manuel PBR](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 Selon le matériau, une ou plusieurs propriétés de texture sont disponibles :
 
 *Texture*
-: Cette propriété devrait pointer vers le fichier image de la texture que vous souhaitez appliquer à l'objet.
+: Cette propriété devrait pointer vers l'image de texture que vous souhaitez appliquer à l'objet. Il peut s'agir d'une ressource distincte du projet ou d'une image intégrée exposée sous un fichier glTF ou GLB dans le panneau *Assets*.
+
+Sélectionner une *Scene* glTF ou GLB, ou modifier sa sélection *Mesh*, peut proposer de renseigner les liaisons de matériaux et de textures. <kbd>Auto Fill</kbd> remplace les liaisons existantes par celles de la source ; <kbd>Keep Current</kbd> conserve vos liaisons tout en appliquant la nouvelle sélection de scène ou de maillage. Consultez le [flux d'importation de modèles](/manuals/importing-models/#using-a-model).
 
 
 ## Manipulation dans l'éditeur {#editor-manipulation}
@@ -110,14 +107,18 @@ Un modèle possède également diverses propriétés que vous pouvez manipuler �
 
 Les logiciels 3D vous permettent généralement de définir des propriétés sur les sommets de vos objets, comme la couleur et les textures. Ces informations sont enregistrées dans le fichier glTF *.gltf* ou *.glb* que vous exportez depuis votre logiciel 3D. Selon les besoins de votre jeu, vous devrez sélectionner et/ou créer des matériaux adaptés et _performants_ pour vos objets. Un matériau combine des _programmes de shader_ avec un ensemble de paramètres pour le rendu de l'objet.
 
-Plusieurs matériaux intégrés peuvent vous servir de point de départ :
+Les matériaux intégrés suivants sont disponibles dans `/builtins/materials/` :
 
-  * Utilisez *model.material* pour les modèles statiques sans instanciation
-  * Utilisez *model_instanced.material* pour les modèles statiques avec instanciation
-  * Utilisez *model_skinned.material* pour les modèles déformés par squelette (animés) sans instanciation
-  * Utilisez *model_skinned_instanced.material* pour les modèles déformés par squelette (animés) avec instanciation
+| Type de modèle | Ombrage général des modèles | Ombrage PBR glTF |
+|---|---|---|
+| Statique, sans instanciation | `model.material` | `gltf.material` |
+| Statique, avec instanciation | `model_instanced.material` | `gltf_instanced.material` |
+| Avec skinning (animé), sans instanciation | `model_skinned.material` | `gltf_skinned.material` |
+| Avec skinning (animé), avec instanciation | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Les matériaux de modèle intégrés utilisent l'espace local des sommets. Pour les modèles déformés par squelette, l'espace local des sommets permet au shader de sommets d'effectuer la déformation sur le GPU à l'aide d'une texture de matrices d'os ; l'espace local des sommets est également requis pour l'instanciation des modèles. Un matériau personnalisé destiné aux modèles déformés par squelette sur le GPU ou utilisant l'instanciation devrait donc utiliser le paramètre *Local* pour l'espace des sommets.
+Les matériaux `gltf` fournissent un éclairage métal/rugosité intégré à partir des données de matériau glTF importées. Consultez le [manuel PBR](/manuals/physically-based-rendering/#built-in-pbr-materials) pour les liaisons de textures, les lumières et les shaders personnalisés.
+
+Tous ces matériaux intégrés utilisent l'espace local des sommets. Pour les modèles déformés par squelette, l'espace local des sommets permet au shader de sommets d'effectuer la déformation sur le GPU à l'aide d'une texture de matrices d'os ; l'espace local des sommets est également requis pour l'instanciation des modèles. Un matériau personnalisé destiné aux modèles déformés par squelette sur le GPU ou utilisant l'instanciation devrait donc utiliser le paramètre *Local* pour l'espace des sommets.
 
 Le cache des matrices d'os utilise une texture `RGBA32F`. Si l'adaptateur graphique actif ne prend pas en charge ce format de texture, Defold ne peut pas créer de composant modèle animé utilisant un matériau en espace local. Sur OpenGL ES 2.0 et WebGL 1.0, la prise en charge dépend donc de l'extension de l'adaptateur pour les textures à virgule flottante. Pour assurer la compatibilité avec un adaptateur qui n'en dispose pas, utilisez un matériau personnalisé en espace monde, qui effectue la déformation par squelette sur le CPU et ne permet pas l'instanciation des modèles. Vous pouvez ajuster les dimensions du cache à l'aide des [paramètres Model du projet](/manuals/project-settings/#model).
 
@@ -134,7 +135,7 @@ Si vous devez créer des matériaux personnalisés pour vos modèles, consultez 
 
 ## Rendu {#rendering}
 
-Le script de rendu par défaut est conçu pour les jeux 2D et ne fonctionne pas avec les modèles 3D. Toutefois, en copiant le script de rendu par défaut et en y ajoutant quelques lignes de code, vous pouvez activer le rendu de vos modèles. Par exemple :
+Le script de rendu par défaut dessine les matériaux portant le tag `model`, y compris les matériaux de modèle et glTF intégrés. Pour les rendre dans un script de rendu personnalisé, créez un prédicat correspondant et dessinez-le avec une vue et une projection adaptées à votre scène. Par exemple :
 
   ```lua
 

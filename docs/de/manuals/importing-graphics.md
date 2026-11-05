@@ -10,8 +10,18 @@ Defold unterstützt viele Arten visueller Komponenten (components), die häufig 
 ![Dateien importieren](images/graphics/import.png)
 
 ::: sidenote
-Defold unterstützt Bilder in den Formaten PNG und JPEG. Andere Bildformate musst du vor der Verwendung konvertieren.
+Verwende PNG- oder JPEG-Bilder für Atlanten und Kachelquellen. Auch KTX2-Quelltexturen können zur Verwendung als Modelltexturen importiert werden; siehe unten.
 :::
+
+## KTX2-Texturen {#ktx2-textures}
+
+Importiere eine eigenständige *.ktx2*-Datei, indem du sie in den Bereich *Assets* ziehst, und weise sie anschließend dem Texturfeld eines Materials einer Modellkomponente zu. [glTF- und GLB-Modelle](/manuals/importing-models/#ktx2-textures) können ebenfalls externe KTX2-Dateien referenzieren oder eingebettete KTX2-Bilder enthalten. Eingaben für Atlanten, Kachelquellen und Cubemap-Flächen verwenden weiterhin ihre bisherigen Bildformate.
+
+Unterstützte KTX2-Eingaben sind 2D-Texturen mit ETC1S/BasisLZ, UASTC, BC7 oder 8-Bit-R/RG/RGB/RGBA-Daten in UNORM oder sRGB. KTX2-Arrays, Cubemaps, Volumen- und HDR-Texturen werden nicht unterstützt. KTX2 wird beim Build in Defolds *.texturec*-Ressourcen umgewandelt; die Laufzeitumgebung liest keine KTX2-Container.
+
+Öffne ein KTX2-Asset, um Quellformat, Abmessungen, Farbraum, Alpha-Metadaten und Mipmap-Stufen zu untersuchen. In *Outline* kannst du einzelne vorgegebene Mipmap-Stufen auswählen. Diese zeigen die Quellbilder auch dann, wenn ein Texturprofil die kompilierte Textur skaliert oder ihre Mipmaps deaktiviert.
+
+Wähle über [Texturprofile](/manuals/texture-profiles/#ktx2-source-textures), ob das Quellformat erhalten oder in andere Formate umgewandelt wird. Wähle Ausgabeformate, die deine Zielgeräte unterstützen. Eine erneute Komprimierung einer bereits verlustbehafteten Quelle kann die Qualität weiter reduzieren, auch wenn **Keep KTX2 Format** nach der Bildverarbeitung eine erneute Kodierung erfordert.
 
 
 ## Defold-Assets erstellen {#creating-defold-assets}

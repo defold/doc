@@ -51,6 +51,12 @@ Per associare lo script a un componente GUI, apri il file del prototipo del comp
 
 Se il componente GUI è stato aggiunto a un oggetto di gioco in un punto qualsiasi del gioco, lo script verrà ora eseguito.
 
+## Input
+
+Per ricevere input in uno script GUI, invia `msg.post(".", "acquire_input_focus")` da `init()` e gestisci le azioni in `on_input(self, action_id, action)`.
+
+Gli script GUI usano gli stessi hash `action.source` degli script degli oggetti di gioco, così puoi distinguere un clic di un mouse fisico da un tocco anche alla pressione iniziale. Consulta [Origine del dispositivo di input](/manuals/input/#input-device-source) e l'[esempio di mouse e tocco](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch). I movimenti del puntatore e i campioni dell'accelerometro usano entrambi `action_id == nil`; usa l'origine per distinguerli.
+
 ## Lo spazio dei nomi "gui" {#the-gui-namespace}
 
 Gli script GUI hanno accesso allo spazio dei nomi `gui` e a [tutte le funzioni `gui`](/ref/gui). Lo spazio dei nomi `go` non è disponibile, quindi devi separare la logica degli oggetti di gioco in componenti script e far comunicare gli script GUI con quelli degli oggetti di gioco. Qualsiasi tentativo di usare le funzioni `go` causerà un errore:

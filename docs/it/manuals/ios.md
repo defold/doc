@@ -103,6 +103,23 @@ Premi *Create Bundle*: ti verrà chiesto di specificare dove creare il bundle su
 
 Specifica l'icona da usare per l'applicazione, lo storyboard della schermata di avvio e altre opzioni nel file delle impostazioni del progetto *game.project*, nella [sezione iOS](/manuals/project-settings/#ios).
 
+### Comportamento dell'indicatore Home {#home-indicator-behavior}
+
+Puoi scegliere *Home Indicator Mode* nella sezione *iOS* di *game.project*. Il valore predefinito, *Deferred*, protegge tutti i bordi dello schermo e richiede due scorrimenti per tornare alla schermata Home. Scegli *System* per usare i normali gesti di sistema, compreso un singolo scorrimento per tornare alla Home.
+
+Scegli *Auto Hide* per usare i normali gesti di sistema e richiedere anche che l'indicatore Home venga nascosto automaticamente. Puoi impostare questa modalità direttamente in *game.project*:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Crea di nuovo il bundle e provalo su un dispositivo con indicatore Home. iOS decide quando mostrare l'indicatore; scegliere *Auto Hide* non garantisce che rimanga nascosto. Su iOS 26 e versioni successive, il sistema può nasconderlo sia in modalità *System* sia in *Auto Hide*. Consulta [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) per tutti i valori e il comportamento dei gesti.
+
+### Aree riservate e rotazione {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()` riporta i ritagli della fotocamera e la Dynamic Island su iOS 27.1 e versioni successive, compresi i margini di interazione di UIKit. Le transizioni di orientamento iOS inviano anche `window.WINDOW_EVENT_RESIZED`, comprese le rotazioni che lasciano invariate le dimensioni della finestra e i margini dell'area sicura. Aggiorna qualsiasi posizionamento dell'interfaccia basato su queste aree a ogni callback di ridimensionamento. Consulta [Aree riservate dello schermo](/manuals/porting-guidelines/#reserved-screen-areas) per coordinate, limitazioni e un esempio di aggiornamento.
+
 ### Info.plist personalizzato e rilevamento delle destinazioni locali {#custom-infoplist-and-local-target-discovery}
 
 Il file `Info.plist` integrato per iOS contiene il servizio Bonjour e la descrizione dell'uso della rete locale necessari per il rilevamento automatico delle destinazioni da parte dell'editor nelle build che non sono di release. Un file `Info.plist` personalizzato sostituisce questo manifesto di base integrato. Se usi un manifesto personalizzato per una build di debug e hai bisogno del rilevamento delle destinazioni, della profilazione, dell'hot reload o dello streaming dei log sulla rete locale, includi queste voci:

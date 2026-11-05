@@ -133,7 +133,7 @@ Nie można bezpośrednio odwoływać się do obiektów gry w wczytanej kolekcji 
 
 ```lua
 local position = go.get_position("mylevel:/myobject")
--- loader.script:42: wywołana funkcja może uzyskiwać dostęp tylko do instancji w tej samej kolekcji.
+-- loader.script:42: function called can only access instances within the same collection.
 ```
 :::
 

@@ -26,6 +26,32 @@ Les nœuds de texte possèdent un ensemble de propriétés spécifiques :
 *Line Break*
 : L'alignement du texte suit le réglage du pivot et l'activation de cette propriété permet au texte de s'étendre sur plusieurs lignes. La largeur du nœud détermine les endroits où le texte passe à la ligne.
 
+## Polices vectorielles et émojis en couleur {#vector-fonts-and-color-emoji}
+
+Suivez la [configuration des polices vectorielles](/manuals/font/#vector-fonts), ajoutez la ressource `.font` aux *Fonts* de la scène GUI et sélectionnez-la sur le nœud de texte. Définissez le *Material* de la ressource de police sur `/builtins/fonts/font-vector.material`. Utilisez *Font Size* du nœud pour contrôler la taille affichée.
+
+Pour les émojis en couleur, effectuez également la [configuration de la police de repli COLRv1 et de sa mise en bundle](/manuals/font/#color-emoji). Créez un nœud de texte avec l'identifiant `text`, laissez son champ *Text* vide et ajoutez ce qui suit au `.gui_script` de la scène GUI :
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) renvoie le nom de la police dans la scène GUI ; [`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) résout ce nom en ressource de police utilisable par `font.add_font()`. Les autres nœuds et labels partageant cette ressource reçoivent aussi la police de repli ; initialisez-la donc une seule fois. Le texte est défini une fois le préchargement terminé avec succès.
+
+
 ## Alignement {#alignment}
 
 En définissant le pivot du nœud, vous pouvez modifier le mode d'alignement du texte.

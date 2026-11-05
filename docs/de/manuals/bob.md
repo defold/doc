@@ -240,7 +240,7 @@ $
 
 ## Build-Server {#build-server}
 
-Seit Defold 1.14.0 wählt Bob den Standard-Build-Server für native Erweiterungen anhand des Veröffentlichungskanals seiner Distribution aus:
+Bob wählt den standardmäßigen Build-Server für native Erweiterungen anhand des Veröffentlichungskanals seiner Distribution aus:
 
 | Veröffentlichungskanal von Bob | Standard-Build-Server |
 |---|---|

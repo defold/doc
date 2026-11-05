@@ -116,12 +116,12 @@ number
 : Números são representados internamente como _inteiros_ de 64 bits ou números de _ponto flutuante_ de 64 bits. Lua converte automaticamente entre essas representações conforme necessário, então em geral você não precisa se preocupar com isso.
 
   ```lua
-  print(10) --> prints '10'
+  print(10) --> imprime '10'
   print(10.0) --> '10'
   print(10.000000000001) --> '10.000000000001'
 
   a = 5 -- inteiro
-  b = 7/3 -- float
+  b = 7/3 -- flutua
   print(a - b) --> '2.6666666666667'
   ```
 

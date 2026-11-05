@@ -3,11 +3,11 @@ title: Defold para usuarios de Unity
 brief: Esta guía te ayuda a cambiar rápidamente a Defold si tienes experiencia previa con Unity. Cubre algunos de los conceptos clave usados en Unity y explica las herramientas y métodos correspondientes en Defold.
 ---
 
-# Defold para usuarios de Unity
+# Defold para usuarios de Unity {#defold-for-unity-users}
 
 Si tienes experiencia previa con Unity, esta guía te ayuda a ser productivo rápidamente en Defold. Se centra en lo esencial y te dirige a los manuales oficiales de Defold cuando se necesitan detalles más profundos.
 
-## Introducción
+## Introducción {#introduction}
 
 Defold es un motor de videojuegos 3D completamente gratuito y realmente multiplataforma, con un editor para Windows, Linux y macOS. El código fuente completo está disponible en [Github](https://github.com/defold/defold/).
 
@@ -26,7 +26,7 @@ También recomendamos ver un video de Game From Scratch sobre [Defold para desar
 
 ---
 
-## Instalación
+## Instalación {#installation}
 
 1. Descarga Defold para tu sistema operativo.
 2. Descomprímelo y ejecútalo.
@@ -35,13 +35,13 @@ Eso es todo. No hay hub, ni SDK adicional, ni toolchains ni bundles de plataform
 
 Si necesitas más detalles, lee este breve [manual de instalación](/manuals/install/).
 
-### Versiones
+### Versiones {#versions}
 
 Defold se actualiza con frecuencia y no tiene una rama “LTS”. Recomendamos usar siempre la versión más nueva. Se publican versiones nuevas con regularidad, normalmente cada mes, con unas dos semanas de beta pública. Puedes actualizar Defold directamente desde el editor.
 
 ---
 
-## Pantalla de bienvenida
+## Pantalla de bienvenida {#welcome-screen}
 
 Defold te recibe con una pantalla de bienvenida similar a Unity Hub, donde puedes abrir proyectos recientes:
 
@@ -78,11 +78,11 @@ Acabas de crear la build de tu primer proyecto en Defold y deberías ver tu text
 
 ---
 
-## Visión general del editor Defold
+## Visión general del editor Defold {#defold-editor-overview}
 
 Presentaremos el editor Defold desde la perspectiva de lo que un usuario de Unity podría querer saber al principio, pero te recomendamos revisar después el [manual completo de visión general del editor](/manuals/editor).
 
-### Comparación de editores
+### Comparación de editores {#editors-comparison}
 
 La primera diferencia que notarás entre Unity y Defold es el layout predeterminado del editor. Mostramos un Unity Editor con un layout ligeramente modificado para coincidir con el layout predeterminado de Defold. Están colocados uno junto al otro para facilitar la comparación visual de los paneles principales, ya que probablemente reconocerás con más facilidad las pestañas de Unity.
 
@@ -96,7 +96,7 @@ También puedes ajustar `Grid Settings` en la barra de herramientas para usar el
 
 ![Defold 3D settings](images/unity/defold_3d.png)
 
-### Visión general de los paneles de Defold
+### Visión general de los paneles de Defold {#defold-panes-overview}
 
 El editor Defold se divide en 6 paneles principales.
 
@@ -128,11 +128,11 @@ Otros nombres útiles relacionados con el editor:
 
 ---
 
-## Conceptos clave
+## Conceptos clave {#key-concepts}
 
 Si generalizas lo suficiente, los conceptos clave detrás de la mayoría de los motores de videojuegos son muy similares. Están pensados para ayudar a los desarrolladores a construir juegos con más facilidad, como ensamblando bloques, mientras gestionan por sí mismos las tareas complejas y relacionadas con plataformas.
 
-### Bloques de construcción
+### Bloques de construcción {#building-blocks}
 
 Defold funciona con solo unos pocos bloques de construcción básicos:
 
@@ -140,15 +140,15 @@ Defold funciona con solo unos pocos bloques de construcción básicos:
 
 Para más detalles, consulta el manual completo sobre los [bloques de construcción de Defold](/manuals/building-blocks/).
 
-### Objetos de juego
+### Objetos de juego {#game-objects}
 Defold usa **objetos de juego (Game Objects)**, de forma similar a Unity. En ambos motores, los objetos de juego son contenedores de datos con un ID, y todos tienen transformaciones: posición, rotación y escala, pero en Defold la transformación está integrada en lugar de ser un componente separado.
 
 Puedes crear relaciones padre-hijo entre objetos de juego. En Defold, esto solo puede hacerse en el editor dentro de una colección (Collection, explicada más abajo) o dinámicamente mediante script. Los objetos de juego no pueden contener otros objetos de juego como objetos anidados de la misma forma que en Unity.
 
-### Componentes
+### Componentes {#components}
 En ambos motores, los objetos de juego se pueden extender con **componentes (Components)**. Defold proporciona un conjunto mínimo de componentes esenciales. Hay menos distinción entre 2D y 3D que en Unity (por ejemplo, colliders), así que hay menos componentes en total, y quizá eches de menos algunos de Unity.
 
-#### Componentes de comportamiento
+#### Componentes de comportamiento {#behaviour-components}
 
 En Unity, "component" normalmente significa un `MonoBehaviour` que está adjunto a un `GameObject`. Puedes crear los tuyos heredando de `MonoBehaviour` o usar componentes integrados como Light, elementos de física, etc.
 
@@ -164,7 +164,7 @@ La tabla siguiente presenta componentes similares de Unity para una consulta rá
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | En Defold, solo puedes cambiar el tinte (propiedad de color) mediante código. |
 | [Tilemap](/manuals/tilemap/) | Tilemap / Grid | Defold tiene un Tilemap Editor integrado que admite cuadrículas cuadradas (pero hay una extensión para, por ejemplo, [Hexagon](https://github.com/selimanac/defold-hexagon/)) y no tiene reglas integradas de autotiling. Herramientas como [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) o [Sprite Fusion](https://defold.com/assets/spritefusion/) tienen opciones de exportación a Defold. |
-| [Label](/manuals/label/) | Text / TextMeshPro | Desde Defold 1.13.2, los componentes Label y los nodos de texto GUI admiten [marcado de texto enriquecido](/manuals/font-richtext/) integrado para colores, degradados, contornos y efectos animados. También hay una [extensión RichText](https://defold.com/assets/richtext/) independiente. |
+| [Label](/manuals/label/) | Text / TextMeshPro | Los componentes Label y los nodos de texto GUI admiten [marcado de texto enriquecido](/manuals/font-richtext/) integrado para colores, degradados, contornos y efectos animados. También está disponible una [extensión RichText](https://defold.com/assets/richtext/) independiente. |
 | [Sound](/manuals/sound/) | AudioSource | Defold solo tiene una fuente de sonido global (no espacial). Hay una [extensión FMOD](https://github.com/defold/extension-fmod) oficial para Defold. |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | En Defold, una Factory es un componente con un prototipo específico (prefab). |
 | [Collection Factory](/manuals/collection-factory/) | - (Sin equivalente directo de componente) | Un componente Collection Factory en Defold puede generar varios objetos de juego con relaciones padre-hijo a la vez. |
@@ -178,7 +178,7 @@ La tabla siguiente presenta componentes similares de Unity para una consulta rá
 | [ParticleFX](/manuals/particlefx/) | Particle System | El editor de partículas de Defold admite efectos de partículas 2D/3D con muchas propiedades, y permite animarlas en el tiempo usando curvas en Curve Editor. No tiene Trails ni Collisions. |
 | [Script](/manuals/script/) | Script | Más abajo se explican más detalles sobre las diferencias de programación. |
 
-#### Extensiones y componentes personalizados
+#### Extensiones y componentes personalizados {#extensions-and-custom-components}
 
 Defold también tiene componentes oficiales [Spine](/extension-spine/) y [Rive](/extension-rive/) disponibles mediante extensiones.
 
@@ -186,7 +186,7 @@ También puedes crear tus propios [componentes personalizados](https://github.co
 
 Algunos componentes de Unity no tienen equivalente listo para usar en Defold, por ejemplo: Audio Listener, Light, Terrain, LineRenderer, TrailRenderer, Cloth o Animator. Sin embargo, toda esta funcionalidad se puede implementar en scripts, y ya hay soluciones disponibles; por ejemplo, distintos pipelines de iluminación, el componente Mesh para generar meshes arbitrarios (incluido terreno) o [Hyper Trails](https://defold.com/assets/hypertrails/) para efectos de rastro personalizables. Defold también puede añadir nuevos componentes integrados en el futuro, como luces.
 
-### Recursos
+### Recursos {#resources}
 
 Algunos componentes requieren **recursos (Resources)**, de forma similar a Unity; por ejemplo, los sprites y modelos necesitan texturas. Algunos se comparan en la tabla siguiente:
 
@@ -197,13 +197,13 @@ Algunos componentes requieren **recursos (Resources)**, de forma similar a Unity
 | [Font](/manuals/font/) | Font | Lo usa el componente Label de Defold o los nodos de texto en GUI, de forma similar a Text/TextMeshPro en Unity. |
 | [Material](/manuals/material/) | Material | En Defold, los shaders se denominan: vertex program y fragment program. |
 
-### Colección vs escena
+### Colección vs escena {#collection-vs-scene}
 
 En Defold, los objetos de juego y componentes pueden colocarse en archivos separados, como los prefabs de Unity, o definirse en un archivo **Collection** que los combina.
 
 Una colección (Collection) en Defold es esencialmente un archivo de texto con una descripción estática de la escena. **No** es un objeto en tiempo de ejecución. Solo define qué objetos de juego deben instanciarse en el juego y cómo deben establecerse las relaciones padre-hijo entre esos objetos.
 
-#### Mundos de juego
+#### Mundos de juego {#game-worlds}
 
 Las escenas de Unity comparten de forma predeterminada el mismo estado global del juego y la misma simulación de físicas, efectivamente el mismo *mundo* (*world*). En Defold tienes dos opciones:
 1. Instanciar objetos de juego desde un único archivo de objeto de juego mediante una `Factory`, o desde un archivo de colección mediante una `Collection Factory`, en un *mundo* dado que ya ha sido instanciado, como prefabs.
@@ -214,7 +214,7 @@ Lee más sobre las colecciones en el [manual de bloques de construcción](/manua
 
 ---
 
-## Recursos y assets del proyecto
+## Recursos y assets del proyecto {#project-resources-and-assets}
 
 Unity y Defold almacenan el contenido del juego en el directorio del proyecto, pero difieren en cómo se rastrean y preparan los assets.
 
@@ -222,7 +222,7 @@ Unity y Defold almacenan el contenido del juego en el directorio del proyecto, p
 
 Unity mantiene los assets en `Assets/` y genera archivos `.meta`. Defold no tiene archivos meta. El proyecto en Defold es solo tu estructura de carpetas, exactamente como en disco, y el panel `Assets` siempre la refleja.
 
-### Formatos de recursos
+### Formatos de recursos {#resource-formats}
 
 Unity importa y convierte assets a otros formatos entre bastidores. En Defold, trabajas directamente con recursos fuente (`.png`, `.gltf`, `.wav`, `.ogg`, etc.) y los asignas a `Components`.
 
@@ -230,13 +230,13 @@ Unity puede usar una sola imagen como Sprite. En Defold, las imágenes pueden us
 
 La mayoría de los recursos de Defold se almacenan como texto, lo que resulta amigable para el control de versiones.
 
-### Caché de biblioteca
+### Caché de biblioteca {#library-cache}
 
 Unity genera una carpeta `Library/` para los assets importados. Defold no tiene un directorio así; los assets se procesan durante las builds, con salidas en caché dentro de la carpeta de build (y cachés de build locales/remotas opcionales).
 
 ---
 
-## Escritura de código
+## Escritura de código {#code-writing}
 
 El equivalente en Defold a los scripts `MonoBehaviour` es un componente Script, pero hay algunas diferencias que conviene conocer.
 
@@ -257,7 +257,7 @@ En Defold, las Native Extensions pueden escribirse en varios otros lenguajes: C,
 Lee más sobre extensiones en el [manual de Native Extensions de Defold](/manuals/extensions/).
 
 
-### De MonoBehaviours a módulos Lua
+### De MonoBehaviours a módulos Lua {#from-monobehaviours-to-lua-modules}
 
 Unity tiene un modelo de scripting abierto. Como `MonoBehaviour` es la forma principal de añadir comportamiento en el editor, muchos proyectos de Unity empiezan con un script de estilo controlador por cada GameObject importante: `PlayerController`, `EnemyController`, `BulletController`, `GameManager`, `EnemyManager`, etc.
 
@@ -340,13 +340,13 @@ Buenos manuales sobre escritura de código:
 - [Depuración](/manuals/debugging/)
 
 
-### Editor de código integrado
+### Editor de código integrado {#built-in-code-editor}
 
 El editor Defold incluye un editor de código integrado con autocompletado, resaltado de sintaxis, consulta rápida de documentación, linting y un debugger integrado.
 
 ![Defold Code Editor](/images/editor/code-editor.png)
 
-### VS Code y otros editores
+### VS Code y otros editores {#vs-code-and-other-editors}
 
 Puedes seguir usando tu propio editor externo si lo prefieres. Todos los componentes de Defold y archivos relacionados están basados en texto, así que puedes editarlos con cualquier editor de texto, pero debes seguir el formato y la estructura de elementos adecuados, ya que están basados en Protobuf.
 
@@ -360,7 +360,7 @@ Defold usa GLSL (OpenGL Shading Language) para shaders: `Vertex Programs` y `Fra
 
 Lee más sobre shaders en el [manual de Shaders](/manuals/shader).
 
-#### Materiales
+#### Materiales {#materials}
 
 Defold usa un concepto de `Material` que conecta shaders `.fp` y `.vp`, samplers (texturas) y otras cosas como Vertex Attributes o Constants.
 
@@ -368,7 +368,7 @@ Lee más sobre materiales en el [manual de Materials](/manuals/material).
 
 ---
 
-## Sistema de mensajes
+## Sistema de mensajes {#messaging-system}
 
 En Defold, los objetos no mantienen referencias directas entre sí. No hay `GetComponent`, ni llamadas de métodos entre scripts de objetos distintos, ni acceso global a la escena como en Unity.
 
@@ -377,7 +377,7 @@ En su lugar, los scripts se comunican mediante paso de mensajes: envías mensaje
 Esto puede resultar desconocido al principio, pero fomenta un acoplamiento débil y reduce las interdependencias fuertes.
 
 
-### Enviar un mensaje
+### Enviar un mensaje {#sending-a-message}
 
 En Unity, la comunicación suele verse así:
 
@@ -406,7 +406,7 @@ end
 
 Ignora `#` y `hash` por ahora; llegaremos a eso más adelante. El resto debería ser sencillo. Puedes enviar un mensaje a cualquier componente (incluso al mismo script) de cualquier objeto de juego instanciado.
 
-#### Componentes que no son scripts
+#### Componentes que no son scripts {#components-other-than-scripts}
 
 A veces envías mensajes, por ejemplo, a componentes `Sprite` o `Collision`, para habilitarlos o deshabilitarlos. A veces `Components` envían mensajes a tu script, por ejemplo cuando ocurre una colisión, para que puedas gestionarla. Defold usa internamente el mismo sistema de mensajes para eventos del motor y comunicación de la lógica del juego.
 
@@ -414,7 +414,7 @@ El sistema de mensajes es algo similar a SendMessage o a los sistemas de eventos
 
 Puedes leer más detalles en el [manual de paso de mensajes](/manuals/message-passing/).
 
-### Direccionamiento
+### Direccionamiento {#addressing}
 
 Los objetos y componentes en Defold se identifican mediante direcciones, conocidas como URL.
 
@@ -450,11 +450,11 @@ Dicho de forma simple:
 2. `/path` identifica el objeto de juego, con `/` antes del ID.
 3. `#fragment` identifica el componente específico en ese objeto (como un script, sprite o componente de colisión), con `#` antes del ID.
 
-#### Dirección estática
+#### Dirección estática {#static-address}
 
 Esos identificadores se determinan cuando se crea cada elemento y nunca cambian, aunque alteres las relaciones padre-hijo. Puedes configurarlos en la propiedad `Id` de los archivos, o los obtienes en tiempo de ejecución desde llamadas a `factory.create` o `collectionfactory.create` al instanciar.
 
-#### Direccionamiento relativo
+#### Direccionamiento relativo {#relative-addressing}
 
 No siempre necesitas usar una URL completa.
 
@@ -475,7 +475,7 @@ Dos atajos útiles son:
 
 El direccionamiento relativo y los atajos te permiten escribir URLs reutilizables en distintos contextos y objetos de juego sin especificar rutas completas.
 
-### Mensajes a GUI y render
+### Mensajes a GUI y render {#messaging-to-gui-and-render}
 
 Como Defold separa el mundo de GUI del mundo de los objetos de juego, también puedes enviar mensajes desde tus `.scripts` de objeto de juego a `.gui_scripts`.
 
@@ -489,7 +489,7 @@ Puedes encontrar más detalles en el [manual de direccionamiento](/manuals/addre
 
 ---
 
-## Prefabs e instancias
+## Prefabs e instancias {#prefabs-and-instances}
 
 Unity puede instanciar cualquier cosa en la Scene de forma estática o dinámica, y Defold puede hacer lo mismo. En Unity tomas un Prefab y llamas a `Instantiate(prefab)`. En Defold tienes 3 componentes para instanciar contenido:
 
@@ -531,7 +531,7 @@ local spawned_instances = collectionfactory.create("#my_collectionfactory")
 
 Consulta más detalles en el [manual de Collection Factory](/manuals/collection-factory/).
 
-#### Propiedades personalizadas de instancias
+#### Propiedades personalizadas de instancias {#custom-properties-of-instances}
 
 Al llamar a `factory.create()` o `collectionfactory.create()`, también puedes especificar parámetros opcionales como posición, rotación, escala y propiedades de script, para controlar exactamente cómo y dónde aparece la instancia, y cómo se comporta, por ejemplo:
 
@@ -542,7 +542,7 @@ factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 
 El orden de los argumentos opcionales es primero las propiedades y después la escala. Usa un `vector3` con Z definido explícitamente como `1.0` al escalar solo los ejes X e Y de un objeto 2D; una escala numérica se aplica uniformemente a los tres ejes.
 
-#### Carga dinámica
+#### Carga dinámica {#dynamic-loading}
 
 En los componentes `Factory` y `Collection Factory` puedes marcar un Prototype para carga dinámica de recursos, de modo que sus assets pesados solo se carguen en memoria cuando se necesiten y se descarguen cuando ya no se usen.
 
@@ -578,7 +578,7 @@ Consulta más detalles en el [manual de Collection Proxy](/manuals/collection-pr
 
 ---
 
-## Ciclo de vida de la aplicación
+## Ciclo de vida de la aplicación {#application-lifecycle}
 
 Conoces un conjunto de eventos de ciclo de vida de Unity: `Awake`, `Start`, `Update`, `FixedUpdate`, `LateUpdate`, `OnDestroy` u `OnApplicationQuit`.
 
@@ -590,7 +590,7 @@ Aquí hay una comparación:
 |-|-|-|
 | `init()` | `Awake()` / `Start()` / `OnEnable()`| Defold tiene un único punto de entrada y callback de inicialización: init(). Se llama en cada componente al crearse. |
 | `on_input` | Input Methods | Defold recibe input cuando [el foco de input está establecido para el script](/manuals/input/#input-focus). Se procesa primero en el bucle de actualización. |
-| `fixed_update()` | `FixedUpdate()` | Se llama a un timestep fijo. Para habilitarlo en Defold, tienes que establecer `Use Fixed Timestep`; [detalles](https://defold.com/manuals/project-settings/#use-fixed-timestep). Desde 1.12.0 se ejecuta antes de `update()`. |
+| `fixed_update()` | `FixedUpdate()` | Se llama con un paso de tiempo fijo. Para activarlo en Defold, debes establecer `Use Fixed Timestep` - [detalles](https://defold.com/manuals/project-settings/#use-fixed-timestep). Se ejecuta antes de `update()`. |
 | `update()` | `Update()` | Se llama una vez por fotograma con delta time. |
 | `late_update()` | `LateUpdate()` | Se llama después de `update()`, justo antes de renderizar el fotograma. Disponible desde 1.12.0. |
 | `on_message` | Message Receiver | Callback central de Defold para recibir mensajes. Se procesa cuando hay cualquier mensaje en una cola. |
@@ -600,27 +600,27 @@ Aquí hay una comparación:
 Recuerda que Defold no garantiza ningún orden de ejecución entre componentes cuando varios se inicializan, actualizan o eliminan a la vez. Se recomienda un diseño desacoplado.
 :::
 
-### Inicialización
+### Inicialización {#initialization}
 
 Piensa en `init()` de Defold como la combinación de elementos de `Awake()`, `Start()` y `OnEnable()` de Unity en un único punto de entrada donde el motor ya ha configurado todo y puedes preparar con seguridad el estado de tu componente.
 
-### ¿Cuándo se gestionan los mensajes?
+### ¿Cuándo se gestionan los mensajes? {#when-messages-are-handled}
 
 Como ya puedes enviar mensajes en `init()`, los mensajes se despachan primero justo después de la inicialización.
 
 Luego los mensajes se gestionan después de cada bucle interno de procesamiento, cada vez que hay algo en una cola, por lo que `on_message()` puede llamarse, por ejemplo, incluso varias veces en un bucle de actualización.
 
-### Bucle de actualización
+### Bucle de actualización {#update-loop}
 
 Cada fotograma, Defold ejecuta una secuencia de operaciones: gestionar input, despachar mensajes, activar actualizaciones de scripts y GUI, aplicar físicas, transformaciones y, al final, renderizar gráficos.
 
-### Finalización
+### Finalización {#finalization}
 
 En Defold, la limpieza siempre está ligada a la eliminación o descarga del mundo, y tu único punto de salida por componente es `final()`.
 
 Una diferencia sutil respecto al modelo de Unity es que no hay distinción entre que un componente se deshabilite y que toda la aplicación se cierre.
 
-### Renderizado
+### Renderizado {#rendering}
 
 El script de render (`*.render_script`) forma parte del pipeline de renderizado, que también participa en el ciclo de vida con sus propios callbacks `init()`, `update()` y `on_message()`, pero operan en el hilo de render y están separados de la lógica de scripts de objetos de juego y GUI.
 
@@ -634,7 +634,7 @@ La GUI de Defold es un framework completo y dedicado para interfaces de usuario:
 
 GUI es un componente, y está separada de los objetos de juego y las colecciones. En lugar de Game Objects, trabajas con nodos GUI organizados en una jerarquía y controlados por un GUI script.
 
-### Nodos GUI
+### Nodos GUI {#gui-nodes}
 
 Cuando abres un archivo de componente `*.gui` en Defold, se te presenta un lienzo donde colocas nodos GUI (`"GUI nodes"`). Estos son los bloques de construcción de la GUI. Puedes añadir nodos GUI de tipo:
 
@@ -649,13 +649,13 @@ Cuando abres un archivo de componente `*.gui` en Defold, se te presenta un lienz
 
 El componente GUI tiene una propiedad especial para GUI scripts: asignas un archivo `*.gui_script` por componente, y esto permite modificar el comportamiento del componente, así que es muy similar a los scripts normales, excepto que no usa el namespace `go.*` (que es para scripts de objetos de juego). En su lugar, usa una API especial del namespace `gui.*` que solo funciona dentro de GUI scripts (`*.gui_script`). Puedes pensarlo como una Scene separada, comparable a Unity UI (uGUI) con Canvas.
 
-### Renderizado de GUI
+### Renderizado de GUI {#gui-rendering}
 
 Los elementos GUI se renderizan independientemente de la cámara del juego, normalmente en espacio de pantalla (screen-space), pero este comportamiento puede cambiarse en pipelines de renderizado personalizados.
 
 Para más detalles, lee el [manual de GUI](/manuals/gui/).
 
-## ¿Dónde están las Sorting Layers?
+## ¿Dónde están las Sorting Layers? {#where-are-sorting-layers}
 
 Esta es una confusión muy común al migrar desde Unity.
 
@@ -669,7 +669,7 @@ Pero no deberías imitar las Sorting Layers de Unity con muchas etiquetas, porqu
 
 ---
 
-## ¿A dónde ir desde aquí?
+## ¿A dónde ir desde aquí? {#where-to-go-from-here}
 
 - [Ejemplos de Defold](/examples)
 - [Tutoriales](/tutorials)

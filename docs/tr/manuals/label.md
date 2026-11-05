@@ -3,11 +3,11 @@ title: Defold'da etiket metin bileşenleri
 brief: Bu kılavuz, oyun dünyasındaki oyun nesnelerinde metin kullanmak için etiket bileşenlerinin nasıl kullanılacağını açıklar.
 ---
 
-# Etiket
+# Etiket {#label}
 
 Bir *etiket* (Label) bileşeni (component), bir metin parçasını oyun uzayında ekranda görüntüler. Varsayılan olarak tüm sprite ve karo grafikleriyle birlikte sıralanır ve çizilir. Bileşenin, metnin nasıl işleneceğini (rendering) belirleyen bir dizi özelliği vardır. Defold'un GUI sistemi metni destekler ancak GUI öğelerini oyun dünyasına yerleştirmek zor olabilir. Etiketler bunu kolaylaştırır.
 
-## Etiket oluşturma
+## Etiket oluşturma {#creating-a-label}
 
 Bir etiket bileşeni oluşturmak için oyun nesnesine (game object) <kbd>sağ tıklayın</kbd> ve <kbd>Add Component ▸ Label</kbd> seçeneğini seçin.
 
@@ -21,7 +21,31 @@ Bir etiket bileşeni oluşturmak için oyun nesnesine (game object) <kbd>sağ t�
 
 ![Yazı tipi ve materyal](images/label/font_material.png)
 
-## Etiket özellikleri
+## Vektör yazı tipleri ve renkli emoji {#vector-fonts-and-color-emoji}
+
+Bir Vector yazı tipi kullanmak için [Vektör yazı tipi kurulumunu](/manuals/font/#vector-fonts) izleyin, `.font` kaynağını etiketin *Font* özelliğine atayın ve etiketin *Material* özelliğini `/builtins/fonts/label-vector.material` olarak ayarlayın. Görüntülenen boyutu kontrol etmek için *Font Size* özelliğini kullanın.
+
+Renkli emoji için [COLRv1 yedek yazı tipi ve paketleme kurulumunu](/manuals/font/#color-emoji) da tamamlayın. Aşağıdaki örnek, `label` kimliğine sahip bir etiket ve aynı oyun nesnesinde bir betik olduğunu varsayar. Selamlamayı yalnızca glifleri hazır olduktan sonra görüntülemek için etiketin *Text* alanını boş bırakın:
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+Normal harfler özgün yazı tipini, emoji ise eklenen renkli yazı tipini kullanır. Diğer etiketler veya GUI metin düğümleri bu yazı tipi kaynağını paylaşıyorsa yedek yazı tipini tek bir yerde başlatıp yeniden kullanın.
+
+## Etiket özellikleri {#label-properties}
 
 *Id*, *Position*, *Rotation* ve *Scale* özelliklerinin yanı sıra bileşene özgü aşağıdaki özellikler de bulunur:
 
@@ -63,12 +87,12 @@ Varsayılan materyalde performans nedeniyle gölge işlemenin devre dışı bır
 : Bu etiket için kullanılacak yazı tipi kaynağı.
 
 *Material*
-: Bu etiketi işlemek için kullanılacak materyal. Kullandığınız yazı tipi türü (bit eşlem, uzaklık alanı veya BMFont) için oluşturulmuş bir materyal seçtiğinizden emin olun.
+: Bu etiketi işlemek için kullanılacak materyal. Yazı tipinin modu veya kaynağıyla (Bitmap, SDF, Vector veya BMFont) eşleşen bir materyal seçin. Eşleşen yerleşik Label materyalleri için [Yazı tipi materyalleri](/manuals/font/#font-materials) bölümüne bakın.
 
-### Harmanlama modları
+### Harmanlama modları {#blend-modes}
 :[blend-modes](../shared/blend-modes.md)
 
-### Dayanak noktası ve hizalama
+### Dayanak noktası ve hizalama {#pivot-and-alignment}
 
 *Pivot* özelliğini ayarlayarak metnin hizalama modunu değiştirebilirsiniz.
 
@@ -83,12 +107,12 @@ Varsayılan materyalde performans nedeniyle gölge işlemenin devre dışı bır
 
 ![Metin hizalama](images/label/align.png)
 
-## Çalışma sırasında değiştirme
+## Çalışma sırasında değiştirme {#runtime-manipulation}
 
 Etiket metnini ve çeşitli diğer özellikleri alıp ayarlayarak çalışma sırasında etiketleri değiştirebilirsiniz.
 
 `text`
-: Etiketin metin içeriği (`string`). Defold 1.13.2 sürümünden itibaren `go.get()` ve `go.set()` aracılığıyla kullanılabilir.
+: Etiketin metin içeriği (`string`). `go.get()` ve `go.set()` aracılığıyla kullanılabilir.
 
 `color`
 : Etiket rengi (`vector4`)
@@ -116,7 +140,7 @@ end
 ```
 
 ::: sidenote
-Defold 1.13.2 sürümünden itibaren `label.set_text()` ve `label.get_text()` işlevlerinin kullanımı artık önerilmez; bunların yerine `text` özelliği önerilir. Eski işlevler uyumluluk için kullanılabilir durumdadır. Eski ayarlama işlevi bir iletiyi kuyruğa eklerken `go.set()` metni hemen günceller.
+`label.set_text()` ve `label.get_text()` işlevlerinin kullanımı artık önerilmez; bunların yerine `text` özelliği önerilir. Eski işlevler uyumluluk için kullanılabilir durumdadır. Eski ayarlama işlevi bir iletiyi kuyruğa eklerken `go.set()` metni hemen günceller.
 :::
 
 ```lua
@@ -135,6 +159,6 @@ function init(self)
 end
 ```
 
-## Proje yapılandırması
+## Proje yapılandırması {#project-configuration}
 
 *game.project* dosyasında etiketlerle ilgili birkaç [proje ayarı](/manuals/project-settings#label) bulunur.

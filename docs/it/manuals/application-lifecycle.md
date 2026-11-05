@@ -120,7 +120,7 @@ A grandi linee, l'ordine delle fasi delle callback Lua dei componenti *script* �
 Viene esaminato ogni componente degli oggetti di gioco nella collezione principale. Se uno di questi componenti ha uno script con una funzione `fixed_update()`/`update()`/`late_update()`, questa viene chiamata. Se il componente è un proxy di collezione, ogni componente nella collezione del proxy viene aggiornato ricorsivamente eseguendo tutti i passaggi della fase `Update`.
 
 ::: sidenote
-L'ordine in cui vengono chiamate le funzioni `update()` dei componenti degli oggetti di gioco non è specificato. Non devi presumere che il motore aggiorni in un determinato ordine gli oggetti appartenenti alla stessa collezione. Lo stesso vale per `fixed_update()` e `late_update()` (dalla versione 1.12.0).
+L'ordine in cui vengono chiamate le funzioni `update()` dei componenti degli oggetti di gioco non è specificato. Non presumere che il motore aggiorni in un determinato ordine gli oggetti appartenenti alla stessa collezione. Lo stesso vale per `fixed_update()` e `late_update()`.
 :::
 
 #### Fisica {#physics}
@@ -204,7 +204,7 @@ Il numero di aggiornamenti dei fotogrammi al secondo (che corrisponde al numero 
 
 #### Limitazione dell'attività del motore {#engine-throttling}
 
-Defold 1.12.0 ha introdotto un'API per limitare l'attività del motore che può saltare completamente gli aggiornamenti del motore e il rendering, continuando però a rilevare l'input. Qualsiasi input riattiva il motore, che può tornare a limitare la propria attività dopo un intervallo di attesa.
+Defold fornisce un'API di limitazione dell'attività del motore che può saltare completamente gli aggiornamenti e il rendering, continuando a rilevare l'input. Qualsiasi input riattiva il motore, che può tornare allo stato di attività ridotta dopo un intervallo di attesa.
 
 Consulta l'API `sys.set_engine_throttle()` per i dettagli e gli esempi d'uso.
 

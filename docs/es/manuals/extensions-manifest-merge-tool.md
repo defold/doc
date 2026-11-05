@@ -135,11 +135,11 @@ Manifiesto base
         <key>REAL</key>
         <real>8.0</real>
 
-        <!-- Mantén este valor incluso si un manifiesto de extensión contiene la misma clave -->
+        <!-- Keep this value even if an extension manifest contains the same key -->
         <key merge='keep'>BASE64</key>
         <data>SEVMTE8gV09STEQ=</data>
 
-        <!-- Si un manifiesto de extensión también tiene un array con esta clave, cualquier valor de diccionario se fusionará con el primer valor de diccionario del array base -->
+        <!-- If an extension manifest also has an array with this key then any dictionary values will be merged with the first dictionary value of the base array -->
         <key>Array1</key>
         <array>
             <dict>
@@ -150,7 +150,7 @@ Manifiesto base
             </dict>
         </array>
 
-        <!-- No intentes fusionar los valores de este array; en su lugar, los valores de los manifiestos de extensión se deben agregar al final del array -->
+        <!-- Do not attempt to merge the values of this array, instead values from extension manifests should be added to the end of the array -->
         <key merge='keep'>Array2</key>
         <array>
             <dict>
@@ -187,7 +187,7 @@ Manifiesto de extensión:
         <key>INT</key>
         <integer>42</integer>
 
-        <!-- Reemplaza el valor existente en el manifiesto base -->
+        <!-- Replace the existing value in the base manifest -->
         <key merge='replace'>REAL</key>
         <integer>16.0</integer>
 
@@ -223,7 +223,7 @@ Resultado:
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
-        <!-- Fusión anidada de diccionarios de los manifiestos base y de extensión -->
+        <!-- Nested merge of dictionaries from base and extension manifests -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -244,23 +244,23 @@ Resultado:
                 </dict>
             </dict>
 
-            <!-- Del manifiesto base -->
+            <!-- From the base manifest -->
             <key>INT</key>
             <integer>8</integer>
 
-            <!-- El valor del manifiesto base se reemplazó porque el marcador de fusión se configuró como "replace" en el manifiesto de extensión -->
+            <!-- The value from the base manifest was replaced since the merge marker was set to "replace" in the extension manifest -->
             <key>REAL</key>
             <real>16.0</real>
 
-            <!-- Se usó el valor del manifiesto base porque el marcador de fusión se configuró como "keep" en el manifiesto base -->
+            <!-- The value from the base manifest was used since the merge marker was set to "keep" in the base manifest -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
 
-            <!-- Se agregó el valor del manifiesto de extensión porque no se especificó ningún marcador de fusión -->
+            <!-- The value from the extender manifest was added since no merge marker was specified -->
             <key>INT</key>
             <integer>42</integer>
 
-            <!-- Los valores de diccionario del array se fusionaron porque el manifiesto base usa "merge" de forma predeterminada -->
+            <!-- The dictionary values of the array were merged since the base manifest defaults to "merge" -->
             <key>Array1</key>
             <array>
                 <dict>
@@ -272,7 +272,7 @@ Resultado:
                 </dict>
             </array>
 
-            <!-- Los valores de diccionario se agregaron al array porque el manifiesto base usó "keep" -->
+            <!-- The dictionary values were added to the array since the base manifest used "keep" -->
             <key>Array2</key>
             <array>
                 <dict>

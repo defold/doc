@@ -86,7 +86,7 @@ Bardzo ważne jest, aby dopasować właściwy silnik do stosu wywołań, w przec
 * HTML5 - katalog `<project_name>_symbols` znajdujący się obok pakietu HTML5 zawiera `<project_name>_wasm.js.symbols` oraz, gdy wybrano architekturę `wasm_pthread-web`, plik `<project_name>_pthread_wasm.js.symbols`.
 
 ::: important
-Bardzo ważne jest, aby zachować symbole debugowe dla każdego publicznego wydania gry i wiedzieć, do którego wydania należą. Bez symboli debugowych nie da się debugować natywnych awarii. Warto też zachować wersję silnika `bez stripowania`. Umożliwia to najlepszą możliwą symbolikację stosu wywołań.
+Bardzo ważne jest, aby zachować symbole debugowe dla każdego publicznego wydania gry i wiedzieć, do którego wydania należą. Bez symboli debugowych nie da się debugować natywnych awarii. Warto też zachować nieokrojoną wersję silnika (`unstripped`). Umożliwia to najlepszą możliwą symbolikację stosu wywołań.
 :::
 
 
@@ -130,7 +130,7 @@ Uwaga: jeśli zdobędziesz ślad stosu z [logów Androida](/manuals/debugging-ga
 
 ```sh
 	$ unzip <project>/build/arm64-darwin/build.zip
-	# spowoduje to utworzenie Contents/Resources/DWARF/dmengine
+	# it will produce a Contents/Resources/DWARF/dmengine
 ```
 
 2. Jeśli nie używasz Native Extensions, pobierz standardowe symbole:

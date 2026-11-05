@@ -62,7 +62,7 @@ end
 -- 데이터를 로드합니다
 local ok, data = pcall(sys.load, path)
 if not ok then
-	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	-- 파일이 존재하지만 손상되었거나, 다른 형식이거나, 지원하지 않는 포멧입니다.
 	print("Failed to load save data:", data)
 	data = {}
 end

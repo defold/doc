@@ -26,6 +26,31 @@ Defold підтримує окремий тип вузла GUI, що дає зм
 *Line Break*
 : Вирівнювання тексту залежить від налаштування опорної точки (pivot), а ввімкнення цієї властивості дає змогу розміщувати текст у кілька рядків. Ширина вузла визначає, де текст переноситиметься на новий рядок.
 
+## Векторні шрифти й кольорові емодзі {#vector-fonts-and-color-emoji}
+
+Виконайте [налаштування векторного шрифту](/manuals/font/#vector-fonts), додайте ресурс `.font` до *Fonts* сцени GUI й виберіть його у текстовому вузлі. Задайте *Material* ресурсу шрифту як `/builtins/fonts/font-vector.material`. Використовуйте *Font Size* вузла, щоб керувати розміром відображення.
+
+Для кольорових емодзі також виконайте [налаштування резервного COLRv1-шрифту й пакування](/manuals/font/#color-emoji). Створіть текстовий вузол з ідентифікатором `text`, залиште його *Text* порожнім і додайте такий код до `.gui_script` сцени GUI:
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) повертає назву шрифту в сцені GUI; [`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) перетворює цю назву на ресурс шрифту, який використовує `font.add_font()`. Інші вузли й компоненти Label, що спільно використовують ресурс, також отримують резервний шрифт, тому ініціалізуйте його лише один раз. Текст задається після успішної попередньої підготовки.
+
 ## Вирівнювання {#alignment}
 
 Змінюючи опорну точку вузла, ви можете змінити режим вирівнювання тексту.

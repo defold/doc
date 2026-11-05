@@ -13,31 +13,31 @@ El editor Defold proporciona sugerencias de autocompletado para todas las funcio
 Un archivo de definición de API de script tiene la extensión `.script_api`. Debe estar en [formato YAML](https://yaml.org/) y ubicado junto con los archivos de la extensión. El formato esperado para una definición de API de script es:
 
 ```yml
-- name: Nombre de la extensión
+- name: The name of the extension
   type: table
-  desc: Descripción de la extensión
+  desc: Extension description
   members:
-  - name: Nombre del primer miembro
-    type: Tipo del miembro
-    desc: Descripción del miembro
-    # si el tipo del miembro es "function"
+  - name: Name of the first member
+    type: Member type
+    desc: Member description
+    # if member type is "function"
     parameters:
-    - name: Nombre del primer parámetro
-      type: Tipo del parámetro
-      desc: Descripción del parámetro
-    - name: Nombre del segundo parámetro
-      type: Tipo del parámetro
-      desc: Descripción del parámetro
-    # si el tipo del miembro es "function"
+    - name: Name of the first parameter
+      type: Parameter type
+      desc: Parameter description
+    - name: Name of the second parameter
+      type: Parameter type
+      desc: Parameter description
+    # if member type is "function"
     returns:
-    - name: Nombre del primer valor de retorno
-      type: Tipo del valor de retorno
-      desc: Descripción del valor de retorno
+    - name: Name of first return value
+      type: Return value type
+      desc: Return value description
     examples:
-    - desc: Primer ejemplo de uso del miembro
-    - desc: Segundo ejemplo de uso del miembro
+    - desc: First example of member usage
+    - desc: Second example of member usage
 
-  - name: Nombre del segundo miembro
+  - name: Name of the second member
     ...
 ```
 

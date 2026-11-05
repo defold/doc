@@ -3,11 +3,11 @@ title: 编辑器脚本
 brief: 本手册解释了如何使用 Lua 扩展编辑器功能
 ---
 
-# 编辑器脚本
+# 编辑器脚本 {#editor-scripts}
 
 您可以使用具有特殊扩展名的 Lua 文件创建自定义菜单项和编辑器生命周期钩子：`.editor_script`。使用此系统，您可以调整编辑器以增强您的开发工作流程。
 
-## 编辑器脚本运行时
+## 编辑器脚本运行时 {#editor-script-runtime}
 
 编辑器脚本在编辑器内部运行，在 Java 虚拟机模拟的 Lua 虚拟机中运行。所有脚本共享同一个环境，这意味着它们可以用 `require` 相互交互。您可以导入 Lua 模块，就像使用 `.script` 文件一样，但编辑器内部运行的 Lua 版本不同，因此请确保您的共享代码是兼容的。编辑器使用 Lua 版本 5.2.x，更具体地说是 [luaj](https://github.com/luaj/luaj) 运行时，这目前是在 JVM 上运行 Lua 的唯一可行解决方案。除此之外，还有一些限制：
 - 没有 `debug` 包；
@@ -19,7 +19,7 @@ brief: 本手册解释了如何使用 Lua 扩展编辑器功能
 
 所有在编辑器脚本中定义的编辑器扩展在您打开项目时都会加载。当您获取库时，扩展会重新加载，因为您依赖的库中可能有新的编辑器脚本。在此重新加载期间，不会获取您自己的编辑器脚本的更改，因为您可能正在更改它们。要同时重新加载它们，您应该运行 **Project → Reload Editor Scripts** 命令。
 
-## `.editor_script` 的构成
+## `.editor_script` 的构成 {#anatomy-of-editor_script}
 
 每个编辑器脚本都应该返回一个模块，如下所示：
 ```lua
@@ -41,7 +41,7 @@ return M
 ```
 然后编辑器会收集项目和库中定义的所有编辑器脚本，将它们加载到单个 Lua 虚拟机中，并在需要时调用它们（更多内容请参见[命令](#commands)和[生命周期钩子](#lifecycle-hooks)部分）。
 
-## 编辑器 API
+## 编辑器 API {#editor-api}
 
 您可以使用定义此 API 的 `editor` 包与编辑器进行交互：
 - `editor.platform` — 字符串，Windows 上为 `"x86_64-win32"`，macOS 上为 `"x86_64-macos"`，Linux 上为 `"x86_64-linux"`。
@@ -50,7 +50,7 @@ return M
 - `editor.editor_sha1` — 字符串，Defold 编辑器的 SHA1
 - `editor.get(node_id, property)` — 获取编辑器内某个节点的值。编辑器中的节点是各种实体，例如脚本或集合文件，集合内的游戏对象，作为资源加载的 json 文件等。`node_id` 是由编辑器传递给编辑器脚本的 userdata。或者，您可以使用资源路径代替节点 id，例如 `"/main/game.script"`。`property` 是一个字符串。目前支持以下属性：
   - `"path"` — *资源* 的项目文件夹文件路径 — 作为文件或目录存在的实体。返回值示例：`"/main/game.script"`
-  - `"children"` — 目录资源的子资源路径列表
+  - `"children"` — 目录资源的子资源路径列表。若要同时遍历文件内部的资源，请参阅[遍历项目资源](#traversing-project-resources)。
   - `"parent"` — 有父级的 Outline 节点的父编辑器节点
   - `"text"` — 可编辑为文本的资源文本内容（例如脚本文件或 json）。返回值示例：`"function init(self)\nend"`。请注意，这与使用 `io.open()` 读取文件不同，因为您可以在不保存文件的情况下编辑文件，这些编辑仅在访问 `"text"` 属性时可用。
   - 对于图集：`images`（图集中图像的编辑器节点列表）和 `animations`（动画节点列表）
@@ -72,6 +72,7 @@ return M
 - `editor.properties(node_id)` — 返回可从节点读取的、经过排序且依上下文而定的属性名称列表，例如 `pprint(editor.properties("/game.project"))`。使用 `editor.can_*` 函数检查列出的属性是否还可更改、重置、添加或重新排序。
 - `editor.can_get(node_id, property)` — 检查您是否可以获取此属性，以便 `editor.get()` 不会抛出错误。
 - `editor.can_set(node_id, property)` — 检查带有此属性的 `editor.tx.set()` 事务步骤不会抛出错误。
+- `editor.resource_children(path)` — 列出目录或文件内的直属资源路径，包括 glTF/GLB 文件中包含的资源。请参阅[遍历项目资源](#traversing-project-resources)。
 - `editor.create_directory(resource_path)` — 如果目录不存在，则创建目录，以及所有不存在的父目录。
 - `editor.create_resources(resources)` — 创建 1 个或多个资源，可以从模板创建或使用自定义内容创建
 - `editor.delete_directory(resource_path)` — 如果目录存在，则删除目录，以及所有存在的子目录和文件。
@@ -93,7 +94,7 @@ local M = {}
 function M.get_commands()
   return {
     {
-      label = "删除注释",
+      label = "Remove Comments",
       locations = {"Edit", "Assets"},
       query = {
         selection = {type = "resource", cardinality = "one"}
@@ -110,7 +111,7 @@ function M.get_commands()
       end
     },
     {
-      label = "压缩 JSON",
+      label = "Minify JSON",
       locations = {"Assets"},
       query = {
         selection = {type = "resource", cardinality = "one"}
@@ -148,12 +149,48 @@ return M
 - `active` - 一个回调函数，用于检查命令是否处于活动状态，预期返回布尔值。如果 `locations` 包括 `"Assets"`、`"Scene"` 或 `"Outline"`，在显示上下文菜单时将调用 `active`。如果位置包括 `"Edit"` 或 `"View"`，则会在每次用户交互时调用 active，例如键盘输入或鼠标点击，因此请确保 `active` 相对较快。
 - `run` - 当用户选择菜单项时执行的回调函数。
 
-### 使用命令更改编辑器内存状态
+### 遍历项目资源 {#traversing-project-resources}
+
+`editor.resource_children(path)` 返回目录或文件内直属资源路径的数组。输入和返回的路径均以 `/` 开头，相对于项目根目录。使用 `/` 可从项目根目录开始。*.gltf* 或 *.glb* 文件可以将网格、材质和内嵌图像作为子资源暴露，就像 *Assets* 面板中显示的那样。
+
+如果脚本通过 `editor.get(path, "children")` 遍历目录，请改用 `editor.resource_children(path)` 并访问每个返回路径。文件也可能包含资源，因此，如果仅对 `editor.resource_attributes(path).is_directory` 为 `true` 的路径递归，就会遗漏这些内容。
+
+对于不含子资源的目录或文件，该函数返回空表（`{}`）。不存在的路径会引发错误；如果路径可能不存在，请在查询子资源前检查 `editor.resource_attributes(path).exists`。子资源遵循 *Assets* 的层级结构。集合中的游戏对象通过 `editor.get(collection_path, "children")` 访问。
+
+例如，将以下代码保存为 `list_resources.editor_script`，然后选择 **Project → Reload Editor Scripts**。在 *Assets* 中右键单击目录、*.gltf* 或 *.glb* 文件，再选择 **List Resource Contents**，即可在控制台打印其资源树：
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
+
+### 使用命令更改编辑器内存状态 {#use-commands-to-change-the-in-memory-editor-state}
 
 在 `run` 处理程序中，您可以查询和更改编辑器的内存状态。查询使用 `editor.get()` 函数完成，您可以在其中询问编辑器有关文件和选择的当前状态（如果使用 `query = {selection = ...}`）。您可以获取可作为文本编辑的资源的 `"text"` 属性，以及属性视图中显示的一些属性 — 将鼠标悬停在属性名称上以查看工具提示，其中包含有关该属性在编辑器脚本中如何命名的信息。更改编辑器状态使用 `editor.transact()` 完成，您可以在其中将 1 个或多个修改捆绑在一个可撤销的步骤中。例如，如果您希望能够重置游戏对象的变换，您可以编写如下命令：
 ```lua
 {
-  label = "重置变换",
+  label = "Reset transform",
   locations = {"Outline"},
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
@@ -173,7 +210,7 @@ return M
 }
 ```
 
-### 将命令与活动编辑器视图一起使用
+### 将命令与活动编辑器视图一起使用 {#use-commands-with-the-active-editor-view}
 
 位于 `"View"` 等菜单位置的命令可以查询当前活动的编辑器视图。当命令需要作用于用户当前正在查看的文件或场景时，这很有用：
 
@@ -192,7 +229,7 @@ editor.command({
 })
 ```
 
-#### 编辑图集
+#### 编辑图集 {#editing-atlases}
 
 除了读取和写入图集的属性外，您还可以读取和修改图集图像和动画。图集定义了 `images` 和 `animations` 节点列表属性，动画定义了 `images` 节点列表属性：您可以将 `editor.tx.add`、`editor.tx.remove` 和 `editor.tx.clear` 事务步骤与这些属性一起使用。
 
@@ -240,9 +277,10 @@ editor.transact({
 })
 ```
 
-#### 编辑瓦片源
+#### 编辑瓦片源 {#editing-tilesources}
 
 除了大纲属性外，瓦片源还定义了以下属性：
+
 - `animations` - 瓦片源的动画节点列表
 - `collision_groups` - 瓦片源的碰撞组节点列表
 - `tile_collision_groups` - 瓦片源中瓦片的碰撞组分配表
@@ -251,8 +289,8 @@ editor.transact({
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -263,7 +301,26 @@ editor.transact({
 })
 ```
 
-#### 编辑瓦片地图
+动画节点通过 `frames` 属性提供一个 Lua 数组，按动画顺序存放从 1 开始的图块编号。与编辑器中的 *Frames* 文本字段不同，编辑器脚本接受整数数组，而不是 `"2-6"` 这样的字符串。请将范围展开为数组中的各个图块编号。图块可以任意排序，也可以重复。
+
+读取并修改上述示例中的 `walk` 动画：
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- 动画现在使用 {2, 3, 4, 5, 6, 2}。
+        break
+    end
+end
+```
+
+修改返回的数组本身不会更新动画；还必须将其传给 `editor.tx.set()` 并应用事务。有关图块编号和播放设置，请参阅[图块源手册](/manuals/tilesource/#tile-source-flip-book-animations)。
+
+#### 编辑瓦片地图 {#editing-tilemaps}
 
 瓦片地图定义了 `layers` 属性，即瓦片地图图层的节点列表。每个图层还定义了 `tiles` 属性，该属性保存此图层上瓦片的无限 2D 网格。这与引擎不同：瓦片没有边界，可以添加到任何位置，包括负坐标。要编辑瓦片，编辑器脚本 API 定义了一个 `tilemap.tiles` 模块，具有以下功能：
 - `tilemap.tiles.new()` 创建一个新的数据结构，用于保存无限的 2D 瓦片网格（在编辑器中，与引擎相反，瓦片地图是无限的，坐标可以是负数）
@@ -301,7 +358,7 @@ editor.transact({
 })
 ```
 
-#### 编辑粒子效果
+#### 编辑粒子效果 {#editing-particlefx}
 
 您可以使用 `modifiers` 和 `emitters` 属性编辑粒子效果。例如，添加带有加速度修改器的圆形发射器的方法如下：
 ```lua
@@ -318,7 +375,7 @@ editor.transact({
 - `x` - 点的 x 坐标，应从 0 开始，以 1 结束
 - `y` - 点的值
 - `tx`（0 到 1）和 `ty`（-1 到 1）- 点的切线。例如，对于 80 度角，`tx` 应该是 `math.cos(math.rad(80))`，`ty` 应该是 `math.sin(math.rad(80))`。
-曲线扩展还具有 `spread` 数字属性。
+曲线的 spread 另外具有一个数值类型的 `spread` 属性。
 
 例如，为现有发射器设置粒子生命周期 alpha 曲线可能如下所示：
 ```lua
@@ -333,7 +390,7 @@ editor.transact({
 ```
 当然，也可以在创建发射器时在表中使用 `particle_key_alpha` 键。此外，您可以使用单个数字来表示"静态"曲线。
 
-#### 编辑碰撞对象
+#### 编辑碰撞对象 {#editing-collision-objects}
 
 除了默认的大纲属性外，碰撞对象还定义了 `shapes` 节点列表属性。添加新的碰撞形状的方法如下：
 ```lua
@@ -348,7 +405,7 @@ editor.transact({
 - `shape-type-sphere` - 具有 `diameter` 属性的球形
 - `shape-type-capsule` - 具有 `diameter` 和 `height` 属性的胶囊形
 
-#### 编辑 GUI 文件
+#### 编辑 GUI 文件 {#editing-gui-files}
 
 除了大纲属性外，GUI 文件还定义了以下节点列表属性：
 
@@ -411,13 +468,13 @@ editor.transact({
 ```lua
 local node = editor.get("/main.gui", "nodes")[1]
 
--- GET:
+-- 读取：
 local position = editor.get(node, "position")
 pprint(position) -- {20, 20, 20}
 local landscape_position = editor.get(node, "Landscape:position")
 pprint(landscape_position) -- {20, 20, 20}
 
--- SET:
+-- 设置：
 editor.transact({
     editor.tx.set(node, "Landscape:position", {30, 30, 30})
 })
@@ -431,7 +488,6 @@ editor.transact({
     editor.tx.reset(node, "Landscape:position")
 })
 ```
-
 模板节点树可以被读取，但不能编辑 — 您只能设置模板节点树的节点属性：
 ```lua
 local template = editor.get("/main.gui", "nodes")[2]
@@ -443,7 +499,7 @@ editor.transact({
 print(editor.can_reset(node_in_template, "text")) -- true (覆盖模板中的值)
 ```
 
-#### 编辑游戏对象
+#### 编辑游戏对象 {#editing-game-objects}
 
 可以使用编辑器脚本编辑游戏对象文件的组件。组件有两种类型：引用型和嵌入型。引用型组件使用`component-reference`类型，作为对其他资源的引用，只允许覆盖脚本中定义的go属性。嵌入型组件使用`sprite`、`label`等类型，允许编辑组件类型中定义的所有属性，以及添加子组件（如碰撞对象的形状）。例如，您可以使用以下代码设置游戏对象：
 ```lua
@@ -471,8 +527,7 @@ editor.transact({
 })
 ```
 
-#### 编辑集合
-
+#### 编辑集合 {#editing-collections}
 可以使用编辑器脚本编辑集合。您可以添加游戏对象（嵌入型或引用型）和集合（引用型）。例如：
 ```lua
 local coll = "/char.collection"
@@ -517,7 +572,7 @@ editor.transact({
 
 与编辑器中一样，引用型集合只能添加到被编辑集合的根目录，而游戏对象只能添加到嵌入式或引用型游戏对象，但不能添加到引用型集合或这些引用型集合中的游戏对象。
 
-### 使用 shell 命令
+### 使用 shell 命令 {#use-shell-commands}
 
 在`run`处理程序中，您可以写入文件（使用`io`模块）并执行shell命令（使用`editor.execute()`命令）。执行shell命令时，可以将shell命令的输出捕获为字符串，然后在代码中使用它。例如，如果您想创建一个格式化JSON的命令，该命令使用全局安装的[`jq`](https://jqlang.github.io/jq/)，您可以编写以下命令：
 ```lua
@@ -577,7 +632,7 @@ return M
 
 注意目前生命周期处理脚本只是编辑器特性, 使用 Bob 以命令行编译打包时该脚本不会被执行.
 
-## 语言服务器
+## 语言服务器 {#language-servers}
 
 编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的一个子集：诊断（lints）、补全、悬停信息、Structure 面板中的文档符号、转到定义、查找引用、符号重命名，以及文档或范围格式化。将鼠标悬停在符号上可查看语言服务器提供的信息。光标位于符号上时，使用 <kbd>F2</kbd> 重命名，使用 <kbd>F12</kbd> 转到定义，或使用 <kbd>Shift+F12</kbd> 查找引用。这些操作也可从 <kbd>Edit</kbd> 菜单中使用。有关格式化命令和保存时格式化的偏好设置，请参阅[格式化代码](/manuals/writing-code/#formatting-code)。
 
@@ -720,9 +775,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## 执行模式 {#execution-modes}
 
-编辑器脚本运行时使用两种执行模式，这些模式对编辑器脚本基本上是透明的：**即时**和**长时间运行**。
+编辑器脚本运行时使用两种执行模式，对编辑器脚本而言基本透明：**立即**和**长时间运行**。
 
-**即时**模式用于编辑器需要尽快从脚本接收响应的情况。例如，菜单命令的 `active` 回调在即时模式下执行，因为这些检查是在编辑器 UI 线程上响应与编辑器的用户交互而执行的，并且应该在同一帧内更新 UI。
+当编辑器需要尽快收到脚本响应时，会使用**立即**模式。例如，菜单命令的 `active` 回调在立即模式中执行，因为这些检查由编辑器 UI 线程响应用户交互而运行，并且应当在同一帧内更新 UI。
 
 **长时间运行**模式用于编辑器不需要脚本即时响应的情况。例如，菜单命令的 `run` 回调在**长时间运行**模式下执行，允许脚本有更多时间来完成其工作。
 
@@ -737,7 +792,7 @@ editor.prefs.set("my_json_formatter.indent", {
 - 菜单命令的 `active` 回调：编辑器需要在同一 UI 帧内从脚本接收响应。
 - 编辑器脚本的顶层：我们不期望重新加载编辑器脚本的行为有任何副作用。
 
-## 操作
+## 操作 {#actions}
 
 ::: sidenote
 以前，编辑器以阻塞方式与 Lua VM 交互，因此编辑器脚本有一个硬性要求，即不能阻塞，因为某些交互必须从编辑器 UI 线程完成。因此，例如没有 `editor.execute()` 和 `editor.transact()`。执行脚本和更改编辑器状态是通过从钩子和命令 `run` 处理程序返回一个 "actions" 数组来触发的。
@@ -749,7 +804,7 @@ editor.prefs.set("my_json_formatter.indent", {
 
 操作是描述编辑器应该做什么的表。每个操作都有一个 `action` 键。操作有两种类型：可撤销和不可撤销。
 
-### 可撤销操作
+### 可撤销操作 {#undoable-actions}
 
 ::: sidenote
 优先使用 `editor.transact()`。
@@ -772,7 +827,7 @@ editor.prefs.set("my_json_formatter.indent", {
   - `property` — 要设置的节点属性，例如 `"text"`；
   - `value` — 属性的新值。对于 `"text"` 属性，它应该是一个字符串。
 
-### 不可撤销操作
+### 不可撤销操作 {#non-undoable-actions}
 
 ::: sidenote
 优先使用 `editor.execute()`。
@@ -787,13 +842,13 @@ editor.prefs.set("my_json_formatter.indent", {
     action = "shell",
     command = {
       "./scripts/minify-json.sh",
-      editor.get(opts.selection, "path"):sub(2) -- trim leading "/"
+      editor.get(opts.selection, "path"):sub(2) -- 移除开头的 "/"
     }
   }
   ```
   `"shell"` 操作需要 `command` 键，它是命令及其参数的数组。
 
-### 操作混用及其副作用
+### 操作混用及其副作用 {#mixing-actions-and-side-effects}
 
 您可以混合使用可撤销和不可撤销操作。操作是按顺序执行的，因此根据操作的顺序，您将失去撤销该命令部分操作的能力。
 

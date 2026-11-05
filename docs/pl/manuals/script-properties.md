@@ -64,7 +64,7 @@ Właściwości skryptu są parsowane podczas budowania projektu. Wyrażenia wart
 
 ### Właściwości tekstowe {#text-properties}
 
-Od wersji Defold 1.13.2 domyślna wartość będąca ciągiem znaków definiuje właściwość tekstową. Właściwości tekstowe obsługują UTF-8 i znaki nowego wiersza, a w edytorze można je zmieniać w polu wielowierszowym:
+Domyślna wartość będąca ciągiem znaków definiuje właściwość tekstową. Właściwości tekstowe obsługują UTF-8 i znaki nowego wiersza, a w edytorze można je zmieniać w polu wielowierszowym:
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")

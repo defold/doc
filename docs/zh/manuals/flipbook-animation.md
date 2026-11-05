@@ -5,12 +5,12 @@ brief: 本手册描述了如何在 Defold 中使用逐帧动画.
 
 # Flip-book animation
 
-逐帧动画由一系列静态图像连续显示组成。这种技术非常类似于传统的赛璐珞动画（参见 http://en.wikipedia.org/wiki/Traditional_animation）。由于每一帧都可以单独操作，该技术提供了无限的可能性。然而，由于每一帧都存储在独特的图像中，内存占用可能会很高。动画的平滑度也取决于每秒显示的图像数量，但增加图像数量通常也会增加工作量。Defold 逐帧动画要么作为添加到[图集](/manuals/atlas)中的单独图像存储，要么作为[瓷砖图源](/manuals/tilesource)存储，所有帧以水平序列排列。
+翻页动画由一系列连续显示的静止图像组成。这种技术与传统赛璐珞动画非常相似（参见 http://en.wikipedia.org/wiki/Traditional_animation）。由于每一帧都可以单独处理，它提供了无限的创作空间。不过，存储许多不同图像可能需要大量纹理内存。动画的流畅程度也取决于每秒显示的图像数量，而增加图像通常也会增加工作量。Defold 翻页动画可以存储为添加到[图集](/manuals/atlas)中的独立图像，也可以存储为[图块源](/manuals/tilesource)中的图块。图块源动画使用 *Frames* 列表从图像网格中按任意顺序选择图块，也允许重复。
 
   ![Animation sheet](images/animation/animsheet.png){.inline}
   ![Run loop](images/animation/runloop.gif){.inline}
 
-## 播放逐帧动画
+## 播放逐帧动画 {#playing-flip-book-animations}
 
 精灵和GUI方块节点可以播放逐帧动画，您可以在运行时对它们进行很好的控制。
 
@@ -24,7 +24,7 @@ GUI方块节点
 `Once Ping Pong` 播放模式会将动画播放到最后一帧，然后反转顺序并播放回动画的**第二帧**，而不是回到第一帧。这样做是为了使动画链接更容易。
 :::
 
-### 精灵示例
+### 精灵示例 {#sprite-example}
 
 假设您的游戏有一个"闪避"功能，允许玩家按下特定按钮进行闪避。您已经创建了四个动画来支持此功能的视觉反馈：
 
@@ -68,7 +68,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-### GUI方块节点示例
+### GUI方块节点示例 {#gui-box-node-example}
 
 当为节点选择动画或图像时，实际上您是在一次性分配图像源（图集或瓷砖图源）和默认动画。图像源在节点中静态设置，但当前要播放的动画可以在运行时更改。静态图像被视为单帧动画，因此在运行时更改图像相当于为节点播放不同的逐帧动画：
 
@@ -82,7 +82,7 @@ end
 ```
 
 
-## 完成回调函数
+## 完成回调函数 {#completion-callbacks}
 
 `sprite.play_flipbook()` 和 `gui.play_flipbook()` 函数支持一个可选的 Lua 回调函数作为最后一个参数。当动画播放到结束时，将调用此函数。对于循环动画，永远不会调用该函数。回调函数可用于在动画完成时触发事件或将多个动画链接在一起。示例：
 

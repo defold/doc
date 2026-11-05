@@ -129,7 +129,7 @@ self.spawned_coins = {}
 
 ...
 
--- Spawn a coin and store it in the "coins" table.
+-- Создать монету и сохранить её в таблице "coins".
 local id = factory.create("#coinfactory", coin_position)
 table.insert(self.spawned_coins, id)
 ```
@@ -137,7 +137,7 @@ table.insert(self.spawned_coins, id)
 А затем:
 
 ```lua
--- coin.script
+-- spawner.script
 -- Удалить все порожденные монеты.
 for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)
@@ -151,14 +151,14 @@ go.delete(self.spawned_coins)
 
 ```lua
 -- spawner.script
--- Spawn a drone and set its parent to the url of this script component
+-- Создать дрон и установить URL этого компонента скрипта в качестве его родителя
 self.spawned_drone = factory.create("#dronefactory", drone_position, nil, { parent = msg.url() })
 
 ...
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("drone_dead") then
-        self.spawed_drone = nil
+        self.spawned_drone = nil
     end
 end
 ```
@@ -172,7 +172,7 @@ go.property("parent", msg.url())
 ...
 
 function final(self)
-    -- I'm dead.
+    -- Я погиб.
     msg.post(self.parent, "drone_dead")
 end
 ```
@@ -192,19 +192,19 @@ end
 
   ```lua
   function init(self)
-      -- No factory resources are loaded when the factory’s parent
-      -- collection is loaded. Calling create without having called
-      -- load will create the resources synchronously.
+      -- Ресурсы фабрики не загружаются при загрузке родительской
+      -- коллекции фабрики. Вызов create без предварительного вызова
+      -- load создаст ресурсы синхронно.
       self.go_id = factory.create("#factory")
   end
 
   function final(self)
-      -- Delete game objects. Will decref resources.
-      -- In this case resources are deleted since the factory component
-      -- holds no reference.
+      -- Удалить игровые объекты. Счётчики ссылок на ресурсы уменьшатся.
+      -- В этом случае ресурсы удаляются, поскольку компонент фабрики
+      -- не удерживает ссылок.
       go.delete(self.go_id)
 
-      -- Calling unload will do nothing since factory holds no references
+      -- Вызов unload ничего не сделает, поскольку фабрика не удерживает ссылок
       factory.unload("#factory")
   end
   ```
@@ -214,24 +214,24 @@ end
 
   ```lua
   function load_complete(self, url, result)
-      -- Loading is complete, resources are ready to spawn
+      -- Загрузка завершена, ресурсы готовы к созданию экземпляров
       self.go_id = factory.create(url)
   end
 
   function init(self)
-      -- No factory resources are loaded when the factory’s parent
-      -- collection is loaded. Calling load will load the resources.
+      -- Ресурсы фабрики не загружаются при загрузке родительской
+      -- коллекции фабрики. Вызов load загрузит ресурсы.
       factory.load("#factory", load_complete)
   end
 
   function final(self)
-      -- Delete game object. Will decref resources.
-      -- In this case resources aren’t deleted since the factory component
-      -- still holds a reference.
+      -- Удалить игровой объект. Счётчики ссылок на ресурсы уменьшатся.
+      -- В этом случае ресурсы не удаляются, поскольку компонент фабрики
+      -- всё ещё удерживает ссылку.
       go.delete(self.go_id)
 
-      -- Calling unload will decref resources held by the factory component,
-      -- resulting in resources being destroyed.
+      -- Вызов unload уменьшит счётчики ссылок на ресурсы, удерживаемые компонентом фабрики,
+      -- что приведёт к удалению ресурсов.
       factory.unload("#factory")
   end
   ```

@@ -3,7 +3,7 @@ title: Defold'da cihaz girdisi
 brief: Bu kılavuz, girdinin nasıl çalıştığını, girdi eylemlerini yakalamayı ve bu eylemlere tepki veren betikler oluşturmayı açıklar.
 ---
 
-# Girdi
+# Girdi {#input}
 
 Motor, tüm kullanıcı girdilerini yakalar ve girdi odağı (input focus) edinmiş oyun nesnelerinde (game object) bulunan, `on_input()` işlevini uygulayan betik ve GUI betiği bileşenlerine (component) eylemler olarak dağıtır. Bu kılavuz, girdiyi yakalamak için girdi eşlemelerini (input binding) nasıl ayarlayacağınızı ve girdiye tepki veren kodu nasıl oluşturacağınızı açıklar.
 
@@ -17,7 +17,7 @@ Cihazlar
   1. Klavye (tek tuş girdisi ve metin girdisi)
   2. Fare (konum, düğme tıklamaları ve fare tekerleği eylemleri)
   3. Tekli ve çoklu dokunma (iOS ve Android cihazlarda ve mobil cihazlardaki HTML5 uygulamalarında)
-  4. Oyun kumandaları (işletim sistemi tarafından desteklendiği ve [gamepads](/manuals/input-gamepads/#gamepads-settings-file) dosyasında eşlendiği şekilde)
+  4. Oyun kumandaları ([kumanda eşlemeleri ve platform desteği](/manuals/input-gamepads/#gamepads-settings-file) kullanılarak)
 
 Girdi eşlemeleri
 : Girdi bir betiğe gönderilmeden önce, cihazdan gelen ham girdi, girdi eşlemeleri tablosu aracılığıyla anlamlı *eylemlere* dönüştürülür.
@@ -34,7 +34,7 @@ Girdi yığını
 Girdiyi tüketme
 : Bir betik, aldığı girdiyi tüketmeyi seçerek yığının daha aşağısındaki dinleyicilerin bu girdiyi almasını engelleyebilir.
 
-## Girdi eşlemelerini ayarlama
+## Girdi eşlemelerini ayarlama {#setting-up-input-bindings}
 
 Girdi eşlemeleri, cihaz girdileri betik bileşenlerinize ve GUI betiklerinize dağıtılmadan önce bunların adlandırılmış *eylemlere* nasıl dönüştürüleceğini belirtmenizi sağlayan, proje genelinde geçerli bir tablodur. Yeni bir girdi eşlemesi dosyası oluşturmak için *Assets* görünümünde bir konuma <kbd>sağ tıklayın</kbd> ve <kbd>New... ▸ Input Binding</kbd> seçeneğini seçin. Motorun yeni dosyayı kullanması için *game.project* dosyasındaki *Game Binding* alanını değiştirin.
 
@@ -52,7 +52,7 @@ Yeni bir eşleme oluşturmak için ilgili tetikleyici türü bölümünün altı
 *Action*
 : Girdi eylemleri oluşturulup betiklerinize dağıtılırken onlara verilen eylem adı. Aynı eylem adı birden fazla girdiye atanabilir. Örneğin, <kbd>Space</kbd> tuşunu ve oyun kumandasının `A` düğmesini `jump` eylemine bağlayabilirsiniz. Ne yazık ki dokunma girdilerinin diğer girdilerle aynı eylem adlarını kullanmasını engelleyen bilinen bir hata olduğunu unutmayın.
 
-## Tetikleyici türleri
+## Tetikleyici türleri {#trigger-types}
 
 Cihaza özgü beş tür tetikleyici oluşturabilirsiniz:
 
@@ -71,7 +71,7 @@ Touch Triggers
 Gamepad Triggers
 : Oyun kumandası tetikleyicileri, standart oyun kumandası girdisini oyun işlevlerine bağlamanızı sağlar. Daha fazla bilgi için [oyun kumandaları kılavuzuna](/manuals/input-gamepads) bakın.
 
-### İvmeölçer girdisi
+### İvmeölçer girdisi {#accelerometer-input}
 
 Defold, yukarıda listelenen beş farklı tetikleyici türüne ek olarak yerel Android ve iOS uygulamalarında ivmeölçer girdisini de destekler. *game.project* dosyanızın *Input* bölümündeki *Use Accelerometer* kutusunu işaretleyin.
 
@@ -111,7 +111,7 @@ Yığında bulunan ve `on_input()` işlevini içeren her bileşende bu işlev, k
 : Geçerli betik örneği.
 
 `action_id`
-: Eylemin, girdi eşlemelerinde ayarlanan adının karma değeri.
+: Girdi eşlemelerinde ayarlandığı şekliyle eylem adının karma değeri veya işaretçi hareketi ve ivmeölçer örnekleri için `nil`. Bu adsız eylemleri ayırt etmek için `action.source` kullanın.
 
 `action`
 : Girdinin değeri, konumu (mutlak konum ve konum farkı), düğme girdisinin `pressed` olup olmadığı gibi eylemle ilgili yararlı verileri içeren bir tablo. Kullanılabilir eylem alanlarıyla ilgili ayrıntılar için [on_input()](/ref/go#on_input) işlevine bakın.
@@ -133,7 +133,44 @@ end
 ```
 
 
-### Girdi odağı ve koleksiyon vekili bileşenleri
+### Girdi cihazının kaynağı {#input-device-source}
+
+`action.source`, eylem adından bağımsız olarak girdi cihazı kategorisini tanımlar. Hem betik hem de GUI betiği `on_input()` geri çağırımlarında kullanılabilir ve şu karma değerlerden biridir:
+
+| `action.source` | Girdi kategorisi |
+|-----------------|----------------|
+| `hash("keyboard")` | Key Triggers kaynaklı tek tek tuş girdileri. |
+| `hash("text")` | Fiziksel klavyeyle girilen metin dahil, Text Triggers kaynaklı metin ve işaretlenmiş metin girdileri. |
+| `hash("mouse")` | Fiziksel fare düğmeleri, tekerlek girdisi ve işaretçi hareketi. |
+| `hash("touch")` | Dokunmadan benzetilen fare tıklamaları ve işaretçi hareketi dahil dokunma girdisi. |
+| `hash("gamepad")` | Ham girdi ve bağlantı olayları dahil oyun kumandası girdisi. |
+| `hash("accelerometer")` | İvmeölçer örnekleri. |
+
+`action.source` değerini bir dizeyle değil, `hash("touch")` gibi bir karma değeriyle karşılaştırın. Örneğin sol fare düğmesi eylemi, fiziksel fareden veya dokunmadan gelebilir. Kaynak bunları ilk basma anında bile ayırt eder; [Fare tıklamalarını dokunmadan ayırt etme](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch) bölümüne bakın.
+
+Birden çok cihaz adlandırılmış bir eylemi paylaştığında katkıları birleştirilebilir. Kaynaklar şu sırayla işlenir: klavye, metin, fare, ardından dokunma; eyleme katkıda bulunan son kaynak bildirilir. Aynı karede başka bir girdi katkıda bulunmadığı sürece tuş ve fare düğmesi bırakmaları önceki kaynağı korur. Oyun kumandası eylemleri her kumanda için ayrı kalır. Her eşlemeyi bağımsız olarak işlemeniz gerektiğinde ayrı eylem adları kullanın.
+
+İşaretçi hareketi ve ivmeölçer örneklerinin eylem adı yoktur; bu nedenle ikisi de `action_id == nil` kullanır. Ayrı geri çağırımlarda gelirler: işaretçi hareketinin koordinatları ve fare veya dokunma kaynağı vardır; ivmeölçer örnekleri ise `acc_x`, `acc_y` ve `acc_z` alanlarını ve ivmeölçer kaynağını içerir. Bir karede ikisi de gerçekleşirse her geri çağırım bağımsız olarak tüketilebilir. İvmeölçer örnekleri, değerleri değişmemiş olsa bile iletilir.
+
+Aşağıdaki örnek bu adsız eylemleri işler. İşaretçi hareketi almak için en az bir Mouse Trigger ayarlayın; ivmeölçer örnekleri almak için desteklenen bir cihazda [Use Accelerometer](/manuals/project-settings/#use-accelerometer) ayarını etkinleştirin:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
+end
+```
+
+### Girdi odağı ve koleksiyon vekili bileşenleri {#input-focus-and-collection-proxy-components}
 
 Bir koleksiyon vekili (collection proxy) aracılığıyla dinamik olarak yüklenen her oyun dünyasının kendi girdi yığını vardır. Eylem dağıtımının yüklenen dünyanın girdi yığınına ulaşması için vekil bileşenin ana dünyanın girdi yığınında bulunması gerekir. Dağıtım ana yığında aşağıya doğru devam etmeden önce, yüklenen dünyanın yığınındaki tüm bileşenler ele alınır:
 
@@ -144,7 +181,7 @@ Koleksiyon vekili bileşenini barındıran oyun nesnesine `acquire_input_focus` 
 :::
 
 
-### Girdiyi bırakma
+### Girdiyi bırakma {#releasing-input}
 
 Girdi eylemlerini dinlemeyi durdurmak için oyun nesnesine bir `release_input_focus` iletisi gönderin. Bu ileti, oyun nesnesinin girdi yığınında bulunan tüm bileşenlerini yığından çıkarır:
 
@@ -154,7 +191,7 @@ msg.post(".", "release_input_focus")
 ```
 
 
-## Girdiyi tüketme
+## Girdiyi tüketme {#consuming-input}
 
 Bir bileşenin `on_input()` işlevi, eylemlerin yığında daha aşağıya aktarılıp aktarılmayacağını etkin olarak denetleyebilir:
 

@@ -16,9 +16,9 @@ brief: В этом руководстве объясняется, как раб�
 function on_input(self, action_id, action)
     if action_id == hash("left") then
         if action.pressed then
-            -- start moving left
+            -- начать движение влево
         elseif action.released then
-            -- stop moving left
+            -- прекратить движение влево
         end
     end
 end
@@ -30,12 +30,12 @@ end
 ![](images/input/text_bindings.png)
 
 ## Функция Text
-Функция `text` захватывает обычный текстовый ввод. Он устанавливает поле `text` таблицы действий в строку, содержащую введенный символ. Действие выполняется только при нажатии кнопки, никаких действий `отпустить` или `повторить` не посылается.
+Функция `text` захватывает обычный текстовый ввод. Он устанавливает поле `text` таблицы действий в строку, содержащую введенный символ. Действие выполняется только при нажатии кнопки, никаких действий отпускания (`released`) или повтора (`repeated`) не посылается.
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("text") then
-        -- Concatenate the typed character to the "user" node...
+        -- Добавить введённый символ к тексту ноды "user"...
         local node = gui.get_node("user")
         local name = gui.get_text(node)
         name = name .. action.text

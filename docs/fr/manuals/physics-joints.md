@@ -7,7 +7,7 @@ brief: Defold prend en charge les articulations pour la physique en 2D. Ce manue
 
 Une articulation relie deux objets de collision au moyen d'une contrainte. Defold prend en charge les articulations en physique 2D et 3D, avec des API différentes.
 
-Ce manuel décrit les articulations 2D exposées par le module `physics`. Depuis Defold 1.13.2, les projets 3D peuvent créer et contrôler des contraintes avec [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), notamment des charnières, des glissières et des ressorts. Utilisez cette API avec des corps rigides obtenus via [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+Ce manuel décrit les articulations 2D exposées par le module `physics`. Les projets 3D peuvent créer et contrôler des contraintes avec [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), notamment des charnières, des glissières et des ressorts. Utilisez cette API avec des corps rigides obtenus via [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
 
 Les types d'articulations pris en charge dans l'API 2D `physics` sont les suivants :
 

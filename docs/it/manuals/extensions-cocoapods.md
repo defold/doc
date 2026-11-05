@@ -25,3 +25,5 @@ Esempi:
 
 * [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile)
+
+Molti SDK vengono distribuiti anche come pacchetti Swift. Questi possono essere usati al posto di CocoaPods o insieme a esso, come descritto nel [manuale di Swift Package Manager](/manuals/extensions-spm).

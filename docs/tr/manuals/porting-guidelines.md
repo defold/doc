@@ -3,17 +3,17 @@ title: Platformlara taşıma ve yayımlama yönergeleri
 brief: Bu kılavuz, bir oyunu yeni bir platforma taşırken veya ilk kez yayımlarken dikkat edilmesi gereken bazı noktaları ele alır.
 ---
 
-# Platformlara taşıma ve yayımlama yönergeleri
+# Platformlara taşıma ve yayımlama yönergeleri {#porting-and-release-guidelines}
 
 Bu sayfa, bir oyunu yayımlarken veya yeni bir platforma taşırken (porting) dikkat edilmesi gereken noktalar için yararlı bir kılavuz ve kontrol listesi sunar.
 
 Bir Defold oyununu yeni bir platforma taşımak veya ilk kez yayımlamak genellikle basit bir süreçtir. Teoride ilgili bölümlerin *game.project* dosyasında yapılandırıldığından emin olmak yeterlidir; ancak her platformdan en iyi şekilde yararlanmak için oyunu o platformun özelliklerine uyarlamanız önerilir.
 
 
-## Girdi
+## Girdi {#input}
 Oyunu platformun girdi (input) yöntemlerine uyarladığınızdan emin olun. Platform destekliyorsa [oyun kumandası (gamepad)](/manuals/input-gamepads) desteği eklemeyi değerlendirin! Ayrıca oyunun bir duraklatma menüsünü desteklediğinden emin olun - bir oyun kumandasının bağlantısı aniden kesilirse oyunun duraklatılması gerekir!
 
-## Yerelleştirme
+## Yerelleştirme {#localization}
 Oyundaki tüm metinleri çevirin. Avrupa ve Amerika kıtalarında yayımlamak için en azından EFIGS dillerine (İngilizce, Fransızca, İtalyanca, Almanca ve İspanyolca) çevirmeyi değerlendirin. Oyun içinde (duraklatma menüsünden) farklı diller arasında kolayca geçiş yapılabildiğinden emin olun.
 
 ::: important
@@ -22,21 +22,21 @@ Yalnızca iOS için - [Localizations](/manuals/project-settings/#localizations) 
 
 Mağaza sayfasındaki metinleri çevirin; bu, satışları olumlu etkileyecektir! Bazı platformlar, mağaza sayfasındaki metinlerin oyunun sunulduğu her ülkenin diline çevrilmesini zorunlu tutar.
 
-## Mağaza materyalleri
+## Mağaza materyalleri {#store-materials}
 
-### Uygulama simgesi
+### Uygulama simgesi {#app-icon}
 Oyununuzun rakiplerinden ayrıştığından emin olun. Simge, potansiyel oyuncularla çoğu zaman ilk temas noktanızdır. Oyun simgeleriyle dolu bir sayfada kolayca bulunabilmelidir.
 
-### Mağaza afişleri ve görselleri
+### Mağaza afişleri ve görselleri {#store-banners-and-images}
 Oyununuz için etkileyici ve heyecan verici görseller kullandığınızdan emin olun. Oyuncuların ilgisini çeken görseller oluşturmak için bir sanatçıyla çalışmaya biraz para harcamak muhtemelen buna değer.
 
 
-## Oyun kayıtları
+## Oyun kayıtları {#save-games}
 
-### Masaüstünde, mobilde ve web üzerinde oyun kayıtları
+### Masaüstünde, mobilde ve web üzerinde oyun kayıtları {#save-games-on-desktop-mobile-and-web}
 Oyun kayıtları ve kaydedilen diğer durum verileri, Defold API işlevi `sys.save(filename, data)` kullanılarak kaydedilebilir ve `sys.load(filename)` kullanılarak yüklenebilir. Dosyaların kaydedilebileceği, işletim sistemine özgü bir konumun yolunu almak için `sys.get_save_file(application_id, name)` işlevini kullanabilirsiniz; bu konum genellikle oturum açmış kullanıcının ev klasöründedir.
 
-### Konsolda oyun kayıtları
+### Konsolda oyun kayıtları {#save-games-on-console}
 Çoğu platformda `sys.get_save_file()` ve `sys.save()` kullanmak iyi sonuç verir; ancak konsollarda farklı bir yaklaşım benimsemeniz önerilir. Konsol platformları genellikle bağlı her oyun kumandasını bir kullanıcıyla ilişkilendirir; bu nedenle oyun kayıtlarının, başarımların ve diğer özelliklerin de ilgili kullanıcıyla ilişkilendirilmesi önerilir.
 
 Oyun kumandası girdi olayları (input event), kumandanın eylemlerini konsoldaki bir kullanıcıyla ilişkilendirmek için kullanılabilecek bir kullanıcı kimliği içerir.
@@ -59,21 +59,21 @@ end
 ```
 
 
-## Derleme çıktıları
+## Derleme çıktıları {#build-artifacts}
 
 Çökmelerde hata ayıklayabilmek için yayımlanan her sürümde [hata ayıklama sembolleri oluşturduğunuzdan](/manuals/debugging-native-code/#symbolicate-a-callstack) emin olun. Bunları uygulamanın dağıtım paketiyle (bundle) birlikte saklayın.
 
-## Uygulama optimizasyonları
+## Uygulama optimizasyonları {#application-optimizations}
 
 Uygulamanızı performans, boyut, bellek ve pil kullanımı açısından nasıl optimize edeceğinizi öğrenmek için [Optimizasyon kılavuzunu](/manuals/optimization) okuyun.
 
 
 
-## Performans
+## Performans {#performance}
 Her zaman hedef donanımda test edin! Oyun performansını kontrol edin ve gerekirse optimize edin. Koddaki darboğazları bulmak için [profil çıkarıcıyı (profiler)](/manuals/profiling) kullanın.
 
 
-## Ekran çözünürlüğü ve yenileme hızı
+## Ekran çözünürlüğü ve yenileme hızı {#screen-resolution-and-refresh-rate}
 Yönelimi ve ekran çözünürlüğü sabit olan platformlarda: Oyunun hedef platformun ekran çözünürlüğünde ve en boy oranında çalıştığını kontrol edin. Ekran çözünürlüğü ve en boy oranı değişken olan platformlarda: Oyunun çeşitli ekran çözünürlüklerinde ve en boy oranlarında çalıştığını kontrol edin. Görüntü oluşturmayı yöneten işleme betiğinde (render script) ve kamerada kullanılan [görünüm izdüşümünün (view projection)](/manuals/render/#default-view-projection) türünü dikkate alın.
 
 Mobil platformlarda ya ekran yönelimini *game.project* dosyasında kilitleyin ya da oyunun hem yatay hem de dikey modda çalıştığından emin olun.
@@ -88,7 +88,7 @@ Mobil platformlarda ya ekran yönelimini *game.project* dosyasında kilitleyin y
 
 <a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
 
-## Cep telefonları, çentikler ve ekran içi kamera delikleri
+## Cep telefonları, çentikler ve ekran içi kamera delikleri {#mobile-phones-and-notch-and-hole-punch-cameras}
 Ön kameraya ve sensörlere yer açmak için ekranda küçük bir lens açıklığı (çentik veya ekran içi kamera deliği olarak da bilinir) kullanmak giderek yaygınlaşmıştır. Bir oyunu mobile taşırken kritik bilgilerin platformun güvenli alanı (safe area) içinde kaldığından emin olun.
 
 Defold, Android ve iOS'ta yerleşik güvenli alan desteğine sahiptir. Hangi karşılıklı güvenli alan kenar paylarının (insets) GUI uyarlamasını etkileyeceğini belirlemek için `gui.safe_area_mode` ayarını *game.project* dosyasında yapılandırın. Varsayılan değer olan `none`, kenar paylarını yok sayar; `long`, yatay modda sol/sağ, dikey modda üst/alt kenar paylarını uygular; `short`, diğer çifti uygular; `both` ise dört kenarın tümünü uygular. Bir GUI betiği, [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) ile kendi sahnesi için proje genelindeki modu geçersiz kılabilir. Özel GUI veya işleme (rendering) mantığı için [`window.get_safe_area()`](/ref/window/#window.get_safe_area), güvenli dikdörtgeni ve her bir kenarın payını döndürür. Yerleşik güvenli alan kenar payları olmayan platformlar, pencerenin tamamını ve sıfır kenar payı döndürür.
@@ -96,13 +96,61 @@ Defold, Android ve iOS'ta yerleşik güvenli alan desteğine sahiptir. Hangi kar
 [Safe Area eklentisi](/extension-safearea), eski projeler veya yerleşik API'lerin sunduğunun ötesinde davranışa ihtiyaç duyan iş akışları için bir alternatif olmaya devam eder; Android ve iOS'ta standart güvenli alan yönetimi için gerekli değildir.
 
 
-## Platforma özgü yönergeler
+### Ayrılmış ekran alanları {#reserved-screen-areas}
+
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas), kamera kesikleri ve Dynamic Island gibi oyun penceresini örten ayrı bölgeleri bildirir. İçeriği tek tek engellerin çevresine yerleştirirken bu dikdörtgenleri kullanın. Tek bir güvenli yerleşim dikdörtgenine ve kenar boşluklarına ihtiyaç duyduğunuzda `window.get_safe_area()` kullanın.
+
+Sonuç, `x`, `y`, `width` ve `height` alanlarına sahip tablolardan oluşan bir dizidir. Her dikdörtgen oyun penceresi sınırlarına kırpılır. Başlangıç noktası sol alttadır: `x` sol kenar, `y` ise alt kenardır; birim, [`window.get_size()`](/ref/window/#window.get_size) ile eşleşen pencere pikselidir. Bu koordinatlar GUI uyarlamasından ve *game.project* dosyasındaki mantıksal çözünürlükten bağımsızdır; bunları düğüm konumları olarak kullanmadan önce GUI dönüşümlerinizi hesaba katın.
+
+Platform desteği şöyledir:
+
+- **iOS 27.1 ve sonrası:** etkileşim kenar boşlukları dahil UIKit tarafından bildirilen etkin engeller.
+- **Android 9 (API düzeyi 28) ve sonrası:** ekran kesiklerinin dikdörtgenleri.
+
+İşlev, desteklenmeyen platformlarda ve işletim sistemi sürümlerinde veya pencere için hiçbir engel bildirilmediğinde boş tablo döndürür. Boş tablo, pencerenin tamamının önemli içerik için güvenli olduğu anlamına gelmez: katlanma alanları, sistem çubukları, klavyeler ve hareket bölgeleri bu API'nin kapsamı dışındadır. Platformun güvenli dikdörtgeni için `window.get_safe_area()` kullanın.
+
+### Pencere olaylarından sonra alanları yenileme {#refreshing-areas-after-window-events}
+
+Başlangıçta ve her [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED) geri çağırımında ayrılmış alanları yeniden sorgulayın. İlk sorgudan sonra, desteklenen platformlarda pencere boyutu aynı kalsa bile ayrılmış alan geometrisindeki değişiklikler de bu olayı tetikler. Döndürülen her tablo o anın görüntüsüdür; kaydedilen tablolar otomatik olarak güncellenmez.
+
+iOS'ta bu olay, yönelim geçişlerinden ve güvenli alan kenar boşluğu değişikliklerinden sonra da gönderilir. Yatay konumda 180° dönüş, pencere boyutları ve güvenli alan kenar boşlukları aynı kalırken kamera kesiğini veya Dynamic Island alanını diğer tarafa taşıyabilir. `data.width` ve `data.height` önceki değerlerine eşit olsa bile olayda geometrinizi yenileyin.
+
+Aşağıdaki betik her iki geometri kümesini de güncel tutar:
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- Update your UI using the new safe rectangle and reserved areas.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- Refresh even when the width and height have not changed.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+Aynı anda yalnızca bir pencere olayı dinleyicisi kaydedilebilir. Oyununuzda zaten bir dinleyici varsa bu yenileme mantığını o dinleyiciye ekleyin. Her yenilemede kaydedilen dizinin değiştirilmesi, sonuç boş olduğunda artık geçerli olmayan dikdörtgenleri de temizler.
+
+
+## Platforma özgü yönergeler {#platform-specific-guidelines}
 
 ### Android
 Oyununuzu güncelleyebilmek için [anahtar deponuzu (keystore)](/manuals/android/#creating-a-keystore) güvenli bir yerde sakladığınızdan emin olun.
 
 
-### Konsollar
+### Konsollar {#consoles}
 Her sürümün dağıtım paketini eksiksiz saklayın. Oyuna yama uygulamak isterseniz bu dosyalara ihtiyacınız olacaktır.
 
 

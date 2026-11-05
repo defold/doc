@@ -31,7 +31,7 @@ Jesse Warden 的一篇文章提供了 [Actionscript 和 Lua 的基本比较](htt
 
 ## Flash 手动创建影片剪辑
 
-在 Flash 中，影片剪辑可以在 IDE 中手动创建，也可以运行时动态创建。手动创建的影片剪辑需要给实例名，才能在代码里引用。
+在 Flash 中，可以将影片剪辑从库中拖到时间轴上，手动向场景添加实例。如下图所示，每个 Flash 标志都是 `logo` 影片剪辑的一个实例。
 
 ![manual movie clips](images/flash/manual_movie_clips.png)
 
@@ -94,7 +94,7 @@ Defold 使用 *工厂* 动态创建游戏对象. 工厂是创建游戏对象拷�
 
 ![factory component](images/flash/factory_component.png)
 
-如下代码使用工厂创建了游戏对象实例:
+生成 `logo` 游戏对象实例时，调用如下函数：
 
 ```lua
 local logo_id = factory.create("factories#logo_factory")
@@ -148,7 +148,7 @@ Flash 在时间轴上用关键帧做动画，Defold 动画功能之一是用导�
 
 ![depth index](images/flash/depth_index.png)
 
-显示列表中的位置由每个`标志`实例旁边的数字指示。忽略处理影片剪辑 x/y 位置的任何代码，上述内容可以如下生成：
+显示列表中的位置由每个`logo`实例旁边的数字指示。忽略处理影片剪辑 x/y 位置的任何代码，上述内容可以如下生成：
 
 ```as
 var logo1:Logo = new Logo();
@@ -182,14 +182,14 @@ Defold 使用 z 轴位置控制游戏对象的显示顺序。每个游戏对象�
 
 ![z-order](images/flash/z_order.png)
 
-层级叠加规则：对象的最终 z 值 = 自身 z 值 + 所有父级 z 值之和。例如，若 `logos` 集合（包含三个图标）的 z=0.9，则三个图标的最终 z 值为 0.9、1.0、1.1，此时 `logo3` 因 z=1.1 > 1 而不可见：
+嵌套在一个或多个集合中的游戏对象，其 z 坐标由自身及所有父级的 z 坐标共同决定。例如，将上面的 `logo` 游戏对象放入 `logos` 集合，再将该集合放入 `main`（见下图）。如果 `logos` 集合的 z 坐标为 0.9，其中游戏对象的最终 z 坐标就是 0.9、1.0 和 1.1。因此，`logo3` 的 z 坐标大于 1，不会被渲染。
 
 ![z-order](images/flash/z_order_outline.png)
 
 脚本动态修改：
 ```lua
 local pos = go.get_position()
-pos.z = 0.5  -- 设置 z 轴位置
+pos.z  = 0.5
 go.set_position(pos)
 ```
 
@@ -288,7 +288,7 @@ Defold 不包含原生按钮组件，也不能像 Flash 中那样轻易地检测
 在 Flash 中，您使用 `trace()` 命令来帮助调试。Defold 中的等效函数是 `print()`，它的使用方式与 `trace()` 相同：
 
 ```lua
-print("Hello world!")
+print("Hello world!"")
 ```
 
 您可以在一次 `print()` 调用中打印多个变量：

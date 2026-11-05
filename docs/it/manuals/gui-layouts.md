@@ -99,6 +99,8 @@ end
 
 Quando cambia l'orientamento, il gestore dei layout GUI ridimensiona e riposiziona automaticamente i nodi GUI in base al layout e alle proprietà dei nodi. Il contenuto di gioco, invece, viene renderizzato in un passaggio separato (per impostazione predefinita), con una proiezione che lo allunga per adattarlo alla finestra corrente. Per modificare questo comportamento, fornisci uno script di rendering modificato oppure usa una [libreria](/assets/) per la camera.
 
+Per posizionare un'interfaccia personalizzata attorno ai ritagli della fotocamera, aggiorna `window.get_reserved_areas()` su `window.WINDOW_EVENT_RESIZED` anche quando il layout GUI selezionato rimane invariato. Su iOS, una rotazione di 180° può lasciare invariate le dimensioni della finestra e i margini dell'area sicura, spostando però l'ostruzione. Consulta [Aree riservate dello schermo](/manuals/porting-guidelines/#reserved-screen-areas) per l'esempio di aggiornamento e il rapporto tra le sue coordinate in pixel della finestra e l'adattamento della GUI.
+
 ## Selezione manuale del layout (Lua) {#manual-layout-selection-lua}
 
 Quando Auto Layout Selection è OFF per i Display Profiles in uso, il motore non cambia automaticamente il layout. Usa queste funzioni da uno script GUI per gestire i layout manualmente:

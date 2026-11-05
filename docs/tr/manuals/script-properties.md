@@ -3,7 +3,7 @@ title: Betik bileşeni özellikleri
 brief: Bu kılavuz, betik bileşenlerine özel özelliklerin nasıl ekleneceğini ve bunlara düzenleyiciden ve çalışma zamanı betiklerinden nasıl erişileceğini açıklar.
 ---
 
-# Betik özellikleri
+# Betik özellikleri {#script-properties}
 
 Betik özellikleri (script properties), belirli bir oyun nesnesi (game object) örneği için özel özellikler tanımlamanın ve bunları dışarıya açmanın basit ve güçlü bir yolunu sunar. Betik özellikleri, belirli örneklerde doğrudan düzenleyicide değiştirilebilir ve ayarları, bir oyun nesnesinin davranışını değiştirmek için kodda kullanılabilir. Betik özelliklerinin çok yararlı olduğu birçok durum vardır:
 
@@ -14,7 +14,7 @@ Betik özellikleri (script properties), belirli bir oyun nesnesi (game object) �
 
 Yaygın kullanım örnekleri arasında belirli bir düşman yapay zekâsının canını veya hızını, toplanabilir bir nesnenin renk çarpanını (tint), bir sprite bileşeninin atlasını ya da bir düğme nesnesine basıldığında hangi iletinin gönderileceğini ve/veya nereye gönderileceğini ayarlamak yer alır.
 
-## Betik özelliği tanımlama
+## Betik özelliği tanımlama {#defining-a-script-property}
 
 Betik özellikleri, özel `go.property()` işleviyle tanımlanarak bir betik bileşenine (script component) eklenir. Bu işlevin en üst düzeyde, yani `init()` ve `update()` gibi yaşam döngüsü işlevlerinin dışında kullanılması gerekir. Özellik için verilen varsayılan değer, özelliğin türünü belirler: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` ve `resource` (aşağıya bakın).
 
@@ -62,9 +62,9 @@ Ardından, bu betikten oluşturulan her betik bileşeni örneği için özellik 
 Betik özellikleri proje derlenirken ayrıştırılır. Değer ifadeleri değerlendirilmez. Bu, `go.property("hp", 3+6)` gibi bir ifadenin çalışmayacağı, ancak `go.property("hp", 9)` ifadesinin çalışacağı anlamına gelir.
 :::
 
-### Metin özellikleri
+### Metin özellikleri {#text-properties}
 
-Defold 1.13.2 sürümünden itibaren, varsayılan değer olarak verilen bir dize bir metin özelliği tanımlar. Metin özellikleri UTF-8 ve yeni satır karakterlerini destekler ve düzenleyicide çok satırlı bir alanda düzenlenir:
+Varsayılan değer olarak verilen bir dize bir metin özelliği tanımlar. Metin özellikleri UTF-8 ve yeni satır karakterlerini destekler ve düzenleyicide çok satırlı bir alanda düzenlenir:
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")
@@ -88,7 +88,7 @@ end
 
 Betik özelliğini değiştirmek, etiket bileşenini otomatik olarak güncellemez; son satır yeni değeri açıkça etiket bileşeninin `text` özelliğine kopyalar.
 
-## Betik özelliklerine erişme
+## Betik özelliklerine erişme {#accessing-script-properties}
 
 Tanımlanmış her betik özelliğine, betik örneği başvurusu olan `self` içinde saklanan bir üye olarak erişilebilir:
 
@@ -117,7 +117,7 @@ go.set("myobject#my_script", "my_property", val + 1)
 go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
 ```
 
-## Fabrikayla oluşturulan nesneler
+## Fabrikayla oluşturulan nesneler {#factory-created-objects}
 
 Oyun nesnesini oluşturmak için bir fabrika (factory) kullanıyorsanız betik özelliklerini oluşturma anında ayarlayabilirsiniz:
 

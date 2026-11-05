@@ -85,6 +85,10 @@ Per utilizzare questa funzionalità, devi avere *ADB* installato e *USB debuggin
 
 Un file *.aab* può essere caricato su Google Play tramite la [console per sviluppatori di Google Play](https://play.google.com/apps/publish/). Puoi anche generare un file *`.apk`* da un file *.aab* per installarlo localmente utilizzando [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Ritagli dello schermo {#display-cutouts}
+
+`window.get_reserved_areas()` restituisce i rettangoli dei ritagli dello schermo su Android 9 (livello API 28) e versioni successive. Usa `window.get_safe_area()` quando ti serve un rettangolo sicuro per il layout. Consulta [Aree riservate dello schermo](/manuals/porting-guidelines/#reserved-screen-areas) per le unità delle coordinate, il comportamento sulle piattaforme non supportate e come aggiornare il layout quando cambiano le aree riportate.
+
 ## Ridurre il codice Java e le risorse Android con R8 {#shrinking-java-code-with-r8}
 
 R8 riduce le dimensioni del codice Java eliminando quello inutilizzato, ottimizzandolo e offuscandolo. Con Defold 1.14.0 o versioni successive e un server di build Extender compatibile, rimuove anche le risorse Android inutilizzate, come layout, drawable e risorse raw fornite dalle estensioni e dalle loro dipendenze Android. Le risorse di gioco Defold contenute nell'archivio del gioco non vengono elaborate da R8.
@@ -102,7 +106,7 @@ Assicurati che ogni estensione con codice Java fornisca un file `.keep` per le c
 
 Lasciando vuoto **R8 Keep Rules**, viene usato D8 senza rimuovere il codice inutilizzato. Abilitando R8 viene utilizzato il servizio di build delle estensioni native, anche per un progetto privo di estensioni native.
 
-A partire da Defold 1.14.0, la rimozione delle risorse Android inutilizzate viene abilitata dalla stessa impostazione **R8 Keep Rules**; non esiste un'impostazione separata del progetto. Gli SDK Defold precedenti mantengono la rimozione tramite R8 limitata al codice.
+La rimozione delle risorse Android inutilizzate è abilitata dalla stessa impostazione **R8 Keep Rules**; non esiste un'impostazione separata del progetto. Gli SDK Defold precedenti mantengono la rimozione tramite R8 del solo codice inutilizzato.
 
 ### Aggiungere regole a un'estensione {#adding-rules-to-an-extension}
 

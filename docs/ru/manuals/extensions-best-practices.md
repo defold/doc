@@ -31,28 +31,28 @@ brief: В этом руководстве описаны лучшие метод
 ```
     /root
         /input
-        /main                            -- Все файлы для примера проекта
+        /main                            -- All the files for the actual example project
             /...
-        /myextension                     -- Корневая папка самого расширения
+        /myextension                     -- The actual root folder of the extension
             ext.manifest
-            /include                     -- Внешние заголовочные файлы, используемые другими расширениями
+            /include                     -- External includes, used by other extensions
             /libs
-                /<platform>              -- Внешние библиотеки для всех поддерживаемых платформ
+                /<platform>              -- External libraries for all supported platforms
             /src
-                myextension.cpp          -- Lua API расширения и функции жизненного цикла
-                                            Также содержит универсальные реализации Lua-функций
-                myextension_private.h    -- Внутренний API, который реализуется для каждой платформы (например, `myextension_Init`)
-                myextension.mm           -- Для нативных вызовов на iOS/macOS. Реализует `myextension_Init` для iOS/macOS
-                myextension_android.cpp  -- Для JNI вызовов на Android. Реализует `myextension_Init` для Android
+                myextension.cpp          -- The extension Lua api and the extension life cycle functions
+                                            Also contains generic implementations of your Lua api functions.
+                myextension_private.h    -- Your internal api that each platform will implement (I.e. `myextension_Init` etc)
+                myextension.mm           -- If native calls are needed for iOS/macOS. Implements `myextension_Init` etc for iOS/macOS
+                myextension_android.cpp  -- If JNI calls are needed for Android. Implements `myextension_Init` etc for Android
                 /java
-                    /<platform>          -- Любые Java-файлы, необходимые для Android
-            /res                         -- Ресурсы, необходимые для платформы
+                    /<platform>          -- Any java files needed for Android
+            /res                         -- Any resources needed for a platform
             /external
-                README.md                -- Заметки/скрипты о сборке/упаковке внешних библиотек
-        /bundleres                       -- Ресурсы, которые должны быть включены в бандл (см. game.project и [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project)))
+                README.md                -- Notes/scripts on how to build or package any external libraries
+        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
             /<platform>
         game.project
-        game.appmanifest                 -- Дополнительная информация о конфигурации приложения
+        game.appmanifest                 -- Any extra app configuration info
 ```
 
 Обратите внимание, что `myextension.mm` и `myextension_android.cpp` нужны только при использовании нативных вызовов для соответствующих платформ.

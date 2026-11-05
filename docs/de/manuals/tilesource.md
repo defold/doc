@@ -50,28 +50,33 @@ Collision
 
 ## Flipbook-Animationen einer Kachelquelle {#tile-source-flip-book-animations}
 
-Um eine Animation in einer Kachelquelle zu definieren, müssen die Kacheln der Einzelbilder in einer Folge von links nach rechts nebeneinanderliegen. Die Folge kann von einer Zeile in die nächste übergehen. Alle neu erstellten Kachelquellen haben eine Standardanimation namens „`anim`“. Du kannst neue Animationen hinzufügen, indem du einen <kbd>Rechtsklick</kbd> auf den obersten Eintrag der Kachelquelle in der Ansicht *Outline* ausführst und <kbd>Add ▸ Animation</kbd> auswählst.
+Wähle zur Definition einer Animation in einer Kachelquelle die abzuspielenden Kacheln über die Eigenschaft *Frames* der Animation. Kacheln können in beliebiger Reihenfolge und mit Wiederholungen vorkommen, sodass du das Quellbild nicht umordnen musst. Alle neu erstellten Kachelquellen besitzen eine Standardanimation namens „`anim`“. Du kannst neue Animationen hinzufügen, indem du einen <kbd>Rechtsklick</kbd> auf die Wurzel der Kachelquelle in *Outline* ausführst und <kbd>Add ▸ Animation</kbd> auswählst.
 
 Wenn du eine Animation auswählst, werden ihre *Properties* angezeigt.
-
-![Animation einer Kachelquelle](images/tilemap/animation.png)
 
 Id
 : Die Kennung der Animation. Sie muss innerhalb der Kachelquelle eindeutig sein.
 
-Start Tile
-: Die erste Kachel der Animation. Die Nummerierung beginnt bei 1 in der oberen linken Ecke und verläuft nach rechts, Zeile für Zeile bis zur unteren rechten Ecke.
+Frames
+: Die Kachelnummern in Animationsreihenfolge, durch Kommas getrennt. Die Nummerierung beginnt links oben bei 1 und läuft nach rechts, Zeile für Zeile bis nach rechts unten. Du kannst Kachelnummern wiederholen und inklusive Bereiche in beiden Richtungen verwenden.
 
-End Tile
-: Die letzte Kachel der Animation.
+| Frames | Aufgelöste Folge |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+Der Editor zeigt fortlaufende Folgen von mindestens drei Frames als Bereiche an. Beispielsweise wird `1, 2, 3` zu `1-3`, während `1, 2` als zwei Kachelnummern bestehen bleibt. Frame-Reihenfolge und Wiederholungen bleiben erhalten. Die Liste muss mindestens einen Frame enthalten, und jede Kachelnummer muss im Quellbild existieren.
+
+*Frames* ersetzt *Start Tile* und *End Tile*. Der Editor konvertiert gültige Bereiche in älteren Kachelquelldateien zu Frame-Listen. Verwende für Editorskripte das Ganzzahlarray `frames` anstelle von `start_tile` und `end_tile`; siehe [Kachelquellen bearbeiten](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
-: Legt fest, wie die Animation abgespielt werden soll:
+: Legt fest, wie die Animation die Liste *Frames* durchläuft:
 
   - `None` spielt die Animation nicht ab; das erste Bild wird angezeigt.
   - `Once Forward` spielt die Animation einmal vom ersten bis zum letzten Bild ab.
   - `Once Backward` spielt die Animation einmal vom letzten bis zum ersten Bild ab.
-  - `Once Ping Pong` spielt die Animation einmal vom ersten bis zum letzten Bild und dann zurück zum ersten Bild ab.
+  - `Once Ping Pong` spielt die Animation einmal vom ersten bis zum letzten Bild und dann zurück bis zum zweiten Bild ab.
   - `Loop Forward` spielt die Animation wiederholt vom ersten bis zum letzten Bild ab.
   - `Loop Backward` spielt die Animation wiederholt vom letzten bis zum ersten Bild ab.
   - `Loop Ping Pong` spielt die Animation wiederholt vom ersten bis zum letzten Bild und dann zurück zum ersten Bild ab.

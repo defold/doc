@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-A partir do Defold 1.14.0, todos os atributos `Mat2`, `Mat3` e `Mat4` usam valores `vmath.matrix4` com `go.set()` e `go.get()`. Definir um atributo `Mat2` ou `Mat3` usa a parte 2×2 ou 3×3 do canto superior esquerdo da matriz. Ao ler o atributo, é retornado um `vmath.matrix4` com as linhas e colunas não utilizadas preenchidas a partir de uma matriz identidade.
+Os atributos `Mat2`, `Mat3` e `Mat4` usam valores `vmath.matrix4` com `go.set()` e `go.get()`. Definir um atributo `Mat2` ou `Mat3` usa a parte superior esquerda 2×2 ou 3×3 da matriz. Sua leitura retorna um `vmath.matrix4` com as linhas e colunas não utilizadas preenchidas a partir de uma matriz identidade.
 
 Por exemplo, com um atributo `Mat2` chamado `custom_mat2` e tipo semântico `None` no material de um modelo:
 
@@ -168,7 +168,7 @@ go.set("#model", "custom_mat2", value)
 
 local result = go.get("#model", "custom_mat2")
 print(result.m00, result.m11) -- 2, 3
-print(result.m22, result.m33) -- 1, 1 (identity padding)
+print(result.m22, result.m33) -- 1, 1 (preenchimento com valores da matriz identidade)
 ```
 
 Sempre atribua a matriz completa. Valores achatados como `vmath.vector4` e atribuições a subpropriedades individuais do atributo são rejeitados para atributos de matriz. Para alterar um elemento, modifique a matriz em Lua e passe-a de volta com `go.set()`.
@@ -188,24 +188,24 @@ out vec2 var_texcoord0;
 
 void main()
 {
-  // Extrai a posição da transformação
+  // Extract position from the transform
   vec2 atlas_pos = texture_transform_2d[2].xy;
-  // Extrai a escala da transformação
+  // Extract the scale from the transform
   vec2 atlas_size = vec2(
       length(texture_transform_2d[0].xy),
       length(texture_transform_2d[1].xy)
   );
-  // converte para UV local (0..1)
+  // convert to local UV (0..1)
   vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
 
-  // Como alternativa, se as coordenadas UV já estiverem no intervalo 0..1,
-  // você pode transformar diretamente para espaço de atlas multiplicando a transformação:
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
   vec2 transformedUv = texture_transform_2d * texcoord0;
 
-  // Passa o valor para o fragment shader
+  // Pass the value into the fragment shader
   var_texcoord0 = localUV;
 
-  // ... restante do vertex shader
+  // ... rest of vertex shader
 }
 ```
 
@@ -238,12 +238,12 @@ O material é configurado assim, com um único atributo de vértice personalizad
 O vertex shader tem vários atributos por instância especificados:
 
 ```glsl
-// Atributos por vértice
+// Per vertex attributes
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 attribute mediump vec3 normal;
 
-// Atributos por instância
+// Per instance attributes
 attribute mediump mat4 mtx_world;
 attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;

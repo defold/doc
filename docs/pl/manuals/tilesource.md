@@ -48,30 +48,37 @@ Extrude Border
 Collision
 : Określa obraz używany do automatycznego generowania kształtów kolizji dla kafelków.
 
-## Animacje poklatkowe źródła kafelków
+## Animacje poklatkowe źródła kafelków {#tile-source-flip-book-animations}
 
-Aby zdefiniować animację w źródle kafelków, kafelki klatek animacji muszą leżeć obok siebie w sekwencji od lewej do prawej. Sekwencja może zawijać się z jednego wiersza do następnego. Wszystkie nowo utworzone źródła kafelków mają domyślną animację o nazwie `anim`. Możesz dodać nowe animacje, <kbd>klikając prawym przyciskiem myszy</kbd> korzeń źródła kafelków w *Outline* i wybierając <kbd>Add ▸ Animation</kbd>.
+Aby zdefiniować animację w źródle kafelków, wybierz kafelki do odtwarzania za pomocą właściwości *Frames* animacji. Kafelki mogą występować w dowolnej kolejności, również z powtórzeniami, więc nie musisz zmieniać układu obrazu źródłowego. Wszystkie nowo utworzone źródła kafelków mają domyślną animację o nazwie "`anim`". Możesz dodać nowe animacje, <kbd>klikając prawym przyciskiem myszy</kbd> korzeń źródła kafelków w *Outline* i wybierając <kbd>Add ▸ Animation</kbd>.
 
 Wybranie animacji wyświetla jej *Properties*.
 
-![Animacja źródła kafelków](images/tilemap/animation.png)
+
 
 Id
 : Identyfikator animacji. Musi być unikalny dla źródła kafelków.
 
-Start Tile
-: Pierwszy kafelek animacji. Numeracja zaczyna się od 1 w lewym górnym rogu i biegnie w prawo, wiersz po wierszu, aż do prawego dolnego rogu.
+Frames
+: Numery kafelków w kolejności odtwarzania animacji, rozdzielone przecinkami. Numeracja zaczyna się od 1 w lewym górnym rogu i biegnie w prawo, wiersz po wierszu, aż do prawego dolnego rogu. Możesz powtarzać numery kafelków i używać zakresów domkniętych w obu kierunkach.
 
-End Tile
-: Ostatni kafelek animacji.
+| Frames | Rozwinięta sekwencja |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+Edytor wyświetla ciągi co najmniej trzech kolejnych klatek jako zakresy. Na przykład `1, 2, 3` staje się `1-3`, a `1, 2` pozostaje parą numerów kafelków. Kolejność klatek i powtórzenia są zachowywane. Lista musi zawierać co najmniej jedną klatkę, a każdy numer kafelka musi istnieć w obrazie źródłowym.
+
+*Frames* zastępuje *Start Tile* i *End Tile*. Edytor przekształca poprawne zakresy w starszych plikach źródeł kafelków na listy klatek. W skryptach edytora używaj tablicy liczb całkowitych `frames` zamiast `start_tile` i `end_tile`; zobacz [Edytowanie źródeł kafelków](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
-: Określa sposób odtwarzania animacji:
+: Określa sposób odtwarzania animacji zgodnie z listą *Frames*:
 
   - `None` nie odtwarza animacji, wyświetlany jest pierwszy obraz.
   - `Once Forward` odtwarza animację jeden raz od pierwszego do ostatniego obrazu.
   - `Once Backward` odtwarza animację jeden raz od ostatniego do pierwszego obrazu.
-  - `Once Ping Pong` odtwarza animację jeden raz od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
+  - `Once Ping Pong` odtwarza animację jeden raz od pierwszego do ostatniego obrazu, a następnie z powrotem do drugiego obrazu.
   - `Loop Forward` odtwarza animację wielokrotnie od pierwszego do ostatniego obrazu.
   - `Loop Backward` odtwarza animację wielokrotnie od ostatniego do pierwszego obrazu.
   - `Loop Ping Pong` odtwarza animację wielokrotnie od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.

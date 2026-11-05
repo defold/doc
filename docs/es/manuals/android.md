@@ -3,11 +3,11 @@ title: Desarrollo de Defold para la plataforma Android
 brief: Este manual describe cómo crear y ejecutar aplicaciones Defold en dispositivos Android
 ---
 
-# Desarrollo en Android
+# Desarrollo en Android {#android-development}
 
 Los dispositivos Android te permiten ejecutar libremente tus propias apps en ellos. Es muy fácil crear una versión de tu juego y copiarla a un dispositivo Android. Este manual explica los pasos necesarios para crear un bundle de tu juego para Android. Durante el desarrollo, suele ser preferible ejecutar tu juego mediante la [app de desarrollo](/manuals/dev-app), ya que te permite recargar contenido y código en caliente directamente en tu dispositivo.
 
-## Proceso de firmado de Android y Google Play
+## Proceso de firmado de Android y Google Play {#android-and-google-play-signing-process}
 
 Android requiere que todos los APK estén firmados digitalmente con un certificado antes de que se instalen en un dispositivo o se actualicen. Si usas Android App Bundles, solo necesitas firmar tu app bundle antes de subirlo a Play Console, y [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) se encarga del resto. Sin embargo, también puedes firmar manualmente tu app para subirla a Google Play, a otras tiendas de apps y para distribuirla fuera de cualquier tienda.
 
@@ -58,9 +58,9 @@ Pulsa <kbd>Create Bundle</kbd> cuando hayas configurado las opciones del bundle 
 
 :[Build Variants](../shared/build-variants.md)
 
-### Instalar un bundle de aplicación Android
+### Instalar un bundle de aplicación Android {#installing-an-android-application-bundle}
 
-#### Instalar un APK
+#### Instalar un APK {#installing-an-apk}
 
 Un archivo *`.apk`* se puede copiar a tu dispositivo con la herramienta `adb`, o a Google Play mediante la [consola para desarrolladores de Google Play](https://play.google.com/apps/publish/).
 
@@ -73,7 +73,7 @@ $ adb install Defold\ examples.apk
 Success
 ```
 
-#### Instalar un APK usando el editor
+#### Instalar un APK usando el editor {#installing-an-apk-using-editor}
 
 Puedes instalar y ejecutar un archivo *`.apk`* usando las casillas "Install on connected device" y "Launch installed app" del editor en el diálogo Bundle:
 
@@ -81,9 +81,13 @@ Puedes instalar y ejecutar un archivo *`.apk`* usando las casillas "Install on c
 
 Para que esta funcionalidad funcione, necesitarás tener *ADB* instalado y *USB debugging* activado en el dispositivo conectado. Si el editor no puede detectar la ubicación de instalación de la herramienta de línea de comando ADB, tendrás que especificarla en [Preferences](/manuals/editor-preferences/#tools).
 
-#### Instalar un AAB
+#### Instalar un AAB {#installing-an-aab}
 
 Un archivo *.aab* se puede subir a Google Play mediante la [consola para desarrolladores de Google Play](https://play.google.com/apps/publish/). También es posible generar un archivo *`.apk`* a partir de un archivo *.aab* para instalarlo localmente usando [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
+
+## Recortes de pantalla {#display-cutouts}
+
+`window.get_reserved_areas()` devuelve los rectángulos de los recortes de pantalla en Android 9 (nivel de API 28) y versiones posteriores. Usa `window.get_safe_area()` cuando necesites un rectángulo seguro para el layout. Consulta [Áreas reservadas de la pantalla](/manuals/porting-guidelines/#reserved-screen-areas) para conocer las unidades de las coordenadas, el comportamiento en plataformas no compatibles y cómo actualizar el layout cuando cambian las áreas notificadas.
 
 ## Reducir el código Java y los recursos de Android con R8 {#shrinking-java-code-with-r8}
 
@@ -102,7 +106,7 @@ Asegúrate de que cada extensión con código Java proporcione un archivo `.keep
 
 Dejar **R8 Keep Rules** vacío usa D8 sin eliminar código. Al activar R8 se usa el servicio de compilación de extensiones nativas, incluso en un proyecto sin extensiones nativas.
 
-A partir de Defold 1.14.0, la misma configuración **R8 Keep Rules** activa la eliminación de recursos de Android no usados; no hay una configuración de proyecto aparte para ello. Los SDK de Defold anteriores mantienen la eliminación de código no usado con R8 únicamente.
+La reducción de recursos de Android se activa con el mismo ajuste **R8 Keep Rules**; no existe un ajuste independiente del proyecto para ello. Los SDK antiguos de Defold mantienen la reducción con R8 únicamente para el código.
 
 ### Agregar reglas a una extensión {#adding-rules-to-an-extension}
 
@@ -133,18 +137,18 @@ El mapa se guarda como `<binary-name>.apk.symbols/mapping.txt` junto al APK o AA
 
 Guarda el archivo de mapa junto a la release exacta de la que procede. Permite relacionar los nombres Java ofuscados con los originales para interpretar trazas de pila; un mapa de otra build puede dar resultados incorrectos.
 
-## Permisos
+## Permisos {#permissions}
 
 El motor Defold requiere varios permisos para que funcionen todas sus funcionalidades. Los permisos se definen en `AndroidManifest.xml`, especificado en el [archivo de configuración del proyecto](/manuals/project-settings/#android) *game.project*. Puedes leer más sobre los permisos de Android en [la documentación oficial](https://developer.android.com/guide/topics/permissions/overview). En el manifiesto predeterminado se solicitan los siguientes permisos:
 
-### android.permission.INTERNET y android.permission.ACCESS_NETWORK_STATE (Nivel de protección: normal)
+### android.permission.INTERNET y android.permission.ACCESS_NETWORK_STATE (Nivel de protección: normal) {#androidpermissioninternet-and-androidpermissionaccess_network_state-protection-level-normal}
 Permite que las aplicaciones abran *sockets de red* y accedan a información sobre redes. Estos permisos son necesarios para el acceso a internet. ([Documentación oficial de Android](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) y ([documentación oficial de Android](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
-### android.permission.WAKE_LOCK (Nivel de protección: normal)
+### android.permission.WAKE_LOCK (Nivel de protección: normal) {#androidpermissionwake_lock-protection-level-normal}
 Permite usar PowerManager WakeLocks para evitar que el procesador entre en suspensión o que la pantalla se atenúe. Este permiso es necesario para evitar temporalmente que el dispositivo entre en suspensión mientras recibe una notificación push. ([Documentación oficial de Android](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
 
-## Usar AndroidX
+## Usar AndroidX {#using-androidx}
 AndroidX es una mejora importante respecto a la Android Support Library original, que ya no se mantiene. Los paquetes AndroidX sustituyen por completo a la Support Library al ofrecer paridad de funcionalidades y nuevas bibliotecas. La mayoría de las extensiones Android en el [Asset Portal](/assets) son compatibles con AndroidX. Si no quieres usar AndroidX, puedes desactivarlo explícitamente en favor de la antigua Android Support Library marcando `Use Android Support Lib` en el [manifiesto de la aplicación](https://defold.com/manuals/app-manifest/).
 
 ![](images/android/enable_supportlibrary.png)

@@ -189,7 +189,7 @@ L'élimination hors du volume de visibilité est implémentée dans le moteur pa
 
 
 ::: sidenote
-À partir de Defold 1.13.0, les sommets des primitives des composants sont ordonnés dans le sens antihoraire, avec la normale de la primitive dirigée vers la caméra. Les sprites, les nœuds GUI, les tilemaps (grilles de tuiles) et les Particle FX utilisent le même ordre que les autres types de composants ; les mêmes paramètres d'élimination des faces peuvent donc être utilisés pour tous les composants.
+Les sommets des primitives des composants sont ordonnés dans le sens antihoraire, avec la normale de la primitive dirigée vers la caméra. Les sprites, les nœuds GUI, les tilemaps (grilles de tuiles) et les Particle FX utilisent le même ordre que les autres types de composants ; les mêmes paramètres d'élimination des faces peuvent donc être utilisés pour tous les composants.
 
 Cela peut affecter les projets qui configurent l'élimination des faces pour des composants autres que les modèles. Si un composant est éliminé de manière inattendue, assurez-vous que les faces arrière sont sélectionnées avec `render.set_cull_face(graphics.FACE_TYPE_BACK)`, ou supprimez l'appel à `render.set_cull_face()` pour utiliser le mode par défaut `graphics.FACE_TYPE_BACK`.
 :::

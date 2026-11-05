@@ -21,6 +21,30 @@ brief: このマニュアルでは、ラベルコンポーネントを使って�
 
 ![フォントとマテリアル](images/label/font_material.png)
 
+## ベクターフォントとカラー絵文字 {#vector-fonts-and-color-emoji}
+
+Vector フォントを使うには、[ベクターフォントの設定](/manuals/font/#vector-fonts)に従い、Label の *Font* に `.font` リソースを割り当て、*Material* を `/builtins/fonts/label-vector.material` に設定します。表示サイズは *Font Size* で制御します。
+
+カラー絵文字では、[COLRv1 のフォールバックとバンドルの設定](/manuals/font/#color-emoji)も完了してください。以下の例では、ID が `label` の Label と、同じゲームオブジェクト上のスクリプトを想定します。グリフの準備ができてから挨拶を表示するよう、Label の *Text* は空にします。
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+通常の文字は元のフォントを、絵文字は追加したカラーフォントを使います。ほかの Label や GUI テキストノードがこのフォントリソースを共有する場合は、1か所でフォールバックを初期化し、再利用してください。
+
 ## ラベルのプロパティ {#label-properties}
 
 *Id*、*Position*、*Rotation*、*Scale* プロパティに加えて、次のコンポーネント固有のプロパティがあります。
@@ -63,7 +87,7 @@ brief: このマニュアルでは、ラベルコンポーネントを使って�
 : このラベルに使用するフォントリソースです。
 
 *Material*
-: このラベルの描画に使用するマテリアルです。使用するフォントの種類（ビットマップ、距離フィールド、BMFont）向けに作成されたマテリアルを必ず選択してください。
+: このラベルの描画に使うマテリアルです。フォントのモードまたはソース（Bitmap、SDF、Vector、BMFont）に合うものを選択します。対応する組み込みの Label 用マテリアルは、[フォントのマテリアル](/manuals/font/#font-materials)を参照してください。
 
 ### ブレンドモード {#blend-modes}
 :[blend-modes](../shared/blend-modes.md)
@@ -88,7 +112,7 @@ brief: このマニュアルでは、ラベルコンポーネントを使って�
 ラベルのテキストや、その他のさまざまなプロパティを取得、設定して、実行時にラベルを操作できます。
 
 `text`
-: ラベルのテキスト内容です（`string`）。Defold 1.13.2 以降では、`go.get()` と `go.set()` で利用できます。
+: ラベルのテキスト内容（`string`）です。`go.get()` と `go.set()` で操作できます。
 
 `color`
 : ラベルの色です（`vector4`）。
@@ -116,7 +140,7 @@ end
 ```
 
 ::: sidenote
-Defold 1.13.2 以降では、`label.set_text()` と `label.get_text()` は非推奨となり、代わりに `text` プロパティを使います。互換性のため、従来の関数も引き続き利用できます。従来の設定関数はメッセージをキューに入れますが、`go.set()` はテキストを即座に更新します。
+`label.set_text()` と `label.get_text()` は非推奨となり、代わりに `text` プロパティを使います。従来の関数は互換性のために残っています。従来の設定関数はメッセージをキューに追加しますが、`go.set()` はテキストを即座に更新します。
 :::
 
 ```lua

@@ -17,7 +17,7 @@ brief: このマニュアルでは、入力の仕組み、入力アクション�
   1. キーボード（単一のキー入力とテキスト入力）
   2. マウス（位置、ボタンのクリック、マウスホイールの操作）
   3. シングルタッチとマルチタッチ（iOS デバイス、Android デバイス、およびモバイルの HTML5）
-  4. ゲームパッド（オペレーティングシステムでサポートされ、[gamepads](/manuals/input-gamepads/#gamepads-settings-file) ファイルでマッピングされているもの）
+  4. ゲームパッド（[コントローラーのマッピングとプラットフォームのサポート](/manuals/input-gamepads/#gamepads-settings-file)を使用）
 
 入力バインディング
 : 入力がスクリプトに送信される前に、デバイスからの未加工の入力は、入力バインディングテーブルを通じて意味のある *アクション* に変換されます。
@@ -111,7 +111,7 @@ msg.post(".", "acquire_input_focus")
 : 現在のスクリプトインスタンスです。
 
 `action_id`
-: 入力バインディングで設定されたアクション名のハッシュです。
+: 入力バインディングで設定したアクション名のハッシュです。ポインター移動と加速度センサーのサンプルでは `nil` になります。名前のないこれらのアクションは、`action.source` で区別します。
 
 `action`
 : 入力の値、位置（絶対位置と位置の差分）、ボタン入力が `pressed` であったかなど、アクションに関する有用なデータを含むテーブルです。利用可能なアクションのフィールドについて詳しくは、[on_input()](/ref/go#on_input) を参照してください。
@@ -129,6 +129,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### 入力デバイスの種類 {#input-device-source}
+
+`action.source` は、アクション名とは独立して入力デバイスの種類を識別します。スクリプトと GUI スクリプトの両方の `on_input()` コールバックで利用でき、次のハッシュのいずれかです。
+
+| `action.source` | 入力の種類 |
+|-----------------|----------------|
+| `hash("keyboard")` | Key Triggers からの個々のキー入力。 |
+| `hash("text")` | Text Triggers からのテキストと未確定テキストの入力。物理キーボードから入力したテキストも含みます。 |
+| `hash("mouse")` | 物理マウスのボタン、ホイール入力、ポインター移動。 |
+| `hash("touch")` | タッチ入力。タッチから模擬したマウスクリックとポインター移動も含みます。 |
+| `hash("gamepad")` | ゲームパッド入力。生の入力と接続イベントも含みます。 |
+| `hash("accelerometer")` | 加速度センサーのサンプル。 |
+
+`action.source` は文字列ではなく、`hash("touch")` のようなハッシュと比較します。たとえば、マウスの左ボタンのアクションは、物理マウスからもタップからも発生します。入力元を使うと、最初の押下時から区別できます。[マウスクリックとタッチの区別](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch)を参照してください。
+
+複数のデバイスが名前付きのアクションを共有すると、それぞれの入力が組み合わされることがあります。入力元はキーボード、テキスト、マウス、タッチの順に処理し、そのアクションに最後に寄与した入力元を報告します。キーとマウスボタンのリリースでは、同じフレームでほかの入力が寄与しない限り、直前の入力元を保持します。ゲームパッドのアクションは、コントローラーごとに独立しています。各バインディングを個別に処理する必要がある場合は、別々のアクション名を使います。
+
+ポインター移動と加速度センサーのサンプルにはアクション名がないため、どちらも `action_id == nil` を使います。それぞれ別のコールバックで届きます。ポインター移動には座標と、マウスまたはタッチの入力元があり、加速度センサーのサンプルには `acc_x`、`acc_y`、`acc_z` と加速度センサーの入力元があります。同じフレームで両方が発生しても、各コールバックを独立して消費できます。加速度センサーのサンプルは、値が変化していなくても届きます。
+
+以下の例は、名前のないこれらのアクションを処理します。ポインター移動を受け取るには少なくとも1つの Mouse Trigger を設定し、加速度センサーのサンプルを受け取るには対応デバイスで [Use Accelerometer](/manuals/project-settings/#use-accelerometer) を有効にします。
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 

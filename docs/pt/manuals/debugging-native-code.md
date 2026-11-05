@@ -40,7 +40,7 @@ Cada ferramenta pode depurar certas plataformas:
 
 ## Usar depuração com print
 
-A forma mais simples de depurar seu código nativo é usar [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). Use as funções no [`namespace dmLog`](/ref/dmLog/) para observar variáveis ou indicar o fluxo de execução. Usar qualquer uma das funções de log imprimirá na visualização *Console* do editor e no [log do jogo](/manuals/debugging-game-and-system-logs).
+A forma mais simples de depurar seu código nativo é usar [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). Use as funções no namespace [`dmLog`](/ref/dmLog/) para observar variáveis ou indicar o fluxo de execução. Usar qualquer uma das funções de log imprimirá na visualização *Console* do editor e no [log do jogo](/manuals/debugging-game-and-system-logs).
 
 
 ## Analisar um log de travamento
@@ -86,7 +86,7 @@ Se você obtiver uma callstack de um arquivo `_crash` ou de um [arquivo de log](
 * HTML5 - o diretório `<project_name>_symbols` ao lado do pacote HTML5 contém `<project_name>_wasm.js.symbols` e, quando a arquitetura `wasm_pthread-web` está selecionada, `<project_name>_pthread_wasm.js.symbols`.
 
 ::: important
-É muito importante que você salve os símbolos de debug em algum lugar para cada release pública do seu jogo e que saiba a qual release os símbolos de debug pertencem. Você não conseguirá depurar nenhum travamento nativo se não tiver os símbolos de debug. Além disso, mantenha uma versão `não stripped` da engine. Isso permite a melhor simbolicação da callstack.
+É muito importante que você salve os símbolos de debug em algum lugar para cada release pública do seu jogo e que saiba a qual release os símbolos de debug pertencem. Você não conseguirá depurar nenhum travamento nativo se não tiver os símbolos de debug. Além disso, mantenha uma versão `unstripped` da engine, sem remover os símbolos. Isso permite a melhor simbolicação da callstack.
 :::
 
 

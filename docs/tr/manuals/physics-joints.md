@@ -3,11 +3,11 @@ title: Defold'da fizik eklemleri
 brief: Defold, 2B fizik için eklemleri destekler. Bu kılavuz, eklemlerin nasıl oluşturulacağını ve kullanılacağını açıklar.
 ---
 
-# Eklemler
+# Eklemler {#joints}
 
 Eklem (joint), bir kısıt (constraint) kullanarak iki çarpışma nesnesini (collision object) birbirine bağlar. Defold, farklı API'ler aracılığıyla hem 2B hem de 3B fizikte eklemleri destekler.
 
-Bu kılavuz, `physics` modülünün sunduğu 2B eklemleri açıklar. Defold 1.13.2 sürümünden itibaren 3B projeler, [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) aracılığıyla menteşeler, kayar eklemler ve yaylar dahil çeşitli kısıtlar oluşturabilir ve bunları kontrol edebilir. Bu API'yi, [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) aracılığıyla elde edilen katı cisimlerle (rigid body) kullanın.
+Bu kılavuz, `physics` modülünün sunduğu 2B eklemleri açıklar. 3B projeler, [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) aracılığıyla menteşeler, kayar eklemler ve yaylar dahil çeşitli kısıtlar oluşturabilir ve bunları kontrol edebilir. Bu API'yi, [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) aracılığıyla elde edilen katı cisimlerle (rigid body) kullanın.
 
 2B `physics` API'sinde desteklenen eklem türleri şunlardır:
 
@@ -18,7 +18,7 @@ Bu kılavuz, `physics` modülünün sunduğu 2B eklemleri açıklar. Defold 1.13
 * **Kayar (physics.JOINT_TYPE_SLIDER)** - Kayar eklem (slider joint), iki çarpışma nesnesinin belirtilen bir eksen boyunca birbirine göre ötelenmesine izin verir ve göreli dönmeyi önler. Box2D'de [prizmatik eklem (Prismatic joint)](https://box2d.org/documentation/group__prismatic__joint.html#details) olarak adlandırılır.
 * **Tekerlek (physics.JOINT_TYPE_WHEEL)** - Tekerlek eklemi (wheel joint), `bodyB` üzerindeki bir noktayı `bodyA` üzerindeki bir doğru üzerinde hareket edecek şekilde kısıtlar. Tekerlek eklemi ayrıca bir süspansiyon yayı sağlar. Box2D'de [tekerlek eklemi (Wheel joint)](https://box2d.org/documentation/group__wheel__joint.html#details) olarak adlandırılır.
 
-## Eklem oluşturma
+## Eklem oluşturma {#creating-joints}
 
 Burada açıklanan 2B eklemler, [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) kullanılarak program yoluyla oluşturulur:
 ::: sidenote
@@ -32,7 +32,7 @@ physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test
 
 Yukarıdaki kod, `obj_a#collisionobject` ve `obj_b#collisionobject` çarpışma nesneleri arasında `my_test_joint` tanımlayıcısına sahip sabit bir eklem oluşturur. Eklem, `obj_a#collisionobject` çarpışma nesnesinin merkezinin 10 piksel sağına ve `obj_b#collisionobject` çarpışma nesnesinin merkezinin 20 piksel yukarısına bağlanır. Eklemin maksimum uzunluğu 20 pikseldir.
 
-## Eklem yok etme
+## Eklem yok etme {#destroying-joints}
 
 Bir eklem, [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id) kullanılarak yok edilebilir:
 
@@ -41,7 +41,7 @@ Bir eklem, [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:colli
 physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
 ```
 
-## Eklem özelliklerini okuma ve güncelleme
+## Eklem özelliklerini okuma ve güncelleme {#reading-from-and-updating-joints}
 
 Bir eklemin özellikleri, [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) kullanılarak okunabilir ve [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties) kullanılarak ayarlanabilir:
 
@@ -56,6 +56,6 @@ function update(self, dt)
 end
 ```
 
-## Eklemin tepki kuvvetini ve torkunu alma
+## Eklemin tepki kuvvetini ve torkunu alma {#get-joint-reaction-force-and-torque}
 
 Bir ekleme uygulanan tepki kuvveti ve tork, [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) ve [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id) kullanılarak okunabilir.

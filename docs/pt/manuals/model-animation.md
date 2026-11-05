@@ -60,8 +60,8 @@ end
 A tabela de pesos usa índices Lua começando em um, na mesma ordem dos morph targets na malha. Valores extras são ignorados, e valores ausentes são tratados como zero para malhas com mais morph targets do que a tabela contém. A sobrescrita de script é aplicada depois da animação em todos os frames até ser limpa:
 
 ```lua
-model.set_blend_weights("#model")     -- clear the override
-model.set_blend_weights("#model", nil) -- also clears the override
+model.set_blend_weights("#model")     -- limpa a substituição
+model.set_blend_weights("#model", nil) -- também limpa a substituição
 ```
 
 ### Suporte de shader

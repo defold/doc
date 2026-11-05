@@ -89,7 +89,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Surowe gamepady
+## Surowe gamepady {#raw-gamepads}
 
 Wiązania wejścia z gamepada udostępniają także osobne wiązanie o nazwie `Raw`, które daje nieprzefiltrowane dane wejściowe przycisków, osi i hatów dowolnego podłączonego gamepada, bez zastosowanej martwej strefy.
 
@@ -104,11 +104,23 @@ end
 ```
 
 ## Plik ustawień gamepadów {#gamepads-settings-file}
-Konfiguracja wejścia z gamepada używa osobnego pliku mapowań dla każdego typu sprzętowego gamepada. Mapowania dla konkretnych sprzętowych gamepadów są zapisane w pliku *gamepads*. Defold dostarcza wbudowany plik gamepads z ustawieniami dla popularnych gamepadów:
+
+Mapowania gamepadów przekształcają przyciski, osie i przełączniki kierunkowe kontrolera w standardowe elementy sterowania używane przez wiązania wejść. Defold łączy dwa źródła mapowań skonfigurowane w sekcji *Input* pliku *game.project*:
+
+| Ustawienie | Format mapowania | Domyślne |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | Tekstowa baza w formacie SDL, dopasowywana przez GUID kontrolera | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Starsze wpisy `.gamepads` dla nazw urządzeń i platform | `/builtins/input/default.gamepads` |
+
+Mapowania bazy SDL i automatyczne mapowania platformy używają [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Starsze wpisy `.gamepads` definiują własne martwe strefy. W systemie Android kontroler bez wpisu w bazie może także otrzymać [automatyczne mapowanie](#gamepads-on-android).
+
+### Starsze mapowania .gamepads {#legacy-gamepads-mappings}
+
+Plik `.gamepads` może zawierać mapowania dla wielu kontrolerów. Istniejące starsze mapowania nadal są obsługiwane. Defold dołącza mapowania popularnych kontrolerów w pliku domyślnym:
 
 ![Ustawienia gamepadów](images/input/gamepads.png)
 
-Jeśli musisz utworzyć nowy plik ustawień gamepadów, dostępne jest proste narzędzie pomocnicze:
+Jeśli potrzebujesz utworzyć starsze mapowanie `.gamepads` na platformie desktopowej, poniższe narzędzie może pomóc. W przypadku Androida zobacz [Gamepady na Androidzie](#gamepads-on-android).
 
 [Kliknij, aby pobrać gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -122,9 +134,9 @@ Narzędzie poprosi o naciskanie kolejnych przycisków na podłączonym kontroler
 
 ![Ustawienia gamepadów](images/input/gamepad_setting.png)
 
-### Niezidentyfikowane gamepady
+### Niezidentyfikowane gamepady {#unidentified-gamepads}
 
-Gdy gamepad jest podłączony i nie ma dla niego mapowania, będzie generował tylko akcje `connected`, `disconnected` i `raw`. W takim przypadku trzeba ręcznie zmapować surowe dane gamepada na akcje w grze.
+Gdy nie jest dostępne ani skonfigurowane mapowanie, ani automatyczne mapowanie platformy, gamepad generuje tylko akcje przypisane do `Connected`, `Disconnected` i `Raw`. Możesz dodać mapowanie kontrolera lub obsłużyć jego surowe wejście w grze.
 
 Można sprawdzić, czy akcja wejścia z gamepada pochodzi z nieznanego gamepada, odczytując wartość `gamepad_unknown` z `action`:
 
@@ -138,7 +150,7 @@ function on_input(self, action_id, action)
         end
     end
 end
-``` 
+```
 
 ## Gamepady w HTML5 {#gamepads-in-html5}
 Gamepady są obsługiwane w buildach HTML5 i generują te same zdarzenia wejścia co na innych platformach. Obsługa gamepadów opiera się na [Gamepad API](https://www.w3.org/TR/gamepad/), które jest obsługiwane przez większość przeglądarek ([sprawdź tabelę zgodności](https://caniuse.com/?search=gamepad)). Jeśli przeglądarka nie obsługuje Gamepad API, Defold po prostu zignoruje wszystkie wiązania gamepada w projekcie. Możesz sprawdzić, czy przeglądarka obsługuje Gamepad API, testując, czy funkcja `getGamepads` istnieje w obiekcie `navigator`:
@@ -161,69 +173,13 @@ Jeśli gra działa wewnątrz `iframe`, upewnij się też, że `iframe` ma dodane
 
 ### Standardowe gamepady
 
-Jeśli podłączony gamepad zostanie rozpoznany przez przeglądarkę jako standardowy gamepad, użyje mapowania `Standard Gamepad` z [pliku ustawień gamepads](/manuals/input-gamepads/#gamepads-settings-file) (mapowanie `standardowego gamepada` jest dołączone do pliku `default.gamepads` w `/builtins`). Standardowy gamepad ma 16 przycisków i 2 gałki analogowe, a układ przycisków jest podobny do kontrolera PlayStation lub Xbox (więcej informacji znajdziesz w [definicji i układzie przycisków W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad)). Jeśli podłączony gamepad nie zostanie rozpoznany jako standardowy, Defold poszuka w pliku ustawień gamepadów mapowania pasującego do jego typu sprzętowego.
+Jeśli podłączony gamepad zostanie rozpoznany przez przeglądarkę jako standardowy gamepad, użyje mapowania `Standard Gamepad` z [pliku ustawień gamepads](/manuals/input-gamepads/#gamepads-settings-file) (mapowanie `Standard Gamepad` jest dołączone do pliku `default.gamepads` w `/builtins`). Standardowy gamepad ma 16 przycisków i 2 gałki analogowe, a układ przycisków jest podobny do kontrolera PlayStation lub Xbox (więcej informacji znajdziesz w [definicji i układzie przycisków W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad)). Jeśli podłączony gamepad nie zostanie rozpoznany jako standardowy, Defold poszuka w pliku ustawień gamepadów mapowania pasującego do jego typu sprzętowego.
 
 ## Gamepady w Windows
 W systemie Windows obecnie obsługiwane są tylko kontrolery Xbox 360. Aby podłączyć kontroler 360 do komputera z Windows, upewnij się, że został poprawnie skonfigurowany zgodnie z [tym poradnikiem](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
-## Gamepady w Android
+## Gamepady w Android {#gamepads-on-android}
 
-Gamepady są obsługiwane w buildach Android i generują te same zdarzenia wejścia co na innych platformach. Obsługa gamepadów opiera się na [systemie wejścia Android dla zdarzeń klawiszy i ruchu](https://developer.android.com/training/game-controllers/controller-input). Zdarzenia wejścia Android są tłumaczone na zdarzenia gamepada Defold przy użyciu tego samego pliku *gamepad* opisanego powyżej.
+Gamepady są obsługiwane w buildach Android i generują te same akcje wejścia co na innych platformach. Defold korzysta ze skonfigurowanych [mapowań gamepadów](#gamepads-settings-file) i może automatycznie mapować niektóre kontrolery bez pasującego wpisu.
 
-Przy dodawaniu dodatkowych wiązań gamepada w Android możesz użyć poniższych tabel do przetłumaczenia zdarzeń wejścia Android na wartości pliku *gamepad*:
-
-| Zdarzenie klawisza do indeksu przycisku | Indeks |
-|-----------------------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Definicje `KeyEvent` Android](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Zdarzenie ruchu do indeksu osi | Indeks |
-|-------------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Definicje `MotionEvent` Android](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Użyj tej tabeli razem z aplikacją testową gamepadów ze Sklepu Google Play, aby ustalić, do jakiego zdarzenia przypisany jest każdy przycisk na Twoim gamepadzie.
+Jeśli kontroler jest nierozpoznany albo jego elementy sterowania działają niepoprawnie, przetestuj go na urządzeniu Android i dodaj lub zaktualizuj mapowanie. W rozwiązywaniu problemów pomogą sekcje [Nierozpoznane gamepady](#unidentified-gamepads) i [Surowe dane gamepadów](#raw-gamepads).

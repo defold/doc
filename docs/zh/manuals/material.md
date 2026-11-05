@@ -3,7 +3,7 @@ title: Defold材质
 brief: 本手册介绍了如何使用材质、着色器常量和采样器。
 ---
 
-# 材质
+# 材质 {#materials}
 
 材质用于表达图形组件（精灵、瓦片地图、字体、GUI节点、模型等）应该如何被渲染。
 
@@ -12,7 +12,7 @@ brief: 本手册介绍了如何使用材质、着色器常量和采样器。
 * 有关渲染管线的更多信息，请参阅[渲染文档](/manuals/render)。
 * 有关着色器程序的深入解释，请参阅[着色器文档](/manuals/shader)。
 
-## 创建材质
+## 创建材质 {#creating-a-material}
 
 要创建材质，在 *Assets* 浏览器中右键点击目标文件夹，然后选择 <kbd>New... ▸ Material</kbd>。（您也可以从菜单中选择 <kbd>File ▸ New...</kbd>，然后选择 <kbd>Material</kbd>）。为新材质文件命名，然后点击 <kbd>Ok</kbd>。
 
@@ -107,7 +107,7 @@ Value
 自定义属性也可以通过重新配置流以使用更小的数据类型或不同的元素数来减少 CPU 和 GPU 上的内存占用。
 :::
 
-### 默认属性语义
+### 默认属性语义 {#default-attribute-semantics}
 
 材质系统将根据运行时特定名称的属性名称自动分配默认语义类型：
 
@@ -124,7 +124,7 @@ Value
 
 如果您在材质中有这些属性的条目，默认语义类型将被您在材质编辑器中配置的任何内容覆盖。
 
-### 设置自定义顶点属性数据
+### 设置自定义顶点属性数据 {#setting-custom-vertex-attribute-data}
 
 与用户定义的着色器常量类似，您也可以通过调用 `go.get`、`go.set` 和 `go.animate` 在运行时更新顶点属性：
 
@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-从 Defold 1.14.0 开始，`Mat2`、`Mat3` 和 `Mat4` 属性在使用 `go.set()` 和 `go.get()` 时均使用 `vmath.matrix4` 值。设置 `Mat2` 或 `Mat3` 属性时，会取矩阵左上角的 2×2 或 3×3 部分。读取时会返回一个 `vmath.matrix4`，未使用的行和列按单位矩阵填充。
+`Mat2`、`Mat3` 和 `Mat4` 属性在 `go.set()` 和 `go.get()` 中均使用 `vmath.matrix4` 值。设置 `Mat2` 或 `Mat3` 属性时，取矩阵左上角的 2×2 或 3×3 部分。读取时返回 `vmath.matrix4`，未使用的行和列由单位矩阵补齐。
 
 例如，模型材质中有一个名为 `custom_mat2`、语义类型为 `None` 的 `Mat2` 属性：
 
@@ -173,7 +173,7 @@ print(result.m22, result.m33) -- 1, 1 (identity padding)
 
 始终赋值完整的矩阵。矩阵属性不接受 `vmath.vector4` 等展平后的值，也不接受对单个属性子项的赋值。要更改某个元素，请在 Lua 中修改矩阵，再通过 `go.set()` 将其传回。
 
-### 使用自定义顶点属性的示例
+### 使用自定义顶点属性的示例 {#examples-of-using-custom-vertex-attributes}
 
 使用纹理变换属性将 UV 坐标转换到图集空间：
 
@@ -188,32 +188,28 @@ out vec2 var_texcoord0;
 
 void main()
 {
-  // 从变换中提取位置
+  // Extract position from the transform
   vec2 atlas_pos = texture_transform_2d[2].xy;
-  // 从变换中提取缩放
+  // Extract the scale from the transform
   vec2 atlas_size = vec2(
       length(texture_transform_2d[0].xy),
       length(texture_transform_2d[1].xy)
   );
-  // 转换为本地 UV (0..1)
+  // convert to local UV (0..1)
   vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
 
-  // 或者，如果 UV 坐标已经在 0..1 范围内，
-  // 可以直接乘以变换来转换到图集空间：
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
   vec2 transformedUv = texture_transform_2d * texcoord0;
 
-  // 将值传递给片段着色器
+  // Pass the value into the fragment shader
   var_texcoord0 = localUV;
 
-  // ... 顶点着色器的其余部分
+  // ... rest of vertex shader
 }
 ```
 
-::: sidenote
-目前在运行时设置自定义顶点数据仅支持精灵组件。
-:::
-
-### 实例化
+### 实例化 {#instancing}
 
 实例化是一种用于高效绘制场景中同一对象的多个副本的技术。实例化不是每次使用对象时都创建单独的副本，而是允许图形引擎创建单个对象，然后多次重用它。例如，在具有大片森林的游戏中，实例化允许您创建一个树模型，然后以不同的位置和比例放置它数百或数千次，而不是为每棵树创建单独的树模型。现在，森林可以通过单次绘制调用渲染，而不是每棵树的单独绘制调用。
 
@@ -242,12 +238,12 @@ void main()
 顶点着色器指定了多个每个实例的属性：
 
 ```glsl
-// 每个顶点的属性
+// Per vertex attributes
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 attribute mediump vec3 normal;
 
-// 每个实例的属性
+// Per instance attributes
 attribute mediump mat4 mtx_world;
 attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;
@@ -259,7 +255,7 @@ attribute mediump vec4 instance_color;
 
 ![Instancing draw calls](images/materials/instancing-draw-calls.png)
 
-#### 向后兼容性
+#### 向后兼容性 {#backwards-compatibility}
 
 桌面上的 OpenGL 3.1 和移动设备上的 OpenGL ES 3.0 将实例化作为核心功能提供。较旧的 OpenGL ES 和 WebGL 上下文仍可能通过 `ANGLE_instanced_arrays` 等扩展支持它；其他旧适配器则不支持。当实例化不可用时，渲染默认仍可工作，但性能可能较低。
 
@@ -356,7 +352,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
-### GUI 节点材质常量
+### GUI 节点材质常量 {#gui-node-material-constants}
 
 在 GUI 脚本中，请使用 `gui.get()` 和 `gui.set()` 而不是 `go` 函数来读写节点的材质常量。支持向量分量、矩阵常量和常量数组。选项表中的数组索引从 1 开始：
 
@@ -373,7 +369,7 @@ gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
 为了使 `CONSTANT_TYPE_USER` 或 `CONSTANT_TYPE_USER_MATRIX4` 类型的材质常量能够使用 `go.get()` 和 `go.set()`，或使用 `gui.get()` 和 `gui.set()`，它必须在着色器程序中使用。如果常量在材质中定义但未在程序中使用，它将从材质中删除，并且在运行时将不可用。
 :::
 
-## 采样器
+## 采样器 {#samplers}
 
 采样器用于从纹理（瓦片源或图集）中采样颜色信息。颜色信息然后可以在着色器程序中用于计算。
 
@@ -416,7 +412,7 @@ void main()
 
 ![Model](images/materials/model.png)
 
-## 采样器设置
+## 采样器设置 {#sampler-settings}
 
 Name
 : 采样器的名称。此名称应与片段着色器中声明的 `sampler2D` 匹配。
@@ -442,7 +438,7 @@ Filter Min/Mag
 Max Anisotropy
 : 各向异性过滤是一种高级过滤技术，它采用多个样本，将结果混合在一起。此设置控制纹理采样器的各向异性级别。如果 GPU 不支持各向异性过滤，该参数将不会做任何事情，并且默认设置为 1。
 
-## 常量缓存
+## 常量缓存 {#constants-buffers}
 
 当渲染管线进行绘制时，它会从默认的系统常量缓存中提取常量值。您可以创建一个自定义常量缓存来覆盖默认常量，而是在渲染脚本中以编程方式设置着色器程序统一变量：
 

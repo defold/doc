@@ -85,6 +85,10 @@ Para que este recurso funcione, você precisará ter o ADB instalado e a *Depura
 
 Um arquivo *.aab* pode ser enviado para o Google Play através do [console do desenvolvedor do Google Play](https://play.google.com/apps/publish/). Também é possível gerar um arquivo *`.apk`* a partir de um arquivo *.aab* para instalá-lo localmente usando o [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Recortes na tela {#display-cutouts}
+
+`window.get_reserved_areas()` informa os retângulos de recorte da tela no Android 9 (API de nível 28) e posteriores. Use `window.get_safe_area()` quando precisar de um retângulo seguro para o layout. Consulte [Áreas reservadas da tela](/manuals/porting-guidelines/#reserved-screen-areas) para conhecer as unidades das coordenadas, o comportamento em plataformas sem suporte e como atualizar o layout quando as áreas informadas mudarem.
+
 ## Redução de código Java e recursos Android com R8 {#shrinking-java-code-with-r8}
 
 O R8 reduz o tamanho do código Java removendo código não utilizado, otimizando e ofuscando o código. Com Defold 1.14.0 ou posterior e um servidor de build Extender compatível, ele também remove recursos Android não utilizados, como layouts, drawables e recursos brutos fornecidos pelas extensões e suas dependências Android. Os assets do jogo Defold contidos no arquivo de jogo não são processados pelo R8.
@@ -102,7 +106,7 @@ Certifique-se de que cada extensão com código Java forneça um arquivo `.keep`
 
 Deixar **R8 Keep Rules** vazio usa o D8 sem remover código não utilizado. Ativar o R8 usa o serviço de build de extensões nativas, mesmo em um projeto sem extensões nativas.
 
-A partir do Defold 1.14.0, a remoção de recursos Android não utilizados é ativada pela mesma configuração **R8 Keep Rules**; não há uma configuração de projeto separada para isso. SDKs mais antigos do Defold mantêm a remoção por R8 limitada ao código.
+A redução de recursos Android é habilitada pela mesma configuração **R8 Keep Rules**; não existe uma configuração separada para isso. SDKs antigos do Defold mantêm a redução com R8 apenas para o código.
 
 ### Adição de regras a uma extensão {#adding-rules-to-an-extension}
 

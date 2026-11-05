@@ -130,7 +130,7 @@ Nota: Si obtienes un stack trace desde los [logs de Android](/manuals/debugging-
 
 ```sh
 	$ unzip <project>/build/arm64-darwin/build.zip
-	# producirá Contents/Resources/DWARF/dmengine
+	# it will produce a Contents/Resources/DWARF/dmengine
 ```
 
 2. Si no usas extensiones nativas (Native Extensions), descarga los símbolos vanilla:

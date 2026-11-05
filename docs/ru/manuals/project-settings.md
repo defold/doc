@@ -154,6 +154,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 ### Display
 
+На настольных платформах окна движка, открываемые из редактора, могут восстанавливать размер, сохранённый при предыдущем запуске. Выберите <kbd>Debug ▸ Reset Simulated Resolution</kbd>, чтобы очистить сохранённые размеры и вернуться к настроенному размеру, сохранив позиции окон. Подробнее см. в разделе [размещения и сброса окна движка](/manuals/editor/#engine-window-placement).
+
 #### Width
 Ширина окна приложения в пикселях.
 
@@ -162,6 +164,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### High Dpi
 Создаёт back buffer высокого разрешения на дисплеях с поддержкой High DPI. Как правило, игра будет рендериться в двойном разрешении относительно значений *Width* и *Height*, которые по-прежнему будут логическим разрешением в скриптах и свойствах.
+
+В HTML5 используйте [Min Pixel Ratio](#min-pixel-ratio) и [Max Pixel Ratio](#max-pixel-ratio), чтобы ограничить масштаб рендеринга при включённом параметре.
 
 #### Samples
 Количество сэмплов для суперсэмплинга (SSAA). Задаёт `GLFW_FSAA_SAMPLES`. Значение `0` отключает сглаживание.
@@ -207,12 +211,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 ---
 
-### Font
 
-#### Runtime Generation
-Использовать генерацию шрифтов во время выполнения.
-
----
 
 ### Physics
 
@@ -305,7 +304,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 Проверяет возвращаемые значения всех графических вызовов и записывает ошибки в журнал.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` выбирает версию контекста WebGL, запрашиваемую для HTML5. Допустимые значения — `1` (WebGL 1) и `2` (WebGL 2, по умолчанию). Установите `1`, чтобы использовать или тестировать WebGL 1 даже в браузере с поддержкой WebGL 2. При использовании WebGL 1 оставьте [Exclude GLES 2.0](#exclude-gles-20) отключённым, чтобы необходимые шейдеры попали в сборку.
+`graphics.webgl_version_hint` выбирает версию контекста WebGL, запрашиваемую для HTML5. Допустимые значения — `1` (WebGL 1) и `2` (WebGL 2, по умолчанию). Установите `1`, чтобы использовать или тестировать WebGL 1 даже в браузере с поддержкой WebGL 2. При использовании WebGL 1 отключите [Exclude GLES 2.0](#exclude-gles-20), чтобы необходимые шейдеры попали в сборку.
 
 #### OpenGL Version Hint
 Подсказка по версии контекста OpenGL. Если выбрана конкретная версия, она используется как минимально допустимая. Не применяется к OpenGL ES.
@@ -324,7 +323,16 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ### Shader
   
 #### Exclude GLES 2.0
-Не компилировать шейдеры для устройств, использующих OpenGLES 2.0 / WebGL 1.0.
+`shader.exclude_gles_sm100` исключает шейдеры OpenGLES 2.0 и WebGL 1.0. По умолчанию включено (`1`).
+
+Для этих графических API или возможности перехода на них снимите флажок **Shader ▸ Exclude GLES 2.0** в *game.project* либо задайте:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+Проекты, не задающие этот параметр явно, используют значение по умолчанию. Явно установите `0`, если проекту нужна поддержка OpenGLES 2.0 или WebGL 1.0.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` задаёт глобальный квалификатор точности по умолчанию для значений с плавающей точкой в кросс-компилированных шейдерах GLSL ES. Допустимые значения: `mediump` и `highp`; по умолчанию используется `mediump`.
@@ -369,6 +377,9 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Max Resources
 Максимальное количество ресурсов, которые могут быть загружены одновременно.
+
+#### Profile
+`resource.profile` включает измерения времени загрузки ресурсов и журналы уровня INFO для каждой успешной или неудачной загрузки. По умолчанию отключено (`0`). Включите (`1`) перед запуском игры для измерения загрузок при старте. Профилировщик ресурсов показывает сохранённые измерения начальной загрузки для ресурсов, находящихся в памяти; нажмите **Capture**, затем **Show load times** для их просмотра. Столбцы времени и их интерпретация описаны в разделе [Время загрузки ресурсов](/manuals/profiling/#resource-loading-times).
 
 ---
 
@@ -594,6 +605,17 @@ GUI-скрипт может переопределить режим для св�
 
 ### iOS
 
+#### Home Indicator Mode
+`ios.home_indicator_mode` управляет системными жестами у краёв экрана и запросом автоматического скрытия Home Indicator.
+
+| Значение | Системные жесты | Запрос автоматического скрытия |
+|-------|-----------------|--------------------------|
+| `deferred` (по умолчанию) | Защищает все края экрана, откладывая системные жесты. Для возврата на главный экран нужны два свайпа. | Нет |
+| `system` | Использует обычные системные жесты, позволяя возврат на главный экран одним свайпом. | Нет |
+| `auto_hide` | Использует обычные системные жесты, позволяя возврат на главный экран одним свайпом. | Да |
+
+Фактической видимостью индикатора управляет iOS. Автоматическое скрытие — лишь запрос; в iOS 26 и новее система может скрывать индикатор как в `system`, так и в `auto_hide`. Пример конфигурации см. в разделе [Поведение Home Indicator](/manuals/ios/#home-indicator-behavior).
+
 #### App Icon 57x57--180x180
 Файл изображения (.png), используемый в качестве иконки приложения при заданных размерах `W` &times; `H`.
 
@@ -616,7 +638,7 @@ GUI-скрипт может переопределить режим для св�
 Версия бандла — число или строка в формате x.y.z (см. [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
 
 #### Info.plist
-Если задано, при сборке приложения указанный файл *`Info.plist`* используется вместо встроенного базового манифеста iOS. Встроенный манифест содержит записи локальной сети и Bonjour, необходимые для обнаружения целей редактором в нерелизных сборках. Если вы предоставляете пользовательский манифест и вам нужны обнаружение целей, профилирование, hot reload или передача логов на устройстве, сохраните эти записи, как описано в [руководстве по iOS](/manuals/ios/#creating-an-ios-application-bundle).
+Если указан, этот файл *`Info.plist`* используется вместо встроенного базового манифеста iOS `/builtins/manifests/ios/Info.plist` при создании бандла приложения. Проекты со встроенным шаблоном автоматически получают обновления манифеста; пользовательские файлы нужно обновлять явно.
 
 #### Privacy Manifest
 Манифест конфиденциальности Apple для приложения. По умолчанию: `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -687,7 +709,7 @@ Sender Id для Google Cloud Messaging. Установите строку, вы
 #### R8 Keep Rules
 `android.r8_keep_rules` выбирает файл `.keep`, включающий удаление неиспользуемого Java-кода, оптимизацию и обфускацию с помощью R8 в сборках Android. Оставьте настройку пустой, чтобы использовать D8 без удаления неиспользуемого кода.
 
-В Defold 1.14.0 и новее при использовании совместимого сервера сборки Extender это также удаляет неиспользуемые ресурсы Android. Для ресурсов, загружаемых динамически, могут потребоваться отдельные [XML-правила сохранения](/manuals/android/#keeping-android-resources).
+При использовании совместимого сервера сборки Extender это также удаляет неиспользуемые ресурсы Android. Для ресурсов, загружаемых динамически, могут потребоваться отдельные [XML-правила сохранения](/manuals/android/#keeping-android-resources).
 
 Выберите `/builtins/manifests/android/dmengine.keep`, чтобы напрямую использовать стандартные правила Defold. Расширения предоставляют собственные [правила сохранения](/manuals/extensions/#r8-keep-rules-for-android), которые объединяются с этим файлом.
 
@@ -775,6 +797,14 @@ HTML-шаблон, используемый при сборке. По умолч
 #### Scale Mode
 Определяет способ масштабирования canvas-элемента.
 
+#### Min Pixel Ratio
+`html5.min_pixel_ratio` задаёт минимальное число пикселей рендеринга canvas на CSS-пиксель при включённом [High Dpi](#high-dpi). По умолчанию `0`, что отключает нижнюю границу. Поддерживаются положительные дробные значения, в том числе меньше `1`.
+
+#### Max Pixel Ratio
+`html5.max_pixel_ratio` задаёт максимальное число пикселей рендеринга canvas на CSS-пиксель при включённом [High Dpi](#high-dpi). По умолчанию `0`, что отключает верхнюю границу. Поддерживаются положительные дробные значения, в том числе меньше `1`.
+
+Оба ограничения должны быть конечными неотрицательными числами. Когда обе границы включены, минимум не должен превышать максимум. При отключённом *High Dpi* коэффициент равен `1`, и границы не применяются. Ограничения влияют на разрешение рендеринга, сохраняя отображаемый размер canvas в CSS. Пример конфигурации см. в разделе [Ограничения коэффициента плотности пикселей](/manuals/html5/#pixel-ratio-limits).
+
 #### Retry Count
 Число повторных попыток после неудачной загрузки при запуске, включая сетевые ошибки, неуспешные HTTP-статусы и несовпадение размера файла JavaScript или WebAssembly движка. Первоначальный запрос считается отдельно. Проверка файлов архива имеет собственный предел повторных попыток; см. [проверку загрузок](/manuals/html5/#download-verification) и `Retry Time`.
 
@@ -813,6 +843,34 @@ HTML-шаблон, используемый при сборке. По умолч
 
 ---
 
+### Debugger
+
+Эти настройки управляют [подключениями отладчика](/manuals/debugging-game-logic/#native-dap-connections) в нативных отладочных сборках и сборках без графики. Релизные и веб-сборки не поддерживают подключение отладчика. Добавьте настройки, редактируя *game.project* как текст, либо используйте [переопределения конфигурации при запуске движка](#setting-config-values-on-engine-startup). Они не отображаются в форме настроек проекта. Редактор автоматически настраивает соединение при использовании <kbd>Debug ▸ Start/Attach</kbd>.
+
+Например, чтобы запустить локальный слушатель и дождаться настройки точек останова клиентом перед выполнением стартовых скриптов:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` запускает прослушивание при старте движка, если равно `1`. По умолчанию отключено (`0`). Работающая игра также может запустить слушатель через [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running).
+
+#### Address {#debugger-address}
+`debugger.address` — IPv4-адрес, на котором слушатель принимает подключения. Значение по умолчанию `127.0.0.1` принимает только локальные соединения. Для [удалённых подключений](/manuals/debugging-game-logic/#remote-targets) используйте адрес интерфейса устройства или `0.0.0.0`.
+
+#### Port {#debugger-port}
+`debugger.port` — TCP-порт прослушивания от `0` до `65535`. По умолчанию `8172`. Установите `0` для выбора свободного порта, который движок сообщит в журнале.
+
+#### Wait {#debugger-wait}
+`debugger.wait` заставляет движок ждать окончания настройки сеанса отладки клиентом, включая точки останова, перед выполнением стартовых скриптов. По умолчанию отключено (`0`). Установите `1` вместе с `debugger.enabled=1` для отладки стартового кода. Поздний запуск слушателя через `debugger.start()` не ожидает клиента и не приостанавливает игру. См. [руководство по запуску и подключению](/manuals/debugging-game-logic/#native-dap-connections).
+
+---
+
 ### Profiler
 
 Параметр **Profiler** в манифесте приложения определяет, будет ли код профайлера скомпонован с отладочными и релизными сборками. Приведённые ниже параметры управляют поведением кода профайлера во время выполнения, если он присутствует в выбранной сборке. Подробнее см. в [руководстве по профилированию](/manuals/profiling/).
@@ -837,16 +895,16 @@ HTML-шаблон, используемый при сборке. По умолч
 
 ---
 
-## Установка конфигурационных значений при запуске движка
+## Установка конфигурационных значений при запуске движка {#setting-config-values-on-engine-startup}
 
 При запуске движка из командной строки можно указать конфигурационные значения, переопределяющие настройки *game.project*:
 
 ```bash
-# Указать коллекцию начальной загрузки
+# Specify a bootstrap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
-# Установить два пользовательских конфигурационных значения
-$ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
+# Set two custom config values
+$ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
 Пользовательские значения, как и любые другие значения конфигурации, можно читать соответствующей функцией, описанной в разделе [Доступ к значениям во время выполнения](#runtime-access):
@@ -879,17 +937,17 @@ my_property.private = 1
 
 ```
 [my_extension]
-// `type` — используется для парсинга строкового значения
-my_property.type = string // одно из следующих значений: bool, string, number, integer, string_array, resource
+// `type` - used for the value string parsing
+my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
-// `help` — отображается как всплывающая подсказка в редакторе
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
-// `default` — значение по умолчанию, если пользователь не задал его вручную
+// `default` - value used as default if user didn't set value manually
 my_property.default = string
 
-// `private` — приватное значение, используемое при сборке, но не включаемое в итоговый бандл
-my_property.private = 1 // булевое значение 1 или 0
+// `private` - private value used during the bundle process but will be removed from the bundle itself
+my_property.private = 1 // boolean value 1 or 0
 
 // `label` - editor input label
 my_property.label = My Awesome Property
@@ -914,7 +972,7 @@ my_property.severity-override = error  // if deprecated property is specified an
 Additionally, you can set the following attributes on a setting category:
 ```
 [my_extension]
-// `group` - category group in game.project, for example Main, Platforms, Components, Runtime, Distribution
+// `group` - game.project category group, e.g. Main, Platforms, Components, Runtime, Distribution
 group = Runtime
 // `title` - displayed category title
 title = My Awesome Extension

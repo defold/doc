@@ -110,7 +110,7 @@ end
 
 ```Lua
 function on_message(self, message_id, message, sender)
-   -- проверка сообщения
+    -- проверка сообщения
     if message_id == hash("contact_point_response") then
         -- предпринимаем действие
         if message.other_mass > 10 then

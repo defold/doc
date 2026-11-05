@@ -112,7 +112,7 @@ Defold 엔진은 여러 플랫폼과 그래픽 API를 지원하므로, 개발자
 1. 레거시 파이프라인: 쉐이더를 ES2 호환 GLSL 코드로 작성합니다.
 2. 모던 파이프라인: 쉐이더를 SPIR-v 호환 GLSL 코드로 작성합니다.
 
-Defold 1.9.2부터는 새 파이프라인을 활용하는 쉐이더 작성을 권장하며, 이를 위해 대부분의 쉐이더를 최소 버전 140(OpenGL 3.1)으로 작성된 쉐이더로 마이그레이션해야 합니다. 쉐이더를 마이그레이션하려면 다음 요구 사항이 충족되었는지 확인하세요.
+현대식 파이프라인의 쉐이더는 최소 GLSL 버전 140(OpenGL 3.1)으로 작성합니다. 쉐이더를 이전하려면 다음 요구 사항을 충족하는지 확인하세요:
 
 ### 버전 선언
 쉐이더의 맨 위에 최소 #version 140을 넣습니다.
@@ -127,9 +127,9 @@ Defold 1.9.2부터는 새 파이프라인을 활용하는 쉐이더 작성을 �
 버텍스 쉐이더에서는 `attribute` 키워드를 `in`으로 바꿉니다.
 
 ```glsl
-// 다음 대신:
+// instead of:
 // attribute vec4 position;
-// 이렇게 작성합니다:
+// do:
 in vec4 position;
 ```
 
@@ -139,14 +139,14 @@ in vec4 position;
 버텍스 쉐이더에서는 varyings에 `out` 접두어를 붙여야 합니다. 프래그먼트 쉐이더에서는 varyings가 `in`이 됩니다.
 
 ```glsl
-// 버텍스 쉐이더에서는 다음 대신:
+// In a vertex shader, instead of:
 // varying vec4 var_color;
-// 이렇게 작성합니다:
+// do:
 out vec4 var_color;
 
-// 프래그먼트 쉐이더에서는 다음 대신:
+// In a fragment shader, instead of:
 // varying vec4 var_color;
-// 이렇게 작성합니다:
+// do:
 in vec4 var_color;
 ```
 
@@ -173,7 +173,7 @@ uniform vertex_inputs
 
 void main()
 {
-    // uniform block의 개별 멤버는 그대로 사용할 수 있습니다
+    // Individual members of the uniform block can be used as-is
     gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
 }
 ```
@@ -185,9 +185,9 @@ uniform block의 모든 멤버는 메터리얼과 컴포넌트에 개별 상수�
 프래그먼트 쉐이더에서 `gl_FragColor`는 버전 140부터 deprecated되었습니다. 대신 `out`을 사용하세요.
 
 ```glsl
-// 다음 대신:
+// instead of:
 // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-// 이렇게 작성합니다:
+// do:
 out vec4 color_out;
 
 void main()
@@ -204,10 +204,10 @@ void main()
 uniform sampler2D my_texture;
 uniform sampler2DArray my_texture_array;
 
-// 다음 대신:
+// instead of:
 // vec4 sampler_2d = texture2D(my_texture, uv);
 // vec4 sampler_2d_array = texture2DArray(my_texture_array, vec3(uv, slice));
-// 이렇게 작성합니다:
+// do:
 vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
@@ -230,7 +230,7 @@ uniform vx_uniforms
     mat4 view_proj;
 };
 
-// position은 월드 공간에 있습니다
+// positions are in world space
 in vec4 position;
 in vec2 texcoord0;
 
@@ -259,7 +259,7 @@ uniform fs_uniforms
 
 void main()
 {
-    // 모든 런타임 텍스쳐는 이미 premultiplied alpha를 사용하므로 tint도 premultiply합니다
+    // Premultiply alpha since all runtime textures already are
     vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
     color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
 }
@@ -271,17 +271,17 @@ void main()
 Defold의 쉐이더는 프로젝트 안에 있는 `.glsl` 확장자 파일의 소스 코드 포함을 지원합니다. 쉐이더에서 glsl 파일을 포함하려면 큰따옴표 또는 꺾쇠괄호와 함께 `#include` pragma를 사용합니다. Include는 프로젝트 상대 경로이거나, include하는 파일을 기준으로 한 상대 경로여야 합니다.
 
 ```glsl
-// /main/my-shader.fp 파일에서
+// In file /main/my-shader.fp
 
-// 절대 경로
+// Absolute path
 #include "/main/my-snippet.glsl"
-// 파일이 같은 폴더에 있음
+// The file is in the same folder
 #include "my-snippet.glsl"
-// 파일이 'my-shader'와 같은 레벨의 하위 폴더에 있음
+// The file is in a sub-folder on the same level as 'my-shader'
 #include "sub-folder/my-snippet.glsl"
-// 파일이 부모 디렉토리의 하위 폴더에 있음, 즉 /some-other-folder/my-snippet.glsl
+// The file is in a sub-folder on the parent directory, i.e /some-other-folder/my-snippet.glsl
 #include "../some-other-folder/my-snippet.glsl"
-// 파일이 부모 디렉토리에 있음, 즉 /root-level-snippet.glsl
+// The file is on the parent directory, i.e /root-level-snippet.glsl
 #include "../root-level-snippet.glsl"
 ```
 
@@ -295,21 +295,21 @@ Include가 선택되는 방식에는 몇 가지 주의할 점이 있습니다.
 Snippet 자체가 다른 `.glsl` 파일을 include할 수 있습니다. 이는 최종 생성된 쉐이더가 같은 코드를 여러 번 포함할 가능성이 있다는 뜻이며, 파일 내용에 따라 같은 symbol이 여러 번 선언되어 컴파일 문제가 발생할 수 있습니다. 이를 피하려면 여러 프로그래밍 언어에서 흔히 쓰이는 개념인 *헤더 가드*를 사용할 수 있습니다. 예:
 
 ```glsl
-// my-shader.vs에서
+// In my-shader.vs
 #include "math-functions.glsl"
 #include "pi.glsl"
 
-// math-functions.glsl에서
+// In math-functions.glsl
 #include "pi.glsl"
 
-// pi.glsl에서
+// In pi.glsl
 const float PI = 3.14159265359;
 ```
 
 이 예제에서는 `PI` 상수가 두 번 정의되어 프로젝트 실행 시 컴파일러 오류가 발생합니다. 대신 헤더 가드로 내용을 보호해야 합니다.
 
 ```glsl
-// pi.glsl에서
+// In pi.glsl
 #ifndef PI_GLSL_H
 #define PI_GLSL_H
 
@@ -323,10 +323,10 @@ const float PI = 3.14159265359;
 하지만 사용 사례에 따라 이것이 항상 엄격하게 필요한 것은 아닙니다. 대신 함수 안이나 쉐이더 코드에서 값을 전역으로 사용할 필요가 없는 다른 위치에서 코드를 로컬로 재사용하려는 경우에는 헤더 가드를 사용하지 않는 편이 좋습니다. 예:
 
 ```glsl
-// red-color.glsl에서
+// In red-color.glsl
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// my-shader.fp에서
+// In my-shader.fp
 vec3 get_red_color()
 {
   #include "red-color.glsl"
@@ -353,10 +353,10 @@ Defold Editor viewport에서 쉐이더가 렌더링될 때는 preprocessor defin
 
 ```glsl
 #ifdef EDITOR
-    // 이 코드는 Defold Editor에서 쉐이더가 렌더링될 때만 실행됩니다
-    color_out = vec4(1.0, 0.0, 1.0, 1.0); // 에디터 preview용 마젠타 색상
+    // This code will only execute when the shader is rendered in the Defold Editor
+    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Magenta color for editor preview
 #else
-    // 이 코드는 게임에서 실행될 때 실행됩니다
+    // This code will execute when running in the game
     color_out = texture(texture_sampler, var_texcoord0) * tint_pm;
 #endif
 ```

@@ -210,10 +210,10 @@ function update(self, dt)
 	-- 根据当前速度和方向更新位置
 	local pos = go.get_position()
 	pos = pos + vmath.rotate(self.direction, self.velocity)
-	go.set_position(pos)																						-- <5>
+	go.set_position(pos)																			-- <5>
 
 	-- 使用 vmath.slerp 插值轮子
-	if self.input.x > 0 then																						-- <6>
+	if self.input.x > 0 then																		-- <6>
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
 	elseif self.input.x < 0 then
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_left)
@@ -222,14 +222,14 @@ function update(self, dt)
 	end
 
 	-- 更新轮子旋转
-	go.set_rotation(self.steer_angle, "left_wheel")																						-- <7>
+	go.set_rotation(self.steer_angle, "left_wheel")					-- <7>
 	go.set_rotation(self.steer_angle, "right_wheel")
 
 	-- 将游戏对象的旋转设置为方向
 	go.set_rotation(self.direction)
 
 	-- 重置加速度和输入
-	self.acceleration = vmath.vector3()																							-- <8>
+	self.acceleration = vmath.vector3()								-- <8>
 	self.input = vmath.vector3()
 end
 ```
@@ -328,13 +328,13 @@ end
 
 ```lua
 local turn_speed = 0.1                           				          	-- 球面线性插值因子
-local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 度
+local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 度
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 度
-local steer_angle_zero = vmath.quat_rotation_z(0)									  -- 零度
-local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- 从后轮和前轮对中心到中心的向量
+local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- 零度
+local wheels_vector = vmath.vector3(0, 72, 0)         				      -- 从后轮和前轮对中心到中心的向量
 
-local acceleration = 100 																						-- 汽车的加速度
-local drag = 1.1																							-- 拖动常数
+local acceleration = 100 		                      									-- 汽车的加速度
+local drag = 1.1                                                  	-- 拖动常数
 
 function init(self)
 	-- 向渲染脚本发送消息（参见 builtins/render/default.render_script）以设置清除颜色。

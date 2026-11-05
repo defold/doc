@@ -3,7 +3,7 @@ title: Adaptar gráficos a distintos tamaños de pantalla
 brief: Este manual explica cómo adaptar tu juego y sus gráficos a distintos tamaños de pantalla.
 ---
 
-# Introducción
+# Introducción {#introduction}
 
 Hay varias cosas que debes considerar al adaptar tu juego y sus gráficos a distintos tamaños de pantalla:
 
@@ -18,12 +18,12 @@ Hay varias cosas que debes considerar al adaptar tu juego y sus gráficos a dist
 Este manual abordará algunos de estos puntos y sugerirá buenas prácticas.
 
 
-## Cómo cambiar la forma en que se renderiza tu contenido
+## Cómo cambiar la forma en que se renderiza tu contenido {#how-to-change-how-your-content-is-rendered}
 
 El script de render de Defold te da control total sobre todo el pipeline de renderizado. El script de render decide el orden, además de qué cosas dibujar y cómo dibujarlas. El comportamiento predeterminado del script de render es dibujar siempre la misma área de píxeles, definida por el ancho y la altura en el archivo *game.project*, sin importar si se redimensiona la ventana o si la resolución real de la pantalla no coincide. Esto hará que el contenido se estire si cambia la relación de aspecto y que se acerque o aleje si cambia el tamaño de la ventana. En algunos juegos esto puede ser aceptable, pero es más probable que quieras mostrar más o menos contenido del juego si la resolución de pantalla o la relación de aspecto es distinta, o al menos asegurarte de aplicar zoom al contenido sin cambiar la relación de aspecto. El comportamiento predeterminado de estiramiento se puede cambiar fácilmente y puedes leer más sobre cómo hacerlo en el [manual de Render](https://www.defold.com/manuals/render/#default-view-projection).
 
 
-## Gráficos retro/8-bit
+## Gráficos retro/8-bit {#retro8-bit-graphics}
 
 Los gráficos retro/8-bit suelen referirse a juegos que emulan el estilo gráfico de consolas o computadoras antiguas, con baja resolución y una paleta de colores limitada. Por ejemplo, Nintendo Entertainment System (NES) tenía una resolución de pantalla de 256x240, Commodore 64 tenía 320x200 y Gameboy tenía 160x144; todas son apenas una fracción del tamaño de las pantallas modernas. Para que los juegos que emulan este estilo gráfico y esta resolución de pantalla sean jugables en una pantalla moderna de alta resolución, los gráficos deben escalarse o acercarse varias veces. Una forma sencilla de hacerlo es dibujar todos tus gráficos con la baja resolución y el estilo que quieres emular, y hacer zoom sobre los gráficos cuando se renderizan. Esto se puede lograr fácilmente en Defold usando el script de render y [Fixed Projection](/manuals/render/#fixed-projection) configurado con un valor de zoom adecuado.
 
@@ -77,7 +77,7 @@ Ahora tenemos gráficos nítidos y *pixel-perfect* para nuestro juego retro. Hay
 
 Cuando la opción *Subpixels* está desactivada, los sprites nunca se renderizarán en medios píxeles y, en su lugar, siempre se ajustarán al píxel completo más cercano.
 
-## Gráficos de alta resolución
+## Gráficos de alta resolución {#high-resolution-graphics}
 
 Cuando trabajamos con gráficos de alta resolución, necesitamos plantear la configuración del proyecto y del contenido de una forma distinta a la usada para gráficos retro/8-bit. Con gráficos bitmap debes crear tu contenido de tal manera que se vea bien en una pantalla de alta resolución cuando se muestre a escala 1:1.
 
@@ -91,20 +91,22 @@ Esto hará que la pantalla se redimensione para mostrar siempre la misma cantida
 
 Debes configurar el ancho y la altura en el archivo *game.project* con un tamaño que te permita mostrar el contenido de tu juego sin escalar.
 
-### Configuración High DPI y pantallas retina
+### Configuración High DPI y pantallas retina {#high-dpi-setting-and-retina-screens}
 
 Si también quieres dar soporte a pantallas retina de alta resolución, puedes activarlo en el archivo *game.project*, en la sección Display:
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Esto creará un back buffer High DPI en las pantallas que lo soporten. El juego se renderizará al doble de la resolución configurada en los ajustes Width y Height, que seguirá siendo la resolución lógica usada en scripts y propiedades. Esto significa que todas las medidas se mantienen iguales y cualquier contenido que se renderice a escala 1x se verá igual. Pero si importas imágenes de alta resolución y las escalas a 0.5x, se verán en High DPI en pantalla.
+High DPI permite que el juego use la densidad de píxeles de la pantalla para su resolución de renderizado. Los ajustes *Width* y *Height* siguen definiendo la resolución lógica del proyecto, mientras que la escala de renderizado depende de la plataforma y la pantalla. Por ejemplo, con una escala de 2, las imágenes importadas al doble de su tamaño previsto y dibujadas a 0.5x pueden conservar sus detalles en una pantalla de alta densidad.
+
+En HTML5, la escala parte de la relación de píxeles del dispositivo que proporciona el navegador. `html5.min_pixel_ratio` y `html5.max_pixel_ratio` permiten limitarla cuando `display.high_dpi` está activado. Cada límite tiene el valor predeterminado `0` (desactivado), y se admiten valores fraccionarios, incluso inferiores a `1`. Estos límites cambian la resolución de renderizado del canvas sin alterar su tamaño de visualización CSS. Con High DPI desactivado, la relación permanece en `1`. Consulta [Límites de la relación de píxeles](/manuals/html5/#pixel-ratio-limits) para ver un ejemplo que limita el renderizado en pantallas de alta densidad.
 
 
-## Crear una GUI adaptativa
+## Crear una GUI adaptativa {#creating-an-adaptive-gui}
 
 El sistema para crear componentes GUI se basa en una serie de bloques de construcción básicos, o [nodos](/manuals/gui/#node-types), y aunque puede parecer demasiado simple, se puede usar para crear desde botones hasta menús y popups complejos. Las GUIs que crees pueden configurarse para adaptarse automáticamente a cambios de tamaño y orientación de pantalla. Por ejemplo, puedes mantener *nodos* anclados a la parte superior, inferior o a los lados de la pantalla, y los *nodos* pueden conservar su tamaño o estirarse. La relación entre nodos, así como su tamaño y apariencia, también puede configurarse para cambiar cuando cambia el tamaño o la orientación de la pantalla.
 
-### Propiedades de *nodo*
+### Propiedades de *nodo* {#node-properties}
 
 Cada *nodo* de una GUI tiene un punto de pivote, un anclaje horizontal y vertical, además de un modo de ajuste.
 
@@ -119,7 +121,7 @@ Puedes aprender más sobre estas propiedades [en el manual de GUI](/manuals/gui/
 Defold soporta GUIs que se adaptan automáticamente a cambios de orientación de pantalla en dispositivos móviles. Al usar esta funcionalidad puedes diseñar una GUI que se adapte a la orientación y la relación de aspecto de un rango de tamaños de pantalla. También es posible crear layouts que coincidan con modelos de dispositivo concretos. Puedes aprender más sobre este sistema en el [manual de GUI Layouts](/manuals/gui-layouts/)
 
 
-## Probar distintos tamaños de pantalla
+## Probar distintos tamaños de pantalla {#testing-different-screen-sizes}
 
 El menú *Debug* contiene una opción para simular la resolución de un modelo de dispositivo concreto o una resolución personalizada. Mientras la aplicación está en ejecución, puedes seleccionar <kbd>Debug->Simulate Resolution</kbd> y elegir uno de los modelos de dispositivo de la lista. La ventana de la aplicación en ejecución se redimensionará y podrás ver cómo se ve tu juego en una resolución distinta o con una relación de aspecto distinta.
 

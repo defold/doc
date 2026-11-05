@@ -103,6 +103,23 @@ Naciśnij *Create Bundle*, a potem zostaniesz poproszony o wskazanie miejsca na 
 
 Ikonę aplikacji, storyboard ekranu startowego i inne ustawienia określasz w pliku ustawień projektu *game.project* w [sekcji iOS](/manuals/project-settings/#ios).
 
+### Zachowanie wskaźnika Home Indicator {#home-indicator-behavior}
+
+Możesz wybrać *Home Indicator Mode* w sekcji *iOS* pliku *game.project*. Domyślne *Deferred* chroni wszystkie krawędzie ekranu i wymaga dwóch przesunięć, aby wrócić do ekranu początkowego. Wybierz *System*, aby używać zwykłych gestów systemowych, w tym pojedynczego przesunięcia do ekranu początkowego.
+
+Wybierz *Auto Hide*, aby używać zwykłych gestów systemowych i dodatkowo żądać automatycznego ukrywania wskaźnika Home Indicator. Ten tryb możesz ustawić bezpośrednio w *game.project*:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Ponownie utwórz paczkę i przetestuj ją na urządzeniu z Home Indicator. To iOS decyduje, kiedy wskaźnik jest widoczny; wybór *Auto Hide* nie gwarantuje, że pozostanie ukryty. W iOS 26 i nowszych system może ukrywać go zarówno w trybie *System*, jak i *Auto Hide*. Wszystkie wartości i ich wpływ na gesty opisano w [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode).
+
+### Zarezerwowane obszary i obrót {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()` zgłasza wycięcia na kamerę i Dynamic Island w iOS 27.1 i nowszych, uwzględniając marginesy interakcji UIKit. Zmiany orientacji w iOS wysyłają również `window.WINDOW_EVENT_RESIZED`, w tym obroty, które nie zmieniają wymiarów okna ani wcięć bezpiecznego obszaru. Odświeżaj rozmieszczenie interfejsu oparte na tych obszarach przy każdym wywołaniu zwrotnym zmiany rozmiaru. Sekcja [Zarezerwowane obszary ekranu](/manuals/porting-guidelines/#reserved-screen-areas) opisuje współrzędne, ograniczenia i przykład odświeżania.
+
 ### Własny Info.plist i wykrywanie celów w sieci lokalnej
 
 Wbudowany plik iOS `Info.plist` zawiera usługę Bonjour oraz opis użycia sieci lokalnej, które są wymagane do automatycznego wykrywania celów edytora w buildach innych niż release. Własny plik `Info.plist` zastępuje ten wbudowany manifest bazowy. Jeśli używasz własnego manifestu w buildzie debug i potrzebujesz wykrywania celów, profilowania, szybkiego przeładowania lub przesyłania logów przez sieć lokalną, dodaj następujące wpisy:
@@ -237,16 +254,16 @@ Edytor zapisuje plik *.ipa*, który jest pakietem aplikacji iOS. Aby zainstalowa
 Możesz też użyć narzędzia wiersza poleceń `xcrun simctl`, aby pracować z symulatorami iOS dostępnymi przez Xcode:
 
 ```
-# pokaż listę dostępnych urządzeń
+# show a list of available devices
 xcrun simctl list
 
-# uruchom symulator iPhone X
+# boot an iPhone X simulator
 xcrun simctl boot "iPhone X"
 
-# zainstaluj your.app na uruchomionym symulatorze
+# install your.app to a booted simulator
 xcrun simctl install booted your.app
 
-# uruchom symulator
+# launch the simulator
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
 

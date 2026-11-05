@@ -3,11 +3,11 @@ title: Defold中的GUI脚本
 brief: 本手册解释了GUI脚本。
 ---
 
-# GUI脚本
+# GUI脚本 {#gui-scripts}
 
 要控制GUI的逻辑和动画节点，您使用Lua脚本。GUI脚本与常规游戏对象脚本的工作方式相同，但保存为不同的文件类型，并且可以访问不同的函数集：`gui`模块函数。
 
-## 向GUI添加脚本
+## 向GUI添加脚本 {#adding-a-script-to-a-gui}
 
 要向GUI添加脚本，首先通过在*Assets*浏览器中<kbd>右键点击</kbd>一个位置并从弹出上下文菜单中选择<kbd>New ▸ Gui Script</kbd>来创建GUI脚本文件。
 
@@ -51,7 +51,13 @@ end
 
 如果GUI组件已添加到游戏中某处的游戏对象，脚本现在将运行。
 
-## "gui"命名空间
+## 输入 {#input}
+
+要在 GUI 脚本中接收输入，请在 `init()` 中发送 `msg.post(".", "acquire_input_focus")`，并在 `on_input(self, action_id, action)` 中处理动作。
+
+GUI 脚本使用与游戏对象脚本相同的 `action.source` 哈希，因此即使在首次按下时，也可以区分物理鼠标点击与触摸。请参阅[输入设备来源](/manuals/input/#input-device-source)和[鼠标与触摸示例](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch)。指针移动和加速度计采样均使用 `action_id == nil`；请根据来源区分它们。
+
+## "gui"命名空间 {#the-gui-namespace}
 
 GUI脚本可以访问`gui`命名空间和[所有`gui`函数](/ref/gui)。`go`命名空间不可用，因此您需要将游戏对象逻辑分离到脚本组件中，并在GUI和游戏对象脚本之间进行通信。任何尝试使用`go`函数的操作都会导致错误：
 
@@ -68,7 +74,7 @@ stack traceback:
    /main/my_gui.gui_script:2: in function </main/my_gui.gui_script:1>
 ```
 
-## 消息传递
+## 消息传递 {#message-passing}
 
 任何附加了脚本的GUI组件都能够通过消息传递与游戏运行时环境中的其他对象通信，它的行为就像任何其他脚本组件一样。
 
@@ -81,7 +87,7 @@ msg.post("hud#gui", "set_stats", stats)
 
 ![message passing](images/gui-script/message_passing.png)
 
-## 寻址节点
+## 寻址节点 {#addressing-nodes}
 
 GUI节点可以通过附加到组件的GUI脚本进行操作。每个节点必须在编辑器中设置唯一的*Id*：
 
@@ -97,7 +103,7 @@ size.x = size.x + 10
 gui.set_size(healthbar_node, size)
 ```
 
-## 动态创建节点
+## 动态创建节点 {#dynamically-created-nodes}
 
 要在运行时使用脚本创建新节点，您有两个选择。第一个选择是通过调用`gui.new_[type]_node()`函数从头创建节点。这些函数返回对新节点的引用，您可以使用该引用来操作节点：
 
@@ -136,7 +142,7 @@ root_position.x = root_position.x + 300
 gui.set_position(new_root, root_position)
 ```
 
-## 动态节点ID
+## 动态节点ID {#dynamic-node-ids}
 
 动态创建的节点没有分配ID。这是设计上的选择。从`gui.new_[type]_node()`、`gui.clone()`和`gui.clone_tree()`返回的引用是访问节点所必需的唯一内容，您应该跟踪该引用。
 

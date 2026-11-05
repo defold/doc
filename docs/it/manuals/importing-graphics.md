@@ -10,8 +10,18 @@ Defold supporta molti tipi di componenti visivi comunemente usati nei giochi 2D.
 ![Importazione dei file](images/graphics/import.png)
 
 ::: sidenote
-Defold supporta immagini nei formati PNG e JPEG. Le immagini in altri formati devono essere convertite prima di poter essere utilizzate.
+Usa immagini PNG o JPEG per atlas e sorgenti di tile. Puoi anche importare texture sorgente KTX2 da usare come texture dei modelli; vedi sotto.
 :::
+
+## Texture KTX2 {#ktx2-textures}
+
+Importa un file *.ktx2* autonomo trascinandolo nel pannello *Assets*, quindi assegnalo al campo texture di un materiale del componente Model. Anche i [modelli glTF e GLB](/manuals/importing-models/#ktx2-textures) possono referenziare file KTX2 esterni o contenere immagini KTX2 incorporate. Gli ingressi di atlas, sorgenti di tile e facce delle cubemap continuano a usare i formati immagine già previsti.
+
+Gli ingressi KTX2 supportati sono texture 2D che usano ETC1S/BasisLZ, UASTC, BC7 oppure dati UNORM o sRGB a 8 bit R/RG/RGB/RGBA. Gli array, le cubemap, i volumi e le texture HDR KTX2 non sono supportati. I KTX2 vengono elaborati durante la build in risorse *.texturec* di Defold; il runtime non legge i contenitori KTX2.
+
+Apri un asset KTX2 per ispezionarne formato sorgente, dimensioni, spazio colore, metadati alpha e livelli mip. La vista *Outline* consente di selezionare i singoli livelli mip creati nella sorgente. Questi mostrano le immagini sorgente anche se un profilo texture ridimensiona la texture compilata o ne disabilita le mipmap.
+
+Usa i [profili texture](/manuals/texture-profiles/#ktx2-source-textures) per scegliere se conservare il formato sorgente o convertirlo in altri formati. Scegli formati di uscita supportati dai dispositivi di destinazione. Ricomprimere una sorgente già compressa con perdita può ridurne ulteriormente la qualità, anche quando **Keep KTX2 Format** richiede una nuova codifica dopo l'elaborazione dell'immagine.
 
 
 ## Creazione di asset Defold {#creating-defold-assets}

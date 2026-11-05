@@ -47,19 +47,19 @@ Material A      Material A      Material B      Material C
 ```
 
 ```lua
--- a predicate matching all sprites with tag "tree"
+-- предикат, соответствующий всем спрайтам с тегом "tree"
 local trees = render.predicate({"tree"})
--- will draw Sprite 1, 2 and 3
+-- отрисует Sprite 1, 2 и 3
 render.draw(trees)
 
--- a predicate matching all sprites with tag "outlined"
+-- предикат, соответствующий всем спрайтам с тегом "outlined"
 local outlined = render.predicate({"outlined"})
--- will draw Sprite 1, 2 and 4
+-- отрисует Sprite 1, 2 и 4
 render.draw(outlined)
 
--- a predicate matching all sprites with tags "outlined" AND "tree"
+-- предикат, соответствующий всем спрайтам с тегами "outlined" И "tree"
 local outlined_trees = render.predicate({"outlined", "tree"})
--- will draw Sprite 1 and 2
+-- отрисует Sprite 1 и 2
 render.draw(outlined_trees)
 ```
 
@@ -189,7 +189,7 @@ render.set_camera()
 
 
 ::: sidenote
-Начиная с Defold 1.13.0, примитивы компонентов используют порядок вершин против часовой стрелки, при этом нормаль примитива направлена к камере. Спрайты, GUI-ноды, тайловые карты (тайлгриды) и эффекты частиц используют тот же порядок, что и остальные типы компонентов, поэтому для всех компонентов можно применять одинаковые настройки отсечения граней.
+Примитивы компонентов используют порядок вершин против часовой стрелки, при этом нормаль примитива направлена к камере. Спрайты, GUI-ноды, тайловые карты (тайлгриды) и эффекты частиц используют тот же порядок, что и остальные типы компонентов, поэтому для всех компонентов можно применять одинаковые настройки отсечения граней.
 
 Это может повлиять на проекты, в которых отсечение граней настроено для компонентов, отличных от моделей. Если компонент неожиданно отсекается, убедитесь, что задние грани выбраны с помощью `render.set_cull_face(graphics.FACE_TYPE_BACK)`, либо удалите вызов `render.set_cull_face()`, чтобы использовать режим `graphics.FACE_TYPE_BACK` по умолчанию.
 :::
@@ -210,10 +210,10 @@ GUI компоненты и их ноды обычно отрисовывают�
 init()
 : Функция `init()` применяется для установления предикатов, вида и цвета очистки. Эти переменные будут использоваться во время непосредственно рендеринга.
 
-  ```lua
-  function init(self)
-      -- Задаем рендер предикаты. Каждый предикат отрисовывается сам по себе и
-      -- это позволяет нам менять состояние OpenGL между отрисовками.
+```lua
+function init(self)
+    -- Задаем рендер предикаты. Каждый предикат отрисовывается сам по себе и
+    -- это позволяет нам менять состояние OpenGL между отрисовками.
     self.predicates = create_predicates("tile", "gui", "text", "particle", "model")
 
     -- Создание и заполнение таблиц которые будут использованы в update()
@@ -224,17 +224,17 @@ init()
     local camera_gui = create_camera(state, "camera_gui")
     init_camera(camera_gui, get_gui_projection)
     update_state(state)
-  end
-  ```
+end
+```
 
 update()
 : Функция `update()` вызывается один раз каждый кадр. Ее назначение --- это производить реальную отрисовку вызывая нижележащие API OpenGL ES (OpenGL Embedded Systems API). Чтобы как следует понять, что происходит в функции `update()`, вам нужно понять как работает OpenGL. Есть множество качественных источников по OpenGL ES. Официальный сайт является неплохой стартовой точкой. Он располагается по адресу https://www.khronos.org/opengles/ 
 
   Данный пример содержит настройки необходимые для отрисовки 3D моделей. В функции `init()` задан предикат `self.predicates.model`. В другом месте был создан материал с тегом "model". В примере присутствуют также компоненты моделей, которые используют этот материал:
 
-  ```lua
-  function update(self)
-     local state = self.state
+```lua
+function update(self)
+    local state = self.state
      if not state.valid then
         if not update_state(state) then
             return
@@ -242,7 +242,7 @@ update()
     end
 
     local predicates = self.predicates
-    -- Очищаем цветовой буффер цветом очистки и устанавливаем буфер глубины.
+    -- Очищаем экранные буферы
     --
     render.set_depth_mask(true)
     render.set_stencil_mask(0xff)
@@ -265,7 +265,7 @@ update()
     render.disable_state(graphics.STATE_DEPTH_TEST)
     render.disable_state(graphics.STATE_CULL_FACE)
 
-     -- Рендерим 2D пространство(sprites, tilemaps, particles etc)
+     -- Рендерим мир (спрайты, карты тайлов, частицы и т. д.)
      --
     render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
     render.enable_state(graphics.STATE_DEPTH_TEST)
@@ -276,10 +276,10 @@ update()
     render.disable_state(graphics.STATE_STENCIL_TEST)
     render.disable_state(graphics.STATE_DEPTH_TEST)
 
-    -- debug
+    -- отладка
     render.draw_debug3d()
 
-    -- -- Рендерим GUI
+    -- Рендерим GUI
     --
     local camera_gui = state.cameras.camera_gui
     render.set_view(camera_gui.view)
@@ -288,40 +288,40 @@ update()
     render.draw(predicates.gui, camera_gui.frustum)
     render.draw(predicates.text, camera_gui.frustum)
     render.disable_state(graphics.STATE_STENCIL_TEST)
-  end
-  ```
+end
+```
 
 Пока что данный скрипт простой и понятный. Каждый кадр он отрисовывает в одинаковой манере. Однако, иногда хочется иметь возможность внедрить состояние в рендер скрипт и производить разные операции в зависимости от состояния. Так же иногда хочется общаться с рендер скриптом из других частей кода игры. 
 
 on_message()
 : Рендер скрипт может определить функцию `on_message()` и получать сообщения из других частей вашей игры. Типовой сценарий, где внешний компонент посылает информацию рендер скрипту --- это _камера_. Компонент камеры, который захватил фокус, будет автоматически в каждом кадре посылать свой вид и проекцию рендер скрипту. Это сообщение называется `"set_view_projection"`:
 
-  ```lua
+```lua
 local MSG_CLEAR_COLOR =         hash("clear_color")
 local MSG_WINDOW_RESIZED =      hash("window_resized")
 local MSG_SET_VIEW_PROJ =       hash("set_view_projection")
 
-  function on_message(self, message_id, message)
-      if message_id == MSG_CLEAR_COLOR then
-          -- Ктото послал нам новый цвет очистки для использования.
-          self.clear_color = message.color
-      elseif message_id == MSG_SET_VIEW_PROJ then
-          -- Компонент камеры, получивший фокус, будет посылать
-          -- сообщения set_view_projection в сокет @render.
-          -- Мы можем использовать эту информацию, чтобы установить вид (и, возможно, проекцию) рендеринга.
-          camera.view = message.view
-          self.camera_projection = message.projection or vmath.matrix4()
-          update_camera(camera, state)
-      end
-  end
-  ```
+function on_message(self, message_id, message)
+    if message_id == MSG_CLEAR_COLOR then
+        -- Кто-то прислал нам новый цвет очистки.
+        update_clear_color(state, message.color)
+    elseif message_id == MSG_SET_VIEW_PROJ then
+        -- Компонент камеры с фокусом камеры отправляет сообщения set_view_projection
+        -- на сокет @render. Мы можем использовать данные камеры, чтобы
+        -- задать вид (и, возможно, проекцию) для отрисовки.
+        camera.view = message.view
+        self.camera_projection = message.projection or vmath.matrix4()
+        update_camera(camera, state)
+    end
+end
+```
 
   Однако, любой скрипт или GUI скрипт может посылать сообщения рендер скрипту через специальный сокет `@render`:
 
-  ```lua
-  -- Поменять цвет очистки.
-  msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
-  ```
+```lua
+-- Поменять цвет очистки.
+msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
+```
 
 ## Ресурсы рендеринга
 Чтобы передать определенные ресурсы движка в рендер-скрипт, вы можете добавить их в таблицу `Render Resources` в файле `.render` проекта:
@@ -381,12 +381,12 @@ self.present_predicate = render.predicate({"present"})
 render.set_render_target(self.offscreen)
 render.set_viewport(0, 0, 1024, 1024)
 render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
--- Set the scene view and projection here.
+-- Задать здесь матрицы вида и проекции сцены.
 render.draw(self.scene_predicate)
 
 render.set_render_target(render.RENDER_TARGET_DEFAULT)
 render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
--- Set the full-screen quad view and projection here.
+-- Задать здесь матрицы вида и проекции для полноэкранного четырёхугольника.
 render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
 render.draw(self.present_predicate)
 render.disable_texture(0)
@@ -456,36 +456,36 @@ API рендер-скрипта Defold транслирует операции �
 `"window_resized"`
 : Движок пошлет это сообщение по изменению размеров окна. Вы можете прослушивать это сообщение для изменения рендеринга когда целевое окно меняет размеры. На десктопе это означает, что реальные размеры игрового окна были изменены, а на мобильных устройствах это сообщение посылается каждый раз, когда происходит смена ориентации.
 
-  ```lua
-  local MSG_WINDOW_RESIZED =      hash("window_resized")
+```lua
+local MSG_WINDOW_RESIZED =      hash("window_resized")
 
-  function on_message(self, message_id, message)
-    if message_id == MSG_WINDOW_RESIZED then
-      -- Были изменены размеры окна. message.width и message.height содержат новые размеры.
-      ...
-    end
+function on_message(self, message_id, message)
+  if message_id == MSG_WINDOW_RESIZED then
+    -- Были изменены размеры окна. message.width и message.height содержат новые размеры.
+    ...
   end
-  ```
+end
+```
 
 `"draw_line"`
 : Нарисовать отладочную линию. Используется для визуализации `ray_casts`, векторов и много другого. Линии рисуются с помощью вызова `render.draw_debug3d()`.
 
-  ```lua
-  -- нарисовать линию
-  local p1 = vmath.vector3(0, 0, 0)
-  local p2 = vmath.vector3(1000, 1000, 0)
-  local col = vmath.vector4(1, 1, 1, 1)
-  msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )  
-  ```
+```lua
+-- нарисовать белую линию
+local p1 = vmath.vector3(0, 0, 0)
+local p2 = vmath.vector3(1000, 1000, 0)
+local col = vmath.vector4(1, 1, 1, 1)
+msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )
+```
 
 `"draw_text"`
 : Отрисовать отладочный текст. Используется для печати отладочной информации. Текст отрисовывается встроенным шрифтом `always_on_top.font`. Системный шрифт имеет материал с тегом `debug_text` и рендерится с другим текстом в рендер скрипте по-умолчанию.
 
-  ```lua
-  -- отрисовать текстовое сообщение
-  local pos = vmath.vector3(500, 500, 0)
-  msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
-  ```
+```lua
+-- отрисовать текстовое сообщение
+local pos = vmath.vector3(500, 500, 0)
+msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
+```
 
 Визуальный профайлер, доступный через посылку сообщения `"toggle_profile"` в сокет `@system`, не является частью скриптуемого рендерера. Он отрисовывается отдельно от вашего рендер скрипта.  
 

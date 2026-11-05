@@ -18,7 +18,7 @@ Las especificaciones de OpenGL ES 2.0 (OpenGL for Embedded Systems) y OpenGL ES 
 Ten en cuenta que en computadoras de escritorio es posible escribir shaders usando funcionalidades que no están disponibles en OpenGL ES 2.0. El driver de tu tarjeta gráfica puede compilar y ejecutar sin problemas código shader que no funcionará en dispositivos móviles.
 
 
-## Conceptos
+## Conceptos {#concepts}
 
 Shader de vértices (Vertex shader)
 : Un vertex shader no puede crear ni eliminar vértices, solo cambiar la posición de un vértice. Los vertex shaders se usan comúnmente para transformar las posiciones de los vértices desde el espacio 3D del mundo al espacio 2D de la pantalla.
@@ -105,16 +105,16 @@ Variables varying
 
   ![Interpolación varying](images/shader/varying.png)
 
-## Escribir shaders GLSL modernos
+## Escribir shaders GLSL modernos {#writing-modern-glsl-shaders}
 
 Como el motor Defold soporta varias plataformas y API gráficas, debe ser sencillo para los desarrolladores escribir shaders que funcionen en todas partes. El pipeline de assets logra esto principalmente de dos maneras (denominadas `shader pipelines` de ahora en adelante):
 
 1. El pipeline heredado, donde los shaders se escriben en código GLSL compatible con ES2.
 2. El pipeline moderno, donde los shaders se escriben en código GLSL compatible con SPIR-v.
 
-A partir de Defold 1.9.2, se recomienda escribir shaders que utilicen el nuevo pipeline, y para lograrlo la mayoría de los shaders deben migrarse a shaders escritos al menos en la versión 140 (OpenGL 3.1). Para migrar un shader, asegúrate de cumplir estos requisitos:
+Escribe shaders para el pipeline moderno usando como mínimo GLSL versión 140 (OpenGL 3.1). Para migrar un shader, asegúrate de cumplir estos requisitos:
 
-### Declaración de versión
+### Declaración de versión {#version-declaration}
 Coloca al menos #version 140 en la parte superior del shader:
 
 ```glsl
@@ -123,13 +123,13 @@ Coloca al menos #version 140 en la parte superior del shader:
 
 Así es como se elige el pipeline de shaders en el proceso de build, por eso todavía puedes usar los shaders antiguos. Si no se encuentra ninguna declaración de versión del preprocesador, Defold volverá al pipeline heredado.
 
-### Atributos
+### Atributos {#attributes}
 En vertex shaders, reemplaza la palabra clave `attribute` por `in`:
 
 ```glsl
-// en lugar de:
+// instead of:
 // attribute vec4 position;
-// haz:
+// do:
 in vec4 position;
 ```
 
@@ -139,18 +139,18 @@ Nota: Los fragment shaders (y compute shaders) no reciben entradas de vértices.
 En vertex shaders, los varyings deben tener el prefijo `out`. En fragment shaders, los varyings pasan a ser `in`:
 
 ```glsl
-// En un vertex shader, en lugar de:
+// In a vertex shader, instead of:
 // varying vec4 var_color;
-// haz:
+// do:
 out vec4 var_color;
 
-// En un fragment shader, en lugar de:
+// In a fragment shader, instead of:
 // varying vec4 var_color;
-// haz:
+// do:
 in vec4 var_color;
 ```
 
-### Uniforms (llamados constantes en Defold)
+### Uniforms (llamados constantes en Defold) {#uniforms-called-constants-in-defold}
 
 Los tipos uniform opacos (samplers, imágenes, atomics, SSBOs) no necesitan ninguna migración; puedes usarlos como lo haces hoy:
 
@@ -173,21 +173,21 @@ uniform vertex_inputs
 
 void main()
 {
-    // Los miembros individuales del uniform block se pueden usar tal cual
+    // Individual members of the uniform block can be used as-is
     gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
 }
 ```
 
 Todos los miembros del uniform block se exponen a materiales y componentes como constantes individuales. No se necesita migración para usar buffers de constantes de renderizado, ni `go.set` y `go.get`.
 
-### Variables integradas
+### Variables integradas {#built-in-variables}
 
 En fragment shaders, `gl_FragColor` está obsoleto a partir de la versión 140. Usa `out` en su lugar:
 
 ```glsl
-// en lugar de:
+// instead of:
 // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-// haz:
+// do:
 out vec4 color_out;
 
 void main()
@@ -196,7 +196,7 @@ void main()
 }
 ```
 
-### Funciones de textura
+### Funciones de textura {#texture-functions}
 
 Las funciones específicas de muestreo de texturas, como `texture2D` y `texture2DArray`, ya no existen. En su lugar, usa simplemente la función `texture`:
 
@@ -204,10 +204,10 @@ Las funciones específicas de muestreo de texturas, como `texture2D` y `texture2
 uniform sampler2D my_texture;
 uniform sampler2DArray my_texture_array;
 
-// en lugar de:
+// instead of:
 // vec4 sampler_2d = texture2D(my_texture, uv);
 // vec4 sampler_2d_array = texture2DArray(my_texture_array, vec3(uv, slice));
-// haz:
+// do:
 vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
@@ -218,7 +218,7 @@ Defold genera calificadores de precisión global predeterminados al compilar sha
 
 Un calificador explícito en una variable, entrada o salida tiene prioridad sobre el valor global predeterminado generado. En fragment shaders de OpenGL ES 2.0 y WebGL 1.0, no todos los dispositivos admiten `highp`. Cuando se selecciona `highp` como valor global predeterminado, Defold lo protege con `GL_FRAGMENT_PRECISION_HIGH` y recurre a `mediump` en los dispositivos que no lo admiten.
 
-### Juntándolo todo
+### Juntándolo todo {#putting-it-together}
 
 Como ejemplo final donde se aplican todas estas reglas, aquí están los shaders de sprite integrados convertidos al formato nuevo:
 
@@ -230,7 +230,7 @@ uniform vx_uniforms
     mat4 view_proj;
 };
 
-// las posiciones están en espacio del mundo
+// positions are in world space
 in vec4 position;
 in vec2 texcoord0;
 
@@ -259,29 +259,29 @@ uniform fs_uniforms
 
 void main()
 {
-    // Premultiplica alfa, ya que todas las texturas de runtime ya tienen alfa premultiplicado
+    // Premultiply alpha since all runtime textures already are
     vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
     color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
 }
 
 ```
 
-## Incluir fragmentos de código en shaders
+## Incluir fragmentos de código en shaders {#including-snippets-into-shaders}
 
 Los shaders en Defold soportan incluir código fuente desde archivos dentro del proyecto que tengan la extensión `.glsl`. Para incluir un archivo glsl desde un shader, usa el pragma `#include` con comillas dobles o corchetes. Los includes deben tener rutas relativas al proyecto o una ruta relativa al archivo que los incluye:
 
 ```glsl
-// En el archivo /main/my-shader.fp
+// In file /main/my-shader.fp
 
-// Ruta absoluta
+// Absolute path
 #include "/main/my-snippet.glsl"
-// El archivo está en la misma carpeta
+// The file is in the same folder
 #include "my-snippet.glsl"
-// El archivo está en una subcarpeta al mismo nivel que 'my-shader'
+// The file is in a sub-folder on the same level as 'my-shader'
 #include "sub-folder/my-snippet.glsl"
-// El archivo está en una subcarpeta del directorio padre, es decir /some-other-folder/my-snippet.glsl
+// The file is in a sub-folder on the parent directory, i.e /some-other-folder/my-snippet.glsl
 #include "../some-other-folder/my-snippet.glsl"
-// El archivo está en el directorio padre, es decir /root-level-snippet.glsl
+// The file is on the parent directory, i.e /root-level-snippet.glsl
 #include "../root-level-snippet.glsl"
 ```
 
@@ -290,26 +290,26 @@ Hay algunas salvedades sobre cómo se detectan los includes:
   - Los archivos deben ser relativos al proyecto, lo que significa que solo puedes incluir archivos ubicados dentro del proyecto. Cualquier ruta absoluta debe especificarse con una `/` inicial.
   - Puedes incluir código en cualquier parte del archivo, pero no puedes incluir un archivo inline en una sentencia. Por ejemplo, `const float #include "my-float-name.glsl" = 1.0` no funcionará.
 
-### Guardas de encabezado (header guards)
+### Guardas de encabezado (header guards) {#header-guards}
 
 Los fragmentos de código pueden incluir otros archivos `.glsl`, lo que significa que el shader final producido puede llegar a incluir el mismo código varias veces y, dependiendo del contenido de los archivos, puedes terminar con problemas de compilación por tener los mismos símbolos declarados más de una vez. Para evitar esto, puedes usar *header guards*, un concepto común en varios lenguajes de programación. Ejemplo:
 
 ```glsl
-// En my-shader.vs
+// In my-shader.vs
 #include "math-functions.glsl"
 #include "pi.glsl"
 
-// En math-functions.glsl
+// In math-functions.glsl
 #include "pi.glsl"
 
-// En pi.glsl
+// In pi.glsl
 const float PI = 3.14159265359;
 ```
 
 En este ejemplo, la constante `PI` se definirá dos veces, lo que causará errores de compilación al ejecutar el proyecto. En su lugar, debes proteger el contenido con header guards:
 
 ```glsl
-// En pi.glsl
+// In pi.glsl
 #ifndef PI_GLSL_H
 #define PI_GLSL_H
 
@@ -323,10 +323,10 @@ El código de `pi.glsl` se expandirá dos veces en `my-shader.vs`, pero como lo 
 Sin embargo, esto no siempre es estrictamente necesario, según el caso de uso. Si en cambio quieres reutilizar código localmente en una función o en otro lugar donde no necesitas que los valores estén disponibles globalmente en el código del shader, probablemente no deberías usar header guards. Ejemplo:
 
 ```glsl
-// En red-color.glsl
+// In red-color.glsl
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// En my-shader.fp
+// In my-shader.fp
 vec3 get_red_color()
 {
   #include "red-color.glsl"
@@ -340,7 +340,7 @@ vec3 get_red_color_inverted()
 }
 ```
 
-## Código shader específico del editor
+## Código shader específico del editor {#editor-specific-shader-code}
 
 Cuando los shaders se renderizan en el viewport del editor Defold, está disponible una definición de preprocesador `EDITOR`. Esto te permite escribir código shader que se comporte de forma diferente cuando se ejecuta en el editor y cuando se ejecuta en el motor real del juego.
 
@@ -353,15 +353,15 @@ Usa la directiva de preprocesador `#ifdef EDITOR` para compilar condicionalmente
 
 ```glsl
 #ifdef EDITOR
-    // Este código solo se ejecutará cuando el shader se renderice en el Defold Editor
-    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Color magenta para la vista previa del editor
+    // This code will only execute when the shader is rendered in the Defold Editor
+    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Magenta color for editor preview
 #else
-    // Este código se ejecutará cuando se ejecute en el juego
+    // This code will execute when running in the game
     color_out = texture(texture_sampler, var_texcoord0) * tint_pm;
 #endif
 ```
 
-## El proceso de renderizado
+## El proceso de renderizado {#the-rendering-process}
 
 Antes de terminar en la pantalla, los datos que creas para tu juego pasan por una serie de pasos:
 
@@ -450,7 +450,7 @@ El valor de fragmento resultante luego pasa por pruebas. Una prueba común es la
 
 Si la prueba concluye que el fragmento debe escribirse en el framebuffer, se *mezclará* con los datos de píxel ya presentes en el buffer. Los parámetros de blending definidos en el render script permiten combinar de varias maneras el color de origen (el valor escrito por el fragment shader) y el color de destino (el color de la imagen en el framebuffer). Un uso común del blending es habilitar el renderizado de objetos transparentes.
 
-## Más información
+## Más información {#further-study}
 
 - [Shadertoy](https://www.shadertoy.com) contiene una enorme cantidad de shaders aportados por usuarios. Es una gran fuente de inspiración donde puedes aprender sobre varias técnicas de shading. Muchos de los shaders mostrados en el sitio se pueden portar a Defold con muy poco trabajo. El [tutorial de Shadertoy](https://www.defold.com/tutorials/shadertoy/) repasa los pasos para convertir un shader existente a Defold.
 

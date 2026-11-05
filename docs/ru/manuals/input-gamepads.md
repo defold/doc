@@ -29,9 +29,9 @@ brief: В этом руководстве объясняется, как раб�
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_lpad_left") then
         if action.pressed then
-            -- start moving left
+            -- начать движение влево
         elseif action.released then
-            -- stop moving left
+            -- прекратить движение влево
         end
     end
 end
@@ -43,8 +43,8 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_lstick_down") then
-        -- left stick was moved down
-        print(action.value) -- a value between 0.0 an -1.0
+        -- левый стик перемещён вниз
+        print(action.value) -- значение между 0.0 и -1.0
     end
 end
 ```
@@ -54,7 +54,7 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_lstick_down") and action.pressed then
-        -- left stick was moved to its extreme down position
+        -- левый стик перемещён в крайнее нижнее положение
     end
 end
 ```
@@ -66,7 +66,7 @@ Defold поддерживает несколько геймпадов через
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_start") then
         if action.gamepad == 0 then
-          -- gamepad 0 wants to join the game
+          -- геймпад 0 хочет присоединиться к игре
         end
     end
 end
@@ -79,17 +79,17 @@ end
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_connected") then
         if action.gamepad == 0 then
-          -- gamepad 0 was connected
+          -- геймпад 0 подключён
         end
-    elseif action_id == hash("gamepad_dicconnected") then
+    elseif action_id == hash("gamepad_disconnected") then
         if action.gamepad == 0 then
-          -- gamepad 0 was dicconnected
+          -- геймпад 0 отключён
         end
     end
 end
 ```
 
-## Нефильтрованые данные с геймпада
+## Нефильтрованые данные с геймпада {#raw-gamepads}
 
 Привязки ввода геймпада также предоставляют отдельную привязку с именем `Raw` для передачи нефильтрованного (без примененной мертвой зоны) ввода кнопок, осей и шляп любого подключенного геймпада.
 
@@ -104,11 +104,23 @@ end
 ```
 
 ## Файл настроек геймпадов {#gamepads-settings-file}
-Для настройки входа геймпада используется отдельный файл отображения для каждого типа аппаратного геймпада. Сопоставления геймпадов для конкретных аппаратных геймпадов задаются в файле *gamepads*. Defold поставляется со встроенным файлом gamepads с настройками для обычных геймпадов:
+
+Сопоставления геймпадов преобразуют кнопки, оси и крестовины контроллера в стандартные элементы управления, используемые привязками ввода. Defold объединяет два источника сопоставлений, настраиваемые в разделе *Input* файла *game.project*:
+
+| Параметр | Формат сопоставления | По умолчанию |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | Текстовая база в формате SDL, сопоставление по GUID контроллера | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Прежние записи `.gamepads` по именам устройств и платформам | `/builtins/input/default.gamepads` |
+
+Сопоставления из базы SDL и автоматические сопоставления платформы используют [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Прежние записи `.gamepads` задают собственные мёртвые зоны. На Android контроллер без записи в базе может также получить [автоматическое сопоставление](#gamepads-on-android).
+
+### Прежние сопоставления .gamepads {#legacy-gamepads-mappings}
+
+Файл `.gamepads` может содержать сопоставления для нескольких контроллеров. Существующие сопоставления прежнего формата по-прежнему поддерживаются. Defold включает сопоставления для распространённых контроллеров в файле по умолчанию:
 
 ![Настройки геймпада](images/input/gamepads.png)
 
-Если вам нужно создать новый файл настроек геймпада, у нас есть простой инструмент, который поможет вам в этом:
+Если нужно создать сопоставление прежнего формата `.gamepads` на настольной платформе, используйте следующий инструмент. Для Android см. [Геймпады на Android](#gamepads-on-android).
 
 [Скачать gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -122,9 +134,9 @@ end
 
 ![Настройки геймпада](images/input/gamepad_setting.png)
 
-### Неопознанные геймпады
+### Неопознанные геймпады {#unidentified-gamepads}
 
-Если геймпад подключен и для него не существует отображения, геймпад будет генерировать только действия `подключен`, `отключен` и `сырой`. В этом случае вам необходимо вручную сопоставить необработанные данные геймпада с действиями в вашей игре.
+Если нет ни настроенного сопоставления, ни автоматического сопоставления платформы, геймпад создаёт только действия, привязанные к `Connected`, `Disconnected` и `Raw`. Можно добавить сопоставление контроллера или обрабатывать его необработанный ввод в игре.
 
 Можно проверить, поступает ли входное действие от неопознанного геймпада, прочитав значение `gamepad_unknown` из `action`:
 
@@ -132,9 +144,9 @@ end
 function on_input(self, action_id, action)
     if action_id == hash("connected") then
         if action.gamepad_unknown then
-            print("Подключённый геймпад не распознан и будет генерировать только сырой ввод")
+            print("The connected gamepad is unidentified and will only generate raw input")
         else
-            print("Подключённый геймпад распознан и будет генерировать действия ввода для кнопок и стиков")
+            print("The connected gamepad is known and will generate input actions for buttons and sticks")
         end
     end
 end
@@ -166,64 +178,8 @@ end
 ## Геймпады в Windows
 В Windows в настоящее время поддерживаются только контроллеры XBox 360. Чтобы подключить контроллер 360 к компьютеру с Windows, [убедитесь, что он правильно настроен](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
-## Геймпады на Android
+## Геймпады на Android {#gamepads-on-android}
 
-Геймпады поддерживаются в сборках Android и генерируют те же события ввода, что и на других платформах. Поддержка геймпадов основана на [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input). Входные события Android будут переведены в события геймпада Defold с помощью того же файла *gamepad*, как описано выше.
+Геймпады поддерживаются в сборках Android и создают те же действия ввода, что и на других платформах. Defold использует настроенные [сопоставления геймпадов](#gamepads-settings-file) и может автоматически сопоставлять некоторые контроллеры, для которых нет подходящей записи.
 
-При добавлении дополнительных привязок для геймпада на Android вы можете использовать следующие таблицы поиска для перевода событий ввода Android в значения файлов *gamepad*:
-
-| Событие клавиши с кнопки    | Индекс |
-|-----------------------------|--------|
-| `AKEYCODE_BUTTON_A`           | 0      |
-| `AKEYCODE_BUTTON_B`           | 1      |
-| `AKEYCODE_BUTTON_C`           | 2      |
-| `AKEYCODE_BUTTON_X`           | 3      |
-| `AKEYCODE_BUTTON_L1`          | 4      |
-| `AKEYCODE_BUTTON_R1`          | 5      |
-| `AKEYCODE_BUTTON_Y`           | 6      |
-| `AKEYCODE_BUTTON_Z`           | 7      |
-| `AKEYCODE_BUTTON_L2`          | 8      |
-| `AKEYCODE_BUTTON_R2`          | 9      |
-| `AKEYCODE_DPAD_CENTER`        | 10     |
-| `AKEYCODE_DPAD_DOWN`          | 11     |
-| `AKEYCODE_DPAD_LEFT`          | 12     |
-| `AKEYCODE_DPAD_RIGHT`         | 13     |
-| `AKEYCODE_DPAD_UP`            | 14     |
-| `AKEYCODE_BUTTON_START`       | 15     |
-| `AKEYCODE_BUTTON_SELECT`      | 16     |
-| `AKEYCODE_BUTTON_THUMBL`      | 17     |
-| `AKEYCODE_BUTTON_THUMBR`      | 18     |
-| `AKEYCODE_BUTTON_MODE`        | 19     |
-| `AKEYCODE_BUTTON_1`           | 20     |
-| `AKEYCODE_BUTTON_2`           | 21     |
-| `AKEYCODE_BUTTON_3`           | 22     |
-| `AKEYCODE_BUTTON_4`           | 23     |
-| `AKEYCODE_BUTTON_5`           | 24     |
-| `AKEYCODE_BUTTON_6`           | 25     |
-| `AKEYCODE_BUTTON_7`           | 26     |
-| `AKEYCODE_BUTTON_8`           | 27     |
-| `AKEYCODE_BUTTON_9`           | 28     |
-| `AKEYCODE_BUTTON_10`          | 29     |
-| `AKEYCODE_BUTTON_11`          | 30     |
-| `AKEYCODE_BUTTON_12`          | 31     |
-| `AKEYCODE_BUTTON_13`          | 32     |
-| `AKEYCODE_BUTTON_14`          | 33     |
-| `AKEYCODE_BUTTON_15`          | 34     |
-| `AKEYCODE_BUTTON_16`          | 35     |
-
-([Определения клавишных событий Android `KeyEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Событие движения с оси      | Индекс |
-|-----------------------------|--------|
-| `AMOTION_EVENT_AXIS_X`        | 0      |
-| `AMOTION_EVENT_AXIS_Y`        | 1      |
-| `AMOTION_EVENT_AXIS_Z`        | 2      |
-| `AMOTION_EVENT_AXIS_RZ`       | 3      |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4      |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5      |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6      |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7      |
-
-([Определения событий движения Android `MotionEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Используйте эту таблицу поиска в сочетании с приложением для тестирования геймпада из Google Play Store, чтобы выяснить, к какому событию привязана каждая кнопка на вашем геймпаде.
+Если контроллер не распознан или его элементы управления работают неверно, протестируйте его на устройстве Android и добавьте либо обновите сопоставление. Для диагностики см. [Неопознанные геймпады](#unidentified-gamepads) и [Необработанные данные геймпадов](#raw-gamepads).

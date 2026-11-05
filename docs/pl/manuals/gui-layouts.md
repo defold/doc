@@ -99,6 +99,8 @@ end
 
 Po zmianie orientacji menedżer układów GUI automatycznie przeskaluje i przemieści węzły GUI zgodnie z układem oraz właściwościami węzłów. Zawartość gry jest jednak domyślnie renderowana w osobnym przebiegu z projekcją stretch-fit do bieżącego okna. Aby zmienić to zachowanie, dostarcz własny zmodyfikowany skrypt renderowania albo skorzystaj z [biblioteki kamer](/assets/).
 
+Przy samodzielnym rozmieszczaniu interfejsu wokół wycięć na kamerę odświeżaj `window.get_reserved_areas()` po zdarzeniu `window.WINDOW_EVENT_RESIZED`, nawet jeśli wybrany układ GUI się nie zmienia. W systemie iOS obrót o 180° może przesunąć przeszkodę bez zmiany wymiarów okna i wcięć bezpiecznego obszaru. Sekcja [Zarezerwowane obszary ekranu](/manuals/porting-guidelines/#reserved-screen-areas) zawiera przykład odświeżania i wyjaśnia, jak współrzędne wyrażone w pikselach okna odnoszą się do dopasowania GUI.
+
 ## Ręczny wybór układu (Lua)
 
 Gdy "Auto Layout Selection" jest wyłączone w używanych Display Profiles, silnik nie będzie przełączać układów automatycznie. W takim przypadku układami zarządza się ręcznie z poziomu skryptu GUI za pomocą następujących funkcji:
@@ -117,7 +119,7 @@ function init(self)
     -- Ręcznie zastosuj układ "Portrait"
     local ok = gui.set_layout("Portrait")
     if not ok then
-        print("Układ Portrait nie został znaleziony w tej scenie")
+        print("Portrait layout not found in this scene")
     end
 end
 ```

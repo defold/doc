@@ -38,7 +38,11 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 ## 디버거 실행하기
 
-디버거를 실행하려면 <kbd>Debug ▸ Start/Attach</kbd>를 선택합니다. 그러면 디버거가 연결된 상태로 게임이 시작되거나, 이미 실행 중인 게임에 디버거가 연결됩니다.
+Lua 디버거는 네이티브 디버그 및 헤드리스 빌드에서 사용할 수 있습니다. 에디터와 같은 Defold 버전의 엔진을 사용하세요. 릴리스와 웹 빌드는 디버거 연결을 지원하지 않습니다.
+
+디버거를 실행하려면 <kbd>Debug ▸ Start/Attach</kbd>를 선택합니다. 디버거가 연결된 상태로 게임을 시작하거나 이미 실행 중인 게임에 연결합니다. 디버깅을 위해 게임을 시작할 때 에디터는 시작 스크립트를 실행하기 전에 활성화된 중단점을 설정하므로, 실행 전에 `init()`에 중단점을 설정할 수 있습니다.
+
+기기에 연결하려면 <kbd>Project ▸ Targets</kbd>에서 기기를 선택한 다음 <kbd>Debug ▸ Start/Attach</kbd>를 선택합니다. 연결되면 다음 Lua 줄에서 일시 정지합니다. 에디터는 지원되는 로컬 및 원격 타겟에 대한 디버거 연결을 자동으로 설정합니다. 연결 요구 사항은 [원격 타겟](#remote-targets)을 참고하거나 [외부 디버거 연결 방법](#native-dap-connections)을 확인하세요.
 
 ![개요](images/debugging/overview.png)
 
@@ -46,7 +50,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
-  게임 실행을 즉시 중단합니다. 게임은 현재 지점에서 중단됩니다. 이제 게임 상태를 검사하거나, 게임을 단계별로 진행하거나, 다음 브레이크포인트까지 계속 실행할 수 있습니다. 현재 실행 지점은 코드 에디터에 표시됩니다.
+  다음 소스 줄에서 Lua 실행을 일시 정지합니다. 게임 상태를 검사하고 한 단계씩 진행하거나 다음 중단점까지 실행을 계속할 수 있습니다. 현재 실행 위치는 코드 에디터에 표시됩니다:
 
   ![스크립트](images/debugging/script.png)
 
@@ -67,7 +71,7 @@ Step Over
   ![단계](images/debugging/step.png)
 
 ::: sidenote
-Lua 코드 한 줄이 하나의 표현식에 대응되는 것은 아닙니다. 디버거에서 단계 실행은 한 번에 하나의 표현식씩 앞으로 이동하므로, 현재는 다음 줄로 진행하려면 step 버튼을 두 번 이상 눌러야 할 수 있습니다.
+단계 실행은 Lua 소스 줄을 따릅니다. 루프가 반복될 때처럼 같은 줄에 다시 도달할 수도 있으므로 항상 파일의 다음 줄로 이동하는 것은 아닙니다.
 :::
 
 Step Into
@@ -100,14 +104,103 @@ Step Out
   브레이크포인트 조건을 편집하려면 코드 에디터에서 줄 번호 바로 오른쪽 열을 마우스 오른쪽 버튼으로 클릭하거나, 메뉴에서 <kbd>Edit ▸ Edit Breakpoint</kbd>를 선택합니다.
 
 Lua 표현식 평가
-: 디버거가 연결되어 있고 게임이 브레이크포인트에서 중지된 상태에서는 현재 컨텍스트를 가진 Lua 런타임을 사용할 수 있습니다. 콘솔 하단에 Lua 표현식을 입력하고 <kbd>Enter</kbd>를 눌러 평가합니다:
+: 게임이 일시 정지된 상태에서 *Call Stack*의 프레임을 선택하고 콘솔 하단에 Lua 표현식이나 문장을 입력한 다음 <kbd>Enter</kbd>를 누릅니다. 평가에는 선택한 프레임의 지역 변수, 업밸류, 전역 변수가 사용됩니다. 테이블 결과에는 중첩된 내용도 포함됩니다.
 
   ![콘솔](images/debugging/console.png)
 
-  현재 평가기를 통해서는 변수를 수정할 수 없습니다.
+  대입으로 값을 변경할 수도 있습니다. 예를 들어 `self`를 사용할 수 있는 프레임에서는 `self.score = 100`을 실행할 수 있습니다. 평가한 코드는 게임에서 실행한 코드와 마찬가지로 게임 상태에 영향을 줍니다.
+
+변수 검사
+: *Call Stack*에서 프레임을 선택하면 *Variables* 창에서 지역 변수와 업밸류를 검사할 수 있습니다. `_G`를 펼쳐 전역 변수를 확인하고, 테이블이나 `self`를 펼쳐 필드를 확인합니다. 에디터는 단계 실행, 프레임 전환, 평가 후 갱신 시 최신 값을 가져오면서 펼쳐진 경로, 선택 항목, 스크롤 위치를 유지합니다.
 
 디버거 분리하기
-: <kbd>Debug ▸ Detach Debugger</kbd>를 선택해 게임에서 디버거를 분리합니다. 게임은 즉시 계속 실행됩니다.
+: <kbd>Debug ▸ Detach Debugger</kbd>를 선택하면 게임에서 디버거의 연결을 해제합니다. 게임은 즉시 계속 실행됩니다. 게임을 다시 시작하지 않고 연결하려면 <kbd>Debug ▸ Start/Attach</kbd>를 사용하세요.
+
+## 네이티브 DAP 연결 {#native-dap-connections}
+
+엔진은 TCP를 통해 네이티브 Debug Adapter Protocol(DAP) 서버를 제공합니다. 외부 DAP 클라이언트를 사용하려면 네이티브 Defold 디버그 또는 헤드리스 엔진에서 리스너를 시작한 다음, 엔진의 주소와 포트로 클라이언트를 연결합니다. <kbd>Debug ▸ Start/Attach</kbd>를 사용하면 에디터가 리스너 설정을 자동으로 처리합니다.
+
+현재 에디터는 MobDebug만 지원하는 이전 엔진에 연결할 수 없습니다. 현재 버전에는 `require "builtins.scripts.mobdebug"` 호출이 필요하지 않으며 사용할 수도 없습니다.
+
+### 리스너 시작하기 {#starting-the-listener}
+
+먼저 프로젝트를 빌드하세요. `build/default/game.projectc`가 있는 프로젝트 디렉토리에서 다음 [시작 설정 재정의](/manuals/project-settings/#setting-config-values-on-engine-startup)를 사용해 네이티브 디버그 엔진을 실행합니다:
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+DAP 클라이언트를 `127.0.0.1:8172`에 연결합니다. 엔진은 시작 스크립트를 실행하기 전에 클라이언트가 중단점을 설정할 때까지 기다립니다.
+
+| 설정 | 기본값 | 용도 |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | 엔진 시작 시 리스너를 시작하려면 `1`로 설정합니다. |
+| `debugger.address` | `127.0.0.1` | 연결을 수신할 IPv4 주소입니다. 기본값은 같은 컴퓨터에서 오는 연결을 허용합니다. |
+| `debugger.port` | `8172` | TCP 수신 포트입니다. 사용 가능한 포트를 선택하려면 `0`을 사용합니다. |
+| `debugger.wait` | `0` | 시작 스크립트를 실행하기 전에 디버거 클라이언트의 설정을 기다리려면 `1`로 설정합니다. |
+
+이 값들을 [game.project의 Debugger 섹션](/manuals/project-settings/#debugger)에 추가할 수도 있습니다. <kbd>Debug ▸ Start/Attach</kbd>에서는 에디터가 리스너를 자동으로 설정하므로 직접 리스너를 시작할 때만 수동 설정이 필요합니다.
+
+엔진 로그에 선택된 주소와 포트가 표시됩니다. `debugger.wait=0`이면 게임이 즉시 시작되며 나중에 연결할 수 있습니다. `debugger.wait=1`이면 클라이언트가 중단점을 포함한 세션 설정을 마칠 때까지 기다립니다. 로컬 디버그 실행에서는 에디터가 사용 가능한 포트를 자동으로 선택합니다.
+
+클라이언트 연결이 끊어지면 실행을 재개하고 리스너는 다음 연결을 받을 수 있는 상태로 유지됩니다. 시작 설정을 기다리는 중에 연결이 끊겨도 엔진은 실행을 재개합니다. 리스너를 시작할 수 없으면 엔진은 오류를 기록하고 시작을 계속합니다. Lua에서 `debugger.start(0)`을 호출해 사용 가능한 포트로 다시 시도할 수 있습니다.
+
+### 실행 중 리스너 활성화하기 {#enabling-the-listener-while-running}
+
+게임을 다시 시작하지 않고 스크립트에서 리스너를 활성화하려면:
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])`는 수신 포트를 즉시 반환합니다. 클라이언트를 기다리거나 게임을 일시 정지하지 않습니다. 생략한 인자는 `debugger.port`와 `debugger.address`를 사용하며, `0`을 전달하면 사용 가능한 포트를 선택합니다. 반복 호출하면 기존 리스너의 포트를 반환하며 주소나 포트를 변경하지 않습니다. `debugger` 모듈은 네이티브 디버그 및 헤드리스 엔진에서 제공합니다.
+
+포트는 `0`부터 `65535`까지의 정수여야 합니다. 주소만 재정의하려면 첫 번째 인자로 `nil`을 전달하세요. 잘못된 인자나 리스너 바인딩 실패는 Lua 오류를 발생시킵니다.
+
+### 원격 타겟 {#remote-targets}
+
+다른 컴퓨터에서 직접 연결하려면 리스너를 기기의 IPv4 인터페이스 또는 `0.0.0.0`(모든 IPv4 인터페이스)에 바인딩합니다. 예를 들어 `debugger.start(8172, "0.0.0.0")`을 사용하거나 위 시작 명령에 `--config=debugger.address=0.0.0.0`을 추가합니다. 클라이언트를 기기의 실제 IP 주소에 연결하고 수신 포트에 대한 TCP 액세스를 허용하세요. `0.0.0.0`은 바인딩 주소이며 클라이언트에 입력할 주소가 아닙니다.
+
+Defold 에디터는 원격 바인딩을 자동으로 요청하고 원격 타겟에는 `8172 + project.instance_index` 포트를 사용합니다. 동적으로 선택된 원격 포트는 찾을 수 없습니다. 원격 리스너를 localhost나 다른 포트에서 이미 시작했다면 에디터에서 연결하기 전에 엔진을 다시 시작하세요.
+
+디버거는 Lua를 평가할 수 있으며 인증 기능이 없습니다. 신뢰할 수 있는 개발 네트워크에서만 원격 액세스를 활성화하세요.
+
+### 외부 클라이언트 {#external-clients}
+
+TCP를 통해 DAP 서버에 직접 연결할 수 있는 클라이언트를 사용합니다. 소스 매핑을 `game.project`가 있는 폴더로 설정합니다(DAP의 `localRoot` 연결 인자). 먼저 엔진 리스너를 시작한 다음 클라이언트를 연결하세요.
+
+#### VS Code {#vs-code}
+
+[Lua Debug 익스텐션](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug)(`actboy168.lua-debug`)을 설치하고 VS Code에서 `game.project`가 있는 폴더를 연 다음, `.vscode/launch.json`에 다음 설정을 추가합니다:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+VS Code가 `.script`, `.gui_script`, `.render_script` 파일을 일반 텍스트로 열면 중단점을 설정하기 전에 상태 표시줄의 언어 표시에서 **Lua**를 선택하세요.
+
+스크립트의 `init()` 함수 같은 곳에 중단점을 설정합니다. [위의 시작 명령](#starting-the-listener)으로 엔진을 시작한 다음 VS Code의 **Run and Debug** 창에서 **Attach to Defold Lua**를 선택합니다. `debugger.wait=1`이면 클라이언트가 중단점을 설정한 후에 엔진이 시작 스크립트를 실행합니다. 연결 후 다음 Lua 줄에서도 일시 정지하려면 `stopOnEntry`를 `true`로 설정하세요.
+
+VS Code의 [`debugServer` 설정](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug)은 엔진의 로컬 TCP 리스너에 직접 연결합니다. `address` 필드는 Lua Debug 익스텐션의 연결 설정에 필요합니다. 리스너 포트를 변경하면 두 필드를 모두 갱신하세요. 클라이언트가 엔진의 Lua 소스 이름을 파일에 매핑할 수 있도록 `localRoot`는 프로젝트 폴더를 가리켜야 합니다.
+
+원격 엔진의 경우 DAP 포트를 localhost로 포워딩하고 두 필드에 포워딩된 포트를 입력하거나, 원격 호스트에 직접 연결하는 DAP 클라이언트를 사용하세요.
 
 ## Breakpoints 탭
 

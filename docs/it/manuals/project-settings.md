@@ -154,6 +154,8 @@ Se il passo temporale diventa troppo grande durante un singolo frame, viene limi
 
 ### Display
 
+Sulle piattaforme desktop, le finestre del motore aperte dall'editor possono ripristinare dimensioni salvate durante un'esecuzione precedente. Scegli <kbd>Debug ▸ Reset Simulated Resolution</kbd> per cancellare le dimensioni memorizzate e tornare a quelle configurate, conservando le posizioni salvate delle finestre. Consulta [posizionamento e ripristino della finestra del motore](/manuals/editor/#engine-window-placement) per i dettagli.
+
 #### Width
 La larghezza in pixel della finestra dell'applicazione.
 
@@ -162,6 +164,8 @@ L'altezza in pixel della finestra dell'applicazione.
 
 #### High Dpi
 Crea un back buffer ad alta densità di pixel sugli schermi che lo supportano. In genere il gioco viene renderizzato a una risoluzione doppia rispetto a quella definita dalle impostazioni *Width* e *Height*, che rimane la risoluzione logica usata negli script e nelle proprietà.
+
+Su HTML5, usa [Min Pixel Ratio](#min-pixel-ratio) e [Max Pixel Ratio](#max-pixel-ratio) per limitare la scala di rendering quando questa impostazione è abilitata.
 
 #### Samples
 Il numero di campioni da usare per l'antialiasing tramite supercampionamento. Imposta il parametro della finestra `GLFW_FSAA_SAMPLES`. Un valore di `0` indica che l'antialiasing è disattivato.
@@ -204,13 +208,6 @@ Il canale blu del colore di cancellazione, usato dallo script di rendering e all
 
 #### Clear Color Alpha
 Il canale alfa del colore di cancellazione, usato dallo script di rendering e alla creazione della finestra.
-
----
-
-### Font
-
-#### Runtime Generation
-Usa la generazione dei font a runtime.
 
 ---
 
@@ -305,7 +302,7 @@ Il file dei profili delle texture da usare per questo progetto; il valore predef
 Verifica il valore restituito da ogni chiamata grafica e segnala eventuali errori nel log.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` seleziona la versione del contesto WebGL da richiedere per HTML5. I valori validi sono `1` (WebGL 1) e `2` (WebGL 2, il valore predefinito). Impostalo su `1` per usare o provare WebGL 1 anche in un browser che supporta WebGL 2. Mantieni disabilitato [Exclude GLES 2.0](#exclude-gles-20) quando usi WebGL 1, affinché vengano inclusi gli shader necessari.
+`graphics.webgl_version_hint` seleziona la versione del contesto WebGL da richiedere per HTML5. I valori validi sono `1` (WebGL 1) e `2` (WebGL 2, predefinito). Impostalo a `1` per usare o provare WebGL 1 anche in un browser che supporta WebGL 2. Disabilita [Exclude GLES 2.0](#exclude-gles-20) quando usi WebGL 1, affinché vengano inclusi gli shader necessari.
 
 #### OpenGL Version Hint
 L'indicazione della versione del contesto OpenGL. Se selezioni una versione specifica, viene usata come versione minima richiesta (non si applica a OpenGL ES).
@@ -324,7 +321,16 @@ Imposta l'indicazione del profilo OpenGL 'core' alla creazione del contesto. Il 
 ### Shader
 
 #### Exclude GLES 2.0
-Non compilare gli shader per i dispositivi che usano OpenGLES 2.0 / WebGL 1.0.
+`shader.exclude_gles_sm100` esclude gli shader per OpenGLES 2.0 e WebGL 1.0. Abilitata per impostazione predefinita (`1`).
+
+Per usare queste API grafiche o consentire il ripiego su di esse, deseleziona **Shader ▸ Exclude GLES 2.0** in *game.project* oppure imposta:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+I progetti che non impostano esplicitamente questa opzione usano il valore predefinito. Impostala esplicitamente a `0` se il progetto richiede il supporto per OpenGLES 2.0 o WebGL 1.0.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` imposta il qualificatore di precisione globale predefinito per i valori a virgola mobile negli shader GLSL ES ottenuti tramite compilazione incrociata. I valori validi sono `mediump` e `highp`; il valore predefinito è `mediump`.
@@ -369,6 +375,9 @@ La posizione dei dati della build del progetto, in formato URI.
 
 #### Max Resources
 Il numero massimo di risorse caricabili contemporaneamente.
+
+#### Profile
+`resource.profile` abilita la misurazione dei tempi di caricamento delle risorse e i log di livello INFO per ogni caricamento completato o fallito. Disabilitata per impostazione predefinita (`0`). Abilitala (`1`) prima di avviare il gioco per misurare i caricamenti iniziali. Il profiler delle risorse mostra le misurazioni conservate del caricamento iniziale per le risorse attualmente caricate; fai clic su **Capture**, quindi su **Show load times** per ispezionarle. Consulta [Tempi di caricamento delle risorse](/manuals/profiling/#resource-loading-times) per le colonne dei tempi e la loro interpretazione.
 
 ---
 
@@ -594,6 +603,17 @@ Il numero massimo di factory di oggetti di gioco. [(Consulta le informazioni sul
 
 ### iOS
 
+#### Home Indicator Mode
+`ios.home_indicator_mode` controlla i gesti di sistema ai bordi dello schermo e se il gioco richiede di nascondere automaticamente l'indicatore Home.
+
+| Valore | Gesti di sistema | Richiede di nascondere automaticamente |
+|-------|-----------------|--------------------------|
+| `deferred` (predefinito) | Protegge tutti i bordi dello schermo rinviando i gesti di sistema. Tornare alla Home richiede due scorrimenti. | No |
+| `system` | Usa i normali gesti di sistema, consentendo un singolo scorrimento per tornare alla Home. | No |
+| `auto_hide` | Usa i normali gesti di sistema, consentendo un singolo scorrimento per tornare alla Home. | Sì |
+
+iOS controlla la visibilità effettiva dell'indicatore. Nasconderlo automaticamente è una richiesta e, su iOS 26 e versioni successive, il sistema può nasconderlo sia in modalità `system` sia in `auto_hide`. Consulta [Comportamento dell'indicatore Home](/manuals/ios/#home-indicator-behavior) per un esempio di configurazione.
+
 #### App Icon 57x57--180x180
 Il file immagine (.png) da usare come icona dell'applicazione alle dimensioni di larghezza e altezza indicate, `W` &times; `H`.
 
@@ -616,7 +636,7 @@ Il nome breve del bundle (15 caratteri) (consulta [`CFBundleName`](https://devel
 La versione del bundle, espressa come numero o nel formato x.y.z. (consulta [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-Se specificato, usa questo file *`Info.plist`* al posto del manifest di base iOS integrato durante la creazione del bundle dell'applicazione. Il manifest integrato contiene le voci della rete locale e di Bonjour necessarie al rilevamento delle destinazioni da parte dell'editor nelle build diverse da quelle di release. Se fornisci un manifest personalizzato e hai bisogno del rilevamento delle destinazioni, della profilazione, dell'hot reload o dello streaming dei log su un dispositivo, conserva queste voci come descritto nel [manuale iOS](/manuals/ios/#creating-an-ios-application-bundle).
+Se specificato, usa questo file *`Info.plist`* al posto del manifest di base iOS integrato, `/builtins/manifests/ios/Info.plist`, durante la creazione del bundle dell'applicazione. I progetti che usano il modello integrato ricevono automaticamente gli aggiornamenti del manifest; i file personalizzati devono essere aggiornati esplicitamente.
 
 #### Privacy Manifest
 L'Apple Privacy Manifest dell'applicazione. Il valore predefinito del campo è `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -687,7 +707,7 @@ Indica se è possibile eseguire il debug dell'applicazione con strumenti come [G
 #### R8 Keep Rules
 `android.r8_keep_rules` seleziona un file `.keep` per abilitare la rimozione del codice inutilizzato, l'ottimizzazione e l'offuscamento del codice Java tramite R8 nelle build Android. Lascia vuota l'impostazione per usare D8 senza rimuovere il codice inutilizzato.
 
-Con Defold 1.14.0 o versioni successive e un server di build Extender compatibile, vengono rimosse anche le risorse Android inutilizzate. Le risorse caricate dinamicamente possono richiedere [regole XML di conservazione](/manuals/android/#keeping-android-resources) separate.
+Con un server di build Extender compatibile, vengono rimosse anche le risorse Android inutilizzate. Le risorse caricate dinamicamente possono richiedere [regole XML di conservazione](/manuals/android/#keeping-android-resources) separate.
 
 Seleziona `/builtins/manifests/android/dmengine.keep` per usare direttamente le regole predefinite di Defold. Le estensioni forniscono le proprie [regole di conservazione](/manuals/extensions/#r8-keep-rules-for-android), che vengono combinate con questo file.
 
@@ -775,6 +795,14 @@ Se abilitata, questa opzione mostra informazioni sul motore e sulla sua versione
 #### Scale Mode
 Specifica il metodo da usare per scalare il canvas del gioco.
 
+#### Min Pixel Ratio
+`html5.min_pixel_ratio` imposta il numero minimo di pixel di rendering del canvas per pixel CSS quando [High Dpi](#high-dpi) è abilitato. Il valore predefinito è `0`, che disabilita il limite inferiore. Sono supportati valori frazionari positivi, compresi quelli inferiori a `1`.
+
+#### Max Pixel Ratio
+`html5.max_pixel_ratio` imposta il numero massimo di pixel di rendering del canvas per pixel CSS quando [High Dpi](#high-dpi) è abilitato. Il valore predefinito è `0`, che disabilita il limite superiore. Sono supportati valori frazionari positivi, compresi quelli inferiori a `1`.
+
+Entrambi i limiti devono essere numeri finiti e non negativi. Quando entrambi sono abilitati, il minimo non deve superare il massimo. Con *High Dpi* disabilitato, il rapporto è `1` e nessun limite viene applicato. Questi limiti influiscono sulla risoluzione di rendering preservando le dimensioni CSS di visualizzazione del canvas. Consulta [Limiti del rapporto dei pixel](/manuals/html5/#pixel-ratio-limits) per un esempio di configurazione.
+
 #### Retry Count
 Il numero di nuovi tentativi dopo un download fallito durante l'avvio, inclusi errori di rete, stati HTTP di errore e dimensioni non corrispondenti nel file JavaScript o WebAssembly del motore. La richiesta iniziale è separata. La verifica dei file di archivio ha un proprio limite di tentativi; consulta [Verifica dei download](/manuals/html5/#download-verification) e `Retry Time`.
 
@@ -810,6 +838,34 @@ Il file di risorsa delle impostazioni Liveupdate da usare durante la creazione d
 
 #### _App Manifest_
 Se impostato, usa il manifest dell'applicazione per personalizzare la build del motore. Puoi così rimuovere le parti inutilizzate del motore e ridurre le dimensioni del file binario finale. Scopri come escludere le funzionalità inutilizzate [nel manuale del manifest dell'applicazione](/manuals/app-manifest).
+
+---
+
+### Debugger
+
+Queste impostazioni controllano le [connessioni del debugger](/manuals/debugging-game-logic/#native-dap-connections) nelle build native di debug e headless. Le build di release e Web non supportano il collegamento del debugger. Aggiungi queste impostazioni modificando *game.project* come testo oppure usa le [sostituzioni della configurazione all'avvio del motore](#setting-config-values-on-engine-startup). Non vengono mostrate nel modulo delle impostazioni del progetto. L'editor configura automaticamente la connessione quando usi <kbd>Debug ▸ Start/Attach</kbd>.
+
+Per esempio, per avviare un listener locale e attendere che un client configuri i breakpoint prima dell'esecuzione degli script di avvio:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` avvia il listener durante l'avvio del motore quando è impostata a `1`. Disabilitata per impostazione predefinita (`0`). Un gioco in esecuzione può anche avviare il listener con [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running).
+
+#### Address {#debugger-address}
+`debugger.address` è l'indirizzo IPv4 su cui il listener accetta connessioni. Il valore predefinito, `127.0.0.1`, accetta soltanto connessioni locali. Usa l'indirizzo di un'interfaccia del dispositivo o `0.0.0.0` per le [connessioni remote](/manuals/debugging-game-logic/#remote-targets).
+
+#### Port {#debugger-port}
+`debugger.port` è la porta TCP di ascolto, compresa tra `0` e `65535`. Il valore predefinito è `8172`. Impostala a `0` per selezionare una porta disponibile, che il motore riporta nel proprio log.
+
+#### Wait {#debugger-wait}
+`debugger.wait` fa attendere al motore che il client completi la configurazione della sessione di debug, compresi i breakpoint, prima di eseguire gli script di avvio. Disabilitata per impostazione predefinita (`0`). Impostala a `1` insieme a `debugger.enabled=1` per eseguire il debug del codice di avvio. Avviare il listener in seguito con `debugger.start()` non attende né mette in pausa il gioco. Consulta la [guida all'avvio e al collegamento](/manuals/debugging-game-logic/#native-dap-connections).
 
 ---
 

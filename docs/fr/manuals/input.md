@@ -17,7 +17,7 @@ Périphériques
   1. Clavier (touches individuelles et saisie de texte)
   2. Souris (position, clics sur les boutons et actions de la molette)
   3. Entrées tactiles simples et multitactiles (sur les appareils iOS et Android et en HTML5 sur mobile)
-  4. Manettes (selon la prise en charge par le système d'exploitation et les correspondances définies dans le fichier [gamepads](/manuals/input-gamepads/#gamepads-settings-file))
+  4. Manettes (à l’aide des [correspondances des commandes et de la prise en charge par la plateforme](/manuals/input-gamepads/#gamepads-settings-file))
 
 Liaisons d'entrée
 : Avant qu'une entrée ne soit envoyée à un script, l'entrée brute du périphérique est convertie en *actions* significatives au moyen de la table des liaisons d'entrée.
@@ -111,7 +111,7 @@ Pour tout composant de la pile qui contient une fonction `on_input()`, cette fon
 : L'instance actuelle du script.
 
 `action_id`
-: Le nom haché de l'action, tel qu'il est configuré dans les liaisons d'entrée.
+: Le nom haché de l'action, tel qu'il est configuré dans les liaisons d'entrée, ou `nil` pour les déplacements du pointeur et les mesures de l'accéléromètre. Utilisez `action.source` pour distinguer ces actions sans nom.
 
 `action`
 : Une table contenant les données utiles sur l'action, comme la valeur de l'entrée, son emplacement (positions absolues et variations de position), si le bouton a été enfoncé (`pressed`), etc. Consultez [on_input()](/ref/go#on_input) pour plus de détails sur les champs d'action disponibles.
@@ -132,6 +132,43 @@ function on_input(self, action_id, action)
 end
 ```
 
+
+### Source du périphérique d'entrée {#input-device-source}
+
+`action.source` identifie la catégorie du périphérique d'entrée indépendamment du nom de l'action. Ce champ est disponible dans les callbacks `on_input()` des scripts et des scripts GUI, et contient l'un des hachages suivants :
+
+| `action.source` | Catégorie d'entrée |
+|-----------------|----------------|
+| `hash("keyboard")` | Entrée d'une touche individuelle provenant des Key Triggers. |
+| `hash("text")` | Texte et texte marqué provenant des Text Triggers, y compris le texte saisi avec un clavier physique. |
+| `hash("mouse")` | Boutons, molette et déplacements du pointeur d'une souris physique. |
+| `hash("touch")` | Entrées tactiles, y compris les clics de souris et les déplacements du pointeur simulés à partir du tactile. |
+| `hash("gamepad")` | Entrées de manette, y compris les entrées brutes et les événements de connexion. |
+| `hash("accelerometer")` | Mesures de l'accéléromètre. |
+
+Comparez `action.source` à un hachage, comme `hash("touch")`, plutôt qu'à une chaîne. Par exemple, une action du bouton gauche peut provenir d'une souris physique ou d'un toucher. La source les distingue dès l'appui initial ; consultez [Distinguer les clics de souris du tactile](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+Lorsque plusieurs périphériques partagent une action nommée, leurs contributions peuvent être combinées. Les sources sont traitées dans cet ordre : clavier, texte, souris, puis tactile ; la dernière source contribuant à l'action est signalée. Les relâchements de touches et de boutons de souris conservent la source précédente, sauf si une autre entrée contribue pendant la même image. Les actions de manette restent distinctes pour chaque manette. Utilisez des noms d'action distincts pour traiter chaque liaison indépendamment.
+
+Les déplacements du pointeur et les mesures de l'accéléromètre n'ont pas de nom d'action et utilisent donc tous deux `action_id == nil`. Ils arrivent dans des callbacks distincts : les déplacements du pointeur comportent des coordonnées et une source souris ou tactile, tandis que les mesures de l'accéléromètre comportent `acc_x`, `acc_y` et `acc_z` et une source accéléromètre. Si les deux se produisent pendant une image, chaque callback peut être consommé indépendamment. Les mesures de l'accéléromètre sont transmises même si leurs valeurs n'ont pas changé.
+
+L'exemple suivant traite ces actions sans nom. Configurez au moins un Mouse Trigger pour recevoir les déplacements du pointeur, et activez [Use Accelerometer](/manuals/project-settings/#use-accelerometer) sur un appareil compatible pour recevoir les mesures de l'accéléromètre :
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
+end
+```
 
 ### Focus d'entrée et composants proxy de collection {#input-focus-and-collection-proxy-components}
 

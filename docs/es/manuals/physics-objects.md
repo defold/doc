@@ -3,7 +3,7 @@ title: Objetos de colisión en Defold
 brief: Un objeto de colisión es un componente que usas para dar comportamiento físico a un objeto de juego. Un objeto de colisión tiene propiedades físicas y una forma espacial.
 ---
 
-# Objetos de colisión
+# Objetos de colisión {#collision-objects}
 
 Un objeto de colisión es un componente que usas para dar comportamiento físico a un objeto de juego. Un objeto de colisión tiene propiedades físicas como peso, restitución y fricción, y su extensión espacial está definida por una o más _formas_ que adjuntas al componente. Defold admite los siguientes tipos de objetos de colisión:
 
@@ -20,26 +20,26 @@ Triggers
 : Los triggers son objetos que registran colisiones simples. Los triggers son objetos de colisión ligeros. Son similares a los [ray casts](/manuals/physics-ray-casts), ya que leen el mundo físico en lugar de interactuar con él. Son útiles para objetos que solo necesitan registrar un impacto (como una bala) o como parte de la lógica del juego cuando quieres activar ciertas acciones al llegar un objeto a un punto específico. Los triggers son computacionalmente más baratos que los objetos cinemáticos y deberían usarse en su lugar si es posible.
 
 
-## Agregar un componente de objeto de colisión
+## Agregar un componente de objeto de colisión {#adding-a-collision-object-component}
 
 Un componente de objeto de colisión tiene un conjunto de *Properties* que definen su tipo y sus propiedades físicas. También contiene una o más *Shapes* que definen la forma completa del objeto de física.
 
 Para agregar un componente de objeto de colisión a un objeto de juego:
 
 1. En la vista *Outline*, haz <kbd>click derecho</kbd> en el objeto de juego y selecciona <kbd>Add Component ▸ Collision Object</kbd> en el menú contextual. Esto crea un nuevo componente sin formas.
-2. Haz <kbd>click derecho</kbd> en el nuevo componente y selecciona <kbd>Add Shape</kbd>; luego elige una forma: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> o <kbd>Mesh</kbd> en proyectos que usan físicas 3D, o <kbd>Box</kbd> o <kbd>Circle</kbd> en proyectos que usan físicas 2D. Las formas Hull y Mesh están disponibles desde Defold 1.13.2 y usan una malla con nombre de una escena glTF o GLB. Puedes agregar varias formas al componente. También puedes usar un tilemap o un recurso `.convexshape` mediante la propiedad *Collision Shape*.
+2. Haz <kbd>click derecho</kbd> en el nuevo componente y selecciona <kbd>Add Shape</kbd>. Después elige una forma: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> o <kbd>Mesh</kbd> en proyectos con física 3D, y <kbd>Box</kbd> o <kbd>Circle</kbd> en proyectos con física 2D. Las formas Hull y Mesh usan una malla con nombre de una escena glTF o GLB. Puedes agregar varias formas al componente. También puedes usar un tilemap o un recurso `.convexshape` mediante la propiedad *Collision Shape*.
 3. Usa las herramientas de mover, rotar y escalar para editar las formas.
 4. Selecciona el componente en *Outline* y edita las *Properties* del objeto de colisión.
 
 ![Objeto de colisión de física](images/physics/collision_object.png)
 
 
-## Agregar una forma de colisión
+## Agregar una forma de colisión {#adding-a-collision-shape}
 
 Un componente de colisión puede contener varias formas integradas, incluidas envolventes convexas y mallas de triángulos en físicas 3D, o usar un recurso tilemap o de forma convexa. Aprende más sobre las distintas formas y cómo agregarlas a un componente de colisión en el [manual de formas de colisión](/manuals/physics-shapes).
 
 
-## Propiedades del objeto de colisión
+## Propiedades del objeto de colisión {#collision-object-properties}
 
 Id
 : La identidad del componente.
@@ -102,7 +102,7 @@ Generate Trigger Events
 : Si se habilita, permite que este objeto envíe eventos de trigger.
 
 
-## Propiedades en tiempo de ejecución
+## Propiedades en tiempo de ejecución {#runtime-properties}
 
 Un objeto de física tiene varias propiedades distintas que se pueden leer y cambiar usando `go.get()` y `go.set()`:
 

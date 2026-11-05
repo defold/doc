@@ -80,7 +80,7 @@ Per aggiungere la compressione delle texture:
 
 ![Impostazione del profilo delle texture](images/texture_profiles/texture_profiles_game_project.png)
 
-Puoi attivare e disattivare l'uso dei profili delle texture nelle preferenze dell'editor. Seleziona <kbd>File ▸ Preferences...</kbd>. La scheda *General* contiene la casella di controllo *Enable texture profiles*.
+Per applicare la compressione delle texture nelle build dall'editor, seleziona <kbd>File ▸ Preferences...</kbd> e spunta **Enable Texture Compression** nella scheda *General*. Per le build eseguite con Bob, passa [`--texture-compression`](/manuals/bob/#usage). Le impostazioni del profilo, come dimensioni delle immagini e mipmap, si applicano anche quando la compressione è disabilitata.
 
 ![Preferenze dei profili delle texture](images/texture_profiles/texture_profiles_preferences.png)
 
@@ -127,6 +127,9 @@ Se due [impostazioni dei percorsi](#path-settings) corrispondono allo stesso fil
 *Formats*
 : Uno o più formati di texture da generare. Se specifichi più formati, vengono generate e incluse nel bundle le texture per ogni formato. Il motore seleziona le texture in un formato supportato dalla piattaforma su cui è in esecuzione.
 
+*Keep KTX2 Format*
+: Conserva il formato di codifica di una sorgente KTX2 invece di usare le alternative *Formats* della piattaforma. Deselezionata per impostazione predefinita (`keep_ktx2_format: false`). Gli altri tipi di immagini, come PNG e JPEG, continuano a usare *Formats*. Conservare un formato sorgente compresso richiede che la compressione delle texture sia abilitata. Consulta [Texture sorgente KTX2](#ktx2-source-textures) per i dettagli su elaborazione e compatibilità.
+
 *Mipmaps*
 : Se selezionato, vengono generate le mipmap per la piattaforma. Non selezionato per impostazione predefinita.
 
@@ -156,6 +159,38 @@ Ogni voce *Formats* aggiunta a un profilo presenta le seguenti proprietà:
 
 Nota che il compressore `uncompressed` dispone di una sola preimpostazione chiamata `uncompressed`, che indica che alle texture non verrà applicata alcuna compressione.
 Per l'elenco dei compressori disponibili, consulta [Compressori](#compressors)
+
+## Texture sorgente KTX2 {#ktx2-source-textures}
+
+I profili texture si applicano ai file *.ktx2* autonomi e alle immagini KTX2 incorporate nei file glTF o GLB. Le impostazioni dei percorsi corrispondono al percorso dell'immagine sorgente, compresi percorsi virtuali come `/models/robot.glb/images/0.ktx2` per le immagini incorporate. Posiziona un'impostazione specifica del percorso KTX2 prima dei pattern di corrispondenza più generali.
+
+Seleziona il profilo e la piattaforma, quindi scegli come elaborare l'ingresso KTX2:
+
+| Keep KTX2 Format | Output compilato quando la compressione delle texture è abilitata |
+| --- | --- |
+| Abilitata | ETC1S rimane ETC1S, UASTC rimane UASTC, BC7 rimane BC7 e i dati sorgente grezzi restano non compressi. Le alternative *Formats* della piattaforma vengono ignorate per gli ingressi KTX2. |
+| Disabilitata (predefinita) | Le immagini sorgente vengono decodificate e codificate usando *Format*, *Compressor* e *Compressor Preset* del profilo, anche quando la codifica scelta coincide con quella sorgente. |
+
+Per esempio, questo profilo seleziona le sorgenti KTX2, ne conserva il formato e le mipmap e disabilita la premoltiplicazione dell'alpha:
+
+```protobuf
+path_settings { path: "**/*.ktx2" profile: "KTX2" }
+profiles {
+  name: "KTX2"
+  platforms {
+    os: OS_ID_GENERIC
+    mipmaps: true
+    premultiply_alpha: false
+    keep_ktx2_format: true
+  }
+}
+```
+
+Unisci queste voci al file dei profili texture assegnato in *game.project* e abilita la compressione delle texture per la build. Con la compressione disabilitata o senza un profilo corrispondente, le sorgenti KTX2 producono output non compresso.
+
+**Keep KTX2 Format** riutilizza i livelli sorgente codificati quando possibile. Le modifiche all'orientamento, alla premoltiplicazione dell'alpha, alle dimensioni dell'immagine o alle mipmap possono richiedere la decodifica e una nuova codifica nello stesso formato. Le normali texture glTF KTX2 richiedono solitamente l'inversione Y di Defold, quindi conservare il formato non garantisce il riutilizzo dei dati codificati. Una nuova codifica può introdurre ulteriori perdite di qualità anche quando questa opzione è abilitata.
+
+Assicurati che il formato sorgente conservato sia supportato dai dispositivi di destinazione. L'opzione non aggiunge decodificatori a runtime né supporto per formati GPU. Se un formato sorgente non è adatto a una destinazione, disabilita l'opzione per quella piattaforma e scegli formati di uscita e impostazioni di compressione compatibili.
 
 ## Formati delle texture {#texture-formats}
 

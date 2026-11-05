@@ -17,7 +17,7 @@ Dispositivos
   1. Teclado (teclas individuales e input de texto)
   2. Mouse (posición, clicks de botones y acciones de rueda del mouse)
   3. Single-touch y multi-touch (en dispositivos iOS y Android, y HTML5 en móviles)
-  4. Gamepads (según el soporte del sistema operativo y el mapeo en el archivo [gamepads](/manuals/input-gamepads/#gamepads-settings-file))
+  4. Gamepads (mediante [asignaciones de mandos y compatibilidad de la plataforma](/manuals/input-gamepads/#gamepads-settings-file))
 
 Bindings de input
 : Antes de que el input se envíe a un script, el input raw del dispositivo se traduce en *acciones* significativas mediante la tabla de bindings de input.
@@ -34,7 +34,7 @@ Pila de input
 Consumir input
 : Un script puede elegir consumir el input que recibió, lo que impide que los listeners más abajo en la pila lo reciban.
 
-## Configurar bindings de input
+## Configurar bindings de input {#setting-up-input-bindings}
 
 Los bindings de input son una tabla global del proyecto que te permite especificar cómo debe traducirse el input de dispositivos a *acciones* con nombre antes de que se despachen a tus componentes script y scripts GUI. Puedes crear un nuevo archivo de binding de input haciendo <kbd>click derecho</kbd> en una ubicación de la vista *Assets* y seleccionando <kbd>New... ▸ Input Binding</kbd>. Para hacer que el motor use el archivo nuevo, cambia la entrada *Game Binding* en *game.project*.
 
@@ -52,7 +52,7 @@ Para crear un binding nuevo, haz click en el botón <kbd>+</kbd> en la parte inf
 *Action*
 : El nombre de acción dado a las acciones de input cuando se crean y despachan a tus scripts. El mismo nombre de acción se puede asignar a múltiples inputs. Por ejemplo, puedes vincular la tecla <kbd>Space</kbd> y el botón `A` del gamepad a la acción `jump`. Ten en cuenta que existe un bug conocido por el cual los inputs táctiles, lamentablemente, no pueden tener los mismos nombres de acción que otros inputs.
 
-## Tipos de triggers
+## Tipos de triggers {#trigger-types}
 
 Hay cinco tipos de triggers específicos de dispositivo que puedes crear:
 
@@ -71,7 +71,7 @@ Triggers de touch
 Triggers de gamepad
 : Los triggers de gamepad te permiten vincular input de gamepad estándar a funciones del juego. Aprende más en el [manual de gamepads](/manuals/input-gamepads).
 
-### Input de acelerómetro
+### Input de acelerómetro {#accelerometer-input}
 
 Además de los cinco tipos de triggers distintos enumerados arriba, Defold también admite input de acelerómetro en aplicaciones nativas de Android y iOS. Marca la casilla *Use Accelerometer* en la sección *Input* de tu archivo *game.project*.
 
@@ -111,7 +111,7 @@ A todo componente que esté en la pila y contenga una función `on_input()` se l
 : La instancia de script actual.
 
 `action_id`
-: El nombre convertido en hash de la acción, según está configurado en los bindings de input.
+: El hash del nombre de la acción, tal como se configura en los input bindings, o `nil` para el movimiento del puntero y las muestras del acelerómetro. Usa `action.source` para distinguir estas acciones sin nombre.
 
 `action`
 : Una tabla que contiene los datos útiles sobre la acción, como el valor del input, su ubicación (posiciones absoluta y delta), si el input de botón fue `pressed`, etc. Consulta [on_input()](/ref/go#on_input) para ver detalles sobre los campos de acción disponibles.
@@ -132,8 +132,45 @@ function on_input(self, action_id, action)
 end
 ```
 
+### Dispositivo de origen del input {#input-device-source}
 
-### Foco de input y componentes proxy de colección
+`action.source` identifica la categoría del dispositivo de input independientemente del nombre de la acción. Está disponible en los callbacks `on_input()` tanto de scripts como de scripts GUI y tiene uno de estos hashes:
+
+| `action.source` | Categoría de input |
+|-----------------|----------------|
+| `hash("keyboard")` | Entrada de teclas individuales de Key Triggers. |
+| `hash("text")` | Entrada de texto y texto marcado de Text Triggers, incluido el texto introducido con un teclado físico. |
+| `hash("mouse")` | Botones de ratón físico, rueda y movimiento del puntero. |
+| `hash("touch")` | Entrada táctil, incluidos los clicks de ratón y el movimiento del puntero simulados desde ella. |
+| `hash("gamepad")` | Entrada de gamepad, incluidos datos sin interpretar y eventos de conexión. |
+| `hash("accelerometer")` | Muestras del acelerómetro. |
+
+Compara `action.source` con un hash, como `hash("touch")`, en lugar de una cadena. Por ejemplo, una acción del botón izquierdo del ratón puede proceder de un ratón físico o de un toque. El origen los distingue incluso en la pulsación inicial; consulta [Distinguir clicks de ratón de toques](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+Cuando varios dispositivos comparten una acción con nombre, sus contribuciones pueden combinarse. Los orígenes se procesan en este orden: teclado, texto, ratón y entrada táctil; se notifica el último origen que contribuye a la acción. Al soltar una tecla o un botón de ratón se conserva el origen anterior, salvo que otra entrada contribuya en el mismo frame. Las acciones de gamepad se mantienen separadas por mando. Usa nombres de acción distintos cuando necesites procesar cada asignación por separado.
+
+El movimiento del puntero y las muestras del acelerómetro no tienen nombre de acción, por lo que ambos usan `action_id == nil`. Llegan en callbacks separados: el movimiento del puntero tiene coordenadas y origen de ratón o entrada táctil, mientras que las muestras del acelerómetro tienen `acc_x`, `acc_y` y `acc_z` y origen de acelerómetro. Si ambos ocurren en un frame, cada callback puede consumirse por separado. Las muestras del acelerómetro se entregan aunque sus valores no hayan cambiado.
+
+El siguiente ejemplo procesa estas acciones sin nombre. Configura al menos un Mouse Trigger para recibir el movimiento del puntero y activa [Use Accelerometer](/manuals/project-settings/#use-accelerometer) en un dispositivo compatible para recibir muestras del acelerómetro:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
+end
+```
+
+
+### Foco de input y componentes proxy de colección {#input-focus-and-collection-proxy-components}
 
 Cada mundo de juego cargado dinámicamente mediante un proxy de colección tiene su propia pila de input. Para que el despacho de acciones alcance la pila de input del mundo cargado, el componente proxy debe estar en la pila de input del mundo principal. Todos los componentes en la pila de un mundo cargado se manejan antes de que el despacho continúe hacia abajo por la pila principal:
 
@@ -144,7 +181,7 @@ Es un error común olvidar enviar `acquire_input_focus` al objeto de juego que c
 :::
 
 
-### Liberar foco de input
+### Liberar foco de input {#releasing-input}
 
 Para dejar de escuchar acciones de input, envía un mensaje `release_input_focus` al objeto de juego. Este mensaje eliminará de la pila de input todos los componentes del objeto de juego:
 
@@ -154,7 +191,7 @@ msg.post(".", "release_input_focus")
 ```
 
 
-## Consumir input
+## Consumir input {#consuming-input}
 
 La función `on_input()` de un componente puede controlar activamente si las acciones deben pasarse más abajo en la pila o no:
 

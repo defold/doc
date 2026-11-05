@@ -13,31 +13,31 @@ Defold编辑器会为所有Defold API函数提供自动补全建议，并会为�
 脚本API定义文件的扩展名为`.script_api`。它必须采用[YAML格式](https://yaml.org/)并与扩展文件放在一起。脚本API定义的预期格式为：
 
 ```yml
-- name: 扩展名
+- name: The name of the extension
   type: table
-  desc: 扩展描述
+  desc: Extension description
   members:
-  - name: 成员名1
-    type: 成员类型
-    desc: 成员描述
-    # 如果成员是 "function"
+  - name: Name of the first member
+    type: Member type
+    desc: Member description
+    # if member type is "function"
     parameters:
-    - name: 参数名1
-      type: 参数类型
-      desc: 参数描述
-    - name: 参数名2
-      type: 参数类型
-      desc: 参数描述
-    # 如果成员是 "function"
+    - name: Name of the first parameter
+      type: Parameter type
+      desc: Parameter description
+    - name: Name of the second parameter
+      type: Parameter type
+      desc: Parameter description
+    # if member type is "function"
     returns:
-    - name: 返回值名
-      type: 返回值类型
-      desc: 返回值描述
+    - name: Name of first return value
+      type: Return value type
+      desc: Return value description
     examples:
-    - desc: 成员使用示例1
-    - desc: 成员使用示例2
+    - desc: First example of member usage
+    - desc: Second example of member usage
 
-  - name: 成员名2
+  - name: Name of the second member
     ...
 ```
 

@@ -1,27 +1,55 @@
 ---
 title: Defold의 물리 기반 렌더링
-brief: 이 매뉴얼은 Defold에서 물리 기반 렌더링에 사용할 메터리얼 데이터에 액세스하는 기본 방법을 설명합니다.
+brief: 이 매뉴얼은 Defold의 내장 PBR 메터리얼을 사용하고 물리 기반 셰이딩을 사용자 지정하는 방법을 설명합니다.
 ---
 
 # 물리 기반 렌더링(PBR)
 
-물리 기반 렌더링(Physically Based Rendering, PBR)은 현실 세계의 물리 원리를 사용해 빛이 표면과 상호작용하는 방식을 모델링하는 쉐이딩 방식입니다. 다양한 환경에서 일관되고 사실적인 조명을 만들며, 폭넓은 조명 조건에서도 에셋이 올바르게 보이도록 합니다.
+물리 기반 렌더링(Physically Based Rendering, PBR)은 물리 법칙으로 빛과 표면의 상호작용을 모델링하는 셰이딩 방식입니다. 기본 색상, 금속성 계수, 거칠기 등의 메터리얼 프로퍼티는 씬의 조명과 독립적으로 표면을 설명합니다.
 
-Defold의 PBR 구현은 glTF 2.0 메터리얼 명세와 관련 Khronos 익스텐션을 따릅니다. glTF 에셋을 Defold로 임포트하면 메터리얼 프로퍼티가 자동으로 파싱되어, 런타임에 쉐이더에서 액세스할 수 있는 구조화된 메터리얼 데이터로 저장됩니다.
+내장 glTF 메터리얼은 PBR 조명을 제공합니다. Defold는 임포트된 glTF 2.0 메터리얼 프로퍼티와 지원하는 Khronos 익스텐션 데이터도 커스텀 쉐이더에 노출합니다.
 
-PBR 메터리얼에는 메탈릭 반사, 표면 러프니스, 투과(transmission), 클리어코트(clearcoat), 서브서피스 스캐터링(subsurface scattering), 이리데선스(iridescence) 등의 효과가 포함될 수 있습니다.
+## 내장 PBR 메터리얼 {#built-in-pbr-materials}
 
-::: sidenote
-Defold는 현재 PBR 메터리얼 데이터를 쉐이더에 노출하지만, 내장 PBR 조명 모델은 제공하지 않습니다. 물리 기반 렌더링을 구현하려면 이 데이터를 자체 조명 및 반사 쉐이더에서 사용할 수 있습니다. 기본 PBR 조명 모델은 추후 Defold에 추가될 예정입니다.
-:::
+glTF 또는 GLB 파일을 [Model 컴포넌트](/manuals/model)의 *Scene* 프로퍼티에 지정합니다. 에디터가 메터리얼과 텍스쳐 채우기를 제안하면 <kbd>Auto Fill</kbd>을 선택하여 씬에서 생성된 메터리얼 바인딩을 적용합니다. 기존 바인딩이 있으면 교체됩니다. 이 메터리얼은 내장 glTF 쉐이더를 사용하고 내장 이미지를 직접 참조할 수 있습니다. 바인딩을 유지하고 메터리얼과 텍스쳐를 직접 지정하려면 <kbd>Keep Current</kbd>를 선택하세요. 내장 리소스 탐색과 개별 메쉬 선택은 [모델 임포트 절차](/manuals/importing-models/#using-a-model)를 참고하세요.
 
-::: sidenote
-glTF 파일에 내장된 텍스쳐는 현재 Defold에서 자동으로 할당되지 않습니다. 쉐이더에는 메터리얼 파라미터만 노출됩니다. 그래도 텍스쳐를 모델 컴포넌트에 수동으로 할당하고 쉐이더에서 샘플링할 수 있습니다.
-:::
+`/builtins/materials/`에서 다음 메터리얼을 사용할 수 있습니다. 모델과 인스턴싱 사용 여부에 맞는 변형을 선택하세요:
+
+| 모델 타입 | 메터리얼 |
+|---|---|
+| 정적, 인스턴싱 없음 | `gltf.material` |
+| 정적, 인스턴싱 사용 | `gltf_instanced.material` |
+| 스킨드(애니메이션), 인스턴싱 없음 | `gltf_skinned.material` |
+| 스킨드(애니메이션), 인스턴싱 사용 | `gltf_skinned_instanced.material` |
+
+네 가지 모두 로컬 버텍스 공간과 같은 `gltf.fp` 프래그먼트 쉐이더를 사용합니다. 스킨드 변형은 GPU에서 스키닝을 수행합니다. GPU 스키닝과 인스턴싱은 [모델 메터리얼 요구 사항](/manuals/model/#material)을 참고하세요.
+
+텍스쳐를 직접 바인딩할 때 내장 메터리얼은 다음 샘플러 이름을 사용합니다:
+
+| 텍스쳐 | 샘플러 | 사용 데이터 |
+|---|---|---|
+| 기본 색상 | `PbrMetallicRoughness_baseColorTexture` | RGB 색상과 알파 |
+| 금속성/거칠기 | `PbrMetallicRoughness_metallicRoughnessTexture` | G의 거칠기, B의 금속성 |
+| 노멀 | `PbrMaterial_normalTexture` | RGB의 탄젠트 공간 노멀 |
+| 오클루전 | `PbrMaterial_occlusionTexture` | R의 오클루전 |
+| 발광 | `PbrMaterial_emissiveTexture` | RGB 색상 |
+
+[카메라](/manuals/camera/#using-the-camera)를 설정하고 [조명 컴포넌트](/manuals/light)를 추가하여 모델을 비춥니다. 쉐이더는 직접 조명에 방향성, 포인트, 스폿 조명을 사용하고, 간단한 주변광 효과에 앰비언트 조명을 사용합니다. 메터리얼에는 기본 렌더 스크립트가 그리는 `model` 태그가 있습니다. 커스텀 렌더 스크립트는 일치하는 프레디킷을 그려야 합니다.
+
+### 내장 쉐이더 동작 {#built-in-shader-behavior}
+
+내장 쉐이더는 금속성/거칠기 셰이딩, 기본 색상과 버텍스 색상, 탄젠트 데이터가 있을 때의 노멀 매핑, 오클루전, 발광 강도를 포함한 발광을 구현합니다. 기본 색상과 발광 텍스쳐는 조명 계산을 위해 sRGB에서 디코딩하고 최종 색상은 다시 sRGB로 변환합니다. 금속성/거칠기, 노멀, 오클루전 맵은 선형 데이터를 담습니다.
+
+쉐이더는 비조명 메터리얼과 마스크 알파를 처리하고 양면 표면의 노멀을 조정합니다. 렌더 상태도 여전히 중요합니다:
+
+- 양면 메터리얼에서는 뒷면이 쉐이더에 도달하도록 해당 렌더 패스의 면 컬링을 비활성화하세요.
+- 혼합 알파에서 쉐이더는 straight alpha를 출력합니다. `graphics.BLEND_FACTOR_SRC_ALPHA`와 `graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA`로 블렌딩을 활성화하고, 렌더 스크립트에서 투명 오브젝트의 그리기 순서와 깊이 쓰기를 관리하세요. 기본 모델 패스는 블렌딩을 자동으로 활성화하지 않습니다.
+
+내장 주변광은 환경 맵 조명이나 그림자가 없는 근사 방식입니다. clearcoat, transmission, sheen, iridescence, specular/glossiness 워크플로우 등의 효과에는 커스텀 셰이딩이 필요합니다. 매개변수를 임포트하는 것만으로 `gltf.fp`에서 이 효과들이 활성화되지는 않습니다.
 
 ## 메터리얼 프로퍼티 개요
 
-메터리얼 프로퍼티는 모델 컴포넌트에 할당된 glTF 2.0 소스 파일에서 파싱됩니다. 모든 프로퍼티가 표준은 아닙니다. 일부 프로퍼티는 glTF 파일을 익스포트하는 데 사용한 도구에 포함될 수도 있고 포함되지 않을 수도 있는 선택적 glTF 익스텐션을 통해 제공됩니다. 관련 익스텐션은 아래 프로퍼티 이름 뒤의 괄호 안에 표시되어 있습니다.
+다음 프로퍼티는 모델 컴포넌트에 지정한 glTF 2.0 소스 파일에서 파싱됩니다. 이 목록은 사용할 수 있는 메터리얼 데이터를 설명하며, 내장 조명은 위에서 설명한 일부만 사용합니다. 모든 프로퍼티가 표준인 것은 아닙니다. 일부는 선택적 glTF 익스텐션에서 제공하므로 glTF를 익스포트하는 도구에 따라 포함되지 않을 수도 있습니다. 관련 익스텐션은 아래 프로퍼티 이름 뒤 괄호에 표시합니다.
 
 메탈릭 러프니스(Metallic roughness)
 : 빛이 메터리얼과 상호작용하는 방식을 설명합니다. 기본 PBR 모델입니다.
@@ -72,321 +100,191 @@ glTF 파일에 내장된 텍스쳐는 현재 Defold에서 자동으로 할당되
 : Opaque, Masked 또는 Blended 투명도 모드입니다.
 
 양면(Double sided)
-: true이면 표면의 양쪽 면이 모두 렌더링됩니다.
+: 표면의 양면 렌더링을 요청합니다. 렌더 패스에서 뒷면이 쉐이더에 도달하도록 허용해야 합니다.
 
 비조명(Unlit)
 : true이면 메터리얼이 조명 계산을 우회합니다.
 
-::: sidenote
-이 프로퍼티 중 일부는 메터리얼을 렌더링하는 방법에 대한 힌트를 제공합니다. 해당 프로퍼티(alpha cutoff, alpha mode, double sided, unlit)의 데이터는 쉐이더에서 사용할 수 있지만, Defold에서 메터리얼이 렌더링되는 방식에는 영향을 주지 않습니다.
-:::
-
 ## 쉐이더 통합
 
-PBR 메터리얼 데이터는 타입과 이름 규칙을 기준으로 쉐이더에 노출됩니다. PBR 메터리얼 시스템은 파싱된 모든 메터리얼 파라미터를 `PbrMaterial`이라는 구조화된 uniform 블록을 통해 쉐이더에 제공합니다. 지원되는 각 glTF 익스텐션은 이 블록 안의 struct에 대응하며, `#define` 플래그를 사용해 조건부로 컴파일할 수 있습니다.
+다음 섹션은 커스텀 쉐이더를 다룹니다. 적절한 내장 `.material` 리소스와 `gltf.fp`를 프로젝트에 복사한 다음 복사한 메터리얼의 *Fragment Program*을 자신의 쉐이더로 지정합니다. 해당 인터페이스도 교체하는 경우가 아니라면 일치하는 glTF 버텍스 프로그램, 샘플러 이름, 로컬 버텍스 공간을 유지하세요.
 
-```glsl
-uniform PbrMaterial
-{
-	// 메터리얼 프로퍼티
-};
-```
-
-메터리얼의 여러 기능은 쉐이더에서 고정된 struct로 지정됩니다. Defold 내부에서 상수가 설정되는 방식에 맞게 데이터는 가능한 한 `vec4`에 패킹되어 있습니다. 데이터가 패킹된 경우에는 아래 각 기능의 쉐이더 스니펫에 주석으로 표시되어 있습니다:
-
-```glsl
-struct PbrMetallicRoughness
-{
-    vec4 baseColorFactor;
-    // R: metallic (기본값=1.0), G: roughness (기본값=1.0)
-    vec4 metallicAndRoughnessFactor;
-    // R: baseColorTexture 사용, G: metallicRoughnessTexture 사용
-    vec4 metallicRoughnessTextures;
-};
-
-struct PbrSpecularGlossiness
-{
-	vec4 diffuseFactor;
-	// RGB: specular (기본값=1.0), A: glossiness (기본값=1.0)
-	vec4 specularAndSpecularGlossinessFactor;
-	// R: diffuseTexture 사용, G: specularGlossinessTexture 사용
-	vec4 specularGlossinessTextures;
-};
-
-struct PbrClearCoat
-{
-	// R: clearCoat (기본값=0.0), G: clearCoatRoughness (기본값=0.0)
-	vec4 clearCoatAndClearCoatRoughnessFactor;
-	// R: clearCoatTexture 사용, G: clearCoatRoughnessTexture 사용, B: clearCoatNormalTexture 사용
-	vec4 clearCoatTextures;
-};
-
-struct PbrTransmission
-{
-	// R: transmission (기본값=0.0)
-	vec4 transmissionFactor;
-	// R: transmissionTexture 사용
-	vec4 transmissionTextures;
-};
-
-struct PbrIor
-{
-	// R: ior (기본값=0.0)
-	vec4 ior;
-};
-
-struct PbrSpecular
-{
-	// RGB: specularColor, A: specularFactor (기본값=1.0);
-	vec4 specularColorAndSpecularFactor;
-	// R: specularTexture 사용, G: specularColorTexture 사용
-	vec4 specularTextures;
-};
-
-struct PbrVolume
-{
-	// R: thicknessFactor (기본값=0.0), RGB: attenuationColor
-	vec4 thicknessFactorAndAttenuationColor;
-	// R: attentuationDistance (기본값=-1.0)
-	vec4 attenuationDistance;
-	// R: thicknessTexture 사용
-	vec4 volumeTextures;
-};
-
-struct PbrSheen
-{
-	// RGB: sheenColor, A: sheenRoughnessFactor (기본값=0.0)
-	vec4 sheenColorAndRoughnessFactor;
-	// R: sheenColorTexture 사용, G: sheenRoughnessTexture 사용
-	vec4 sheenTextures;
-};
-
-struct PbrEmissiveStrength
-{
-	// R: emissiveStrength (기본값=1.0)
-	vec4 emissiveStrength;
-};
-
-struct PbrIridescence
-{
-	// R: iridescenceFactor (기본값=0.0), G: iridescenceIor (기본값=1.3), B: iridescenceThicknessMin (기본값=100.0), A: iridescenceThicknessMax (기본값=400.0)
-	vec4 iridescenceFactorAndIorAndThicknessMinMax;
-	// R: iridescenceTexture 사용, G: iridescenceThicknessTexture 사용
-	vec4 iridescenceTextures;
-};
-```
-
-공통 프로퍼티는 메터리얼 uniform 자체에 설정됩니다(다시 말하지만 데이터가 `vec4`로 패킹된다는 점에 유의하세요).
-
-```glsl
-// 공통 텍스쳐
-uniform sampler2D PbrMaterial_normalTexture;
-uniform sampler2D PbrMaterial_occlusionTexture;
-uniform sampler2D PbrMaterial_emissiveTexture;
-
-uniform PbrMaterial
-{
-	// 공통 프로퍼티:
-
-	// R: alphaCutoff (기본값=0.5), G: doubleSided (기본값=false), B: unlit (기본값=false)
-	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-	// R: normalTexture 사용, G: occlusionTexture 사용, B: emissiveTexture 사용
-	vec4 pbrCommonTextures;
-
-	// 다른 프로퍼티...
-};
-```
+내장 헬퍼는 텍스쳐 샘플링을 표면 준비, BRDF 계산, 조명과 분리합니다. `gltf_sampling.glsl`은 원시 `PbrMaterial` uniform 블록을 읽어 해석된 선형 메터리얼 입력을 담은 `PBRMaterial` 값을 만듭니다. `gltf_lighting.glsl`은 직접 조명과 주변광을 제공하고 결과를 결합합니다. 대소문자 차이로 원시 uniform 블록과 샘플링된 메터리얼 구조체를 구분합니다.
 
 ### 예제 쉐이더
 
-다음은 모든 기능을 포함하고 텍스쳐 바인딩에 대해 제안하는 이름 지정 방식을 보여주는 예제 쉐이더입니다(이 역시 수동으로 처리해야 합니다). 아래 예제처럼 `PbrMaterial` 자체의 각 멤버를 `#define` 조건으로 감싸면 기능을 간단히 끌 수 있습니다:
+다음 프래그먼트 쉐이더는 내장 조명을 유지하면서 최소 거칠기를 높입니다. 네 가지 glTF 메터리얼 변형이 사용하는 버텍스 프로그램 모두에서 동작합니다:
 
 ```glsl
-// 기능 플래그입니다. 쉐이더를 줄이려면 주석 처리하거나 제거하세요.
-#define PBR_METALLIC_ROUGHNESS
-#define PBR_SPECULAR_GLOSSINESS
-#define PBR_CLEARCOAT
-#define PBR_TRANSMISSION
-#define PBR_IOR
-#define PBR_SPECULAR
-#define PBR_VOLUME
-#define PBR_SHEEN
-#define PBR_EMISSIVE_STRENGTH
-#define PBR_IRIDESCENCE
+#version 140
 
-// 공통
-uniform sampler2D PbrMaterial_normalTexture;
-uniform sampler2D PbrMaterial_occlusionTexture;
-uniform sampler2D PbrMaterial_emissiveTexture;
+#include "/builtins/materials/gltf_sampling.glsl"
+#include "/builtins/materials/gltf_lighting.glsl"
 
-// PbrMetallicRoughness
-uniform sampler2D PbrMetallicRoughness_baseColorTexture;
-uniform sampler2D PbrMetallicRoughness_metallicRoughnessTexture;
+out vec4 out_fragColor;
 
+void main()
+{
+    PBRMaterial inputs = pbr_sample_material(var_texcoord0, var_color);
+    inputs.roughness = max(inputs.roughness, 0.35);
+
+    // Sample textures, including the normal map, before discarding fragments.
+    PBRSurface surface = pbr_sample_surface(inputs, var_texcoord0);
+    if ((!inputs.doubleSided && !gl_FrontFacing) || pbr_should_discard_alpha(inputs))
+    {
+        discard;
+    }
+
+    // Derive BRDF values after editing the material inputs.
+    MaterialInfo material = pbr_create_material_info(inputs);
+    PBRLighting lighting = pbr_create_lighting();
+    if (!inputs.unlit)
+    {
+        lighting.direct = pbr_evaluate_direct_lighting(material, surface, var_view);
+        lighting.indirect = pbr_evaluate_ambient_lighting(material, ambient_light());
+    }
+
+    vec3 color = pbr_compose_lighting(inputs, lighting, inputs.occlusion, inputs.occlusion);
+    out_fragColor = vec4(pbr_linear_to_srgb(color), pbr_get_alpha(inputs));
+}
+```
+
+`pbr_create_material_info()`를 호출하기 전에 샘플링된 메터리얼 입력을 수정합니다. 표면의 뷰 공간 위치나 노멀을 바꾸면 `pbr_finalize_surface(surface, var_view)`를 호출하여 파생된 월드 공간 필드를 갱신하세요. 커스텀 BRDF나 개별 조명의 기여도를 처리하려면 내장 헬퍼의 `pbr_evaluate_brdf()`와 `pbr_evaluate_light()`를 사용하거나 교체하세요.
+
+`lighting.indirect`를 자신의 환경 조명이나 전역 조명으로 교체할 수 있습니다. diffuse와 specular 성분은 선형 출사광이므로 메터리얼의 BRDF를 다시 적용하지 마세요. 그림자 가시성은 해당 직접 조명 성분에 적용하세요. `pbr_compose_lighting()`의 가시성 인자는 간접 조명에만 영향을 줍니다. HDR 파이프라인에서는 중간 타겟에 선형 색상을 기록하고 최종 패스에서 sRGB로 변환합니다.
+
+### 원시 메터리얼 데이터 {#raw-material-data}
+
+완전히 커스텀인 쉐이더는 인식되는 멤버 이름과 타입으로 `PbrMaterial` uniform 블록을 선언합니다. Defold는 원본 glTF 메터리얼에서 일치하는 필드를 채웁니다. 아래 선언은 사용할 수 있는 기능 구조체를 설명하며 쉐이더에 필요한 것만 포함하세요. 구조체 선언은 데이터를 제공하지만 샘플링과 조명 동작은 쉐이더에서 구현해야 합니다.
+
+`gltf_sampling.glsl`에는 이미 uniform 블록과 `PbrMetallicRoughness`가 선언되어 있으므로 이를 포함할 때 중복 선언하지 마세요. 다음 선언은 메터리얼 입력을 직접 관리하는 쉐이더를 위한 대안입니다.
+
+```glsl
 struct PbrMetallicRoughness
 {
     vec4 baseColorFactor;
-    // R: metallic (기본값=1.0), G: roughness (기본값=1.0)
+    // R: metallic (Default=1.0), G: roughness (Default=1.0)
     vec4 metallicAndRoughnessFactor;
-    // R: baseColorTexture 사용, G: metallicRoughnessTexture 사용
+    // R: use baseColorTexture, G: use metallicRoughnessTexture
     vec4 metallicRoughnessTextures;
 };
 
-// PbrSpecularGlossiness
-uniform sampler2D PbrSpecularGlossiness_diffuseTexture;
-uniform sampler2D PbrSpecularGlossiness_specularGlossinessTexture;
-
 struct PbrSpecularGlossiness
 {
-	vec4 diffuseFactor;
-	// RGB: specular (기본값=1.0), A: glossiness (기본값=1.0)
-	vec4 specularAndSpecularGlossinessFactor;
-	// R: diffuseTexture 사용, G: specularGlossinessTexture 사용
-	vec4 specularGlossinessTextures;
+    vec4 diffuseFactor;
+    // RGB: specular (Default=1.0), A: glossiness (Default=1.0)
+    vec4 specularAndSpecularGlossinessFactor;
+    // R: use diffuseTexture, G: use specularGlossinessTexture
+    vec4 specularGlossinessTextures;
 };
-
-// PbrClearCoat
-uniform sampler2D PbrClearCoat_clearcoatTexture;
-uniform sampler2D PbrClearCoat_clearcoatRoughnessTexture;
-uniform sampler2D PbrClearCoat_clearcoatNormalTexture;
 
 struct PbrClearCoat
 {
-	// R: clearCoat (기본값=0.0), G: clearCoatRoughness (기본값=0.0)
-	vec4 clearCoatAndClearCoatRoughnessFactor;
-	// R: clearCoatTexture 사용, G: clearCoatRoughnessTexture 사용, B: clearCoatNormalTexture 사용
-	vec4 clearCoatTextures;
+    // R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
+    vec4 clearCoatAndClearCoatRoughnessFactor;
+    // R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
+    vec4 clearCoatTextures;
 };
-
-// PbrTransmission
-uniform sampler2D PbrTransmission_transmissionTexture;
 
 struct PbrTransmission
 {
-	// R: transmission (기본값=0.0)
-	vec4 transmissionFactor;
-	// R: transmissionTexture 사용
-	vec4 transmissionTextures;
+    // R: transmission (Default=0.0)
+    vec4 transmissionFactor;
+    // R: use transmissionTexture
+    vec4 transmissionTextures;
 };
 
 struct PbrIor
 {
-	// R: ior (기본값=0.0)
-	vec4 ior;
+    // R: ior (Default=0.0)
+    vec4 ior;
 };
-
-// PbrSpecular
-uniform sampler2D PbrSpecular_specularTexture;
-uniform sampler2D PbrSpecular_specularColorTexture;
 
 struct PbrSpecular
 {
-	// RGB: specularColor, A: specularFactor (기본값=1.0);
-	vec4 specularColorAndSpecularFactor;
-	// R: specularTexture 사용, G: specularColorTexture 사용
-	vec4 specularTextures;
+    // RGB: specularColor, A: specularFactor (Default=1.0);
+    vec4 specularColorAndSpecularFactor;
+    // R: use specularTexture, G: use specularColorTexture
+    vec4 specularTextures;
 };
-
-// PbrVolume
-uniform sampler2D PbrVolume_thicknessTexture;
 
 struct PbrVolume
 {
-	// R: thicknessFactor (기본값=0.0), RGB: attenuationColor
-	vec4 thicknessFactorAndAttenuationColor;
-	// R: attentuationDistance (기본값=-1.0)
-	vec4 attenuationDistance;
-	// R: thicknessTexture 사용
-	vec4 volumeTextures;
+    // R: thicknessFactor (Default=0.0), GBA: attenuationColor
+    vec4 thicknessFactorAndAttenuationColor;
+    // R: attenuationDistance (Default=-1.0)
+    vec4 attenuationDistance;
+    // R: use thicknessTexture
+    vec4 volumeTextures;
 };
-
-// PbrSheen
-uniform sampler2D PbrSheen_sheenColorTexture;
-uniform sampler2D PbrSheen_sheenRoughnessTexture;
 
 struct PbrSheen
 {
-	// RGB: sheenColor, A: sheenRoughnessFactor (기본값=0.0)
-	vec4 sheenColorAndRoughnessFactor;
-	// R: sheenColorTexture 사용, G: sheenRoughnessTexture 사용
-	vec4 sheenTextures;
+    // RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
+    vec4 sheenColorAndRoughnessFactor;
+    // R: use sheenColorTexture, G: use sheenRoughnessTexture
+    vec4 sheenTextures;
 };
 
 struct PbrEmissiveStrength
 {
-	// R: emissiveStrength (기본값=1.0)
-	vec4 emissiveStrength;
+    // R: emissiveStrength (Default=1.0)
+    vec4 emissiveStrength;
 };
-
-// PbrIridescence
-uniform sampler2D PbrEmissive_iridescenceTexture;
-uniform sampler2D PbrEmissive_iridescenceThicknessTexture;
 
 struct PbrIridescence
 {
-	// R: iridescenceFactor (기본값=0.0), G: iridescenceIor (기본값=1.3), B: iridescenceThicknessMin (기본값=100.0), A: iridescenceThicknessMax (기본값=400.0)
-	vec4 iridescenceFactorAndIorAndThicknessMinMax;
-	// R: iridescenceTexture 사용, G: iridescenceThicknessTexture 사용
-	vec4 iridescenceTextures;
-};
-
-uniform PbrMaterial
-{
-	// 공통 프로퍼티
-	// R: alphaCutoff (기본값=0.5), G: doubleSided (기본값=false), B: unlit (기본값=false)
-	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-	// R: normalTexture 사용, G: occlusionTexture 사용, B: emissiveTexture 사용
-	vec4 pbrCommonTextures;
-
-	// 기능
-#ifdef PBR_METALLIC_ROUGHNESS
-	PbrMetallicRoughness  pbrMetallicRoughness;
-#endif
-#ifdef PBR_SPECULAR_GLOSSINESS
-	PbrSpecularGlossiness pbrSpecularGlossiness;
-#endif
-#ifdef PBR_CLEARCOAT
-	PbrClearCoat pbrClearCoat;
-#endif
-#ifdef PBR_TRANSMISSION
-	PbrTransmission pbrTransmission;
-#endif
-#ifdef PBR_IOR
-	PbrIor pbrIor;
-#endif
-#ifdef PBR_SPECULAR
-	PbrSpecular pbrSpecular;
-#endif
-#ifdef PBR_VOLUME
-	PbrVolume pbrVolume;
-#endif
-#ifdef PBR_SHEEN
-	PbrSheen pbrSheen;
-#endif
-#ifdef PBR_EMISSIVE_STRENGTH
-	PbrEmissiveStrength pbrEmissiveStrength;
-#endif
-#ifdef PBR_IRIDESCENCE
-	PbrIridescence pbrIridescence;
-#endif
+    // R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
+    vec4 iridescenceFactorAndIorAndThicknessMinMax;
+    // R: use iridescenceTexture, G: use iridescenceThicknessTexture
+    vec4 iridescenceTextures;
 };
 ```
 
-::: sidenote
-메터리얼 struct에서 특정 데이터 포인트를 찾지 못하면 해당 기능의 데이터는 설정되지 않습니다. 예를 들어 메터리얼 struct에 `pbrClearCoat`가 없으면 클리어코트 데이터가 설정되지 않습니다. uniform 블록을 찾지 못하면 렌더링 중 어떤 데이터도 설정되지 않습니다.
-:::
+공통 프로퍼티와 기능 구조체는 uniform 블록의 멤버입니다. 패킹된 성분은 다음과 같습니다:
+
+```glsl
+uniform PbrMaterial
+{
+    // X: alpha cutoff, Y: double-sided, Z: unlit,
+    // W: alpha mode (0 = opaque, 1 = mask, 2 = blend)
+    vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
+    // X: has normal texture, Y: has occlusion texture, Z: has emissive texture
+    vec4 pbrCommonTextures;
+    // RGB: emissive factor, W: emissive strength
+    vec4 pbrEmissiveFactorAndStrength;
+    // X: normal scale, Y: occlusion strength
+    vec4 pbrNormalScaleAndOcclusionStrength;
+
+    PbrMetallicRoughness pbrMetallicRoughness;
+    PbrSpecularGlossiness pbrSpecularGlossiness;
+    PbrClearCoat pbrClearCoat;
+    PbrTransmission pbrTransmission;
+    PbrIor pbrIor;
+    PbrSpecular pbrSpecular;
+    PbrVolume pbrVolume;
+    PbrSheen pbrSheen;
+    PbrEmissiveStrength pbrEmissiveStrength;
+    PbrIridescence pbrIridescence;
+};
+```
+
+사용하지 않는 기능 멤버는 블록에서 생략하세요. 블록이나 기능의 인식되는 필드가 없으면 해당 데이터는 제공되지 않습니다. 텍스쳐 존재 플래그는 원본 메터리얼의 텍스쳐 참조를 나타냅니다. 커스텀 메터리얼에는 샘플링할 맵에 맞는 샘플러 선언과 텍스쳐 바인딩이 여전히 필요합니다.
 
 ### 상수
 
-각 메터리얼 프로퍼티는 Defold 내부의 렌더 상수에 대응합니다. 메터리얼 리소스 자체에 `pbrFeature.structMember` 이름 패턴을 따르는 상수를 정의하여 기본값을 오버라이드할 수 있습니다. glTF 메터리얼에 일치하는 데이터가 없으면 이 값이 자동으로 적용됩니다.
+기능 필드는 `pbrMetallicRoughness.baseColorFactor` 같은 이름을, 공통 필드는 `pbrEmissiveFactorAndStrength` 같은 이름을 사용합니다. 엔진은 임포트된 메터리얼에서 이 상수들을 채우며, 모델에 메터리얼 데이터가 없으면 기본 메터리얼을 사용합니다. `.material` 리소스에 기본값을 설정해도 임포트된 값을 덮어쓰지 않습니다.
 
-![메터리얼 상수](images/physically-based-rendering/material-constants.png)
+내장 셰이딩을 변경하려면 위 예제처럼 BRDF 값을 계산하기 전에 샘플링된 `PBRMaterial`을 수정합니다. 추가 런타임 제어가 필요하면 자신의 쉐이더 상수를 선언하고 [모델 메터리얼 상수 API](/manuals/model/#material-constants)를 사용하세요.
 
 ## 다음 단계
 
-메터리얼 데이터를 물리 기반 조명에 사용하려면 `PbrMaterial` 블록에서 제공되는 파라미터를 사용해 프래그먼트 쉐이더에 BRDF를 구현하세요.
+표준 glTF metallic/roughness 워크플로우에는 내장 메터리얼을 사용합니다. 다른 BRDF, 환경 조명, 그림자, 추가 glTF 메터리얼 효과가 필요하면 쉐이더 헬퍼를 확장하거나 자신의 메터리얼을 제공하세요.
+
 참고 항목:
 
+* [조명 매뉴얼](/manuals/light)
+* [메터리얼 매뉴얼](/manuals/material)
 * [쉐이더 매뉴얼](/manuals/shader)
 * [렌더 매뉴얼](/manuals/render)
 * [glTF 2.0 명세](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)

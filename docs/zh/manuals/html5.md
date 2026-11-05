@@ -3,7 +3,7 @@ title: Defold HTML5平台开发
 brief: 本手册描述了创建HTML5游戏的过程，以及已知问题和局限性。
 ---
 
-# HTML5开发
+# HTML5开发 {#html5-development}
 
 Defold支持通过常规打包菜单为HTML5平台构建游戏，与其他平台一样。此外，生成的游戏会嵌入到一个常规HTML页面中，该页面可以通过简单的模板系统进行样式设置。
 
@@ -18,7 +18,7 @@ Defold对HTML5的支持由Emscripten驱动（参见http://en.wikipedia.org/wiki/
 1. 将*heap_size*设置为您偏好的值。它应以兆字节表示。
 2. 创建您的HTML5包（见下文）
 
-## 测试HTML5构建
+## 测试HTML5构建 {#testing-html5-build}
 
 对于测试，HTML5构建需要一个HTTP服务器。如果您选择<kbd>Project ▸ Build HTML5</kbd>，Defold会为您创建一个。
 
@@ -83,6 +83,39 @@ Defold HTML5 bundle 需要支持 WebAssembly 的现代浏览器。不支持 Inte
 
 通过 [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint) 选择请求的图形上下文。默认使用 WebGL 2；请求 WebGL 1 可在同时支持这两个版本的浏览器中测试或面向该上下文。
 
+从 Defold 1.14.1 起，默认排除 WebGL 1 着色器。无论是直接请求 WebGL 1，还是允许从 WebGL 2 回退，都需要禁用 [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) 才会包含它们。要显式请求 WebGL 1，请在 *game.project* 中同时设置以下两项：
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## 像素比限制 {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` 和 `html5.max_pixel_ratio` 控制每个 CSS 像素对应多少画布渲染像素。画布的 CSS 尺寸决定游戏在页面上的显示大小，而其渲染分辨率决定引擎绘制多少像素。
+
+在 *game.project* 的 *Display* 部分启用 *High Dpi*，才能使用这些限制。随后，浏览器的设备像素比会被限制在启用的边界内。两项限制均默认为 `0`，表示禁用该边界。值必须有限且非负；如果两者均为正数，最小值不能超过最大值。
+
+例如，将比例上限设为 `1.5`，可限制高密度显示器上的渲染分辨率：
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+采用此配置时，在设备像素比为 `3` 的浏览器中，以 800 × 600 CSS 像素显示的画布会按 1200 × 900 像素渲染，而显示大小保持不变。在设备像素比为 `1` 的浏览器中，同一画布仍按 800 × 600 像素渲染，因为最大值不会提高比例。
+
+也支持小于 `1` 的小数比例：例如，最大值 `0.75` 会使渲染像素数少于 CSS 显示尺寸对应的像素数。如果最小值高于浏览器的设备像素比，就会提高渲染分辨率以进行超采样。这些限制适用于全部四个 *Scale Mode* 选项，同时保留其 CSS 布局。
+
+禁用 *High Dpi* 时，无论限制如何设置，比例都保持为 `1`。在 HTML5 上，[`window.get_display_scale()`](/ref/window/#window.get_display_scale) 返回应用 High DPI 设置和限制后的有效渲染比例。
+
 ## 下载验证 {#download-verification}
 
 HTML5 加载器默认会检查下载的引擎和归档文件的大小。检查失败会触发重新下载，然后加载器才会报告错误：
@@ -101,14 +134,18 @@ verify_downloaded_file_size = 0
 
 禁用 **Verify Downloaded File Size** 后，包中包含的 SHA-1 验证仍然启用。请参阅 [HTML5 项目设置](/manuals/project-settings/#verify-downloaded-file-size)。
 
-## 已知问题和局限性 {#已知问题和局限性}
+<a id="已知问题和局限性"></a>
+
+## 已知问题和局限性 {#known-issues-and-limitations}
 
 * 热重载 - 热重载在HTML5构建中不起作用。Defold应用程序必须运行自己的小型Web服务器才能从编辑器接收更新，这在HTML5构建中是不可能的。
 * Chrome
   * 调试构建缓慢 - 在HTML5的调试构建中，我们验证所有WebGL图形调用以检测错误。不幸的是，在Chrome上测试时这非常慢。可以通过将*game.project*的*`Engine Arguments`*字段设置为`--verify-graphics-calls=false`来禁用此功能。
 * 游戏手柄支持 - 有关HTML5上可能需要采取的特殊考虑和步骤，请[参阅游戏手柄文档](/manuals/input-gamepads/#gamepads-in-html5)。
 
-## 自定义HTML5包 {#自定义HTML5打包}
+<a id="自定义HTML5打包"></a>
+
+## 自定义HTML5包 {#customizing-html5-bundle}
 
 当生成游戏的HTML5版本时，Defold提供了一个默认网页。它引用了样式和脚本资源，这些资源决定了游戏的呈现方式。
 
@@ -130,10 +167,10 @@ verify_downloaded_file_size = 0
 Defold为`index.html`提供了深色和浅色主题。默认情况下设置浅色主题，但可以通过更改`Custom CSS`文件来更改。在`Scale Mode`字段中还有四种预定义的缩放模式可供选择。
 
 ::: important
-如果您在*game.project*（`Display`部分）中打开`High Dpi`选项，所有缩放模式的计算都包括当前屏幕DPI。
+在 *game.project* 的 *Display* 部分启用 *High Dpi* 后，所有缩放模式都使用有效像素比（包含[像素比限制](#pixel-ratio-limits)）来设置画布渲染缓冲区的大小。
 :::
 
-### Downscale Fit和Fit
+### Downscale Fit和Fit {#downscale-fit-and-fit}
 
 对于`Fit`模式，画布大小将更改为以原始比例在屏幕上显示完整游戏画布。`Downscale Fit`的唯一区别是，仅当网页内部大小小于游戏的原始画布时才更改大小，但当网页大于原始游戏画布时不会放大。
 
@@ -146,11 +183,11 @@ Defold为`index.html`提供了深色和浅色主题。默认情况下设置浅�
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-使用`No Scale`模式，画布大小与您在*game.project*文件`[display]`部分中预定义的大小完全相同。
+在 `No Scale` 模式下，画布的 CSS 宽高与 *game.project* 的 *Display* 部分中的 *Width* 和 *Height* 一致。渲染分辨率仍使用有效像素比。
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
-## 标记
+## 标记 {#tokens}
 
 我们使用[Mustache模板语言](https://mustache.github.io/mustache.5.html)来创建`index.html`文件。当您构建或打包时，HTML和CSS文件会通过一个编译器，该编译器能够用取决于您的项目设置的值替换某些标记。这些标记总是用双大括号或三重大括号（`{{TOKEN}}`或`{{{TOKEN}}}`）括起来，取决于字符序列是否应该被转义。如果您经常更改项目设置或打算材料在其他项目中重用，此功能可能很有用。
 
@@ -197,10 +234,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : 添加到归档 URL 的已解析后缀，基于 `html5.archive_location_suffix`。
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: 当归档前缀指定 HTTP 或 HTTPS 源时为 `true`，包括 `//cdn.example.com/archive` 这样的协议相对 URL。对于相对归档前缀，其值为 `false`。自 Defold 1.13.2 起可用。
+: 归档前缀指定 HTTP 或 HTTPS 源时为 `true`，也包括 `//cdn.example.com/archive` 这样的协议相对 URL。相对归档前缀则为 `false`。
 
 DEFOLD_ARCHIVE_ORIGIN
-: 归档的源，包括协议、主机和可选端口；未指定源时为空字符串。协议相对前缀会产生协议相对源。用于预连接提示，自 Defold 1.13.2 起可用。
+: 归档的源，包括协议、主机和可选端口；未指定源时为空字符串。协议相对前缀会生成协议相对的源。此值用于预连接提示。
 
 DEFOLD_HAS_WASM_ENGINE
 : 如果包中包含 WebAssembly 引擎（`wasm-web` 或 `wasm_pthread-web`），则为 `true`。
@@ -245,13 +282,14 @@ build-timestamp
 : 当前构建时间戳（以秒为单位）。
 
 
-## 额外参数
+## 额外参数 {#extra-parameters}
 
 如果创建自定义模板，您可以通过在全局 `CUSTOM_PARAMETERS` 对象中赋值来更改引擎加载器的参数。内置模板为这些自定义项提供了一个特意留空的 `<script id="engine-setup">` 块。
 ::: important
 请将 `engine-setup` 块放在加载 `dmloader.js` 的脚本之后，并放在调用 `EngineLoader.load()` 的 `engine-start` 块之前。
 :::
 例如：
+
 ```html
     <script id="engine-setup" type="text/javascript">
         CUSTOM_PARAMETERS.disable_context_menu = false;
@@ -265,49 +303,49 @@ build-timestamp
 
 ```
 'archive_location_filter':
-    将为每个存档路径运行的过滤函数。
+    Filter function that will run for each archive path.
 
 'unsupported_webgl_callback':
-    如果不支持WebGL则调用的函数。
+    Function that is called if WebGL is not supported.
 
 'engine_arguments':
-    将传递给引擎的参数列表（字符串）。
+    List of arguments (strings) that will be passed to the engine.
 
 'custom_heap_size':
-    指定内存堆大小的字节数。
+    Number of bytes specifying the memory heap size.
 
 'disable_context_menu':
-    如果为true，则在canvas元素上禁用右键单击上下文菜单。
+    Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    错误后重试文件加载之前的暂停时间（以秒为单位）。
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
-    尝试下载文件时我们进行多少次尝试。
+    How many attempts we do when trying to download a file.
 
 'can_not_download_file_callback':
-    如果在'retry_count'尝试后无法下载文件则调用的函数。
+    Function that is called if you can't download file after 'retry_count' attempts.
 
 'resize_window_callback':
-    当发生调整大小/方向更改/焦点事件时调用的函数。
+    Function that is called when resize/orientationchanges/focus events happened
 
 'start_success':
-    成功加载后调用main之前调用的函数。
+    Function that is called just before main is called upon successful load.
 
 'update_progress':
-    进度更新时调用的函数。参数进度更新为0-100。
+    Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
-## HTML5中的文件操作
+## HTML5中的文件操作 {#file-operations-in-html5}
 
 HTML5构建支持诸如`sys.save()`、`sys.load()`和`io.open()`之类的文件操作，但这些操作的内部处理方式与其他平台不同。当Javascript在浏览器中运行时，没有真正的文件系统概念，并且出于安全原因阻止了本地文件访问。相反，Emscripten（因此Defold）使用[IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB)，这是一个用于持久存储数据的浏览器内数据库，在浏览器中创建虚拟文件系统。与其他平台文件系统访问的重要区别在于，写入文件和更改实际存储在数据库之间可能存在轻微延迟。浏览器开发者控制台通常允许您检查IndexedDB的内容。
 
 
-## 向HTML5游戏传递参数
+## 向HTML5游戏传递参数 {#passing-arguments-to-an-html5-game}
 
 有时有必要在游戏启动之前或启动时向游戏提供额外的参数。例如，这可能是用户ID、会话令牌或游戏启动时要加载的关卡。这可以通过多种不同的方式实现，其中一些在此描述。
 
-### 引擎参数
+### 引擎参数 {#engine-arguments}
 
 可以在配置和加载引擎时指定额外的引擎参数。这些额外的引擎参数可以在运行时使用 `sys.get_config_string()` 获取。请在 `index.html` 的 `engine-setup` 块中将参数直接分配给 `CUSTOM_PARAMETERS.engine_arguments`：
 
@@ -335,7 +373,7 @@ print(foo2) -- bar2
 ```
 
 
-### URL中的查询参数
+### URL中的查询参数 {#query-arguments-in-the-url}
 
 您可以将参数作为页面URL中查询参数的一部分传递，并在运行时读取这些参数：
 
@@ -374,13 +412,12 @@ function init(self)
 end
 ```
 
-
-## 优化
+## 优化 {#optimizations}
 HTML5游戏通常对初始下载大小、启动时间和内存使用有严格要求，以确保游戏在低端设备和慢速互联网连接上加载快速并运行良好。要优化HTML5游戏，建议重点关注以下领域：
 
 * [内存使用](/manuals/optimization-memory)
 * [引擎大小](/manuals/optimization-size)
 * [游戏大小](/manuals/optimization-size)
 
-## 常见问题
+## 常见问题 {#faq}
 :[HTML5 常见问题](../shared/html5-faq.md)

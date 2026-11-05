@@ -39,6 +39,30 @@ end
 Дії введення `MOUSE_BUTTON_LEFT` (або `MOUSE_BUTTON_1`) надсилаються також для одиночних дотиків.
 :::
 
+### Як відрізнити клацання миші від дотику {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` розрізняє натискання фізичної миші й клацання, імітоване дотиком, зокрема початкове натискання. Прив’яжіть `MOUSE_BUTTON_LEFT` до `mouse_button_left` і використовуйте цей код у скрипті або скрипті GUI:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Дотик, імітований як клацання миші, повідомляє `hash("touch")` навіть без окремого Touch Trigger. Для визначення дотику не потрібна таблиця `action.touch` або попередня подія руху. Усі значення джерел і їхню роботу, коли кілька прив’язок мають спільне ім’я дії, див. у розділі [Джерело введення](/manuals/input/#input-device-source).
+
+В iOS власний `Info.plist` має вмикати `UIApplicationSupportsIndirectInputEvents`, щоб це розрізнення працювало. У вбудованому маніфесті цей параметр уже ввімкнено.
+
 ## Коліщатко миші {#mouse-wheel}
 Введення від коліщатка миші виявляє дії прокручування. Поле `action.value` дорівнює `1`, якщо коліщатко прокручується, і `0` в іншому разі. (Дії прокручування обробляються як натискання кнопок. Наразі Defold не підтримує введення з точним відстеженням прокручування на сенсорних панелях.)
 
@@ -55,11 +79,12 @@ end
 ## Рух миші {#mouse-movement}
 Рух миші обробляється окремо. Події руху миші не надходять, якщо у ваших прив’язках введення не налаштовано хоча б один тригер миші.
 
-Рух миші не прив’язується у прив’язках введення: натомість `action_id` набуває значення `nil`, а таблиця `action` заповнюється позицією миші та зміною цієї позиції.
+Рух вказівника не прив’язується до імені дії: `action_id` дорівнює `nil`, а таблиця `action` містить позицію вказівника та зміну позиції. Джерело — `hash("mouse")` для фізичної миші або `hash("touch")` для руху, імітованого дотиком. Зразки акселерометра також використовують `action_id == nil`, тому перевіряйте джерело, щоб розрізняти їх, як показано в розділі [Джерело введення](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

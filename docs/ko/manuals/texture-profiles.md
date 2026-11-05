@@ -80,7 +80,7 @@ ASTC는 좋은 결과를 제공하지만 모든 그래픽 카드에서 지원되
 
 ![텍스쳐 프로파일 설정](images/texture_profiles/texture_profiles_game_project.png)
 
-에디터 preferences에서 텍스쳐 프로파일 사용 여부를 켜고 끌 수 있습니다. <kbd>File ▸ Preferences...</kbd>를 선택합니다. *General* 탭에는 *Enable texture profiles* 체크박스 항목이 있습니다.
+에디터 빌드에서 텍스쳐 압축을 적용하려면 <kbd>File ▸ Preferences...</kbd>를 선택하고 *General* 탭의 **Enable Texture Compression**을 체크합니다. Bob 빌드에는 [`--texture-compression`](/manuals/bob/#usage)을 전달합니다. 압축을 비활성화해도 이미지 크기와 밉맵 같은 프로파일 설정은 계속 적용됩니다.
 
 ![텍스쳐 프로파일 preferences](images/texture_profiles/texture_profiles_preferences.png)
 
@@ -127,6 +127,9 @@ ASTC는 좋은 결과를 제공하지만 모든 그래픽 카드에서 지원되
 *Formats*
 : 생성할 하나 이상의 텍스쳐 포멧입니다. 여러 포멧을 지정하면 각 포멧의 텍스쳐가 생성되어 번들에 포함됩니다. 엔진은 런타임 플랫폼에서 지원되는 포멧의 텍스쳐를 선택합니다.
 
+*Keep KTX2 Format*
+: 플랫폼의 *Formats* 대안 대신 KTX2 소스의 인코딩 포멧을 유지합니다. 기본값은 체크 해제(`keep_ktx2_format: false`)입니다. PNG, JPEG 등의 다른 이미지 타입은 계속 *Formats*를 사용합니다. 압축된 원본 포멧을 유지하려면 텍스쳐 압축이 활성화되어 있어야 합니다. 처리 및 호환성 세부 사항은 [KTX2 원본 텍스쳐](#ktx2-source-textures)를 참고하세요.
+
 *Mipmaps*
 : 체크하면 해당 플랫폼에 대한 밉맵이 생성됩니다. 기본값은 체크 해제입니다.
 
@@ -156,6 +159,38 @@ ASTC는 좋은 결과를 제공하지만 모든 그래픽 카드에서 지원되
 
 `uncompressed` compressor에는 `uncompressed`라는 프리셋 하나만 있으며, 이는 텍스쳐에 압축이 적용되지 않음을 의미합니다.
 사용 가능한 compressor 목록은 [Compressors](#compressors)를 참고하세요.
+
+## KTX2 원본 텍스쳐 {#ktx2-source-textures}
+
+텍스쳐 프로파일은 독립적인 *.ktx2* 파일과 glTF 또는 GLB 파일에 내장된 KTX2 이미지에 적용됩니다. 경로 설정은 내장 이미지의 `/models/robot.glb/images/0.ktx2` 같은 가상 경로를 포함하여 원본 이미지 경로와 일치시킵니다. 구체적인 KTX2 경로 설정을 더 넓은 범위의 패턴보다 앞에 배치하세요.
+
+프로파일과 플랫폼을 선택한 다음 KTX2 입력 처리 방식을 선택합니다:
+
+| Keep KTX2 Format | 텍스쳐 압축이 활성화되었을 때의 컴파일 결과 |
+| --- | --- |
+| 활성화 | ETC1S는 ETC1S, UASTC는 UASTC, BC7은 BC7로 유지되며 원시 소스 데이터는 압축되지 않은 상태를 유지합니다. KTX2 입력에는 플랫폼의 *Formats* 대안을 적용하지 않습니다. |
+| 비활성화(기본값) | 선택한 인코딩이 원본과 같더라도 원본 이미지를 디코딩한 후 프로파일의 *Format*, *Compressor*, *Compressor Preset*으로 인코딩합니다. |
+
+예를 들어 다음 프로파일은 KTX2 소스와 일치시키고 포멧과 밉맵을 유지하며 알파 사전 곱셈을 비활성화합니다:
+
+```protobuf
+path_settings { path: "**/*.ktx2" profile: "KTX2" }
+profiles {
+  name: "KTX2"
+  platforms {
+    os: OS_ID_GENERIC
+    mipmaps: true
+    premultiply_alpha: false
+    keep_ktx2_format: true
+  }
+}
+```
+
+이 항목을 *game.project*에 지정한 텍스쳐 프로파일 파일에 병합하고 빌드의 텍스쳐 압축을 활성화하세요. 압축이 비활성화되었거나 일치하는 프로파일이 없으면 KTX2 소스는 압축되지 않은 결과를 만듭니다.
+
+**Keep KTX2 Format**은 가능하면 인코딩된 원본 레벨을 재사용합니다. 방향, 알파 사전 곱셈, 이미지 크기, 밉맵이 바뀌면 디코딩하고 같은 포멧으로 다시 인코딩해야 할 수 있습니다. 표준 glTF KTX2 텍스쳐는 보통 Defold의 Y축 뒤집기가 필요하므로 포멧을 유지해도 인코딩된 데이터를 재사용한다고 보장하지 않습니다. 이 옵션이 활성화되어 있어도 재인코딩으로 화질이 추가로 손실될 수 있습니다.
+
+유지할 원본 포멧을 타겟 기기가 지원하는지 확인하세요. 이 옵션이 런타임 디코더나 GPU 포멧 지원을 추가하지는 않습니다. 원본 포멧이 타겟에 적합하지 않으면 해당 플랫폼에서 옵션을 비활성화하고 호환되는 출력 포멧과 압축 설정을 선택하세요.
 
 ## 텍스쳐 포멧
 

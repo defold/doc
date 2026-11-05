@@ -7,6 +7,10 @@ brief: このマニュアルでは、Windows で Defold アプリケーション
 
 Windows プラットフォーム向けの Defold アプリケーション開発では、考慮すべき点はごく少なく、手順もシンプルです。
 
+## グラフィックスバックエンド {#graphics-backends}
+
+Windows ビルドは、デフォルトで OpenGL を使います。[アプリケーションマニフェスト](/manuals/app-manifest/#graphics)の **Graphics (Windows)** で、OpenGL、Vulkan、DirectX 12（**DX12**）を選択します。複数のバックエンドを含めると、優先バックエンドを利用できない場合にフォールバックできます。
+
 ## プロジェクト設定 {#project-settings}
 
 Windows 固有のアプリケーション設定は、*game.project* 設定ファイルの [Windows セクション](/manuals/project-settings/#windows)で行います。

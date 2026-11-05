@@ -9,8 +9,6 @@ Il manifest dell'applicazione determina quali funzionalità e backend vengono in
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
 # Applicazione del manifest {#applying-the-manifest}
 
 In `game.project`, assegna il manifest a `Native Extensions` -> `App Manifest`.
@@ -36,7 +34,7 @@ Controlla le funzionalità di rig e modelli, oppure seleziona None per escludere
 
 ## Exclude Record
 
-Esclude dal motore la funzionalità di registrazione video (consulta la documentazione del messaggio [`start_record`](https://defold.com/ref/sys/#start_record)).
+Esclude la registrazione MP4 nativa, il [modulo Lua `recorder`](/ref/recorder/) e il servizio HTTP di registrazione dalle build di debug desktop. La registrazione è già esclusa dalle build di release, headless, mobili e web. Consulta il [manuale della registrazione](/manuals/recording) per il flusso di lavoro.
 
 
 ## Profiler
@@ -118,11 +116,14 @@ Usa la libreria deprecata Android Support Library al posto di Android X. [Ulteri
 
 ## Graphics
 
-Seleziona i backend grafici da includere per ciascuna piattaforma. Un'opzione combinata include entrambi i backend, così da poter usare quello alternativo quando il backend preferito non è disponibile.
+Seleziona i backend grafici da includere per ogni piattaforma. Una scelta combinata include più backend, consentendo al motore di usarne un altro quando quello preferito non è disponibile. Includere più backend aumenta le dimensioni del motore.
+
+Windows e Linux usano campi separati. L'opzione **DX12** seleziona DirectX 12 su Windows.
 
 | Campo | Piattaforme | Opzioni | Predefinito |
 |---|---|---|---|
-| **Graphics** | Windows e Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -130,11 +131,11 @@ Seleziona i backend grafici da includere per ciascuna piattaforma. Un'opzione co
 
 Su Linux ARM64, l'opzione **OpenGL** usa il backend OpenGL ES. L'opzione combinata predefinita per Android preferisce Vulkan quando è disponibile e usa OpenGL ES come alternativa.
 
-A partire da Defold 1.14.0, macOS usa il backend Metal nativo per impostazione predefinita. L'opzione **Vulkan** su macOS e iOS usa Vulkan tramite MoltenVK. Il simulatore iOS (`arm64_sim-ios`) usa sempre Metal, indipendentemente dall'opzione **Graphics (iOS)** scelta per i dispositivi.
+macOS usa il backend Metal nativo per impostazione predefinita. L'opzione **Vulkan** su macOS e iOS usa Vulkan tramite MoltenVK. Il simulatore iOS (`arm64_sim-ios`) usa sempre Metal, indipendentemente dall'opzione **Graphics (iOS)** scelta per i dispositivi.
 
 ## Use full text layout system
 
-Se abilitata (`true`), include il sistema completo di layout del testo per la composizione dei glifi, anche nelle lingue che si scrivono da destra a sinistra. Abilita questa opzione insieme a `font.runtime_generation` in *game.project* per generare a runtime font SDF da risorse TrueType (`.ttf`) o OpenType (`.otf`). La generazione a runtime da risorse `.otf` è supportata da Defold 1.13.2. Per ulteriori informazioni, consulta il [manuale dei font](/manuals/font/#enabling-runtime-fonts).
+Se abilitata (`true`), include il sistema completo di layout del testo per la composizione tipografica, comprese le lingue scritte da destra a sinistra. Abilita questa opzione per generare a runtime i font TrueType (`.ttf`) o OpenType (`.otf`) e imposta *Glyph Generation* su **Dynamic** in ogni risorsa font che ne ha bisogno. La generazione dinamica supporta sia la modalità **SDF** sia **Vector**. Per ulteriori informazioni, consulta il [manuale dei font](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text

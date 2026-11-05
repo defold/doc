@@ -21,7 +21,7 @@ Os exemplos abaixo usam as ações mostradas na imagem acima. Como em toda entra
 :::
 
 ## Botões do mouse
-Botões do mouse geram eventos `pressionado`s, `solto`s e `repetido`s. Exemplo mostrando como detectar entrada para o botão esquerdo do mouse (pressionado ou solto):
+Botões do mouse geram eventos `pressed` (pressionado), `released` (solto) e `repeated` (repetido). Exemplo mostrando como detectar entrada para o botão esquerdo do mouse (pressionado ou solto):
 
 ```lua
 function on_input(self, action_id, action)
@@ -39,6 +39,30 @@ end
 Ações de entrada `MOUSE_BUTTON_LEFT` (ou `MOUSE_BUTTON_1`) também são enviadas para entradas de toque único.
 :::
 
+### Distinguindo cliques de mouse de toques {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` distingue um pressionamento de mouse físico de um clique simulado por toque, incluindo o pressionamento inicial. Vincule `MOUSE_BUTTON_LEFT` a `mouse_button_left` e use este código em um script ou script de GUI:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Um toque simulado como clique de mouse informa `hash("touch")` mesmo sem um Touch Trigger separado. Você não precisa de uma tabela `action.touch` nem de um evento anterior de movimento para identificar o toque. Consulte [Origem do dispositivo de entrada](/manuals/input/#input-device-source) para conhecer todos os valores de origem e seu funcionamento quando vários mapeamentos compartilham um nome de ação.
+
+No iOS, um `Info.plist` personalizado deve habilitar `UIApplicationSupportsIndirectInputEvents` para essa distinção funcionar. O manifesto integrado já o habilita.
+
 ## Roda do mouse
 Entradas da roda do mouse detectam ações de rolagem. O campo `action.value` é `1` se a roda for rolada e `0` caso contrário. (Ações de rolagem são tratadas como se fossem pressionamentos de botão. Atualmente, o Defold não oferece suporte a entrada de rolagem fina em touchpads.)
 
@@ -55,11 +79,12 @@ end
 ## Movimento do mouse
 O movimento do mouse é tratado separadamente. Eventos de movimento do mouse não são recebidos a menos que pelo menos um mouse trigger esteja configurado nos seus mapeamentos de entrada.
 
-O movimento do mouse não é mapeado nos mapeamentos de entrada, mas `action_id` é definido como `nil` e a tabela `action` é preenchida com a localização e o delta de movimento da posição do mouse.
+O movimento do ponteiro não está vinculado a um nome de ação: `action_id` é `nil` e a tabela `action` contém a posição do ponteiro e o deslocamento do movimento. Sua origem é `hash("mouse")` para um mouse físico ou `hash("touch")` para movimento simulado a partir de toque. Amostras do acelerômetro também usam `action_id == nil`, portanto verifique a origem para diferenciá-las, conforme mostrado em [Origem do dispositivo de entrada](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- faz o objeto de jogo seguir o movimento do mouse/toque
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

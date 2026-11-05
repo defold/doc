@@ -10,8 +10,18 @@ Defold obsługuje wiele rodzajów elementów wizualnych często używanych w gra
 ![Importowanie plików](images/graphics/import.png)
 
 ::: sidenote
-Defold obsługuje obrazy w formatach PNG i JPEG. Inne formaty obrazów trzeba przekonwertować, zanim będzie można z nich korzystać.
+Do atlasów i źródeł kafelków używaj obrazów PNG lub JPEG. Można również importować tekstury źródłowe KTX2 do użycia jako tekstury modeli; szczegóły poniżej.
 :::
+
+## Tekstury KTX2 {#ktx2-textures}
+
+Zaimportuj samodzielny plik *.ktx2*, przeciągając go do panelu *Assets*, a następnie przypisz go do pola tekstury materiału w komponencie Model. [Modele glTF i GLB](/manuals/importing-models/#ktx2-textures) mogą również odwoływać się do zewnętrznych plików KTX2 lub zawierać osadzone obrazy KTX2. Atlasy, źródła kafelków i ściany map sześciennych nadal przyjmują dotychczasowe formaty obrazów.
+
+Obsługiwane dane wejściowe KTX2 to tekstury 2D używające ETC1S/BasisLZ, UASTC, BC7 lub 8-bitowych danych R/RG/RGB/RGBA UNORM albo sRGB. Tablice, mapy sześcienne, tekstury wolumetryczne i tekstury HDR w KTX2 nie są obsługiwane. KTX2 jest przetwarzany podczas budowania na zasoby *.texturec* silnika Defold; środowisko uruchomieniowe nie odczytuje kontenerów KTX2.
+
+Otwórz zasób KTX2, aby sprawdzić format źródłowy, wymiary, przestrzeń kolorów, metadane kanału alfa i poziomy mipmap. Widok *Outline* pozwala wybierać poszczególne poziomy mipmap zapisane w pliku. Pokazują one obrazy źródłowe nawet wtedy, gdy profil tekstury zmienia rozmiar skompilowanej tekstury lub wyłącza jej mipmapy.
+
+Użyj [profili teksturowania](/manuals/texture-profiles/#ktx2-source-textures), aby wybrać zachowanie formatu źródłowego albo konwersję do innych formatów. Wybieraj formaty wyjściowe obsługiwane przez urządzenia docelowe. Ponowna kompresja już stratnie skompresowanego źródła może dodatkowo obniżyć jakość, również wtedy, gdy **Keep KTX2 Format** musi ponownie zakodować obraz po jego przetworzeniu.
 
 
 ## Tworzenie zasobów

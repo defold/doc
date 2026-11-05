@@ -15,7 +15,7 @@ Alle Assets, die du in deinem Projekt verwendest, müssen sich in der Projekthie
 ![Dateien importieren](images/graphics/import.png)
 
 ::: sidenote
-Defold unterstützt Bilder in den Bildformaten PNG und JPEG. PNG-Bilder müssen im RGBA-Format mit 32 Bit vorliegen. Andere Bildformate müssen konvertiert werden, bevor sie verwendet werden können.
+Verwende PNG- oder JPEG-Bilder für Atlanten und Kachelquellen. Die PNG-Unterstützung umfasst RGB-, RGBA- und indizierte Farbbilder (Palette). Auch [KTX2-Quelltexturen](/manuals/importing-graphics/#ktx2-textures) können zur Verwendung als Modelltexturen importiert werden.
 :::
 
 
@@ -26,7 +26,7 @@ Nach dem Import in Defold können die Assets von den verschiedenen Arten von Kom
 * Mit Bildern kannst du viele Arten visueller Komponenten erstellen, die häufig in 2D-Spielen verwendet werden. Lies hier mehr darüber, [wie du 2D-Grafiken importierst und verwendest](/manuals/importing-graphics).
 * Audiodateien können von der [Audiokomponente (Sound component)](/manuals/sound) zur Audiowiedergabe verwendet werden.
 * Schriftarten werden von der [Beschriftungskomponente (Label component)](/manuals/label) und von [Textknoten](/manuals/gui-text) in einer GUI verwendet.
-* glTF-Modelle (*.gltf* und *.glb*) können von der [Modellkomponente (Model component)](/manuals/model) verwendet werden, um 3D-Modelle mit Animationen anzuzeigen. Importiere alle vom Modell verwendeten Texturbilder als separate Assets und weise sie den Textureigenschaften des Materials der Modellkomponente zu. Lies hier mehr darüber, [wie du 3D-Modelle importierst und verwendest](/manuals/importing-models).
+* glTF-Modelle (*.gltf* und *.glb*) können von der [Modellkomponente](/manuals/model) zur Darstellung animierter 3D-Modelle verwendet werden. Klappe diese Dateien im Bereich *Assets* auf, um ihre Meshes, erzeugten Materialien und eingebetteten Bilder zu durchsuchen. Eingebettete Bilder lassen sich direkt verwenden; extern referenzierte Bilder und Puffer müssen als separate Projektdateien enthalten sein. Auch [mit Draco oder Meshopt komprimierte Geometrie](/manuals/importing-models/#compressed-geometry) wird unterstützt und beim Import beziehungsweise Build dekodiert. Bei der Auswahl einer Szene oder eines Meshes in einer Modellkomponente kann der Editor anbieten, Material- und Texturbindungen auszufüllen. Wähle <kbd>Auto Fill</kbd>, um sie anzuwenden und vorhandene Bindungen zu ersetzen, oder <kbd>Keep Current</kbd>, um eigene Bindungen zu behalten. Weitere Informationen zum [Importieren und Verwenden von 3D-Modellen findest du hier](/manuals/importing-models).
 
 
 ## Externe Assets bearbeiten {#editing-external-assets}

@@ -3,7 +3,7 @@ title: Düzenleyici tercihleri
 brief: Düzenleyicinin ayarlarını Preferences penceresinden değiştirebilirsiniz.
 ---
 
-# Düzenleyici tercihleri
+# Düzenleyici tercihleri {#editor-preferences}
 
 Düzenleyicinin ayarlarını Preferences penceresinden değiştirebilirsiniz. Tercihler penceresi <kbd>File -> Preferences</kbd> menüsünden açılır.
 
@@ -65,7 +65,7 @@ Format on save
 : Kaydederken dil sunucusunun biçimlendiricisini değiştirilmiş açık kod dosyalarında çalıştırır. Varsayılan olarak devre dışıdır. Dil sunucusu biçimlendirmeyi desteklemelidir; bir belgeyi veya seçimi elle biçimlendirmek için [kod biçimlendirme](/manuals/writing-code/#formatting-code) bölümüne bakın.
 
 
-### Betik dosyalarını Visual Studio Code'da açma
+### Betik dosyalarını Visual Studio Code'da açma {#open-script-files-in-visual-studio-code}
 
 ![](images/editor/preferences_vscode.png)
 

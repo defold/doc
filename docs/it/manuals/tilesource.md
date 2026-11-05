@@ -50,28 +50,33 @@ Collision
 
 ## Animazioni a fotogrammi delle sorgenti di tasselli {#tile-source-flip-book-animations}
 
-Per definire un'animazione in una sorgente di tasselli, i tasselli dei fotogrammi dell'animazione devono essere adiacenti, in una sequenza da sinistra a destra. La sequenza può proseguire da una riga a quella successiva. Tutte le sorgenti di tasselli appena create hanno un'animazione predefinita chiamata "`anim`". Puoi aggiungere nuove animazioni <kbd>facendo clic con il pulsante destro</kbd> sulla radice della sorgente di tasselli nella vista *Outline* e selezionando <kbd>Add ▸ Animation</kbd>.
+Per definire un'animazione in una sorgente di tile, seleziona i tile da riprodurre tramite la proprietà *Frames* dell'animazione. I tile possono comparire in qualsiasi ordine, comprese le ripetizioni, quindi non devi riorganizzare l'immagine sorgente. Tutte le nuove sorgenti di tile hanno un'animazione predefinita chiamata "`anim`". Puoi aggiungere nuove animazioni <kbd>facendo clic destro</kbd> sulla radice della sorgente di tile nella vista *Outline* e selezionando <kbd>Add ▸ Animation</kbd>.
 
 Selezionando un'animazione, ne visualizzi le proprietà in *Properties*.
-
-![Animazione della sorgente di tasselli](images/tilemap/animation.png)
 
 Id
 : L'identificatore dell'animazione. Deve essere univoco all'interno della sorgente di tasselli.
 
-Start Tile
-: Il primo tassello dell'animazione. La numerazione parte da 1 nell'angolo superiore sinistro e procede verso destra, riga per riga, fino all'angolo inferiore destro.
+Frames
+: I numeri dei tile nell'ordine dell'animazione, separati da virgole. La numerazione parte da 1 nell'angolo superiore sinistro e procede verso destra, riga per riga, fino all'angolo inferiore destro. Puoi ripetere i numeri dei tile e usare intervalli inclusivi in entrambe le direzioni.
 
-End Tile
-: L'ultimo tassello dell'animazione.
+| Frames | Sequenza espansa |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+L'editor mostra le sequenze consecutive di almeno tre frame come intervalli. Per esempio, `1, 2, 3` diventa `1-3`, mentre `1, 2` rimane una coppia di numeri di tile. L'ordine e le ripetizioni dei frame vengono conservati. L'elenco deve contenere almeno un frame e ogni numero di tile deve esistere nell'immagine sorgente.
+
+*Frames* sostituisce *Start Tile* ed *End Tile*. L'editor converte gli intervalli validi dei vecchi file sorgente di tile in elenchi di frame. Per gli script dell'editor, usa l'array di interi `frames` al posto di `start_tile` ed `end_tile`; consulta [Modifica delle sorgenti di tile](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
-: Specifica come riprodurre l'animazione:
+: Specifica come riprodurre l'animazione attraverso l'elenco *Frames*:
 
   - `None` non riproduce l'animazione: viene visualizzata la prima immagine.
   - `Once Forward` riproduce l'animazione una volta dalla prima all'ultima immagine.
   - `Once Backward` riproduce l'animazione una volta dall'ultima alla prima immagine.
-  - `Once Ping Pong` riproduce l'animazione una volta dalla prima all'ultima immagine e poi torna alla prima immagine.
+  - `Once Ping Pong` riproduce l'animazione una volta dalla prima all'ultima immagine e poi all'indietro fino alla seconda immagine.
   - `Loop Forward` riproduce l'animazione ripetutamente dalla prima all'ultima immagine.
   - `Loop Backward` riproduce l'animazione ripetutamente dall'ultima alla prima immagine.
   - `Loop Ping Pong` riproduce l'animazione ripetutamente dalla prima all'ultima immagine e poi torna alla prima immagine.

@@ -56,7 +56,7 @@ Orthographic Mode
   Yalnızca `Orthographic Projection` etkinken kullanılabilir.
 
 
-## Kamerayı kullanma
+## Kamerayı kullanma {#using-the-camera}
 
 Tüm kameralar bir kare sırasında otomatik olarak etkinleştirilir ve güncellenir; Lua'nın `camera` modülü tüm betik bağlamlarında kullanılabilir. Defold 1.8.1 sürümünden itibaren kamera bileşenine `acquire_camera_focus` iletisi göndererek kamerayı açıkça etkinleştirmek artık gerekli değildir. Odağı edinmek ve bırakmak için kullanılan eski iletiler hâlâ kullanılabilir; ancak etkinleştirmek veya devre dışı bırakmak istediğiniz diğer bileşenlerde olduğu gibi `enable` ve `disable` iletilerini kullanmanız önerilir:
 

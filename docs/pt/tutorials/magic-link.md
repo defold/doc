@@ -217,7 +217,7 @@ A lógica do tabuleiro cria objetos de jogo "`block`" por meio do componente de 
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale_xy(0.18)     -- render scaled down without changing Z
+    go.set_scale_xy(0.18)     -- renderiza em escala reduzida sem alterar Z
 
     if self.color ~= nil then
         sprite.play_flipbook("#sprite", self.color)
@@ -304,7 +304,7 @@ O script deste objeto de jogo é mínimo: ele só precisa escalar os gráficos p
 ```lua
 -- connector.script
 function init(self)
-    go.set_scale_xy(0.18)           -- Scale in 2D without changing Z.
+    go.set_scale_xy(0.18)           -- Redimensione em 2D sem alterar Z.
     go.set(".", "position.z", 1)    -- Coloca no topo.
 end
 ```
@@ -552,7 +552,7 @@ Observe que precisamos adicionar um componente *Factory* ao objeto de jogo do bl
 ```lua
 -- block.script
 function init(self)
-    go.set_scale_xy(0.18) -- render scaled down without changing Z
+    go.set_scale_xy(0.18) -- renderiza em escala reduzida sem alterar Z
 
     self.fx1 = nil
     self.fx2 = nil

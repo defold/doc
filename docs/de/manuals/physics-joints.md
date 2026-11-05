@@ -7,7 +7,7 @@ brief: Defold unterstützt Gelenke für die 2D-Physik. Dieses Handbuch erklärt,
 
 Ein Gelenk (joint) verbindet zwei Kollisionsobjekte (collision objects) durch eine Zwangsbedingung (constraint). Defold unterstützt Gelenke sowohl in der 2D- als auch in der 3D-Physik über unterschiedliche APIs.
 
-Dieses Handbuch beschreibt die 2D-Gelenke, die das Modul `physics` bereitstellt. Seit Defold 1.13.2 können 3D-Projekte über [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) Zwangsbedingungen erstellen und steuern, darunter Scharniere, Schieber und Federn. Verwende diese API mit starren Körpern (rigid bodies), die du über [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) erhältst.
+Dieses Handbuch beschreibt die 2D-Gelenke des Moduls `physics`. 3D-Projekte können über [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) Zwangsbedingungen erstellen und steuern, einschließlich Scharnieren, Schiebern und Federn. Verwende diese API mit starren Körpern, die du über [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) erhältst.
 
 Die 2D-API `physics` unterstützt folgende Gelenktypen:
 

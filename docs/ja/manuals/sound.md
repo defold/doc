@@ -50,13 +50,43 @@ Defold のサウンド実装はシンプルでありながら強力です。理�
 サウンドコンポーネントを正しく設定したら、[`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) を呼び出してサウンドを再生できます。
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+各再生は、別々の*ボイス（voice）*です。`sound.play()` は数値の再生識別子（`play_id`）を返します。その ID を保存して、[個々のボイスを制御](#controlling-individual-voices)します。
 
 ::: sidenote
 サウンドコンポーネントが所属していたゲームオブジェクトを削除しても、サウンドの再生は続きます。[`sound.stop()`](/ref/sound/#sound.stop:url) を呼び出すと、サウンドを停止できます（以下を参照）。
 :::
 コンポーネントにメッセージを送信するたびに、そのサウンドの別のインスタンスが再生されます。使用可能なサウンドバッファーがいっぱいになると、エンジンはコンソールにエラーを出力します。何らかのゲーティング（gating）とサウンドのグループ化の仕組みを実装することをお勧めします。
+
+### 個々のボイスの制御 {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) と [`sound.set_pan()`](/ref/sound/#sound.set_pan) は、任意の第3引数として `play_id` を受け付けます。`sound.play()` が返した ID と、同じサウンドコンポーネントの URL を使います。
+
+```lua
+function init(self)
+    -- Save the ID of a voice that will start in one second.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Start another voice on the same component.
+    sound.play("go#sound")
+
+    -- Change only the delayed voice.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+これらの個別指定の呼び出しは、ほかのボイスと、コンポーネントのゲインとパンのデフォルト値を変更しません。遅延中や一時停止中のボイスにも作用し、開始または再開時に新しい値が適用されます。不明な ID や、再生が終了した ID は効果を持ちません。
+
+すべてのボイスと、今後の再生に使うコンポーネントのデフォルト値を更新するには、`play_id` を省略します。
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+`{ play_id = nil }` を渡しても ID の省略になります。再生終了時に保存した ID を消去する場合は、個別更新に使う前に `nil` でないことを確認してください。
 
 ## サウンドの停止 {#stopping-the-sound}
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 サウンドシステムには、4段階のゲインがあります。
 
 - サウンドコンポーネントに設定されたゲイン。
-- `sound.play()` の呼び出しによってサウンドの再生を開始するときに設定されたゲイン、または `sound.set_gain()` の呼び出しによってボイスのゲインを変更するときに設定されたゲイン。
+- `sound.play()` で再生を開始するとき、または `sound.set_gain()` で[1つまたはすべてのボイス](#controlling-individual-voices)のゲインを変更するときに設定するゲイン。
 - [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) 関数の呼び出しによってグループに設定されたゲイン。
 - `master` グループに設定されたゲイン。これは `sound.set_group_gain(hash("master"), gain)` で変更できます。
 

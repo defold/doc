@@ -3,7 +3,7 @@ title: HTML5 platformu için Defold ile geliştirme
 brief: Bu kılavuz, HTML5 oyunu oluşturma sürecini, bilinen sorunları ve kısıtlamaları açıklar.
 ---
 
-# HTML5 için geliştirme
+# HTML5 için geliştirme {#html5-development}
 
 Defold, diğer platformlarda olduğu gibi HTML5 platformu için de standart paketleme (bundling) menüsü üzerinden oyun derlemeyi destekler. Ayrıca ortaya çıkan oyun, basit bir şablon sistemi aracılığıyla biçimlendirilebilen standart bir HTML sayfasına gömülür.
 
@@ -18,7 +18,7 @@ Defold'un HTML5 desteği Emscripten ile sağlanır (bkz. http://en.wikipedia.org
 1. *heap_size* ayarını tercih ettiğiniz değere ayarlayın. Değer megabayt cinsinden belirtilmelidir.
 2. HTML5 dağıtım paketinizi oluşturun (aşağıya bakın)
 
-## HTML5 derlemesini test etme
+## HTML5 derlemesini test etme {#testing-html5-build}
 
 HTML5 derlemesini test etmek için bir HTTP sunucusu gerekir. <kbd>Project ▸ Build HTML5</kbd> seçeneğini seçerseniz Defold sizin için bir sunucu oluşturur.
 
@@ -79,9 +79,42 @@ Defold HTML5 dağıtım paketleri, WebAssembly destekleyen modern bir tarayıcı
 
 <kbd>Create bundle</kbd> düğmesine tıkladığınızda uygulamanın oluşturulacağı klasörü seçmeniz istenir. Dışa aktarma işlemi tamamlandıktan sonra uygulamayı çalıştırmak için gereken tüm dosyaları bu klasörde bulabilirsiniz.
 
-## WebGL bağlam sürümü
+## WebGL bağlam sürümü {#webgl-context-version}
 
 İstenen grafik bağlamını [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint) aracılığıyla seçin. Varsayılan değer WebGL 2'dir; her iki sürümü de destekleyen tarayıcılarda WebGL 1 bağlamını test etmek veya hedeflemek için WebGL 1'i isteyin.
+
+Defold 1.14.1'den itibaren WebGL 1 gölgelendiricileri varsayılan olarak dışarıda bırakılır. İster doğrudan WebGL 1 isteyin ister WebGL 2'den geri dönüşe izin verin, bunları dahil etmek için [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) ayarını devre dışı bırakın. WebGL 1'i açıkça istemek için *game.project* dosyasında iki seçeneği de ayarlayın:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Piksel oranı sınırları {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` ve `html5.max_pixel_ratio`, CSS pikseli başına kaç tuval işleme pikseli kullanılacağını kontrol eder. Tuvalin CSS boyutu, oyunun sayfada ne kadar büyük görüneceğini; işleme çözünürlüğü ise motorun kaç piksel çizeceğini belirler.
+
+Bu sınırları kullanmak için *game.project* dosyasının *Display* bölümünde *High Dpi* seçeneğini etkinleştirin. Ardından tarayıcının cihaz piksel oranı etkin sınırlara göre kısıtlanır. Her iki sınırın varsayılanı `0` değeridir; bu, ilgili sınırı devre dışı bırakır. Değerler sonlu ve negatif olmayan sayılar olmalıdır; ikisi de pozitifse alt sınır üst sınırı aşmamalıdır.
+
+Örneğin yüksek yoğunluklu ekranlarda işleme çözünürlüğünü sınırlamak için oranı `1.5` ile sınırlayın:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+Cihaz piksel oranını `3` olarak bildiren bir tarayıcıda, 800 × 600 CSS pikseli boyutunda gösterilen bir tuval bu yapılandırmayla 1200 × 900 pikselde işlenir. Görüntülenen boyutu aynı kalır. Oranı `1` olarak bildiren bir tarayıcıda aynı tuval yine 800 × 600 pikselde işlenir; çünkü üst sınır oranı yükseltmez.
+
+`1` altındaki kesirli oranlar da desteklenir: örneğin `0.75` üst sınırı, CSS görüntüleme boyutundan daha az piksel işler. Tarayıcının cihaz piksel oranından yüksek bir alt sınır, süper örnekleme için işleme çözünürlüğünü artırır. Sınırlar, CSS yerleşimlerini koruyarak dört *Scale Mode* seçeneğinin tümüne uygulanır.
+
+*High Dpi* devre dışıysa sınırlardan bağımsız olarak oran `1` kalır. HTML5'te [`window.get_display_scale()`](/ref/window/#window.get_display_scale), High DPI ayarı ve sınırlar uygulandıktan sonraki etkin işleme oranını döndürür.
 
 ## İndirme doğrulaması {#download-verification}
 
@@ -101,14 +134,14 @@ verify_downloaded_file_size = 0
 
 **Verify Downloaded File Size** seçeneğinin devre dışı bırakılması, dağıtım paketine dahil edilen tüm SHA-1 doğrulamalarını etkin bırakır. [HTML5 proje ayarlarına](/manuals/project-settings/#verify-downloaded-file-size) bakın.
 
-## Bilinen sorunlar ve kısıtlamalar
+## Bilinen sorunlar ve kısıtlamalar {#known-issues-and-limitations}
 
 * Çalışma sırasında yeniden yükleme (Hot Reload) - Çalışma sırasında yeniden yükleme HTML5 derlemelerinde çalışmaz. Defold uygulamalarının düzenleyiciden güncellemeleri alabilmek için kendi küçük web sunucularını çalıştırmaları gerekir; bu, bir HTML5 derlemesinde mümkün değildir.
 * Chrome
   * Yavaş hata ayıklama derlemeleri - HTML5 hata ayıklama derlemelerinde hataları saptamak için tüm WebGL grafik çağrılarını doğrularız. Ne yazık ki Chrome'da test yaparken bu işlem çok yavaştır. *game.project* dosyasındaki *Engine Arguments* alanını `--verify-graphics-calls=false` olarak ayarlayarak bunu devre dışı bırakabilirsiniz.
 * Oyun kumandası (gamepad) desteği - HTML5'te dikkate almanız gereken özel durumlar ve uygulamanız gerekebilecek adımlar için [oyun kumandası belgelerine bakın](/manuals/input-gamepads/#gamepads-in-html5).
 
-## HTML5 dağıtım paketini özelleştirme
+## HTML5 dağıtım paketini özelleştirme {#customizing-html5-bundle}
 
 Oyununuzun HTML5 sürümünü oluştururken Defold varsayılan bir web sayfası sağlar. Bu sayfa, oyununuzun nasıl sunulacağını belirleyen stil ve betik kaynaklarına başvurur.
 
@@ -130,10 +163,10 @@ Tuvale (canvas) kenarlık veya iç boşluk uygulanmamalıdır. Uygularsanız far
 Defold, `index.html` için koyu ve açık tema sağlar. Varsayılan olarak açık tema seçilidir ancak `Custom CSS` dosyasını değiştirerek temayı değiştirebilirsiniz. Ayrıca `Scale Mode` alanında seçebileceğiniz dört ön tanımlı ölçek modu vardır.
 
 ::: important
-*game.project* dosyasında (`Display` bölümü) `High Dpi` seçeneğini açarsanız tüm ölçek modlarının hesaplamaları geçerli ekran DPI değerini de içerir
+*game.project* dosyasının *Display* bölümünde *High Dpi* etkin olduğunda tüm ölçek modları, tuvalin işleme arabelleğini boyutlandırmak için [piksel oranı sınırları](#pixel-ratio-limits) dahil etkin piksel oranını kullanır.
 :::
 
-### Downscale Fit ve Fit
+### Downscale Fit ve Fit {#downscale-fit-and-fit}
 
 `Fit` modunda tuvalin boyutu, oyun tuvalinin tamamını özgün oranlarıyla ekranda gösterecek şekilde değiştirilir. `Downscale Fit` modunun tek farkı, boyutu yalnızca web sayfasının iç boyutu oyunun özgün tuvalinden küçük olduğunda değiştirmesidir; web sayfası oyunun özgün tuvalinden büyük olduğunda tuvali büyütmez.
 
@@ -146,11 +179,11 @@ Defold, `index.html` için koyu ve açık tema sağlar. Varsayılan olarak açı
 ![HTML5 bölümü](images/html5/html5_stretch.png)
 
 ### No Scale
-`No Scale` modunda tuvalin boyutu, *game.project* dosyasının `[display]` bölümünde önceden tanımladığınız boyutla tamamen aynıdır.
+`No Scale` modunda tuvalin CSS genişliği ve yüksekliği, *game.project* dosyasının *Display* bölümündeki *Width* ve *Height* değerleriyle eşleşir. İşleme çözünürlüğü yine etkin piksel oranını kullanır.
 
 ![HTML5 bölümü](images/html5/html5_no_scale.png)
 
-## Şablon belirteçleri
+## Şablon belirteçleri {#tokens}
 
 `index.html` dosyasını oluşturmak için [Mustache şablon dilini](https://mustache.github.io/mustache.5.html) kullanırız. Projeyi derlerken veya paketlerken HTML ve CSS dosyaları, belirli belirteçleri (token) proje ayarlarınıza bağlı değerlerle değiştirebilen bir derleyiciden geçirilir. Bu belirteçler, karakter dizilerine kaçış uygulanıp uygulanmayacağına bağlı olarak her zaman çift veya üçlü süslü parantez içine alınır (`{{TOKEN}}` veya `{{{TOKEN}}}`). Proje ayarlarınızı sık sık değiştiriyorsanız veya içeriği başka projelerde yeniden kullanmayı planlıyorsanız bu özellik yararlı olabilir.
 
@@ -197,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : `html5.archive_location_suffix` temel alınarak çözümlenen ve arşiv URL'lerine eklenen sonek.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: Arşiv öneki, `//cdn.example.com/archive` gibi protokole göreli bir URL dahil olmak üzere bir HTTP veya HTTPS kökeni belirtiyorsa `true` olur. Göreli arşiv önekleri için `false` olur. Defold 1.13.2'den itibaren kullanılabilir.
+: Arşiv öneki, `//cdn.example.com/archive` gibi protokole göreli bir URL dahil olmak üzere bir HTTP veya HTTPS kökeni belirtiyorsa `true` olur. Göreli arşiv önekleri için `false` olur.
 
 DEFOLD_ARCHIVE_ORIGIN
-: Şema, ana makine ve isteğe bağlı bağlantı noktası dahil arşiv kökeni; köken belirtilmemişse boş bir dize. Protokole göreli bir önek, protokole göreli bir köken üretir. Ön bağlantı ipucu için kullanılır ve Defold 1.13.2'den itibaren kullanılabilir.
+: Şema, ana makine ve isteğe bağlı bağlantı noktası dahil arşiv kökeni; köken belirtilmemişse boş bir dize. Protokole göreli bir önek, protokole göreli bir köken üretir. Ön bağlantı ipucu için kullanılır.
 
 DEFOLD_HAS_WASM_ENGINE
 : Dağıtım paketi, `wasm-web` veya `wasm_pthread-web` olmak üzere bir WebAssembly motoru içeriyorsa `true` olur.
@@ -245,7 +278,7 @@ build-timestamp
 : Geçerli derlemenin saniye cinsinden zaman damgası.
 
 
-## Ek parametreler
+## Ek parametreler {#extra-parameters}
 
 Özel bir şablon oluşturursanız genel `CUSTOM_PARAMETERS` nesnesinde değer atamaları yaparak motor yükleyicisinin parametrelerini değiştirebilirsiniz. Yerleşik şablon, bu özelleştirmeler için bilerek boş bırakılmış bir `<script id="engine-setup">` bloğu sağlar.
 ::: important
@@ -299,16 +332,16 @@ build-timestamp
     Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
-## HTML5'te dosya işlemleri
+## HTML5'te dosya işlemleri {#file-operations-in-html5}
 
 HTML5 derlemeleri `sys.save()`, `sys.load()` ve `io.open()` gibi dosya işlemlerini destekler, ancak bu işlemlerin içeride nasıl ele alındığı diğer platformlardan farklıdır. JavaScript bir tarayıcıda çalıştırıldığında gerçek anlamda bir dosya sistemi kavramı yoktur ve güvenlik nedeniyle yerel dosya erişimi engellenir. Bunun yerine Emscripten (ve dolayısıyla Defold), tarayıcıda sanal bir dosya sistemi oluşturmak için verileri kalıcı olarak saklamakta kullanılan tarayıcı içi bir veritabanı olan [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) kullanır. Diğer platformlardaki dosya sistemi erişiminden önemli farkı, bir dosyaya yazılması ile değişikliğin veritabanına gerçekten kaydedilmesi arasında küçük bir gecikme olabilmesidir. Tarayıcının geliştirici konsolu genellikle IndexedDB içeriğini incelemenize olanak tanır.
 
 
-## HTML5 oyununa bağımsız değişken aktarma
+## HTML5 oyununa bağımsız değişken aktarma {#passing-arguments-to-an-html5-game}
 
 Bazen bir oyuna başlatılmadan önce veya başlatılırken ek bağımsız değişkenler sağlamak gerekir. Bu, örneğin bir kullanıcı kimliği, oturum belirteci veya oyun başladığında hangi seviyenin yükleneceği olabilir. Bunu gerçekleştirmenin farklı yolları vardır; bunlardan bazıları burada açıklanmıştır.
 
-### Motor bağımsız değişkenleri
+### Motor bağımsız değişkenleri {#engine-arguments}
 
 Motor yapılandırılıp yüklenirken ek motor bağımsız değişkenleri belirtmek mümkündür. Bu ek motor bağımsız değişkenleri, çalışma sırasında `sys.get_config_string()` kullanılarak alınabilir. Bağımsız değişkenleri `index.html` dosyasının `engine-setup` bloğunda doğrudan `CUSTOM_PARAMETERS.engine_arguments` alanına atayın:
 
@@ -336,7 +369,7 @@ print(foo2) -- bar2
 ```
 
 
-### URL'deki sorgu bağımsız değişkenleri
+### URL'deki sorgu bağımsız değişkenleri {#query-arguments-in-the-url}
 
 Bağımsız değişkenleri sayfa URL'sindeki sorgu parametrelerinin bir parçası olarak aktarabilir ve bunları çalışma sırasında okuyabilirsiniz:
 
@@ -375,12 +408,12 @@ function init(self)
 end
 ```
 
-## Optimizasyonlar
+## Optimizasyonlar {#optimizations}
 HTML5 oyunlarında, düşük donanımlı cihazlarda ve yavaş internet bağlantılarında oyunların hızlı yüklenmesini ve iyi çalışmasını sağlamak için ilk indirme boyutu, başlatma süresi ve bellek kullanımı konusunda genellikle sıkı gereksinimler vardır. Bir HTML5 oyununu optimize etmek için şu alanlara odaklanmanız önerilir:
 
 * [Bellek kullanımı](/manuals/optimization-memory)
 * [Motor boyutu](/manuals/optimization-size)
 * [Oyun boyutu](/manuals/optimization-size)
 
-## Sık sorulan sorular
+## Sık sorulan sorular {#faq}
 :[HTML5 FAQ](../shared/html5-faq.md)

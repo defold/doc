@@ -44,12 +44,12 @@ brief: 本手册描述如何设置和运行本地构建服务器
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # 设置必要的Extender和清单合并工具版本
-    # 版本可以在Github发布页面找到 https://github.com/defold/extender/releases
-    # 或者您可以拉取最新版本（见下面的代码示例）
+    # set necessary version of Extender and Manifest merge tool
+    # versions can be found at Github release page https://github.com/defold/extender/releases
+    # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
     MANIFESTMERGETOOL_VERSION=1.3.0
-    echo "将预构建的jar文件下载到 ${APPLICATION_DIR}"
+    echo "Download prebuild jars to ${APPLICATION_DIR}"
     rm -rf ${TMP_DIR}
     mkdir -p ${TMP_DIR}
     rm -rf ${APPLICATION_DIR}
@@ -88,7 +88,7 @@ docker compose -p extender -f server/docker/docker-compose.yml --profile <profil
 * **metrics** - 运行VictoriaMetrics + Grafana作为指标后端和可视化工具
 有关`docker compose`参数的更多信息，请参见 https://docs.docker.com/reference/cli/docker/compose/。
 
-当docker compose启动后，您可以在编辑器的首选项中使用**http://localhost:9000**作为`构建服务器地址`，或者如果您使用Bob构建项目，则作为`--build-server`值。
+当docker compose启动后，您可以在编辑器的首选项中使用**http://localhost:9000**作为`Build server address`，或者如果您使用Bob构建项目，则作为`--build-server`值。
 
 可以将多个配置文件传递给命令行。例如：
 ```sh

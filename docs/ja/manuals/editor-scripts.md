@@ -50,7 +50,7 @@ return M
 - `editor.editor_sha1` — Defold エディターの SHA1 を表す文字列です。
 - `editor.get(node_id, property)` — エディター内のノード（node）の値を取得します。エディターのノードは、スクリプトやコレクション（collection）のファイル、コレクション内のゲームオブジェクト（game object）、リソース（resource）として読み込まれた JSON ファイルなど、さまざまな実体を表します。`node_id` は、エディターからエディタースクリプトに渡されるユーザーデータです。ノード ID の代わりに、たとえば `"/main/game.script"` のようなリソースパスを渡すこともできます。`property` は文字列です。現在、次のプロパティ（property）がサポートされています。
   - `"path"` — ファイルやディレクトリとして存在する実体である*リソース*について、プロジェクトフォルダーからのファイルパスを表します。戻り値の例: `"/main/game.script"`
-  - `"children"` — ディレクトリリソースの子リソースのパスのリストです。
+  - `"children"` — ディレクトリリソース内の子リソースのパスのリストです。ファイル内のリソースもたどるには、[プロジェクトリソースの走査](#traversing-project-resources)を参照してください。
   - `"parent"` — 親を持つ Outline ノードの親エディターノードです。
   - `"text"` — スクリプトファイルや JSON など、テキストとして編集できるリソースのテキスト内容です。戻り値の例: `"function init(self)\nend"`。ファイルは保存せずに編集でき、その編集内容は `"text"` プロパティにアクセスした場合にのみ取得できるため、`io.open()` でファイルを読み込むこととは異なる点に注意してください。
   - アトラス（atlas）: `images`（アトラス内の画像のエディターノードのリスト）と `animations`（アニメーションノードのリスト）です。
@@ -72,6 +72,7 @@ return M
 - `editor.properties(node_id)` — ノードから読み取れるプロパティ名を、コンテキストに応じたソート済みのリストで返します。例: `pprint(editor.properties("/game.project"))`。リストにあるプロパティについて、変更、リセット、内容の追加、並べ替えもできるかを確認するには、`editor.can_*` 関数を使います。
 - `editor.can_get(node_id, property)` — `editor.get()` がエラーを発生させずに、このプロパティを取得できるかを確認します。
 - `editor.can_set(node_id, property)` — このプロパティに対する `editor.tx.set()` トランザクション（transaction）のステップがエラーを発生させないかを確認します。
+- `editor.resource_children(path)` — glTF/GLB ファイルに含まれるリソースも含め、フォルダーまたはファイルの直下にあるリソースパスを列挙します。[プロジェクトリソースの走査](#traversing-project-resources)を参照してください。
 - `editor.create_directory(resource_path)` — ディレクトリが存在しない場合に作成し、存在しない親ディレクトリもすべて作成します。
 - `editor.create_resources(resources)` — テンプレートから、または独自の内容を指定して、1つ以上のリソースを作成します。
 - `editor.delete_directory(resource_path)` — ディレクトリが存在する場合に削除し、その中の子ディレクトリとファイルもすべて削除します。
@@ -147,6 +148,42 @@ return M
 - `id` - コマンドを識別する文字列です。たとえば、最後に使用したバンドルコマンドを `prefs` に保存するために使います。
 - `active` - コマンドがアクティブかどうかを確認するために実行されるコールバックで、真偽値を返すことが想定されています。`locations` に `"Assets"`、`"Scene"`、`"Outline"` が含まれる場合、コンテキストメニューを表示するときに `active` が呼び出されます。場所に `"Edit"` または `"View"` が含まれる場合、キーボード入力やマウスクリックなど、ユーザーが操作するたびに active が呼び出されるため、`active` は比較的短時間で処理を終えるようにしてください。
 - `run` - ユーザーがメニュー項目を選択したときに実行されるコールバックです。
+
+### プロジェクトリソースの走査 {#traversing-project-resources}
+
+`editor.resource_children(path)` は、フォルダーまたはファイルの直下にあるリソースパスの配列を返します。入力パスも戻り値のパスも、プロジェクトルートを基準とする `/` で始まります。プロジェクトルートから開始するには `/` を使います。*.gltf* または *.glb* ファイルは、*Assets* ペインと同様に、メッシュ、マテリアル、埋め込み画像を子リソースとして公開できます。
+
+スクリプトが `editor.get(path, "children")` でディレクトリをたどっている場合は、走査処理を `editor.resource_children(path)` に切り替え、返されたすべてのパスをたどります。ファイルにもリソースを含められるため、`editor.resource_attributes(path).is_directory` が `true` のパスに再帰処理を限定すると、その内容はスキップされます。
+
+子リソースがないフォルダーやファイルに対しては、空のテーブル（`{}`）を返します。存在しないパスではエラーになるため、パスが存在しない可能性がある場合は、子を問い合わせる前に `editor.resource_attributes(path).exists` を確認してください。子リソースは *Assets* の階層に従います。コレクション内のゲームオブジェクトには、`editor.get(collection_path, "children")` でアクセスします。
+
+たとえば、以下を `list_resources.editor_script` として保存し、**Project → Reload Editor Scripts** を選択します。*Assets* でフォルダーまたは *.gltf*、*.glb* ファイルを右クリックし、**List Resource Contents** を選択すると、そのリソースツリーをコンソールに出力します。
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### コマンドを使ってメモリ内のエディターの状態を変更する {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -243,6 +280,7 @@ editor.transact({
 #### タイルソースの編集 {#editing-tilesources}
 
 タイルソース（tile source）には、アウトラインプロパティに加えて、次のプロパティが定義されています。
+
 - `animations` - タイルソースのアニメーションノードのリストです。
 - `collision_groups` - タイルソースのコリジョングループノードのリストです。
 - `tile_collision_groups` - タイルソース内のタイルに対するコリジョングループの割り当てを表すテーブルです。
@@ -251,8 +289,8 @@ editor.transact({
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +300,25 @@ editor.transact({
     })
 })
 ```
+
+アニメーションノードには、再生順の1始まりのタイル番号を Lua 配列に格納した `frames` プロパティがあります。エディターの *Frames* テキストフィールドとは異なり、エディタースクリプトは `"2-6"` のような文字列ではなく、整数の配列を受け取ります。範囲は個々のタイル番号に展開して配列に含めます。タイルは任意の順序で指定でき、繰り返すこともできます。
+
+上の例の `walk` アニメーションを読み取り、変更するには、次のようにします。
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+返された配列を変更しただけでは、アニメーションは更新されません。`editor.tx.set()` に渡し、トランザクションを適用する必要があります。タイル番号と再生設定については、[タイルソースマニュアル](/manuals/tilesource/#tile-source-flip-book-animations)を参照してください。
 
 #### タイルマップの編集 {#editing-tilemaps}
 
@@ -318,7 +375,7 @@ editor.transact({
 - `x` - ポイントの x 座標です。0で始まり、1で終わるようにします。
 - `y` - ポイントの値です。
 - `tx`（0から1）と `ty`（-1から1）- ポイントの接線です。たとえば角度が80度の場合、`tx` は `math.cos(math.rad(80))`、`ty` は `math.sin(math.rad(80))` にします。
-カーブスプレッドには、数値の `spread` プロパティもあります。
+カーブのスプレッドには、数値の `spread` プロパティもあります。
 
 たとえば、既存のエミッターに対し、パーティクルの寿命にわたるアルファ値のカーブを次のように設定できます。
 ```lua
@@ -577,9 +634,7 @@ return M
 
 ## 言語サーバー {#language-servers}
 
-エディターは、[Language Server Protocol](https://microsoft.github.io/language-server-protocol/) の機能の一部をサポートしています。対応するのは、診断（lint）、補完、ホバー情報、Structure ペインのドキュメントシンボル、定義への移動、参照の検索、シンボルの名前変更、ドキュメントや範囲の整形です。シンボルにマウスポインターを合わせると、言語サーバー（language server）からの情報が表示されます。シンボルにカーソルを置き、<kbd>F2</kbd> で名前を変更し、<kbd>F12</kbd> で定義に移動し、<kbd>Shift+F12</kbd> で参照を検索します。これらの操作は <kbd>Edit</kbd> メニューからも実行できます。
-
-整形コマンドと保存時の整形の環境設定については、[コードの整形](/manuals/writing-code/#formatting-code)を参照してください。
+エディターは、[Language Server Protocol](https://microsoft.github.io/language-server-protocol/) の機能の一部をサポートしています。対応するのは、診断（lint）、補完、ホバー情報、Structure ペインのドキュメントシンボル、定義への移動、参照の検索、シンボルの名前変更、ドキュメントや範囲の整形です。シンボルにマウスポインターを合わせると、言語サーバー（language server）からの情報が表示されます。シンボルにカーソルを置き、<kbd>F2</kbd> で名前を変更し、<kbd>F12</kbd> で定義に移動し、<kbd>Shift+F12</kbd> で参照を検索します。これらの操作は <kbd>Edit</kbd> メニューからも実行できます。整形コマンドと保存時の整形の環境設定については、[コードの整形](/manuals/writing-code/#formatting-code)を参照してください。
 
 同梱の Lua 言語サーバーには、ランタイム API とエディタースクリプト API 用の Defold の型アノテーションが含まれます。`.editor_script` ファイルでは、補完と診断が `editor.*` 関数とその引数および戻り値の型を認識します。[コード補完](/manuals/writing-code/#code-completion)を参照してください。
 
@@ -720,9 +775,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## 実行モード {#execution-modes}
 
-エディタースクリプトのランタイムには、 **即時（immediate）** と **長時間実行（long-running）** という2つの実行モードがあります。エディタースクリプトでは、ほとんどの場合、その違いを意識する必要はありません。
+エディタースクリプトのランタイムには、通常はスクリプト側で意識する必要がない2つの実行モードがあります。**即時（immediate）**モードと**長時間実行（long-running）**モードです。
 
-**即時**モードは、エディターがスクリプトからの応答をできるだけ早く受け取る必要がある場合に使われます。たとえば、メニューコマンドの `active` コールバックは即時モードで実行されます。これは、ユーザーのエディター操作に応じてエディターの UI スレッド上で確認処理が行われ、同じフレーム内に UI を更新する必要があるためです。
+**即時**モードは、エディターがスクリプトからできるだけ速く応答を受け取る必要がある場合に使います。たとえば、メニューコマンドの `active` コールバックは即時モードで実行します。これらのチェックは、ユーザー操作に応じてエディターの UI スレッド上で行い、同じフレーム内で UI を更新する必要があるためです。
 
 **長時間実行**モードは、エディターがスクリプトから瞬時の応答を必要としない場合に使われます。たとえば、メニューコマンドの `run` コールバックは**長時間実行**モードで実行されるため、スクリプトは処理の完了までにより多くの時間を使えます。
 

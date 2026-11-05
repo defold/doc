@@ -14,7 +14,7 @@ A: 确保您的驱动版本高于或等于 27.20.100.8280。请查看 [Intel 驱
 
 如果编辑器崩溃，日志提示 `Caused by: java.awt.AWTError: Assistive Technology not found: com.sun.java.accessibility.AccessBridge`，请按照以下步骤操作：
 
-* 导航到 `C:\Users\<用户名>`
+* 导航到 `C:\Users\<username>`
 * 使用标准文本编辑器（记事本即可）打开名为 `.accessibility.properties` 的文件
 * 在配置中找到以下几行：
 

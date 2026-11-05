@@ -3,7 +3,7 @@ title: Defold'da ses
 brief: Bu kılavuz, sesleri Defold projenize nasıl ekleyeceğinizi, oynatacağınızı ve kontrol edeceğinizi açıklar.
 ---
 
-# Ses
+# Ses {#sound}
 
 Defold'un ses sistemi basit ama güçlüdür. Bilmeniz gereken yalnızca iki kavram vardır:
 
@@ -13,7 +13,7 @@ Ses bileşenleri
 Ses grupları
 : Her ses bileşeni bir _gruba_ (sound group) ait olacak şekilde atanabilir. Gruplar, birbiriyle ilişkili sesleri anlaşılır bir şekilde yönetmenin kolay bir yolunu sunar. Örneğin, bir `sound_fx` grubu oluşturulabilir ve bu gruba ait herhangi bir ses, basit bir işlev çağrısıyla kısılabilir.
 
-## Ses bileşeni oluşturma
+## Ses bileşeni oluşturma {#creating-a-sound-component}
 
 Ses bileşenlerinin örnekleri yalnızca bir oyun nesnesi (game object) içinde yerinde oluşturulabilir. Yeni bir oyun nesnesi oluşturun, üzerine sağ tıklayıp <kbd>Add Component ▸ Sound</kbd> seçeneğini seçin ve *OK* düğmesine basın.
 
@@ -45,20 +45,50 @@ Oluşturulan bileşenin ayarlanması gereken bir dizi özelliği vardır:
 : Sesin hız değerini doğrudan bileşen üzerinde ayarlayabilirsiniz. 1.0 değeri normal hız, 0.5 yarı hız, 2.0 ise iki kat hızdır.
 
 
-## Sesi oynatma
+## Sesi oynatma {#playing-the-sound}
 
 Bir ses bileşenini doğru şekilde ayarladığınızda, [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) işlevini çağırarak sesini oynatmasını sağlayabilirsiniz:
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Her oynatma ayrı bir *ses örneğidir* (voice). `sound.play()`, oynatmanın sayısal tanımlayıcısını (`play_id`) döndürür; [o ses örneğini ayrı olarak kontrol etmek](#controlling-individual-voices) için bu kimliği kaydedin.
 
 ::: sidenote
 Ses bileşeninin ait olduğu oyun nesnesi silinse bile ses oynatılmaya devam eder. Sesi durdurmak için [`sound.stop()`](/ref/sound/#sound.stop:url) işlevini çağırabilirsiniz (aşağıya bakın).
 :::
 Bileşene gönderilen her ileti, kullanılabilir ses arabelleği dolana ve motor konsola hatalar yazdırana kadar sesin başka bir örneğini oynatmasına neden olur. Ses oynatma aralığını sınırlayan (gating) ve sesleri gruplayan bir mekanizma uygulamanız önerilir.
 
-## Sesi durdurma
+### Ses örneklerini ayrı ayrı kontrol etme {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) ve [`sound.set_pan()`](/ref/sound/#sound.set_pan), `play_id` içeren isteğe bağlı üçüncü bir bağımsız değişken kabul eder. `sound.play()` tarafından döndürülen kimliği ve aynı ses bileşeninin URL adresini kullanın:
+
+```lua
+function init(self)
+    -- Save the ID of a voice that will start in one second.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Start another voice on the same component.
+    sound.play("go#sound")
+
+    -- Change only the delayed voice.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Bu hedefli çağrılar, diğer ses örneklerini ve bileşenin varsayılan kazanç ve pan değerlerini değiştirmez. Geciktirilmiş ve duraklatılmış ses örnekleri için de çalışırlar; yeni değerler ses örneği başladığında veya devam ettiğinde uygulanır. Bilinmeyen bir kimliğin veya oynatması sona ermiş bir kimliğin etkisi olmaz.
+
+Tüm ses örneklerini ve sonraki oynatmalarda kullanılacak bileşen varsayılanlarını güncellemek için `play_id` vermeyin:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+`{ play_id = nil }` vermek de kimliği belirtmemekle aynı etkiyi yaratır. Oynatma bittiğinde kaydedilmiş kimliği temizliyorsanız hedefli bir güncellemede kullanmadan önce `nil` olmadığını kontrol edin.
+
+## Sesi durdurma {#stopping-the-sound}
 
 Bir sesin oynatılmasını durdurmak istiyorsanız [`sound.stop()`](/ref/sound/#sound.stop:url) işlevini çağırabilirsiniz:
 
@@ -66,20 +96,20 @@ Bir sesin oynatılmasını durdurmak istiyorsanız [`sound.stop()`](/ref/sound/#
 sound.stop("go#sound")
 ```
 
-## Kazanç
+## Kazanç {#gain}
 
 ![Kazanç](images/sound/sound_gain.png)
 
 Ses sisteminde 4 kazanç düzeyi vardır:
 
 - Ses bileşeninde ayarlanan kazanç.
-- Sesi `sound.play()` çağrısıyla başlatırken veya oynatılan ses örneğinin (voice) kazancını `sound.set_gain()` çağrısıyla değiştirirken ayarlanan kazanç.
+- Sesi `sound.play()` çağrısıyla başlatırken veya [bir ya da tüm ses örneklerinin](#controlling-individual-voices) kazancını `sound.set_gain()` çağrısıyla değiştirirken ayarlanan kazanç.
 - Grupta bir [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) işlev çağrısıyla ayarlanan kazanç.
 - `master` grubunda ayarlanan kazanç. Bu değer, `sound.set_group_gain(hash("master"), gain)` ile değiştirilebilir.
 
 [Sound proje ayarlarında](/manuals/project-settings/#sound) **Use Linear Gain** etkin olduğunda (varsayılan durum), çıkış kazancı bu dört kazancın çarpımının sonucudur. `1.0` kazancı, birim kazançtır (0 dB). Doğrusal kazanç devre dışı bırakıldığında Defold, sesleri karıştırırken doğrusal olmayan bir eğri uygular; bu nedenle aşağıdaki dört değerin doğrudan çarpımı ve desibele dönüştürülmesi, oluşan çıkış seviyesini açıklamaz.
 
-## Ses grupları
+## Ses grupları {#sound-groups}
 
 Ses grubu adı belirtilen her ses bileşeni, o ada sahip bir ses grubuna yerleştirilir. Bir grup belirtmezseniz ses, `master` grubuna atanır. Ses bileşeninin grubunu açıkça `master` olarak da ayarlayabilirsiniz; bunun etkisi aynıdır.
 
@@ -134,7 +164,7 @@ sound.set_group_gain("master", 1.995)
 
 Defold 1.10.2, ses mikserinde uzun süredir var olan yaklaşık 3 dB'lik zayıflamayı düzeltti. Eski bir projenin ses karışımı bu zayıflamayı telafi edecek şekilde ayarlanmışsa ve yükseltme sonrasında daha yüksek ses veriyorsa, genel **Sound ▸ Gain** ayarını veya etkilenen grup kazançlarını yeniden ayarlayın.
 
-## Ses oynatma aralığını sınırlama
+## Ses oynatma aralığını sınırlama {#gating-sounds}
 
 Oyununuz bir olay gerçekleştiğinde aynı sesi oynatıyorsa ve bu olay sık tetikleniyorsa, aynı sesi neredeyse aynı anda iki veya daha fazla kez oynatma riski vardır. Bu durumda sesler arasında _faz kayması_ (phase shift) oluşur ve bu da oldukça belirgin ses kusurlarına yol açabilir.
 
@@ -189,7 +219,7 @@ Geçidin `play_sound` iletilerini dinlemesi işe yaramaz; bu ad Defold motoru ta
 :::
 
 
-## Çalışma sırasında değiştirme
+## Çalışma sırasında değiştirme {#runtime-manipulation}
 Sesleri çalışma sırasında çeşitli özellikler aracılığıyla değiştirebilirsiniz (kullanım için [API belgelerine](/ref/sound/) bakın). Aşağıdaki özellikler `go.get()` ve `go.set()` kullanılarak değiştirilebilir:
 
 `gain`
@@ -211,10 +241,10 @@ resource.set_sound(path, boom)
 ```
 
 
-## Proje yapılandırması
+## Proje yapılandırması {#project-configuration}
 
 *game.project* dosyasında ses bileşenleriyle ilgili birkaç [proje ayarı](/manuals/project-settings#sound) bulunur.
 
-## Akış yoluyla ses oynatma
+## Akış yoluyla ses oynatma {#sound-streaming}
 
 [Akış yoluyla ses oynatma](/manuals/sound-streaming) desteği sağlamak da mümkündür

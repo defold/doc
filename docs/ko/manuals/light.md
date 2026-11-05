@@ -152,15 +152,15 @@ Defold는 모든 메터리얼에 조명을 자동으로 적용하지 않습니�
 
 struct Light
 {
-    vec4 position;        // xyz: 월드 위치, w: 사용하지 않음
-    vec4 color;           // rgb: 색상, a: 사용하지 않음
-    vec4 direction_range; // xyz: 정규화된 월드 방향, w: 범위
-    vec4 params;          // x: 타입, y: 강도, z: 내부 원뿔, w: 외부 원뿔
+    vec4 position;        // xyz: world position, w: unused
+    vec4 color;           // rgb: color, a: unused
+    vec4 direction_range; // xyz: normalized world direction, w: range
+    vec4 params;          // x: type, y: intensity, z: inner cone, w: outer cone
 };
 
 uniform LightBuffer
 {
-    // xyz: 누적된 환경광 색상, w: 활성화된 비환경광 라이트 수
+    // xyz: accumulated ambient color, w: active non-ambient light count
     vec4 light_info;
     Light lights[MAX_LIGHT_COUNT];
 };
@@ -192,16 +192,16 @@ vec3 apply_lights(vec3 normal)
         int type = int(lights[i].params.x);
         vec3 light_color = lights[i].color.rgb * lights[i].params.y;
 
-        if (type == 0) // 방향광
+        if (type == 0) // Directional
         {
             vec3 light_dir = normalize(-lights[i].direction_range.xyz);
             result += light_color * max(dot(normal, light_dir), 0.0);
         }
-        else if (type == 1) // 점광원
+        else if (type == 1) // Point
         {
             result += light_color;
         }
-        else if (type == 2) // 스포트라이트
+        else if (type == 2) // Spot
         {
             result += light_color;
         }

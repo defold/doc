@@ -3,7 +3,7 @@ title: Escribir extensiones nativas para Defold
 brief: Este manual explica cómo escribir una extensión nativa para el motor de videojuegos Defold y cómo compilarla mediante los servidores de build en la nube sin configuración.
 ---
 
-# Extensiones nativas
+# Extensiones nativas {#native-extensions}
 
 Si necesitas una interacción personalizada de bajo nivel con software o hardware externo donde Lua no sea suficiente, el SDK de Defold te permite escribir extensiones para el motor en C, C++, C#, Objective-C, Java o JavaScript, según la plataforma objetivo. Los casos de uso típicos para las extensiones nativas son:
 
@@ -15,7 +15,7 @@ Si necesitas una interacción personalizada de bajo nivel con software o hardwar
 La compatibilidad con C# es experimental y está pensada para extensiones nativas, no para componentes script de Defold. Usa .NET 9 NativeAOT para producir una biblioteca estática; agrega archivos fuente `.cs` a la carpeta `src` de una extensión y el servicio de build generará el archivo de proyecto. La compatibilidad con plataformas depende de las capacidades actuales de NativeAOT y del servicio de build. Consulta el [ejemplo oficial de lenguajes para extensiones nativas](https://github.com/defold/example-languages) para conocer el flujo de trabajo y la configuración probada actuales.
 :::
 
-## El servidor de build
+## El servidor de build {#the-build-server}
 
 Defold proporciona un punto de entrada sin configuración para extensiones nativas con una solución de build basada en la nube. Cualquier extensión nativa que se desarrolle y se agregue a un proyecto de juego, ya sea directamente o mediante un [proyecto de biblioteca](/manuals/libraries/), pasa a formar parte del contenido ordinario del proyecto. No hay necesidad de crear versiones especiales del motor y distribuirlas a los miembros del equipo; eso se gestiona automáticamente: cualquier miembro del equipo que cree y ejecute el proyecto obtendrá un ejecutable del motor específico del proyecto con todas las extensiones nativas incluidas.
 
@@ -23,7 +23,7 @@ Defold proporciona un punto de entrada sin configuración para extensiones nativ
 
 Defold proporciona el servidor de build en la nube de forma gratuita, sin restricciones de uso. El servidor está alojado en Europa, y la URL a la que se envía el código nativo se configura en la [ventana Editor Preferences](/manuals/editor-preferences/#extensions) o mediante la opción de línea de comando `--build-server` de [bob](/manuals/bob/#usage). Si quieres configurar tu propio servidor, [sigue estas instrucciones](/manuals/extender-local-setup).
 
-## Estructura del proyecto
+## Estructura del proyecto {#project-layout}
 
 Para crear una extensión nueva, crea una carpeta en la raíz del proyecto. Esta carpeta contendrá toda la configuración, el código fuente, las librerías y los recursos asociados con la extensión. El builder de extensiones reconoce la estructura de carpetas y recopila cualquier archivo fuente y librería.
 
@@ -66,7 +66,7 @@ Para crear una extensión nueva, crea una carpeta en la raíz del proyecto. Esta
 *res*
 : Esta carpeta opcional contiene cualquier recurso extra del que dependa la extensión. Los archivos de recursos deben colocarse en subcarpetas nombradas por `platform` o `architecture-platform`, igual que las subcarpetas de `lib`. También se permite una subcarpeta `common`, que contiene archivos de recursos comunes para todas las plataformas.
 
-### Archivos de manifest
+### Archivos de manifest {#manifest-files}
 
 La carpeta opcional *manifests* de una extensión contiene archivos adicionales usados en el proceso de build y bundling. Los archivos deben colocarse en subcarpetas nombradas por `platform`:
 
@@ -75,7 +75,10 @@ La carpeta opcional *manifests* de una extensión contiene archivos adicionales 
   * Las extensiones con código Java deben incluir un [archivo de reglas de conservación de R8](#r8-keep-rules-for-android) (`.keep`) para las clases que necesitan en runtime.
 * `ios` - Esta carpeta acepta un archivo stub de manifest para fusionarlo con la aplicación principal ([como se describe aquí](/manuals/extensions-manifest-merge-tool)).
   * La carpeta también puede contener un archivo `Podfile` con dependencias para ser [resueltas por Cocoapods](/manuals/extensions-cocoapods).
+  * La carpeta también puede contener un archivo `SwiftPackages.json` con dependencias que se [resuelven mediante Swift Package Manager](/manuals/extensions-spm).
 * `osx` - Esta carpeta acepta un archivo stub de manifest para fusionarlo con la aplicación principal ([como se describe aquí](/manuals/extensions-manifest-merge-tool)).
+  * La carpeta también puede contener un archivo `Podfile` con dependencias que se [resuelven mediante CocoaPods](/manuals/extensions-cocoapods).
+  * La carpeta también puede contener un archivo `SwiftPackages.json` con dependencias que se [resuelven mediante Swift Package Manager](/manuals/extensions-spm).
 * `web` - Esta carpeta acepta un archivo stub de manifest para fusionarlo con la aplicación principal ([como se describe aquí](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Si la extensión depende de anotaciones en runtime, incluye también:
 
 Estas reglas se combinan con el archivo de conservación seleccionado en el proyecto cuando [R8 está activado](/manuals/android/#enabling-r8).
 
-Con Defold 1.14.0 o posterior y un servidor Extender compatible, R8 también elimina recursos de Android no usados. Si la extensión busca recursos dinámicamente por nombre, agrega [reglas XML de conservación de recursos](/manuals/android/#keeping-android-resources) en `res/android/res/raw` dentro de la carpeta de la extensión.
+Con un servidor Extender compatible, R8 también reduce los recursos de Android. Si la extensión busca recursos dinámicamente por su nombre, agrega [reglas XML de conservación de recursos](/manuals/android/#keeping-android-resources) en `res/android/res/raw` dentro de la carpeta de la extensión.
 
 
 ## Recursos personalizados {#custom-resources}
@@ -125,19 +128,19 @@ end
 
 Consulta [acceso a archivos](/manuals/file-access/#custom-resources) para conocer la diferencia entre recursos personalizados y recursos del bundle.
 
-## Compartir una extensión
+## Compartir una extensión {#sharing-an-extension}
 
 Las extensiones se tratan igual que cualquier otro asset en tu proyecto y se pueden compartir de la misma manera. Si una carpeta de extensión nativa se agrega como carpeta de Library, puede compartirse y otros pueden usarla como dependencia del proyecto. Consulta el [manual de proyectos de biblioteca](/manuals/libraries/) para obtener más información.
 
 
-## Un ejemplo sencillo de extensión
+## Un ejemplo sencillo de extensión {#a-simple-example-extension}
 
 Vamos a crear una extensión muy sencilla. Primero, creamos una nueva carpeta raíz *`myextension`* y agregamos un archivo *`ext.manifest`* que contiene el nombre de la extensión "`MyExtension`". Ten en cuenta que el nombre es un símbolo C++ y debe coincidir con el primer argumento de `DM_DECLARE_EXTENSION` (ver más abajo).
 
 ![Archivo manifest](images/extensions/manifest.png)
 
 ```yaml
-# Símbolo C++ en tu extensión
+# C++ symbol in your extension
 name: "MyExtension"
 ```
 
@@ -149,23 +152,23 @@ El archivo fuente de la extensión contiene el siguiente código:
 
 ```cpp
 // myextension.cpp
-// Defines de la librería de la extensión
+// Extension lib defines
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// Incluye el SDK de Defold
+// include the Defold SDK
 #include <dmsdk/sdk.h>
 
 static int Reverse(lua_State* L)
 {
-    // El número de elementos esperados en la pila de Lua
-    // una vez que este struct salga del scope
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
     DM_LUA_STACK_CHECK(L, 1);
 
-    // Comprueba y obtiene el parámetro string desde la pila
+    // Check and get parameter string from stack
     char* str = (char*)luaL_checkstring(L, 1);
 
-    // Invierte el string
+    // Reverse the string
     int len = strlen(str);
     for(int i = 0; i < len / 2; i++) {
         const char a = str[i];
@@ -174,14 +177,14 @@ static int Reverse(lua_State* L)
         str[len - i - 1] = a;
     }
 
-    // Coloca el string invertido en la pila
+    // Put the reverse string on the stack
     lua_pushstring(L, str);
 
-    // Devuelve 1 elemento
+    // Return 1 item
     return 1;
 }
 
-// Funciones expuestas a Lua
+// Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
     {"reverse", Reverse},
@@ -192,7 +195,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // Registra nombres Lua
+    // Register lua names
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -206,7 +209,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Inicializa Lua
+    // Init Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -223,12 +226,12 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// El SDK de Defold usa una macro para configurar los puntos de entrada de la extensión:
+// Defold SDK uses a macro for setting up extension entry points:
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
-// MyExtension es el símbolo C++ que contiene todos los datos relevantes de la extensión.
-// Debe coincidir con el campo name en `ext.manifest`
+// MyExtension is the C++ symbol that holds all relevant extension data.
+// It must match the name field in the `ext.manifest`
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
@@ -247,7 +250,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 Eso es todo. Hemos creado una extensión nativa completamente funcional.
 
 
-## Ciclo de vida de la extensión
+## Ciclo de vida de la extensión {#extension-lifecycle}
 
 Como vimos más arriba, la macro `DM_DECLARE_EXTENSION` se usa para declarar los distintos puntos de entrada al código de la extensión:
 
@@ -271,7 +274,7 @@ Los puntos de entrada te permiten ejecutar código en distintos momentos del cic
   * `final` de la extensión
   * `app_final` de la extensión
 
-## Identificadores de plataforma definidos
+## Identificadores de plataforma definidos {#defined-platform-identifiers}
 
 El builder define los siguientes identificadores en cada plataforma respectiva:
 
@@ -286,7 +289,7 @@ El builder define los siguientes identificadores en cada plataforma respectiva:
 
 Los logs del servidor de build están disponibles cuando el proyecto usa extensiones nativas. El log del servidor de build (`log.txt`) se descarga junto con el motor personalizado cuando se crea la build del proyecto, se almacena dentro del archivo `.internal/%platform%/build.zip` y también se descomprime en la carpeta de build de tu proyecto.
 
-## Extensiones de ejemplo
+## Extensiones de ejemplo {#example-extensions}
 
 * [Ejemplo de extensión básica](https://github.com/defold/template-native-extension) (la extensión de este manual)
 * [Ejemplo de extensión Android](https://github.com/defold/extension-android)

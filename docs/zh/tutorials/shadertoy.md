@@ -5,7 +5,7 @@ locale: zh
 title: Shadertoy 到 Defold 教程
 ---
 
-# Shadertoy 教程
+# Shadertoy 教程 {#shadertoy-tutorial}
 
 [Shadertoy.com](https://www.shadertoy.com/) 是一个汇集用户贡献 GL 着色器的网站。它是寻找着色器代码和灵感的绝佳资源。在本教程中，我们将从 Shadertoy 取一个着色器并让它在 Defold 中运行。本教程假设您对着色器有基本了解。如果需要补充知识，[着色器手册](/manuals/shader/)是很好的起点。
 
@@ -15,7 +15,7 @@ title: Shadertoy 到 Defold 教程
 
 这个着色器只有 65 行相当复杂的 GLSL 代码，但不用担心。我们会把它当作一个黑盒，只根据几个简单输入完成自己的效果。这里的任务是修改着色器，让它对接 Defold 而不是 Shadertoy。
 
-## 需要贴图的对象
+## 需要贴图的对象 {#something-to-texture}
 
 Star Nest 着色器是纯片段着色器，所以我们只需要某个可以被着色器贴图的对象。有多种选择：精灵、瓦片地图、GUI 或模型。本教程会使用一个简单的 3D 模型。原因是我们可以很容易把模型渲染成全屏效果，例如做视觉后处理时就需要这样。
 
@@ -47,7 +47,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
 
 ![quad in Defold](../images/shadertoy/quad_default_material.png)
 
-## 创建材质
+## 创建材质 {#creating-the-material}
 
 1. 在 `Assets` 面板中对 `main` 文件夹点击 <kbd>Right Mouse Button</kbd>，选择 <kbd>New</kbd>-><kbd>Material</kbd>，并命名为 `star-nest`，创建新的材质文件 *`star-nest.material`*。
 
@@ -62,7 +62,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
 
  ![material](../images/shadertoy/material.png)
 
-### 顶点程序
+### 顶点程序 {#vertex-program}
 
 1. 打开顶点着色器程序文件 `star-nest.vp`。它应包含以下代码：
 
@@ -87,7 +87,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
     }
     ```
 
-### 片段程序
+### 片段程序 {#fragment-program}
 
 1. 打开片段着色器程序文件 `star-nest.fp`，并修改代码，让片段颜色基于 UV 坐标（`var_texcoord0`）的 X 和 Y 坐标设置。这样做是为了确认模型设置正确：
 
@@ -110,7 +110,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
 
 ![quad in Defold](../images/shadertoy/quad_material.png)
 
-## 摄像机
+## 摄像机 {#camera}
 
 现在可以运行项目（<kbd>Project</kbd>-><kbd>Build</kbd>，或快捷键 <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>B</kbd>），但我们会看到黑屏（几乎是黑屏，可能只有左下角一个很小的像素）。这是因为没有摄像机，默认渲染脚本会使用简单的回退方式，显示一个巨大的 2D 空间，而我们的模型位于 (0,0,0)，宽度只有 1。
 
@@ -123,7 +123,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
 
 可选地，也可以将 `Orthographic Projection` 设置为 `true` 来更改摄像机类型，并将 `Orthographic Zoom` 调整到类似 600 的值。不过在这种情况下不会自动保持宽高比，因此模型不会填满屏幕。
 
-## Star Nest 着色器
+## Star Nest 着色器 {#the-star-nest-shader}
 
 现在一切准备就绪，让我们开始处理真正的着色器代码。先看原始代码，它由几个部分组成：
 
@@ -172,7 +172,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
     ```
     具体 `aspect` 值取决于示例如何设置。如果效果渲染在已知显示尺寸的全屏 quad 上，本教程可以硬编码宽高比。如果效果需要支持任意窗口大小，请把分辨率作为片段常量传入，并将它放入 GLSL 140 uniform block。
 
-    时间也在这里设置。Shadertoy 通过 `uniform float iGlobalTime` 传给着色器。Defold（自 1.12.3 起）通过一个特殊的 `Time` 常量向着色器提供时间，我们会使用它。
+    此处还会设置时间。它以 `uniform float iGlobalTime` 的形式传给着色器。Defold 通过一个特殊的 `Time` 常量向着色器提供时间，我们将使用它。
 
     在现代 Defold 中，非 opaque uniform 会声明在 uniform block 内。
     在片段着色器中我们这样声明：
@@ -200,7 +200,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
 
 5. 第 41--62 行是着色器核心。可以保持这段代码不变。
 
-## 修改后的 Star Nest 着色器
+## 修改后的 Star Nest 着色器 {#the-modified-star-nest-shader}
 
 按照上面的各部分进行必要修改后，得到以下着色器代码。为了更好的可读性，它做了一些清理。Defold 和 Shadertoy 版本之间的差异已标注：
 
@@ -323,7 +323,7 @@ void main() // <5>
 
 ## 动画 {#animation}
 
-最后一块拼图是引入时间，让星星运动。Defold（自 1.12.3 起）会通过 `Time` 类型的片段常量自动提供这一点。
+最后一步是引入时间，让星星移动。Defold 会通过类型为 `Time` 的片段常量自动提供时间。
 
 1. 打开 *star-nest.material*。
 2. 添加一个 *Fragment Constant* 并命名为 "time"。
@@ -333,7 +333,7 @@ void main() // <5>
 
 就是这样！我们已经在片段着色器中处理了这个 `time`。完成了！
 
-## 练习
+## 练习 {#exercises}
 
 一个有趣的后续练习是把原始鼠标移动输入添加到着色器。您需要创建一个新的 Fragment Constant，这次类型为 `User`，并在某个检测鼠标移动的脚本的 `on_input` 中使用 `go.set()` 函数更新它，将输入坐标设置到这个新常量上。
 

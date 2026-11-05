@@ -3,7 +3,7 @@ title: Defold 中的声音
 brief: 本手册介绍了如何将声音带入 Defold 项目，进行播放和控制。
 ---
 
-# 声音
+# 声音 {#sound}
 
 Defold 的声音实现简单但强大。您只需要了解两个概念：
 
@@ -13,7 +13,7 @@ Defold 的声音实现简单但强大。您只需要了解两个概念：
 声音组
 : 每个声音组件可以被指定属于一个 _组_。组提供了一种直观的方式来管理属于一起的声音。例如，可以设置一个 `sound_fx` 组，任何属于该组的声音都可以通过简单的函数调用进行减弱。
 
-## 创建声音组件
+## 创建声音组件 {#creating-a-sound-component}
 
 声音组件只能在游戏对象中原地实例化。创建一个新的游戏对象，右键单击它并选择 <kbd>Add Component ▸ Sound</kbd>，然后按 *OK*。
 
@@ -45,20 +45,50 @@ Defold 的声音实现简单但强大。您只需要了解两个概念：
 : 您可以直接在组件上设置声音的速度值。1.0 的值是正常速度，0.5 是半速，2.0 是双倍速度。
 
 
-## 播放声音
+## 播放声音 {#playing-the-sound}
 
 当您正确设置了声音组件后，可以通过调用 [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) 使其播放声音：
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+每次播放都是一个独立的*声部*。`sound.play()` 返回数值播放标识符（`play_id`）；请保存此 ID，以[控制该独立声部](#controlling-individual-voices)。
 
 ::: sidenote
 即使声音组件所属的游戏对象被删除，声音也会继续播放。您可以调用 [`sound.stop()`](/ref/sound/#sound.stop:url) 来停止声音（见下文）。
 :::
 发送到组件的每条消息都会导致它播放另一个声音实例，直到可用的声音缓冲区已满，引擎将在控制台中打印错误。建议您实现某种门控和声音分组机制。
 
-## 停止声音
+### 控制独立声部 {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) 和 [`sound.set_pan()`](/ref/sound/#sound.set_pan) 接受包含 `play_id` 的可选第三个参数。请使用 `sound.play()` 返回的 ID，以及同一个声音组件的 URL：
+
+```lua
+function init(self)
+    -- 保存将在一秒后开始播放的声部 ID。
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- 在同一个组件上开始播放另一个声部。
+    sound.play("go#sound")
+
+    -- 仅修改延迟播放的声部。
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+这些定向调用不会改变其他声部，也不会改变组件的增益和声像默认值。它们也适用于延迟和暂停的声部，新的值会在声部开始或恢复时生效。未知 ID 或播放已结束的 ID 不会产生影响。
+
+省略 `play_id` 可更新所有声部，以及用于以后播放的组件默认值：
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+传入 `{ play_id = nil }` 也等同于省略 ID。如果在播放结束时清除已保存的 ID，在用于定向更新前，请检查它是否不为 `nil`。
+
+## 停止声音 {#stopping-the-sound}
 
 如果您希望停止播放声音，可以调用 [`sound.stop()`](/ref/sound/#sound.stop:url)：
 
@@ -66,20 +96,20 @@ sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 sound.stop("go#sound")
 ```
 
-## 增益
+## 增益 {#gain}
 
 ![Gain](images/sound/sound_gain.png)
 
 声音系统有 4 级增益：
 
 - 在声音组件上设置的增益。
-- 在通过调用 `sound.play()` 启动声音时或通过调用 `sound.set_gain()` 更改声音上的增益时设置的增益。
+- 调用 `sound.play()` 开始播放时设置的增益，或调用 `sound.set_gain()` 改变[一个或所有声部](#controlling-individual-voices)时设置的增益。
 - 通过 [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) 函数调用在组上设置的增益。
 - 在 `master` 组上设置的增益。这可以通过 `sound.set_group_gain(hash("master"), gain)` 来更改。
 
 启用[声音项目设置](/manuals/project-settings/#sound)中的 **Use Linear Gain**（默认）时，输出增益是这四个增益相乘的结果。增益 `1.0` 是单位增益（0 dB）。禁用线性增益时，Defold 会在混音期间应用非线性曲线，因此直接的四项相乘和下面的分贝换算不再描述最终输出电平。
 
-## 声音组
+## 声音组 {#sound-groups}
 
 任何指定了声音组名称的声音组件都将被放入具有该名称的声音组中。如果您不指定组，声音将被分配到 `master` 组。您还可以将声音组件上的组显式设置为 `master`，这具有相同的效果。
 
@@ -134,7 +164,7 @@ sound.set_group_gain("master", 1.995)
 
 Defold 1.10.2 修复了声音混音器中长期存在的约 3 dB 衰减。如果旧项目的混音曾对此衰减进行补偿，并在升级后听起来更响，请重新调整全局 **Sound ▸ Gain** 设置或受影响的组增益。
 
-## 声音门控
+## 声音门控 {#gating-sounds}
 
 如果您的游戏在某个事件上播放相同的声音，并且该事件经常被触发，您可能会冒着几乎同时播放相同声音两次或更多次的风险。如果发生这种情况，声音将 _相位偏移_，这可能导致一些非常明显的伪影。
 
@@ -143,16 +173,17 @@ Defold 1.10.2 修复了声音混音器中长期存在的约 3 dB 衰减。如果
 处理这个问题的最简单方法是构建一个门控，过滤声音消息，不允许在设定的时间间隔内多次播放相同的声音：
 
 ```lua
--- 不允许在 "gate_time" 间隔内播放相同的声音。
+-- 不允许在 "gate_time" 时间间隔内重复播放同一个声音。
 local gate_time = 0.3
 
 function init(self)
-    -- 将播放的声音计时器存储在一个表中，每帧倒计时，直到它们在表中存在了 "gate_time" 秒。然后删除它们。
+    -- 将已播放声音的计时器存入表中，每帧递减，直到它们
+    -- 在表中保留了 "gate_time" 秒，然后将其移除。
     self.sounds = {}
 end
 
 function update(self, dt)
-    -- 倒计时存储的计时器
+    -- 递减已保存的计时器
     for k,_ in pairs(self.sounds) do
         self.sounds[k] = self.sounds[k] - dt
         if self.sounds[k] < 0 then
@@ -163,14 +194,14 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("play_gated_sound") then
-        -- 只播放当前不在门控表中的声音。
+        -- 只播放当前不在限流表中的声音。
         if self.sounds[message.soundcomponent] == nil then
-            -- 将声音计时器存储在表中
+            -- 将声音计时器存入表中
             self.sounds[message.soundcomponent] = gate_time
             -- 播放声音
             sound.play(message.soundcomponent, { gain = message.gain })
         else
-            -- 尝试播放声音被门控
+            -- 一次声音播放请求被限流阻止
             print("gated " .. message.soundcomponent)
         end
     end
@@ -188,7 +219,7 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 :::
 
 
-## 运行时操作
+## 运行时操作 {#runtime-manipulation}
 您可以通过许多不同的属性在运行时操作声音（有关用法，请参阅 [API 文档](/ref/sound/)）。可以使用 `go.get()` 和 `go.set()` 操作以下属性：
 
 `gain`
@@ -210,10 +241,10 @@ resource.set_sound(path, boom)
 ```
 
 
-## 项目配置
+## 项目配置 {#project-configuration}
 
 *game.project* 文件有一些与声音组件相关的[项目设置](/manuals/project-settings#sound)。
 
-## 声音流传输
+## 声音流传输 {#sound-streaming}
 
 也可以支持[声音流传输](/manuals/sound-streaming)

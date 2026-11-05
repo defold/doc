@@ -44,9 +44,9 @@ Depois de instalar o software mencionado acima, siga estas etapas para instalar 
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # defina a versão necessária do Extender e da ferramenta Manifest merge
-    # as versões podem ser encontradas na página de releases do GitHub https://github.com/defold/extender/releases
-    # ou você pode baixar a versão mais recente (veja o exemplo de código abaixo)
+    # set necessary version of Extender and Manifest merge tool
+    # versions can be found at Github release page https://github.com/defold/extender/releases
+    # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
     MANIFESTMERGETOOL_VERSION=1.3.0
     echo "Download prebuild jars to ${APPLICATION_DIR}"
@@ -88,7 +88,7 @@ em que *profile* pode ser:
 * **metrics** - executa VictoriaMetrics + Grafana como backend de métricas e ferramenta de visualização
 Para mais informações sobre argumentos de `docker compose`, veja https://docs.docker.com/reference/cli/docker/compose/.
 
-Quando o docker compose estiver ativo, você pode usar **http://localhost:9000** como `endereço do Build server` nas preferências do editor ou como valor de `--build-server` se usar Bob para compilar o projeto.
+Quando o docker compose estiver ativo, você pode usar **http://localhost:9000** como `Build server address` nas preferências do editor ou como valor de `--build-server` se usar Bob para compilar o projeto.
 
 Vários profiles podem ser passados na linha de comando. Por exemplo:
 ```sh

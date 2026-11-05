@@ -8,8 +8,8 @@ brief: Ta instrukcja opisuje jak modyifkować kolorystykę, typografię i inne w
 Możesz modyfikować kolorystykę, typografię i inne aspekty wizualne Edytora Defold za pomocą niestandardowego arkusza stylów (stylesheet):
 
 * Utwórz folder o nazwie `.defold` w katalogu domowym użytkownika.
-  * W systemie Windows `C:\Users\**Twoja Nazwa Użytkownika**\.defold`
-  * W systemie macOS `/Users/**Twoja Nazwa Użytkownika**/.defold`
+  * W systemie Windows `C:\Users\**Your Username**\.defold`
+  * W systemie macOS `/Users/**Your Username**/.defold`
   * W systemie Linux `~/.defold`
 * Utwórz plik `editor.css` w folderze `.defold`.
 

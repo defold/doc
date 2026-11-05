@@ -21,39 +21,39 @@ El flujo recomendado consiste en descargar y montar un archivo Zip completo con 
 
 ## Obtener montajes
 
-`liveupdate.get_mounts()` devuelve los montajes activos en la sesión actual. Cada entrada contiene una URI `mount.uri`, una prioridad numérica `mount.priority` y un hash `mount.name`. Los montajes no se restauran al reiniciar; la aplicación debe guardar los ajustes necesarios y volver a llamar a `liveupdate.add_mount()`.
+`liveupdate.get_mounts()` devuelve los montajes activos en la sesión actual. Cada entrada contiene una cadena `uri`, una prioridad numérica `priority` y un hash `name`. La lista también incluye los montajes base del motor, que tienen prioridades inferiores a cero y no pueden eliminarse.
 
-Como `mount.name` es un hash, úsalo como clave de tabla o compáralo con `hash("nombre")`; no lo concatenes en una ruta. Asigna cada hash a una ruta de metadatos única:
+El motor no restaura los montajes después de reiniciar. Si la aplicación necesita contenido descargado previamente en una sesión posterior, debe guardar la URI, el nombre y la prioridad del paquete en sus propios datos persistentes y volver a llamar a `liveupdate.add_mount()` durante el inicio.
+
+Cuando hay varios paquetes montados, resulta útil validar los metadatos que define la aplicación. Como `mount.name` es un hash, úsalo como clave de tabla o compáralo con `hash("mount-name")`; no lo concatenes en una ruta de recurso. El siguiente ejemplo asocia cada hash de nombre con una ruta de recurso de metadatos única:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- tabla con montajes
 	local version_resources = {
-		[hash("liveupdate")] = "/version_liveupdate.json",
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
 	}
 
-    -- Cada montaje tiene: mount.uri, mount.priority, mount.name
-	for _,mount in ipairs(mounts) do
-
-        -- Esto requiere que el nombre de archivo sea único, para que no obtengamos un archivo desde un archivo comprimido de Live Update diferente
-        -- Estos datos los crea el desarrollador como forma de especificar metadatos para el archivo comprimido
+	for _, mount in ipairs(mounts) do
 		local version_resource = version_resources[mount.name]
 		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
 		elseif mount.priority >= 0 then
-			version_data = {version = 0} -- si no tiene archivo de versión, es probable que sea un archivo comprimido antiguo/no válido
+			version_data = {version = 0} -- si no tiene archivo de versión, probablemente sea un archivo antiguo o no válido
 		end
 
-        -- verificar la versión del archivo comprimido contra la versión soportada por el juego
-        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- no era válido, así que lo desmontamos!
-            liveupdate.remove_mount(mount.name)
-        end
+		-- Ignora los montajes base del motor, que tienen prioridades negativas.
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```
+
+Usa rutas de metadatos únicas para paquetes distintos. La búsqueda de recursos sigue la prioridad de los montajes, por lo que usar la misma ruta en varios paquetes haría que se leyera la copia del montaje de mayor prioridad.
 
 ## Scripting con proxies de colección excluidos
 
@@ -81,9 +81,9 @@ El siguiente código de ejemplo asume que los recursos están disponibles median
 
 ```lua
 
--- Necesitas llevar registro de qué archivo comprimido contiene qué contenido
--- En este ejemplo, usamos un único archivo comprimido de Live Update, que contiene todos los recursos que faltan.
--- Si usas varios archivos comprimidos, necesitas estructurar las descargas en consecuencia
+-- Debes llevar el seguimiento de qué archivo contiene cada contenido.
+-- En este ejemplo, solo usamos un archivo de Live Update que contiene todos los recursos que faltan.
+-- Si usas varios archivos, debes organizar las descargas en consecuencia.
 local lu_infos = {
     liveupdate = {
         name = "liveupdate",
@@ -127,10 +127,9 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        -- Una build que publica contenido de Live Update omite las entradas excluidas
-        -- del manifiesto incluido en el bundle, por lo que esta tabla está vacía hasta
-        -- que se monta el manifiesto del paquete correspondiente. Después de montarlo,
-        -- contiene los hashes de recursos del proxy.
+        -- Una build que publica contenido de Live Update omite las entradas excluidas del
+        -- manifiesto incluido en el bundle, por lo que esta tabla estará vacía hasta que se monte
+        -- el manifiesto del paquete correspondiente. Después contendrá los hashes de recursos del proxy.
         if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
@@ -148,12 +147,12 @@ function on_message(self, message_id, message, sender)
                 if result == liveupdate.LIVEUPDATE_OK then
                     msg.post("#", "load_level", message) -- intenta cargar el nivel de nuevo
                 else
-                    os.remove(download_path)             -- elimínalo e intenta
-                    msg.post("#", "load_level", message) -- descargarlo de nuevo
+                    os.remove(download_path)             -- elimina el archivo e intenta
+                    msg.post("#", "load_level", message) -- descargar de nuevo
                 end
             end)
         else
-            -- Realiza la solicitud. Puedes usar credenciales
+            -- Realiza la solicitud. Puedes usar credenciales.
             http.request(url, "GET", function(self, id, response) -- <7>
                 if response.status == 200 or response.status == 304 then
                     mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
@@ -169,7 +168,7 @@ function on_message(self, message_id, message, sender)
             end, nil, nil, {path=download_path})
         end
 
-    elseif message_id == hash("proxy_loaded") then -- el nivel está cargado, y podemos habilitarlo
+    elseif message_id == hash("proxy_loaded") then -- el nivel está cargado y podemos activarlo
         msg.post(sender, "init")
         msg.post(sender, "enable")
     end

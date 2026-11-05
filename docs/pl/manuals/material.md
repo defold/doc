@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Od wersji Defold 1.14.0 wszystkie atrybuty `Mat2`, `Mat3` i `Mat4` używają wartości `vmath.matrix4` z funkcjami `go.set()` i `go.get()`. Ustawienie atrybutu `Mat2` lub `Mat3` pobiera lewą górną część macierzy o rozmiarze 2×2 lub 3×3. Odczyt zwraca `vmath.matrix4`, w której nieużywane wiersze i kolumny są wypełnione wartościami z macierzy jednostkowej.
+Wszystkie atrybuty `Mat2`, `Mat3` i `Mat4` używają wartości `vmath.matrix4` z funkcjami `go.set()` i `go.get()`. Ustawienie atrybutu `Mat2` lub `Mat3` pobiera lewą górną część macierzy o rozmiarze 2×2 lub 3×3. Odczyt zwraca `vmath.matrix4`, w której nieużywane wiersze i kolumny są wypełnione wartościami z macierzy jednostkowej.
 
 Na przykład dla atrybutu `Mat2` o nazwie `custom_mat2` i typie semantycznym `None` w materiale modelu:
 
@@ -168,7 +168,7 @@ go.set("#model", "custom_mat2", value)
 
 local result = go.get("#model", "custom_mat2")
 print(result.m00, result.m11) -- 2, 3
-print(result.m22, result.m33) -- 1, 1 (identity padding)
+print(result.m22, result.m33) -- 1, 1 (uzupełnienie macierzą jednostkową)
 ```
 
 Zawsze przypisuj całą macierz. Spłaszczone wartości, takie jak `vmath.vector4`, oraz przypisania do poszczególnych podwłaściwości atrybutu są odrzucane dla atrybutów macierzowych. Aby zmienić element, zmodyfikuj macierz w Lua i przekaż ją ponownie za pomocą `go.set()`.
@@ -188,25 +188,24 @@ out vec2 var_texcoord0;
 
 void main()
 {
-  // Wyodrębnij pozycję z transformacji
+  // Extract position from the transform
   vec2 atlas_pos = texture_transform_2d[2].xy;
-  // Wyodrębnij skalę z transformacji
+  // Extract the scale from the transform
   vec2 atlas_size = vec2(
       length(texture_transform_2d[0].xy),
       length(texture_transform_2d[1].xy)
   );
-  // konwersja do lokalnych UV (0..1)
-  vec2 localUV = (texcoord0.xy - atlas_pos) / atlas_size;
+  // convert to local UV (0..1)
+  vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
 
-  // Alternatywnie, jeśli współrzędne UV są już w zakresie 0..1,
-  // możesz przekształcić je bezpośrednio do przestrzeni atlasu,
-  // mnożąc przez transformację:
-  vec2 transformedUv = (texture_transform_2d * vec3(texcoord0.xy, 1.0)).xy;
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
+  vec2 transformedUv = texture_transform_2d * texcoord0;
 
-  // Przekaż wartość do shadera fragmentów
+  // Pass the value into the fragment shader
   var_texcoord0 = localUV;
 
-  // ... reszta shadera wierzchołków
+  // ... rest of vertex shader
 }
 ```
 
@@ -239,12 +238,12 @@ Materiał jest skonfigurowany w ten sposób, z jednym własnym atrybutem wierzch
 Program shadera wierzchołków ma zdefiniowanych kilka atrybutów per instancję:
 
 ```glsl
-// Atrybuty per wierzchołek
+// Per vertex attributes
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 attribute mediump vec3 normal;
 
-// Atrybuty per instancja
+// Per instance attributes
 attribute mediump mat4 mtx_world;
 attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;

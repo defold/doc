@@ -27,7 +27,7 @@ Un componente oggetto di collisione ha un insieme di *Properties* che ne definis
 Per aggiungere un componente oggetto di collisione a un oggetto di gioco:
 
 1. Nella vista *Outline*, <kbd>fai clic con il pulsante destro</kbd> sull'oggetto di gioco e seleziona <kbd>Add Component ▸ Collision Object</kbd> dal menu contestuale. Questo crea un nuovo componente senza forme.
-2. <kbd>Fai clic con il pulsante destro</kbd> sul nuovo componente e seleziona <kbd>Add Shape</kbd>, poi scegli una forma: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> o <kbd>Mesh</kbd> nei progetti con fisica 3D, <kbd>Box</kbd> o <kbd>Circle</kbd> nei progetti con fisica 2D. Le forme Hull e Mesh sono disponibili da Defold 1.13.2 e usano una mesh con nome da una scena glTF o GLB. Puoi aggiungere più forme al componente. Puoi anche usare una tilemap o una risorsa `.convexshape` tramite la proprietà *Collision Shape*.
+2. <kbd>Fai clic destro</kbd> sul nuovo componente e seleziona <kbd>Add Shape</kbd>, quindi scegli una forma: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> o <kbd>Mesh</kbd> nei progetti con fisica 3D, <kbd>Box</kbd> o <kbd>Circle</kbd> nei progetti con fisica 2D. Le forme Hull e Mesh usano una mesh denominata di una scena glTF o GLB. Puoi aggiungere più forme al componente. Puoi anche usare una tilemap o una risorsa `.convexshape` tramite la proprietà *Collision Shape*.
 3. Usa gli strumenti di spostamento, rotazione e scala per modificare le forme.
 4. Seleziona il componente nella vista *Outline* e modifica le *Properties* dell'oggetto di collisione.
 

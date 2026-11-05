@@ -78,7 +78,7 @@ Aby dodać kompresję tekstur:
 
 ![Setting the texture profile](images/texture_profiles/texture_profiles_game_project.png)
 
-Użycie profili tekstur można włączać i wyłączać w preferencjach edytora. Wybierz <kbd>File ▸ Preferences...</kbd>. Karta *General* zawiera pole wyboru *Enable texture profiles*.
+Aby stosować kompresję tekstur podczas budowania z edytora, wybierz <kbd>File ▸ Preferences...</kbd> i zaznacz **Enable Texture Compression** na karcie *General*. Przy budowaniu za pomocą Bob przekaż [`--texture-compression`](/manuals/bob/#usage). Ustawienia profilu, takie jak rozmiar obrazu i mipmapy, nadal obowiązują przy wyłączonej kompresji.
 
 ![Texture profiles preferences](images/texture_profiles/texture_profiles_preferences.png)
 
@@ -125,6 +125,9 @@ Jeśli dwa [path settings](#path-settings) pasują do tego samego pliku, a ście
 *Formats*
 : Jeden lub więcej formatów tekstur do wygenerowania. Jeśli podasz kilka formatów, tekstury dla każdego z nich zostaną wygenerowane i dołączone do bundla. Silnik wybiera format tekstury obsługiwany przez bieżącą platformę uruchomieniową.
 
+*Keep KTX2 Format*
+: Zachowuje format kodowania źródła KTX2 zamiast alternatyw *Formats* dla platformy. Domyślnie wyłączone (`keep_ktx2_format: false`). Inne typy obrazów, takie jak PNG i JPEG, nadal korzystają z *Formats*. Zachowanie skompresowanego formatu źródłowego wymaga włączonej kompresji tekstur. Szczegóły przetwarzania i zgodności opisano w sekcji [Tekstury źródłowe KTX2](#ktx2-source-textures).
+
 *Mipmaps*
 : Jeśli zaznaczone, dla platformy zostaną wygenerowane mipmapy. Domyślnie wyłączone.
 
@@ -154,6 +157,38 @@ Każdy wpis *Formats* dodany do profilu ma następujące właściwości:
 
 Pamiętaj, że kompresor `uncompressed` ma tylko jeden preset o nazwie `uncompressed`, co oznacza, że do tekstur nie zostanie zastosowana żadna kompresja.
 Aby zobaczyć listę dostępnych kompresorów, zobacz [Compressors](#compressors).
+
+## Tekstury źródłowe KTX2 {#ktx2-source-textures}
+
+Profile teksturowania mają zastosowanie do samodzielnych plików *.ktx2* i obrazów KTX2 osadzonych w plikach glTF lub GLB. Ustawienia ścieżek dopasowują ścieżkę obrazu źródłowego, w tym ścieżki wirtualne takie jak `/models/robot.glb/images/0.ktx2` dla obrazów osadzonych. Umieść szczegółowe ustawienie ścieżki KTX2 przed szerszymi wzorcami dopasowania.
+
+Wybierz profil i platformę, a następnie sposób przetwarzania danych KTX2:
+
+| Keep KTX2 Format | Wynik kompilacji przy włączonej kompresji tekstur |
+| --- | --- |
+| Włączone | ETC1S pozostaje ETC1S, UASTC pozostaje UASTC, BC7 pozostaje BC7, a surowe dane źródłowe pozostają nieskompresowane. Alternatywy *Formats* platformy są pomijane dla danych KTX2. |
+| Wyłączone (domyślnie) | Obrazy źródłowe są dekodowane i kodowane przy użyciu *Format*, *Compressor* i *Compressor Preset* profilu, nawet jeśli wybrane kodowanie jest takie samo jak źródłowe. |
+
+Na przykład ten profil dopasowuje źródła KTX2, zachowuje ich format i mipmapy oraz wyłącza wstępne mnożenie przez alfa:
+
+```protobuf
+path_settings { path: "**/*.ktx2" profile: "KTX2" }
+profiles {
+  name: "KTX2"
+  platforms {
+    os: OS_ID_GENERIC
+    mipmaps: true
+    premultiply_alpha: false
+    keep_ktx2_format: true
+  }
+}
+```
+
+Dodaj te wpisy do pliku profili teksturowania przypisanego w *game.project* i włącz kompresję tekstur podczas budowania. Przy wyłączonej kompresji lub braku pasującego profilu źródła KTX2 dają nieskompresowany wynik.
+
+**Keep KTX2 Format** ponownie wykorzystuje zakodowane poziomy źródłowe, gdy to możliwe. Zmiany orientacji, wstępnego mnożenia przez alfa, rozmiaru obrazu lub mipmap mogą wymagać dekodowania i ponownego kodowania do tego samego formatu. Standardowe tekstury glTF KTX2 zwykle wymagają odwrócenia osi Y stosowanego przez Defold, więc zachowanie formatu nie gwarantuje ponownego użycia zakodowanych danych. Ponowne kodowanie może wprowadzić dodatkową utratę jakości również przy włączonej tej opcji.
+
+Upewnij się, że zachowany format źródłowy jest obsługiwany przez urządzenia docelowe. Opcja nie dodaje dekoderów w środowisku uruchomieniowym ani obsługi formatów GPU. Jeśli format źródłowy nie jest odpowiedni dla celu, wyłącz opcję dla danej platformy i wybierz zgodne formaty wyjściowe oraz ustawienia kompresji.
 
 ## Formaty tekstur
 

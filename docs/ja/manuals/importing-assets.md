@@ -15,7 +15,7 @@ Defold では、プロジェクトで使用するすべてのアセットが、�
 ![ファイルのインポート](images/graphics/import.png)
 
 ::: sidenote
-Defold は PNG と JPEG 形式の画像をサポートしています。PNG 画像は 32 ビット RGBA 形式である必要があります。ほかの形式の画像は、使用する前に変換する必要があります。
+アトラスとタイルソースには、PNG または JPEG 画像を使います。PNG は RGB、RGBA、インデックスカラー（パレット）の画像に対応します。モデルのテクスチャとして使う [KTX2 ソーステクスチャ](/manuals/importing-graphics/#ktx2-textures)もインポートできます。
 :::
 
 
@@ -26,7 +26,7 @@ Defold にインポートしたアセットは、Defold がサポートするさ
 * 画像は、2D ゲームでよく使われるさまざまな種類の視覚的なコンポーネントを作成するために使用できます。詳しくは、[2D グラフィックスのインポート方法と使用方法](/manuals/importing-graphics)を参照してください。
 * 音声は、[サウンドコンポーネント（Sound component）](/manuals/sound)で音を再生するために使用できます。
 * フォントは、[ラベルコンポーネント（Label component）](/manuals/label)と GUI の[テキストノード（text node）](/manuals/gui-text)で使用します。
-* glTF モデル（*.gltf* と *.glb*）は、[モデルコンポーネント（Model component）](/manuals/model)でアニメーション付きの 3D モデルを表示するために使用できます。モデルで使用するテクスチャ画像は、それぞれ別のアセットとしてインポートし、モデルコンポーネントのマテリアル（material）のテクスチャプロパティに割り当てます。詳しくは、[3D モデルのインポート方法と使用方法](/manuals/importing-models)を参照してください。
+* glTF モデル（*.gltf* と *.glb*）は、[Model コンポーネント](/manuals/model)でアニメーション付きの 3D モデルを表示するために使えます。*Assets* ペインでファイルを展開すると、メッシュ、生成されたマテリアル、埋め込み画像を確認できます。埋め込み画像は直接使えます。外部参照の画像とバッファーは、別のプロジェクトファイルとして含めてください。[Draco または Meshopt で圧縮したジオメトリ](/manuals/importing-models/#compressed-geometry)にも対応し、インポートやビルド時にデコードします。Model コンポーネントでシーンまたはメッシュを選択すると、エディターはマテリアルとテクスチャの割り当てを提案することがあります。<kbd>Auto Fill</kbd> を選ぶと既存の割り当てを置き換えて適用し、<kbd>Keep Current</kbd> を選ぶと現在の割り当てを保持します。[3D モデルのインポートと使用方法](/manuals/importing-models)も参照してください。
 
 
 ## 外部アセットの編集 {#editing-external-assets}

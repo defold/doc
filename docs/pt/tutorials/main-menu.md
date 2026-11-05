@@ -19,7 +19,7 @@ Durante as animações seguintes, a escala é animada para frente e para trás, 
 O plano de fundo tem um desaparecimento leve especial no final, aplicado em `anim5()`.
 
 ```lua
--- file: menu.gui_script
+-- arquivo: menu.gui_script
 
 -- as funcoes animX representam a linha do tempo da animacao
 -- primeiro anim1 e executada; ao terminar, anim2 e executada, e assim por diante

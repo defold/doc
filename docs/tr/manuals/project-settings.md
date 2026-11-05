@@ -3,7 +3,7 @@ title: Defold proje ayarları
 brief: Bu kılavuz, Defold'da projeye özgü ayarların nasıl çalıştığını açıklar.
 ---
 
-# Proje ayarları
+# Proje ayarları {#project-settings}
 
 *game.project* dosyası, proje genelindeki tüm ayarları içerir. Bu dosya projenin kök klasöründe kalmalı ve adı *game.project* olmalıdır. Motor, başlatılıp oyununuzu çalıştırırken ilk olarak bu dosyayı arar.
 
@@ -12,7 +12,7 @@ Dosyadaki her ayar bir kategoriye aittir. Dosyayı açtığınızda Defold, tüm
 ![Proje ayarları](images/project-settings/settings.jpg)
 
 
-## Dosya biçimi
+## Dosya biçimi {#file-format}
 
 *game.project* içindeki ayarlar genellikle Defold içinden değiştirilir; ancak dosya, herhangi bir standart metin düzenleyicisinde de düzenlenebilir. Dosya, INI dosya biçimi standardına uyar ve şu şekilde görünür:
 
@@ -49,7 +49,7 @@ Anahtar, kategori adıyla ayar adının bir noktayla ayrılarak birleştirilmesi
 :::
 
 
-## Bölümler ve ayarlar
+## Bölümler ve ayarlar {#sections-and-settings}
 
 Kullanılabilir tüm ayarlar aşağıda kategorilere göre sıralanmıştır.
 
@@ -154,6 +154,8 @@ Tek bir kare sırasında zaman adımı çok büyürse bu en yüksek değerle sı
 
 ### Display
 
+
+Masaüstü platformlarında, düzenleyiciden açılan motor pencereleri önceki bir çalıştırmada kaydedilen boyutu geri yükleyebilir. Kaydedilmiş pencere konumlarını korurken hatırlanan boyutları temizlemek ve yapılandırılmış boyuta dönmek için <kbd>Debug ▸ Reset Simulated Resolution</kbd> seçeneğini seçin. Ayrıntılar için [motor penceresinin yerleşimi ve sıfırlama](/manuals/editor/#engine-window-placement) bölümüne bakın.
 #### Width
 Uygulama penceresinin piksel cinsinden genişliği.
 
@@ -162,6 +164,8 @@ Uygulama penceresinin piksel cinsinden yüksekliği.
 
 #### High Dpi
 Destekleyen ekranlarda yüksek DPI değerine sahip bir arka arabellek oluşturur. Oyun genellikle *Width* ve *Height* ayarlarında belirtilenin iki katı çözünürlükte işlenir; bu ayarlardaki değerler, betiklerde ve özelliklerde kullanılan mantıksal çözünürlük olarak kalır.
+
+HTML5'te bu ayar etkin olduğunda işleme ölçeğini sınırlamak için [Min Pixel Ratio](#min-pixel-ratio) ve [Max Pixel Ratio](#max-pixel-ratio) ayarlarını kullanın.
 
 #### Samples
 Süper örneklemeli kenar yumuşatma için kullanılacak örnek sayısı. `GLFW_FSAA_SAMPLES` pencere ipucunu ayarlar. `0` değeri, kenar yumuşatmanın kapalı olduğu anlamına gelir.
@@ -204,13 +208,6 @@ Başlangıçta GPU bilgilerini konsola yazdırır.
 
 #### Clear Color Alpha
 İşleme betiğinde ve pencere oluşturulurken kullanılan temizleme renginin alfa kanalı.
-
----
-
-### Font
-
-#### Runtime Generation
-Çalışma sırasında yazı tipi oluşturmayı kullanır.
 
 ---
 
@@ -305,7 +302,7 @@ Bu proje için kullanılacak doku profilleri dosyası; varsayılan olarak `/buil
 Her grafik çağrısından sonra dönüş değerini doğrular ve hataları günlüğe kaydeder.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint`, HTML5 için istenecek WebGL bağlamı sürümünü seçer. Geçerli değerler `1` (WebGL 1) ve `2` (WebGL 2, varsayılan) değerleridir. WebGL 2'yi destekleyen bir tarayıcıda bile WebGL 1'i hedeflemek veya test etmek için `1` olarak ayarlayın. Gerekli gölgelendiricilerin dahil edilmesi için WebGL 1'i hedeflerken [Exclude GLES 2.0](#exclude-gles-20) ayarını devre dışı bırakılmış olarak tutun.
+`graphics.webgl_version_hint`, HTML5 için istenecek WebGL bağlamı sürümünü seçer. Geçerli değerler `1` (WebGL 1) ve `2` (WebGL 2, varsayılan) değerleridir. WebGL 2'yi destekleyen bir tarayıcıda bile WebGL 1'i hedeflemek veya test etmek için `1` olarak ayarlayın. Gerekli gölgelendiricilerin dahil edilmesi için WebGL 1'i hedeflerken [Exclude GLES 2.0](#exclude-gles-20) ayarını devre dışı bırakın.
 
 #### OpenGL Version Hint
 OpenGL bağlamı sürüm ipucu. Belirli bir sürüm seçilirse gereken en düşük sürüm olarak kullanılır (OpenGL ES için geçerli değildir).
@@ -324,7 +321,16 @@ Bağlam oluşturulurken 'core' OpenGL profil ipucunu ayarlar. Çekirdek profil, 
 ### Shader
 
 #### Exclude GLES 2.0
-OpenGLES 2.0 / WebGL 1.0 çalıştıran cihazlar için gölgelendiricileri derlemez.
+`shader.exclude_gles_sm100`, OpenGLES 2.0 ve WebGL 1.0 gölgelendiricilerini dışarıda bırakır. Varsayılan olarak etkindir (`1`).
+
+Bu grafik API'lerini hedeflemek veya bunlara geri dönüşe izin vermek için *game.project* dosyasında **Shader ▸ Exclude GLES 2.0** seçeneğinin işaretini kaldırın veya şunu ayarlayın:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+Bu seçeneği açıkça ayarlamayan projeler varsayılanı kullanır. Proje OpenGLES 2.0 veya WebGL 1.0 desteğine ihtiyaç duyuyorsa açıkça `0` olarak ayarlayın.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float`, çapraz derlenen GLSL ES gölgelendiricilerinde kayan noktalı değerler için varsayılan genel hassasiyet niteleyicisini ayarlar. Geçerli değerler `mediump` ve `highp`; varsayılan değer `mediump`.
@@ -369,6 +375,9 @@ Projenin derleme verilerinin nerede bulunacağı; URI biçimindedir.
 
 #### Max Resources
 Aynı anda yüklenebilecek en fazla kaynak sayısı.
+
+#### Profile
+`resource.profile`, kaynak yükleme sürelerini ve tamamlanan ya da başarısız olan her yükleme için INFO düzeyindeki günlükleri etkinleştirir. Varsayılan olarak devre dışıdır (`0`). Başlangıç yüklemelerini ölçmek için oyunu başlatmadan önce etkinleştirin (`1`). Kaynak profil çıkarıcısı, o anda yüklü kaynakların saklanmış ilk yükleme ölçümlerini gösterir; bunları incelemek için önce **Capture**, ardından **Show load times** düğmesine tıklayın. Süre sütunları ve nasıl yorumlanacakları için [Kaynak yükleme süreleri](/manuals/profiling/#resource-loading-times) bölümüne bakın.
 
 ---
 
@@ -594,6 +603,17 @@ En fazla oyun nesnesi fabrikası (factory) sayısı. [(Bileşen sayısı üst s�
 
 ### iOS
 
+#### Home Indicator Mode
+`ios.home_indicator_mode`, ekran kenarlarındaki sistem hareketlerini ve oyunun ana ekran göstergesinin otomatik gizlenmesini isteyip istemediğini kontrol eder.
+
+| Değer | Sistem hareketleri | Otomatik gizleme isteği |
+|-------|-----------------|--------------------------|
+| `deferred` (varsayılan) | Sistem hareketlerini erteleyerek tüm ekran kenarlarını korur. Ana ekrana dönmek için iki kaydırma gerekir. | Hayır |
+| `system` | Normal sistem hareketlerini kullanır; ana ekrana tek kaydırmayla dönülebilir. | Hayır |
+| `auto_hide` | Normal sistem hareketlerini kullanır; ana ekrana tek kaydırmayla dönülebilir. | Evet |
+
+iOS, göstergenin gerçek görünürlüğünü kontrol eder. Otomatik gizleme bir istektir; iOS 26 ve sonraki sürümlerde sistem, hem `system` hem de `auto_hide` modunda göstergeyi gizleyebilir. Yapılandırma örneği için [Ana ekran göstergesinin davranışı](/manuals/ios/#home-indicator-behavior) bölümüne bakın.
+
 #### App Icon 57x57--180x180
 Belirtilen `W` &times; `H` genişlik ve yükseklik boyutlarında uygulama simgesi olarak kullanılacak görüntü dosyası (.png).
 
@@ -616,7 +636,7 @@ Paketin kısa adı (15 karakter) (bkz. [`CFBundleName`](https://developer.apple.
 Paketin sürümü; bir sayı veya x.y.z biçiminde (bkz. [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-Belirtilirse uygulamanız paketlenirken yerleşik iOS temel bildirimi yerine bu *`Info.plist`* dosyası kullanılır. Yerleşik bildirim, yayıma yönelik olmayan derlemelerde düzenleyicinin hedef keşfi için gereken yerel ağ ve Bonjour girdilerini içerir. Özel bir bildirim sağlıyorsanız ve bir cihazda hedef keşfine, profil çıkarmaya, çalışma sırasında yeniden yüklemeye (hot reload) veya günlük akışına ihtiyaç duyuyorsanız bu girdileri [iOS kılavuzunda](/manuals/ios/#creating-an-ios-application-bundle) açıklandığı şekilde koruyun.
+Belirtilirse uygulama paketlenirken yerleşik iOS temel bildirimi `/builtins/manifests/ios/Info.plist` yerine bu *`Info.plist`* dosyası kullanılır. Yerleşik şablonu kullanan projeler bildirim güncellemelerini otomatik alır; özel dosyaların açıkça güncellenmesi gerekir.
 
 #### Privacy Manifest
 Uygulamanın Apple Privacy Manifest dosyası. Alanın varsayılan değeri `/builtins/manifests/ios/PrivacyInfo.xcprivacy` olacaktır.
@@ -685,7 +705,7 @@ Ekran çentiğine kadar genişletir.
 #### R8 Keep Rules
 `android.r8_keep_rules`, Android derlemelerinde Java kodunun R8 ile küçültülmesini, optimize edilmesini ve karartılmasını etkinleştirmek için bir `.keep` dosyası seçer. D8'i küçültme yapmadan kullanmak için ayarı boş bırakın.
 
-Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender derleme sunucusuyla kullanıldığında bu işlem kullanılmayan Android kaynaklarını da kaldırır. Dinamik olarak yüklenen kaynaklar için ayrı [XML koruma kuralları](/manuals/android/#keeping-android-resources) gerekebilir.
+Uyumlu bir Extender derleme sunucusuyla kullanıldığında bu işlem kullanılmayan Android kaynaklarını da kaldırır. Dinamik olarak yüklenen kaynaklar için ayrı [XML koruma kuralları](/manuals/android/#keeping-android-resources) gerekebilir.
 
 Defold'un varsayılan kurallarını doğrudan kullanmak için `/builtins/manifests/android/dmengine.keep` dosyasını seçin. Eklentiler kendi [koruma kurallarını](/manuals/extensions/#r8-keep-rules-for-android) sağlar; bu kurallar bu dosyayla birleştirilir.
 
@@ -773,6 +793,14 @@ Bu seçenek etkinleştirildiğinde, motor başladığında motor ve sürümü ha
 #### Scale Mode
 Oyun tuvalini ölçeklemek için kullanılacak yöntemi belirtir.
 
+#### Min Pixel Ratio
+`html5.min_pixel_ratio`, [High Dpi](#high-dpi) etkin olduğunda CSS pikseli başına en az tuval işleme pikseli sayısını ayarlar. Varsayılan `0` değeridir; bu, alt sınırı devre dışı bırakır. `1` altındaki değerler dahil pozitif kesirli değerler desteklenir.
+
+#### Max Pixel Ratio
+`html5.max_pixel_ratio`, [High Dpi](#high-dpi) etkin olduğunda CSS pikseli başına en fazla tuval işleme pikseli sayısını ayarlar. Varsayılan `0` değeridir; bu, üst sınırı devre dışı bırakır. `1` altındaki değerler dahil pozitif kesirli değerler desteklenir.
+
+Her iki sınır da sonlu, negatif olmayan sayılar olmalıdır. İki sınır da etkin olduğunda alt sınır üst sınırı aşmamalıdır. *High Dpi* devre dışıysa oran `1` olur ve hiçbir sınır uygulanmaz. Bu sınırlar, tuvalin CSS görüntüleme boyutunu koruyarak işleme çözünürlüğünü etkiler. Yapılandırma örneği için [Piksel oranı sınırları](/manuals/html5/#pixel-ratio-limits) bölümüne bakın.
+
 #### Retry Count
 Başlangıç sırasında başarısız bir indirmeden sonraki yeniden deneme sayısı; ağ hatalarını, başarısız HTTP durumlarını ve motorun JavaScript veya WebAssembly dosyasındaki boyut uyuşmazlıklarını kapsar. İlk istek ayrı sayılır. Arşiv dosyası doğrulamasının kendi yeniden deneme sınırı vardır; [indirme doğrulamasına](/manuals/html5/#download-verification) ve `Retry Time` ayarına bakın.
 
@@ -811,6 +839,34 @@ Ayarlanırsa motor derlemesini özelleştirmek için uygulama bildirimi (app man
 
 ---
 
+### Debugger
+
+Bu ayarlar, yerel hata ayıklama ve görüntüsüz derlemelerde [hata ayıklayıcı bağlantılarını](/manuals/debugging-game-logic/#native-dap-connections) kontrol eder. Yayıma yönelik derlemeler ve Web derlemeleri hata ayıklayıcı bağlamayı desteklemez. Ayarları, *game.project* dosyasını metin olarak düzenleyerek veya [motor başlangıcında yapılandırmayı geçersiz kılarak](#setting-config-values-on-engine-startup) ekleyin. Proje ayarları formunda gösterilmezler. <kbd>Debug ▸ Start/Attach</kbd> kullandığınızda düzenleyici bağlantıyı otomatik yapılandırır.
+
+Örneğin yerel bir dinleyici başlatmak ve başlangıç betikleri çalışmadan önce istemcinin kesme noktalarını yapılandırmasını beklemek için:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled`, `1` olarak ayarlandığında motor başlangıcında dinleyiciyi başlatır. Varsayılan olarak devre dışıdır (`0`). Çalışan bir oyun da [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running) ile dinleyiciyi başlatabilir.
+
+#### Address {#debugger-address}
+`debugger.address`, dinleyicinin bağlantıları kabul ettiği IPv4 adresidir. Varsayılan `127.0.0.1`, yalnızca yerel bağlantıları kabul eder. [Uzak bağlantılar](/manuals/debugging-game-logic/#remote-targets) için bir cihaz arayüzü adresi veya `0.0.0.0` kullanın.
+
+#### Port {#debugger-port}
+`debugger.port`, `0` ile `65535` arasındaki TCP dinleme bağlantı noktasıdır. Varsayılan `8172` değeridir. Motorun günlüğünde bildirdiği kullanılabilir bir bağlantı noktasını seçmek için `0` olarak ayarlayın.
+
+#### Wait {#debugger-wait}
+`debugger.wait`, başlangıç betiklerini çalıştırmadan önce istemcinin kesme noktaları dahil hata ayıklama oturumunu yapılandırmasını bitirmesini motorun beklemesini sağlar. Varsayılan olarak devre dışıdır (`0`). Başlangıç kodunda hata ayıklamak için `debugger.enabled=1` ile birlikte `1` olarak ayarlayın. Dinleyiciyi daha sonra `debugger.start()` ile başlatmak beklemez veya oyunu duraklatmaz. [Başlatma ve bağlanma kılavuzuna](/manuals/debugging-game-logic/#native-dap-connections) bakın.
+
+---
+
 ### Profiler
 
 App Manifest içindeki **Profiler** ayarı, profil çıkarıcı kodunun hata ayıklama derlemelerine ve yayıma yönelik derlemelere bağlanıp bağlanmayacağını belirler. Aşağıdaki ayarlar, seçilen derlemede bulunan profil çıkarıcı kodunun çalışma sırasındaki davranışını denetler. Ayrıntılar için [Profil çıkarma kılavuzuna](/manuals/profiling/) bakın.
@@ -835,7 +891,7 @@ Tarayıcı içi performans zaman çizelgesini etkinleştirir (yalnızca HTML5).
 
 ---
 
-## Motor başlangıcında yapılandırma değerlerini ayarlama
+## Motor başlangıcında yapılandırma değerlerini ayarlama {#setting-config-values-on-engine-startup}
 
 Motor başlarken komut satırından *game.project* ayarlarını geçersiz kılan yapılandırma değerleri sağlanabilir:
 
@@ -859,7 +915,7 @@ local my_flag = sys.get_config_boolean("test.my_flag", false)
 :[Component max count optimizations](../shared/component-max-count-optimizations.md)
 
 
-## Özel proje ayarları
+## Özel proje ayarları {#custom-project-settings}
 
 Ana proje veya bir [yerel kod eklentisi](/manuals/extensions/) için özel ayarlar tanımlanabilir. Ana projenin özel ayarları, proje kökündeki bir `game.properties` dosyasında tanımlanmalıdır. `ext.properties` adlı dosyalar, projenin ve alınan kütüphane bağımlılıklarının herhangi bir yerinde bulunabilir; aynı dizinde bir `ext.manifest` bulunmasını gerektirmezler. Bulunan tüm eklenti üst verileri birleştirilir, ardından kökteki `game.properties` dosyası uygulanır ve bu üst verileri geçersiz kılabilir.
 

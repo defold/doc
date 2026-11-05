@@ -89,8 +89,8 @@ uniform vs_uniforms
     mediump mat4 mtx_worldview;
     mediump mat4 mtx_proj;
     mediump mat4 mtx_normal;
-    // Cada vec4 almacena cuatro pesos de mezcla. Usa morph_targets_weights[1]
-    // para hasta 4 morph targets, [2] para hasta 8, [3] para hasta 12, etc.
+    // Each vec4 stores four blend weights. Use morph_targets_weights[1]
+    // for up to 4 morph targets, [2] for up to 8, [3] for up to 12, etc.
     mediump vec4 morph_targets_weights[2];
 };
 

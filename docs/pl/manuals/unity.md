@@ -166,7 +166,7 @@ Poniższa tabela pokazuje podobne komponenty Unity, aby ułatwić szybkie porów
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | W Defold tintu (właściwości koloru) można zmieniać tylko z poziomu kodu. |
 | [Tilemap](/manuals/tilemap/) | Tilemap / Grid | Defold ma wbudowany Tilemap Editor obsługujący kwadratowe siatki (ale istnieje rozszerzenie na przykład dla [Hexagon](https://github.com/selimanac/defold-hexagon/)) i nie ma wbudowanych reguł autotilingu. Narzędzia takie jak [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) czy [Sprite Fusion](https://defold.com/assets/spritefusion/) mają opcje eksportu do Defold. |
-| [Label](/manuals/label/) | Text / TextMeshPro | Od wersji Defold 1.13.2 komponenty Label i węzły tekstowe GUI obsługują wbudowane [znaczniki tekstu formatowanego](/manuals/font-richtext/) umożliwiające używanie kolorów, gradientów, obrysów i animowanych efektów. Dostępne jest też osobne rozszerzenie [RichText](https://defold.com/assets/richtext/). |
+| [Label](/manuals/label/) | Text / TextMeshPro | Komponenty Label i węzły tekstowe GUI obsługują wbudowane [znaczniki tekstu formatowanego](/manuals/font-richtext/) umożliwiające używanie kolorów, gradientów, obrysów i animowanych efektów. Dostępne jest też osobne rozszerzenie [RichText](https://defold.com/assets/richtext/). |
 | [Sound](/manuals/sound/) | AudioSource | Defold ma tylko globalne źródło dźwięku, a nie przestrzenne. Dla Defold dostępne jest oficjalne rozszerzenie [FMOD](https://github.com/defold/extension-fmod). |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | W Defold Factory to komponent z określonym prototypem (prefabem). |
 | [Collection Factory](/manuals/collection-factory/) | - (No direct component equivalent) | Komponent Collection Factory w Defold może tworzyć wiele obiektów gry naraz i ustawiać relacje rodzic-dziecko już w momencie tworzenia. |
@@ -222,7 +222,7 @@ Unity i Defold przechowują zawartość gry w katalogu projektu, ale różnią s
 
 ### Assety
 
-Unity trzyma assety w `Assets/` i generuje pliki `meta`. Defold nie ma plików meta. Projekt w Defold to po prostu struktura twoich folderów, dokładnie taka jak na dysku, a panel `Assets` zawsze ją odzwierciedla.
+Unity trzyma assety w `Assets/` i generuje pliki `.meta`. Defold nie ma plików meta. Projekt w Defold to po prostu struktura twoich folderów, dokładnie taka jak na dysku, a panel `Assets` zawsze ją odzwierciedla.
 
 ### Formaty zasobów
 
@@ -440,7 +440,7 @@ socket: /path #fragment
 albo, opisując to bardziej w nazewnictwie Defold:
 
 ```yaml
-collection: /gameobject #component 
+collection: /gameobject #component
 ```
 W powyższych opisach spacje dodano tylko po to, aby wizualnie rozdzielić te 3 części.
 
@@ -478,7 +478,7 @@ Adresowanie względne i skróty pozwalają pisać URL-e, które można ponownie 
 
 Ponieważ Defold oddziela świat GUI od świata obiektów gry, możesz też wysyłać wiadomości z komponentów `.script` w świecie obiektów gry do `.gui_script`.
 
-Możesz również wysyłać wiadomości do specjalnych przestrzeni nazw systemu, używając identyfikatora zaczynającego się od `@`. Na przykład system renderowania można adresować przez `@render:` i użyć tego do sterowania niektórymi wbudowanymi funkcjami renderowania, takimi jak zmiana projekcji w domyślnym skrypcie renderowania:
+Możesz również wysyłać wiadomości do specjalnych przestrzeni nazw systemu, używając identyfikatora zaczynającego się od `@`. Na przykład system renderowania można adresować przez `@render` i użyć tego do sterowania niektórymi wbudowanymi funkcjami renderowania, takimi jak zmiana projekcji w domyślnym skrypcie renderowania:
 
 ```lua
 msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
@@ -589,7 +589,7 @@ Oto porównanie:
 |-|-|-|
 | `init()` | `Awake()` / `Start()` / `OnEnable()`| Defold ma jeden punkt wejścia inicjalizacji i jedno wywołanie zwrotne - init(). Jest wywoływane dla każdego komponentu w momencie jego utworzenia. |
 | `on_input` | Input Methods | Defold odbiera wejścia, gdy [ustawiono fokus wejścia dla skryptu](/manuals/input/#input-focus). Jest to przetwarzane jako pierwsze w pętli aktualizacji. |
-| `fixed_update()` | `FixedUpdate()` | Wywoływane ze stałym krokiem czasowym. Aby włączyć to w Defold, musisz ustawić `Use Fixed Timestep` - [szczegóły](https://defold.com/manuals/project-settings/#use-fixed-timestep). Od wersji 1.12.0 uruchamia się przed `update()`. |
+| `fixed_update()` | `FixedUpdate()` | Wywoływane ze stałym krokiem czasowym. Aby włączyć to w Defold, musisz ustawić `Use Fixed Timestep` - [szczegóły](https://defold.com/manuals/project-settings/#use-fixed-timestep). Uruchamia się przed `update()`. |
 | `update()` | `Update()` | Wywoływane raz na klatkę z delta time. |
 | `late_update()` | `LateUpdate()` | Wywoływane po `update()`, tuż przed renderowaniem klatki. Dostępne od 1.12.0. |
 | `on_message` | Message Receiver | Podstawowe wywołanie zwrotne Defold do odbierania wiadomości. Jest przetwarzane, gdy w kolejce znajduje się jakakolwiek wiadomość. |

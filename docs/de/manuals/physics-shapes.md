@@ -32,7 +32,7 @@ Kapselformen werden nur bei Verwendung der 3D-Physik unterstützt (konfiguriert 
 :::
 
 ### Komplexe Formen {#complex-shapes}
-Komplexe Formen können die Geometrie einer Kachelkarte oder Daten einer konvexen Hülle (convex hull) verwenden. Seit Defold 1.13.2 können 3D-Kollisionsobjekte auch Hüllen und Dreiecksmesh-Formen aus Meshes in glTF- oder GLB-Szenen erstellen.
+Komplexe Formen können Kachelkartengeometrie oder Daten konvexer Hüllen verwenden. 3D-Kollisionsobjekte können außerdem Hüllen und Dreiecksnetzformen aus Meshes in glTF- oder GLB-Szenen erstellen.
 
 ## Hüllen- und Mesh-Formen in 3D {#hull-and-mesh-shapes-in-3d}
 

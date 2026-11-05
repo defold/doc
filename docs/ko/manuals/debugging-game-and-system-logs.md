@@ -78,7 +78,7 @@ iOS에서 게임 및 시스템 로그를 읽는 방법은 여러 가지가 있�
 게임을 실행하고 디버거를 연결하려면 [ios-deploy](https://github.com/phonegap/ios-deploy)라는 도구가 필요합니다. 터미널에서 다음을 실행해 게임을 설치하고 디버그하세요.
 
 ```txt
-$ ios-deploy --debug --bundle <path_to_game.app> # 참고: .ipa 파일이 아님
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
 ```
 
 그러면 앱이 기기에 설치되고 시작되며 LLDB 디버거가 자동으로 연결됩니다. LLDB를 처음 사용한다면 [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html)를 읽어보세요.

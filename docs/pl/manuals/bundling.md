@@ -75,12 +75,12 @@ Zasoby gry znajdują się w pliku `game.arcd` i są indywidualnie kompresowane a
 Za pomocą ustawienia [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) możesz skonfigurować zasoby, które powinny zostać umieszczone w `game.arcd` z kompresją.
 Możesz uzyskać do nich dostęp za pomocą funkcji [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource).
 
-## Wersje release i debug
+## Wersje release i debug {#release-vs-debug}
 
 Podczas tworzenia pakietu możesz wybrać wariant debug lub release. Różnice między nimi są niewielkie, ale warto je znać:
 
 * Wersje release nie zawierają domyślnie [profilera](/manuals/profiling). Aby dołączyć obsługę profilera zarówno w buildach debug, jak i release, ustaw opcję **Profiler** na **Always** w [manifeście aplikacji](/manuals/app-manifest/#profiler).
-* Wersje release nie zawierają [rejestratora ekranu](/ref/sys/#start_record)
+* Wersje release nie zawierają [nagrywania wideo](/manuals/recording) ani [modułu Lua `recorder`](/ref/recorder/). Nagrywanie jest dostępne w desktopowych buildach debug, chyba że włączono **Exclude Record** w [manifeście aplikacji](/manuals/app-manifest/#exclude-record).
 * Wersje release nie wyświetlają wyników działania `print()` ani danych wyjściowych z natywnych rozszerzeń
 * Wersje release mają wartość `is_debug` w `sys.get_engine_info()` ustawioną na `false`
 * Wersje release nie wykonują odwrotnego wyszukiwania wartości `hash` podczas wywoływania `tostring()`. W praktyce oznacza to, że `tostring()` dla wartości typu `url` lub `hash` zwróci ich numeryczną reprezentację, a nie oryginalny ciąg (`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)

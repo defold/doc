@@ -3,7 +3,7 @@ title: Defold'da doku profilleri
 brief:  Defold, otomatik doku işlemeyi ve görüntü verilerinin sıkıştırılmasını destekler. Bu kılavuz, kullanılabilen işlevleri açıklar.
 ---
 
-# Doku profilleri
+# Doku profilleri {#texture-profiles}
 
 Defold, otomatik doku (texture) işlemeyi ve görüntü verilerinin sıkıştırılmasını destekler (*atlaslarda (Atlas)*, *karo kaynaklarında (Tile sources)*, *küp haritalarında (Cubemaps)* ve modeller, GUI vb. için kullanılan bağımsız dokularda).
 
@@ -52,7 +52,7 @@ ASTC, 4×4 ile 12×12 teksel arasında değişen çeşitli blok boyutlarını de
 | 12x12                       | 0.89           |
 
 
-#### Desteklenen cihazlar
+#### Desteklenen cihazlar {#supported-devices}
 
 ASTC çok iyi sonuçlar verse de tüm grafik kartları tarafından desteklenmez. Üreticiye göre desteklenen cihazların kısa bir listesi şöyledir:
 
@@ -65,7 +65,7 @@ ASTC çok iyi sonuçlar verse de tüm grafik kartları tarafından desteklenmez.
 | AMD (Radeon)       | Vulkan desteği olan AMD GPU'ları genellikle ASTC'yi yazılım aracılığıyla destekler.     |
 | Intel (tümleşik) | Modern Intel GPU'larında ASTC yazılım aracılığıyla desteklenir.                  |
 
-## Doku profilleri
+## Doku profilleri {#texture-profiles}
 
 Her proje, dokuları sıkıştırırken kullanılan yapılandırmayı içeren belirli bir *.texture_profiles* dosyası içerir. Varsayılan olarak bu dosya *builtins/graphics/default.texture_profiles* dosyasıdır ve her doku kaynağını, donanımla doku sıkıştırma kullanmadan RGBA ve varsayılan ZLib dosya sıkıştırmasını kullanan bir profille eşleştiren yapılandırmaya sahiptir.
 
@@ -80,7 +80,7 @@ Doku sıkıştırma eklemek için:
 
 ![Doku profilini ayarlama](images/texture_profiles/texture_profiles_game_project.png)
 
-Doku profillerinin kullanımını düzenleyici tercihlerinden açıp kapatabilirsiniz. <kbd>File ▸ Preferences...</kbd> seçeneğini seçin. *General* sekmesinde *Enable texture profiles* adlı bir onay kutusu bulunur.
+Düzenleyiciden derlerken doku sıkıştırması uygulamak için <kbd>File ▸ Preferences...</kbd> seçeneğini seçin ve *General* sekmesinde **Enable Texture Compression** seçeneğini işaretleyin. Bob ile yapılan derlemelerde [`--texture-compression`](/manuals/bob/#usage) seçeneğini verin. Sıkıştırma devre dışıyken de görüntü boyutu ve mipmap gibi profil ayarları uygulanır.
 
 ![Doku profili tercihleri](images/texture_profiles/texture_profiles_preferences.png)
 
@@ -111,7 +111,7 @@ Daha genel yolun en sona yerleştirildiğine dikkat edin. Eşleştirme algoritma
 
 Profil dosyasındaki hiçbir yolla _eşleşmeyen_ doku kaynakları derlenir ve 2'nin en yakın kuvvetine ölçeklenir; bunun dışında değiştirilmeden bırakılır.
 
-## Profiller
+## Profiller {#profiles}
 
 Doku profilleri dosyasının *profiles* bölümü, adlandırılmış profillerin bir listesini içerir. Her profil bir veya daha fazla *platforms* öğesi içerir ve her platform bir özellik listesiyle tanımlanır.
 
@@ -126,6 +126,9 @@ Doku profilleri dosyasının *profiles* bölümü, adlandırılmış profillerin
 
 *Formats*
 : Oluşturulacak bir veya daha fazla doku biçimi. Birden fazla biçim belirtilirse her biçim için dokular oluşturulur ve dağıtım paketine dahil edilir. Motor, çalıştığı platformun desteklediği bir biçimdeki dokuları seçer.
+
+*Keep KTX2 Format*
+: Platformun *Formats* alternatiflerini kullanmak yerine KTX2 kaynağının kodlama biçimini korur. Varsayılan olarak işaretli değildir (`keep_ktx2_format: false`). PNG ve JPEG gibi diğer görüntü türleri *Formats* kullanmaya devam eder. Sıkıştırılmış bir kaynak biçimini korumak, doku sıkıştırmasının etkin olmasını gerektirir. İşleme ve uyumluluk ayrıntıları için [KTX2 kaynak dokuları](#ktx2-source-textures) bölümüne bakın.
 
 *Mipmaps*
 : İşaretliyse platform için mipmap yapıları oluşturulur. Varsayılan olarak işaretli değildir.
@@ -157,7 +160,39 @@ Bir profile eklenen her *Formats* öğesi şu özelliklere sahiptir:
 `uncompressed` sıkıştırıcısının yalnızca `uncompressed` adlı bir hazır ayarı vardır; bu, dokulara sıkıştırma uygulanmayacağı anlamına gelir.
 Kullanılabilen sıkıştırıcıların listesi için [Sıkıştırıcılar](#compressors) bölümüne bakın.
 
-## Doku biçimleri
+## KTX2 kaynak dokuları {#ktx2-source-textures}
+
+Doku profilleri, bağımsız *.ktx2* dosyalarına ve glTF veya GLB dosyalarına gömülmüş KTX2 görüntülerine uygulanır. Yol ayarları, gömülü görüntüler için `/models/robot.glb/images/0.ktx2` gibi sanal yollar dahil, kaynak görüntü yoluyla eşleşir. KTX2'ye özgü yol ayarını daha geniş kapsamlı eşleştirme desenlerinden önce yerleştirin.
+
+Profili ve platformu seçin, ardından KTX2 girdisinin nasıl işleneceğini belirleyin:
+
+| Keep KTX2 Format | Doku sıkıştırması etkin olduğunda derlenmiş çıktı |
+| --- | --- |
+| Etkin | ETC1S, ETC1S olarak; UASTC, UASTC olarak; BC7, BC7 olarak kalır ve ham kaynak verileri sıkıştırılmaz. KTX2 girdisi için platformun *Formats* alternatifleri atlanır. |
+| Devre dışı (varsayılan) | Seçilen kodlama kaynakla aynı olsa bile kaynak görüntüler çözülür ve profilin *Format*, *Compressor* ve *Compressor Preset* ayarlarıyla kodlanır. |
+
+Örneğin bu profil KTX2 kaynaklarıyla eşleşir, biçimlerini ve mipmap'lerini korur ve alfayla ön çarpmayı devre dışı bırakır:
+
+```protobuf
+path_settings { path: "**/*.ktx2" profile: "KTX2" }
+profiles {
+  name: "KTX2"
+  platforms {
+    os: OS_ID_GENERIC
+    mipmaps: true
+    premultiply_alpha: false
+    keep_ktx2_format: true
+  }
+}
+```
+
+Bu girdileri *game.project* dosyasında atanmış doku profilleri dosyasına birleştirin ve derleme için doku sıkıştırmasını etkinleştirin. Sıkıştırma devre dışıysa veya eşleşen bir profil yoksa KTX2 kaynakları sıkıştırılmamış çıktı üretir.
+
+**Keep KTX2 Format**, mümkün olduğunda kodlanmış kaynak düzeylerini yeniden kullanır. Yönelim, alfayla ön çarpma, görüntü boyutu veya mipmap değişiklikleri, çözme ve aynı biçime yeniden kodlama gerektirebilir. Standart glTF KTX2 dokuları normalde Defold'un Y ekseninde çevirmesini gerektirir; bu nedenle biçimi korumak, kodlanmış verilerin yeniden kullanılacağını garanti etmez. Bu seçenek etkin olsa bile yeniden kodlama ek kalite kaybına yol açabilir.
+
+Korunan kaynak biçiminin hedef cihazlarınızda desteklendiğinden emin olun. Bu seçenek, çalışma zamanı kod çözücüleri veya GPU biçim desteği eklemez. Kaynak biçimi bir hedef için uygun değilse o platformda seçeneği devre dışı bırakın ve uyumlu çıktı biçimleri ile sıkıştırma ayarları seçin.
+
+## Doku biçimleri {#texture-formats}
 
 Grafik donanımı dokuları, farklı kanal sayıları ve bit derinlikleriyle sıkıştırılmamış veya *kayıplı* sıkıştırılmış verilere dönüştürülebilir. Donanımla sıkıştırmanın sabit olması, görüntünün içeriğinden bağımsız olarak ortaya çıkan görüntünün sabit bir boyutta olacağı anlamına gelir. Bu nedenle sıkıştırma sırasındaki kalite kaybı, özgün dokunun içeriğine bağlıdır.
 
@@ -210,7 +245,7 @@ Aşağıdaki doku sıkıştırıcıları varsayılan olarak desteklenir. Doku do
 Defold, doku sıkıştırma hattında kurulabilir sıkıştırıcıları destekler. Bu, WEBP veya tamamen özel bir yöntem gibi bir doku sıkıştırma algoritmasının bir eklenti içinde uygulanmasını mümkün kılar.
 :::
 
-## Örnek görüntü
+## Örnek görüntü {#example-image}
 
 Çıktının daha iyi anlaşılması için aşağıda bir örnek verilmiştir.
 Görüntü kalitesinin, sıkıştırma süresinin ve sıkıştırılmış boyutun her zaman girdi görüntüsüne bağlı olduğunu ve değişebileceğini unutmayın.
@@ -218,7 +253,7 @@ Görüntü kalitesinin, sıkıştırma süresinin ve sıkıştırılmış boyutu
 Temel görüntü (1024x512):
 ![Yeni profil dosyası](images/texture_profiles/kodim03_pow2.png)
 
-### Sıkıştırma süreleri
+### Sıkıştırma süreleri {#compression-times}
 
 | Hazır ayar    | Sıkıştırma süresi | Göreli süre |
 | --------- | ---------------- | ------------- |
@@ -227,7 +262,7 @@ Temel görüntü (1024x512):
 | `HIGH`    | 0m1.764s         | 6.0x            |
 | `HIGHEST` | 0m1.109s         | 3.8x            |
 
-### Sinyal kaybı
+### Sinyal kaybı {#signal-loss}
 
 Karşılaştırma, `basisu` aracı kullanılarak (PSNR ölçülerek) yapılır.
 100 dB, sinyal kaybı olmadığı anlamına gelir (yani özgün görüntüyle aynıdır).
@@ -239,7 +274,7 @@ Karşılaştırma, `basisu` aracı kullanılarak (PSNR ölçülerek) yapılır.
 | `HIGH`    | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
 | `HIGHEST` | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
 
-### Sıkıştırılmış dosya boyutları
+### Sıkıştırılmış dosya boyutları {#compression-file-sizes}
 
 Özgün dosya boyutu 1572882 bayttır.
 
@@ -251,7 +286,7 @@ Karşılaştırma, `basisu` aracı kullanılarak (PSNR ölçülerek) yapılır.
 | `HIGHEST` | 254380     | 16.17 %  |
 
 
-### Görüntü kalitesi
+### Görüntü kalitesi {#image-quality}
 
 Ortaya çıkan görüntüler aşağıdadır (`basisu` aracı kullanılarak ASTC kodlamasından elde edilmiştir).
 

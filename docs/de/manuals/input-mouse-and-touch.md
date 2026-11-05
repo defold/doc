@@ -39,6 +39,30 @@ end
 Eingabeaktionen für `MOUSE_BUTTON_LEFT` (oder `MOUSE_BUTTON_1`) werden auch bei einzelnen Berührungseingaben gesendet.
 :::
 
+### Mausklicks von Berührungen unterscheiden {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` unterscheidet einen physischen Maustastendruck von einem durch Berührung simulierten Klick, einschließlich des ersten Drückens. Binde `MOUSE_BUTTON_LEFT` an `mouse_button_left` und verwende diesen Code in einem Skript oder GUI-Skript:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Eine als Mausklick simulierte Berührung meldet `hash("touch")`, auch ohne separaten Touch Trigger. Du benötigst weder eine Tabelle `action.touch` noch ein vorheriges Bewegungsereignis, um die Berührung zu erkennen. Unter [Quelle des Eingabegeräts](/manuals/input/#input-device-source) findest du alle Quellwerte und die Funktionsweise bei mehreren Bindungen mit demselben Aktionsnamen.
+
+Unter iOS muss eine benutzerdefinierte `Info.plist` `UIApplicationSupportsIndirectInputEvents` aktivieren, damit diese Unterscheidung funktioniert. Das integrierte Manifest aktiviert dies bereits.
+
 ## Mausrad {#mouse-wheel}
 Mausradeingaben erkennen Scrollaktionen. Das Feld `action.value` ist `1`, wenn das Rad gedreht wird, und andernfalls `0`. (Scrollaktionen werden wie Tastendrücke behandelt. Defold unterstützt derzeit keine fein abgestuften Scrolleingaben auf Touchpads.)
 
@@ -55,11 +79,12 @@ end
 ## Mausbewegung {#mouse-movement}
 Mausbewegungen werden gesondert behandelt. Ereignisse für Mausbewegungen werden nur empfangen, wenn in deinen Eingabebindungen (input bindings) mindestens ein Mausauslöser eingerichtet ist.
 
-Mausbewegungen werden nicht in den Eingabebindungen zugeordnet. Stattdessen wird `action_id` auf `nil` gesetzt und die Tabelle `action` mit der Position und der Positionsänderung der Maus gefüllt.
+Zeigerbewegungen sind an keinen Aktionsnamen gebunden: `action_id` ist `nil`, und die Tabelle `action` enthält die Position des Zeigers und sein Bewegungsdelta. Die Quelle ist `hash("mouse")` für eine physische Maus oder `hash("touch")` für aus Berührungen simulierte Bewegungen. Auch Beschleunigungssensorwerte verwenden `action_id == nil`; prüfe zur Unterscheidung die Quelle, wie unter [Quelle des Eingabegeräts](/manuals/input/#input-device-source) gezeigt.
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

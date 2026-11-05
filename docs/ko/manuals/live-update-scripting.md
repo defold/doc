@@ -21,22 +21,21 @@ end
 
 ## 마운트 가져오기
 
-`liveupdate.get_mounts()`는 현재 세션에서 활성화된 마운트를 반환합니다. 각 항목에는 URI 문자열 `mount.uri`, 숫자 우선순위 `mount.priority`, 해시인 `mount.name`이 있습니다. 마운트는 재시작 후 복원되지 않으므로 필요한 설정을 애플리케이션이 저장하고 `liveupdate.add_mount()`를 다시 호출해야 합니다.
+`liveupdate.get_mounts()`는 현재 세션에서 활성화된 마운트를 반환합니다. 각 항목에는 `uri` 문자열, 숫자 `priority`, `name` 해쉬가 있습니다. 목록에는 우선순위가 0 미만이며 제거할 수 없는 엔진의 기본 마운트도 포함됩니다.
 
-`mount.name`은 해시이므로 테이블 키로 사용하거나 `hash("name")`과 비교해야 하며 경로 문자열에 연결하면 안 됩니다. 각 이름 해시를 고유한 메타데이터 경로에 매핑하세요.
+엔진은 재시작 후 마운트를 복원하지 않습니다. 다음 세션에서 이전에 다운로드한 컨텐츠가 필요하다면 어플리케이션이 자체 저장 데이터에 패키지 URI, 이름, 우선순위를 보관하고 시작 시 `liveupdate.add_mount()`를 다시 호출해야 합니다.
+
+여러 패키지를 마운트할 때는 어플리케이션이 정의한 메타데이터를 검증하는 것이 좋습니다. `mount.name`은 해쉬이므로 테이블 키로 사용하거나 `hash("mount-name")`과 비교하세요. 리소스 경로에 이어 붙이면 안 됩니다. 다음 예제는 각 이름 해쉬를 고유한 메타데이터 리소스 경로에 매핑합니다:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- 마운트가 담긴 테이블
 	local version_resources = {
-		[hash("liveupdate")] = "/version_liveupdate.json",
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
 	}
 
-    -- 각 마운트에는 mount.uri, mount.priority, mount.name이 있습니다
-	for _,mount in ipairs(mounts) do
-
-        -- 다른 아카이브의 파일을 가져오지 않도록 파일명이 유니크해야 합니다
-        -- 이 데이터는 개발자가 아카이브의 메타 데이터를 지정하기 위해 만듭니다
+	for _, mount in ipairs(mounts) do
 		local version_resource = version_resources[mount.name]
 		local version_data = version_resource and sys.load_resource(version_resource)
 
@@ -46,14 +45,15 @@ local function remove_old_mounts()
 			version_data = {version = 0} -- 버전 파일이 없다면 오래되었거나 유효하지 않은 아카이브일 가능성이 큽니다
 		end
 
-        -- 게임이 지원하는 버전과 비교해 아카이브 버전을 검증합니다
-        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- 유효하지 않으므로 언마운트합니다!
-            liveupdate.remove_mount(mount.name)
-        end
+		-- 우선순위가 음수인 엔진의 기본 마운트는 무시합니다.
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```
+
+패키지마다 고유한 메타데이터 경로를 사용하세요. 리소스 조회는 마운트 우선순위를 따르므로 여러 패키지에서 같은 경로를 사용하면 가장 높은 우선순위의 마운트에 있는 복사본을 읽게 됩니다.
 
 ## 제외된 컬렉션 프록시로 스크립팅하기
 

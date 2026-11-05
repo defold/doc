@@ -164,7 +164,7 @@ Die folgende Tabelle zeigt ähnliche Unity-Komponenten zum schnellen Nachschlage
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | In Defold kannst du die Einfärbung (Farbeigenschaft) nur über Code ändern. |
 | [Kachelkarte (tile map)](/manuals/tilemap/) | Tilemap / Grid | Defold hat einen integrierten Kachelkarten-Editor, der quadratische Raster unterstützt (es gibt aber eine Erweiterung z. B. für [Hexagon](https://github.com/selimanac/defold-hexagon/)) und keine integrierten Regeln zum automatischen Anordnen von Kacheln bietet. Werkzeuge wie [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) oder [Sprite Fusion](https://defold.com/assets/spritefusion/) bieten Exportmöglichkeiten für Defold. |
-| [Beschriftung](/manuals/label/) | Text / TextMeshPro | Seit Defold 1.13.2 unterstützen Beschriftungskomponenten und GUI-Textknoten integriertes [Rich-Text-Markup](/manuals/font-richtext/) für Farben, Farbverläufe, Konturen und animierte Effekte. Eine separate [RichText-Erweiterung](https://defold.com/assets/richtext/) ist ebenfalls verfügbar. |
+| [Beschriftung](/manuals/label/) | Text / TextMeshPro | Beschriftungskomponenten und GUI-Textknoten unterstützen integrierte [Rich-Text-Auszeichnungen](/manuals/font-richtext/) für Farben, Verläufe, Konturen und animierte Effekte. Eine separate [RichText-Erweiterung](https://defold.com/assets/richtext/) ist ebenfalls verfügbar. |
 | [Audio](/manuals/sound/) | AudioSource | Defold hat nur eine globale Audioquelle (keine räumliche). Es gibt eine offizielle [FMOD-Erweiterung](https://github.com/defold/extension-fmod) für Defold. |
 | [Fabrik](/manuals/factory/) | Prefab Instantiate() | In Defold ist eine Fabrik (factory) eine Komponente mit einem bestimmten Prototyp (Prefab). |
 | [Sammlungsfabrik](/manuals/collection-factory/) | - (Keine direkt entsprechende Komponente) | Eine Sammlungsfabrik (collection factory) in Defold kann mehrere Spielobjekte mit Eltern-Kind-Beziehungen gleichzeitig erzeugen. |
@@ -590,7 +590,7 @@ Hier ein Vergleich:
 |-|-|-|
 | `init()` | `Awake()` / `Start()` / `OnEnable()`| Defold hat einen einzigen Einstiegspunkt und Callback für die Initialisierung: init(). Er wird beim Erstellen jeder Komponente aufgerufen. |
 | `on_input` | Eingabemethoden | Defold empfängt Eingaben, wenn [der Eingabefokus für das Skript gesetzt ist](/manuals/input/#input-focus). Wird in der Aktualisierungsschleife zuerst verarbeitet. |
-| `fixed_update()` | `FixedUpdate()` | Wird mit festem Zeitschritt aufgerufen. Um dies in Defold zu aktivieren, musst du `Use Fixed Timestep` einschalten; siehe [Details](https://defold.com/manuals/project-settings/#use-fixed-timestep). Seit 1.12.0 wird es vor `update()` ausgeführt. |
+| `fixed_update()` | `FixedUpdate()` | Wird mit festem Zeitschritt aufgerufen. Zur Aktivierung in Defold musst du `Use Fixed Timestep` setzen – [Einzelheiten](https://defold.com/manuals/project-settings/#use-fixed-timestep). Der Aufruf erfolgt vor `update()`. |
 | `update()` | `Update()` | Wird einmal pro Frame mit der Zeitdifferenz aufgerufen. |
 | `late_update()` | `LateUpdate()` | Wird nach `update()` aufgerufen, unmittelbar bevor der Frame gerendert wird. Seit 1.12.0 verfügbar. |
 | `on_message` | Nachrichtenempfänger | Defolds zentraler Callback zum Empfangen von Nachrichten. Wird verarbeitet, wenn sich eine Nachricht in einer Warteschlange befindet. |

@@ -97,7 +97,9 @@ Si vous souhaitez également prendre en charge les écrans retina haute résolut
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Cela crée un tampon arrière à haute densité de pixels sur les écrans qui le prennent en charge. Le rendu du jeu utilisera une résolution deux fois supérieure à celle définie dans les paramètres Width et Height, qui restera la résolution logique utilisée dans les scripts et les propriétés. Toutes les mesures restent donc identiques, et tout contenu rendu à l'échelle 1x aura la même apparence. En revanche, si vous importez des images haute résolution et que vous les réduisez à l'échelle 0.5x, elles seront affichées à haute densité de pixels à l'écran.
+High DPI permet au jeu d'utiliser la densité de pixels de l'écran pour sa résolution de rendu. Les paramètres *Width* et *Height* définissent toujours la résolution logique du projet, tandis que l'échelle de rendu dépend de la plateforme et de l'écran. Par exemple, à une échelle de 2, des images importées à deux fois leur taille prévue et dessinées à 0.5x peuvent conserver leurs détails sur un écran dense.
+
+Sur HTML5, l'échelle part du rapport de pixels du périphérique indiqué par le navigateur. `html5.min_pixel_ratio` et `html5.max_pixel_ratio` peuvent borner cette échelle lorsque `display.high_dpi` est activé. Chaque limite vaut `0` par défaut (désactivée), et les rapports fractionnaires, y compris les valeurs inférieures à `1`, sont pris en charge. Ces limites modifient la résolution de rendu du canvas tout en conservant sa taille d'affichage CSS. Lorsque High DPI est désactivé, le rapport reste à `1`. Consultez [Limites du rapport de pixels](/manuals/html5/#pixel-ratio-limits) pour un exemple limitant le rendu sur les écrans denses.
 
 
 ## Créer une interface graphique adaptative {#creating-an-adaptive-gui}

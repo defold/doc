@@ -131,7 +131,7 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 
 ```sh
 	$ unzip <project>/build/arm64-darwin/build.zip
-	# 它将产生一个 Contents/Resources/DWARF/dmengine
+	# it will produce a Contents/Resources/DWARF/dmengine
 ```
 
 2. 如果您没有使用原生扩展，下载原始符号：

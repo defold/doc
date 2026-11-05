@@ -3,7 +3,7 @@ title: Defold'da GUI yerleşimleri
 brief: Defold, mobil cihazlarda ekran yönelimi değişikliklerine otomatik olarak uyum sağlayan GUI'leri destekler. Bu belge, özelliğin nasıl çalıştığını açıklar.
 ---
 
-# Yerleşimler
+# Yerleşimler {#layouts}
 
 Defold, mobil cihazlarda ekran yönelimi değişikliklerine otomatik olarak uyum sağlayan grafik kullanıcı arayüzlerini (GUI) destekler. Bu özelliği kullanarak çeşitli ekran boyutlarının yönelimine ve en boy oranına uyum sağlayan GUI tasarlayabilirsiniz. Belirli cihaz modellerine uyan yerleşimler (layout) oluşturmak da mümkündür.
 
@@ -36,7 +36,7 @@ Cihaz döndürüldüğünde motorun dikey ve yatay yerleşimler arasında otomat
 
 Display Profiles kaynağında "Auto Layout Selection" seçeneği bulunur (varsayılan olarak ON). ON olduğunda motor, hem sahne oluşturulduğunda hem de pencere/ekran boyutu değiştiğinde en iyi eşleşen GUI yerleşimini otomatik olarak seçer. OFF olduğunda motor yerleşimleri otomatik olarak değiştirmez; yerleşimler arasında elle geçiş yapmak için GUI betiğinizden `gui.set_layout()` işlevini kullanın. Bu ayar Display Profiles dosyasında saklanır ve tüm GUI sahnelerini etkiler.
 
-## GUI yerleşimleri
+## GUI yerleşimleri {#gui-layouts}
 
 Geçerli ekran profilleri kümesi, GUI düğümü (GUI node) düzeninizin yerleşim çeşitlerini oluşturmak için kullanılabilir. Bir GUI sahnesine yeni bir yerleşim eklemek için *Outline* görünümündeki *Layouts* simgesine sağ tıklayın ve <kbd>Add ▸ Layout ▸ ...</kbd> seçeneğini seçin:
 
@@ -54,7 +54,7 @@ Bir yerleşim seçiliyken bir düğüm özelliğinde yaptığınız her değişi
 
 Bir yerleşim düğümleri silemez veya yeni düğüm oluşturamaz; yalnızca özellikleri geçersiz kılabilir. Bir düğümü bir yerleşimden kaldırmanız gerekiyorsa düğümü ekran dışına taşıyabilir veya betik mantığıyla silebilirsiniz. O anda seçili yerleşime de dikkat etmeniz önerilir. Projenize bir yerleşim eklerseniz yeni yerleşim, o anda seçili yerleşime göre ayarlanır. Ayrıca düğümler kopyalanıp yapıştırılırken, hem kopyalama *hem de* yapıştırma sırasında o anda seçili yerleşim dikkate alınır.
 
-## Dinamik profil seçimi
+## Dinamik profil seçimi {#dynamic-profile-selection}
 
 Auto Layout Selection etkinleştirildiğinde motor, en iyi eşleşen yerleşimi otomatik olarak seçer. Dinamik yerleşim eşleştirmesi, her ekran profili niteleyicisine aşağıdaki kurallara göre bir puan verir:
 
@@ -72,7 +72,7 @@ Auto Layout Selection etkinleştirildiğinde motor, en iyi eşleşen yerleşimi 
 
 Daha iyi eşleşen bir yerleşim yoksa çalışma sırasında yedek olarak *Default* yerleşimi kullanılır. Bu nedenle bir "Landscape" yerleşimi eklerseniz bir "Portrait" yerleşimi de ekleyene kadar "Landscape", *tüm* yönelimler için en iyi eşleşme olur.
 
-## Yerleşim değişikliği iletileri
+## Yerleşim değişikliği iletileri {#layout-change-messages}
 
 Yerleşim değiştiğinde GUI bileşeninin (component) betiğine bir `layout_changed` iletisi gönderilir. Bu, motor yerleşimi otomatik olarak değiştirdiğinde (Auto Layout Selection ON) veya betiğiniz `gui.set_layout()` işlevini çağırıp yerleşim gerçekten değiştiğinde gerçekleşir. İleti, yerleşimin karma değeri alınmış tanımlayıcısını (hashed identifier) içerir; böylece betik, hangi yerleşimin seçildiğine bağlı olarak mantık çalıştırabilir:
 
@@ -99,7 +99,9 @@ end
 
 Yönelim değiştiğinde GUI yerleşim yöneticisi, GUI düğümlerini yerleşiminize ve düğüm özelliklerine göre otomatik olarak ölçekler ve yeniden konumlandırır. Oyun içi içerik ise (varsayılan olarak) ayrı bir geçişte, geçerli pencereye gerilerek sığdırılan bir izdüşümle işlenir. Bu davranışı değiştirmek için kendi değiştirilmiş işleme betiğinizi sağlayın veya bir kamera [kütüphanesi](/assets/) kullanın.
 
-## Elle yerleşim seçimi (Lua)
+Kamera kesiklerinin çevresine özel arayüz yerleşimi yapmak için seçili GUI yerleşimi aynı kalsa bile `window.WINDOW_EVENT_RESIZED` olayında `window.get_reserved_areas()` sonucunu yenileyin. iOS'ta 180° döndürme, engelin yerini değiştirirken pencere boyutlarını ve güvenli alan kenar boşluklarını değiştirmeyebilir. Yenileme örneği ve pencere pikseli cinsinden koordinatların GUI uyarlamasıyla ilişkisi için [Ayrılmış ekran alanları](/manuals/porting-guidelines/#reserved-screen-areas) bölümüne bakın.
+
+## Elle yerleşim seçimi (Lua) {#manual-layout-selection-lua}
 
 Kullanılan Display Profiles için Auto Layout Selection OFF olduğunda motor yerleşimleri otomatik olarak değiştirmez. Yerleşimleri elle yönetmek için bir GUI betiğinden şu işlevleri kullanın:
 

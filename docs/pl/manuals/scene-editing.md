@@ -46,6 +46,22 @@ Te działania są dostępne w edytorach wizualnych:
 
 Możesz też użyć **Frame Selection** (<kbd>F</kbd>), aby ustawić kamerę na bieżącym zaznaczeniu.
 
+### Manipulator osi {#axis-gizmo}
+
+**Scene View Axis Gizmo** pojawia się w prawym dolnym rogu widoku sceny w trybie 3D. Pokazuje orientację kamery względem osi świata: **X** jest czerwona, **Y** zielona, a **Z** niebieska.
+
+![Widok sceny z manipulatorem osi w prawym dolnym rogu](images/editor/axis_gizmo.gif)
+
+| Sterowanie | Działanie |
+| --- | --- |
+| <kbd>Left Mouse Click</kbd> na uchwycie osi | Ustawienie kamery do patrzenia wzdłuż tej osi. Przeciwległe uchwyty zapewniają widok z drugiej strony. |
+| Kliknięcie już wyrównanego uchwytu osi | Przełączenie na przeciwny widok wzdłuż tej samej osi. |
+| Przytrzymanie <kbd>Left Mouse Button</kbd> i przeciąganie manipulatora | Obracanie wokół bieżącego punktu skupienia kamery. Możesz przeciągać uchwyt osi lub okrągły obszar wokół uchwytów bez przytrzymywania klawisza modyfikującego. |
+
+Wyrównanie do osi zachowuje punkt skupienia, odległość i projekcję kamery. Najpierw użyj **Frame Selection** (<kbd>F</kbd>), aby skupić widok na obiekcie, a następnie manipulatora, aby obejrzeć go z różnych kierunków. Standardowe sterowanie przesuwaniem, powiększaniem i orbitowaniem przez <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd> nadal jest dostępne.
+
+Manipulator jest dostępny w trybie 3D zarówno przy projekcji perspektywicznej, jak i ortograficznej. W trybie 2D jest ukryty; użyj **Align/Realign Camera 2D/3D** na [pasku narzędzi](#toolbar-overview) albo naciśnij <kbd>.</kbd>, aby przełączyć na 3D. Użyj osobnego [przełącznika projekcji kamery](#camera-type-perspective-vs-orthographic), aby wybrać perspektywę lub projekcję ortograficzną. Manipulator steruje widokiem sceny w edytorze scen.
+
 ## Orientacja sceny 2D i 3D
 
 Widok sceny może być używany zarówno w przepływie pracy 2D, jak i 3D:
@@ -56,11 +72,11 @@ Widok sceny może być używany zarówno w przepływie pracy 2D, jak i 3D:
   - używasz kamery **perspektywicznej**,
   - wybierasz odpowiednią płaszczyznę siatki, często **Y** jako „podłoże”.
 
-Te funkcje są dostępne z paska narzędzi oraz menu **View**.
+Te funkcje są dostępne z paska narzędzi oraz menu **View**. Używaj [manipulatora osi](#axis-gizmo) w trybie 3D, aby wyrównać widok do osi lub obracać go myszą.
 
 ![Edytor scen 3D](images/editor/3d_scene.png)
 
-## Przegląd paska narzędzi
+## Przegląd paska narzędzi {#toolbar-overview}
 
 W prawym górnym rogu widoku sceny znajduje się pasek narzędzi z często używanymi narzędziami i opcjami widoku (od lewej do prawej):
 
@@ -153,7 +169,7 @@ Ustawienia obejmują:
 - Przycisk **Reset to Defaults**
   Przywraca ustawienia siatki aktywnego trybu do wartości początkowych.
 
-## Typ kamery: Perspective i Orthographic
+## Typ kamery: Perspective i Orthographic {#camera-type-perspective-vs-orthographic}
 
 Edytor scen obsługuje oba typy:
 

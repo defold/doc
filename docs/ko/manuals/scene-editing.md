@@ -46,6 +46,22 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 
 **Frame Selection**(<kbd>F</kbd>)을 사용해 현재 선택 항목에 카메라 초점을 맞출 수도 있습니다.
 
+### 축 기즈모 {#axis-gizmo}
+
+**Scene View Axis Gizmo**는 3D 모드에서 씬 뷰의 오른쪽 아래에 표시됩니다. 월드 축에 대한 카메라 방향을 나타내며 **X**는 빨강, **Y**는 초록, **Z**는 파랑입니다.
+
+![Scene view with the axis gizmo in the bottom-right corner](images/editor/axis_gizmo.gif)
+
+| 조작 | 동작 |
+| --- | --- |
+| 축 핸들을 <kbd>마우스 왼쪽 클릭</kbd> | 해당 축을 따라 보도록 카메라를 정렬합니다. 반대쪽 핸들은 반대편 시점을 제공합니다. |
+| 이미 정렬된 축 핸들 클릭 | 같은 축의 반대편 시점으로 전환합니다. |
+| <kbd>마우스 왼쪽 버튼</kbd>을 누르고 기즈모 드래그 | 카메라의 현재 초점을 중심으로 회전합니다. 보조 키를 누르지 않고 축 핸들이나 핸들 주변의 원형 영역에서 드래그할 수 있습니다. |
+
+축 정렬은 카메라의 초점, 거리, 투영을 유지합니다. 먼저 **Frame Selection**(<kbd>F</kbd>)으로 오브젝트에 초점을 맞춘 다음 기즈모로 여러 방향에서 살펴보세요. 기본 팬, 줌, <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd> 회전 조작도 계속 사용할 수 있습니다.
+
+기즈모는 3D 모드의 원근 및 직교 투영 모두에서 사용할 수 있습니다. 2D 모드에서는 숨겨집니다. [도구 모음](#toolbar-overview)의 **Align/Realign Camera 2D/3D**나 <kbd>.</kbd> 키로 3D로 전환하세요. 원근 또는 직교 투영은 별도의 [카메라 투영 전환](#camera-type-perspective-vs-orthographic)으로 선택합니다. 기즈모는 씬을 바라보는 Scene Editor의 시점을 제어합니다.
+
 ## 2D와 3D 씬 방향 {#2d-and-3d-scene-orientation}
 
 씬 뷰는 2D와 3D 워크플로우 모두에서 사용할 수 있습니다.
@@ -56,11 +72,11 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
   - **원근 투영(perspective)** 카메라를 사용합니다.
   - 적절한 그리드 평면을 선택합니다. “지면”에는 보통 **Y**를 사용합니다.
 
-이 기능은 툴바와 **View** 메뉴에서 사용할 수 있습니다.
+이 기능은 도구 모음과 **View** 메뉴에서 사용할 수 있습니다. 3D 모드의 [축 기즈모](#axis-gizmo)로 시점을 축에 정렬하거나 마우스로 회전할 수 있습니다.
 
 ![Scene Editor 3D](images/editor/3d_scene.png)
 
-## 툴바 개요
+## 툴바 개요 {#toolbar-overview}
 
 씬 뷰 오른쪽 위에는 자주 사용하는 도구와 뷰 옵션이 있는 툴바가 있습니다(왼쪽부터 오른쪽 순서).
 
@@ -153,7 +169,7 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 - **Reset to Defaults** 버튼
   모든 그리드 설정을 기본값으로 되돌립니다.
 
-## 카메라 타입: Perspective와 Orthographic
+## 카메라 타입: Perspective와 Orthographic {#camera-type-perspective-vs-orthographic}
 
 Scene Editor는 다음 두 가지를 모두 지원합니다.
 

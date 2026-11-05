@@ -32,7 +32,7 @@ Le forme a capsula sono supportate solo quando si usa la fisica 3D (configurata 
 :::
 
 ### Forme complesse {#complex-shapes}
-Le forme complesse possono usare la geometria di una tilemap o dati di inviluppi convessi. Da Defold 1.13.2, gli oggetti di collisione 3D possono anche creare inviluppi convessi e forme a mesh triangolare dalle mesh di scene glTF o GLB.
+Le forme complesse possono usare la geometria delle tilemap o dati di inviluppi convessi. Gli oggetti di collisione 3D possono anche creare inviluppi e forme mesh triangolari a partire dalle mesh di scene glTF o GLB.
 
 ## Forme Hull e Mesh in 3D {#hull-and-mesh-shapes-in-3d}
 

@@ -130,7 +130,7 @@ Google Play에 기록된 크래시가 심볼리케이트된 콜스택으로 표�
 
 ```sh
 	$ unzip <project>/build/arm64-darwin/build.zip
-	# Contents/Resources/DWARF/dmengine을 생성합니다.
+	# it will produce a Contents/Resources/DWARF/dmengine
 ```
 
 2. 네이티브 익스텐션을 사용하지 않는 경우, 기본 심볼을 다운로드합니다.

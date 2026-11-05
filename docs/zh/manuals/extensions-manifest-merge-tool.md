@@ -135,11 +135,11 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
         <key>REAL</key>
         <real>8.0</real>
 
-        <!-- 即使扩展清单包含相同的键，也要保留此值 -->
+        <!-- Keep this value even if an extension manifest contains the same key -->
         <key merge='keep'>BASE64</key>
         <data>SEVMTE8gV09STEQ=</data>
 
-        <!-- 如果扩展清单也包含此键的数组，则任何字典值将与基础数组的第一个字典值合并 -->
+        <!-- If an extension manifest also has an array with this key then any dictionary values will be merged with the first dictionary value of the base array -->
         <key>Array1</key>
         <array>
             <dict>
@@ -150,7 +150,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
             </dict>
         </array>
 
-        <!-- 不要尝试合并此数组的值，而是应将扩展清单的值添加到数组末尾 -->
+        <!-- Do not attempt to merge the values of this array, instead values from extension manifests should be added to the end of the array -->
         <key merge='keep'>Array2</key>
         <array>
             <dict>
@@ -187,7 +187,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
         <key>INT</key>
         <integer>42</integer>
 
-        <!-- 替换基础清单中的现有值 -->
+        <!-- Replace the existing value in the base manifest -->
         <key merge='replace'>REAL</key>
         <integer>16.0</integer>
 
@@ -223,7 +223,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
-        <!-- 基础清单和扩展清单的字典的嵌套合并 -->
+        <!-- Nested merge of dictionaries from base and extension manifests -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -244,23 +244,23 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
                 </dict>
             </dict>
 
-            <!-- 来自基础清单 -->
+            <!-- From the base manifest -->
             <key>INT</key>
             <integer>8</integer>
 
-            <!-- 基础清单的值被替换，因为扩展清单中的合并标记设置为 "replace" -->
+            <!-- The value from the base manifest was replaced since the merge marker was set to "replace" in the extension manifest -->
             <key>REAL</key>
             <real>16.0</real>
 
-            <!-- 使用基础清单的值，因为基础清单中的合并标记设置为 "keep" -->
+            <!-- The value from the base manifest was used since the merge marker was set to "keep" in the base manifest -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
 
-            <!-- 添加扩展清单的值，因为没有指定合并标记 -->
+            <!-- The value from the extender manifest was added since no merge marker was specified -->
             <key>INT</key>
             <integer>42</integer>
 
-            <!-- 数组的字典值被合并，因为基础清单默认使用 "merge" -->
+            <!-- The dictionary values of the array were merged since the base manifest defaults to "merge" -->
             <key>Array1</key>
             <array>
                 <dict>
@@ -272,7 +272,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
                 </dict>
             </array>
 
-            <!-- 字典值被添加到数组，因为基础清单使用了 "keep" -->
+            <!-- The dictionary values were added to the array since the base manifest used "keep" -->
             <key>Array2</key>
             <array>
                 <dict>
@@ -345,14 +345,14 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
         <script id='engine-loader' type='text/javascript' src='mydmloader.js'></script>
         <script id='engine-setup' type='text/javascript'>
             function load_engine() {
-                var engineJS = document.createElement('script');
+                var engineJSdocument.createElement('script');
                 engineJS.type = 'text/javascript';
                 engineJS.src = '{{exe-name}}_wasm.js';
                 document.head.appendChild(engineJS);
             }
         </script>
         <script id='engine-start' type='text/javascript' merge='keep'>
-            my_load_engine();
+            my_load_engine(
         </script>
     </body>
     </html>

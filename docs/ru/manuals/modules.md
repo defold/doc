@@ -62,7 +62,7 @@ end
 ```lua
 local M = {}
 
--- private
+-- приватная
 local message = "Hello world!"
 
 function M.hello()
@@ -110,7 +110,7 @@ print(m.value) --> "4711" (даже если "module.lua" изменен и пе
 ```lua
 --- module.lua
 
--- Заменить на локальное M = {} после завершения
+-- Заменить на local M = {} после завершения
 uniquevariable12345 = uniquevariable12345 or {}
 local M = uniquevariable12345
 
@@ -177,7 +177,7 @@ return M
   local M = {}
   
   function M:alter_state(v)
-      -- self is added as first argument when using : notation
+      -- self добавляется первым аргументом при использовании записи с :
       self.value = self.value + v
   end
   
@@ -200,7 +200,7 @@ return M
   ```lua
   local m = require "main.mymodule"
   local my_state = m.new(42)
-  my_state:alter_state(1) -- "my_state" is added as first argument when using : notation
+  my_state:alter_state(1) -- "my_state" добавляется первым аргументом при использовании записи с :
   print(my_state:get_state()) --> 43
   ```
 

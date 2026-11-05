@@ -3,11 +3,11 @@ title: Düzenleyiciye genel bakış
 brief: Bu kılavuz, Defold düzenleyicisinin görünümüne, işleyişine ve içinde nasıl gezinileceğine genel bir bakış sunar.
 ---
 
-# Düzenleyiciye genel bakış
+# Düzenleyiciye genel bakış {#editor-overview}
 
 Düzenleyici, oyun projenizdeki tüm dosya ve klasörlere göz atmanızı ve bunlar üzerinde verimli bir şekilde işlem yapmanızı sağlar. Bir dosyayı düzenlemeye başladığınızda uygun düzenleyici açılır ve dosyayla ilgili tüm bilgiler ayrı görünümlerde gösterilir.
 
-## Düzenleyiciyi başlatma
+## Düzenleyiciyi başlatma {#starting-the-editor}
 
 Defold düzenleyicisini çalıştırdığınızda proje seçme ve oluşturma ekranı açılır. Yapmak istediğiniz işlemi tıklayarak seçin:
 
@@ -40,7 +40,7 @@ Yeni bir proje oluşturduğunuzda proje yerel sürücünüzde saklanır ve yapt�
 
 Farklı seçenekler hakkında daha fazla bilgiyi [Proje kurulumu kılavuzunda](https://www.defold.com/manuals/project-setup/) bulabilirsiniz.
 
-## Düzenleyici dili
+## Düzenleyici dili {#editor-language}
 
 Başlangıç ekranının sol alt köşesinde dil seçimini görebilirsiniz. Mevcut yerelleştirmelerden birini seçin. Bu ayara düzenleyicide `File ▸ Preferences ▸ General ▸ Editor Language` yolundan da erişebilirsiniz.
 
@@ -52,7 +52,7 @@ Defold düzenleyicisi, belirli bilgileri gösteren bölmelerden veya görünüml
 
 ![Düzenleyici 2](images/editor/editor_overview.png)
 
-### 1. Assets bölmesi
+### 1. Assets bölmesi {#1-assets-pane}
 Projenizdeki tüm dosya ve klasörleri, diskinizdeki yapıyla aynı olan bir ağaç yapısında listeler. Listede gezinmek için tıklayın ve kaydırın. Dosyalarla ilgili tüm işlemleri bu görünümde yapabilirsiniz:
 
    - Herhangi bir dosya veya klasörü seçmek için <kbd>sol tıklayın</kbd>; <kbd>⇧ Shift</kbd> tuşunu basılı tutarak seçimi genişletebilir veya <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> tuşunu basılı tutarak tıkladığınız öğeyi seçebilir ya da seçimden çıkarabilirsiniz.
@@ -78,7 +78,7 @@ Scene Editor tarafından sunulan temel özelliklerden bazıları:
 
 Daha fazla bilgiyi [Sahne düzenleyicisi kılavuzunda](/manuals/scene-editing/) bulabilirsiniz.
 
-### 3. Outline bölmesi
+### 3. Outline bölmesi {#3-outline-pane}
 
 Bu görünüm, düzenlemekte olduğunuz dosyanın içeriğini hiyerarşik bir ağaç yapısında gösterir. Outline, düzenleyici görünümünü yansıtır ve öğeleriniz üzerinde işlem yapmanızı sağlar:
 
@@ -90,7 +90,7 @@ Listedeki bir öğenin sağında bulunan küçük `👁` göz simgesine tıklaya
 
 ![Outline bölmesi](images/editor/outline.png)
 
-### 4. Properties bölmesi
+### 4. Properties bölmesi {#4-properties-pane}
 
 Bu görünüm, seçili öğeyle ilişkili Id, URL, Position, Rotation, Scale gibi özellikleri ve/veya bileşene özgü diğer özellikleri, ayrıca betiklerin özel özelliklerini gösterir.
 
@@ -98,7 +98,7 @@ Sayısal bir özelliğin değerini, `↕` yukarı-aşağı okunu <kbd>sürükley
 
 ![Properties bölmesi](images/editor/properties.png)
 
-### 5. Tools bölmesi
+### 5. Tools bölmesi {#5-tools-pane}
 
 Bu görünümde birkaç sekme bulunur.
 
@@ -112,7 +112,7 @@ Bu görünümde birkaç sekme bulunur.
 
 Tools bölmesi, tümleşik hata ayıklayıcıyla etkileşim kurmak için de kullanılır. Daha fazla bilgiyi [Hata ayıklama kılavuzunda](/manuals/debugging/) bulabilirsiniz.
 
-### 6. Changed Files bölmesi
+### 6. Changed Files bölmesi {#6-changed-files-pane}
 
 Projenizde Git kullanılıyorsa bu görünüm, geçerli Git kaydına (commit) (`HEAD`) kıyasla yerel olarak değiştirilen, eklenen, yeniden adlandırılan veya silinen dosyaları listeler. Uzak bir depoyla eşitlemek için harici bir Git istemcisi veya komut satırını kullanın. Daha fazla bilgiyi [Sürüm kontrolü kılavuzunda](/manuals/version-control/) bulabilirsiniz. Dosyalarla ilgili bazı işlemleri bu görünümde yapabilirsiniz:
 
@@ -120,17 +120,33 @@ Projenizde Git kullanılıyorsa bu görünüm, geçerli Git kaydına (commit) (`
    - Bir dosyanın görünümünü açmak için dosyaya <kbd>sol tuşla çift tıklayın</kbd>. Düzenleyici, Assets görünümünde olduğu gibi dosyayı uygun düzenleyicide açar.
    - Fark görünümünü açabileceğiniz, dosyada yapılan tüm değişiklikleri geri alabileceğiniz, dosyayı dosya sisteminde bulabileceğiniz ve başka işlemler yapabileceğiniz açılır menüyü açmak için dosyaya <kbd>sağ tıklayın</kbd>.
 
-### Menü çubuğu
+### Menü çubuğu {#menu-bar}
 
 Düzenleyici görünümünün üst kısmında veya Mac'te sistem çubuğunda, 6 menü içeren menü çubuğunu bulabilirsiniz: `File`, `Edit`, `View`, `Project`, `Debug`, `Help`. Bu menülerin işlevleri kılavuzlarda açıklanacaktır.
 
-### Durum çubuğu
+### Durum çubuğu {#status-bar}
 
 Düzenleyicinin alt çubuğunda, durumun gösterildiği dar bir alan bulunur. Örneğin:
 - Yeni bir güncelleme mevcut olduğunda tıklanabilir `Update Available` düğmesi görünür. Bu kılavuzun aşağıdaki Düzenleyiciyi güncelleme bölümüne bakın.
 - Proje derlenirken veya paketlenirken ilerleme burada gösterilir.
 
-## Bölme boyutu ve görünürlüğü
+## Motor penceresinin yerleşimi {#engine-window-placement}
+
+Masaüstü platformlarında, düzenleyiciden açılan motor pencereleri normal pencere boyutlarını ve konumlarını başlatmalar ve motorun yeniden başlatılması boyunca hatırlar. Yerleşim her proje ve motor örneği için ayrı kaydedilir. Tek bir motor örneğini başlatmak, birden çok örnek başlatılırken ilk örnek için kaydedilen yerleşimi kullanır.
+
+Motor penceresini taşırsanız veya yeniden boyutlandırırsanız sonraki başlatmada bu yerleşim geri yüklenir. Yapılandırılmış pencere boyutları değişmediği sürece hatırlanan boyut kullanılır; bu boyutlar değiştirilirse sonraki başlatmada yeni boyut kullanılır. Linux Wayland'de pencere konumunu masaüstü birleştiricisi kontrol ettiği için yalnızca boyut geri yüklenir.
+
+### Motor penceresinin boyutunu sıfırlama {#resetting-the-engine-window-size}
+
+Yapılandırılmış boyuta dönmek için <kbd>Debug ▸ Reset Simulated Resolution</kbd> seçeneğini seçin. Bu komut:
+
+- Çalışmayan örnekler dahil, geçerli projedeki tüm motor örnekleri için hatırlanan pencere boyutlarını temizler.
+- Seçili benzetilmiş çözünürlüğü temizler ve **Rotated Device** seçeneğini kapatır.
+- Kaydedilmiş pencere konumlarını korur.
+
+Seçili çalışan motor örneklerinin pencereleri, projenin [Display Width ve Height](/manuals/project-settings/#display) boyutlarına getirilir. Hiçbir motor çalışmıyorken de sıfırlayabilirsiniz; sonraki başlatmada yapılandırılmış boyut kullanılır. Daha sonra pencereyi taşımak veya yeniden boyutlandırmak yeni yerleşimini tekrar kaydeder.
+
+## Bölme boyutu ve görünürlüğü {#panes-size-and-visibility}
 
 Düzenleyicide bölmelerin boyutunu, yukarıda açıklanan 6 bölme arasındaki sınırları <kbd>sürükleyerek</kbd> ayarlayabilirsiniz.
 
@@ -144,7 +160,7 @@ Düzenleyicide bölmelerin görünürlüğünü `View` menüsündeki seçenekler
 
 `View` menüsünden Grid, Guides veya Camera gibi görünürlükle ilgili diğer ayarları da açıp kapatabilir ya da değiştirebilir, görünümü seçime sığdırabilir (`Frame Selection` veya <kbd>F</kbd> tuşu) ve varsayılan 2B ve 3B görünümler arasında geçiş yapabilirsiniz (`Realign Camera` veya <kbd>.</kbd> tuşu). Bunların çoğuna araç çubuğundan veya kısayollarla da erişilebilir.
 
-## Sekmeler
+## Sekmeler {#tabs}
 
 Birden fazla dosya açıksa düzenleyici görünümünün üst kısmında her dosya için ayrı bir sekme gösterilir. Aynı bölmedeki sekmelerin yerini değiştirebilirsiniz; sekme çubuğundaki konumlarını değiştirmek için <kbd>sürükleyip bırakın</kbd>. Ayrıca şunları yapabilirsiniz:
 
@@ -156,7 +172,7 @@ Birden fazla dosya açıksa düzenleyici görünümünün üst kısmında her do
 
 ![Sekmeler](images/editor/tabs_custom.png)
 
-## Yan yana düzenleme
+## Yan yana düzenleme {#side-by-side-editing}
 
 2 düzenleyici görünümünü yan yana açabilirsiniz.
 
@@ -178,7 +194,7 @@ Yeni dosya için *Name* alanına uygun bir ad yazın ve gerekirse *Location* ala
 
 ![Oluşturulacak dosyanın adı](images/editor/create_file_name.png)
 
-## Şablonlar
+## Şablonlar {#templates}
 
 Her proje için özel şablonlar belirleyebilirsiniz. Bunun için projenin kök dizininde `templates` adlı yeni bir klasör oluşturun ve `/templates/default.gui` veya `/templates/default.script` gibi istediğiniz uzantılara sahip, `default.*` biçiminde adlandırılmış yeni dosyalar ekleyin. Ayrıca bu dosyalarda `{{NAME}}` belirteci kullanılırsa yerine dosya oluşturma penceresinde belirtilen dosya adı konur.
 
@@ -187,13 +203,13 @@ Belirli bir dosya türü için şablon varsa bu türde yeni bir dosya oluşturul
 
 ![Şablonlar](images/editor/templates.png)
 
-## Dosyaları projenize içe aktarma
+## Dosyaları projenize içe aktarma {#importing-files-to-your-project}
 
 Projenize varlık (asset) dosyaları (görüntüler, sesler, modeller vb.) eklemek için dosyaları *Assets* tarayıcısında uygun konuma sürükleyip bırakmanız yeterlidir. Böylece proje dosya yapısında seçilen konumda dosyaların _kopyaları_ oluşturulur. Daha fazla bilgiyi [varlıkları içe aktarma kılavuzumuzda](/manuals/importing-assets/) bulabilirsiniz.
 
 ![Dosyaları içe aktarma](images/editor/import.png)
 
-## Düzenleyiciyi güncelleme
+## Düzenleyiciyi güncelleme {#updating-the-editor}
 
 Düzenleyici, internete bağlıyken güncellemeleri otomatik olarak denetler. Bir güncelleme algılandığında proje seçme ekranının sol alt köşesinde veya düzenleyici penceresinin sağ alt köşesinde, tıklanabilir mavi `Update Available` bağlantısı gösterilir.
 
@@ -212,7 +228,7 @@ Güncelleme indirildikten sonra mavi bağlantı `Restart to Update` olarak deği
 
 ![Güncellemek için yeniden başlatma](images/editor/restart_to_update.png)
 
-## Tercihler
+## Tercihler {#preferences}
 
 Düzenleyicinin ayarlarını `Preferences` penceresinde değiştirebilirsiniz. Bu pencereyi açmak için `File ▸ Preferences…` seçeneğine tıklayın veya <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>,</kbd> kısayolunu kullanın
 
@@ -243,7 +259,7 @@ $ ./path/to/Defold/Defold
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
 
-## Düzenleyici sunucusu
+## Düzenleyici sunucusu {#editor-server}
 
 Düzenleyici bir proje açtığında rastgele bir bağlantı noktasında web sunucusu başlatır. Bu sunucu, diğer uygulamalardan düzenleyiciyle etkileşim kurmak için kullanılabilir. Bağlantı noktası `.internal/editor.port` dosyasına yazılır.
 
@@ -283,9 +299,9 @@ Dosya, bilinen her kurulum için bir nesne içeren bir JSON dizisi içerir:
 ]
 ```
 
-## Düzenleyici biçimlendirmesi
+## Düzenleyici biçimlendirmesi {#editor-styling}
 
 Düzenleyicinin görünümü özel biçimlendirmeyle değiştirilebilir. Daha fazla bilgiyi [Düzenleyici biçimlendirme kılavuzunda](/manuals/editor-styling) bulabilirsiniz.
 
-## Sık sorulan sorular
+## Sık sorulan sorular {#faq}
 :[Editor FAQ](../shared/editor-faq.md)

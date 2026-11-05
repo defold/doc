@@ -3,11 +3,11 @@ title: Android platformu için Defold ile geliştirme
 brief: Bu kılavuz, Defold uygulamalarının Android cihazlar için nasıl derleneceğini ve cihazlarda nasıl çalıştırılacağını açıklar
 ---
 
-# Android için geliştirme
+# Android için geliştirme {#android-development}
 
 Android cihazlarda kendi uygulamalarınızı serbestçe çalıştırabilirsiniz. Oyununuzun bir sürümünü derleyip bir Android cihaza kopyalamak çok kolaydır. Bu kılavuz, oyununuzu Android için paketleme adımlarını açıklar. Geliştirme sırasında oyununuzu [geliştirme uygulaması](/manuals/dev-app) üzerinden çalıştırmak genellikle tercih edilir; çünkü bu uygulama, içerik ve kodu doğrudan cihazınızda çalışma sırasında yeniden yüklemenize (hot reload) olanak tanır.
 
-## Android ve Google Play imzalama süreci
+## Android ve Google Play imzalama süreci {#android-and-google-play-signing-process}
 
 Android, tüm APK dosyalarının bir cihaza kurulmadan veya güncellenmeden önce bir sertifikayla dijital olarak imzalanmasını gerektirir. Android App Bundle (AAB) biçimini kullanıyorsanız Play Console'a yüklemeden önce yalnızca uygulama paketinizi imzalamanız gerekir; geri kalanını [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) halleder. Bununla birlikte, uygulamanızı Google Play'e veya diğer uygulama mağazalarına yüklemek ve herhangi bir mağazanın dışında dağıtmak için elle de imzalayabilirsiniz.
 
@@ -58,9 +58,9 @@ Uygulama dağıtım paketi ayarlarını yapılandırdıktan sonra <kbd>Create Bu
 
 :[Build Variants](../shared/build-variants.md)
 
-### Android uygulaması dağıtım paketini kurma
+### Android uygulaması dağıtım paketini kurma {#installing-an-android-application-bundle}
 
-#### APK kurma
+#### APK kurma {#installing-an-apk}
 
 Bir *`.apk`* dosyası `adb` aracıyla cihazınıza veya [Google Play geliştirici konsolu](https://play.google.com/apps/publish/) üzerinden Google Play'e kopyalanabilir.
 
@@ -73,7 +73,7 @@ $ adb install Defold\ examples.apk
 Success
 ```
 
-#### Düzenleyiciyi kullanarak APK kurma
+#### Düzenleyiciyi kullanarak APK kurma {#installing-an-apk-using-editor}
 
 Düzenleyicinin Bundle iletişim kutusundaki "Install on connected device" ve "Launch installed app" onay kutularını kullanarak bir *`.apk`* dosyasını kurup başlatabilirsiniz:
 
@@ -81,9 +81,13 @@ Düzenleyicinin Bundle iletişim kutusundaki "Install on connected device" ve "L
 
 Bu özelliğin çalışması için *ADB* kurulu olmalı ve bağlı cihazda *USB debugging* etkinleştirilmelidir. Düzenleyici ADB komut satırı aracının kurulum konumunu algılayamazsa bunu [Preferences](/manuals/editor-preferences/#tools) içinde belirtmeniz gerekir.
 
-#### AAB kurma
+#### AAB kurma {#installing-an-aab}
 
 Bir *.aab* dosyası [Google Play geliştirici konsolu](https://play.google.com/apps/publish/) üzerinden Google Play'e yüklenebilir. [Android bundletool](https://developer.android.com/studio/command-line/bundletool) kullanarak bir *.aab* dosyasından yerel olarak kurmak üzere bir *`.apk`* dosyası oluşturmak da mümkündür.
+
+## Ekran kesikleri {#display-cutouts}
+
+`window.get_reserved_areas()`, Android 9 (API düzeyi 28) ve sonraki sürümlerde ekran kesiklerinin dikdörtgenlerini bildirir. Güvenli bir yerleşim dikdörtgenine ihtiyaç duyduğunuzda `window.get_safe_area()` işlevini kullanın. Koordinat birimleri, desteklenmeyen platformlardaki davranış ve bildirilen alanlar değiştiğinde yerleşimi yenileme hakkında bilgi için [Ayrılmış ekran alanları](/manuals/porting-guidelines/#reserved-screen-areas) bölümüne bakın.
 
 ## R8 ile Java kodunu ve Android kaynaklarını küçültme {#shrinking-java-code-with-r8}
 
@@ -102,9 +106,9 @@ Java kodu içeren her eklentinin, çalışma sırasında ihtiyaç duyduğu sın�
 
 **R8 Keep Rules** alanı boş bırakıldığında küçültme işlemi yapılmadan D8 kullanılır. R8 etkinleştirildiğinde, yerel kod eklentileri (native extension) olmayan bir projede bile yerel kod eklentisi derleme hizmeti kullanılır.
 
-Defold 1.14.0'dan itibaren Android kaynaklarını küçültme işlemi de aynı **R8 Keep Rules** ayarıyla etkinleştirilir; bunun için ayrı bir proje ayarı yoktur. Eski Defold SDK'larında R8 küçültme işlemi yalnızca kodu kapsar.
+Android kaynaklarını küçültme işlemi de aynı **R8 Keep Rules** ayarıyla etkinleştirilir; bunun için ayrı bir proje ayarı yoktur. Eski Defold SDK'larında R8 küçültme işlemi yalnızca kodu kapsar.
 
-### Bir eklentiye kurallar ekleme
+### Bir eklentiye kurallar ekleme {#adding-rules-to-an-extension}
 
 Bir eklentinin koruma kuralları, eklentinin `manifests/android` dizininde, `build.gradle` dosyasının yanında bulunur. Bir dosyanın nasıl ekleneceğini ve eklentinin Java sınıflarının nasıl korunacağını öğrenmek için [Android eklentileri için R8 koruma kuralları](/manuals/extensions/#r8-keep-rules-for-android) bölümüne bakın.
 
@@ -119,7 +123,7 @@ Adlarıyla dinamik olarak aranan kaynaklar için açık koruma kuralları gereke
 
 Çakışmaları önlemek için her eklentinin XML koruma dosyasına benzersiz bir dosya adı verin. `tools:keep` değeri, virgülle ayrılmış bir kaynak adı listesi kabul eder ve `*` joker karakterini destekler. Ayrıntılar için Android'in [kaynak koruma kuralları belgelerine](https://developer.android.com/topic/performance/app-optimization/customize-which-resources-to-keep) bakın. R8'i etkinleştirdikten sonra kaynakları dinamik olarak yükleyen özellikleri yayıma yönelik bir derlemede test edin.
 
-### Karartma eşlemesini saklama
+### Karartma eşlemesini saklama {#keeping-the-obfuscation-mapping}
 
 Derleme bir `mapping.txt` dosyası oluşturduğunda R8'in bu dosyasını saklamak için Android dağıtım paketi iletişim kutusunda **Generate debug symbols** seçeneğini etkinleştirin veya Bob'a `--with-symbols` seçeneğini geçirin. Örneğin, proje dizininden:
 
@@ -133,21 +137,21 @@ Eşleme, oluşturulan APK veya AAB dosyasının yanına `<binary-name>.apk.symbo
 
 Eşleme dosyasını, oluşturulduğu sürümle birlikte saklayın. Bu dosya, yığın izlerini (stack trace) yorumlamak için karartılmış Java adlarını özgün adlarla eşler; farklı bir derlemeye ait eşleme yanlış sonuçlar verebilir.
 
-## İzinler
+## İzinler {#permissions}
 
 Defold motoru, tüm motor özelliklerinin çalışabilmesi için çeşitli izinler gerektirir. İzinler, *game.project* [proje ayarları dosyasında](/manuals/project-settings/#android) belirtilen `AndroidManifest.xml` dosyasında tanımlanır. Android izinleri hakkında daha fazla bilgiyi [resmî belgelerden](https://developer.android.com/guide/topics/permissions/overview) edinebilirsiniz. Varsayılan bildirimde aşağıdaki izinler istenir:
 
-### android.permission.INTERNET ve android.permission.ACCESS_NETWORK_STATE (Koruma düzeyi: normal)
+### android.permission.INTERNET ve android.permission.ACCESS_NETWORK_STATE (Koruma düzeyi: normal) {#androidpermissioninternet-and-androidpermissionaccess_network_state-protection-level-normal}
 Uygulamaların *ağ soketleri* açmasına ve ağlar hakkındaki bilgilere erişmesine izin verir. Bu izinler internet erişimi için gereklidir. ([Android resmî belgeleri](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) ve ([Android resmî belgeleri](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
-### android.permission.WAKE_LOCK (Koruma düzeyi: normal)
+### android.permission.WAKE_LOCK (Koruma düzeyi: normal) {#androidpermissionwake_lock-protection-level-normal}
 İşlemcinin uyumasını veya ekranın kararmasını önlemek için PowerManager WakeLocks kullanılmasına izin verir. Bu izin, bir anlık bildirim alınırken cihazın uyumasını geçici olarak önlemek için gereklidir. ([Android resmî belgeleri](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
 
-## AndroidX kullanma
+## AndroidX kullanma {#using-androidx}
 AndroidX, artık bakımı yapılmayan özgün Android Support Library'ye kıyasla büyük bir iyileştirmedir. AndroidX paketleri, aynı özellikleri ve yeni kütüphaneleri sağlayarak Support Library'nin yerini tamamen alır. [Asset Portal](/assets) üzerindeki Android eklentilerinin çoğu AndroidX'i destekler. AndroidX kullanmak istemiyorsanız [uygulama bildiriminde](https://defold.com/manuals/app-manifest/) `Use Android Support Lib` seçeneğini işaretleyerek AndroidX'i açıkça devre dışı bırakıp eski Android Support Library'yi kullanabilirsiniz.
 
 ![](images/android/enable_supportlibrary.png)
 
-## Sık sorulan sorular
+## Sık sorulan sorular {#faq}
 :[Android FAQ](../shared/android-faq.md)

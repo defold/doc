@@ -84,7 +84,7 @@ usage: bob [options] [commands]
     --exclude-build-folder <arg>         DEPRECATED! Use '.defignore' file
                                          instead
     --experimental-path-minification     Minimizes resource path names in
-                                         to save bundle size.
+                                         order to save bundle size.
  -h,--help                               This help message
  -i,--input <arg>                        DEPRECATED! Use --root instead
     --identity <arg>                     Sign identity (iOS)
@@ -240,7 +240,7 @@ $
 
 ## Serwer budowania {#build-server}
 
-Od wersji Defold 1.14.0 Bob wybiera domyślny serwer budowania natywnych rozszerzeń na podstawie kanału wydania swojej dystrybucji:
+Bob wybiera domyślny serwer budowania natywnych rozszerzeń na podstawie kanału wydania swojej dystrybucji:
 
 | Kanał wydania Boba | Domyślny serwer budowania |
 |---|---|

@@ -227,7 +227,7 @@ URL-объекты также могут быть созданы програм�
 -- Сформировать URL-объект из строки:
 local my_url = msg.url("main:/manager#controller")
 print(my_url) --> url: [main:/manager#controller]
-print(my_url.socket) --> 786443 (internal numeric value)
+print(my_url.socket) --> 786443 (внутреннее числовое значение)
 print(my_url.path) --> hash: [/manager]
 print(my_url.fragment) --> hash: [controller]
 
@@ -237,9 +237,9 @@ print(my_url) --> url: [main:/manager#controller]
 
 -- Сформировать URL-объект из ничего:
 local my_url = msg.url()
-my_url.socket = "main" -- specify by valid name
-my_url.path = hash("/manager") -- specify as string or hash
-my_url.fragment = "controller" -- specify as string or hash
+my_url.socket = "main" -- указать допустимое имя
+my_url.path = hash("/manager") -- указать строкой или хешем
+my_url.fragment = "controller" -- указать строкой или хешем
 
 -- Отправить сообщение целевому объекту, указанному в URL
 msg.post(my_url, "hello_manager!")

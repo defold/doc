@@ -32,7 +32,7 @@ Formas capsule são suportadas apenas ao usar física 3D (configurada na seção
 :::
 
 ### Formas complexas
-Formas complexas podem usar a geometria de tilemaps ou dados de cascos convexos. Desde o Defold 1.13.2, objetos de colisão 3D também podem criar cascos convexos e formas de malhas de triângulos a partir de malhas em cenas glTF ou GLB.
+Formas complexas podem usar geometria de tilemap ou dados de envoltória convexa. Objetos de colisão 3D também podem criar envoltórias e formas de malha triangular a partir de malhas em cenas glTF ou GLB.
 
 ## Formas Hull e Mesh em 3D {#hull-and-mesh-shapes-in-3d}
 

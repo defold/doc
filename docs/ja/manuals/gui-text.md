@@ -26,6 +26,31 @@ GUI テキストノードで使用するフォントは、GUI コンポーネン
 *Line Break*
 : テキストの揃え方はピボット（pivot）の設定に従います。このプロパティを設定すると、テキストを複数行にわたって表示できます。テキストの折り返し位置はノードの幅によって決まります。
 
+## ベクターフォントとカラー絵文字 {#vector-fonts-and-color-emoji}
+
+[ベクターフォントの設定](/manuals/font/#vector-fonts)に従い、GUI シーンの *Fonts* に `.font` リソースを追加して、テキストノードで選択します。フォントリソースの *Material* を `/builtins/fonts/font-vector.material` に設定します。表示サイズは、ノードの *Font Size* で制御します。
+
+カラー絵文字では、[COLRv1 のフォールバックとバンドルの設定](/manuals/font/#color-emoji)も完了してください。ID が `text` のテキストノードを作成し、*Text* を空にしたまま、GUI シーンの `.gui_script` に以下を追加します。
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) は GUI シーン内のフォント名を返し、[`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) は、その名前を `font.add_font()` で使うフォントリソースに解決します。そのリソースを共有するほかのノードや Label にもフォールバックが追加されるため、初期化は1回だけ行います。テキストは、事前準備が成功してから設定します。
+
 ## テキストの揃え方 {#alignment}
 
 ノードのピボットを設定すると、テキストの揃え方を変更できます。

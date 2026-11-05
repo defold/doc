@@ -31,28 +31,24 @@ Quando vários pacotes estão montados, é útil validar os metadados definidos 
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- tabela com mounts
 	local version_resources = {
-		[hash("liveupdate")] = "/version_liveupdate.json",
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
 	}
 
-    -- Cada mount tem: mount.uri, mount.priority, mount.name
-	for _,mount in ipairs(mounts) do
-
-        -- Isto exige que o nome do arquivo seja único, para não obtermos um arquivo de outro arquivo compactado
-        -- Estes dados são criados pelo desenvolvedor como forma de especificar metadados do arquivo
+	for _, mount in ipairs(mounts) do
 		local version_resource = version_resources[mount.name]
 		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
 		elseif mount.priority >= 0 then
-			version_data = {version = 0} -- se não tiver arquivo de versão, provavelmente é um arquivo antigo/inválido
+			version_data = {version = 0} -- se não houver arquivo de versão, provavelmente é um arquivo antigo ou inválido
 		end
 
-        -- verifica a versão do arquivo contra a versão suportada pelo jogo
-        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- era inválido, então vamos desmontá-lo!
-            liveupdate.remove_mount(mount.name)
-        end
+		-- Ignore os mounts-base da engine, que têm prioridades negativas.
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```

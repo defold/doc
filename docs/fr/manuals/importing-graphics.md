@@ -10,8 +10,19 @@ Defold prend en charge de nombreux types de composants (components) visuels fré
 ![Importation de fichiers](images/graphics/import.png)
 
 ::: sidenote
-Defold prend en charge les images aux formats PNG et JPEG. Les autres formats d'image doivent être convertis avant de pouvoir être utilisés.
+Utilisez des images PNG ou JPEG pour les atlas et les sources de tuiles. Vous pouvez également importer des textures source KTX2 pour les utiliser comme textures de modèles ; voir ci-dessous.
 :::
+
+
+## Textures KTX2 {#ktx2-textures}
+
+Importez un fichier *.ktx2* autonome en le faisant glisser dans le panneau *Assets*, puis affectez-le au champ de texture de matériau d'un composant Model. Les [modèles glTF et GLB](/manuals/importing-models/#ktx2-textures) peuvent aussi référencer des fichiers KTX2 externes ou contenir des images KTX2 intégrées. Les entrées des atlas, sources de tuiles et faces de cubemap continuent d'utiliser leurs formats d'image habituels.
+
+Les entrées KTX2 prises en charge sont les textures 2D utilisant ETC1S/BasisLZ, UASTC, BC7 ou des données R/RG/RGB/RGBA 8 bits UNORM ou sRGB. Les tableaux de textures, cubemaps, volumes et textures HDR KTX2 ne sont pas pris en charge. KTX2 est converti au moment du build en ressources *.texturec* de Defold ; le moteur ne lit pas les conteneurs KTX2 à l'exécution.
+
+Ouvrez une ressource KTX2 pour inspecter son format source, ses dimensions, son espace colorimétrique, ses métadonnées alpha et ses niveaux de mipmap. Le panneau *Outline* permet de sélectionner chaque niveau de mipmap fourni. Ceux-ci affichent les images source même si un profil de texture redimensionne la texture compilée ou désactive ses mipmaps.
+
+Utilisez les [profils de texture](/manuals/texture-profiles/#ktx2-source-textures) pour choisir entre la conservation du format source et sa conversion vers d'autres formats. Choisissez des formats de sortie pris en charge par les appareils ciblés. Recompresser une source déjà compressée avec perte peut encore réduire la qualité, y compris lorsque **Keep KTX2 Format** doit réencoder l'image après son traitement.
 
 
 ## Création de ressources Defold {#creating-defold-assets}

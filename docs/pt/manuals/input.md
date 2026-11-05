@@ -17,7 +17,7 @@ Dispositivos
   1. Teclado (tecla única e entrada de texto)
   2. Mouse (posição, cliques de botão e ações da roda do mouse)
   3. Toque único e multitoque (em dispositivos iOS e Android e HTML5 em mobile)
-  4. Gamepads (conforme suportados pelo sistema operacional e mapeados no arquivo [gamepads](/manuals/input-gamepads/#gamepads-settings-file))
+  4. Gamepads (usando [mapeamentos de controles e suporte da plataforma](/manuals/input-gamepads/#gamepads-settings-file))
 
 Mapeamentos de entrada
 : Antes que a entrada seja enviada para um script, a entrada bruta do dispositivo é traduzida em *ações* significativas por meio da tabela de mapeamentos de entrada.
@@ -111,7 +111,7 @@ Qualquer componente que esteja na pilha e contenha uma função `on_input()` ter
 : A instância de script atual.
 
 `action_id`
-: O nome com hash da ação, conforme configurado nos mapeamentos de entrada.
+: O hash do nome da ação, conforme definido nos mapeamentos de entrada, ou `nil` para movimento do ponteiro e amostras do acelerômetro. Use `action.source` para distinguir essas ações sem nome.
 
 `action`
 : Uma tabela contendo os dados úteis sobre a ação, como o valor da entrada, sua localização (posições absoluta e delta), se a entrada de botão foi `pressed` etc. Veja [on_input()](/ref/go#on_input) para detalhes sobre os campos de ação disponíveis.
@@ -129,6 +129,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### Origem do dispositivo de entrada {#input-device-source}
+
+`action.source` identifica a categoria do dispositivo de entrada independentemente do nome da ação. Está disponível nos callbacks `on_input()` de scripts e scripts de GUI e é um dos seguintes hashes:
+
+| `action.source` | Categoria de entrada |
+|-----------------|----------------|
+| `hash("keyboard")` | Entrada de teclas individuais de Key Triggers. |
+| `hash("text")` | Entrada de texto e texto marcado de Text Triggers, incluindo texto digitado com um teclado físico. |
+| `hash("mouse")` | Botões de mouse físico, entrada da roda e movimento do ponteiro. |
+| `hash("touch")` | Entrada por toque, incluindo cliques de mouse e movimento do ponteiro simulados a partir de toque. |
+| `hash("gamepad")` | Entrada de gamepad, incluindo entrada bruta e eventos de conexão. |
+| `hash("accelerometer")` | Amostras do acelerômetro. |
+
+Compare `action.source` com um hash, como `hash("touch")`, em vez de uma string. Por exemplo, uma ação do botão esquerdo do mouse pode vir de um mouse físico ou de um toque. A origem permite diferenciá-los mesmo no pressionamento inicial; consulte [Distinguindo cliques de mouse de toques](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+Quando vários dispositivos compartilham uma ação nomeada, suas contribuições podem ser combinadas. As origens são processadas nesta ordem: teclado, texto, mouse e toque; a última origem que contribuiu para a ação é informada. Liberações de teclas e botões de mouse mantêm a origem anterior, a menos que outra entrada contribua no mesmo frame. Ações de gamepad permanecem separadas por controle. Use nomes de ação separados quando precisar processar cada mapeamento de forma independente.
+
+Movimento do ponteiro e amostras do acelerômetro não têm nome de ação, portanto ambos usam `action_id == nil`. Eles chegam em callbacks separados: o movimento do ponteiro tem coordenadas e origem mouse ou touch, enquanto amostras do acelerômetro têm `acc_x`, `acc_y` e `acc_z` e origem accelerometer. Se ambos ocorrerem em um frame, cada callback pode ser consumido de forma independente. Amostras do acelerômetro são entregues mesmo quando seus valores não mudaram.
+
+O exemplo abaixo processa essas ações sem nome. Configure pelo menos um Mouse Trigger para receber o movimento do ponteiro e habilite [Use Accelerometer](/manuals/project-settings/#use-accelerometer) em um dispositivo compatível para receber amostras do acelerômetro:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 

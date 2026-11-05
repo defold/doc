@@ -3,16 +3,16 @@ title: Defold'da işleme hattı
 brief: Bu kılavuz, Defold'un işleme hattının nasıl çalıştığını ve nasıl programlanabileceğini açıklar.
 ---
 
-# İşleme
+# İşleme {#render}
 
 Motorun ekranda gösterdiği tüm nesneler (sprite bileşenleri, modeller, karolar, parçacıklar veya GUI düğümleri) bir işleyici (renderer) tarafından çizilir. İşleyicinin merkezinde işleme hattını (render pipeline) yöneten bir işleme betiği (render script) bulunur. Varsayılan olarak her 2B nesne, belirtilen harmanlama ile doğru bit eşlem kullanılarak ve doğru Z derinliğinde çizilir---bu nedenle sıralama ve basit harmanlama dışında işleme (rendering), yani görüntü oluşturma hakkında hiç düşünmeniz gerekmeyebilir. Çoğu 2B oyun için varsayılan hat iyi çalışır, ancak oyununuzun özel gereksinimleri olabilir. Bu durumda Defold, gereksinimlerinize özel bir işleme hattı yazmanıza olanak tanır.
 
-### İşleme hattı - Ne, ne zaman ve nerede?
+### İşleme hattı - Ne, ne zaman ve nerede? {#render-pipeline-what-when-and-where}
 
 İşleme hattı neyin, ne zaman ve nerede işleneceğini denetler. Neyin işleneceği [işleme yüklemleri](#render-predicates) (render predicates) ile denetlenir. Bir yüklemin ne zaman işleneceği [işleme betiğinde](#the-render-script), nerede işleneceği ise [görünüm izdüşümü](#default-view-projection) ile denetlenir. İşleme hattı, bir işleme yükleminin çizdiği grafiklerden tanımlı bir sınırlayıcı kutunun veya görüş hacminin (frustum) dışında kalanları da eleyebilir. Bu işleme görüş hacmi dışında kalanları eleme (frustum culling) denir.
 
 
-## Varsayılan işleme
+## Varsayılan işleme {#the-default-render}
 
 İşleme dosyası, geçerli işleme betiğine bir başvurunun yanı sıra işleme betiğinde kullanılabilir olması gereken özel materyalleri (material) içerir ([`render.enable_material()`](/ref/render/#render.enable_material) ile kullanın)
 
@@ -71,7 +71,7 @@ Materyallerin nasıl çalıştığına ilişkin ayrıntılı açıklamayı [Mate
 
 Varsayılan işleme betiği, 2B oyunlara uygun bir ortografik izdüşüm (orthographic projection) kullanacak şekilde yapılandırılmıştır. Üç farklı ortografik izdüşüm sunar: `Stretch` (varsayılan), `Fixed Fit` ve `Fixed`. Varsayılan işleme betiğindeki ortografik izdüşümlere alternatif olarak, bir kamera bileşeninin (camera component) sağladığı izdüşüm matrisini kullanma seçeneğiniz de vardır.
 
-### Esnetme izdüşümü
+### Esnetme izdüşümü {#stretch-projection}
 
 Esnetme izdüşümü, pencere yeniden boyutlandırıldığında bile her zaman oyununuzun *game.project* dosyasında ayarlanan boyutlara eşit bir alanını çizer. En boy oranı değişirse oyun içeriği dikey veya yatay olarak esnetilir:
 
@@ -89,7 +89,7 @@ Esnetme izdüşümü varsayılan izdüşümdür; ancak başka bir izdüşüme ge
 msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 ```
 
-### Sabit sığdırma izdüşümü
+### Sabit sığdırma izdüşümü {#fixed-fit-projection}
 
 Esnetme izdüşümü gibi sabit sığdırma izdüşümü de her zaman oyunun *game.project* dosyasında ayarlanan boyutlara eşit bir alanını gösterir; ancak pencere yeniden boyutlandırılır ve en boy oranı değişirse oyun içeriği özgün en boy oranını korur ve dikey veya yatay yönde daha fazla oyun içeriği gösterilir:
 
@@ -133,7 +133,7 @@ Sabit izdüşümü işleme betiğine bir ileti göndererek etkinleştirebilirsin
 msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
 
-### Kamera izdüşümü
+### Kamera izdüşümü {#camera-projection}
 
 Varsayılan işleme betiği kullanılırken projede etkin [kamera bileşenleri](/manuals/camera) varsa, bunlar işleme betiğinde ayarlanan diğer tüm görünüm / izdüşümlere göre önceliklidir. İşleme betiklerinde kamera bileşenleriyle nasıl çalışılacağı hakkında daha fazla bilgi için [Kamera belgesine](/manuals/camera) bakın.
 
@@ -189,12 +189,12 @@ Görüş hacmi dışında kalanları eleme, motorda her bileşen türü için ay
 
 
 ::: sidenote
-Defold 1.13.0'dan itibaren bileşenlerin temel geometrik şekilleri (primitive), köşelerin saat yönünün tersine sıralanmasını (vertex winding) kullanır ve şeklin normali kameraya doğru bakar. Sprite bileşenleri, GUI düğümleri, karo haritaları (karo ızgaraları) ve parçacık efektleri diğer bileşen türleriyle aynı sıralamayı kullanır; böylece tüm bileşenler için aynı yüz eleme ayarları kullanılabilir.
+Bileşenlerin temel geometrik şekilleri (primitive), köşelerin saat yönünün tersine sıralanmasını (vertex winding) kullanır ve şeklin normali kameraya doğru bakar. Sprite bileşenleri, GUI düğümleri, karo haritaları (karo ızgaraları) ve parçacık efektleri diğer bileşen türleriyle aynı sıralamayı kullanır; böylece tüm bileşenler için aynı yüz eleme ayarları kullanılabilir.
 
 Bu durum, model dışındaki bileşenler için yüz eleme ayarlayan projeleri etkileyebilir. Bir bileşen beklenmedik şekilde elenirse, `render.set_cull_face(graphics.FACE_TYPE_BACK)` ile arka yüzlerin seçildiğinden emin olun veya varsayılan `graphics.FACE_TYPE_BACK` modunu kullanmak için `render.set_cull_face()` çağrısını kaldırın.
 :::
 
-## Koordinat sistemleri
+## Koordinat sistemleri {#coordinate-systems}
 
 Bileşenlerin işlenmesinden söz ederken genellikle hangi koordinat sisteminde işlendikleri belirtilir. Çoğu oyunda bazı bileşenler dünya uzayında (world space), bazıları ise ekran uzayında (screen space) çizilir.
 
@@ -323,7 +323,7 @@ Bununla birlikte herhangi bir betik veya GUI betiği, özel `@render` soketi üz
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
-## İşleme kaynakları
+## İşleme kaynakları {#render-resources}
 Belirli motor kaynaklarını işleme betiğine geçirmek için bunları projeye atanmış `.render` dosyasındaki `Render Resources` tablosuna ekleyebilirsiniz:
 
 ![İşleme kaynakları](images/render/render_resources.png)
@@ -407,7 +407,7 @@ end
 
 Cihaz desteğini kontrol ederken istenen örnek sayısının kullanılabildiğini varsaymak yerine fiilen kullanılan bu sayıyı kullanın. Parametre ve sonuç tablolarının tamamı için [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) ve [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) belgelerine bakın.
 
-## Doku tanıtıcıları
+## Doku tanıtıcıları {#texture-handles}
 
 Defold'da dokular, motor içinde bir tanıtıcı (handle) ile temsil edilir; bu, temelde bir doku nesnesini motorun her yerinde benzersiz olarak tanımlaması gereken bir sayıya karşılık gelir. Bu, söz konusu tanıtıcıları işleme sistemi ile bir oyun nesnesi betiği arasında geçirerek oyun nesneleri dünyası ile işleme dünyası arasında köprü kurabileceğiniz anlamına gelir. Örneğin, bir oyun nesnesine bağlı betikte dinamik bir doku oluşturulabilir ve bir çizim komutunda genel doku olarak kullanılmak üzere işleyiciye gönderilebilir.
 
@@ -442,13 +442,13 @@ end
 Şu anda bir kaynağın hangi dokuya işaret etmesi gerektiğini değiştirmenin bir yolu yoktur; ham tanıtıcıları bu şekilde yalnızca işleme betiğinde kullanabilirsiniz.
 :::
 
-## Desteklenen grafik API'leri
+## Desteklenen grafik API'leri {#supported-graphics-apis}
 Defold işleme betiği API'si, işleme işlemlerini aşağıdaki grafik API'lerine dönüştürür:
 
 :[Graphics API](../shared/graphics-api.md)
 
 
-## Sistem iletileri
+## Sistem iletileri {#system-messages}
 
 `"set_view_projection"`
 : Bu ileti, kamera odağını edinmiş kamera bileşenleri tarafından gönderilir.
@@ -497,7 +497,7 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
 Defold, aşağıda tanımlanan kurallara göre çizim çağrılarının sayısını azaltmak için işleme işlemlerini toplu çizim (batching) için gruplamaya çalışır. Kurallar GUI bileşenleri ile diğer tüm bileşen türleri arasında farklılık gösterir.
 
 
-### GUI dışındaki bileşenler için toplu çizim kuralları
+### GUI dışındaki bileşenler için toplu çizim kuralları {#batch-rules-for-non-gui-components}
 
 Her `render.draw()` çağrısı, dünya uzayında sıralanan eşleşen öğelerin nasıl sıralanacağını denetler. Varsayılan değer `render.SORT_BACK_TO_FRONT` olur; yakından uzağa işleme için `render.SORT_FRONT_TO_BACK`, eklenme sırasını korumak için ise `render.SORT_NONE` kullanın:
 
@@ -521,7 +521,7 @@ Seçilen sıra, hangi öğelerin yan yana geleceğini belirler ve bu nedenle top
 Bu, aynı koleksiyon vekilindeki iki sprite bileşeni seçilen sıralama sonrasında yan yana gelirse ve aynı dokuyu, materyali ve sabitleri kullanırsa aynı çizim çağrısında gruplanacakları anlamına gelir.
 
 
-### GUI bileşenleri için toplu çizim kuralları
+### GUI bileşenleri için toplu çizim kuralları {#batch-rules-for-gui-components}
 
 Bir GUI bileşenindeki düğümler, düğüm listesinde yukarıdan aşağıya doğru işlenir. Listedeki her düğüm, aşağıdaki koşullar karşılandığında önceki düğümle aynı çizim çağrısında gruplanır:
 

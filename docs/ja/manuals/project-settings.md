@@ -154,6 +154,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 ### Display
 
+デスクトップでは、エディターから開いたエンジンウィンドウは、以前の実行時に保存したサイズを復元できます。<kbd>Debug ▸ Reset Simulated Resolution</kbd> を選ぶと、保存した位置は保持しつつ、記憶したサイズを消去して設定上のサイズに戻します。詳細は[エンジンウィンドウの配置とリセット](/manuals/editor/#engine-window-placement)を参照してください。
+
 #### Width
 アプリケーションウィンドウの幅です。単位はピクセルです。
 
@@ -162,6 +164,8 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### High Dpi
 対応するディスプレイで高 DPI のバックバッファーを作成します。通常、ゲームは *Width* と *Height* の設定値の2倍の解像度で描画されます。これらの設定値は、引き続きスクリプトやプロパティで使用する論理解像度になります。
+
+HTML5 では、この設定が有効な場合、[Min Pixel Ratio](#min-pixel-ratio) と [Max Pixel Ratio](#max-pixel-ratio) でレンダリングスケールを制限できます。
 
 #### Samples
 スーパーサンプリングアンチエイリアシングで使用するサンプル数です。ウィンドウヒント `GLFW_FSAA_SAMPLES` を設定します。値が `0` の場合、アンチエイリアシングは無効になります。
@@ -204,13 +208,6 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 
 #### Clear Color Alpha
 クリアカラーのアルファチャンネルです。レンダースクリプトとウィンドウ作成時に使用されます。
-
----
-
-### Font
-
-#### Runtime Generation
-実行時のフォント生成を使用します。
 
 ---
 
@@ -305,7 +302,7 @@ local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 各グラフィックス呼び出しの後で戻り値を検証し、エラーがあればログに報告します。
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` は、HTML5 で要求する WebGL コンテキストのバージョンを選択します。有効な値は `1`（WebGL 1）と `2`（WebGL 2、既定値）です。WebGL 2 をサポートするブラウザーでも WebGL 1 を対象にしたりテストしたりするには、`1` に設定します。WebGL 1 を対象にする場合は、必要なシェーダーが含まれるよう、[Exclude GLES 2.0](#exclude-gles-20) を無効のままにしてください。
+`graphics.webgl_version_hint` は、HTML5 で要求する WebGL コンテキストのバージョンを選択します。有効な値は `1`（WebGL 1）と `2`（デフォルトの WebGL 2）です。WebGL 2 対応のブラウザーでも WebGL 1 を対象にしたりテストしたりするには、`1` に設定します。WebGL 1 を対象にする場合は、必要なシェーダーを含めるため、[Exclude GLES 2.0](#exclude-gles-20) を無効にします。
 
 #### OpenGL Version Hint
 OpenGL コンテキストのバージョンヒントです。特定のバージョンを選択すると、そのバージョンが必要な最小バージョンとして使用されます（OpenGL ES には適用されません）。
@@ -324,7 +321,16 @@ OpenGL コンテキストのバージョンヒントです。特定のバージ�
 ### Shader
 
 #### Exclude GLES 2.0
-OpenGLES 2.0 / WebGL 1.0 を実行するデバイス向けのシェーダーをコンパイルしません。
+`shader.exclude_gles_sm100` は、OpenGLES 2.0 と WebGL 1.0 用のシェーダーを除外します。デフォルトで有効（`1`）です。
+
+これらのグラフィックス API を対象にしたり、フォールバックを許可したりするには、*game.project* の **Shader ▸ Exclude GLES 2.0** のチェックを外すか、以下を設定します。
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+このオプションを明示的に設定していないプロジェクトでは、デフォルト値を使います。OpenGLES 2.0 または WebGL 1.0 のサポートが必要な場合は、明示的に `0` を設定してください。
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` は、クロスコンパイルされた GLSL ES シェーダー内の浮動小数点値に対する、既定のグローバル精度修飾子を設定します。有効な値は `mediump` と `highp` で、既定値は `mediump` です。
@@ -369,6 +375,9 @@ OpenGLES 2.0 / WebGL 1.0 を実行するデバイス向けのシェーダーを�
 
 #### Max Resources
 同時に読み込めるリソースの最大数です。
+
+#### Profile {#profile}
+`resource.profile` は、完了または失敗した読み込みごとのリソース読み込み時間と、INFO レベルのログを有効にします。デフォルトでは無効（`0`）です。起動時の読み込みを測るには、ゲームの起動前に有効（`1`）にします。リソースプロファイラーは、現在読み込まれているリソースについて、保持している初回読み込みの測定値を表示します。**Capture**、続けて **Show load times** をクリックして調べます。時間の列と解釈の方法は、[リソースの読み込み時間](/manuals/profiling/#resource-loading-times)を参照してください。
 
 ---
 
@@ -594,6 +603,17 @@ Box2D 3.x 物理ソルバーのサブステップ数です。
 
 ### iOS
 
+#### Home Indicator Mode {#home-indicator-mode}
+`ios.home_indicator_mode` は、画面の端のシステムジェスチャーと、ゲームがホームインジケーターの自動非表示を要求するかどうかを制御します。
+
+| 値 | システムジェスチャー | 自動非表示を要求 |
+|-------|-----------------|--------------------------|
+| `deferred`（デフォルト） | システムジェスチャーを遅延させ、画面のすべての端を保護します。ホームに戻るには2回のスワイプが必要です。 | いいえ |
+| `system` | 通常のシステムジェスチャーを使い、1回のスワイプでホームに戻れます。 | いいえ |
+| `auto_hide` | 通常のシステムジェスチャーを使い、1回のスワイプでホームに戻れます。 | はい |
+
+iOS が、インジケーターの実際の表示状態を制御します。自動非表示は要求であり、iOS 26 以降では `system` と `auto_hide` の両方で非表示になることがあります。設定例は、[ホームインジケーターの動作](/manuals/ios/#home-indicator-behavior)を参照してください。
+
 #### App Icon 57x57--180x180
 指定した幅と高さ `W` &times; `H` のアプリケーションアイコンとして使用する画像ファイル（.png）です。
 
@@ -616,7 +636,7 @@ Box2D 3.x 物理ソルバーのサブステップ数です。
 バンドルのバージョンです。数値または x.y.z 形式で指定します（[`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430) を参照）。
 
 #### Info.plist
-指定すると、アプリのバンドル作成時に、組み込みの iOS ベースマニフェストの代わりにこの *`Info.plist`* ファイルを使用します。組み込みマニフェストには、リリース以外のビルドでエディターがターゲットを検出するために必要な、ローカルネットワークと Bonjour のエントリーが含まれています。カスタムマニフェストを使用し、デバイス上でターゲット検出、プロファイリング、ホットリロード、ログストリーミングが必要な場合は、[iOS のマニュアル](/manuals/ios/#creating-an-ios-application-bundle)の説明に従い、それらのエントリーを保持してください。
+指定した場合は、アプリのバンドル時に、組み込みの iOS ベースマニフェスト `/builtins/manifests/ios/Info.plist` の代わりに、この *`Info.plist`* ファイルを使います。組み込みテンプレートを使うプロジェクトは、自動的にマニフェストの更新を受け取ります。独自のファイルは、明示的に更新する必要があります。
 
 #### Privacy Manifest
 アプリケーションの Apple プライバシーマニフェストです。このフィールドの既定値は `/builtins/manifests/ios/PrivacyInfo.xcprivacy` です。
@@ -687,7 +707,7 @@ Android デバイスでキーボード入力を取得する方法を指定しま
 #### R8 Keep Rules
 `android.r8_keep_rules` で `.keep` ファイルを選択すると、Android ビルドで Java コードの R8 による縮小、最適化、難読化が有効になります。縮小を行わない D8 を使うには、設定を空にします。
 
-Defold 1.14.0 以降を、対応する Extender ビルドサーバーと組み合わせて使用すると、未使用の Android リソースも削除します。動的に読み込むリソースには、別途 [XML 保持ルール](/manuals/android/#keeping-android-resources)が必要な場合があります。
+対応する Extender ビルドサーバーでは、未使用の Android リソースも削除します。動的に読み込むリソースには、別の [XML 保持ルール](/manuals/android/#keeping-android-resources)が必要になることがあります。
 
 Defold の既定のルールを直接使うには、`/builtins/manifests/android/dmengine.keep` を選択します。拡張は独自の[保持ルール](/manuals/extensions/#r8-keep-rules-for-android)を提供し、このファイルと統合されます。
 
@@ -775,6 +795,14 @@ wasm ファイルのストリーミングを有効にします（より高速で
 #### Scale Mode
 ゲームのキャンバスを拡大縮小する方法を指定します。
 
+#### Min Pixel Ratio {#min-pixel-ratio}
+`html5.min_pixel_ratio` は、[High Dpi](#high-dpi) が有効な場合に、CSS の1ピクセルあたりのキャンバス描画ピクセル数の最小値を設定します。デフォルトは `0` で、下限を無効にします。`1` 未満を含む、正の小数にも対応します。
+
+#### Max Pixel Ratio {#max-pixel-ratio}
+`html5.max_pixel_ratio` は、[High Dpi](#high-dpi) が有効な場合に、CSS の1ピクセルあたりのキャンバス描画ピクセル数の最大値を設定します。デフォルトは `0` で、上限を無効にします。`1` 未満を含む、正の小数にも対応します。
+
+両方の制限は、有限の非負数である必要があります。両方が有効な場合、最小値は最大値を超えてはいけません。*High Dpi* が無効な場合は比率が `1` となり、どちらの制限も適用しません。キャンバスの CSS 表示サイズを保ちつつ、レンダリング解像度に影響します。設定例は、[ピクセル比の制限](/manuals/html5/#pixel-ratio-limits)を参照してください。
+
 #### Retry Count
 起動中にダウンロードが失敗した後の再試行回数です。エンジンの JavaScript または WebAssembly ファイルでのネットワークエラー、失敗を示す HTTP ステータス、サイズの不一致を含みます。最初のリクエストは別に数えます。アーカイブファイルの検証には独自の再試行上限があります。[ダウンロードの検証](/manuals/html5/#download-verification)と `Retry Time` を参照してください。
 
@@ -810,6 +838,34 @@ IAP トランザクションを自動的に完了する場合はチェックし�
 
 #### _App Manifest_
 設定すると、アプリケーションマニフェストを使用してエンジンのビルドをカスタマイズします。これにより、エンジンから使用しない部分を削除して、最終的なバイナリのサイズを小さくできます。使用しない機能の除外方法については、[アプリケーションマニフェストのマニュアル](/manuals/app-manifest)を参照してください。
+
+---
+
+### Debugger {#debugger}
+
+これらの設定は、ネイティブのデバッグビルドとヘッドレスビルドの[デバッガー接続](/manuals/debugging-game-logic/#native-dap-connections)を制御します。リリースビルドと Web ビルドにはデバッガーを接続できません。*game.project* をテキストとして編集して追加するか、[エンジン起動時の設定上書き](#setting-config-values-on-engine-startup)を使います。プロジェクト設定フォームには表示されません。<kbd>Debug ▸ Start/Attach</kbd> では、エディターが接続を自動的に設定します。
+
+たとえば、ローカルのリスナーを起動し、起動時スクリプトの実行前に、クライアントがブレークポイントを設定するのを待つには、次のようにします。
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` を `1` にすると、エンジンの起動時にリスナーを起動します。デフォルトでは無効（`0`）です。実行中のゲームでも、[`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running) でリスナーを起動できます。
+
+#### Address {#debugger-address}
+`debugger.address` は、リスナーが接続を受け付ける IPv4 アドレスです。デフォルトの `127.0.0.1` は、ローカル接続だけを受け付けます。[リモート接続](/manuals/debugging-game-logic/#remote-targets)には、デバイスのインターフェースのアドレスか `0.0.0.0` を使います。
+
+#### Port {#debugger-port}
+`debugger.port` は、`0` から `65535` の待ち受け TCP ポートです。デフォルトは `8172` です。`0` にすると、使用可能なポートを選び、エンジンのログに報告します。
+
+#### Wait {#debugger-wait}
+`debugger.wait` は、起動時スクリプトを実行する前に、ブレークポイントを含むデバッグセッションの設定をクライアントが完了するまで、エンジンを待機させます。デフォルトでは無効（`0`）です。起動時のコードをデバッグするには、`debugger.enabled=1` とともに `1` を設定します。後から `debugger.start()` でリスナーを起動する場合は、待機もゲームの一時停止も行いません。[起動と接続のガイド](/manuals/debugging-game-logic/#native-dap-connections)を参照してください。
 
 ---
 

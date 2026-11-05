@@ -44,9 +44,9 @@ brief: 로컬 빌드 서버를 설정하고 실행하는 방법을 설명하는 
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # 필요한 Extender와 메니페스트 병합 도구 버전을 설정합니다
-    # 버전은 GitHub 릴리스 페이지(https://github.com/defold/extender/releases)에서 확인할 수 있습니다
-    # 또는 최신 버전을 가져올 수 있습니다(아래 코드 샘플 참조)
+    # set necessary version of Extender and Manifest merge tool
+    # versions can be found at Github release page https://github.com/defold/extender/releases
+    # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
     MANIFESTMERGETOOL_VERSION=1.3.0
     echo "Download prebuild jars to ${APPLICATION_DIR}"

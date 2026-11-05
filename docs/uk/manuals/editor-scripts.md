@@ -50,7 +50,7 @@ return M
 - `editor.editor_sha1` — рядок із SHA1 редактора Defold
 - `editor.get(node_id, property)` — отримати значення властивості певного вузла всередині редактора. Вузлами в редакторі є різні сутності, як-от файли скриптів або колекцій (collection), ігрові об’єкти (game object) усередині колекцій, файли json, завантажені як ресурси, тощо. `node_id` — це значення типу userdata, яке редактор передає скрипту редактора. Замість ідентифікатора вузла також можна передати шлях до ресурсу, наприклад `"/main/game.script"`. `property` — це рядок. Наразі підтримуються такі властивості:
   - `"path"` — шлях до файлу відносно каталогу проєкту для *ресурсів* — сутностей, що існують як файли або каталоги. Приклад значення, що повертається: `"/main/game.script"`
-  - `"children"` — список шляхів до дочірніх ресурсів для ресурсів-каталогів
+  - `"children"` — список шляхів до дочірніх ресурсів для ресурсів-каталогів Про обхід ресурсів усередині файлів також див. розділ [Обхід ресурсів проєкту](#traversing-project-resources).
   - `"parent"` — батьківський вузол редактора для вузла Outline, що має батьківський вузол
   - `"text"` — текстовий вміст ресурсу, який можна редагувати як текст (наприклад, файлів скриптів або json). Приклад значення, що повертається: `"function init(self)\nend"`. Зауважте, що це не те саме, що читання файлу за допомогою `io.open()`, оскільки ви можете редагувати файл, не зберігаючи його, і ці зміни доступні лише під час звернення до властивості `"text"`.
   - для атласів: `images` (список вузлів редактора для зображень в атласі) та `animations` (список вузлів анімацій)
@@ -72,6 +72,7 @@ return M
 - `editor.properties(node_id)` — повернути відсортований список назв властивостей, які можна прочитати з вузла, з урахуванням контексту, наприклад `pprint(editor.properties("/game.project"))`. За допомогою функцій `editor.can_*` перевіряйте, чи можна також змінювати або скидати властивість зі списку, додавати до неї елементи чи змінювати їхній порядок.
 - `editor.can_get(node_id, property)` — перевірити, чи можна отримати цю властивість, щоб `editor.get()` не спричинила помилку.
 - `editor.can_set(node_id, property)` — перевірити, чи не спричинить помилку крок транзакції `editor.tx.set()` із цією властивістю.
+- `editor.resource_children(path)` — список шляхів до ресурсів безпосередньо в папці або файлі, зокрема ресурсів усередині файлів glTF/GLB. Див. розділ [Обхід ресурсів проєкту](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — створити каталог, якщо він не існує, і всі відсутні батьківські каталоги.
 - `editor.create_resources(resources)` — створити 1 або більше ресурсів із шаблонів або з власним вмістом
 - `editor.delete_directory(resource_path)` — видалити каталог, якщо він існує, а також усі наявні дочірні каталоги й файли.
@@ -147,6 +148,42 @@ return M
 - `id` — рядок ідентифікатора команди, який використовується, наприклад, для збереження останньої використаної команди пакування в `prefs`
 - `active` — зворотний виклик, який перевіряє, чи активна команда; він має повертати булеве значення. Якщо `locations` містить `"Assets"`, `"Scene"` або `"Outline"`, `active` викликатиметься під час показу контекстного меню. Якщо розташування містять `"Edit"` або `"View"`, active викликатиметься під час кожної дії користувача, наприклад введення з клавіатури чи клацання мишею, тому переконайтеся, що `active` працює досить швидко.
 - `run` — зворотний виклик, який виконується, коли користувач вибирає пункт меню.
+
+### Обхід ресурсів проєкту {#traversing-project-resources}
+
+`editor.resource_children(path)` повертає масив шляхів до ресурсів безпосередньо в папці або файлі. Вхідний шлях і повернені шляхи починаються з `/` відносно кореня проєкту. Використовуйте `/`, щоб почати з кореня проєкту. Файл *.gltf* або *.glb* може надавати сітки, матеріали й вбудовані зображення як дочірні ресурси, так само як на панелі *Assets*.
+
+Якщо ваш скрипт обходить каталоги через `editor.get(path, "children")`, замініть цей обхід на `editor.resource_children(path)` і відвідуйте кожен повернений шлях. Файли також можуть містити ресурси, тому обмеження рекурсії шляхами, для яких `editor.resource_attributes(path).is_directory` дорівнює `true`, пропустить такий вміст.
+
+Для папки або файлу без дочірніх ресурсів функція повертає порожню таблицю (`{}`). Неіснуючий шлях спричиняє помилку; якщо шлях може бути відсутнім, перевірте `editor.resource_attributes(path).exists`, перш ніж запитувати його дочірні ресурси. Вони відповідають ієрархії *Assets*. Доступ до ігрових об’єктів у колекції здійснюється через `editor.get(collection_path, "children")`.
+
+Наприклад, збережіть цей код як `list_resources.editor_script` і виберіть **Project → Reload Editor Scripts**. Клацніть правою кнопкою миші папку або файл *.gltf* чи *.glb* на панелі *Assets*, а потім виберіть **List Resource Contents**, щоб вивести дерево ресурсів у консоль:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Змінення стану редактора в пам’яті за допомогою команд {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -243,6 +280,7 @@ editor.transact({
 #### Редагування джерел плиток {#editing-tilesources}
 
 Окрім властивостей Outline, джерела плиток визначають такі властивості:
+
 - `animations` — список вузлів анімацій джерела плиток
 - `collision_groups` — список вузлів груп колізій джерела плиток
 - `tile_collision_groups` — таблиця призначень груп колізій для плиток у джерелі плиток
@@ -251,8 +289,8 @@ editor.transact({
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +300,25 @@ editor.transact({
     })
 })
 ```
+
+Вузли анімації надають властивість `frames`, яка містить масив Lua із номерами плиток, починаючи з одиниці, у порядку анімації. На відміну від текстового поля *Frames* у редакторі, скрипти редактора приймають масив цілих чисел, а не рядок на кшталт `"2-6"`. Розгорніть діапазони в окремі номери плиток у масиві. Плитки можуть іти в будь-якому порядку й повторюватися.
+
+Щоб прочитати й змінити анімацію `walk` із наведеного вище прикладу:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Зміна поверненого масиву не оновлює анімацію, доки ви не передасте його до `editor.tx.set()` і не застосуєте транзакцію. Про нумерацію плиток і налаштування відтворення див. [посібник із джерел плиток](/manuals/tilesource/#tile-source-flip-book-animations).
 
 #### Редагування карт плиток {#editing-tilemaps}
 

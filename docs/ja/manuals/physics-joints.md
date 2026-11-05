@@ -7,7 +7,7 @@ brief: Defold は 2D 物理シミュレーションでジョイントをサポ�
 
 ジョイント（joint）は、拘束（constraint）を使って2つのコリジョンオブジェクト（collision object）を接続します。Defold は、異なる API を通じて 2D 物理と 3D 物理の両方でジョイントをサポートしています。
 
-このマニュアルでは、`physics` モジュールが提供する 2D ジョイントを説明します。Defold 1.13.2 以降では、3D プロジェクトで [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) を通じて、ヒンジ、スライダー、スプリングなどの拘束を作成、制御できます。この API は、[`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) で取得した剛体とともに使います。
+このマニュアルでは、`physics` モジュールが提供する 2D ジョイントを説明します。3D プロジェクトでは、[`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) を通じて、ヒンジ、スライダー、ばねなどの制約を作成・制御できます。[`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) で取得した剛体と組み合わせて、この API を使います。
 
 2D の `physics` API でサポートされているジョイントの種類は次のとおりです。
 

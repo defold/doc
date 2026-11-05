@@ -18,7 +18,7 @@ function update(self, dt)
 
   local result = physics.raycast(my_start, my_end, my_groups)
   if result then
-       -- działanie w przypadku trafienia (zobacz wiadomość 'ray_cast_response' w celu uzyskania wszystkich wartości)
+      -- działanie w przypadku trafienia (zobacz wiadomość 'ray_cast_response' w celu uzyskania wszystkich wartości)
       print(result.id)
   end
 end

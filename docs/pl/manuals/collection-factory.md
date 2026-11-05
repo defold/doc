@@ -25,7 +25,7 @@ Następnie dodajemy komponent *Collection factory* do obiektu gry, który ma odp
 
 ![Collection factory](images/collection_factory/factory.png)
 
-Utworzenie postaci i tarczy sprowadza się teraz do wywołania `collectionfactory.create()`:
+Utworzenie postaci `bean` i tarczy sprowadza się teraz do wywołania `collectionfactory.create()`:
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
@@ -127,25 +127,24 @@ Wczytywanie asynchroniczne
 
   ```lua
   function load_complete(self, url, result)
-      -- Ładowanie zakończone, zasoby są gotowe do tworzenia instancji.
+      -- Ładowanie zostało zakończone, zasoby są gotowe do tworzenia obiektów
       self.go_ids = collectionfactory.create(url)
   end
 
   function init(self)
       -- Zasoby fabryki nie są ładowane, gdy ładowana jest kolekcja
-      -- nadrzędna komponentu fabryki kolekcji. Wywołanie load
-      -- spowoduje ich załadowanie.
+      -- nadrzędna fabryki kolekcji. Dopiero wywołanie load załaduje zasoby.
       collectionfactory.load("#factory", load_complete)
   end
 
   function final(self)
-      -- Usuń obiekty gry. To zmniejszy licznik referencji zasobów.
-      -- W tym przypadku zasoby nie zostaną usunięte, ponieważ komponent
-      -- fabryki kolekcji nadal trzyma do nich referencję.
+      -- Usuń obiekt gry. Spowoduje to zmniejszenie liczników referencji zasobów.
+      -- W tym przypadku zasoby nie zostaną usunięte, ponieważ komponent fabryki kolekcji
+      -- nadal utrzymuje referencję.
       go.delete(self.go_ids)
 
-      -- Wywołanie unload zmniejszy licznik referencji zasobów
-      -- trzymanych przez komponent fabryki, co doprowadzi do ich usunięcia.
+      -- Wywołanie unload zmniejszy liczniki referencji zasobów utrzymywanych przez komponent fabryki,
+      -- co doprowadzi do ich usunięcia.
       collectionfactory.unload("#factory")
   end
   ```

@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Начиная с Defold 1.14.0, атрибуты `Mat2`, `Mat3` и `Mat4` используют значения `vmath.matrix4` при работе с `go.set()` и `go.get()`. При задании атрибута `Mat2` или `Mat3` используется верхняя левая часть матрицы размером 2×2 или 3×3. При чтении возвращается `vmath.matrix4`, в которой неиспользуемые строки и столбцы заполнены соответствующими значениями единичной матрицы.
+Атрибуты `Mat2`, `Mat3` и `Mat4` используют значения `vmath.matrix4` при работе с `go.set()` и `go.get()`. При задании атрибута `Mat2` или `Mat3` используется верхняя левая часть матрицы размером 2×2 или 3×3. При чтении возвращается `vmath.matrix4`, в которой неиспользуемые строки и столбцы заполнены соответствующими значениями единичной матрицы.
 
 Например, для атрибута `Mat2` с именем `custom_mat2` и семантическим типом `None` в материале модели:
 
@@ -168,7 +168,7 @@ go.set("#model", "custom_mat2", value)
 
 local result = go.get("#model", "custom_mat2")
 print(result.m00, result.m11) -- 2, 3
-print(result.m22, result.m33) -- 1, 1 (identity padding)
+print(result.m22, result.m33) -- 1, 1 (дополнение до единичной матрицы)
 ```
 
 Всегда присваивайте матрицу целиком. Значения в плоском представлении, такие как `vmath.vector4`, и присваивания отдельным под-свойствам матричных атрибутов не допускаются. Чтобы изменить элемент, измените матрицу в Lua и передайте её обратно с помощью `go.set()`.
@@ -188,24 +188,24 @@ out vec2 var_texcoord0;
 
 void main()
 {
-  // Извлечь позицию из преобразования
+  // Extract position from the transform
   vec2 atlas_pos = texture_transform_2d[2].xy;
-  // Извлечь масштаб из преобразования
+  // Extract the scale from the transform
   vec2 atlas_size = vec2(
       length(texture_transform_2d[0].xy),
       length(texture_transform_2d[1].xy)
   );
-  // Преобразовать в локальные UV (0..1)
+  // convert to local UV (0..1)
   vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
 
-  // Альтернативно, если UV-координаты уже находятся в диапазоне 0..1,
-  // можно напрямую преобразовать их в пространство атласа, умножив на матрицу:
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
   vec2 transformedUv = texture_transform_2d * texcoord0;
 
-  // Передать значение во фрагментный шейдер
+  // Pass the value into the fragment shader
   var_texcoord0 = localUV;
 
-  // ... оставшаяся часть вершинного шейдера
+  // ... rest of vertex shader
 }
 ```
 
@@ -238,12 +238,12 @@ void main()
 Вершинный шейдер использует несколько атрибутов, повторяющихся на каждый экземпляр:
 
 ```glsl
-// Атрибуты на вершину
+// Per vertex attributes
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 attribute mediump vec3 normal;
 
-// Атрибуты на экземпляр
+// Per instance attributes
 attribute mediump mat4 mtx_world;
 attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;
@@ -446,7 +446,7 @@ Max Anisotropy
 self.constants = render.constant_buffer() -- <1>
 self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
-render.draw(self.my_pred, self.constants) -- <3>
+render.draw(self.my_pred, {constants = self.constants}) -- <3>
 ```
 1. Создаем новый буфер констант
 2. Устанавливаем константу `tint` в ярко-красный

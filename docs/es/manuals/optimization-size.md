@@ -3,11 +3,11 @@ title: Optimizar el tamaño de un juego Defold
 brief: Este manual describe cómo optimizar el tamaño de un juego Defold.
 ---
 
-# Optimizar el tamaño del juego
+# Optimizar el tamaño del juego {#optimizing-game-size}
 
 El tamaño de tu juego puede ser un factor crítico de éxito para plataformas como web y móviles, mientras que tiene menos importancia en escritorio y consolas, donde el espacio en disco es barato y suele ser abundante.
 
-### iOS y Android
+### iOS y Android {#ios-and-android}
 Apple y Google han definido límites de tamaño de aplicación al descargar a través de redes móviles (a diferencia de descargar por Wifi). Para Android este límite es de 200 MB para apps publicadas con [app bundles](https://developer.android.com/guide/app-bundle#size_restrictions). En iOS, los usuarios recibirán una advertencia si la aplicación supera los 200 MB, pero podrán continuar con la descarga.
 
 ::: sidenote
@@ -21,7 +21,7 @@ Facebook recomienda que un Facebook Instant Game arranque en menos de 5 segundos
 
 Los anuncios jugables suelen estar limitados a entre 2 y 5 MB, según la red publicitaria.
 
-## Estrategias de optimización de tamaño
+## Estrategias de optimización de tamaño {#size-optimization-strategies}
 Puedes optimizar el tamaño de la aplicación de dos formas: reduciendo el tamaño del motor o reduciendo el tamaño de los assets del juego.
 
 Para comprender mejor qué compone el tamaño de tu aplicación, puedes [generar un reporte de build](/manuals/bundling/#build-reports) al crear el bundle. Es bastante común que los sonidos y los gráficos ocupen la mayor parte del tamaño de cualquier juego.
@@ -30,7 +30,7 @@ Para comprender mejor qué compone el tamaño de tu aplicación, puedes [generar
 Defold creará un árbol de dependencias al crear la build y el bundle de tu aplicación. El sistema de build empezará desde la colección bootstrap especificada en el archivo *game.project* e inspeccionará cada colección, objeto de juego y componente referenciados para crear una lista de los assets que están en uso. Solo esos assets se incluirán en el bundle final de la aplicación. Todo lo que no esté referenciado directamente se excluirá. Aunque es bueno saber que los assets no usados no se incluirán, como desarrollador aún debes considerar qué entra en la aplicación final, el tamaño de los assets individuales y el tamaño total del bundle de la aplicación.
 :::
 
-## Optimizar el tamaño del motor
+## Optimizar el tamaño del motor {#optimize-engine-size}
 Una forma rápida de reducir el tamaño del motor es eliminar funcionalidades del motor que no usas. Esto se hace en el [archivo de manifiesto de la aplicación](https://defold.com/manuals/app-manifest/), donde es posible eliminar componentes del motor que no necesitas. Ejemplos:
 
 * Physics - Si tu juego no usa físicas de Box2D o Bullet3D, se recomienda encarecidamente eliminar los motores de físicas
@@ -40,10 +40,10 @@ Una forma rápida de reducir el tamaño del motor es eliminar funcionalidades de
 * Image loaded - Si tu juego no carga y decodifica imágenes manualmente usando `image.load()`
 * BasisU - Si tu juego tiene pocas texturas, compara el tamaño de build sin BasisU (eliminado mediante el manifiesto de la aplicación) y sin compresión de texturas frente a una build con BasisU y texturas comprimidas. Para juegos con texturas limitadas, puede ser más beneficioso reducir el tamaño del binario y omitir la compresión de texturas. Además, no usar el transcodificador puede reducir la cantidad de memoria necesaria para ejecutar tu juego.
 
-## Optimizar el tamaño de los assets
+## Optimizar el tamaño de los assets {#optimize-asset-size}
 Las mayores mejoras en optimización de tamaño de assets suelen conseguirse reduciendo el tamaño de sonidos y texturas.
 
-### Optimizar sonidos
+### Optimizar sonidos {#optimize-sounds}
 Defold admite estos formatos:
 * .wav
 * .ogg
@@ -57,7 +57,7 @@ Defold no realiza compresión, por lo que el desarrollador tendrá que encargars
 
 Puedes editar los sonidos en un software externo de edición de sonido (o desde la línea de comando usando, por ejemplo, [ffmpeg](https://ffmpeg.org)) para reducir la calidad o convertir entre formatos. Considera también convertir los sonidos de estéreo a mono para reducir aún más el tamaño del contenido.
 
-### Optimizar texturas
+### Optimizar texturas {#optimize-textures}
 Tienes varias opciones para optimizar las texturas usadas por tu juego, pero lo primero es revisar el tamaño de las imágenes que se agregan a un atlas o se usan como tilesource. Nunca debes usar imágenes de mayor tamaño que el necesario en tu juego. Importar imágenes grandes y escalarlas hacia abajo hasta el tamaño apropiado desperdicia memoria de textura y debe evitarse. Empieza ajustando el tamaño de las imágenes con software externo de edición de imágenes al tamaño real necesario en tu juego. Para elementos como imágenes de fondo, también puede estar bien usar una imagen pequeña y escalarla hacia arriba hasta el tamaño deseado. Una vez que tengas las imágenes en el tamaño correcto y agregadas a atlas o usadas en tilesources, también debes considerar el tamaño de los propios atlas. El tamaño máximo de atlas que se puede usar varía entre plataformas y hardware gráfico.
 
 ::: sidenote
@@ -84,17 +84,17 @@ Si un atlas es demasiado grande, debes dividirlo en varios atlas más pequeños,
 Puedes leer más sobre cómo optimizar y administrar texturas en [esta publicación del foro](https://forum.defold.com/t/texture-management-in-defold/8921).
 :::
 
-### Optimizar fuentes
+### Optimizar fuentes {#optimize-fonts}
 El tamaño de tus fuentes será menor si especificas qué símbolos vas a usar y los defines en [Characters](/manuals/font/#properties), en lugar de usar la casilla All Chars.
 
-### Excluir contenido para descargarlo bajo demanda
+### Excluir contenido para descargarlo bajo demanda {#exclude-content-for-download-on-demand}
 Otra forma de reducir el tamaño inicial de la aplicación es excluir partes del contenido del juego del bundle de la aplicación y descargarlas bajo demanda. Defold proporciona un sistema llamado Live Update para excluir contenido y descargarlo bajo demanda.
 
 El contenido excluido puede ser cualquier cosa, desde niveles completos hasta personajes desbloqueables, skins, armas o vehículos. Si tu juego tiene mucho contenido, organiza el proceso de carga para que la colección bootstrap y la colección del primer nivel incluyan los recursos mínimos necesarios para ese nivel. Esto se logra usando proxies de colección o factories con la casilla "Exclude" activada. Divide los recursos según el progreso del jugador. Este enfoque asegura una carga eficiente de recursos y mantiene bajo el uso inicial de memoria. Aprende más en el [manual de Live Update](/manuals/live-update/).
 
-## Optimizaciones de tamaño específicas de Android
+## Optimizaciones de tamaño específicas de Android {#android-specific-size-optimizations}
 
-Activa la [eliminación de código no usado con R8](/manuals/android/#shrinking-java-code-with-r8) para eliminar código Java no usado. Con Defold 1.14.0 o posterior y un servidor Extender compatible, esto también elimina recursos de Android no usados de las extensiones y sus dependencias.
+Activa la [reducción con R8](/manuals/android/#shrinking-java-code-with-r8) para eliminar código Java no usado. Con un servidor Extender compatible, también elimina recursos Android no usados de las extensiones y sus dependencias.
 
 Las builds de Android deben admitir arquitecturas de CPU de 32 y 64 bits. Cuando [creas un bundle para Android](/manuals/android), puedes especificar qué arquitecturas de CPU incluir:
 

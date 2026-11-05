@@ -164,7 +164,7 @@ Defold でコンポーネントというと、Unity の組み込みコンポー�
 |---|---|---|
 | [スプライト](/manuals/sprite/) | Sprite Renderer | Defold では、色調（色のプロパティ）はコードからのみ変更できます。 |
 | [タイルマップ](/manuals/tilemap/) | Tilemap / Grid | Defold には正方形のグリッドに対応した組み込みのタイルマップエディターがあります（ただし、たとえば[六角形](https://github.com/selimanac/defold-hexagon/)向けの拡張もあります）。組み込みのオートタイリングルールはありません。[Tiled](https://defold.com/assets/tiled/)、[TileSetter](https://defold.com/assets/tilesetter/)、[Sprite Fusion](https://defold.com/assets/spritefusion/) などのツールには、Defold へのエクスポート機能があります。 |
-| [ラベル](/manuals/label/) | Text / TextMeshPro | Defold 1.13.2 以降では、Label コンポーネントと GUI テキストノードが、色、グラデーション、輪郭、アニメーションエフェクトのための組み込み[リッチテキストマークアップ](/manuals/font-richtext/)をサポートします。別途 [RichText 拡張](https://defold.com/assets/richtext/)も利用できます。 |
+| [Label](/manuals/label/) | Text / TextMeshPro | Label コンポーネントと GUI テキストノードは、色、グラデーション、輪郭線、アニメーション効果を指定する組み込みの[リッチテキストマークアップ](/manuals/font-richtext/)に対応します。別の [RichText 拡張](https://defold.com/assets/richtext/)も利用できます。 |
 | [サウンド](/manuals/sound/) | AudioSource | Defold には、空間的な音源ではなく、グローバルな音源だけがあります。Defold 向けの公式 [FMOD 拡張](https://github.com/defold/extension-fmod)があります。 |
 | [ファクトリー](/manuals/factory/) | Prefab Instantiate() | Defold のファクトリー（factory）は、特定のプロトタイプ（prototype）（プレハブ）を持つコンポーネントです。 |
 | [コレクションファクトリー](/manuals/collection-factory/) | -（直接対応するコンポーネントはありません） | Defold のコレクションファクトリー（collection factory）コンポーネントは、親子関係を持つ複数のゲームオブジェクトを一度に生成できます。 |
@@ -590,7 +590,7 @@ Defold にも明確に定義されたアプリケーションのライフサイ�
 |-|-|-|
 | `init()` | `Awake()` / `Start()` / `OnEnable()`| Defold の初期化のエントリーポイントとコールバックは、init() の1つです。各コンポーネントが作成されたときに呼び出されます。 |
 | `on_input` | 入力メソッド | Defold は、[スクリプトに入力フォーカスが設定されている](/manuals/input/#input-focus)ときに入力を受け取ります。更新ループ内で最初に処理されます。 |
-| `fixed_update()` | `FixedUpdate()` | 更新やシミュレーションの時間刻みであるタイムステップが固定された間隔で呼び出されます。Defold で有効にするには、`Use Fixed Timestep` を設定する必要があります。[詳細](https://defold.com/manuals/project-settings/#use-fixed-timestep)をご覧ください。1.12.0 以降は `update()` より前に実行されます。 |
+| `fixed_update()` | `FixedUpdate()` | 固定タイムステップで呼ばれます。Defold で有効にするには、`Use Fixed Timestep` を設定します（[詳細](https://defold.com/manuals/project-settings/#use-fixed-timestep)）。`update()` より前に実行します。 |
 | `update()` | `Update()` | 経過時間を引数として、1フレームに1回呼び出されます。 |
 | `late_update()` | `LateUpdate()` | `update()` の後、フレームが描画される直前に呼び出されます。1.12.0 以降で利用できます。 |
 | `on_message` | メッセージの受信処理 | メッセージを受信するための Defold の中心的なコールバックです。キューにメッセージがあるときに処理されます。 |

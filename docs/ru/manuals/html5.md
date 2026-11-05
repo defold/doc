@@ -83,6 +83,39 @@ HTML5-бандлам Defold требуется современный брауз
 
 Выберите запрашиваемый графический контекст с помощью [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). По умолчанию используется WebGL 2; запросите WebGL 1, чтобы тестировать или использовать этот контекст в браузерах, поддерживающих обе версии.
 
+Начиная с Defold 1.14.1, шейдеры WebGL 1 по умолчанию исключены. Отключите [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20), чтобы включить их, независимо от того, запрашиваете ли WebGL 1 напрямую или допускаете переход с WebGL 2. Чтобы явно запросить WebGL 1, задайте оба параметра в *game.project*:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Ограничения коэффициента плотности пикселей {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` и `html5.max_pixel_ratio` определяют, сколько пикселей рендеринга canvas используется на один CSS-пиксель. Размер canvas в CSS определяет размер игры на странице, а разрешение рендеринга — число пикселей, которые рисует движок.
+
+Для использования ограничений включите *High Dpi* в разделе *Display* файла *game.project*. Тогда коэффициент плотности пикселей устройства в браузере ограничивается включёнными границами. По умолчанию оба ограничения равны `0`, что отключает соответствующую границу. Значения должны быть конечными и неотрицательными; если оба положительны, минимум не должен превышать максимум.
+
+Например, ограничьте коэффициент значением `1.5`, чтобы снизить разрешение рендеринга на дисплеях с высокой плотностью пикселей:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+В браузере с коэффициентом плотности пикселей устройства `3` canvas размером 800 × 600 CSS-пикселей при этой конфигурации будет отрисовываться в 1200 × 900 пикселей. Его отображаемый размер не меняется. В браузере с коэффициентом `1` тот же canvas по-прежнему отрисовывается в 800 × 600 пикселей, поскольку максимум не увеличивает коэффициент.
+
+Поддерживаются и дробные коэффициенты меньше `1`: например, максимум `0.75` даёт меньше пикселей рендеринга, чем размер отображения в CSS. Минимум выше коэффициента плотности пикселей браузера повышает разрешение рендеринга для суперсэмплинга. Ограничения применяются ко всем четырём вариантам *Scale Mode*, сохраняя их компоновку в CSS.
+
+При отключённом *High Dpi* коэффициент остаётся `1` независимо от ограничений. В HTML5 [`window.get_display_scale()`](/ref/window/#window.get_display_scale) возвращает фактический коэффициент рендеринга после применения High DPI и ограничений.
+
 ## Проверка загрузок {#download-verification}
 
 По умолчанию загрузчик HTML5 проверяет размеры загруженных файлов движка и архива. При неудачной проверке загрузка повторяется, прежде чем загрузчик сообщит об ошибке:
@@ -130,7 +163,7 @@ Canvas не должен быть оформлен с помощью border ил
 Defold предоставляет темную и светлую тему для `index.html`. По умолчанию установлена светлая тема, но ее можно изменить, заменив файл `Custom CSS`. Также в поле `Scale Mode` доступны четыре предустановленных режима масштабирования.
 
 ::: important
-Расчеты для всех режимов масштабирования учитывают текущий DPI экрана, если в *game.project* включена опция `High Dpi` (раздел `Display`)
+При включённом *High Dpi* в разделе *Display* файла *game.project* все режимы масштабирования используют фактический коэффициент плотности пикселей, включая [его ограничения](#pixel-ratio-limits), для определения размера буфера рендеринга canvas.
 :::
 
 ### Downscale Fit и Fit
@@ -147,7 +180,7 @@ Defold предоставляет темную и светлую тему для
 
 ### No Scale
 
-В режиме `No Scale` размер canvas будет точно таким же, каким вы заранее задали его в файле *game.project*, в разделе `[display]`.
+В режиме `No Scale` ширина и высота canvas в CSS соответствуют *Width* и *Height* из раздела *Display* файла *game.project*. Разрешение рендеринга по-прежнему использует фактический коэффициент плотности пикселей.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
@@ -198,10 +231,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : Вычисленный суффикс, добавляемый к URL архива, на основе `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true`, если префикс архива задаёт источник HTTP или HTTPS, в том числе URL без указания протокола, например `//cdn.example.com/archive`. Равен `false` для относительных префиксов архива. Доступен начиная с Defold 1.13.2.
+: `true`, если префикс архива задаёт источник HTTP или HTTPS, в том числе URL без указания протокола, например `//cdn.example.com/archive`. Равен `false` для относительных префиксов архива.
 
 DEFOLD_ARCHIVE_ORIGIN
-: Источник архива, включая схему, хост и необязательный порт, либо пустая строка, если источник не задан. Префикс без указания протокола даёт источник без указания протокола. Используется для подсказки preconnect и доступен начиная с Defold 1.13.2.
+: Источник архива, включая схему, хост и необязательный порт, либо пустая строка, если источник не задан. Префикс без указания протокола даёт источник без указания протокола. Используется для подсказки preconnect.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true`, если бандл включает движок WebAssembly: `wasm-web` или `wasm_pthread-web`.
@@ -267,37 +300,37 @@ build-timestamp
 
 ```
 'archive_location_filter':
-    Функция-фильтр, которая будет вызываться для каждого пути архива.
+    Filter function that will run for each archive path.
 
 'unsupported_webgl_callback':
-    Функция, вызываемая, если WebGL не поддерживается.
+    Function that is called if WebGL is not supported.
 
 'engine_arguments':
-    Список аргументов (строк), которые будут переданы движку.
+    List of arguments (strings) that will be passed to the engine.
 
 'custom_heap_size':
-    Число байт, задающее размер heap-памяти.
+    Number of bytes specifying the memory heap size.
 
 'disable_context_menu':
-    Отключает контекстное меню по правому клику на элементе canvas, если имеет значение true.
+    Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    Пауза в секундах перед повторной попыткой загрузки файла после ошибки.
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
-    Количество попыток загрузки файла.
+    How many attempts we do when trying to download a file.
 
 'can_not_download_file_callback':
-    Функция, вызываемая, если файл не удалось скачать после 'retry_count' попыток.
+    Function that is called if you can't download file after 'retry_count' attempts.
 
 'resize_window_callback':
-    Функция, вызываемая, когда происходят события resize/orientationchanges/focus.
+    Function that is called when resize/orientationchanges/focus events happened
 
 'start_success':
-    Функция, вызываемая непосредственно перед вызовом main после успешной загрузки.
+    Function that is called just before main is called upon successful load.
 
 'update_progress':
-    Функция, вызываемая при обновлении прогресса. Параметр progress имеет значение 0-100.
+    Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
 ## Файловые операции в HTML5
@@ -354,14 +387,14 @@ print(url)
 ```lua
 local function get_query_parameters()
     local url = html5.run("window.location")
-    -- get the query part of the url (the bit after ?)
+    -- получить строку запроса из URL (часть после ?)
     local query = url:match(".*?(.*)")
     if not query then
         return {}
     end
 
     local params = {}
-    -- iterate over all key value pairs
+    -- перебрать все пары ключ-значение
     for kvp in query:gmatch("([^&]+)") do
         local key, value = kvp:match("(.+)=(.+)")
         params[key] = value

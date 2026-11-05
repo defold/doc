@@ -135,11 +135,11 @@ Manifest bazowy
         <key>REAL</key>
         <real>8.0</real>
 
-        <!-- Zachowaj tę wartość, nawet jeśli manifest rozszerzenia zawiera ten sam klucz -->
+        <!-- Keep this value even if an extension manifest contains the same key -->
         <key merge='keep'>BASE64</key>
         <data>SEVMTE8gV09STEQ=</data>
 
-        <!-- Jeśli manifest rozszerzenia również ma tablicę z tym kluczem, wartości słowników zostaną scalone z pierwszą wartością słownika w tablicy bazowej -->
+        <!-- If an extension manifest also has an array with this key then any dictionary values will be merged with the first dictionary value of the base array -->
         <key>Array1</key>
         <array>
             <dict>
@@ -150,7 +150,7 @@ Manifest bazowy
             </dict>
         </array>
 
-        <!-- Nie próbuj scalać wartości tej tablicy; zamiast tego dodaj wartości z manifestów rozszerzeń na końcu tablicy -->
+        <!-- Do not attempt to merge the values of this array, instead values from extension manifests should be added to the end of the array -->
         <key merge='keep'>Array2</key>
         <array>
             <dict>
@@ -187,7 +187,7 @@ Manifest rozszerzenia
         <key>INT</key>
         <integer>42</integer>
 
-        <!-- Zastąp istniejącą wartość w manifeście bazowym -->
+        <!-- Replace the existing value in the base manifest -->
         <key merge='replace'>REAL</key>
         <integer>16.0</integer>
 
@@ -223,7 +223,7 @@ Wynik:
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
-        <!-- Zagnieżdżone scalanie słowników z manifestu bazowego i manifestu rozszerzenia -->
+        <!-- Nested merge of dictionaries from base and extension manifests -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -244,23 +244,23 @@ Wynik:
                 </dict>
             </dict>
 
-            <!-- Z manifestu bazowego -->
+            <!-- From the base manifest -->
             <key>INT</key>
             <integer>8</integer>
 
-            <!-- Wartość z manifestu bazowego została zastąpiona, ponieważ w manifeście rozszerzenia ustawiono znacznik scalania na "replace" -->
+            <!-- The value from the base manifest was replaced since the merge marker was set to "replace" in the extension manifest -->
             <key>REAL</key>
             <real>16.0</real>
 
-            <!-- Użyto wartości z manifestu bazowego, ponieważ w manifeście bazowym ustawiono znacznik scalania na "keep" -->
+            <!-- The value from the base manifest was used since the merge marker was set to "keep" in the base manifest -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
 
-            <!-- Dodano wartość z manifestu rozszerzenia, ponieważ nie określono znacznika scalania -->
+            <!-- The value from the extender manifest was added since no merge marker was specified -->
             <key>INT</key>
             <integer>42</integer>
 
-            <!-- Wartości słowników w tablicy zostały scalone, ponieważ domyślną wartością manifestu bazowego jest "merge" -->
+            <!-- The dictionary values of the array were merged since the base manifest defaults to "merge" -->
             <key>Array1</key>
             <array>
                 <dict>
@@ -272,7 +272,7 @@ Wynik:
                 </dict>
             </array>
 
-            <!-- Wartości słowników zostały dodane do tablicy, ponieważ manifest bazowy używał opcji "keep" -->
+            <!-- The dictionary values were added to the array since the base manifest used "keep" -->
             <key>Array2</key>
             <array>
                 <dict>

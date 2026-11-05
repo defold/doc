@@ -13,31 +13,31 @@ Defold 에디터는 모든 Defold API 함수에 대해 자동 완성 제안을 �
 스크립트 API 정의 파일의 확장자는 `.script_api`입니다. 이 파일은 [YAML 포멧](https://yaml.org/)이어야 하며 익스텐션 파일들과 함께 위치해야 합니다. 스크립트 API 정의의 예상 포멧은 다음과 같습니다:
 
 ```yml
-- name: 익스텐션 이름
+- name: The name of the extension
   type: table
-  desc: 익스텐션 설명
+  desc: Extension description
   members:
-  - name: 첫 번째 멤버의 이름
-    type: 멤버 타입
-    desc: 멤버 설명
-    # 멤버 타입이 "function"인 경우
+  - name: Name of the first member
+    type: Member type
+    desc: Member description
+    # if member type is "function"
     parameters:
-    - name: 첫 번째 파라미터의 이름
-      type: 파라미터 타입
-      desc: 파라미터 설명
-    - name: 두 번째 파라미터의 이름
-      type: 파라미터 타입
-      desc: 파라미터 설명
-    # 멤버 타입이 "function"인 경우
+    - name: Name of the first parameter
+      type: Parameter type
+      desc: Parameter description
+    - name: Name of the second parameter
+      type: Parameter type
+      desc: Parameter description
+    # if member type is "function"
     returns:
-    - name: 첫 번째 반환값의 이름
-      type: 반환값 타입
-      desc: 반환값 설명
+    - name: Name of first return value
+      type: Return value type
+      desc: Return value description
     examples:
-    - desc: 멤버 사용법 첫 번째 예제
-    - desc: 멤버 사용법 두 번째 예제
+    - desc: First example of member usage
+    - desc: Second example of member usage
 
-  - name: 두 번째 멤버의 이름
+  - name: Name of the second member
     ...
 ```
 

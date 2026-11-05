@@ -3,11 +3,11 @@ title: Vista general del editor
 brief: Este manual ofrece una vista general de cómo se ve y funciona el editor Defold, y de cómo navegar por él.
 ---
 
-# Vista general del editor
+# Vista general del editor {#editor-overview}
 
 El editor te permite explorar y manipular todos los archivos y carpetas de tu proyecto de juego de forma eficiente. Al editar archivos se abre un editor adecuado y se muestra toda la información relevante sobre el archivo en vistas separadas.
 
-## Iniciar el editor
+## Iniciar el editor {#starting-the-editor}
 
 Cuando ejecutas el Defold Editor, se muestra una pantalla de selección y creación de proyectos. Haz click para seleccionar lo que quieres hacer:
 
@@ -40,7 +40,7 @@ Cuando creas un nuevo proyecto, se almacena en tu unidad local y cualquier edici
 
 Puedes aprender más sobre las distintas opciones en el [manual de configuración de proyecto](https://www.defold.com/manuals/project-setup/).
 
-## Idioma del editor
+## Idioma del editor {#editor-language}
 
 En la esquina inferior izquierda de la pantalla de inicio puedes ver una selección de idioma: selecciona una de las localizaciones disponibles actualmente. Esto también está disponible en el editor en `File ▸ Preferences ▸ General ▸ Editor Language`.
 
@@ -52,7 +52,7 @@ El Defold Editor está separado en un conjunto de paneles, o vistas, que muestra
 
 ![Editor 2](images/editor/editor_overview.png)
 
-### 1. Panel Assets
+### 1. Panel Assets {#1-assets-pane}
 Lista todos los archivos y carpetas que forman parte de tu proyecto en una estructura de árbol, correspondiente a la misma estructura en tu disco. Haz click y desplázate para navegar por la lista. Todas las operaciones orientadas a archivos pueden realizarse en esta vista:
 
    - <kbd>Click izquierdo</kbd> para seleccionar cualquier archivo o carpeta; mientras mantienes <kbd>⇧ Shift</kbd> puedes ampliar la selección, o mientras mantienes <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> puedes seleccionar o deseleccionar el elemento en el que hiciste click.
@@ -78,7 +78,7 @@ Algunas de las funcionalidades principales que ofrece el Scene Editor:
 
 Lee más en el [manual del Scene Editor](/manuals/scene-editing/).
 
-### 3. Panel Outline
+### 3. Panel Outline {#3-outline-pane}
 
 Esta vista muestra el contenido del archivo que se está editando actualmente, pero en una estructura de árbol jerárquica. Outline refleja la vista del editor y te permite realizar operaciones sobre tus elementos:
 
@@ -90,7 +90,7 @@ Es posible alternar la visibilidad de objetos de juego y componentes visuales ha
 
 ![Outline](images/editor/outline.png)
 
-### 4. Panel Properties
+### 4. Panel Properties {#4-properties-pane}
 
 Esta vista muestra propiedades asociadas con el elemento seleccionado actualmente, como Id, URL, Position, Rotation, Scale u otras propiedades específicas de componentes, y también propiedades personalizadas para scripts.
 
@@ -98,7 +98,7 @@ También puedes <kbd>Arrastrar</kbd> la flecha arriba-abajo `↕` y mover el mou
 
 ![Properties](images/editor/properties.png)
 
-### 5. Panel Tools
+### 5. Panel Tools {#5-tools-pane}
 
 Esta vista tiene varias pestañas.
 
@@ -112,7 +112,7 @@ Pestaña *Console* : muestra cualquier salida de error, advertencia e informaci�
 
 El panel Tools también se usa para interactuar con el depurador integrado. Lee más sobre esto en el [manual de depuración](/manuals/debugging/).
 
-### 6. Panel Changed Files
+### 6. Panel Changed Files {#6-changed-files-pane}
 
 Si tu proyecto usa Git, esta vista enumera los archivos que se han cambiado, añadido, renombrado o eliminado localmente en comparación con el commit actual (`HEAD`). Usa un cliente Git externo o la línea de comando para sincronizar con un repositorio remoto. Puedes obtener más información en el [manual de control de versiones](/manuals/version-control/). Algunas operaciones orientadas a archivos pueden realizarse en esta vista:
 
@@ -120,17 +120,33 @@ Si tu proyecto usa Git, esta vista enumera los archivos que se han cambiado, añ
    - <kbd>Doble click izquierdo</kbd> en un archivo para abrir una vista del archivo. El editor abre el archivo en un editor adecuado, igual que en la vista Assets.
    - <kbd>Click derecho</kbd> en un archivo para abrir un menú popup desde donde puedes abrir una vista de diff, revertir todos los cambios hechos al archivo, encontrar el archivo en el sistema de archivos y más.
 
-### Barra de menú
+### Barra de menú {#menu-bar}
 
 En la parte superior de la vista del editor, o en la barra del sistema en Mac, puedes encontrar la barra de menú con 6 menús: `File`, `Edit`, `View`, `Project`, `Debug`, `Help`. Sus funciones se explican en los manuales.
 
-### Barra de estado
+### Barra de estado {#status-bar}
 
 En la barra inferior del editor puedes encontrar un espacio estrecho donde se muestra el estado, por ejemplo:
 - cuando hay una nueva actualización disponible, será visible el botón clicable `Update Available`; revisa la sección Actualizar el editor más abajo en este manual.
 - al crear una build o un bundle, se mostrará allí su progreso.
 
-## Tamaño y visibilidad de los paneles
+## Posición y tamaño de la ventana del motor {#engine-window-placement}
+
+En plataformas de escritorio, las ventanas del motor abiertas desde el editor recuerdan su posición y tamaño normales entre lanzamientos y reinicios del motor. Estos datos se guardan por separado para cada proyecto e instancia del motor. Lanzar una sola instancia usa la misma posición y tamaño guardados que la primera instancia cuando se lanzan varias.
+
+Si mueves o redimensionas la ventana del motor, un lanzamiento posterior restaura esos valores. El tamaño recordado se usa mientras no cambien las dimensiones configuradas de la ventana; al cambiarlas, el siguiente lanzamiento usa el nuevo tamaño. En Linux Wayland solo se restaura el tamaño, porque el compositor del escritorio controla la posición de las ventanas.
+
+### Restablecer el tamaño de la ventana del motor {#resetting-the-engine-window-size}
+
+Elige <kbd>Debug ▸ Reset Simulated Resolution</kbd> para volver al tamaño configurado. Este comando:
+
+- Borra los tamaños de ventana recordados para todas las instancias del motor del proyecto actual, incluidas las que no están en ejecución.
+- Borra la resolución simulada seleccionada y desactiva **Rotated Device**.
+- Conserva las posiciones de ventana guardadas.
+
+Las ventanas de las instancias del motor seleccionadas que están en ejecución se redimensionan al [ancho y alto de pantalla](/manuals/project-settings/#display) del proyecto. También puedes restablecerlas sin que haya ningún motor ejecutándose; el siguiente lanzamiento usa el tamaño configurado. Mover o redimensionar la ventana después vuelve a guardar su nueva posición y tamaño.
+
+## Tamaño y visibilidad de los paneles {#panes-size-and-visibility}
 
 El tamaño de los paneles se puede ajustar dentro del editor con la acción <kbd>Arrastrar</kbd> sobre los bordes de sección entre los 6 paneles descritos arriba.
 
@@ -144,7 +160,7 @@ La visibilidad de los paneles se puede alternar en el editor usando opciones del
 
 En el menú `View` también puedes alternar o cambiar otros ajustes relacionados con visibilidad, como Grid, Guides, Camera, ajustar la vista a la selección (`Frame Selection` o la tecla <kbd>F</kbd>) y alternar entre la vista 2D y 3D predeterminada (`Realign Camera` o la tecla <kbd>.</kbd>); muchos de ellos también son accesibles desde la barra de herramientas o mediante atajos.
 
-## Pestañas
+## Pestañas {#tabs}
 
 Si tienes varios archivos abiertos, se muestra una pestaña separada para cada archivo en la parte superior de la vista del editor. Las pestañas en un solo panel pueden moverse: haz <kbd>Arrastrar y soltar</kbd> para intercambiar sus posiciones dentro de la barra de pestañas. También puedes:
 
@@ -156,7 +172,7 @@ Si tienes varios archivos abiertos, se muestra una pestaña separada para cada a
 
 ![Tabs](images/editor/tabs_custom.png)
 
-## Edición lado a lado
+## Edición lado a lado {#side-by-side-editing}
 
 Es posible abrir 2 vistas de editor una al lado de la otra.
 
@@ -178,7 +194,7 @@ Escribe un *Name* adecuado para el nuevo archivo y, si es necesario, cambia *Loc
 
 ![create file name](images/editor/create_file_name.png)
 
-## Plantillas
+## Plantillas {#templates}
 
 Es posible especificar plantillas personalizadas para cada proyecto. Para hacerlo, crea una nueva carpeta llamada `templates` en el directorio raíz del proyecto y añade nuevos archivos llamados `default.*` con las extensiones deseadas, como `/templates/default.gui` o `/templates/default.script`. Además, si se usa el token `{{NAME}}` en estos archivos, se reemplazará por el nombre de archivo especificado en la ventana de creación de archivos.
 
@@ -187,13 +203,13 @@ Si hay una plantilla disponible para un tipo de archivo dado, cada vez que se cr
 
 ![Templates](images/editor/templates.png)
 
-## Importar archivos a tu proyecto
+## Importar archivos a tu proyecto {#importing-files-to-your-project}
 
 Para añadir archivos de assets (imágenes, sonidos, modelos, etc.) a tu proyecto, simplemente arrástralos y suéltalos en la posición correcta en el navegador *Assets*. Esto hará _copias_ de los archivos en la ubicación seleccionada dentro de la estructura de archivos del proyecto. Lee más sobre [cómo importar assets en nuestro manual](/manuals/importing-assets/).
 
 ![Import files](images/editor/import.png)
 
-## Actualizar el editor
+## Actualizar el editor {#updating-the-editor}
 
 El editor buscará actualizaciones automáticamente cuando esté conectado a internet. Cuando se detecte una actualización, se mostrará un enlace azul clicable `Update Available` en la esquina inferior izquierda de la pantalla de selección de proyecto o en la esquina inferior derecha de la ventana del editor.
 
@@ -212,7 +228,7 @@ Después de que se descargue la actualización, el enlace azul cambiará a `Rest
 
 ![Restart to update](images/editor/restart_to_update.png)
 
-## Preferencias
+## Preferencias {#preferences}
 
 Puedes modificar la configuración del editor en la ventana `Preferences`. Para abrirla, haz click en `File ▸ Preferences…` o usa el atajo <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>,</kbd>
 
@@ -243,7 +259,7 @@ $ ./path/to/Defold/Defold
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
 
-## Servidor del editor
+## Servidor del editor {#editor-server}
 
 Cuando el editor abre un proyecto, iniciará un servidor web en un puerto aleatorio. El servidor puede usarse para interactuar con el editor desde otras aplicaciones. El puerto se escribe en el archivo `.internal/editor.port`.
 
@@ -283,7 +299,7 @@ El archivo contiene un array JSON con un objeto por cada instalación conocida:
 ]
 ```
 
-## Estilo del editor
+## Estilo del editor {#editor-styling}
 
 La apariencia del editor puede cambiarse con estilos personalizados. Lee más en el [manual de estilo del editor](/manuals/editor-styling).
 

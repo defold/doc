@@ -5,7 +5,7 @@ locale: tr
 title: Shadertoy'dan Defold'a dönüştürme öğreticisi
 ---
 
-# Shadertoy öğreticisi
+# Shadertoy öğreticisi {#shadertoy-tutorial}
 
 [Shadertoy.com](https://www.shadertoy.com/), kullanıcıların katkıda bulunduğu GL gölgelendiricilerini (shader) bir araya getiren bir sitedir. Gölgelendirici kodu bulmak ve ilham almak için harika bir kaynaktır. Bu öğreticide Shadertoy'dan bir gölgelendirici alıp Defold'da çalışır hâle getireceğiz. Gölgelendiriciler hakkında temel bilgiye sahip olduğunuz varsayılır. Konuyu öğrenmeniz gerekiyorsa [Gölgelendirici kılavuzu](/manuals/shader/) iyi bir başlangıç noktasıdır.
 
@@ -15,7 +15,7 @@ Kullanacağımız gölgelendirici, Pablo Andrioli tarafından (Shadertoy'daki ku
 
 Gölgelendirici, oldukça karmaşık yalnızca 65 satırlık GLSL kodundan oluşuyor; ancak endişelenmeyin. Onu, birkaç basit girdiye göre işini yapan bir kara kutu olarak ele alacağız. Buradaki işimiz, gölgelendiriciyi Shadertoy yerine Defold ile iletişim kuracak şekilde değiştirmek.
 
-## Doku uygulanacak bir nesne
+## Doku uygulanacak bir nesne {#something-to-texture}
 
 Star Nest gölgelendiricisi yalnızca bir parça gölgelendiricisidir; bu nedenle gölgelendiricinin doku (texture) uygulayacağı bir nesneye ihtiyacımız var. Bunun için birkaç seçenek bulunur: bir sprite bileşeni, karo haritası (tilemap), GUI veya model. Bu öğreticide basit bir 3B model kullanacağız. Bunun nedeni, modelin işlenmesini kolayca tam ekran efektine dönüştürebilmemizdir---örneğin görsel son işleme yapmak istiyorsak buna ihtiyacımız olur.
 
@@ -47,7 +47,7 @@ Model sahne düzenleyicisinde görünmelidir, ancak tamamen siyah işlenir. Bunu
 
 ![Defold'da dörtgen](../images/shadertoy/quad_default_material.png)
 
-## Materyali oluşturma
+## Materyali oluşturma {#creating-the-material}
 
 1. `Assets` bölmesindeki `main` klasörüne <kbd>Right Mouse Button</kbd> ile tıklayıp <kbd>New</kbd>-><kbd>Material</kbd> seçeneğini seçin ve `star-nest` adını vererek yeni bir *`star-nest.material`* materyal dosyası oluşturun.
 
@@ -62,7 +62,7 @@ Model sahne düzenleyicisinde görünmelidir, ancak tamamen siyah işlenir. Bunu
 
  ![materyal](../images/shadertoy/material.png)
 
-### Köşe programı
+### Köşe programı {#vertex-program}
 
 1. `star-nest.vp` köşe gölgelendiricisi program dosyasını açın. Aşağıdaki kodu içermelidir:
 
@@ -87,7 +87,7 @@ Model sahne düzenleyicisinde görünmelidir, ancak tamamen siyah işlenir. Bunu
     }
     ```
 
-### Parça programı
+### Parça programı {#fragment-program}
 
 1. `star-nest.fp` parça gölgelendiricisi program dosyasını açın ve kodu, parça rengi UV koordinatlarının (`var_texcoord0`) X ve Y koordinatlarına göre ayarlanacak şekilde değiştirin. Bunu, modeli doğru kurduğumuzdan emin olmak için yapıyoruz:
 
@@ -110,7 +110,7 @@ Artık düzenleyici modeli yeni gölgelendiriciyle işlemelidir ve UV koordinatl
 
 ![Defold'da dörtgen](../images/shadertoy/quad_material.png)
 
-## Kamera
+## Kamera {#camera}
 
 Artık projeyi çalıştırabiliriz (<kbd>Project</kbd>-><kbd>Build</kbd> veya <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>B</kbd> kısayolu), ancak siyah bir ekran göreceğiz (aslında neredeyse tamamen siyah; sol alt köşede belki tek bir küçük piksel olabilir). Bunun nedeni, bir kameranın bulunmaması ve varsayılan işleme betiğinin (render script), çok geniş bir 2B uzayı gösteren basit bir yedek yöntem kullanmasıdır; oysa modelimiz (0,0,0) konumunda ve yalnızca 1 birim genişliğindedir.
 
@@ -123,7 +123,7 @@ Oyunda ne göreceğimizi belirlemek için kamera bileşeni olan bir oyun nesnesi
 
 İsteğe bağlı olarak `Orthographic Projection` değerini `true` yaparak kamera türünü değiştirebilir, ardından `Orthographic Zoom` değerini 600 gibi bir değere ayarlayabiliriz. Ancak bu durumda en boy oranı otomatik olarak ayarlanmaz ve modelimiz ekranı doldurmaz.
 
-## Star Nest gölgelendiricisi
+## Star Nest gölgelendiricisi {#the-star-nest-shader}
 
 Artık her şey hazır olduğuna göre asıl gölgelendirici kodu üzerinde çalışmaya başlayalım. Önce özgün koda bakalım. Kod birkaç bölümden oluşuyor:
 
@@ -172,7 +172,7 @@ GLSL sürüm 140 ile modern bir işleme hattı kullanacağız. Bunun için dosya
     ```
     `aspect` değerinin tam olarak ne olacağı, örneğin nasıl kurulduğuna bağlıdır. Efekt, ekran boyutu bilinen tam ekran bir dörtgen üzerinde işleniyorsa öğretici için en boy oranı kodda sabit bir değer olarak yazılabilir. Efektin herhangi bir pencere boyutunu desteklemesi gerekiyorsa çözünürlüğü bir parça sabiti olarak aktarın ve GLSL 140 uniform bloğunun içine yerleştirin.
 
-    Zaman da burada ayarlanır. Gölgelendiriciye `uniform float iGlobalTime` olarak aktarılır. Defold (1.12.3 sürümünden itibaren), gölgelendiricilere zamanı kullanacağımız özel bir `Time` sabiti aracılığıyla sağlar.
+    Zaman da burada ayarlanır. Gölgelendiriciye `uniform float iGlobalTime` olarak aktarılır. Defold, gölgelendiricilere zamanı kullanacağımız özel bir `Time` sabiti aracılığıyla sağlar.
 
     Modern Defold sürümlerinde, opak olmayan uniform değişkenleri uniform bloklarının içinde bildirilir.
     Parça gölgelendiricisinde bunu şöyle bildiririz:
@@ -200,7 +200,7 @@ GLSL sürüm 140 ile modern bir işleme hattı kullanacağız. Bunun için dosya
 
 5. 41--62. satırlar gölgelendiricinin temel bölümüdür. Bu kodu olduğu gibi bırakabiliriz.
 
-## Değiştirilmiş Star Nest gölgelendiricisi
+## Değiştirilmiş Star Nest gölgelendiricisi {#the-modified-star-nest-shader}
 
 Yukarıdaki bölümleri inceleyip gerekli değişiklikleri yaptığımızda aşağıdaki gölgelendirici kodunu elde ederiz. Daha kolay okunması için kod biraz düzenlenmiştir. Defold ve Shadertoy sürümleri arasındaki farklar işaretlenmiştir:
 
@@ -323,7 +323,7 @@ Parça gölgelendiricisi programını kaydedin. Model artık Scene düzenleyicis
 
 ## Animasyon {#animation}
 
-Bulmacanın son parçası, yıldızları hareket ettirmek için zamanı devreye sokmaktır. Defold (1.12.3 sürümünden itibaren) bunu `Time` türündeki bir parça sabiti aracılığıyla otomatik olarak sağlar.
+Bulmacanın son parçası, yıldızları hareket ettirmek için zamanı devreye sokmaktır. Defold bunu `Time` türündeki bir parça sabiti aracılığıyla otomatik olarak sağlar.
 
 1. *star-nest.material* dosyasını açın.
 2. Bir *Fragment Constant* ekleyin ve adını "time" olarak ayarlayın.
@@ -333,7 +333,7 @@ Bulmacanın son parçası, yıldızları hareket ettirmek için zamanı devreye 
 
 İşte bu kadar! Parça gölgelendiricisinde bu `time` değerini zaten kullanıyoruz. İşimiz tamam!
 
-## Alıştırmalar
+## Alıştırmalar {#exercises}
 
 Eğlenceli bir devam alıştırması olarak gölgelendiriciye özgün fare hareketi girdisini ekleyebilirsiniz. Bu kez `User` türünde yeni bir Fragment Constant oluşturmanız gerekir. Fare hareketini algılayan bir betiğin `on_input` işlevinde, `go.set()` işlevini kullanarak girdi koordinatlarını bu yeni sabite atayın ve sabiti güncelleyin.
 

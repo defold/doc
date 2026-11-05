@@ -12,8 +12,8 @@ brief: 您可以在新建项目窗口中添加自己的自定义项目模板。
 为了添加一个或多个带有自定义项目模板的新标签页，您需要在用户主目录的 `.defold` 文件夹中添加一个 `welcome.edn` 文件：
 
 * 在您的用户主目录中创建一个名为 `.defold` 的文件夹。
-  * 在 Windows 上：`C:\Users\**您的用户名**\.defold`
-  * 在 macOS 上：`/Users/**您的用户名**/.defold`
+  * 在 Windows 上：`C:\Users\**Your Username**\.defold`
+  * 在 macOS 上：`/Users/**Your Username**/.defold`
   * 在 Linux 上：`~/.defold`
 * 在 `.defold` 文件夹中创建一个 `welcome.edn` 文件。
 

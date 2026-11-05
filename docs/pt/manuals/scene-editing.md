@@ -46,6 +46,22 @@ Estes controles estão disponíveis em editores visuais:
 
 Você também pode usar **Frame Selection** (<kbd>F</kbd>) para focar a câmera na seleção atual.
 
+### Gizmo de eixos {#axis-gizmo}
+
+O **Scene View Axis Gizmo** aparece no canto inferior direito da visualização da cena no modo 3D. Ele mostra a orientação da câmera em relação aos eixos globais: **X** em vermelho, **Y** em verde e **Z** em azul.
+
+![Visualização da cena com o gizmo de eixos no canto inferior direito](images/editor/axis_gizmo.gif)
+
+| Controle | Ação |
+| --- | --- |
+| <kbd>Clique com o botão esquerdo do mouse</kbd> em uma alça de eixo | Alinha a câmera para visualizar ao longo daquele eixo. As alças opostas fornecem vistas do outro lado. |
+| Clique em uma alça de eixo já alinhada | Alterna para a vista oposta ao longo do mesmo eixo. |
+| Segure o <kbd>botão esquerdo do mouse</kbd> e arraste o gizmo | Orbita ao redor do ponto de foco atual da câmera. Você pode arrastar a partir de uma alça de eixo ou da área circular ao redor das alças, sem segurar uma tecla modificadora. |
+
+O alinhamento de eixos preserva o ponto de foco, a distância e a projeção da câmera. Use primeiro **Frame Selection** (<kbd>F</kbd>) para focar em um objeto e depois use o gizmo para inspecioná-lo de diferentes direções. Os controles normais de deslocamento, zoom e órbita com <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd> continuam disponíveis.
+
+O gizmo está disponível com projeção em perspectiva e ortográfica no modo 3D. No modo 2D, ele fica oculto; use **Align/Realign Camera 2D/3D** na [barra de ferramentas](#toolbar-overview) ou pressione <kbd>.</kbd> para mudar para 3D. Use o [controle separado de projeção da câmera](#camera-type-perspective-vs-orthographic) para escolher projeção em perspectiva ou ortográfica. O gizmo controla a visualização da cena no editor de cenas.
+
 ## Orientação de cena 2D e 3D {#2d-and-3d-scene-orientation}
 
 A visualização de cena pode ser usada em fluxos de trabalho 2D e 3D:
@@ -56,9 +72,11 @@ A visualização de cena pode ser usada em fluxos de trabalho 2D e 3D:
   - Usa uma câmera **perspectiva**,
   - Escolhe um plano de grade apropriado (frequentemente **Y** para "chão").
 
-Você pode acessar essas funções pela barra de ferramentas e pelo menu **View**.
+Você pode acessar essas funções pela barra de ferramentas e pelo menu **View**. Use o [gizmo de eixos](#axis-gizmo) no modo 3D para alinhar a visualização a um eixo ou orbitar com o mouse.
 
 ![Scene Editor 3D](images/editor/3d_scene.png)
+
+<a id="toolbar-overview"></a>
 
 ## Visão geral da barra de ferramentas
 
@@ -152,6 +170,8 @@ As configurações incluem:
   Controla a transparência das linhas da grade. Valores menores tornam a grade menos intrusiva, mantendo-a como referência.
 - Um botão **Reset to Defaults**
   Restaura todas as configurações da grade para seus valores originais.
+
+<a id="camera-type-perspective-vs-orthographic"></a>
 
 ## Tipo de câmera: Perspective vs Orthographic
 

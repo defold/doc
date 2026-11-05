@@ -3,13 +3,13 @@ title: Defold 场景编辑器
 brief: 场景编辑器用于编辑集合、游戏对象、GUI、粒子效果和其他可视资源。本手册说明选择、工具，以及如何在 2D 和 3D 中导航场景视图，包括自由摄像机模式和摄像机设置。
 ---
 
-# Defold 场景编辑器
+# Defold 场景编辑器 {#the-defold-scene-editor}
 
 **Scene Editor** 是用于构建和编辑场景的可视化编辑器，例如集合、游戏对象和其他可视资源。
 
 初始摄像机视图取决于资源。模型和 glTF 场景等 3D 资源默认使用**透视**视图，而精灵、瓦片地图和 GUI 场景等 2D 资源默认使用**正交**视图。您可以通过场景工具栏更改摄像机方向、投影和网格。
 
-## 打开场景编辑器
+## 打开场景编辑器 {#opening-the-scene-editor}
 
 在 *Assets* 面板中双击可视资源即可打开 Scene Editor，例如：
 
@@ -28,11 +28,11 @@ brief: 场景编辑器用于编辑集合、游戏对象、GUI、粒子效果和�
 
 对于没有已保存摄像机状态的资源，模型、网格和 glTF 资源会以透视视图打开。碰撞对象根据项目的 2D/3D 物理设置选择视图；集合和游戏对象则根据其场景几何体选择初始视图。
 
-## 场景视图导航（摄像机控制）
+## 场景视图导航（摄像机控制） {#scene-view-navigation-camera-controls}
 
 Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于您使用的是标准摄像机导航还是 **Free Camera Mode**。
 
-### 标准导航（所有可视编辑器）
+### 标准导航（所有可视编辑器） {#standard-navigation-all-visual-editors}
 
 这些控制在可视编辑器中可用：
 
@@ -46,6 +46,22 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
 
 您也可以使用 **Frame Selection**（<kbd>F</kbd>）将摄像机聚焦到当前选择。
 
+### 坐标轴控件 {#axis-gizmo}
+
+在 3D 模式下，**Scene View Axis Gizmo** 显示在场景视图右下角。它显示摄像机相对于世界坐标轴的方向：**X** 为红色，**Y** 为绿色，**Z** 为蓝色。
+
+![右下角显示坐标轴控件的场景视图](images/editor/axis_gizmo.gif)
+
+| 操作 | 效果 |
+| --- | --- |
+| 在坐标轴手柄上<kbd>单击鼠标左键</kbd> | 将摄像机对齐为沿该轴观察。相对的手柄提供另一侧的视图。 |
+| 单击已对齐的坐标轴手柄 | 切换到沿同一坐标轴的反向视图。 |
+| 按住<kbd>鼠标左键</kbd>拖动控件 | 围绕摄像机当前焦点旋转视图。可以从坐标轴手柄或手柄周围的圆形区域开始拖动，无需按修饰键。 |
+
+坐标轴对齐会保留摄像机焦点、距离和投影。先使用 **Frame Selection**（<kbd>F</kbd>）聚焦对象，再用控件从不同方向检查它。标准的平移、缩放以及 <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>鼠标左键</kbd> 环绕控制仍然可用。
+
+此控件在 3D 模式下的透视和正交投影中均可用，2D 模式中则隐藏。使用[工具栏](#toolbar-overview)中的 **Align/Realign Camera 2D/3D**，或按 <kbd>.</kbd> 切换到 3D。使用独立的[摄像机投影切换按钮](#camera-type-perspective-vs-orthographic)选择透视或正交投影。此控件控制的是场景编辑器观察场景的视角。
+
 ## 2D 和 3D 场景方向 {#2d-and-3d-scene-orientation}
 
 场景视图可用于 2D 和 3D 工作流：
@@ -56,11 +72,11 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
   - 使用**透视**摄像机，
   - 选择合适的网格平面（通常用 **Y** 表示“地面”）。
 
-您可以通过工具栏和 **View** 菜单访问这些功能。
+这些功能可通过工具栏和 **View** 菜单访问。在 3D 模式下，使用[坐标轴控件](#axis-gizmo)可将视图对齐到坐标轴，或通过鼠标环绕观察。
 
 ![Scene Editor 3D](images/editor/3d_scene.png)
 
-## 工具栏概览
+## 工具栏概览 {#toolbar-overview}
 
 场景视图右上角有一个工具栏，包含常用工具和视图选项（从左到右）：
 
@@ -76,7 +92,7 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
 
 ## 选择和操作对象 {#manipulating-objects}
 
-### 选择对象
+### 选择对象 {#selecting-objects}
 
 在主窗口中的对象上 <kbd>Left Mouse Click</kbd> 可选择它们。编辑器视图中围绕对象的矩形（或长方体）会以青色高亮，表示当前选择的项目。所选对象也会像上图一样在 `Outline` 视图中高亮。
 
@@ -85,7 +101,7 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
 - <kbd>Left Mouse Click</kbd> 并 <kbd>Drag</kbd>，选择选择区域内的所有对象。
 - 在 `Outline` 中 <kbd>Left Mouse Click</kbd> 对象，按住 <kbd>⇧ Shift</kbd> 可以扩展选择，按住 <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> 可以选择或取消选择点击的对象。
 
-#### 移动工具
+#### 移动工具 {#move-tool}
 
 ![Move tool](images/editor/icon_move.png){.left}
 
@@ -99,7 +115,7 @@ gizmo 会变化并显示一组操纵器 - 方块和箭头（选中的操纵器�
 - 3 个沿各轴的红、绿、蓝箭头，仅沿给定的 X、Y 或 Z 轴移动对象。
 - 3 个红、绿、蓝方块手柄（透明填充轮廓），仅在给定平面上移动对象，例如 X-Y（蓝色），以及（在 3D 中旋转摄像机时可见的）X-Z（绿色）和 Y-Z（红色）平面。
 
-#### 旋转工具
+#### 旋转工具 {#rotate-tool}
 
 ![Rotate tool](images/editor/icon_rotate.png){.left}
 
@@ -112,7 +128,7 @@ gizmo 会变化并显示一组操纵器 - 方块和箭头（选中的操纵器�
 - 一个青色（外侧、最大的圆）操纵器，用于在屏幕空间中旋转对象
 - 3 个较小的红、绿、蓝圆形操纵器，分别允许围绕 X、Y 和 Z 轴旋转。对于 2D 正交视图，其中两个与 X 轴和 Y 轴垂直，因此圆只会显示为穿过对象的两条线。
 
-#### 缩放工具
+#### 缩放工具 {#scale-tool}
 
 ![Scale tool](images/editor/icon_scale.png){.left}
 
@@ -153,7 +169,7 @@ gizmo 会变化并显示一组操纵器 - 方块和箭头（选中的操纵器�
 - 一个 **Reset to Defaults** 按钮
   将所有网格设置恢复为原始值。
 
-## 摄像机类型：透视与正交
+## 摄像机类型：透视与正交 {#camera-type-perspective-vs-orthographic}
 
 Scene Editor 支持两种摄像机：
 
@@ -166,7 +182,7 @@ Scene Editor 支持两种摄像机：
 
 为了快速进行 3D 导航，Scene Editor 提供 **Free Camera Mode**，即第一人称 / “FPS 风格”的摄像机。
 
-### 激活自由摄像机模式
+### 激活自由摄像机模式 {#activating-free-camera-mode}
 
 - 按住 <kbd>Right Mouse Button</kbd> — 只要按住按钮，Free Camera Mode 就保持激活
 - <kbd>Shift</kbd> + <kbd>`</kbd>（反引号）— 切换开启 Free Camera Mode，松开后仍保持激活
@@ -178,12 +194,12 @@ Scene Editor 支持两种摄像机：
 
 当 Free Camera Mode 激活时，Scene View 边缘会显示一圈高亮线。
 
-### 退出自由摄像机模式
+### 退出自由摄像机模式 {#exiting-free-camera-mode}
 
 - 松开 <kbd>Right Mouse Button</kbd>（通过按住激活时），或
 - <kbd>Left Mouse Button</kbd>、<kbd>Right Mouse Button</kbd>（按下并松开），或在 Free Camera Mode 通过切换激活时按 <kbd>Esc</kbd>。
 
-### 环顾四周（鼠标视角）
+### 环顾四周（鼠标视角） {#looking-around-mouse-look}
 
 Free Camera Mode 激活时，这些按键会控制摄像机移动（而不是编辑器工具）：
 
@@ -192,7 +208,7 @@ Free Camera Mode 激活时，这些按键会控制摄像机移动（而不是编
 
 您也可以选择反转 Y 轴（见下方 **Free camera settings**）。
 
-### 移动
+### 移动 {#moving}
 
 Free Camera Mode 激活时：
 
@@ -212,7 +228,7 @@ Free Camera Mode 激活时：
 - 按住 <kbd>Shift</kbd> — 更快移动
 - 按住 <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> — 更慢/更精确地移动
 
-### 行走模式（可选）
+### 行走模式（可选） {#walking-mode-optional}
 
 Free Camera Mode 支持 **Walking Mode**。
 
@@ -220,7 +236,7 @@ Free Camera Mode 支持 **Walking Mode**。
 - 上/下移动会被约束，使其更像在地面平面上的第一人称行走。
 - 当您探索关卡并希望保持一致的“贴地”移动时，这很有用。
 
-## 摄像机设置弹窗
+## 摄像机设置弹窗 {#camera-settings-popup}
 
 工具栏中的透视摄像机按钮带有一个摄像机相关偏好的设置弹窗。
 

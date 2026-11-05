@@ -7,7 +7,7 @@ brief: Este manual explica cómo funciona el input de mouse y touch.
 Se recomienda que te familiarices con la forma general en que funciona el input en Defold, cómo recibir input y en qué orden se recibe en tus archivos script. Aprende más sobre el sistema de input en el [manual de visión general del input](/manuals/input).
 :::
 
-# Triggers de mouse
+# Triggers de mouse {#mouse-triggers}
 Los triggers de mouse permiten vincular input de los botones del mouse y de las ruedas de desplazamiento a acciones del juego.
 
 ![](images/input/mouse_bindings.png)
@@ -20,7 +20,7 @@ Los inputs de botones del mouse `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` y `MOU
 Los ejemplos siguientes usan las acciones mostradas en la imagen anterior. Como con todo input, puedes nombrar tus acciones de input como quieras.
 :::
 
-## Botones del mouse
+## Botones del mouse {#mouse-buttons}
 Los botones del mouse generan eventos `pressed`, `released` y `repeated`. Ejemplo que muestra cómo detectar input para el botón izquierdo del mouse (ya sea presionado o soltado):
 
 ```lua
@@ -39,7 +39,31 @@ end
 Las acciones de input `MOUSE_BUTTON_LEFT` (o `MOUSE_BUTTON_1`) también se envían para input de tipo Single-touch.
 :::
 
-## Rueda del mouse
+### Distinguir clicks de ratón de toques {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` distingue una pulsación de ratón físico de un click simulado por entrada táctil, incluida la pulsación inicial. Vincula `MOUSE_BUTTON_LEFT` a `mouse_button_left` y usa este código en un script o script GUI:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Un toque simulado como click de ratón indica `hash("touch")` incluso sin un Touch Trigger independiente. No necesitas una tabla `action.touch` ni un evento de movimiento previo para identificar el toque. Consulta [Dispositivo de origen del input](/manuals/input/#input-device-source) para conocer todos los valores de origen y cómo funcionan cuando varias asignaciones comparten un nombre de acción.
+
+En iOS, un `Info.plist` personalizado debe activar `UIApplicationSupportsIndirectInputEvents` para que funcione esta distinción. El manifiesto integrado ya lo activa.
+
+## Rueda del mouse {#mouse-wheel}
 El input de la rueda del mouse detecta acciones de desplazamiento. El campo `action.value` es `1` si la rueda se desplaza y `0` en caso contrario. (Las acciones de desplazamiento se tratan como si fueran pulsaciones de botón. Actualmente Defold no admite input de desplazamiento granular en paneles táctiles.)
 
 ```lua
@@ -52,14 +76,15 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Movimiento del mouse
+## Movimiento del mouse {#mouse-movement}
 El movimiento del mouse se maneja por separado. Los eventos de movimiento del mouse no se reciben a menos que se configure al menos un trigger de mouse en tus input bindings.
 
-El movimiento del mouse no se vincula en los input bindings, sino que `action_id` se establece en `nil` y la tabla `action` se rellena con la ubicación y el delta de movimiento de la posición del mouse.
+El movimiento del puntero no está vinculado a un nombre de acción: `action_id` es `nil` y la tabla `action` contiene la posición y el desplazamiento del puntero. Su origen es `hash("mouse")` para un ratón físico o `hash("touch")` para movimiento simulado desde entrada táctil. Las muestras del acelerómetro también usan `action_id == nil`, así que comprueba el origen para distinguirlas, como se muestra en [Dispositivo de origen del input](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- hacer que el objeto de juego siga el movimiento del mouse/touch
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)
@@ -67,7 +92,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-# Triggers de touch
+# Triggers de touch {#touch-triggers}
 Los triggers de tipo Single-touch y Multi-touch están disponibles en dispositivos iOS y Android en aplicaciones nativas y en bundles HTML5.
 
 ![](images/input/touch_bindings.png)
@@ -99,13 +124,13 @@ El [asset Defold-Input](https://defold.com/assets/defoldinput/) puede usarse par
 :::
 
 
-## Detectar clicks o toques en objetos
+## Detectar clicks o toques en objetos {#detecting-click-or-tap-on-objects}
 Detectar cuándo el usuario ha hecho click o ha tocado un componente visual es una operación muy común que se necesita en muchos juegos. Puede ser la interacción del usuario con un botón u otro elemento de interfaz, o la interacción con un objeto de juego, como una unidad controlada por el jugador en un juego de estrategia, un tesoro en un nivel de un dungeon crawler o un personaje que entrega misiones en un RPG. El enfoque a usar varía según el tipo de componente visual.
 
-### Detectar interacción con nodos GUI
+### Detectar interacción con nodos GUI {#detecting-interaction-with-gui-nodes}
 Para los elementos de interfaz existe la función `gui.pick_node(node, x, y)`, que devolverá `true` o `false` según si la coordenada especificada está dentro de los límites de un nodo GUI. Consulta la [documentación de la API](/ref/gui/#gui.pick_node:node-x-y), el [ejemplo de pointer over](/examples/gui/pointer_over/) o el [ejemplo de botón](/examples/gui/button/) para aprender más.
 
-### Detectar interacción con objetos de juego
+### Detectar interacción con objetos de juego {#detecting-interaction-with-game-objects}
 Para los objetos de juego es más complicado detectar la interacción, ya que elementos como la traslación de la cámara y la proyección del script de render afectan los cálculos requeridos. Hay dos enfoques generales para detectar interacción con objetos de juego:
 
   1. Rastrear la posición y el tamaño de los objetos de juego con los que el usuario puede interactuar y comprobar si la coordenada del mouse o touch está dentro de los límites de alguno de los objetos.

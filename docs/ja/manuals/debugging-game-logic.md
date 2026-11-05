@@ -38,7 +38,11 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 ## デバッガーの実行 {#running-the-debugger}
 
-デバッガーを実行するには、<kbd>Debug ▸ Start/Attach</kbd> を選択します。デバッガーが接続された状態でゲームが起動するか、すでに実行中のゲームにデバッガーが接続されます。
+Lua デバッガーは、ネイティブのデバッグビルドとヘッドレスビルドで利用できます。エディターと同じ Defold バージョンのエンジンを使ってください。リリースビルドと Web ビルドにはデバッガーを接続できません。
+
+デバッガーを実行するには、<kbd>Debug ▸ Start/Attach</kbd> を選択します。デバッガーを接続した状態でゲームを起動するか、すでに実行中のゲームに接続します。デバッグ用にゲームを起動するときは、起動時のスクリプトが実行される前に、エディターが有効なブレークポイントを設定します。そのため、起動前に `init()` にブレークポイントを設定できます。
+
+デバイスに接続するには、<kbd>Project ▸ Targets</kbd> でデバイスを選択し、<kbd>Debug ▸ Start/Attach</kbd> を選びます。接続すると、次の Lua 行で一時停止します。対応するローカルおよびリモートのターゲットでは、エディターがデバッガー接続を自動的に設定します。接続要件は[リモートターゲット](#remote-targets)を、外部デバッガーの接続方法は[ネイティブ DAP 接続](#native-dap-connections)を参照してください。
 
 ![概要](images/debugging/overview.png)
 
@@ -46,7 +50,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 Break
 : ![一時停止](images/debugging/pause.svg){width=60px .left}
-  ゲームの実行を直ちに中断します。ゲームは現在の実行位置で中断します。その状態でゲームの状態を調べたり、1ステップずつ進めたり、次のブレークポイントまで実行を続けたりできます。現在の実行位置はコードエディターにマークで示されます。
+  次のソース行で Lua の実行を一時停止します。ゲームの状態を調べたり、1ステップずつ実行したり、次のブレークポイントまで実行を続けたりできます。現在の実行位置は、コードエディターに表示されます。
 
   ![スクリプト](images/debugging/script.png)
 
@@ -67,7 +71,7 @@ Step Over
   ![ステップ実行](images/debugging/step.png)
 
 ::: sidenote
-Lua コードの1行は、1つの式に対応するわけではありません。デバッガーでのステップ実行は1回に1つの式ずつ進むため、現在の実装では、次の行に進むためにステップボタンを複数回押す必要がある場合があります。
+ステップ実行は Lua のソース行に従います。ループの繰り返しなどで同じ行に戻ることがあるため、ファイルの次の行へ進むとは限りません。
 :::
 
 Step Into
@@ -100,14 +104,103 @@ Step Out
   ブレークポイントの条件を編集するには、コードエディターの行番号のすぐ右にある列を右クリックするか、メニューから <kbd>Edit ▸ Edit Breakpoint</kbd> を選択します。
 
 Lua 式の評価
-: デバッガーが接続され、ゲームがブレークポイントで停止しているときは、現在のコンテキストで Lua ランタイムを利用できます。コンソールの下部に Lua 式を入力し、<kbd>Enter</kbd> を押すと評価できます。
+: ゲームを一時停止した状態で *Call Stack* のフレームを選択し、コンソールの下部に Lua の式または文を入力して <kbd>Enter</kbd> を押します。選択したフレームのローカル変数、アップバリュー、グローバル変数を使って評価します。テーブルの結果には、入れ子になった内容も含まれます。
 
   ![コンソール](images/debugging/console.png)
 
-  現在、この評価機能を通して変数を変更することはできません。
+  `self` を使用できるフレームで `self.score = 100` とするなど、代入によって値を変更することもできます。評価したコードは、ゲームが実行するコードと同じようにゲームの状態に影響します。
+
+変数の調査
+: *Call Stack* のフレームを選択すると、*Variables* ビューでそのローカル変数とアップバリューを調べられます。`_G` を展開するとグローバル変数を、テーブルや `self` を展開するとそのフィールドを調べられます。ステップ実行、フレームの切り替え、評価後の更新では、エディターは展開したパス、選択状態、スクロール位置を保ちながら、現在の値を取得します。
 
 デバッガーの切り離し
-: <kbd>Debug ▸ Detach Debugger</kbd> を選択すると、ゲームからデバッガーが切り離されます。ゲームの実行は直ちに再開します。
+: <kbd>Debug ▸ Detach Debugger</kbd> を選択すると、ゲームからデバッガーが切断されます。ゲームはすぐに実行を再開します。ゲームを再起動せずに再接続するには、<kbd>Debug ▸ Start/Attach</kbd> を使います。
+
+## ネイティブ DAP 接続 {#native-dap-connections}
+
+エンジンには、TCP 経由のネイティブ Debug Adapter Protocol（DAP）サーバーがあります。外部の DAP クライアントを使う場合は、ネイティブの Defold デバッグエンジンまたはヘッドレスエンジンでリスナーを起動し、エンジンのアドレスとポートにクライアントを接続します。<kbd>Debug ▸ Start/Attach</kbd> を使う場合は、エディターがリスナーを自動的に設定します。
+
+現在のエディターは、MobDebug にのみ対応する古いエンジンには接続できません。現在のバージョンでは `require "builtins.scripts.mobdebug"` を呼び出す必要はなく、利用することもできません。
+
+### リスナーの起動 {#starting-the-listener}
+
+まずプロジェクトをビルドします。`build/default/game.projectc` があるプロジェクトディレクトリから、以下の[起動時の設定上書き](/manuals/project-settings/#setting-config-values-on-engine-startup)を指定して、ネイティブのデバッグエンジンを実行します。
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+DAP クライアントを `127.0.0.1:8172` に接続します。エンジンは、クライアントがブレークポイントを設定するまで、起動時のスクリプトを実行せずに待機します。
+
+| 設定 | デフォルト | 用途 |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | `1` に設定すると、エンジンの起動時にリスナーを起動します。 |
+| `debugger.address` | `127.0.0.1` | 待ち受ける IPv4 アドレス。デフォルトでは同じコンピューターからの接続を受け入れます。 |
+| `debugger.port` | `8172` | 待ち受ける TCP ポート。`0` を指定すると、使用可能なポートを選択します。 |
+| `debugger.wait` | `0` | `1` に設定すると、起動時のスクリプトを実行する前に、デバッガークライアントの設定を待機します。 |
+
+これらの値は、[game.project の Debugger セクション](/manuals/project-settings/#debugger)にも追加できます。<kbd>Debug ▸ Start/Attach</kbd> ではエディターがリスナーを自動的に設定するため、手動設定が必要なのは自分でリスナーを起動する場合だけです。
+
+エンジンのログには、選択されたアドレスとポートが表示されます。`debugger.wait=0` ではゲームがすぐに起動し、後から接続できます。`debugger.wait=1` では、ブレークポイントを含むセッションの設定をクライアントが完了するまで待機します。ローカルでデバッグ起動する場合、エディターは使用可能なポートを自動的に選択します。
+
+クライアントを切断すると実行を再開し、リスナーは別の接続を受け付けられる状態を保ちます。起動時の設定を待機中に切断した場合も、エンジンの待機は解除されます。リスナーを起動できない場合、エンジンはエラーを記録して起動を続けます。Lua から `debugger.start(0)` を呼び出すと、使用可能なポートを選択して再試行できます。
+
+### 実行中にリスナーを有効にする {#enabling-the-listener-while-running}
+
+ゲームを再起動せず、スクリプトからリスナーを有効にするには、次のようにします。
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])` は待ち受けるポートをすぐに返します。クライアントを待機したり、ゲームを一時停止したりしません。引数を省略すると `debugger.port` と `debugger.address` を使い、`0` を渡すと使用可能なポートを選択します。繰り返し呼び出すと、既存のリスナーのポートを返し、アドレスやポートは変更しません。`debugger` モジュールは、ネイティブのデバッグエンジンとヘッドレスエンジンが提供します。
+
+ポートは `0` から `65535` までの整数である必要があります。アドレスだけを上書きするには、第1引数に `nil` を渡します。不正な引数やリスナーのバインド失敗は、Lua エラーを発生させます。
+
+### リモートターゲット {#remote-targets}
+
+別のコンピューターから直接接続するには、デバイスの IPv4 インターフェースまたは `0.0.0.0`（すべての IPv4 インターフェース）にリスナーをバインドします。たとえば `debugger.start(8172, "0.0.0.0")` を使うか、上記の起動コマンドに `--config=debugger.address=0.0.0.0` を追加します。クライアントはデバイスの実際の IP アドレスに接続し、待ち受けポートへの TCP アクセスを許可します。`0.0.0.0` はバインド用のアドレスであり、クライアントに入力する接続先アドレスではありません。
+
+Defold エディターは、このリモート用のバインドを自動的に要求し、リモートターゲットにはポート `8172 + project.instance_index` を使います。動的に選択されたリモートポートは検出できません。リモートのリスナーを localhost または別のポートですでに起動した場合は、エディターから接続する前にエンジンを再起動してください。
+
+デバッガーは Lua を評価でき、認証機能を持ちません。リモートアクセスは、信頼できる開発用ネットワークでのみ有効にしてください。
+
+### 外部クライアント {#external-clients}
+
+TCP 経由で DAP サーバーに直接接続できるクライアントを使います。ソースマッピングを、`game.project` があるフォルダー（DAP の attach 引数 `localRoot`）に設定します。先にエンジンのリスナーを起動し、その後クライアントを接続します。
+
+#### VS Code {#vs-code}
+
+[Lua Debug 拡張](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug)（`actboy168.lua-debug`）をインストールし、`game.project` があるフォルダーを VS Code で開いて、`.vscode/launch.json` に次の設定を追加します。
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+VS Code が `.script`、`.gui_script`、`.render_script` ファイルをプレーンテキストとして開く場合は、ブレークポイントを設定する前に、ステータスバーの言語表示から **Lua** を選択してください。
+
+スクリプトの `init()` 関数などにブレークポイントを設定します。[上記の起動コマンド](#starting-the-listener)でエンジンを起動し、VS Code の **Run and Debug** ビューで **Attach to Defold Lua** を選択します。`debugger.wait=1` では、クライアントがブレークポイントを設定してから、エンジンが起動時のスクリプトを実行します。接続後の次の Lua 行でも一時停止するには、`stopOnEntry` を `true` に設定します。
+
+VS Code の [`debugServer` 設定](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug)は、エンジンのローカル TCP リスナーに直接接続します。`address` フィールドは Lua Debug 拡張の接続設定で必須です。リスナーポートを変更する場合は、両方のフィールドを更新します。`localRoot` は、エンジンの Lua ソース名をファイルに対応付けられるよう、プロジェクトフォルダーを指す必要があります。
+
+リモートエンジンの場合は、DAP ポートを localhost に転送して、両方のフィールドに転送先のポートを指定するか、リモートホストに直接接続する DAP クライアントを使います。
 
 ## Breakpoints タブ {#breakpoints-tab}
 

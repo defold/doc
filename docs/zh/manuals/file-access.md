@@ -12,32 +12,32 @@ Defold 提供了几种不同的函数来处理文件：
 * 您可以使用标准的 [`io.*` 函数](https://defold.com/ref/io/)来读写文件。这些函数为您提供了对整个 I/O 过程的非常精细的控制。
 
 ```lua
--- 以二进制模式打开 myfile.txt 进行写入
+-- 以二进制写入模式打开 myfile.txt
 -- 失败时返回 nil 和错误消息
 local f, err = io.open("path/to/myfile.txt", "wb")
 if not f then
-	print("打开文件时出错了", err)
+	print("Something went wrong while opening the file", err)
 	return
 end
 
--- 写入文件，刷新到磁盘然后关闭文件
+-- 写入文件，刷新到磁盘，然后关闭文件
 f:write("Foobar")
 f:flush()
 f:close()
 
--- 以二进制模式打开 myfile.txt 进行读取
+-- 以二进制读取模式打开 myfile.txt
 -- 失败时返回 nil 和错误消息
 local f, err = io.open("path/to/myfile.txt", "rb")
 if not f then
-	print("打开文件时出错了", err)
+	print("Something went wrong while opening the file", err)
 	return
 end
 
--- 将整个文件作为字符串读取
+-- 将整个文件读取为字符串
 -- 失败时返回 nil
 local s = f:read("*a")
 if not s then
-	print("读取文件时出错")
+	print("Error while reading file")
 	return
 end
 
@@ -49,20 +49,20 @@ print(s) -- Foobar
 * 您可以使用 [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) 和 [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) 来读写 Lua 表。还有其他 [`sys.*`](https://defold.com/ref/sys/) 函数可以帮助实现平台无关的文件路径解析。
 
 ```lua
--- 获取应用程序"mygame"的文件"highscore"的平台无关路径
+-- 为应用 "mygame" 获取文件 "highscore" 的跨平台路径
 local path = sys.get_save_file("mygame", "highscore")
 
--- 保存包含一些数据的 Lua 表
+-- 保存一个包含数据的 Lua 表
 local ok = sys.save(path, { highscore = 100 })
 if not ok then
-	print("保存失败", path)
+	print("Failed to save", path)
 	return
 end
 
 -- 加载数据
 local ok, data = pcall(sys.load, path)
 if not ok then
-	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	-- 文件存在，但已损坏、不是预期的文件，或使用了不支持的格式。
 	print("Failed to load save data:", data)
 	data = {}
 end

@@ -56,7 +56,7 @@ Orthographic Mode
   Доступно только при включённой `Orthographic Projection`.
 
 
-## Использование камеры
+## Использование камеры {#using-the-camera}
 
 Все камеры по умолчанию включены и обновляются каждый кадр, а Lua-модуль `camera` доступен во всех скриптовых контекстах. Начиная с Defold 1.8.1, больше не нужно явно включать камеру через отправку сообщения `acquire_camera_focus` компоненту камеры. Старые сообщения acquire и release всё ещё поддерживаются, но рекомендуется использовать сообщения `enable` и `disable`, как для любого другого компонента, который нужно включать или выключать:
 
@@ -69,14 +69,14 @@ msg.post("#camera", "enable")
 
 ```lua
 -- Внимание: вызовы render доступны только в рендер-скрипте.
--- camera.get_cameras() можно использовать везде,
--- но render.set_camera — только в рендер-скрипте.
+--       camera.get_cameras() можно использовать везде,
+--       но render.set_camera — только в рендер-скрипте.
 
 for k,v in pairs(camera.get_cameras()) do
-	-- таблица camera содержит URL всех камер
-	render.set_camera(v)
-	-- здесь выполняется рендеринг — всё, что использует материалы с
-	-- матрицами вида и проекции, будет использовать матрицы этой камеры.
+    -- таблица camera содержит URL всех камер
+    render.set_camera(v)
+    -- здесь выполняется рендеринг — всё, что использует материалы с
+    -- матрицами вида и проекции, будет использовать матрицы этой камеры.
 end
 -- чтобы отключить камеру, передайте nil (или вызовите без аргументов) в render.set_camera.
 -- после этого все вызовы рендеринга будут использовать матрицы вида и проекции,
@@ -87,17 +87,17 @@ render.set_camera()
 Модуль `camera` содержит множество функций для управления камерой. Вот несколько из них, полный список доступен в [API документации](/ref/camera/):
 
 ```lua
-camera.get_aspect_ratio(camera)        -- получить соотношение сторон
-camera.get_far_z(camera)               -- получить дальнюю плоскость отсечения
-camera.get_fov(camera)                 -- получить угол обзора
-camera.get_orthographic_mode(camera)   -- получить ортографический режим (одно из camera.ORTHO_MODE_*)
-camera.get_orthographic_zoom(camera)   -- получить управляемый пользователем множитель зума
-camera.get_orthographic_auto_zoom(camera) -- получить автоматически рассчитанный зум
-camera.set_aspect_ratio(camera, ratio) -- установить соотношение сторон
-camera.set_far_z(camera, far_z)        -- установить дальнюю плоскость отсечения
-camera.set_near_z(camera, near_z)      -- установить ближнюю плоскость отсечения
-camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- установить ортографический режим
-... и другие
+camera.get_aspect_ratio(camera) -- получить соотношение сторон
+camera.get_far_z(camera) -- получить дальнюю плоскость отсечения по z
+camera.get_fov(camera) -- получить поле зрения
+camera.get_orthographic_mode(camera) -- получить ортографический режим (одно из значений camera.ORTHO_MODE_*)
+camera.get_orthographic_zoom(camera) -- получить задаваемый пользователем множитель масштаба
+camera.get_orthographic_auto_zoom(camera) -- получить автоматически рассчитанный масштаб
+camera.set_aspect_ratio(camera, ratio) -- задать соотношение сторон
+camera.set_far_z(camera, far_z) -- задать дальнюю плоскость отсечения по z
+camera.set_near_z(camera, near_z) -- задать ближнюю плоскость отсечения по z
+camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- задать ортографический режим
+... And so forth
 ```
 
 Камера идентифицируется URL, который представляет полный путь к компоненту в сцене, включая коллекцию, игровой объект и id компонента. В примере используйте URL `/go#camera` для доступа к компоненту камеры из той же коллекции, и `main:/go#camera` для доступа к камере из другой коллекции или рендер-скрипта.
@@ -121,10 +121,10 @@ render.set_camera("main:/go#camera")
 -- builtins/render/default.render_script
 --
 function on_message(self, message_id, message)
-	if message_id == hash("set_view_projection") then
-		self.view = message.view                    -- [1]
-		self.projection = message.projection
-	end
+    if message_id == hash("set_view_projection") then
+        self.view = message.view                    -- [1]
+        self.projection = message.projection
+    end
 end
 ```
 1. Сообщение от компонента камеры содержит матрицу вида и матрицу проекции.
@@ -150,8 +150,8 @@ render.set_camera("main:/my_go#camera")
 
 ```lua
 if camera.get_enabled("main:/my_go#camera") then
-	-- камера включена, используем её для рендеринга
-	render.set_camera("main:/my_go#camera")
+    -- камера включена, используем её для рендеринга
+    render.set_camera("main:/my_go#camera")
 end
 ```
 
@@ -195,17 +195,17 @@ local auto_zoom = go.get("#camera", "orthographic_auto_zoom")
 Также для ортографической камеры можно выбрать способ определения зума с помощью параметра `Orthographic Mode` или из кода:
 
 ```lua
--- текущий режим (одно из: camera.ORTHO_MODE_FIXED, _AUTO_FIT, _AUTO_COVER)
+-- получить текущий режим (camera.ORTHO_MODE_FIXED, _AUTO_FIT или _AUTO_COVER)
 local mode = camera.get_orthographic_mode("#camera")
 
--- включить режим "вписать" (contain), чтобы дизайн-область всегда полностью помещалась в окно
+-- переключиться в auto-fit (вписывание), чтобы вся проектная область всегда была видна
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
 
--- включить режим "заполнить" (cover), чтобы окно всегда было заполнено
--- camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
+-- переключиться в auto-cover, чтобы проектная область заполняла окно
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 
--- включить fixed, чтобы использовать orthographic_zoom без автоматической подгонки
--- camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
+-- переключиться в фиксированный режим, чтобы использовать orthographic_zoom без автоматического изменения размеров
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
 ### Адаптивный зум
@@ -224,24 +224,24 @@ local DISPLAY_WIDTH = sys.get_config_int("display.width")
 local DISPLAY_HEIGHT = sys.get_config_int("display.height")
 
 function init(self)
-	local initial_zoom = go.get("#camera", "orthographic_zoom")
-	local display_scale = window.get_display_scale()
-	window.set_listener(function(self, event, data)
-		if event == window.WINDOW_EVENT_RESIZED then
-			local window_width = data.width
-			local window_height = data.height
-			local design_width = DISPLAY_WIDTH / initial_zoom
-			local design_height = DISPLAY_HEIGHT / initial_zoom
+    local initial_zoom = go.get("#camera", "orthographic_zoom")
+    local display_scale = window.get_display_scale()
+    window.set_listener(function(self, event, data)
+        if event == window.WINDOW_EVENT_RESIZED then
+            local window_width = data.width
+            local window_height = data.height
+            local design_width = DISPLAY_WIDTH / initial_zoom
+            local design_height = DISPLAY_HEIGHT / initial_zoom
 
-			-- max zoom: контент изначального разрешения заполнит и выйдет за границы экрана
-			local zoom = math.max(window_width / design_width, window_height / design_height) / display_scale
+            -- max zoom: контент изначального разрешения заполнит и выйдет за границы экрана
+            local zoom = math.max(window_width / design_width, window_height / design_height) / display_scale
 
-			-- min zoom: контент изначального разрешения полностью поместится в экран
-			--local zoom = math.min(window_width / design_width, window_height / design_height) / display_scale
-			
-			go.set("#camera", "orthographic_zoom", zoom)
-		end
-	end)
+            -- min zoom: контент изначального разрешения полностью поместится в экран
+            --local zoom = math.min(window_width / design_width, window_height / design_height) / display_scale
+
+            go.set("#camera", "orthographic_zoom", zoom)
+        end
+    end)
 end
 ```
 
@@ -285,7 +285,7 @@ local world_position = camera.screen_to_world(
 Функция [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) выполняет обратное преобразование. Она возвращает X и Y в экранных пикселях, а в Z — глубину вида по тому же соглашению, поэтому её результат можно передать обратно в `camera.screen_to_world()`:
 
 ```lua
--- Update the cached world transform first if the object moved this frame.
+-- Если объект переместился в этом кадре, сначала обновить кэшированное мировое преобразование.
 go.update_world_transform("/marker")
 local world_position = go.get_world_position("/marker")
 local screen_position = camera.world_to_screen(world_position, "#camera")

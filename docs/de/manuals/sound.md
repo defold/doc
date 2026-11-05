@@ -50,13 +50,43 @@ Die erstellte Komponente hat einige Eigenschaften, die du festlegen solltest:
 Wenn du eine Audiokomponente richtig eingerichtet hast, kannst du ihren Ton durch einen Aufruf von [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) wiedergeben:
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Jede Wiedergabe ist eine eigene *Stimme*. `sound.play()` gibt ihre numerische Wiedergabekennung (`play_id`) zurück; speichere diese ID, um [die einzelne Stimme zu steuern](#controlling-individual-voices).
 
 ::: sidenote
 Ein Ton wird auch dann weiter abgespielt, wenn das Spielobjekt, zu dem die Audiokomponente gehörte, gelöscht wird. Du kannst [`sound.stop()`](/ref/sound/#sound.stop:url) aufrufen, um den Ton zu stoppen (siehe unten).
 :::
 Jede an eine Komponente gesendete Nachricht bewirkt, dass sie eine weitere Instanz des Tons wiedergibt, bis der verfügbare Audiopuffer voll ist und die Engine Fehler in der Konsole ausgibt. Es empfiehlt sich, einen Mechanismus zur Begrenzung der Wiedergabe und zur Gruppierung von Tönen zu implementieren.
+
+### Einzelne Stimmen steuern {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) und [`sound.set_pan()`](/ref/sound/#sound.set_pan) akzeptieren als optionales drittes Argument eine `play_id`. Verwende die von `sound.play()` zurückgegebene ID und die URL derselben Audiokomponente:
+
+```lua
+function init(self)
+    -- Save the ID of a voice that will start in one second.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Start another voice on the same component.
+    sound.play("go#sound")
+
+    -- Change only the delayed voice.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Diese gezielten Aufrufe lassen andere Stimmen sowie die Standardwerte für Verstärkung und Panorama der Komponente unverändert. Sie funktionieren auch für verzögerte und pausierte Stimmen, sodass die neuen Werte beim Start oder Fortsetzen der Stimme gelten. Eine unbekannte ID oder eine ID mit bereits beendeter Wiedergabe hat keine Wirkung.
+
+Lasse `play_id` weg, um alle Stimmen und die Komponentenstandardwerte für zukünftige Wiedergaben zu aktualisieren:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Auch die Übergabe von `{ play_id = nil }` lässt die ID weg. Wenn du eine gespeicherte ID beim Ende der Wiedergabe löschst, prüfe vor einer gezielten Aktualisierung, dass sie nicht `nil` ist.
 
 ## Den Ton stoppen {#stopping-the-sound}
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 Das Audiosystem hat 4 Ebenen für Verstärkungsfaktoren:
 
 - Den an der Audiokomponente festgelegten Verstärkungsfaktor.
-- Den Verstärkungsfaktor, der beim Starten des Tons durch einen Aufruf von `sound.play()` oder beim Ändern des Verstärkungsfaktors der Wiedergabeinstanz durch einen Aufruf von `sound.set_gain()` festgelegt wird.
+- Die beim Start des Tons mit `sound.play()` gesetzte Verstärkung oder die mit `sound.set_gain()` geänderte Verstärkung [einer oder aller Stimmen](#controlling-individual-voices).
 - Den Verstärkungsfaktor, der durch einen Aufruf der Funktion [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) für die Gruppe festgelegt wird.
 - Den für die Gruppe `master` festgelegten Verstärkungsfaktor. Du kannst ihn mit `sound.set_group_gain(hash("master"), gain)` ändern.
 

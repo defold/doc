@@ -3,7 +3,7 @@ title: Defold uygulama yaşam döngüsü kılavuzu
 brief: Bu kılavuz, Defold oyunlarının ve uygulamalarının yaşam döngüsünü ayrıntılarıyla açıklar.
 ---
 
-# Uygulama yaşam döngüsü
+# Uygulama yaşam döngüsü {#application-lifecycle}
 
 Bir Defold uygulamasının veya oyununun yaşam döngüsü (lifecycle), genel hatlarıyla basittir. Motor üç yürütme aşamasından geçer: başlangıç işlemleri (initialization), uygulamaların ve oyunların zamanlarının çoğunu geçirdiği güncelleme döngüsü (update loop) ve sonlandırma işlemleri (finalization).
 
@@ -23,13 +23,13 @@ Bir noktada uygulamanın yaşam döngüsü sona erer. Uygulama kapanmadan önce 
 
 ["İletileri dağıtma"](#dispatching-messages) geçişindeki adımlar, daha anlaşılır olması için bu kılavuzun sonunda ayrı bir şemada gösterilir ve şemalarda küçük bir "oklu zarf" simgesi 📩 ile işaretlenir.
 
-## Başlangıç işlemleri
+## Başlangıç işlemleri {#initialization}
 
 Oyununuz burada başlar; bu, çalışan oyunun ilk adımıdır. 3 aşamaya ayrılabilir:
 
 ![Başlangıç işlemleri](images/application_lifecycle/initialization.png)
 
-### Ön başlatma
+### Ön başlatma {#preinitialization}
 
 Ön başlatma (`Preinitialization`) aşamasında motor, ana koleksiyon (başlangıç koleksiyonu, bootstrap collection) yüklenmeden önce birçok adım gerçekleştirir. Bellek profil çıkarıcısı, soketler, grafikler, HID (girdi aygıtları), ses, fizik ve daha pek çok şey hazırlanır. Uygulama yapılandırması (*game.project*) da yüklenir ve hazırlanır.
 
@@ -39,7 +39,7 @@ Kullanıcının denetleyebildiği ilk giriş noktası, motorun başlangıç işl
 
 Ardından ana koleksiyon yüklenir ve başlangıç işlemleri yapılır.
 
-### Koleksiyonun başlangıç işlemleri
+### Koleksiyonun başlangıç işlemleri {#collection-init}
 
 `Collection Init` aşamasında, koleksiyondaki tüm oyun nesneleri dönüşümlerini, yani öteleme (konum değişikliği), dönme ve ölçeklemeyi alt nesnelerine uygular. Ardından tüm bileşenlerin mevcut `init()` işlevleri çağrılır.
 
@@ -49,7 +49,7 @@ Ardından ana koleksiyon yüklenir ve başlangıç işlemleri yapılır.
 Oyun nesnesi bileşenlerinin `init()` işlevlerinin çağrılma sırası tanımlanmamıştır. Motorun aynı koleksiyona ait nesnelerin başlangıç işlemlerini belirli bir sırayla yaptığını varsaymayın.
 :::
 
-### Başlangıç işlemlerinde güncelleme sonrası aşama
+### Başlangıç işlemlerinde güncelleme sonrası aşama {#post-update-in-initialization}
 
 Motor daha sonra tam bir `Post Update` geçişi gerçekleştirir; bu, ilerleyen süreçte her `Update Loop` adımından sonra gerçekleştirilen geçişin aynısıdır. Bu geçiş başlangıç işlemlerinin sonunda gerçekleştirilir çünkü `init()` kodunuz yeni iletiler gönderebilir, fabrikalara (factory) yeni nesneler oluşturmalarını söyleyebilir, nesneleri silinmek üzere işaretleyebilir ve başka eylemler gerçekleştirebilir.
 
@@ -82,7 +82,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## Güncelleme döngüsü
+## Güncelleme döngüsü {#update-loop}
 
 `Update Loop`, her karede bir kez belirli bir adım dizisini yürütür. Bu dizi 5 ana aşamayla tanımlanabilir:
 
@@ -94,7 +94,7 @@ end
 4. Güncelleme sonrası aşama (koleksiyon vekillerini bellekten kaldırma, oyun nesnelerini oluşturma ve silme)
 5. Kare işleme (son grafik görüntüsü oluşturulur)
 
-### Girdi aşaması
+### Girdi aşaması {#input-phase}
 
 Girdi, kullanılabilir aygıtlardan okunur, [girdi eşlemelerine (input binding)](/manuals/input) göre eşlenir ve ardından dağıtılır. Girdi odağını edinmiş her oyun nesnesinin tüm bileşenlerinin `on_input()` işlevlerine girdi gönderilir. Bir betik bileşeni ve GUI betiği içeren bir GUI bileşeni bulunan oyun nesnesinde, her iki bileşenin de `on_input()` işlevlerine girdi iletilir; bunun için bu işlevlerin tanımlanmış olması ve bileşenlerin girdi odağını edinmiş olması gerekir.
 
@@ -102,7 +102,7 @@ Girdi, kullanılabilir aygıtlardan okunur, [girdi eşlemelerine (input binding)
 
 Girdi odağını edinmiş ve koleksiyon vekili bileşenleri içeren her oyun nesnesi, girdiyi vekil koleksiyonunun içindeki bileşenlere dağıtır. Bu işlem, etkin koleksiyon vekillerinin içindeki etkin koleksiyon vekilleri boyunca özyinelemeli olarak devam eder.
 
-### Güncelleme aşaması
+### Güncelleme aşaması {#update-phase}
 
 `Update` aşaması, `Update Loop` döngüsünün bir parçasıdır. Kök koleksiyon için bir kez başlatılır, ardından etkin her koleksiyon vekili için özyinelemeli olarak çalışır.
 
@@ -120,22 +120,22 @@ Defold, bir koleksiyon içinde geri çağırımları (callback) bileşen türün
 Ana koleksiyondaki her oyun nesnesi bileşeni dolaşılır. Bu bileşenlerden herhangi birinin betiğinde `fixed_update()`/`update()`/`late_update()` işlevi varsa bu işlev çağrılır. Bileşen bir koleksiyon vekiliyse vekil koleksiyonundaki her bileşen, `Update` aşamasındaki tüm adımlarla özyinelemeli olarak güncellenir.
 
 ::: sidenote
-Oyun nesnesi bileşenlerinin `update()` işlevlerinin çağrılma sırası tanımlanmamıştır. Motorun aynı koleksiyona ait nesneleri belirli bir sırayla güncellediğini varsaymayın. Aynı durum `fixed_update()` ve `late_update()` için de geçerlidir (1.12.0 sürümünden itibaren).
+Oyun nesnesi bileşenlerinin `update()` işlevlerinin çağrılma sırası tanımlanmamıştır. Motorun aynı koleksiyona ait nesneleri belirli bir sırayla güncellediğini varsaymayın. Aynı durum `fixed_update()` ve `late_update()` için de geçerlidir.
 :::
 
-#### Fizik
+#### Fizik {#physics}
 
 Çarpışma nesnesi bileşenleri için fizik iletileri (çarpışmalar, tetikleyiciler, ışın sorgusu yanıtları vb.), bu bileşenleri barındıran oyun nesnesinde `on_message()` işlevi olan bir betik içeren tüm bileşenlere dağıtılır.
 
 Fizik benzetimi için [sabit zaman adımı](/manuals/physics/#physics-updates) kullanılıyorsa tüm betik bileşenlerinin `fixed_update()` işlevi de çağrılabilir. Bu işlev, fizik tabanlı oyunlarda kararlı bir fizik benzetimi elde etmek için fizik nesnelerini düzenli aralıklarla değiştirmek istediğinizde yararlıdır.
 
-#### Dönüşümler
+#### Dönüşümler {#transforms}
 
 **Her** bileşen türünün güncellemesinden önce, `Update Loop` sırasında birden çok kez, gerekirse dönüşümler güncellenir. Böylece oyun nesnelerinin tüm hareket, dönme ve ölçekleme değişiklikleri her oyun nesnesi bileşenine ve tüm alt oyun nesnelerinin bileşenlerine uygulanır.
 
 `Update Loop` sonunda, gerekirse ek bir son dönüşüm güncellemesi yapılır.
 
-#### Motorun güncelleme aşaması (sabit zaman adımlı güncellemeler olmadan)
+#### Motorun güncelleme aşaması (sabit zaman adımlı güncellemeler olmadan) {#engine-update-phase-no-fixed-updates}
 
 Aşağıdaki tablolar *motor düzeyindeki* güncelleme geçişlerini açıklar. Bileşenlerin motor içindeki kesin öncelik sırasına (motorun uygulama ayrıntılarından biridir) bilinçli olarak yer vermezler; ancak betik yazımı açısından önemli olan sıralama güvencelerini yansıtırlar:
 
@@ -155,7 +155,7 @@ Aşağıdaki tablolar *motor düzeyindeki* güncelleme geçişlerini açıklar. 
 | 2 | **Geç güncelleme** | `late_update()` | Geç güncelleme aşamasını uygulayan her bileşen türü için motorun iç öncelik sırasıyla kare başına bir kez çağrılır. |
 | 3 | **Dönüşümler** | | Sonda her bileşen için, gerekirse ek bir son dönüşüm güncellemesi gerçekleştirilir. |
 
-#### Sabit zaman adımıyla motorun güncelleme aşaması
+#### Sabit zaman adımıyla motorun güncelleme aşaması {#engine-update-phase-with-fixed-timestep}
 
 `Use Fixed Timestep` değeri `true` ve Fixed Update Frequency değeri sıfırdan farklı olduğunda, aşamanın başında `dt` (geçen süre), `fixed_dt` ve `num_fixed_steps` (`0..N`) hazırlanır. Sonuncusu, sabit sayıda güncelleme yapılmasını sağlamak için son güncellemeden bu yana geçen süreye göre belirlenen, sabit zaman adımlı güncellemenin kaç kez çağrılacağını gösterir.
 
@@ -174,13 +174,13 @@ Ardından döngü başlar:
 
 Defold'un güncelleme aşamasındaki iç işleyişi hakkında daha fazla ayrıntıya ihtiyaç duyarsanız doğrudan [`gameobject.cpp`](https://github.com/defold/defold/blob/dev/engine/gameobject/src/gameobject/gameobject.cpp) kodunu okumanız yararlı olur.
 
-### İşleme güncellemesi aşaması
+### İşleme güncellemesi aşaması {#render-update-phase}
 
 İşleme güncellemesi bloğu önce `@render` soketine gönderilen tüm iletileri (örneğin kamera bileşeninin `set_view_projection` iletilerini, `set_clear_color` iletilerini vb.) dağıtır. Ardından işleme betiğinin `update()` işlevi çağrılır.
 
 ![İşleme güncellemesi aşaması](images/application_lifecycle/render_update_phase.png)
 
-### Güncelleme sonrası aşama
+### Güncelleme sonrası aşama {#post-update-phase}
 
 Güncellemelerden sonra, güncelleme sonrası adım dizisi çalıştırılır. Bu dizi, bellekten kaldırılmak üzere işaretlenen koleksiyon vekillerini bellekten kaldırır (bu işlem "iletileri dağıtma" adım dizisi sırasında gerçekleşir). Silinmek üzere işaretlenen her oyun nesnesi, varsa bileşenlerinin tüm `final()` işlevlerini çağırır. `final()` işlevlerindeki kod genellikle kuyruğa yeni iletiler gönderdiğinden, ardından "iletileri dağıtma" geçişi çalıştırılır.
 
@@ -188,7 +188,7 @@ Güncellemelerden sonra, güncelleme sonrası adım dizisi çalıştırılır. B
 
 Sonraki adımda, oyun nesnesi oluşturması istenen her fabrika bileşeni bu nesneyi oluşturur. Son olarak, silinmek üzere işaretlenen oyun nesneleri fiilen silinir.
 
-### İşleme aşaması
+### İşleme aşaması {#render-phase}
 
 Güncelleme döngüsünün son adımı, `@system` iletilerinin (`exit`, `reboot` iletileri, profil çıkarıcıyı açıp kapatma, video kaydını başlatma ve durdurma vb.) dağıtılmasını içerir.
 
@@ -196,19 +196,19 @@ Güncelleme döngüsünün son adımı, `@system` iletilerinin (`exit`, `reboot`
 
 Ardından grafikler ve görsel profil çıkarıcının görüntüsü işlenir ([Hata ayıklama belgelerine](/manuals/debugging) bakın). Grafikler işlendikten sonra video kaydı yapılır.
 
-#### Kare hızı ve koleksiyonun zaman adımı
+#### Kare hızı ve koleksiyonun zaman adımı {#frame-rate-and-collection-time-step}
 
 Saniyedeki kare güncellemesi sayısı (güncelleme döngüsünün saniyedeki çalıştırılma sayısına eşittir), proje ayarlarında veya `@system` soketine `set_update_frequency` iletisi gönderilerek program aracılığıyla ayarlanabilir. Ayrıca vekile bir `set_time_step` iletisi göndererek koleksiyon vekillerinin _zaman adımını_ ayrı ayrı ayarlamak mümkündür. Bir koleksiyonun zaman adımını değiştirmek kare hızını etkilemez. Fizik güncellemesinin zaman adımını ve `update().` işlevine iletilen `dt` değişkenini etkiler. Zaman adımını değiştirmenin, her karede `update()` işlevinin kaç kez çağrılacağını değiştirmediğine de dikkat edin --- her zaman tam olarak bir kez çağrılır.
 
 (Ayrıntılar için [Koleksiyon vekili kılavuzuna](/manuals/collection-proxy) ve [`set_time_step`](/ref/collectionproxy#set-time-step) başvurusuna bakın)
 
-#### Motorun çalışmasını kısıtlama
+#### Motorun çalışmasını kısıtlama {#engine-throttling}
 
-Defold 1.12.0 ile, girdileri algılamaya devam ederken motor güncellemelerini ve işlemeyi tamamen atlayabilen bir motor kısıtlama (engine throttling) API'si sunulmuştur. Herhangi bir girdi motoru yeniden uyandırır ve motor bir bekleme süresinden sonra yeniden kısıtlı çalışmaya geçebilir.
+Defold, girdileri algılamaya devam ederken motor güncellemelerini ve işlemeyi tamamen atlayabilen bir motor kısıtlama (engine throttling) API'si sunar. Herhangi bir girdi motoru yeniden uyandırır ve motor bir bekleme süresinden sonra yeniden kısıtlı çalışmaya geçebilir.
 
 Ayrıntılar ve kullanım örnekleri için `sys.set_engine_throttle()` API'sine bakın.
 
-## Sonlandırma işlemleri
+## Sonlandırma işlemleri {#finalization}
 
 Uygulama kapanırken önce son güncelleme döngüsünün adım dizisini tamamlar. Bu dizi, her vekil koleksiyonundaki tüm oyun nesnelerinin sonlandırma işlemlerini yapıp nesneleri silerek tüm koleksiyon vekillerini bellekten kaldırır.
 

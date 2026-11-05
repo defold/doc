@@ -64,7 +64,7 @@ Skripteigenschaften werden beim Erstellen des Projekts geparst. Wertausdrücke w
 
 ### Texteigenschaften {#text-properties}
 
-Seit Defold 1.13.2 definiert eine Zeichenfolge als Standardwert eine Texteigenschaft. Texteigenschaften unterstützen UTF-8 und Zeilenumbruchzeichen und werden im Editor in einem mehrzeiligen Feld bearbeitet:
+Ein Zeichenfolgen-Standardwert definiert eine Texteigenschaft. Texteigenschaften unterstützen UTF-8 und Zeilenumbrüche und werden im Editor in einem mehrzeiligen Feld bearbeitet:
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")

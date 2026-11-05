@@ -75,7 +75,10 @@ A pasta opcional *manifests* de uma extensão contém arquivos adicionais usados
   * Extensões com código Java devem incluir um [arquivo de regras de preservação do R8](#r8-keep-rules-for-android) (`.keep`) para as classes necessárias em tempo de execução.
 * `ios` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
   * A pasta também pode conter um arquivo `Podfile` com dependências a serem [resolvidas pelo Cocoapods](/manuals/extensions-cocoapods).
+  * A pasta também pode conter um arquivo `SwiftPackages.json` com dependências a serem [resolvidas pelo Swift Package Manager](/manuals/extensions-spm).
 * `osx` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
+  * A pasta também pode conter um arquivo `Podfile` com dependências a serem [resolvidas pelo CocoaPods](/manuals/extensions-cocoapods).
+  * A pasta também pode conter um arquivo `SwiftPackages.json` com dependências a serem [resolvidas pelo Swift Package Manager](/manuals/extensions-spm).
 * `web` - Esta pasta aceita um arquivo stub de manifesto a ser mesclado na aplicação principal ([conforme descrito aqui](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Se a extensão depender de anotações em tempo de execução, inclua também:
 
 Essas regras são combinadas com o arquivo de preservação selecionado para o projeto quando [o R8 está ativado](/manuals/android/#enabling-r8).
 
-Com Defold 1.14.0 ou posterior e um servidor Extender compatível, o R8 também remove recursos Android não utilizados. Se a extensão buscar recursos dinamicamente pelo nome, adicione [regras XML de preservação de recursos](/manuals/android/#keeping-android-resources) em `res/android/res/raw` na pasta da extensão.
+Com um servidor Extender compatível, o R8 também reduz os recursos Android. Se a extensão procura recursos dinamicamente por nome, adicione [regras XML de preservação de recursos](/manuals/android/#keeping-android-resources) em `res/android/res/raw` na pasta da extensão.
 
 
 ## Recursos personalizados {#custom-resources}
@@ -137,7 +140,7 @@ Vamos criar uma extensão bem simples. Primeiro, criamos uma nova pasta raiz *`m
 ![Manifesto](images/extensions/manifest.png)
 
 ```yaml
-# Símbolo C++ na sua extensão
+# C++ symbol in your extension
 name: "MyExtension"
 ```
 
@@ -149,23 +152,23 @@ O arquivo-fonte da extensão contém o seguinte código:
 
 ```cpp
 // myextension.cpp
-// Definições da lib da extensão
+// Extension lib defines
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// Inclui o SDK do Defold
+// include the Defold SDK
 #include <dmsdk/sdk.h>
 
 static int Reverse(lua_State* L)
 {
-    // O número de itens esperados na pilha Lua
-    // quando esta struct sair de escopo
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
     DM_LUA_STACK_CHECK(L, 1);
 
-    // Verifica e obtém a string de parâmetro da pilha
+    // Check and get parameter string from stack
     char* str = (char*)luaL_checkstring(L, 1);
 
-    // Inverte a string
+    // Reverse the string
     int len = strlen(str);
     for(int i = 0; i < len / 2; i++) {
         const char a = str[i];
@@ -174,14 +177,14 @@ static int Reverse(lua_State* L)
         str[len - i - 1] = a;
     }
 
-    // Coloca a string invertida na pilha
+    // Put the reverse string on the stack
     lua_pushstring(L, str);
 
-    // Retorna 1 item
+    // Return 1 item
     return 1;
 }
 
-// Funções expostas para Lua
+// Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
     {"reverse", Reverse},
@@ -192,7 +195,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // Registra nomes Lua
+    // Register lua names
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -206,7 +209,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Inicializa Lua
+    // Init Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -223,12 +226,12 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// O SDK do Defold usa uma macro para configurar pontos de entrada da extensão:
+// Defold SDK uses a macro for setting up extension entry points:
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
-// MyExtension é o símbolo C++ que contém todos os dados relevantes da extensão.
-// Ele deve corresponder ao campo name em `ext.manifest`
+// MyExtension is the C++ symbol that holds all relevant extension data.
+// It must match the name field in the `ext.manifest`
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
@@ -246,6 +249,8 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 
 E pronto! Criamos uma extensão nativa totalmente funcional.
 
+
+<a id="extension-lifecycle"></a>
 
 ## Ciclo de vida da extensão
 

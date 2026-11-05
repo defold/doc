@@ -51,6 +51,12 @@ Um das Skript einer GUI-Komponente (GUI component) zuzuweisen, öffne die Protot
 
 Wenn die GUI-Komponente einem Spielobjekt irgendwo in deinem Spiel hinzugefügt wurde, wird das Skript jetzt ausgeführt.
 
+## Eingabe {#input}
+
+Sende `msg.post(".", "acquire_input_focus")` aus `init()`, um Eingaben in einem GUI-Skript zu empfangen, und verarbeite Aktionen in `on_input(self, action_id, action)`.
+
+GUI-Skripte verwenden dieselben Hashes für `action.source` wie Spielobjekt-Skripte. Dadurch kannst du bereits beim ersten Drücken einen physischen Mausklick von einer Berührung unterscheiden. Siehe [Quelle des Eingabegeräts](/manuals/input/#input-device-source) und das [Maus- und Touch-Beispiel](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch). Zeigerbewegungen und Beschleunigungssensorwerte verwenden beide `action_id == nil`; unterscheide sie anhand ihrer Quelle.
+
 ## Der Namensraum „gui“ {#the-gui-namespace}
 
 GUI-Skripte haben Zugriff auf den Namensraum `gui` und [alle `gui`-Funktionen](/ref/gui). Der Namensraum `go` ist nicht verfügbar. Du musst die Logik der Spielobjekte daher in Skriptkomponenten auslagern und die GUI-Skripte und Spielobjekt-Skripte miteinander kommunizieren lassen. Jeder Versuch, die `go`-Funktionen zu verwenden, führt zu einem Fehler:

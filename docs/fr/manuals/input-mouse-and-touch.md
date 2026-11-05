@@ -39,6 +39,31 @@ end
 Les actions d'entrée `MOUSE_BUTTON_LEFT` (ou `MOUSE_BUTTON_1`) sont également envoyées pour les entrées tactiles à un seul point de contact.
 :::
 
+### Distinguer les clics de souris du tactile {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` distingue un appui sur une souris physique d'un clic simulé à partir du tactile, y compris lors de l'appui initial. Liez `MOUSE_BUTTON_LEFT` à `mouse_button_left` et utilisez ce code dans un script ou un script GUI :
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Un toucher simulé comme un clic de souris indique `hash("touch")`, même sans Touch Trigger distinct. Vous n'avez besoin ni d'une table `action.touch` ni d'un événement de déplacement précédent pour identifier le toucher. Consultez [Source du périphérique d'entrée](/manuals/input/#input-device-source) pour toutes les valeurs de source et leur fonctionnement lorsque plusieurs liaisons partagent un nom d'action.
+
+Sur iOS, un `Info.plist` personnalisé doit activer `UIApplicationSupportsIndirectInputEvents` pour que cette distinction fonctionne. Le manifeste intégré l'active déjà.
+
+
 ## Molette de la souris {#mouse-wheel}
 Les entrées de la molette de la souris détectent les actions de défilement. Le champ `action.value` vaut `1` si la molette est tournée et `0` sinon. (Les actions de défilement sont traitées comme des pressions sur des boutons. Defold ne prend actuellement pas en charge les entrées de défilement de haute précision des pavés tactiles.)
 
@@ -55,11 +80,12 @@ end
 ## Déplacement de la souris {#mouse-movement}
 Le déplacement de la souris est traité séparément. Les événements de déplacement de la souris ne sont reçus que si au moins un déclencheur de souris est configuré dans vos associations d'entrée.
 
-Le déplacement de la souris n'est pas configuré dans les associations d'entrée, mais `action_id` est défini sur `nil` et la table `action` est remplie avec la position de la souris et la variation de cette position.
+Le déplacement du pointeur n'est pas lié à un nom d'action : `action_id` vaut `nil` et la table `action` contient sa position et son déplacement relatif. Sa source est `hash("mouse")` pour une souris physique ou `hash("touch")` pour un déplacement simulé à partir du tactile. Les mesures de l'accéléromètre utilisent aussi `action_id == nil` ; vérifiez donc la source pour les distinguer, comme indiqué dans [Source du périphérique d'entrée](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

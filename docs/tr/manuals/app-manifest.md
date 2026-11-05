@@ -3,15 +3,13 @@ title: Uygulama bildirimi
 brief: Bu kılavuz, uygulama bildiriminin özellikleri motordan çıkarmak için nasıl kullanılabileceğini açıklar.
 ---
 
-# Uygulama bildirimi
+# Uygulama bildirimi {#app-manifest}
 
 Uygulama bildirimi (application manifest), hangi özelliklerin ve arka uçların (backend) motora bağlanacağını belirler. Kullanılmayan özelliklerin çıkarılması önerilir; bu, oyununuzun son ikili dosyasının boyutunu küçültür. Uygulama bildirimi ayrıca desteklenen en düşük HTML5 tarayıcı sürümleri ve WebAssembly bellek ayarları gibi derleme zamanı seçeneklerini de içerir.
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
-# Bildirimi uygulama
+# Bildirimi uygulama {#applying-the-manifest}
 
 `game.project` dosyasında bildirimi `Native Extensions` -> `App Manifest` alanına atayın.
 
@@ -36,7 +34,7 @@ Bullet 3B fizik uygulamasını dahil edin. Varsayılan olarak dahildir; 3B fizi�
 
 ## Exclude Record
 
-Video kaydetme özelliğini motordan çıkarın ([`start_record`](https://defold.com/ref/sys/#start_record) iletisinin belgelerine bakın).
+Yerel MP4 kaydını, [`recorder` Lua modülünü](/ref/recorder/) ve kayıt HTTP hizmetini masaüstü hata ayıklama derlemelerinden çıkarın. Kayıt, yayıma yönelik derlemelerde, görüntüsüz (headless) derlemelerde, mobil ve web derlemelerinde zaten bulunmaz. İş akışı için [kayıt kılavuzuna](/manuals/recording) bakın.
 
 
 ## Profiler
@@ -118,11 +116,14 @@ Android X yerine kullanımı artık önerilmeyen Android Support Library'yi kull
 
 ## Graphics
 
-Her platform için hangi grafik arka uçlarının dahil edileceğini seçin. Birleşik seçim her iki arka ucu da dahil eder; böylece tercih edilen arka uç kullanılamadığında diğerine geçilebilir.
+Her platform için dahil edilecek grafik arka uçlarını seçin. Birleşik bir seçenek birden çok arka uç içerir; böylece motor, tercih ettiği arka uç kullanılamadığında diğerine dönebilir. Daha fazla arka uç eklemek motor boyutunu artırır.
+
+Windows ve Linux ayrı alanlar kullanır. **DX12** seçeneği, Windows'ta DirectX 12'yi seçer.
 
 | Alan | Platformlar | Seçenekler | Varsayılan |
 |---|---|---|---|
-| **Graphics** | Windows ve Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -130,11 +131,11 @@ Her platform için hangi grafik arka uçlarının dahil edileceğini seçin. Bir
 
 Linux ARM64 üzerinde **OpenGL** seçeneği, OpenGL ES arka ucunu kullanır. Android'in varsayılan birleşik seçeneği, kullanılabiliyorsa Vulkan'ı tercih eder; kullanılamıyorsa OpenGL ES'ye geçer.
 
-Defold 1.14.0'dan itibaren macOS varsayılan olarak yerel Metal arka ucunu kullanır. macOS ve iOS'ta **Vulkan** seçeneği, MoltenVK aracılığıyla Vulkan'ı kullanır. iOS simülatörü (`arm64_sim-ios`), cihazlar için belirlenen **Graphics (iOS)** seçeneğinden bağımsız olarak her zaman Metal kullanır.
+macOS varsayılan olarak yerel Metal arka ucunu kullanır. macOS ve iOS'ta **Vulkan** seçeneği, MoltenVK aracılığıyla Vulkan'ı kullanır. iOS simülatörü (`arm64_sim-ios`), cihazlar için belirlenen **Graphics (iOS)** seçeneğinden bağımsız olarak her zaman Metal kullanır.
 
 ## Use full text layout system
 
-Etkinleştirildiğinde (`true`), sağdan sola yazılan diller dahil olmak üzere metinleri şekillendirmek için tam metin yerleşim sistemi dahil edilir. Bu seçeneği *game.project* dosyasındaki `font.runtime_generation` ile birlikte etkinleştirin; böylece TrueType (`.ttf`) veya OpenType (`.otf`) kaynaklarından çalışma sırasında SDF yazı tipleri oluşturabilirsiniz. `.otf` kaynaklarından çalışma sırasında oluşturma, Defold 1.13.2'den beri desteklenir. [Yazı tipi kılavuzunda](/manuals/font/#enabling-runtime-fonts) daha fazla bilgi edinin.
+Etkinleştirildiğinde (`true`), sağdan sola yazılan diller dahil olmak üzere metinleri şekillendirmek için tam metin yerleşim sistemi dahil edilir. TrueType (`.ttf`) veya OpenType (`.otf`) yazı tiplerini çalışma sırasında oluşturmak için bu seçeneği etkinleştirin ve bunu gerektiren her yazı tipi kaynağında *Glyph Generation* ayarını **Dynamic** olarak belirleyin. Dinamik oluşturma hem **SDF** hem de **Vector** modlarını destekler. [Yazı tipi kılavuzunda](/manuals/font/#enabling-runtime-fonts) daha fazla bilgi edinin.
 
 
 ## Use Rich Text
@@ -142,7 +143,7 @@ Etkinleştirildiğinde (`true`), sağdan sola yazılan diller dahil olmak üzere
 Etiketler ve GUI metni için zengin metin ayrıştırmasını ve stil efektlerini dahil edin. Bu seçenek varsayılan olarak etkindir. Proje yalnızca düz metne ihtiyaç duyduğunda motor boyutunu küçültmek için bu seçeneği devre dışı bırakın. Etiketler ve GUI metni desteklenmeye devam eder, ancak işaretleme, biçimlendirme veya efekt uygulamak yerine düz metin olarak görüntülenir.
 
 
-## En düşük tarayıcı sürümleri
+## En düşük tarayıcı sürümleri {#minimum-browser-versions}
 
 **`minSafariVersion`**, **`minFirefoxVersion`** ve **`minChromeVersion`** YAML alanları, Emscripten'in hedeflediği en düşük tarayıcı sürümlerini belirtir. Geçerli varsayılan değerler ve desteklenen en düşük sürümler, iş parçacığı kullanmayan ve kullanan hedefler arasında farklılık gösterir:
 
@@ -153,7 +154,7 @@ Etiketler ve GUI metni için zengin metin ayrıştırmasını ve stil efektlerin
 
 Varsayılanların yerine kullanılacak değerleri ilgili hedefin bağlamında belirtin. İş parçacığı kullanan hedefin ayrıca ek [barındırma gereksinimleri](/manuals/html5/#creating-html5-bundle) vardır. Emscripten ayar başvurusundaki [`MIN_SAFARI_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-safari-version), [`MIN_FIREFOX_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-firefox-version) ve [`MIN_CHROME_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-chrome-version) ayarlarına bakın.
 
-## Başlangıç belleği (HTML5)
+## Başlangıç belleği (HTML5) {#initial-memory-html5}
 YAML alan adı: **`initialMemory`**
 Varsayılan değer: **33554432**
 
@@ -161,7 +162,7 @@ Web uygulaması için başlangıçta ayrılan bellek miktarı, bayt cinsindendir
 
 Bu seçenek, kod derleme zamanındaki varsayılan değeri sağlar. *game.project* dosyasındaki [`html5.heap_size`](/manuals/html5/#heap-size) değeri, çalışma sırasında bunun yerine geçer.
 
-## Yığın boyutu (HTML5)
+## Yığın boyutu (HTML5) {#stack-size-html5}
 YAML alan adı: **`stackSize`**
 Varsayılan değer: **5242880**
 

@@ -11,7 +11,7 @@ Defold可以使用`http.request()`函数进行常规HTTP请求。
 
 这是从服务器获取一些数据的最基本请求。示例：
 
-```Lua
+```lua
 local function handle_response(self, id, response)
 	print(response.status, response.response)
 end
@@ -29,7 +29,7 @@ HTTP请求会自动缓存在客户端以提高网络性能。缓存的文件存�
 
 当向服务器发送数据（例如分数或某些认证数据）时，通常使用 POST 请求：
 
-```Lua
+```lua
 local function handle_response(self, id, response)
 	print(response.status, response.response)
 end
@@ -49,18 +49,18 @@ Defold HTTP请求还支持HEAD、DELETE和PUT方法。也支持 CONNECT 方法�
 ```lua
 
 local function handle_response(self, id, response)
-	-- check the response status code. Common response codes:
-	-- 200 OK - the request completed successfully
-	-- 301 Moved permanently - the requested data has moved, see redirect header
-	-- 307 Temporary redirect - same as above
-	-- 208 Permanent redirect - same as above
-	-- 400 Bad Request - the request was malformed
-	-- 401 Unauthorized - the client must authenticate itself
-	-- 404 Not Found - the server cannot find the information
+	-- 检查响应状态码。常见响应状态码：
+	-- 200 OK - 请求成功完成
+	-- 301 Moved permanently - 请求的数据已移至其他位置，请查看重定向头
+	-- 307 Temporary redirect - 同上
+	-- 208 Permanent redirect - 同上
+	-- 400 Bad Request - 请求格式不正确
+	-- 401 Unauthorized - 客户端必须进行身份验证
+	-- 404 Not Found - 服务器找不到所请求的信息
 	-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 	if response.status == 200 then
-		-- the response data
-		-- this can be anything from plain text, json encoded data or binary data
+		-- 响应数据
+		-- 可以是纯文本、JSON 编码的数据或二进制数据
 		print(response.response)
 		json.decode(response.response)
 		sys.save(..., response.response)
@@ -71,7 +71,7 @@ end
 当响应包含大量二进制数据（例如图片或音乐曲目）时，将数据写入文件而不是加载到内存中可能更合适：
 
 ```lua
--- in this example we download myimage.png and write it directly to a file on disk
+-- 此示例下载 myimage.png，并直接将其写入磁盘文件
 
 local options = {
 	path = sys.get_save_file("mygame", "myimage.png")
@@ -101,22 +101,22 @@ local function handle_response(self, id, response)
 	print(response.status, response.response)
 end
 
--- send some form data
+-- 发送表单数据
 local headers = {
 	["Content-Type"] = "application/x-www-form-urlencoded"
 }
 local body = "key1=value1&key2=value2"
 http.request("https://www.myserver.com/post", "POST", handle_response, headers, body)
 
--- send some json encoded data
+-- 发送 JSON 编码的数据
 local headers = {
 	["Content-Type"] = "application/json"
 }
 local body = json.encode({ key1 = value1, key2 = value2 })
 http.request("https://www.myserver.com/post", "POST", handle_response, headers, body)
 
--- request some data which requires authorization to access
-local token = ... -- generate an access token (JWT, OAuth etc)
+-- 请求需要授权才能访问的数据
+local token = ... -- 生成访问令牌（JWT、OAuth 等）
 local headers = {
 	["Authorization"] = "Bearer " .. token
 }
@@ -152,7 +152,7 @@ http.request("https://www.defold.com", "GET", handle_response)
 
 
 ```lua
--- connect to www.defold.com via localhost proxy on port 8888
+-- 通过 localhost 上端口为 8888 的代理连接到 www.defold.com
 local url = "https://www.defold.com:443"
 local method = "GET"
 local headers = {}

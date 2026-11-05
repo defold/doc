@@ -7,6 +7,10 @@ brief: 이 매뉴얼은 Windows에서 Defold 어플리케이션을 빌드하고 
 
 Windows 플랫폼용 Defold 어플리케이션 개발은 고려할 사항이 매우 적은 간단한 과정입니다.
 
+## 그래픽 백엔드 {#graphics-backends}
+
+Windows 빌드는 기본적으로 OpenGL을 사용합니다. [어플리케이션 메니페스트](/manuals/app-manifest/#graphics)의 **Graphics (Windows)**에서 OpenGL, Vulkan, DirectX 12(**DX12**)를 선택하세요. 우선하는 백엔드를 사용할 수 없을 때 대체하도록 여러 백엔드를 포함할 수 있습니다.
+
 ## 프로젝트 설정
 
 Windows 전용 어플리케이션 구성은 *game.project* 설정 파일의 [Windows 섹션](/manuals/project-settings/#windows)에서 수행합니다.

@@ -36,7 +36,7 @@ brief: Документ описывает доступные образы Docke
     Важные поля:
     * **profiles** — список профилей, при которых запускается сервис. Названия профилей передаются через аргумент `--profile <profile_name>` команде `docker compose`.
     * **networks** — список сетей, которые должны использоваться контейнером Docker. Для работы Extender используется сеть с именем `default`. Важно задать сетевые алиасы сервиса (они будут использоваться позже в конфигурации Extender).
-2. Добавьте определение удаленного билдера в [application-local-dev-app.yml](https://github.com/defold/extender/blob/dev/server/configs/application-local-dev-app.yml) в секции `extender.remote-builder.platforms`. В нашем примере это будет выглядеть так:
+2. Добавьте определение удаленного билдера в [`application-local-dev-app.yml`](https://github.com/defold/extender/blob/dev/server/configs/application-local-dev-app.yml) в секции `extender.remote-builder.platforms`. В нашем примере это будет выглядеть так:
     ```yml
         emsdk-2011:
             url: http://emsdk-2011:9000

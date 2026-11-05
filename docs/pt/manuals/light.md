@@ -152,15 +152,15 @@ Um shader pode acessar as luzes ativas declarando um bloco uniform chamado `Ligh
 
 struct Light
 {
-    vec4 position;        // xyz: posição no mundo, w: não usado
-    vec4 color;           // rgb: cor, a: não usado
-    vec4 direction_range; // xyz: direção normalizada no mundo, w: alcance
-    vec4 params;          // x: tipo, y: intensidade, z: cone interno, w: cone externo
+    vec4 position;        // xyz: world position, w: unused
+    vec4 color;           // rgb: color, a: unused
+    vec4 direction_range; // xyz: normalized world direction, w: range
+    vec4 params;          // x: type, y: intensity, z: inner cone, w: outer cone
 };
 
 uniform LightBuffer
 {
-    // xyz: cor ambiente acumulada, w: contagem de luzes não ambiente ativas
+    // xyz: accumulated ambient color, w: active non-ambient light count
     vec4 light_info;
     Light lights[MAX_LIGHT_COUNT];
 };
@@ -192,16 +192,16 @@ vec3 apply_lights(vec3 normal)
         int type = int(lights[i].params.x);
         vec3 light_color = lights[i].color.rgb * lights[i].params.y;
 
-        if (type == 0) // Direcional
+        if (type == 0) // Directional
         {
             vec3 light_dir = normalize(-lights[i].direction_range.xyz);
             result += light_color * max(dot(normal, light_dir), 0.0);
         }
-        else if (type == 1) // De ponto
+        else if (type == 1) // Point
         {
             result += light_color;
         }
-        else if (type == 2) // Holofote
+        else if (type == 2) // Spot
         {
             result += light_color;
         }

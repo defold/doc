@@ -22,8 +22,8 @@ brief: 本手册解释了游戏手柄输入的工作原理。
 下面的示例使用了上图中显示的操作。与所有输入一样，您可以自由命名输入操作。
 :::
 
-## 数字按钮
-数字按钮生成`按下`、`释放`和`重复`事件。以下示例显示如何检测数字按钮的输入（按下或释放）：
+## 数字按钮 {#digital-buttons}
+数字按钮生成`pressed`、`released`和`repeated`事件。以下示例显示如何检测数字按钮的输入（按下或释放）：
 
 ```lua
 function on_input(self, action_id, action)
@@ -37,7 +37,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## 模拟摇杆
+## 模拟摇杆 {#analog-sticks}
 当摇杆移动到手柄设置文件中定义的死区之外时，模拟摇杆会生成连续的输入事件（见下文）。以下示例显示如何检测模拟摇杆的输入：
 
 ```lua
@@ -49,7 +49,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-模拟摇杆在移动到超过特定阈值的主要方向时也会生成`按下`和`释放`事件。这使得将模拟摇杆也用作数字方向输入变得容易：
+模拟摇杆在移动到超过特定阈值的主要方向时也会生成`pressed`和`released`事件。这使得将模拟摇杆也用作数字方向输入变得容易：
 
 ```lua
 function on_input(self, action_id, action)
@@ -59,7 +59,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## 多个游戏手柄
+## 多个游戏手柄 {#multiple-gamepads}
 Defold通过主机操作系统支持多个游戏手柄，操作会将 `action` 表的`gamepad`字段设置为输入来源的游戏手柄编号：
 
 ```lua
@@ -72,7 +72,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## 连接和断开
+## 连接和断开 {#connect-and-disconnect}
 游戏手柄输入绑定还提供两个名为`Connected`和`Disconnected`的独立绑定，用于检测游戏手柄何时连接（包括从一开始就连接的手柄）或断开。
 
 ```lua
@@ -89,7 +89,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## 原始游戏手柄
+## 原始游戏手柄 {#raw-gamepads}
 
 游戏手柄输入绑定还提供一个名为`Raw`的独立绑定，用于提供任何连接的游戏手柄的未过滤（未应用死区）的按钮、轴和方向键输入。
 
@@ -104,11 +104,23 @@ end
 ```
 
 ## 游戏手柄设置文件 {#gamepads-settings-file}
-游戏手柄输入设置为每种硬件游戏手柄类型使用单独的映射文件。特定硬件游戏手柄的游戏手柄映射在*gamepads*文件中设置。Defold附带了一个内置的游戏手柄文件，其中包含常见游戏手柄的设置：
+
+手柄映射将控制器的按钮、轴和方向帽转换为输入绑定使用的标准控件。Defold 结合 *game.project* 的 *Input* 部分中配置的两种映射来源：
+
+| 设置 | 映射格式 | 默认值 |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | SDL 格式的文本数据库，根据控制器 GUID 匹配 | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | 针对设备名称和平台的旧版 `.gamepads` 条目 | `/builtins/input/default.gamepads` |
+
+SDL 数据库映射和平台自动映射使用 [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone)。旧版 `.gamepads` 条目定义自己的死区。在 Android 上，没有数据库条目的控制器也可能获得[自动映射](#gamepads-on-android)。
+
+### 旧版 .gamepads 映射 {#legacy-gamepads-mappings}
+
+一个 `.gamepads` 文件可以包含多个控制器的映射。现有的旧版映射仍然受支持。Defold 在默认文件中包含了常见控制器的映射：
 
 ![Gamepad settings](images/input/gamepads.png)
 
-如果您需要创建新的游戏手柄设置文件，我们有一个简单的工具可以帮助您：
+如果需要在桌面平台上创建旧版 `.gamepads` 映射，可以使用以下工具。Android 的说明请参阅 [Android 上的手柄](#gamepads-on-android)。
 
 [Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -122,9 +134,9 @@ end
 
 ![Gamepad settings](images/input/gamepad_setting.png)
 
-### 未识别的游戏手柄
+### 未识别的游戏手柄 {#unidentified-gamepads}
 
-当游戏手柄连接且没有该游戏手柄的映射时，游戏手柄将只生成`connected`、`disconnected`和`raw`操作。在这种情况下，您需要在游戏中手动将原始游戏手柄数据映射到操作。
+当配置映射和平台自动映射均不可用时，手柄仅生成绑定到 `Connected`、`Disconnected` 和 `Raw` 的动作。可以添加控制器映射，或在游戏中处理其原始输入。
 
 可以通过从 `action` 中读取`gamepad_unknown`值来检查游戏手柄的输入操作是否来自未知游戏手柄：
 
@@ -132,13 +144,13 @@ end
 function on_input(self, action_id, action)
     if action_id == hash("connected") then
         if action.gamepad_unknown then
-            print("The connected gamepad is unidentified and will only generate raw input") -- 连接的游戏手柄未被识别，只会生成原始输入
+            print("The connected gamepad is unidentified and will only generate raw input")
         else
-            print("The connected gamepad is known and will generate input actions for buttons and sticks") -- 连接的游戏手柄已知，将为按钮和摇杆生成输入操作
+            print("The connected gamepad is known and will generate input actions for buttons and sticks")
         end
     end
 end
-``` 
+```
 
 ## HTML5中的游戏手柄 {#gamepads-in-html5}
 HTML5构建中支持游戏手柄，并生成与其他平台相同的输入事件。游戏手柄的支持基于[游戏手柄API](https://www.w3.org/TR/gamepad/)，大多数浏览器都支持此API（[参考此支持图表](https://caniuse.com/?search=gamepad)）。如果浏览器不支持游戏手柄API，Defold将静默忽略项目中的任何游戏手柄触发器。您可以通过检查`navigator`对象上是否存在`getGamepads`函数来检查浏览器是否支持游戏手柄API：
@@ -149,7 +161,7 @@ local function supports_gamepads()
 end
 
 if supports_gamepads() then
-    print("Platform supports gamepads") -- 平台支持游戏手柄
+    print("Platform supports gamepads")
 end
 ```
 
@@ -159,71 +171,15 @@ end
 <iframe allow="gamepad"></iframe>
 ```
 
+### 标准游戏手柄 {#standard-gamepad}
 
-### 标准游戏手柄
+如果连接的游戏手柄被浏览器识别为标准游戏手柄，它将使用[游戏手柄设置文件](/manuals/input-gamepads/#gamepads-settings-file)中的`Standard Gamepad`映射（在`/builtins`中的`default.gamepads`文件中包含`Standard Gamepad`映射）。标准游戏手柄定义为具有16个按钮和2个模拟摇杆，按钮布局类似于PlayStation或Xbox控制器（有关更多信息，请参阅[W3C定义和按钮布局](https://w3c.github.io/gamepad/#dfn-standard-gamepad)）。如果连接的游戏手柄未被识别为标准游戏手柄，Defold将在游戏手柄设置文件中查找与硬件游戏手柄类型匹配的映射。
 
-如果连接的游戏手柄被浏览器识别为标准游戏手柄，它将使用[游戏手柄设置文件](/manuals/input-gamepads/#gamepads-settings-file)中的`Standard Gamepad`映射（在`/builtins`中的`default.gamepads`文件中包含`标准游戏手柄`映射）。标准游戏手柄定义为具有16个按钮和2个模拟摇杆，按钮布局类似于PlayStation或Xbox控制器（有关更多信息，请参阅[W3C定义和按钮布局](https://w3c.github.io/gamepad/#dfn-standard-gamepad)）。如果连接的游戏手柄未被识别为标准游戏手柄，Defold将在游戏手柄设置文件中查找与硬件游戏手柄类型匹配的映射。
-
-## Windows上的游戏手柄
+## Windows上的游戏手柄 {#gamepads-on-windows}
 在Windows上，目前只支持XBox 360控制器。要将360控制器连接到Windows机器，[请确保正确设置](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows)。
-## Android上的游戏手柄
 
-Android构建中支持游戏手柄，并生成与其他平台相同的输入事件。游戏手柄的支持基于[Android按键和运动事件输入系统](https://developer.android.com/training/game-controllers/controller-input)。Android输入事件将使用上述相同的*gamepad*文件转换为Defold游戏手柄事件。
+## Android上的游戏手柄 {#gamepads-on-android}
 
-在Android上添加额外的游戏手柄绑定时，您可以使用以下查找表将Android输入事件转换为*gamepad*文件值：
+Android 构建支持手柄，产生与其他平台相同的输入动作。Defold 使用配置的[手柄映射](#gamepads-settings-file)，并可为某些没有匹配条目的控制器自动映射。
 
-| 按键事件到按钮索引   | 索引 |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Android `KeyEvent` 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| 运动事件到轴索引  | 索引 |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Android `MotionEvent` 定义](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-将此查找表与Google Play商店中的游戏手柄测试应用程序结合使用，以确定您游戏手柄上的每个按钮映射到哪个按键事件。
+如果控制器无法识别或控件不正确，请在 Android 设备上测试，并添加或更新其映射。故障排查请参阅[无法识别的手柄](#unidentified-gamepads)和[原始手柄输入](#raw-gamepads)。

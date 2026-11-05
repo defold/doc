@@ -51,6 +51,12 @@ end
 
 GUI 컴포넌트가 게임 안의 어딘가에 있는 게임 오브젝트에 추가되어 있다면 이제 스크립트가 실행됩니다.
 
+## 입력 {#input}
+
+GUI 스크립트에서 입력을 받으려면 `init()`에서 `msg.post(".", "acquire_input_focus")`를 보내고 `on_input(self, action_id, action)`에서 동작을 처리합니다.
+
+GUI 스크립트도 게임 오브젝트 스크립트와 같은 `action.source` 해쉬를 사용하므로 처음 누르는 시점부터 물리 마우스 클릭과 탭을 구분할 수 있습니다. [입력 기기 출처](/manuals/input/#input-device-source)와 [마우스 및 터치 예제](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch)를 참고하세요. 포인터 이동과 가속도계 샘플은 모두 `action_id == nil`을 사용하므로 출처로 구분합니다.
+
 ## "gui" 네임스페이스
 
 GUI 스크립트는 `gui` 네임스페이스와 [모든 `gui` 함수](/ref/gui)에 액세스할 수 있습니다. `go` 네임스페이스는 사용할 수 없으므로 게임 오브젝트 로직은 스크립트 컴포넌트로 분리하고 GUI와 게임 오브젝트 스크립트 사이에서 통신해야 합니다. `go` 함수를 사용하려고 하면 에러가 발생합니다.

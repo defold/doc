@@ -5,7 +5,7 @@ brief: Ta instrukcja opisuje, jak używać animacji flip-book w Defold.
 
 # Animacja flip-book
 
-Animacja flip-book składa się z serii nieruchomych obrazów wyświetlanych jeden po drugim. Technika ta jest bardzo podobna do tradycyjnej animacji poklatkowej (zobacz http://en.wikipedia.org/wiki/Traditional_animation). Daje niemal nieograniczone możliwości, ponieważ każdą klatkę można modyfikować osobno. Z drugiej strony koszt pamięci może być wysoki, bo każda klatka jest przechowywana jako osobny obraz. Płynność animacji zależy również od liczby obrazów wyświetlanych w każdej sekundzie, a zwiększenie tej liczby zwykle oznacza też więcej pracy dla silnika. Animacje flip-book w Defold są przechowywane albo jako osobne obrazy dodane do [Atlas](/manuals/atlas), albo jako [Tile Source](/manuals/tilesource) z wszystkimi klatkami ułożonymi w poziomy ciąg.
+Animacja flip-book składa się z serii nieruchomych obrazów wyświetlanych jeden po drugim. Technika ta jest bardzo podobna do tradycyjnej animacji poklatkowej (zobacz http://en.wikipedia.org/wiki/Traditional_animation). Daje niemal nieograniczone możliwości, ponieważ każdą klatkę można modyfikować osobno. Przechowywanie wielu różnych obrazów może jednak wymagać dużej ilości pamięci tekstur. Płynność animacji zależy również od liczby obrazów wyświetlanych w każdej sekundzie, a zwiększenie ich liczby zwykle oznacza więcej pracy. Animacje flip-book w silniku Defold są przechowywane albo jako osobne obrazy dodane do [Atlasu](/manuals/atlas), albo jako kafelki w [źródle kafelków](/manuals/tilesource). Animacje źródła kafelków używają listy *Frames* do wybierania kafelków z siatki obrazu w dowolnej kolejności, również z powtórzeniami.
 
   ![Animation sheet](images/animation/animsheet.png){.inline}
   ![Run loop](images/animation/runloop.gif){.inline}
@@ -21,7 +21,7 @@ Węzły GUI box
 : Aby odtworzyć animację w czasie działania programu, użyj funkcji [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]). Zobacz przykład poniżej.
 
 ::: sidenote
-Tryb odtwarzania `once ping-pong` odtwarza animację do ostatniej klatki, a następnie odtwarza ją w odwrotnej kolejności aż do **drugiej** klatki animacji, a nie z powrotem do pierwszej. Dzięki temu łatwiej łączyć animacje w łańcuch.
+Tryb odtwarzania `Once Ping Pong` odtwarza animację do ostatniej klatki, a następnie odtwarza ją w odwrotnej kolejności aż do **drugiej** klatki animacji, a nie z powrotem do pierwszej. Dzięki temu łatwiej łączyć animacje w łańcuch.
 :::
 
 ### Przykład ze sprite'em

@@ -99,6 +99,8 @@ end
 
 방향이 전환되면 GUI 레이아웃 매니저는 레이아웃과 노드 프로퍼티에 따라 GUI 노드의 스케일과 위치를 자동으로 조정합니다. 그러나 게임 내 컨텐츠는 별도의 패스(기본값)에서 현재 윈도우로 stretch-fit 투영되어 렌더링됩니다. 이 동작을 변경하려면 수정한 렌더 스크립트를 직접 제공하거나 카메라 [라이브러리](/assets/)를 사용하세요.
 
+카메라 컷아웃 주변에 UI를 직접 배치할 때는 선택된 GUI 레이아웃이 그대로여도 `window.WINDOW_EVENT_RESIZED`에서 `window.get_reserved_areas()`를 갱신하세요. iOS에서 180° 회전하면 창 크기와 안전 영역 여백은 그대로지만 가려지는 위치가 바뀔 수 있습니다. 갱신 예제와 창 픽셀 좌표와 GUI 조정의 관계는 [예약된 화면 영역](/manuals/porting-guidelines/#reserved-screen-areas)을 참고하세요.
+
 ## 수동 레이아웃 선택 (Lua)
 
 사용 중인 Display Profiles에서 Auto Layout Selection이 OFF이면 엔진은 레이아웃을 자동으로 전환하지 않습니다. GUI 스크립트에서 다음 함수를 사용해 수동으로 레이아웃을 관리합니다:

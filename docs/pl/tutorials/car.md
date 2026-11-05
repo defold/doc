@@ -134,16 +134,16 @@ Na początek usuń funkcje `final`, `on_message` i `on_reload`, ponieważ w tym 
 Następnie dodaj poniższe linie kodu przed początkiem funkcji `init`.
 
 ```lua
--- Constants
-local turn_speed = 0.1                           									  -- Slerp factor
-local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 degrees
-local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero degrees
-local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Vector from center of back and front wheel pairs
+-- Stałe
+local turn_speed = 0.1                           									  -- Współczynnik interpolacji Slerp
+local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 stopni
+local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 stopni
+local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero stopni
+local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Wektor łączący środki par tylnych i przednich kół
 
-local acceleration = 100 																						-- The acceleration of the car
+local acceleration = 100 																						-- Przyspieszenie samochodu
 
--- prehash the inputs
+-- oblicz wcześniej hashe akcji wejścia
 local left = hash("left")
 local right = hash("right")
 local accelerate = hash("accelerate")
@@ -288,7 +288,7 @@ Kiedy obiekt porusza się w świecie rzeczywistym, działa na niego siła oporu,
 W sekcji stałych na początku skryptu dodaj następującą stałą:
 
 ```lua
-local drag = 1.1	        -- stała oporu <1>
+local drag = 1.1	        --stała oporu <1>
 ```
 
 Następnie w funkcji `update`, tuż nad tym wierszem, dodaj poniższe linie i zapisz plik.
@@ -327,68 +327,68 @@ end
 Po wykonaniu powyższych kroków Twój *car.script* powinien wyglądać tak:
 
 ```lua
-local turn_speed = 0.1                           				          	-- Slerp factor
-local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 degrees
-local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero degrees
-local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Vector from center of back and front wheel pairs
+local turn_speed = 0.1                           				          	-- Współczynnik interpolacji Slerp
+local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 stopni
+local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 stopni
+local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero stopni
+local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Wektor łączący środki par tylnych i przednich kół
 
-local acceleration = 100 		                      									-- The acceleration of the car
-local drag = 1.1                                                  	-- the drag constant
+local acceleration = 100 		                      									-- Przyspieszenie samochodu
+local drag = 1.1                                                  	-- stała oporu
 
 function init(self)
-	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
-	-- This changes the background color of the game. The vector4 contains color information
-	-- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
+	-- Wyślij wiadomość do skryptu renderowania (zobacz builtins/render/default.render_script), aby ustawić kolor czyszczenia.
+	-- Zmienia to kolor tła gry. Wektor4 zawiera informacje o kolorze w kanałach od 0 do 1:
+	-- Red = 0.2, Green = 0.2, Blue = 0.2 i Alpha = 1.0
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )
 
-	-- Acquire input focus so we can react to input
+	-- Przejmij fokus wejścia, aby móc reagować na sterowanie
 	msg.post(".", "acquire_input_focus")
 
-	-- Some variables
+	-- Kilka zmiennych
 	self.steer_angle = vmath.quat()
 	self.direction = vmath.quat()
 
-	-- Velocity and acceleration are car relative (not rotated)
+	-- Prędkość i przyspieszenie są względne wobec samochodu (bez obrotu)
 	self.velocity = vmath.vector3()
 	self.acceleration = vmath.vector3()
 
-	-- Input vector. This is modified later in the on_input function
-	-- to store the input.
+	-- Wektor wejścia. Później modyfikujemy go w funkcji on_input,
+	-- aby zapisać wejście.
 	self.input = vmath.vector3()
 end
 
 function update(self, dt)
-	-- Set acceleration to the y input
+	-- Ustaw przyspieszenie na podstawie wejścia w osi y
 	self.acceleration.y = self.input.y * acceleration
 
-	-- Calculate the new positions of front and back wheels
+	-- Oblicz nowe pozycje przednich i tylnych kół
 	local front_vel = vmath.rotate(self.steer_angle, self.velocity)
 	local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
 	local new_back_pos = vmath.rotate(self.direction, self.velocity)
 
-	-- Calculate the car's new direction
+	-- Oblicz nowy kierunek samochodu
 	local new_dir = vmath.normalize(new_front_pos - new_back_pos)
 	self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)
 
-	-- Speed is the magnitude of the velocity
+	-- Szybkość to wartość prędkości
 	local speed = vmath.length(self.velocity)
 
-	-- Apply drag
+	-- Zastosuj opór
 	self.acceleration = self.acceleration - speed * self.velocity * drag
 
-	-- Stop if we are already slow enough
+	-- Zatrzymaj samochód, jeśli porusza się już wystarczająco wolno
 	if speed < 0.5 then self.velocity = vmath.vector3() end
 
-	-- Calculate new velocity based on current acceleration
+	-- Oblicz nową prędkość na podstawie bieżącego przyspieszenia
 	self.velocity = self.velocity + self.acceleration * dt
 
-	-- Update position based on current velocity and direction
+	-- Zaktualizuj pozycję na podstawie bieżącej prędkości i kierunku
 	local pos = go.get_position()
 	pos = pos + vmath.rotate(self.direction, self.velocity)
 	go.set_position(pos)
 
-	-- Interpolate the wheels using vmath.slerp
+	-- Interpoluj koła za pomocą vmath.slerp
 	if self.input.x > 0 then
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
 	elseif self.input.x < 0 then
@@ -397,20 +397,20 @@ function update(self, dt)
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, steer_angle_zero)
 	end
 
-	-- Update the wheel rotation
+	-- Zaktualizuj obrót kół
 	go.set_rotation(self.steer_angle, "left_wheel")
 	go.set_rotation(self.steer_angle, "right_wheel")
 
-	-- Set the game object's rotation to the direction
+	-- Ustaw obrót obiektu gry zgodnie z kierunkiem
 	go.set_rotation(self.direction)
 
-	-- reset acceleration and input
+	-- Zresetuj przyspieszenie i wejście
 	self.acceleration = vmath.vector3()
 	self.input = vmath.vector3()
 end
 
 function on_input(self, action_id, action)
-	-- set the input vector to correspond to the key press
+	-- Ustaw wektor wejścia zgodnie z naciśniętym klawiszem
 	if action_id == hash("left") then
 		self.input.x = -1
 	elseif action_id == hash("right") then

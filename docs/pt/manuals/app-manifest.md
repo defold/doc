@@ -9,9 +9,6 @@ O manifesto do aplicativo controla quais recursos e backends são vinculados à 
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
-
 # Aplicando o manifesto
 
 Em `game.project`, atribua o manifesto a `Native Extensions` -> `App Manifest`.
@@ -35,9 +32,11 @@ Inclui a implementação de física 3D Bullet. Ela é incluída por padrão; des
 Controla a funcionalidade de rig e modelo, ou selecione None para excluir modelo e rig completamente. (Veja a documentação de [`Model`](https://defold.com/manuals/model/#model-component)).
 
 
+<a id="exclude-record"></a>
+
 ## Excluir Gravação
 
-Exclui a capacidade de gravação de vídeo da engine (veja a documentação da mensagem [`start_record`](https://defold.com/ref/sys/#start_record)).
+Exclui a gravação nativa de MP4, o [módulo Lua `recorder`](/ref/recorder/) e o serviço HTTP de gravação dos builds de depuração para desktop. A gravação já é omitida de builds de release, headless, móveis e web. Consulte o [manual de gravação](/manuals/recording) para conhecer o fluxo de trabalho.
 
 
 ## Profiler
@@ -115,13 +114,18 @@ Exclui a biblioteca de compressão de textura [Basis Universal](/manuals/texture
 Usa a biblioteca Android Support Library obsoleta em vez do AndroidX. [Mais informações](https://defold.com/manuals/android/#using-androidx).
 
 
+<a id="graphics"></a>
+
 ## Gráficos
 
-Selecione quais backends gráficos incluir para cada plataforma. Uma opção combinada inclui os dois backends para que o backend preferencial possa recorrer ao outro quando não estiver disponível.
+Selecione quais backends gráficos incluir em cada plataforma. Uma opção combinada inclui vários backends para que a engine possa recorrer a outro quando o preferido não estiver disponível. Incluir mais backends aumenta o tamanho da engine.
+
+Windows e Linux usam campos separados. A opção **DX12** seleciona o DirectX 12 no Windows.
 
 | Campo | Plataformas | Opções | Padrão |
 |---|---|---|---|
-| **Graphics** | Windows e Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -129,12 +133,12 @@ Selecione quais backends gráficos incluir para cada plataforma. Uma opção com
 
 No Linux ARM64, a opção **OpenGL** usa o backend OpenGL ES. A opção combinada padrão do Android dá preferência ao Vulkan quando disponível e recorre ao OpenGL ES caso contrário.
 
-A partir do Defold 1.14.0, o macOS usa o backend nativo Metal por padrão. A opção **Vulkan** no macOS e no iOS usa Vulkan por meio do MoltenVK. O simulador iOS (`arm64_sim-ios`) sempre usa Metal, independentemente da opção **Graphics (iOS)** para dispositivos.
+O macOS usa o backend Metal nativo por padrão. A opção **Vulkan** no macOS e no iOS usa Vulkan por meio do MoltenVK. O simulador de iOS (`arm64_sim-ios`) sempre usa Metal, independentemente da opção **Graphics (iOS)** selecionada para dispositivos.
 
 
 ## Usar sistema completo de layout de texto
 
-Se ativado (`true`), inclui o sistema completo de layout de texto para modelagem de texto, incluindo idiomas escritos da direita para a esquerda. Ative esta opção junto com `font.runtime_generation` no *game.project* para usar a geração em tempo de execução de fontes SDF a partir de recursos TrueType (`.ttf`) ou OpenType (`.otf`). A geração em tempo de execução a partir de recursos `.otf` é compatível desde o Defold 1.13.2. Leia mais no [manual de fontes](/manuals/font/#enabling-runtime-fonts).
+Quando habilitada (`true`), esta opção inclui o sistema completo de layout de texto para composição de caracteres, incluindo idiomas escritos da direita para a esquerda. Habilite-a para gerar fontes TrueType (`.ttf`) ou OpenType (`.otf`) em tempo de execução e defina *Glyph Generation* como **Dynamic** em cada recurso de fonte que precisar disso. A geração dinâmica oferece suporte aos modos **SDF** e **Vector**. Leia mais no [manual de fontes](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text {#use-rich-text}

@@ -152,15 +152,15 @@ Un shader puede acceder a las luces activas declarando un bloque uniform llamado
 
 struct Light
 {
-    vec4 position;        // xyz: posición en el espacio del mundo, w: sin usar
-    vec4 color;           // rgb: color, a: sin usar
-    vec4 direction_range; // xyz: dirección normalizada en el espacio del mundo, w: rango
-    vec4 params;          // x: tipo, y: intensidad, z: cono interior, w: cono exterior
+    vec4 position;        // xyz: world position, w: unused
+    vec4 color;           // rgb: color, a: unused
+    vec4 direction_range; // xyz: normalized world direction, w: range
+    vec4 params;          // x: type, y: intensity, z: inner cone, w: outer cone
 };
 
 uniform LightBuffer
 {
-    // xyz: color ambiental acumulado, w: número de luces no ambientales activas
+    // xyz: accumulated ambient color, w: active non-ambient light count
     vec4 light_info;
     Light lights[MAX_LIGHT_COUNT];
 };
@@ -192,16 +192,16 @@ vec3 apply_lights(vec3 normal)
         int type = int(lights[i].params.x);
         vec3 light_color = lights[i].color.rgb * lights[i].params.y;
 
-        if (type == 0) // Direccional
+        if (type == 0) // Directional
         {
             vec3 light_dir = normalize(-lights[i].direction_range.xyz);
             result += light_color * max(dot(normal, light_dir), 0.0);
         }
-        else if (type == 1) // Puntual
+        else if (type == 1) // Point
         {
             result += light_color;
         }
-        else if (type == 2) // Focal
+        else if (type == 2) // Spot
         {
             result += light_color;
         }

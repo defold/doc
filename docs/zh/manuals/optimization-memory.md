@@ -22,6 +22,6 @@ Defold 有几种不同的动态加载内容的方式：
 Defold 会在创建集合时为组件和资源分配一次内存，以减少内存碎片。分配的内存量取决于 *game.project* 中各种组件计数器的配置。使用[分析器](/manuals/profiling/)获取准确的组件和资源使用情况，并将您的游戏配置为使用更接近组件和资源实际数量的最大值。这将减少您的游戏使用的内存量（请参阅有关组件[最大计数优化](/manuals/project-settings/#component-max-count-optimizations)的信息）。
 
 ## 优化 GUI 节点数量
-通过将 GUI 文件中的最大节点数设置为仅需要的数量来优化 GUI 节点数量。[GUI 组件属性](https://defold.com/manuals/gui/#gui-properties)中的`当前节点`字段将显示 GUI 组件使用的节点数量。
+通过将 GUI 文件中的最大节点数设置为仅需要的数量来优化 GUI 节点数量。[GUI 组件属性](https://defold.com/manuals/gui/#gui-properties)中的`Current Nodes`字段将显示 GUI 组件使用的节点数量。
 
 :[HTML5 优化](../shared/optimization-memory-html5.md)

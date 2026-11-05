@@ -3,11 +3,11 @@ title: Defold karo kaynağı kılavuzu
 brief: Bu kılavuz, karo kaynağının nasıl kullanılacağını ve oluşturulacağını açıklar.
 ---
 
-# Karo kaynağı
+# Karo kaynağı {#tile-source}
 
 Bir *karo kaynağı (Tile Source)*, bir [karo haritası bileşeni (Tilemap component)](/manuals/tilemap) tarafından ızgara şeklinde bir alana karolar çizmek için kullanılabilir ya da bir [sprite bileşeninin](/manuals/sprite) veya [parçacık efekti bileşeninin (Particle Effect component)](/manuals/particlefx) grafik kaynağı olarak kullanılabilir. Karo kaynağındaki *çarpışma şekillerini (Collision Shapes)* de bir karo haritasında [çarpışma algılama ve fizik simülasyonu](/manuals/physics) için kullanabilirsiniz ([örnek](/examples/tilemap/collisions/)).
 
-## Karo kaynağı oluşturma
+## Karo kaynağı oluşturma {#creating-a-tile-source}
 
 Tüm karoları içeren bir görüntüye ihtiyacınız vardır. Her karo tam olarak aynı boyutlarda olmalı ve bir ızgaraya yerleştirilmelidir. Defold, karolar arasında _aralık_ ve her karonun çevresinde _kenar boşluğu_ kullanımını destekler.
 
@@ -48,30 +48,35 @@ Extrude Border
 Collision
 : Karolar için otomatik olarak çarpışma şekilleri oluşturmakta kullanılacak görüntüyü belirtir.
 
-## Karo kaynağında kare dizisi animasyonları
+## Karo kaynağında kare dizisi animasyonları {#tile-source-flip-book-animations}
 
-Bir karo kaynağında kare dizisi animasyonu (flip-book animation) tanımlamak için animasyon karelerini oluşturan karolar, soldan sağa uzanan bir dizide yan yana yer almalıdır. Dizi bir satırdan sonraki satıra devam edebilir. Yeni oluşturulan tüm karo kaynaklarında "`anim`" adlı varsayılan bir animasyon bulunur. *Outline* görünümünde karo kaynağının kök öğesine <kbd>sağ tıklayıp</kbd> <kbd>Add ▸ Animation</kbd> seçeneğini seçerek yeni animasyonlar ekleyebilirsiniz.
+Bir karo kaynağında animasyon tanımlamak için oynatılacak karoları animasyonun *Frames* özelliğiyle seçin. Karolar tekrarlar dahil herhangi bir sırada bulunabilir; bu nedenle kaynak görüntüyü yeniden düzenlemeniz gerekmez. Yeni oluşturulan tüm karo kaynaklarında "`anim`" adlı varsayılan bir animasyon bulunur. *Outline* görünümünde karo kaynağının kök öğesine <kbd>sağ tıklayıp</kbd> <kbd>Add ▸ Animation</kbd> seçeneğini seçerek yeni animasyonlar ekleyebilirsiniz.
 
 Bir animasyon seçildiğinde animasyonun *Properties* paneli gösterilir.
-
-![Karo kaynağı animasyonu](images/tilemap/animation.png)
 
 Id
 : Animasyonun kimliği. Karo kaynağı içinde benzersiz olmalıdır.
 
-Start Tile
-: Animasyonun ilk karosu. Numaralandırma sol üst köşede 1'den başlar ve satır satır sağa doğru ilerleyerek sağ alt köşeye kadar devam eder.
+Frames
+: Virgülle ayrılmış, animasyon sırasındaki karo numaraları. Numaralandırma sol üst köşede 1'den başlar ve satır satır sağa doğru ilerleyerek sağ alt köşeye kadar devam eder. Karo numaralarını tekrarlayabilir ve her iki yönde de uçları dahil aralıklar kullanabilirsiniz.
 
-End Tile
-: Animasyonun son karosu.
+| Frames | Açılmış dizi |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+Düzenleyici, en az üç ardışık kareden oluşan dizileri aralık olarak gösterir. Örneğin `1, 2, 3`, `1-3` olurken `1, 2` iki karo numarası olarak kalır. Kare sırası ve tekrarlar korunur. Listede en az bir kare bulunmalı ve her karo numarası kaynak görüntüde var olmalıdır.
+
+*Frames*, *Start Tile* ve *End Tile* yerine geçer. Düzenleyici, eski karo kaynağı dosyalarındaki geçerli aralıkları kare listelerine dönüştürür. Düzenleyici betiklerinde `start_tile` ve `end_tile` yerine `frames` tamsayı dizisini kullanın; [Karo kaynaklarını düzenleme](/manuals/editor-scripts/#editing-tilesources) bölümüne bakın.
 
 Playback
-: Animasyonun nasıl oynatılacağını belirtir:
+: Animasyonun *Frames* listesi boyunca nasıl oynatılacağını belirtir:
 
   - `None` animasyonu hiç oynatmaz, ilk görüntü gösterilir.
   - `Once Forward` animasyonu ilk görüntüden son görüntüye kadar bir kez oynatır.
   - `Once Backward` animasyonu son görüntüden ilk görüntüye kadar bir kez oynatır.
-  - `Once Ping Pong` animasyonu ilk görüntüden son görüntüye kadar ve ardından tekrar ilk görüntüye dönerek bir kez oynatır.
+  - `Once Ping Pong` animasyonu ilk görüntüden son görüntüye kadar ve ardından tekrar ikinci görüntüye dönerek bir kez oynatır.
   - `Loop Forward` animasyonu ilk görüntüden son görüntüye kadar sürekli tekrarlar.
   - `Loop Backward` animasyonu son görüntüden ilk görüntüye kadar sürekli tekrarlar.
   - `Loop Ping Pong` animasyonu ilk görüntüden son görüntüye kadar ve ardından tekrar ilk görüntüye dönerek sürekli tekrarlar.

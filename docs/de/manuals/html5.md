@@ -83,6 +83,39 @@ Wenn du auf die Schaltfläche <kbd>Create bundle</kbd> klickst, wirst du aufgefo
 
 Wähle den angeforderten Grafikkontext über [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Der Standardwert ist WebGL 2. Fordere WebGL 1 an, um diesen Kontext in Browsern, die beide Versionen unterstützen, zu testen oder als Ziel zu verwenden.
 
+Seit Defold 1.14.1 sind WebGL-1-Shader standardmäßig ausgeschlossen. Deaktiviere [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20), um sie einzubinden, sowohl für die direkte Verwendung von WebGL 1 als auch für einen Rückfall von WebGL 2. Setze beide Optionen in *game.project*, um WebGL 1 ausdrücklich anzufordern:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Grenzen des Pixelverhältnisses {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` und `html5.max_pixel_ratio` steuern, wie viele Canvas-Renderpixel pro CSS-Pixel verwendet werden. Die CSS-Größe des Canvas bestimmt, wie groß das Spiel auf der Seite erscheint; seine Renderauflösung bestimmt, wie viele Pixel die Engine zeichnet.
+
+Aktiviere *High Dpi* im Abschnitt *Display* von *game.project*, um diese Grenzen zu verwenden. Das Gerätepixelverhältnis des Browsers wird dann auf die aktivierten Grenzen beschränkt. Beide Grenzen sind standardmäßig `0`, wodurch die jeweilige Grenze deaktiviert ist. Werte müssen endlich und nicht negativ sein; sind beide positiv, darf das Minimum das Maximum nicht überschreiten.
+
+Begrenze das Verhältnis beispielsweise auf `1.5`, um die Renderauflösung auf Bildschirmen mit hoher Pixeldichte zu begrenzen:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+Meldet ein Browser ein Gerätepixelverhältnis von `3`, rendert ein mit 800 × 600 CSS-Pixeln angezeigter Canvas mit dieser Konfiguration mit 1200 × 900 Pixeln. Seine Anzeigegröße bleibt gleich. Meldet der Browser ein Verhältnis von `1`, rendert derselbe Canvas weiterhin mit 800 × 600 Pixeln, da die Obergrenze das Verhältnis nicht erhöht.
+
+Auch gebrochene Verhältnisse unter `1` werden unterstützt: Ein Maximum von `0.75` rendert beispielsweise weniger Pixel als die CSS-Anzeigegröße. Ein Minimum oberhalb des Gerätepixelverhältnisses des Browsers erhöht die Renderauflösung für Supersampling. Die Grenzen gelten für alle vier Optionen von *Scale Mode* und erhalten deren CSS-Layout.
+
+Wenn *High Dpi* deaktiviert ist, bleibt das Verhältnis unabhängig von den Grenzen bei `1`. Unter HTML5 gibt [`window.get_display_scale()`](/ref/window/#window.get_display_scale) das effektive Renderverhältnis nach Anwendung der High-DPI-Einstellung und der Grenzen zurück.
+
 ## Downloads überprüfen {#download-verification}
 
 Der HTML5-Loader prüft standardmäßig die Größen heruntergeladener Engine- und Archivdateien. Bei fehlgeschlagenen Prüfungen werden Downloads erneut versucht, bevor der Loader einen Fehler meldet:
@@ -130,7 +163,7 @@ In *game.project* kannst du die Schaltfläche `Fullscreen` und den Link `Made wi
 Defold stellt ein dunkles und ein helles Design für `index.html` bereit. Standardmäßig ist das helle Design eingestellt, du kannst es aber durch Ändern der Datei `Custom CSS` wechseln. Im Feld `Scale Mode` stehen außerdem vier vordefinierte Skalierungsmodi zur Auswahl.
 
 ::: important
-Die Berechnungen für alle Skalierungsmodi berücksichtigen den aktuellen DPI-Wert des Bildschirms, wenn du die Option `High Dpi` in *game.project* (Abschnitt `Display`) aktivierst.
+Wenn *High Dpi* im Abschnitt *Display* von *game.project* aktiviert ist, verwenden alle Skalierungsmodi das effektive Pixelverhältnis einschließlich etwaiger [Grenzen des Pixelverhältnisses](#pixel-ratio-limits), um die Größe des Canvas-Renderpuffers festzulegen.
 :::
 
 ### Downscale Fit und Fit {#downscale-fit-and-fit}
@@ -146,7 +179,7 @@ Im Modus `Stretch` wird die Größe der Zeichenfläche so angepasst, dass sie de
 ![HTML5-Abschnitt](images/html5/html5_stretch.png)
 
 ### No Scale
-Im Modus `No Scale` entspricht die Größe der Zeichenfläche genau dem Wert, den du in der Datei *game.project* im Abschnitt `[display]` festgelegt hast.
+Im Modus `No Scale` entsprechen CSS-Breite und -Höhe des Canvas den Werten *Width* und *Height* im Abschnitt *Display* von *game.project*. Seine Renderauflösung verwendet weiterhin das effektive Pixelverhältnis.
 
 ![HTML5-Abschnitt](images/html5/html5_no_scale.png)
 
@@ -197,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : Das aufgelöste Suffix, das an Archiv-URLs angehängt wird, basierend auf `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true`, wenn das Archivpräfix einen HTTP- oder HTTPS-Ursprung angibt, einschließlich einer protokollrelativen URL wie `//cdn.example.com/archive`. Bei relativen Archivpräfixen ist der Wert `false`. Verfügbar seit Defold 1.13.2.
+: `true`, wenn das Archivpräfix einen HTTP- oder HTTPS-Ursprung angibt, einschließlich protokollrelativer URLs wie `//cdn.example.com/archive`. Bei relativen Archivpräfixen ist der Wert `false`.
 
 DEFOLD_ARCHIVE_ORIGIN
-: Der Ursprung des Archivs einschließlich Schema, Host und optionalem Port oder eine leere Zeichenfolge, wenn kein Ursprung angegeben ist. Ein protokollrelatives Präfix erzeugt einen protokollrelativen Ursprung. Wird für den Preconnect-Hinweis verwendet und ist seit Defold 1.13.2 verfügbar.
+: Der Archivursprung einschließlich Schema, Host und optionalem Port, oder eine leere Zeichenfolge, wenn kein Ursprung angegeben ist. Ein protokollrelatives Präfix ergibt einen protokollrelativen Ursprung. Wird für den Preconnect-Hinweis verwendet.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true`, wenn das Bundle eine WebAssembly-Engine enthält, entweder `wasm-web` oder `wasm_pthread-web`.

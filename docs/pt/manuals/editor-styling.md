@@ -40,7 +40,7 @@ As cores padrão são definidas em [`_palette.scss`](https://github.com/defold/d
 	-df-text:                 #b4bac1;
 	-df-text-selected:        derive(#b4bac1, 20%);
 
-  e assim por diante...
+  and so on...
 ```
 
 O tema básico é dividido em três grupos de cores (com variantes mais escuras e mais claras):
@@ -94,7 +94,7 @@ Text.strong {
   -fx-font-family: $default-font-bold;
 }
 
-e assim por diante...
+and so on...
 ```
 
 A fonte principal é definida em um elemento root, o que torna bem fácil substituir a fonte na maioria dos lugares. Adicione isto ao seu `editor.css`:

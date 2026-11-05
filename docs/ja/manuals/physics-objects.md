@@ -27,7 +27,7 @@ brief: コリジョンオブジェクトは、ゲームオブジェクトに物�
 ゲームオブジェクトにコリジョンオブジェクトコンポーネントを追加するには、次の手順を実行します。
 
 1. *Outline* ビューでゲームオブジェクトを <kbd>右クリック</kbd> し、コンテキストメニューから <kbd>Add Component ▸ Collision Object</kbd> を選択します。形状のない新しいコンポーネントが作成されます。
-2. 新しいコンポーネントを <kbd>右クリック</kbd> して <kbd>Add Shape</kbd> を選択し、形状を選びます。3D 物理を使うプロジェクトでは <kbd>Box</kbd>、<kbd>Capsule</kbd>、<kbd>Sphere</kbd>、<kbd>Hull</kbd>、<kbd>Mesh</kbd>、2D 物理を使うプロジェクトでは <kbd>Box</kbd>、<kbd>Circle</kbd> を選択できます。Hull 形状と Mesh 形状は Defold 1.13.2 以降で利用でき、glTF または GLB シーンの名前付きメッシュを使います。コンポーネントには複数の形状を追加できます。また、*Collision Shape* プロパティを通じてタイルマップや `.convexshape` リソースを使うこともできます。
+2. 新しいコンポーネントを<kbd>右クリック</kbd>して <kbd>Add Shape</kbd> を選び、形状を選択します。3D 物理を使うプロジェクトでは <kbd>Box</kbd>、<kbd>Capsule</kbd>、<kbd>Sphere</kbd>、<kbd>Hull</kbd>、<kbd>Mesh</kbd>、2D 物理では <kbd>Box</kbd> または <kbd>Circle</kbd> を選択できます。Hull と Mesh の形状は、glTF または GLB シーンの名前付きメッシュを使います。コンポーネントには複数の形状を追加できます。*Collision Shape* を通じて、タイルマップや `.convexshape` リソースを使うこともできます。
 3. 移動、回転、スケールのツールを使って形状を編集します。
 4. *Outline* でコンポーネントを選択し、コリジョンオブジェクトの *Properties* を編集します。
 

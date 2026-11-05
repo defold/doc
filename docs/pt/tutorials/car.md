@@ -289,7 +289,7 @@ Sempre que um objeto se move no mundo real, a força de arrasto atua contra ele,
 Na seção de constantes no topo do script, adicione a seguinte constante
 
 ```lua
-local drag = 1.1	        -- a constante de arrasto <1>
+local drag = 1.1	        --a constante de arrasto <1>
 ```
 
 Depois, na função `update`, logo acima desta linha, adicione as seguintes linhas e salve o arquivo.

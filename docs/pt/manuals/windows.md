@@ -7,6 +7,10 @@ brief: Este manual descreve como compilar e executar aplicações Defold no Wind
 
 Desenvolver aplicações Defold para a plataforma Windows é um processo simples, com muito poucas considerações a fazer.
 
+## Backends gráficos {#graphics-backends}
+
+Builds Windows usam OpenGL por padrão. Use **Graphics (Windows)** em um [manifesto de aplicação](/manuals/app-manifest/#graphics) para selecionar OpenGL, Vulkan ou DirectX 12 (**DX12**). Você pode incluir vários backends para permitir fallback quando o preferido estiver indisponível.
+
 ## Configurações do projeto
 
 A configuração específica de aplicação Windows é feita na [seção Windows](/manuals/project-settings/#windows) do arquivo de configurações *game.project*.

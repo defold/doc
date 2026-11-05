@@ -127,14 +127,14 @@ editor.ui.grid({
     columns = {{}, {grow = true}}, -- spraw, by druga kolumna się rozciągała
     children = {
         {
-            editor.ui.label({ 
+            editor.ui.label({
                 text = "Level Name",
                 alignment = editor.ui.ALIGNMENT.RIGHT
             }),
             editor.ui.string_field({})
         },
         {
-            editor.ui.label({ 
+            editor.ui.label({
                 text = "Author",
                 alignment = editor.ui.ALIGNMENT.RIGHT
             }),
@@ -182,22 +182,22 @@ Jeśli tworzysz statyczne UI, wystarczy zdefiniować callbacki, które po prostu
 
 Na przykład można tak utworzyć proste, statyczne okno dialogowe tworzenia nowego pliku:
 ```lua
--- początkowa nazwa pliku, zostanie zastąpiona przez dialog
+-- początkowa nazwa pliku, która zostanie zastąpiona przez okno dialogowe
 local file_name = ""
 local create_file = editor.ui.show_dialog(editor.ui.dialog({
-    title = "Utwórz nowy plik",
+    title = "Create New File",
     content = editor.ui.horizontal({
         padding = editor.ui.PADDING.LARGE,
         spacing = editor.ui.SPACING.MEDIUM,
         children = {
             editor.ui.label({
-                text = "Nazwa nowego pliku",
+                text = "New File Name",
                 alignment = editor.ui.ALIGNMENT.CENTER
             }),
             editor.ui.string_field({
                 grow = true,
                 text = file_name,
-                -- Callback wywoływany podczas wpisywania:
+                -- Funkcja zwrotna wywoływana podczas wpisywania:
                 on_value_changed = function(new_text)
                     file_name = new_text
                 end
@@ -205,8 +205,8 @@ local create_file = editor.ui.show_dialog(editor.ui.dialog({
         }
     }),
     buttons = {
-        editor.ui.dialog_button({ text = "Anuluj", cancel = true, result = false }),
-        editor.ui.dialog_button({ text = "Utwórz plik", default = true, result = true })
+        editor.ui.dialog_button({ text = "Cancel", cancel = true, result = false }),
+        editor.ui.dialog_button({ text = "Create File", default = true, result = true })
     }
 }))
 if create_file then
@@ -223,7 +223,7 @@ Oto lista wbudowanych komponentów wejściowych:
 
 Wszystkie komponenty poza przyciskami pozwalają ustawić pole `issue`, które wyświetla problem powiązany z komponentem, czyli `editor.ui.ISSUE_SEVERITY.ERROR` albo `editor.ui.ISSUE_SEVERITY.WARNING`, na przykład:
 ```lua
-issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "Ta wartość jest przestarzała"}
+issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "This value is deprecated"}
 ```
 Gdy issue jest określone, zmienia wygląd komponentu wejściowego i dodaje podpowiedź z komunikatem problemu.
 
@@ -260,29 +260,29 @@ Spójrzmy na przykład: okno dialogowe tworzenia nowego pliku, które pozwala ut
 ```lua
 -- 1. dialog jest komponentem reaktywnym
 local dialog = editor.ui.component(function(props)
-    -- 2. komponent definiuje lokalny stan, czyli nazwę pliku, która domyślnie jest pustym ciągiem
+    -- 2. komponent definiuje lokalny stan (nazwę pliku), którego wartością domyślną jest pusty ciąg znaków
     local name, set_name = editor.ui.use_state("")
 
-    return editor.ui.dialog({ 
+    return editor.ui.dialog({
         title = props.title,
         content = editor.ui.vertical({
             padding = editor.ui.PADDING.LARGE,
-            children = { 
-                editor.ui.string_field({ 
+            children = {
+                editor.ui.string_field({
                     value = name,
-                    -- 3. wpisywanie i Enter aktualizują lokalny stan
-                    on_value_changed = set_name 
-                }) 
+                    -- 3. wpisanie tekstu i naciśnięcie Enter aktualizuje lokalny stan
+                    on_value_changed = set_name
+                })
             }
         }),
         buttons = {
-            editor.ui.dialog_button({ 
-                text = "Anuluj", 
-                cancel = true 
+            editor.ui.dialog_button({
+                text = "Cancel",
+                cancel = true
             }),
-            editor.ui.dialog_button({ 
-                text = "Utwórz plik",
-                -- 4. tworzenie jest włączone, gdy nazwa nie jest pusta
+            editor.ui.dialog_button({
+                text = "Create File",
+                -- 4. tworzenie jest dostępne, gdy podano nazwę
                 enabled = name ~= "",
                 default = true,
                 -- 5. wynikiem jest nazwa
@@ -292,16 +292,16 @@ local dialog = editor.ui.component(function(props)
     })
 end)
 
--- 6. show_dialog zwróci albo niepustą nazwę pliku, albo nil po anulowaniu
-local file_name = editor.ui.show_dialog(dialog({ title = "Nazwa nowego pliku" }))
-if file_name then 
+-- 6. show_dialog zwróci niepustą nazwę pliku albo nil w przypadku anulowania
+local file_name = editor.ui.show_dialog(dialog({ title = "New File Name" }))
+if file_name then
     print("create " .. file_name)
 else
     print("cancelled")
 end
 ```
 
-Gdy uruchomisz polecenie menu wykonujące ten kod, edytor pokaże na początku dialog z wyłączonym przyciskiem `<kbd>Create File</kbd>`, ale gdy wpiszesz nazwę i naciśniesz <kbd>Enter</kbd>, przycisk stanie się aktywny:
+Gdy uruchomisz polecenie menu wykonujące ten kod, edytor pokaże na początku dialog z wyłączonym przyciskiem `"Create File"`, ale gdy wpiszesz nazwę i naciśniesz <kbd>Enter</kbd>, przycisk stanie się aktywny:
 
 ![Okno dialogowe tworzenia nowego pliku](images/editor_scripts/reactive_new_file_dialog.png)
 
@@ -344,7 +344,7 @@ end
 
 local counter = editor.ui.component(function(props)
     local count, set_count = editor.ui.use_state(0)
-    
+
     return editor.ui.horizontal({
         spacing = editor.ui.SPACING.SMALL,
         children = {
@@ -372,7 +372,7 @@ Na koniec stan może zostać **zresetowany**. Dochodzi do tego, gdy zmieni się 
 local user, set_user = editor.ui.use_state({ first_name = props.first_name, last_name = props.last_name})
 
 -- ✅ DOBRZE: użyj funkcji inicjalizującej poza funkcją komponentu, aby utworzyć stan tabeli
-local function create_user(first_name, last_name) 
+local function create_user(first_name, last_name)
     return { first_name = first_name, last_name = last_name}
 end
 -- ...później, wewnątrz funkcji komponentu:
@@ -390,22 +390,22 @@ local id, set_id = editor.ui.use_state(string.lower, props.name)
 
 Możesz użyć haka `use_memo`, aby poprawić wydajność. W funkcjach renderujących często wykonuje się pewne obliczenia, na przykład sprawdzanie poprawności danych wejściowych użytkownika. Haka `use_memo` można użyć wtedy, gdy sprawdzenie, czy argumenty funkcji obliczeniowej się zmieniły, jest tańsze niż samo wywołanie tej funkcji. Hak wywoła funkcję obliczeniową przy pierwszym renderowaniu i ponownie wykorzysta obliczoną wartość podczas kolejnych renderowań, jeśli wszystkie argumenty `use_memo` pozostaną bez zmian:
 ```lua
--- funkcja walidująca poza funkcją komponentu
+-- funkcja walidacji poza funkcją komponentu
 local function validate_password(password)
     if #password < 8 then
-        return false, "Hasło musi mieć co najmniej 8 znaków."
+        return false, "Password must be at least 8 characters long."
     elseif not password:match("%l") then
-        return false, "Hasło musi zawierać co najmniej jedną małą literę."
+        return false, "Password must include at least one lowercase letter."
     elseif not password:match("%u") then
-        return false, "Hasło musi zawierać co najmniej jedną wielką literę."
+        return false, "Password must include at least one uppercase letter."
     elseif not password:match("%d") then
-        return false, "Hasło musi zawierać co najmniej jedną cyfrę."
+        return false, "Password must include at least one number."
     else
-        return true, "Hasło jest poprawne."
+        return true, "Password is valid."
     end
 end
 
--- ...później, wewnątrz funkcji komponentu
+-- ...później, w funkcji komponentu
 local username, set_username = editor.ui.use_state('')
 local password, set_password = editor.ui.use_state('')
 local valid, message = editor.ui.use_memo(validate_password, password)

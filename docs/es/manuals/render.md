@@ -7,12 +7,12 @@ brief: Este manual explica cómo funciona el pipeline de renderizado de Defold y
 
 Cada objeto que el motor muestra en pantalla: sprites, modelos, tiles, partículas o nodos GUI, se dibuja mediante un renderizador. En el centro del renderizador hay un script de render que controla el pipeline de renderizado. Por defecto, cada objeto 2D se dibuja con el bitmap correcto, con el blending especificado y en la profundidad Z correcta, por lo que puede que nunca tengas que pensar en el renderizado más allá del orden y el blending simple. Para la mayoría de juegos 2D, el pipeline por defecto funciona bien, pero tu juego podría tener requisitos especiales. Si ese es el caso, Defold te permite escribir un pipeline de renderizado a medida.
 
-### Pipeline de renderizado - ¿Qué, cuándo y dónde?
+### Pipeline de renderizado - ¿Qué, cuándo y dónde? {#render-pipeline-what-when-and-where}
 
 El pipeline de renderizado controla qué renderizar, cuándo renderizarlo y también dónde renderizarlo. Qué renderizar se controla con los [predicados de render](#render-predicates). Cuándo renderizar un predicado se controla en el [script de render](#the-render-script) y dónde renderizar un predicado se controla mediante la [proyección de vista](#default-view-projection). El pipeline de renderizado también puede descartar los gráficos, dibujados por un predicado de render, que quedan fuera de una caja delimitadora o frustum definido. Este proceso se llama frustum culling.
 
 
-## El render por defecto
+## El render por defecto {#the-default-render}
 
 El archivo render contiene una referencia al script de render actual, además de materiales personalizados que deben estar disponibles en el script de render (para usar con [`render.enable_material()`](/ref/render/#render.enable_material)).
 
@@ -71,7 +71,7 @@ Puedes encontrar una descripción detallada de cómo funcionan los materiales en
 
 El script de render por defecto está configurado para usar una proyección ortográfica adecuada para juegos 2D. Proporciona tres proyecciones ortográficas diferentes: `Stretch` (por defecto), `Fixed Fit` y `Fixed`. Como alternativa a las proyecciones ortográficas del script de render por defecto, también tienes la opción de usar la matriz de proyección proporcionada por un componente Camera.
 
-### Proyección Stretch
+### Proyección Stretch {#stretch-projection}
 
 La proyección stretch siempre dibujará un área de tu juego igual a las dimensiones definidas en *game.project*, incluso cuando la ventana cambie de tamaño. Si cambia la relación de aspecto, el contenido del juego se estirará vertical u horizontalmente:
 
@@ -89,7 +89,7 @@ La proyección stretch es la proyección por defecto, pero si la has cambiado y 
 msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 ```
 
-### Proyección Fixed Fit
+### Proyección Fixed Fit {#fixed-fit-projection}
 
 Al igual que la proyección stretch, la proyección fixed fit siempre mostrará un área del juego igual a las dimensiones definidas en *game.project*, pero si la ventana cambia de tamaño y cambia la relación de aspecto, el contenido del juego mantendrá la relación de aspecto original y se mostrará contenido adicional del juego vertical u horizontalmente:
 
@@ -133,7 +133,7 @@ Activas la proyección fixed enviando un mensaje al script de render:
 msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
 
-### Proyección Camera
+### Proyección Camera {#camera-projection}
 
 Cuando usas el script de render por defecto y hay [componentes Camera](/manuals/camera) activados disponibles en el proyecto, estos tendrán prioridad sobre cualquier otra vista/proyección definida en el script de render. Para leer más sobre cómo trabajar con componentes Camera en scripts de render, consulta la [documentación de Camera](/manuals/camera).
 
@@ -189,12 +189,12 @@ El frustum culling se implementa en el motor por tipo de componente. Estado actu
 
 
 ::: sidenote
-A partir de Defold 1.13.0, las primitivas de los componentes usan un orden antihorario de los vértices, con la normal de la primitiva apuntando hacia la cámara. Los sprites, los nodos GUI, los tilemaps (tilegrids) y los Particle FX usan el mismo orden que los demás tipos de componentes, por lo que se puede usar la misma configuración de descarte de caras para todos los componentes.
+Las primitivas de los componentes usan un orden de vértices antihorario, con la normal de la primitiva orientada hacia la cámara. Los sprites, nodos GUI, tilemaps (tilegrids) y Particle FX usan el mismo orden que los demás tipos de componentes, por lo que se pueden usar los mismos ajustes de descarte de caras para todos ellos.
 
 Esto puede afectar a los proyectos que configuran el descarte de caras para componentes distintos de los modelos. Si un componente se descarta de forma inesperada, asegúrate de seleccionar las caras posteriores con `render.set_cull_face(graphics.FACE_TYPE_BACK)`, o elimina la llamada a `render.set_cull_face()` para usar el modo predeterminado `graphics.FACE_TYPE_BACK`.
 :::
 
-## Sistemas de coordenadas
+## Sistemas de coordenadas {#coordinate-systems}
 
 Cuando los componentes se renderizan, normalmente se habla de en qué sistema de coordenadas se renderizan. En la mayoría de juegos tienes algunos componentes dibujados en espacio del mundo y otros en espacio de pantalla.
 
@@ -303,13 +303,12 @@ local MSG_SET_VIEW_PROJ =       hash("set_view_projection")
 
 function on_message(self, message_id, message)
     if message_id == MSG_CLEAR_COLOR then
-        -- Alguien nos envió un nuevo color de limpieza para usar.
+        -- Se ha recibido un nuevo color para limpiar la pantalla.
         update_clear_color(state, message.color)
     elseif message_id == MSG_SET_VIEW_PROJ then
-        -- El componente Camera que tiene el foco de cámara enviará mensajes
-        -- set_view_projection al socket @render. Podemos usar la información
-        -- de la cámara para definir la vista (y posiblemente la proyección)
-        -- del renderizado.
+        -- El componente de cámara que tenga el foco enviará mensajes set_view_projection
+        -- al socket @render. Podemos usar la información de la cámara para
+        -- establecer la vista (y posiblemente la proyección) del renderizado.
         camera.view = message.view
         self.camera_projection = message.projection or vmath.matrix4()
         update_camera(camera, state)
@@ -324,7 +323,7 @@ Sin embargo, cualquier script o script GUI puede enviar mensajes al script de re
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
-## Recursos de render
+## Recursos de render {#render-resources}
 Para pasar ciertos recursos del motor al script de render, puedes agregarlos a la tabla `Render Resources` del archivo `.render` asignado al proyecto:
 
 ![Recursos de render](images/render/render_resources.png)
@@ -382,12 +381,12 @@ Para el siguiente fragmento de `update()`, asigna la etiqueta `scene` a los mate
 render.set_render_target(self.offscreen)
 render.set_viewport(0, 0, 1024, 1024)
 render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
--- Set the scene view and projection here.
+-- Establece aquí la vista y la proyección de la escena.
 render.draw(self.scene_predicate)
 
 render.set_render_target(render.RENDER_TARGET_DEFAULT)
 render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
--- Set the full-screen quad view and projection here.
+-- Establece aquí la vista y la proyección del quad de pantalla completa.
 render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
 render.draw(self.present_predicate)
 render.disable_texture(0)
@@ -408,7 +407,7 @@ end
 
 Usa este número efectivo para comprobar la compatibilidad del dispositivo en lugar de suponer que el número solicitado estaba disponible. Consulta [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) y [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path) para ver las tablas completas de parámetros y resultados.
 
-## Handles de textura
+## Handles de textura {#texture-handles}
 
 Las texturas en Defold se representan internamente como un handle, que en esencia equivale a un número que debe identificar de forma única un objeto de textura en cualquier parte del motor. Esto significa que puedes conectar el mundo de los objetos de juego con el mundo del renderizado pasando estos handles entre el sistema de render y un script de objeto de juego. Por ejemplo, un script puede crear una textura dinámica en un script adjunto a un objeto de juego y enviarla al renderizador para usarla como textura global en un comando de dibujo.
 
@@ -443,13 +442,13 @@ end
 Actualmente no hay forma de cambiar a qué textura debe apuntar un recurso; solo puedes usar handles sin procesar como este en el script de render.
 :::
 
-## APIs gráficas soportadas
+## APIs gráficas soportadas {#supported-graphics-apis}
 La API de script de render de Defold traduce las operaciones de render a las siguientes API gráficas:
 
 :[Graphics API](../shared/graphics-api.md)
 
 
-## Mensajes de sistema
+## Mensajes de sistema {#system-messages}
 
 `"set_view_projection"`
 : Este mensaje se envía desde componentes Camera que han adquirido el foco de cámara.
@@ -498,7 +497,7 @@ Una draw call es el término usado para describir el proceso de configurar la GP
 Defold intentará agrupar operaciones de renderizado en lotes para reducir el número de draw calls según un conjunto de reglas definidas abajo. Las reglas difieren entre componentes GUI y todos los demás tipos de componentes.
 
 
-### Reglas de batching para componentes no GUI
+### Reglas de batching para componentes no GUI {#batch-rules-for-non-gui-components}
 
 Cada llamada a `render.draw()` controla cómo se ordenan las entradas coincidentes ordenadas en el mundo. El valor predeterminado es `render.SORT_BACK_TO_FRONT`; usa `render.SORT_FRONT_TO_BACK` para renderizar de cerca a lejos, o `render.SORT_NONE` para conservar el orden de inserción:
 
@@ -522,7 +521,7 @@ El orden seleccionado determina qué entradas quedan adyacentes y, por tanto, pu
 Esto significa que si dos componentes sprite del mismo proxy de colección quedan adyacentes después del ordenamiento seleccionado y usan la misma textura, material y constantes, se agruparán en la misma draw call.
 
 
-### Reglas de batching para componentes GUI
+### Reglas de batching para componentes GUI {#batch-rules-for-gui-components}
 
 El renderizado de los nodos de un componente GUI se hace de arriba hacia abajo en la lista de nodos. Cada nodo de la lista se agrupará en la misma draw call que el nodo anterior si se cumplen las siguientes condiciones:
 

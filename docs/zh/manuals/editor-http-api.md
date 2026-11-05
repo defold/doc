@@ -63,7 +63,7 @@ BASE_URL="http://127.0.0.1:$PORT"
 编辑器服务器是受信任的本地控制接口。不要通过公共地址、端口转发或不受信任的隧道将其公开。
 :::
 
-## 通过 OpenAPI 发现操作
+## 通过 OpenAPI 发现操作 {#discovering-operations-through-openapi}
 
 外部工具唯一需要了解的 Defold 专用引导信息，是编辑器端口和 OpenAPI 文档：
 

@@ -104,11 +104,23 @@ end
 ```
 
 ## ゲームパッド設定ファイル {#gamepads-settings-file}
-ゲームパッド入力の設定では、ゲームパッドの機種ごとに個別のマッピングファイルを使います。特定のゲームパッド機種用のマッピングは、*gamepads* ファイルで設定します。Defold には、一般的なゲームパッドの設定を収録した組み込みの gamepads ファイルが付属しています。
+
+ゲームパッドのマッピングは、コントローラーのボタン、軸、ハットを、入力バインディングが使う標準的な操作に変換します。Defold は、*game.project* の *Input* セクションで設定する2つのマッピングソースを組み合わせます。
+
+| 設定 | マッピング形式 | デフォルト |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | コントローラーの GUID で照合する SDL 形式のテキストデータベース | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | デバイス名とプラットフォームに対応する従来の `.gamepads` エントリー | `/builtins/input/default.gamepads` |
+
+SDL データベースのマッピングとプラットフォームの自動マッピングは、[Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone) を使います。従来の `.gamepads` エントリーは独自のデッドゾーンを定義します。Android では、データベースにエントリーがないコントローラーにも、[自動マッピング](#gamepads-on-android)を適用する場合があります。
+
+### 従来の .gamepads マッピング {#legacy-gamepads-mappings}
+
+`.gamepads` ファイルには、複数のコントローラーのマッピングを含められます。既存の従来形式のマッピングも引き続きサポートします。Defold のデフォルトファイルには、一般的なコントローラーのマッピングが含まれます。
 
 ![ゲームパッドの設定](images/input/gamepads.png)
 
-新しいゲームパッド設定ファイルを作成する必要がある場合に役立つ、簡単なツールを用意しています。
+デスクトップで従来形式の `.gamepads` マッピングを作成するには、次のツールを利用できます。Android については、[Android のゲームパッド](#gamepads-on-android)を参照してください。
 
 [クリックして gdc.zip をダウンロード](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032)。
 
@@ -124,7 +136,7 @@ Windows、Linux、macOS 用のバイナリが含まれています。コマン�
 
 ### 識別されないゲームパッド {#unidentified-gamepads}
 
-ゲームパッドを接続したときに、そのゲームパッド用のマッピングが存在しない場合、そのゲームパッドは `connected`、`disconnected`、`raw` アクションのみを生成します。この場合は、ゲームパッドの生データをゲーム内のアクションへ手動でマッピングする必要があります。
+設定されたマッピングもプラットフォームの自動マッピングも利用できない場合、ゲームパッドが生成するのは `Connected`、`Disconnected`、`Raw` に割り当てたアクションだけです。コントローラーのマッピングを追加するか、ゲーム内で生の入力を処理できます。
 
 ゲームパッドの入力アクションが未知のゲームパッドからのものかどうかは、`action` の `gamepad_unknown` 値を読み取ることで確認できます。
 
@@ -138,7 +150,7 @@ function on_input(self, action_id, action)
         end
     end
 end
-``` 
+```
 
 ## HTML5 のゲームパッド {#gamepads-in-html5}
 ゲームパッドは HTML5 ビルドでサポートされ、ほかのプラットフォームと同じ入力イベントを生成します。ゲームパッドのサポートは、ほとんどのブラウザーがサポートする [Gamepad API](https://www.w3.org/TR/gamepad/) に基づいています（[対応状況の表を参照](https://caniuse.com/?search=gamepad)）。ブラウザーが Gamepad API をサポートしていない場合、Defold はプロジェクト内のすべてのゲームパッドトリガーを通知せずに無視します。ブラウザーが Gamepad API をサポートしているかどうかは、`navigator` オブジェクトに `getGamepads` 関数が存在するかを調べることで確認できます。
@@ -168,62 +180,6 @@ Windows では、現在 XBox 360 コントローラーのみがサポートさ�
 
 ## Android のゲームパッド {#gamepads-on-android}
 
-ゲームパッドは Android ビルドでサポートされ、ほかのプラットフォームと同じ入力イベントを生成します。ゲームパッドのサポートは、[キーイベントとモーションイベントを扱う Android の入力システム](https://developer.android.com/training/game-controllers/controller-input)に基づいています。Android の入力イベントは、前述したものと同じ *gamepad* ファイルを使って、Defold のゲームパッドイベントに変換されます。
+Android ビルドはゲームパッドに対応し、ほかのプラットフォームと同じ入力アクションを生成します。Defold は、設定された[ゲームパッドのマッピング](#gamepads-settings-file)を使い、一致するエントリーがない一部のコントローラーを自動的にマッピングできます。
 
-Android でゲームパッドのバインディングを追加するときは、次の対応表を使って Android の入力イベントを *gamepad* ファイルの値に変換できます。
-
-| キーイベントからボタンインデックスへの対応   | インデックス |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-（[Android の `KeyEvent` の定義](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719)）
-
-| モーションイベントから軸インデックスへの対応  | インデックス |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-（[Android の `MotionEvent` の定義](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d)）
-
-この対応表を Google Play Store のゲームパッドテストアプリと組み合わせて使い、ゲームパッドの各ボタンがどのキーイベントにマッピングされているかを調べます。
+コントローラーが識別されない、または操作が正しくない場合は、Android デバイスでテストし、マッピングを追加または更新してください。トラブルシューティングは、[未識別のゲームパッド](#unidentified-gamepads)と[生のゲームパッド入力](#raw-gamepads)を参照してください。

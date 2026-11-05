@@ -3,11 +3,11 @@ title: Scripts GUI en Defold
 brief: Este manual explica los scripts GUI.
 ---
 
-# Scripts GUI
+# Scripts GUI {#gui-scripts}
 
 Para controlar la lógica de tu GUI y animar nodos, usas scripts Lua. Los scripts GUI funcionan igual que los scripts normales de objetos de juego, pero se guardan como un tipo de archivo distinto y tienen acceso a un conjunto diferente de funciones: las funciones del módulo `gui`.
 
-## Agregar un script a una GUI
+## Agregar un script a una GUI {#adding-a-script-to-a-gui}
 
 Para agregar un script a una GUI, primero crea un archivo de script GUI haciendo <kbd>click derecho</kbd> en una ubicación del navegador *Assets* y seleccionando <kbd>New ▸ Gui Script</kbd> en el menú contextual.
 
@@ -51,7 +51,13 @@ Para adjuntar el script a un componente GUI, abre el archivo de prototipo del co
 
 Si el componente GUI se agregó a un objeto de juego en alguna parte de tu juego, el script se ejecutará ahora.
 
-## El namespace "gui"
+## Input
+
+Para recibir input en un script GUI, envía `msg.post(".", "acquire_input_focus")` desde `init()` y procesa las acciones en `on_input(self, action_id, action)`.
+
+Los scripts GUI usan los mismos hashes `action.source` que los scripts de objetos de juego, por lo que puedes distinguir un click de ratón físico de un toque incluso en la pulsación inicial. Consulta [Dispositivo de origen del input](/manuals/input/#input-device-source) y el [ejemplo de ratón y entrada táctil](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch). Tanto el movimiento del puntero como las muestras del acelerómetro usan `action_id == nil`; usa su origen para distinguirlos.
+
+## El namespace "gui" {#the-gui-namespace}
 
 Los scripts GUI tienen acceso al namespace `gui` y a [todas las funciones del módulo `gui`](/ref/gui). El namespace `go` no está disponible, así que tendrás que separar la lógica de objetos de juego en componentes script y comunicarte entre los scripts GUI y los scripts de objetos de juego. Cualquier intento de usar las funciones `go` causará un error:
 
@@ -68,7 +74,7 @@ stack traceback:
    /main/my_gui.gui_script:2: in function </main/my_gui.gui_script:1>
 ```
 
-## Paso de mensajes
+## Paso de mensajes {#message-passing}
 
 Todo componente GUI con un script adjunto puede comunicarse con otros objetos en el entorno de runtime de tu juego mediante paso de mensajes; se comportará como cualquier otro componente script.
 
@@ -81,7 +87,7 @@ msg.post("hud#gui", "set_stats", stats)
 
 ![paso de mensajes](images/gui-script/message_passing.png)
 
-## Direccionamiento de nodos
+## Direccionamiento de nodos {#addressing-nodes}
 
 Los nodos GUI se pueden manipular mediante un script GUI adjunto al componente. Cada nodo debe tener un *Id* único configurado en el editor:
 
@@ -97,7 +103,7 @@ size.x = size.x + 10
 gui.set_size(healthbar_node, size)
 ```
 
-## Nodos creados dinámicamente
+## Nodos creados dinámicamente {#dynamically-created-nodes}
 
 Para crear un nodo nuevo mediante script en runtime tienes dos opciones. La primera opción es crear nodos desde cero llamando a las funciones `gui.new_[type]_node()`. Estas devuelven una referencia al nodo nuevo que puedes usar para manipularlo:
 
@@ -136,7 +142,7 @@ root_position.x = root_position.x + 300
 gui.set_position(new_root, root_position)
 ```
 
-## Ids de nodos dinámicos
+## Ids de nodos dinámicos {#dynamic-node-ids}
 
 Los nodos creados dinámicamente no tienen un id asignado. Esto es intencional. Las referencias que devuelven `gui.new_[type]_node()`, `gui.clone()` y `gui.clone_tree()` son lo único necesario para poder acceder a los nodos, y debes llevar el seguimiento de esa referencia.
 

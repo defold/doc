@@ -80,7 +80,7 @@ So fügst du Texturkomprimierung hinzu:
 
 ![Texturprofil festlegen](images/texture_profiles/texture_profiles_game_project.png)
 
-Du kannst die Verwendung von Texturprofilen in den Editoreinstellungen ein- und ausschalten. Wähle <kbd>File ▸ Preferences...</kbd>. Die Registerkarte *General* enthält das Kontrollkästchen *Enable texture profiles*.
+Um beim Build aus dem Editor Texturkomprimierung anzuwenden, wähle <kbd>File ▸ Preferences...</kbd> und aktiviere **Enable Texture Compression** auf der Registerkarte *General*. Übergib bei Builds mit Bob [`--texture-compression`](/manuals/bob/#usage). Profileinstellungen wie Bildgröße und Mipmaps gelten auch bei deaktivierter Komprimierung.
 
 ![Einstellungen für Texturprofile](images/texture_profiles/texture_profiles_preferences.png)
 
@@ -127,6 +127,9 @@ Wenn zwei [Pfadeinstellungen](#path-settings) auf dieselbe Datei passen und die 
 *Formats*
 : Ein oder mehrere zu erzeugende Texturformate. Wenn mehrere Formate angegeben sind, werden für jedes Format Texturen erzeugt und in das Bundle aufgenommen. Die Engine wählt Texturen in einem Format aus, das von der Plattform unterstützt wird, auf der sie ausgeführt wird.
 
+*Keep KTX2 Format*
+: Behält das Kodierungsformat einer KTX2-Quelle bei, statt die *Formats*-Alternativen der Plattform zu verwenden. Standardmäßig deaktiviert (`keep_ktx2_format: false`). Andere Bildtypen wie PNG und JPEG verwenden weiterhin *Formats*. Das Beibehalten eines komprimierten Quellformats erfordert aktivierte Texturkomprimierung. Einzelheiten zu Verarbeitung und Kompatibilität stehen unter [KTX2-Quelltexturen](#ktx2-source-textures).
+
 *Mipmaps*
 : Wenn aktiviert, werden Mipmaps für die Plattform erzeugt. Standardmäßig deaktiviert.
 
@@ -156,6 +159,38 @@ Jeder einem Profil hinzugefügte Eintrag unter *Formats* hat die folgenden Eigen
 
 Beachte, dass der Kompressor `uncompressed` nur eine Voreinstellung namens `uncompressed` hat. Sie bedeutet, dass keine Komprimierung auf die Texturen angewendet wird.
 Eine Liste der verfügbaren Kompressoren findest du unter [Kompressoren](#compressors).
+
+## KTX2-Quelltexturen {#ktx2-source-textures}
+
+Texturprofile gelten für eigenständige *.ktx2*-Dateien und in glTF- oder GLB-Dateien eingebettete KTX2-Bilder. Pfadeinstellungen vergleichen den Quellbildpfad, einschließlich virtueller Pfade wie `/models/robot.glb/images/0.ktx2` bei eingebetteten Bildern. Platziere eine spezifische KTX2-Pfadeinstellung vor allgemeineren passenden Mustern.
+
+Wähle Profil und Plattform und dann die Verarbeitung der KTX2-Eingabe:
+
+| Keep KTX2 Format | Kompilierte Ausgabe bei aktivierter Texturkomprimierung |
+| --- | --- |
+| Aktiviert | ETC1S bleibt ETC1S, UASTC bleibt UASTC, BC7 bleibt BC7, und rohe Quelldaten bleiben unkomprimiert. Die *Formats*-Alternativen der Plattform werden bei KTX2-Eingaben umgangen. |
+| Deaktiviert (Standard) | Quellbilder werden dekodiert und mit *Format*, *Compressor* und *Compressor Preset* des Profils kodiert, auch wenn die gewählte Kodierung der Quelle entspricht. |
+
+Dieses Profil findet beispielsweise KTX2-Quellen, behält deren Format und Mipmaps bei und deaktiviert die Alpha-Vormultiplikation:
+
+```protobuf
+path_settings { path: "**/*.ktx2" profile: "KTX2" }
+profiles {
+  name: "KTX2"
+  platforms {
+    os: OS_ID_GENERIC
+    mipmaps: true
+    premultiply_alpha: false
+    keep_ktx2_format: true
+  }
+}
+```
+
+Füge diese Einträge in die in *game.project* zugewiesene Texturprofildatei ein und aktiviere Texturkomprimierung für den Build. Bei deaktivierter Komprimierung oder ohne passendes Profil erzeugen KTX2-Quellen unkomprimierte Ausgabe.
+
+**Keep KTX2 Format** verwendet kodierte Quellstufen wieder, wenn dies möglich ist. Änderungen an Ausrichtung, Alpha-Vormultiplikation, Bildgröße oder Mipmaps können Dekodierung und erneute Kodierung im selben Format erfordern. Standardmäßige glTF-KTX2-Texturen benötigen normalerweise Defolds Y-Spiegelung; das Beibehalten des Formats garantiert daher keine Wiederverwendung der kodierten Daten. Erneutes Kodieren kann zusätzliche Qualitätsverluste verursachen, auch bei aktivierter Option.
+
+Stelle sicher, dass das beibehaltene Quellformat von deinen Zielgeräten unterstützt wird. Die Option fügt keine Laufzeitdecoder oder GPU-Formatunterstützung hinzu. Ist ein Quellformat für ein Ziel ungeeignet, deaktiviere die Option für diese Plattform und wähle kompatible Ausgabeformate und Komprimierungseinstellungen.
 
 ## Texturformate {#texture-formats}
 

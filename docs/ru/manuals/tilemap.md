@@ -60,7 +60,7 @@ brief: Данное руководство содержит детали под�
 local tile = tilemap.get_tile("/level#map", "ground", x, y)
 
 if tile == 2 then
-    -- Заменить тайл с травой (2) на тайл с опасной ямой (number 4).
+    -- Заменить тайл с травой (2) на тайл с опасной ямой (номер 4).
     tilemap.set_tile("/level#map", "ground", x, y, 4)
 end
 ```

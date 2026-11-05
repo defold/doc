@@ -1,30 +1,58 @@
 ---
 title: Defold の物理ベースレンダリング
-brief: このマニュアルでは、Defold で物理ベースレンダリング用のマテリアルデータにアクセスする方法の基本を説明します。
+brief: このマニュアルでは、Defold の組み込み PBR マテリアルの使い方と、物理ベースのシェーディングのカスタマイズ方法を説明します。
 ---
 
 # 物理ベースレンダリング（PBR） {#physically-based-rendering-pbr}
 
-物理ベースレンダリング（Physically Based Rendering、PBR）は、現実世界の物理法則を使って、光と表面の相互作用をモデル化するシェーディング手法です。異なる環境でも一貫性のあるリアルなライティングを生み出し、幅広い照明条件でアセットを適切な見た目にできます。
+物理ベースレンダリング（Physically Based Rendering、PBR）は、物理法則を使って光と表面の相互作用をモデル化するシェーディング手法です。ベースカラー、メタリック係数、粗さなどのマテリアルプロパティは、シーンの照明とは独立して表面を記述します。
 
-Defold の PBR 実装は、glTF 2.0 のマテリアル（material）仕様と関連する Khronos 拡張に従っています。glTF アセットを Defold にインポートすると、マテリアルのプロパティが自動的に解析され、実行時にシェーダー（shader）からアクセスできる構造化されたマテリアルデータとして保存されます。
+組み込みの glTF マテリアルは、PBR ライティングを提供します。Defold は、インポートした glTF 2.0 マテリアルのプロパティと、対応する Khronos 拡張のデータも、カスタムシェーダーに公開します。
 
-PBR マテリアルには、金属的な反射、表面の粗さ、透過、クリアコート、表面下散乱、虹色効果などの効果を含められます。
+## 組み込みの PBR マテリアル {#built-in-pbr-materials}
 
-::: sidenote
-現在、Defold は PBR マテリアルデータをシェーダーに公開していますが、組み込みの PBR ライティングモデルは提供していません。このデータを独自のライティングや反射のシェーダーで使用して、物理ベースレンダリングを実現できます。デフォルトの PBR ライティングモデルは、今後 Defold に追加される予定です。
-:::
+[Model コンポーネント](/manuals/model)の *Scene* に、glTF または GLB ファイルを割り当てます。マテリアルとテクスチャの割り当てをエディターが提案したら、<kbd>Auto Fill</kbd> を選ぶと、既存の割り当てを置き換えて、シーンの生成マテリアルの割り当てを適用します。これらのマテリアルは組み込みの glTF シェーダーを使い、埋め込み画像を直接参照できます。割り当てを保持し、マテリアルとテクスチャを手動で設定するには、<kbd>Keep Current</kbd> を選びます。埋め込みリソースの確認と個々のメッシュの選択は、[モデルのインポート手順](/manuals/importing-models/#using-a-model)を参照してください。
 
-::: sidenote
-現在、glTF ファイルに埋め込まれたテクスチャは Defold で自動的に割り当てられません。シェーダーに公開されるのはマテリアルのパラメーターのみです。テクスチャをモデルコンポーネント（model component）に手動で割り当て、シェーダーでサンプリングすることはできます。
-:::
+`/builtins/materials/` には、次のマテリアルがあります。モデルと、インスタンシングを使うかどうかに応じて選択します。
+
+| モデルの種類 | マテリアル |
+|---|---|
+| 静的、インスタンシングなし | `gltf.material` |
+| 静的、インスタンシングあり | `gltf_instanced.material` |
+| スキニング（アニメーション）、インスタンシングなし | `gltf_skinned.material` |
+| スキニング（アニメーション）、インスタンシングあり | `gltf_skinned_instanced.material` |
+
+4つともローカル頂点空間と、同じ `gltf.fp` フラグメントシェーダーを使います。スキニング用の種類は、GPU 上でスキニングを行います。GPU スキニングとインスタンシングについては、[モデルのマテリアル要件](/manuals/model/#material)を参照してください。
+
+テクスチャを手動で割り当てる場合、組み込みマテリアルでは次のサンプラー名を使います。
+
+| テクスチャ | サンプラー | 使用するデータ |
+|---|---|---|
+| ベースカラー | `PbrMetallicRoughness_baseColorTexture` | RGB カラーとアルファ |
+| メタリック・ラフネス | `PbrMetallicRoughness_metallicRoughnessTexture` | G に粗さ、B にメタリック |
+| 法線 | `PbrMaterial_normalTexture` | RGB に接空間の法線 |
+| オクルージョン | `PbrMaterial_occlusionTexture` | R にオクルージョン |
+| 発光 | `PbrMaterial_emissiveTexture` | RGB カラー |
+
+[カメラ](/manuals/camera/#using-the-camera)を設定し、[ライトコンポーネント](/manuals/light)を追加してモデルを照らします。シェーダーは、直接光に平行光源、点光源、スポットライトを使い、単純な環境光の寄与にはアンビエントライトを使います。これらのマテリアルには、デフォルトのレンダースクリプトが描画する `model` タグがあります。カスタムレンダースクリプトでは、一致する述語を描画する必要があります。
+
+### 組み込みシェーダーの動作 {#built-in-shader-behavior}
+
+組み込みシェーダーは、メタリック・ラフネスのシェーディング、ベースカラーと頂点カラー、接線データがある場合の法線マッピング、オクルージョン、発光強度を含む発光を実装します。ベースカラーと発光テクスチャは、ライティング用に sRGB からデコードし、最終色を sRGB に戻します。メタリック・ラフネス、法線、オクルージョンのマップは、線形のデータを含みます。
+
+シェーダーは、ライティングなしのマテリアルとアルファマスクを扱い、両面の表面には法線を調整します。レンダーステートも重要です。
+
+- 両面マテリアルでは、裏面がシェーダーに届くよう、該当するレンダーパスでフェイスカリングを無効にします。
+- アルファブレンドでは、シェーダーはストレートアルファを出力します。`graphics.BLEND_FACTOR_SRC_ALPHA` と `graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA` でブレンドを有効にし、レンダースクリプトで透明オブジェクトの描画順と深度書き込みを管理します。デフォルトのモデルパスは、自動ではブレンドを有効にしません。
+
+組み込みの環境光の寄与は近似であり、環境マップによる照明や影は含まれません。クリアコート、透過、シーン（sheen）、虹色効果、スペキュラー・グロッシネスの方式にはカスタムシェーディングが必要です。パラメーターをインポートするだけでは、`gltf.fp` でこれらの効果は有効になりません。
 
 ## マテリアルのプロパティの概要 {#material-properties-overview}
 
-マテリアルのプロパティは、モデルコンポーネントに割り当てられた glTF 2.0 ソースファイルから解析されます。すべてのプロパティが標準仕様に含まれるわけではありません。一部は任意の glTF 拡張によって提供され、glTF ファイルのエクスポートに使用するツールによって、含まれる場合と含まれない場合があります。以下では、プロパティ名の後の括弧内に対応する拡張を示しています。
+以下のプロパティは、モデルコンポーネントに割り当てた glTF 2.0 ソースファイルから解析されます。この一覧は利用可能なマテリアルデータを示し、組み込みのライティングは、そのうち上記の一部を使います。すべてのプロパティが標準ではありません。一部は任意の glTF 拡張で提供され、glTF のエクスポートに使ったツールによって含まれる場合と含まれない場合があります。以下では、プロパティ名の後の括弧内に、対応する拡張を示します。
 
 メタリック・ラフネス
-: 光がマテリアルとどのように相互作用するかを記述します。デフォルトの PBR モデルです。
+: 光とマテリアルの相互作用を記述します。デフォルトの PBR モデルです。
 
 スペキュラー・グロッシネス (KHR_materials_pbrSpecularGlossiness)
 : メタリック・ラフネスの代替となるモデルです。古いアセットでよく使用されます。
@@ -72,157 +100,66 @@ PBR マテリアルには、金属的な反射、表面の粗さ、透過、ク�
 : Opaque（不透明）、Masked（マスク）、または Blended（ブレンド）による透過モードです。
 
 両面描画
-: true の場合、表面の両側が描画されます。
+: 表面の両側の描画を要求します。レンダーパスでは、裏面がシェーダーに届くようにする必要があります。
 
 ライティングなし
 : true の場合、マテリアルのライティング計算を省略します。
 
-::: sidenote
-これらのプロパティの一部は、マテリアルをどのようにレンダリングすべきかを示す情報を提供します。これらのプロパティ（アルファカットオフ、アルファモード、両面描画、ライティングなし）のデータはシェーダーで利用できますが、Defold でのマテリアルのレンダリング方法には影響しません。
-:::
-
 ## シェーダーとの連携 {#shader-integration}
 
-PBR マテリアルデータは、型と命名規則に基づいてシェーダーに公開されます。PBR マテリアルシステムは、解析したすべてのマテリアルパラメーターを、`PbrMaterial` という名前の構造化されたユニフォーム（uniform）ブロックを通じてシェーダーに提供します。サポートされている各 glTF 拡張は、このブロック内の構造体に対応し、`#define` フラグを使って条件付きコンパイルができます。
+以下では、カスタムシェーダーを扱います。適切な組み込みの `.material` リソースと `gltf.fp` をプロジェクトにコピーし、コピーしたマテリアルの *Fragment Program* を自分のシェーダーに向けます。対応するインターフェースも置き換える場合を除き、glTF 頂点プログラム、サンプラー名、ローカル頂点空間は保持します。
 
-```glsl
-uniform PbrMaterial
-{
-	// Material properties
-};
-```
-
-マテリアルの各種機能は、シェーダー内で決まった構造体として指定されます。データは可能な限り `vec4` にまとめられています。これは、Defold 内部で定数をその形式で設定するためです。データをまとめている場合は、以下の各機能のシェーダーコード例にあるコメントでその配置を示しています。
-
-```glsl
-struct PbrMetallicRoughness
-{
-    vec4 baseColorFactor;
-    // R: metallic (Default=1.0), G: roughness (Default=1.0)
-    vec4 metallicAndRoughnessFactor;
-    // R: use baseColorTexture, G: use metallicRoughnessTexture
-    vec4 metallicRoughnessTextures;
-};
-
-struct PbrSpecularGlossiness
-{
-	vec4 diffuseFactor;
-	// RGB: specular (Default=1.0), A: glossiness (Default=1.0)
-	vec4 specularAndSpecularGlossinessFactor;
-	// R: use diffuseTexture, G: use specularGlossinessTexture
-	vec4 specularGlossinessTextures;
-};
-
-struct PbrClearCoat
-{
-	// R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
-	vec4 clearCoatAndClearCoatRoughnessFactor;
-	// R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
-	vec4 clearCoatTextures;
-};
-
-struct PbrTransmission
-{
-	// R: transmission (Default=0.0)
-	vec4 transmissionFactor;
-	// R: use transmissionTexture
-	vec4 transmissionTextures;
-};
-
-struct PbrIor
-{
-	// R: ior (Default=0.0)
-	vec4 ior;
-};
-
-struct PbrSpecular
-{
-	// RGB: specularColor, A: specularFactor (Default=1.0);
-	vec4 specularColorAndSpecularFactor;
-	// R: use specularTexture, G: use specularColorTexture
-	vec4 specularTextures;
-};
-
-struct PbrVolume
-{
-	// R: thicknessFactor (Default=0.0), RGB: attenuationColor
-	vec4 thicknessFactorAndAttenuationColor;
-	// R: attentuationDistance (Default=-1.0)
-	vec4 attenuationDistance;
-	// R: use thicknessTexture
-	vec4 volumeTextures;
-};
-
-struct PbrSheen
-{
-	// RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
-	vec4 sheenColorAndRoughnessFactor;
-	// R: use sheenColorTexture, G: use sheenRoughnessTexture
-	vec4 sheenTextures;
-};
-
-struct PbrEmissiveStrength
-{
-	// R: emissiveStrength (Default=1.0)
-	vec4 emissiveStrength;
-};
-
-struct PbrIridescence
-{
-	// R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
-	vec4 iridescenceFactorAndIorAndThicknessMinMax;
-	// R: use iridescenceTexture, G: use iridescenceThicknessTexture
-	vec4 iridescenceTextures;
-};
-```
-
-共通のプロパティは、マテリアルのユニフォーム自体に設定されます（ここでもデータを `vec4` にまとめている点に注意してください）。
-
-```glsl
-// Common textures
-uniform sampler2D PbrMaterial_normalTexture;
-uniform sampler2D PbrMaterial_occlusionTexture;
-uniform sampler2D PbrMaterial_emissiveTexture;
-
-uniform PbrMaterial
-{
-	// Common properties:
-
-	// R: alphaCutoff (Default=0.5), G: doubleSided (Default=false), B: unlit (Default=false)
-	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-	// R: use normalTexture, G: use occlusionTexture, B: use emissiveTexture
-	vec4 pbrCommonTextures;
-
-	// Other properties...
-};
-```
+組み込みのヘルパーは、テクスチャのサンプリングを、表面の準備、BRDF 計算、ライティングから分離しています。`gltf_sampling.glsl` は、生の `PbrMaterial` ユニフォームブロックを読み、解決済みの線形マテリアル入力を含む `PBRMaterial` 値を生成します。`gltf_lighting.glsl` は、直接光と環境光を提供し、それぞれの寄与を組み合わせます。大文字・小文字の違いにより、生のユニフォームブロックと、サンプリングしたマテリアル構造体を区別します。
 
 ### シェーダーの例 {#example-shader}
 
-以下は、すべての機能と、テクスチャバインディングの命名規則の案を含むシェーダーの例です（繰り返しになりますが、テクスチャバインディングは手動で扱う必要があります）。以下の例のように、`PbrMaterial` 自体の各メンバーを `#define` を使った条件で囲むだけで、機能を無効にできます。
+次のフラグメントシェーダーは、組み込みライティングを保ちつつ、粗さの最小値を引き上げます。4種類すべての glTF マテリアルの頂点プログラムで動作します。
 
 ```glsl
-// Feature flags, comment or remove these to slim down the shader.
-#define PBR_METALLIC_ROUGHNESS
-#define PBR_SPECULAR_GLOSSINESS
-#define PBR_CLEARCOAT
-#define PBR_TRANSMISSION
-#define PBR_IOR
-#define PBR_SPECULAR
-#define PBR_VOLUME
-#define PBR_SHEEN
-#define PBR_EMISSIVE_STRENGTH
-#define PBR_IRIDESCENCE
+#version 140
 
-// Common
-uniform sampler2D PbrMaterial_normalTexture;
-uniform sampler2D PbrMaterial_occlusionTexture;
-uniform sampler2D PbrMaterial_emissiveTexture;
+#include "/builtins/materials/gltf_sampling.glsl"
+#include "/builtins/materials/gltf_lighting.glsl"
 
-// PbrMetallicRoughness
-uniform sampler2D PbrMetallicRoughness_baseColorTexture;
-uniform sampler2D PbrMetallicRoughness_metallicRoughnessTexture;
+out vec4 out_fragColor;
 
+void main()
+{
+    PBRMaterial inputs = pbr_sample_material(var_texcoord0, var_color);
+    inputs.roughness = max(inputs.roughness, 0.35);
+
+    // Sample textures, including the normal map, before discarding fragments.
+    PBRSurface surface = pbr_sample_surface(inputs, var_texcoord0);
+    if ((!inputs.doubleSided && !gl_FrontFacing) || pbr_should_discard_alpha(inputs))
+    {
+        discard;
+    }
+
+    // Derive BRDF values after editing the material inputs.
+    MaterialInfo material = pbr_create_material_info(inputs);
+    PBRLighting lighting = pbr_create_lighting();
+    if (!inputs.unlit)
+    {
+        lighting.direct = pbr_evaluate_direct_lighting(material, surface, var_view);
+        lighting.indirect = pbr_evaluate_ambient_lighting(material, ambient_light());
+    }
+
+    vec3 color = pbr_compose_lighting(inputs, lighting, inputs.occlusion, inputs.occlusion);
+    out_fragColor = vec4(pbr_linear_to_srgb(color), pbr_get_alpha(inputs));
+}
+```
+
+`pbr_create_material_info()` を呼ぶ前に、サンプリングしたマテリアル入力を編集します。表面のビュー空間の位置や法線を変更した場合は、`pbr_finalize_surface(surface, var_view)` を呼び、派生するワールド空間のフィールドを更新します。独自の BRDF や個々のライトの寄与には、組み込みヘルパーの `pbr_evaluate_brdf()` と `pbr_evaluate_light()` を使うか、置き換えます。
+
+`lighting.indirect` は、独自の環境光やグローバルイルミネーションに置き換えられます。その拡散反射と鏡面反射の寄与は、線形の出射光なので、マテリアルの BRDF を再び適用しないでください。影の可視性は適切な直接光の寄与に適用します。`pbr_compose_lighting()` の可視性引数が影響するのは間接光のみです。HDR パイプラインでは、中間ターゲットに線形色を書き込み、最終パスで sRGB に変換します。
+
+### 生のマテリアルデータ {#raw-material-data}
+
+完全に独自のシェーダーでは、認識されるメンバー名と型を持つ `PbrMaterial` という名前のユニフォームブロックを宣言します。Defold は、ソースの glTF マテリアルから一致するフィールドを設定します。以下の宣言は利用可能な機能の構造体を示します。シェーダーに必要なものだけを含めてください。構造体の宣言はデータを供給しますが、サンプリングとライティングの動作はシェーダー自身で実装する必要があります。
+
+`gltf_sampling.glsl` はすでにユニフォームブロックと `PbrMetallicRoughness` を宣言するため、インクルードする場合は再宣言しないでください。以下の宣言は、マテリアル入力を自分で管理するシェーダー用の別の選択肢です。
+
+```glsl
 struct PbrMetallicRoughness
 {
     vec4 baseColorFactor;
@@ -232,161 +169,122 @@ struct PbrMetallicRoughness
     vec4 metallicRoughnessTextures;
 };
 
-// PbrSpecularGlossiness
-uniform sampler2D PbrSpecularGlossiness_diffuseTexture;
-uniform sampler2D PbrSpecularGlossiness_specularGlossinessTexture;
-
 struct PbrSpecularGlossiness
 {
-	vec4 diffuseFactor;
-	// RGB: specular (Default=1.0), A: glossiness (Default=1.0)
-	vec4 specularAndSpecularGlossinessFactor;
-	// R: use diffuseTexture, G: use specularGlossinessTexture
-	vec4 specularGlossinessTextures;
+    vec4 diffuseFactor;
+    // RGB: specular (Default=1.0), A: glossiness (Default=1.0)
+    vec4 specularAndSpecularGlossinessFactor;
+    // R: use diffuseTexture, G: use specularGlossinessTexture
+    vec4 specularGlossinessTextures;
 };
-
-// PbrClearCoat
-uniform sampler2D PbrClearCoat_clearcoatTexture;
-uniform sampler2D PbrClearCoat_clearcoatRoughnessTexture;
-uniform sampler2D PbrClearCoat_clearcoatNormalTexture;
 
 struct PbrClearCoat
 {
-	// R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
-	vec4 clearCoatAndClearCoatRoughnessFactor;
-	// R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
-	vec4 clearCoatTextures;
+    // R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
+    vec4 clearCoatAndClearCoatRoughnessFactor;
+    // R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
+    vec4 clearCoatTextures;
 };
-
-// PbrTransmission
-uniform sampler2D PbrTransmission_transmissionTexture;
 
 struct PbrTransmission
 {
-	// R: transmission (Default=0.0)
-	vec4 transmissionFactor;
-	// R: use transmissionTexture
-	vec4 transmissionTextures;
+    // R: transmission (Default=0.0)
+    vec4 transmissionFactor;
+    // R: use transmissionTexture
+    vec4 transmissionTextures;
 };
 
 struct PbrIor
 {
-	// R: ior (Default=0.0)
-	vec4 ior;
+    // R: ior (Default=0.0)
+    vec4 ior;
 };
-
-// PbrSpecular
-uniform sampler2D PbrSpecular_specularTexture;
-uniform sampler2D PbrSpecular_specularColorTexture;
 
 struct PbrSpecular
 {
-	// RGB: specularColor, A: specularFactor (Default=1.0);
-	vec4 specularColorAndSpecularFactor;
-	// R: use specularTexture, G: use specularColorTexture
-	vec4 specularTextures;
+    // RGB: specularColor, A: specularFactor (Default=1.0);
+    vec4 specularColorAndSpecularFactor;
+    // R: use specularTexture, G: use specularColorTexture
+    vec4 specularTextures;
 };
-
-// PbrVolume
-uniform sampler2D PbrVolume_thicknessTexture;
 
 struct PbrVolume
 {
-	// R: thicknessFactor (Default=0.0), RGB: attenuationColor
-	vec4 thicknessFactorAndAttenuationColor;
-	// R: attentuationDistance (Default=-1.0)
-	vec4 attenuationDistance;
-	// R: use thicknessTexture
-	vec4 volumeTextures;
+    // R: thicknessFactor (Default=0.0), GBA: attenuationColor
+    vec4 thicknessFactorAndAttenuationColor;
+    // R: attenuationDistance (Default=-1.0)
+    vec4 attenuationDistance;
+    // R: use thicknessTexture
+    vec4 volumeTextures;
 };
-
-// PbrSheen
-uniform sampler2D PbrSheen_sheenColorTexture;
-uniform sampler2D PbrSheen_sheenRoughnessTexture;
 
 struct PbrSheen
 {
-	// RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
-	vec4 sheenColorAndRoughnessFactor;
-	// R: use sheenColorTexture, G: use sheenRoughnessTexture
-	vec4 sheenTextures;
+    // RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
+    vec4 sheenColorAndRoughnessFactor;
+    // R: use sheenColorTexture, G: use sheenRoughnessTexture
+    vec4 sheenTextures;
 };
 
 struct PbrEmissiveStrength
 {
-	// R: emissiveStrength (Default=1.0)
-	vec4 emissiveStrength;
+    // R: emissiveStrength (Default=1.0)
+    vec4 emissiveStrength;
 };
-
-// PbrIridescence
-uniform sampler2D PbrEmissive_iridescenceTexture;
-uniform sampler2D PbrEmissive_iridescenceThicknessTexture;
 
 struct PbrIridescence
 {
-	// R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
-	vec4 iridescenceFactorAndIorAndThicknessMinMax;
-	// R: use iridescenceTexture, G: use iridescenceThicknessTexture
-	vec4 iridescenceTextures;
-};
-
-uniform PbrMaterial
-{
-	// Common properties
-	// R: alphaCutoff (Default=0.5), G: doubleSided (Default=false), B: unlit (Default=false)
-	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-	// R: use normalTexture, G: use occlusionTexture, B: use emissiveTexture
-	vec4 pbrCommonTextures;
-
-	// Features
-#ifdef PBR_METALLIC_ROUGHNESS
-	PbrMetallicRoughness  pbrMetallicRoughness;
-#endif
-#ifdef PBR_SPECULAR_GLOSSINESS
-	PbrSpecularGlossiness pbrSpecularGlossiness;
-#endif
-#ifdef PBR_CLEARCOAT
-	PbrClearCoat pbrClearCoat;
-#endif
-#ifdef PBR_TRANSMISSION
-	PbrTransmission pbrTransmission;
-#endif
-#ifdef PBR_IOR
-	PbrIor pbrIor;
-#endif
-#ifdef PBR_SPECULAR
-	PbrSpecular pbrSpecular;
-#endif
-#ifdef PBR_VOLUME
-	PbrVolume pbrVolume;
-#endif
-#ifdef PBR_SHEEN
-	PbrSheen pbrSheen;
-#endif
-#ifdef PBR_EMISSIVE_STRENGTH
-	PbrEmissiveStrength pbrEmissiveStrength;
-#endif
-#ifdef PBR_IRIDESCENCE
-	PbrIridescence pbrIridescence;
-#endif
+    // R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
+    vec4 iridescenceFactorAndIorAndThicknessMinMax;
+    // R: use iridescenceTexture, G: use iridescenceThicknessTexture
+    vec4 iridescenceTextures;
 };
 ```
 
-::: sidenote
-マテリアル構造体内で特定のデータ項目が見つからない場合、その機能のデータは設定されません。たとえば、マテリアル構造体内に `pbrClearCoat` がない場合、クリアコートのデータは設定されません。ユニフォームブロックが見つからない場合は、レンダリング時に一切のデータが設定されません。
-:::
+共通のプロパティと機能の構造体は、ユニフォームブロックのメンバーです。パックされた成分は、次のとおりです。
+
+```glsl
+uniform PbrMaterial
+{
+    // X: alpha cutoff, Y: double-sided, Z: unlit,
+    // W: alpha mode (0 = opaque, 1 = mask, 2 = blend)
+    vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
+    // X: has normal texture, Y: has occlusion texture, Z: has emissive texture
+    vec4 pbrCommonTextures;
+    // RGB: emissive factor, W: emissive strength
+    vec4 pbrEmissiveFactorAndStrength;
+    // X: normal scale, Y: occlusion strength
+    vec4 pbrNormalScaleAndOcclusionStrength;
+
+    PbrMetallicRoughness pbrMetallicRoughness;
+    PbrSpecularGlossiness pbrSpecularGlossiness;
+    PbrClearCoat pbrClearCoat;
+    PbrTransmission pbrTransmission;
+    PbrIor pbrIor;
+    PbrSpecular pbrSpecular;
+    PbrVolume pbrVolume;
+    PbrSheen pbrSheen;
+    PbrEmissiveStrength pbrEmissiveStrength;
+    PbrIridescence pbrIridescence;
+};
+```
+
+使わない機能のメンバーは、ブロックから省略します。ブロックや、機能の認識対象フィールドがない場合、そのデータは供給されません。テクスチャの存在フラグは、ソースマテリアルのテクスチャ参照を表します。カスタムマテリアルには、サンプリングするマップに対応したサンプラー宣言とテクスチャ割り当てが引き続き必要です。
 
 ### 定数 {#constants}
 
-各マテリアルプロパティは、Defold 内部のレンダー定数に対応します。`pbrFeature.structMember` という命名パターンに従ってマテリアルリソース自体に定数を定義すると、デフォルト値を上書きできます。対応するデータが glTF マテリアルに存在しない場合、これらの値が自動的に適用されます。
+機能のフィールドには `pbrMetallicRoughness.baseColorFactor` のような名前を、共通のフィールドには `pbrEmissiveFactorAndStrength` のような名前を使います。エンジンは、インポートしたマテリアルから、またはモデルにマテリアルデータがない場合はデフォルトマテリアルから、これらの定数を設定します。`.material` リソースでデフォルト値を設定しても、インポートした値は上書きしません。
 
-![マテリアル定数](images/physically-based-rendering/material-constants.png)
+組み込みのシェーディングをカスタマイズするには、上記の例のように、BRDF 値を導出する前に、サンプリングした `PBRMaterial` を編集します。実行時に追加の制御を行うには、独自のシェーダー定数を宣言し、[モデルのマテリアル定数 API](/manuals/model/#material-constants) を使います。
 
 ## 次のステップ {#next-steps}
 
-物理ベースのライティングにマテリアルデータを使用するには、`PbrMaterial` ブロックで提供されるパラメーターを使って、フラグメントシェーダーに BRDF を実装します。
+標準の glTF メタリック・ラフネス方式には、組み込みマテリアルを使います。別の BRDF、環境光、影、追加の glTF マテリアル効果が必要な場合は、シェーダーヘルパーを拡張するか、独自のマテリアルを用意します。
+
 関連項目:
 
+* [ライトマニュアル](/manuals/light)
+* [マテリアルマニュアル](/manuals/material)
 * [シェーダーマニュアル](/manuals/shader)
 * [レンダリングマニュアル](/manuals/render)
 * [glTF 2.0 仕様](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)

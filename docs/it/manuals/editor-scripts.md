@@ -50,7 +50,7 @@ Puoi interagire con l'editor usando il pacchetto `editor`, che definisce questa 
 - `editor.editor_sha1` — una stringa con lo SHA1 dell'editor Defold
 - `editor.get(node_id, property)` — ottiene il valore di una proprietà di un nodo nell'editor. I nodi nell'editor rappresentano varie entità, come file di script o di collezione, oggetti di gioco all'interno di collezioni, file JSON caricati come risorse e così via. `node_id` è un valore userdata passato dall'editor allo script dell'editor. In alternativa all'ID del nodo puoi passare il percorso della risorsa, ad esempio `"/main/game.script"`. `property` è una stringa. Attualmente sono supportate queste proprietà:
   - `"path"` — il percorso del file a partire dalla cartella del progetto per le *risorse*, cioè entità che esistono come file o directory. Esempio di valore restituito: `"/main/game.script"`
-  - `"children"` — elenco dei percorsi delle risorse figlie di una risorsa directory
+  - `"children"` — elenco dei percorsi delle risorse figlie per le risorse directory. Per attraversare anche le risorse contenute nei file, consulta [Attraversamento delle risorse del progetto](#traversing-project-resources).
   - `"parent"` — nodo genitore nell'editor per un nodo di Outline che ha un genitore
   - `"text"` — contenuto testuale di una risorsa modificabile come testo (ad esempio file di script o JSON). Esempio di valore restituito: `"function init(self)\nend"`. Questo non equivale a leggere il file con `io.open()`, perché puoi modificare un file senza salvarlo e tali modifiche sono disponibili soltanto accedendo alla proprietà `"text"`.
   - per gli atlas: `images` (elenco dei nodi dell'editor per le immagini dell'atlas) e `animations` (elenco dei nodi delle animazioni)
@@ -72,6 +72,7 @@ Puoi interagire con l'editor usando il pacchetto `editor`, che definisce questa 
 - `editor.properties(node_id)` — restituisce un elenco ordinato, dipendente dal contesto, dei nomi delle proprietà leggibili da un nodo, ad esempio `pprint(editor.properties("/game.project"))`. Usa le funzioni `editor.can_*` per verificare se una proprietà elencata può anche essere modificata, reimpostata o riordinata, oppure se è possibile aggiungervi elementi.
 - `editor.can_get(node_id, property)` — verifica se puoi leggere questa proprietà senza che `editor.get()` generi un errore.
 - `editor.can_set(node_id, property)` — verifica se un passaggio di transazione `editor.tx.set()` con questa proprietà può essere eseguito senza generare un errore.
+- `editor.resource_children(path)` — elenca i percorsi delle risorse direttamente contenute in una cartella o in un file, comprese le risorse dei file glTF/GLB. Consulta [Attraversamento delle risorse del progetto](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — crea una directory se non esiste, insieme a tutte le directory genitrici mancanti.
 - `editor.create_resources(resources)` — crea una o più risorse, a partire da modelli o con contenuti personalizzati
 - `editor.delete_directory(resource_path)` — elimina una directory, se esiste, e tutte le directory e i file che contiene.
@@ -147,6 +148,42 @@ L'editor si aspetta che `get_commands()` restituisca un array di tabelle, ognuna
 - `id` - stringa identificativa del comando, usata ad esempio per memorizzare in `prefs` l'ultimo comando di creazione del bundle utilizzato
 - `active` - una callback eseguita per verificare che il comando sia attivo; deve restituire un valore booleano. Se `locations` include `"Assets"`, `"Scene"` o `"Outline"`, `active` viene chiamata quando viene mostrato il menu contestuale. Se le posizioni includono `"Edit"` o `"View"`, active viene chiamata a ogni interazione dell'utente, ad esempio quando digita sulla tastiera o fa clic con il mouse: assicurati quindi che `active` sia relativamente veloce.
 - `run` - una callback eseguita quando l'utente seleziona la voce di menu.
+
+### Attraversamento delle risorse del progetto {#traversing-project-resources}
+
+`editor.resource_children(path)` restituisce un array dei percorsi delle risorse direttamente contenute in una cartella o in un file. Sia il percorso in ingresso sia quelli restituiti iniziano con `/` e sono relativi alla radice del progetto. Usa `/` per partire dalla radice del progetto. Un file *.gltf* o *.glb* può esporre mesh, materiali e immagini incorporate come risorse figlie, proprio come nel pannello *Assets*.
+
+Se lo script attraversa le directory con `editor.get(path, "children")`, passa a `editor.resource_children(path)` e visita ogni percorso restituito. Anche i file possono contenere risorse: limitare quindi la ricorsione ai percorsi per cui `editor.resource_attributes(path).is_directory` è `true` ne salterebbe il contenuto.
+
+La funzione restituisce una tabella vuota (`{}`) per una cartella o un file senza risorse figlie. Un percorso inesistente genera un errore; se un percorso potrebbe mancare, controlla `editor.resource_attributes(path).exists` prima di interrogarne i figli. Le risorse figlie seguono la gerarchia di *Assets*. Gli oggetti di gioco dentro una collezione sono accessibili tramite `editor.get(collection_path, "children")`.
+
+Per esempio, salva questo codice come `list_resources.editor_script` e seleziona **Project → Reload Editor Scripts**. Fai clic destro su una cartella o su un file *.gltf* o *.glb* in *Assets*, quindi seleziona **List Resource Contents** per stamparne l'albero delle risorse nella console:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Usare i comandi per modificare lo stato dell'editor in memoria {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -243,6 +280,7 @@ editor.transact({
 #### Modificare le sorgenti di tile {#editing-tilesources}
 
 Oltre alle proprietà della struttura, le sorgenti di tile definiscono le proprietà seguenti:
+
 - `animations` - un elenco dei nodi delle animazioni della sorgente di tile
 - `collision_groups` - un elenco dei nodi dei gruppi di collisione della sorgente di tile
 - `tile_collision_groups` - una tabella che assegna i gruppi di collisione ai tile della sorgente
@@ -251,8 +289,8 @@ Ad esempio, puoi configurare una sorgente di tile in questo modo:
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +300,25 @@ editor.transact({
     })
 })
 ```
+
+I nodi di animazione espongono una proprietà `frames` che contiene un array Lua di numeri di tile a partire da uno, nell'ordine dell'animazione. A differenza del campo di testo *Frames* dell'editor, gli script dell'editor accettano un array di interi, non una stringa come `"2-6"`. Espandi gli intervalli nei singoli numeri di tile nell'array. I tile possono comparire in qualsiasi ordine ed essere ripetuti.
+
+Per leggere e modificare l'animazione `walk` dell'esempio precedente:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Modificare l'array restituito non aggiorna l'animazione finché non lo passi a `editor.tx.set()` e applichi la transazione. Consulta il [manuale delle sorgenti di tile](/manuals/tilesource/#tile-source-flip-book-animations) per la numerazione dei tile e le impostazioni di riproduzione.
 
 #### Modificare le tilemap {#editing-tilemaps}
 

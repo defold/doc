@@ -3,11 +3,11 @@ title: Düzenleyici betikleri
 brief: Bu kılavuz, Lua kullanarak düzenleyiciyi nasıl genişleteceğinizi açıklar
 ---
 
-# Düzenleyici betikleri
+# Düzenleyici betikleri {#editor-scripts}
 
 `.editor_script` özel uzantısına sahip Lua dosyalarını kullanarak özel menü öğeleri ve düzenleyici yaşam döngüsü kancaları (lifecycle hooks) oluşturabilirsiniz. Bu düzenleyici betiği (editor script) sistemiyle geliştirme iş akışınızı iyileştirmek için düzenleyiciyi özelleştirebilirsiniz.
 
-## Düzenleyici betiklerinin çalışma zamanı ortamı
+## Düzenleyici betiklerinin çalışma zamanı ortamı {#editor-script-runtime}
 
 Düzenleyici betikleri, düzenleyicinin içinde, Java sanal makinesinin öykündüğü bir Lua sanal makinesinde çalışır. Tüm betikler tek bir ortak ortamı paylaşır; yani birbirleriyle etkileşim kurabilirler. Tıpkı `.script` dosyalarında olduğu gibi Lua modüllerini `require` ile yükleyebilirsiniz, ancak düzenleyicinin içinde çalışan Lua sürümü farklıdır; bu nedenle ortak kodunuzun uyumlu olduğundan emin olun. Düzenleyici Lua 5.2.x sürümünü, daha özel olarak da şu anda JVM üzerinde Lua çalıştırmak için uygulanabilir tek çözüm olan [luaj](https://github.com/luaj/luaj) çalışma zamanı ortamını kullanır. Bunun yanında bazı kısıtlamalar vardır:
 - `debug` paketi yoktur;
@@ -19,7 +19,7 @@ Düzenleyici betikleri, düzenleyicinin içinde, Java sanal makinesinin öykünd
 
 Bir projeyi açtığınızda düzenleyici betiklerinde tanımlanan tüm düzenleyici uzantıları yüklenir. Kütüphaneleri getirdiğinizde uzantılar yeniden yüklenir; çünkü bağımlı olduğunuz kütüphanelerde yeni düzenleyici betikleri bulunabilir. Bu yeniden yükleme sırasında kendi düzenleyici betiklerinizdeki değişiklikler alınmaz; çünkü bunları değiştirmeyi henüz bitirmemiş olabilirsiniz. Bunları da yeniden yüklemek için **Project → Reload Editor Scripts** komutunu çalıştırmanız önerilir.
 
-## `.editor_script` dosyasının yapısı
+## `.editor_script` dosyasının yapısı {#anatomy-of-editor_script}
 
 Her düzenleyici betiği aşağıdaki gibi bir modül döndürmelidir:
 ```lua
@@ -41,7 +41,7 @@ return M
 ```
 Düzenleyici daha sonra projede ve kütüphanelerde tanımlanan tüm düzenleyici betiklerini toplar, bunları tek bir Lua sanal makinesine yükler ve gerektiğinde çağırır (bu konuda daha fazla bilgi [komutlar](#commands) ve [yaşam döngüsü kancaları](#lifecycle-hooks) bölümlerindedir).
 
-## Düzenleyici API'si
+## Düzenleyici API'si {#editor-api}
 
 Aşağıdaki API'yi tanımlayan `editor` paketini kullanarak düzenleyiciyle etkileşim kurabilirsiniz:
 - `editor.platform` — Windows için `"x86_64-win32"`, macOS için `"x86_64-macos"` veya Linux için `"x86_64-linux"` değerini alan bir dize.
@@ -50,7 +50,7 @@ Aşağıdaki API'yi tanımlayan `editor` paketini kullanarak düzenleyiciyle etk
 - `editor.editor_sha1` — Defold düzenleyicisinin SHA1 değerini içeren bir dize
 - `editor.get(node_id, property)` — düzenleyicideki bir düğümün (node) değerini alır. Düzenleyicideki düğümler; betik veya koleksiyon (collection) dosyaları, koleksiyonların içindeki oyun nesneleri (game objects), kaynak (resource) olarak yüklenen JSON dosyaları gibi çeşitli öğelerdir. `node_id`, düzenleyici tarafından düzenleyici betiğine iletilen bir userdata değeridir. Alternatif olarak düğüm kimliği yerine bir kaynak yolu, örneğin `"/main/game.script"`, iletebilirsiniz. `property` bir dizedir. Şu anda aşağıdaki özellikler desteklenir:
   - `"path"` — dosya veya dizin olarak var olan öğeler, yani *kaynaklar* için proje klasörüne göre dosya yolu. Döndürülen değere örnek: `"/main/game.script"`
-  - `"children"` — dizin kaynakları için alt kaynak yollarının listesi
+  - `"children"` — dizin kaynakları için alt kaynak yollarının listesi. Dosyaların içindeki kaynakları da dolaşmak için [Proje kaynaklarını dolaşma](#traversing-project-resources) bölümüne bakın.
   - `"parent"` — üst düğümü olan bir Outline düğümünün üst düzenleyici düğümü
   - `"text"` — metin olarak düzenlenebilen bir kaynağın (betik veya JSON dosyaları gibi) metin içeriği. Döndürülen değere örnek: `"function init(self)\nend"`. Bunun dosyayı `io.open()` ile okumakla aynı olmadığını unutmayın; çünkü bir dosyayı kaydetmeden düzenleyebilirsiniz ve bu düzenlemelere yalnızca `"text"` özelliğine erişildiğinde ulaşılabilir.
   - atlaslar için: `images` (atlastaki görüntülere ait düzenleyici düğümlerinin listesi) ve `animations` (animasyon düğümlerinin listesi)
@@ -72,6 +72,8 @@ Aşağıdaki API'yi tanımlayan `editor` paketini kullanarak düzenleyiciyle etk
 - `editor.properties(node_id)` — bir düğümden okunabilen özellik adlarının sıralanmış, bağlama duyarlı bir listesini döndürür; örneğin `pprint(editor.properties("/game.project"))`. Listelenen bir özelliğin ayrıca değiştirilip değiştirilemeyeceğini, sıfırlanıp sıfırlanamayacağını, ona öğe eklenip eklenemeyeceğini veya öğelerinin yeniden sıralanıp sıralanamayacağını denetlemek için `editor.can_*` işlevlerini kullanın.
 - `editor.can_get(node_id, property)` — `editor.get()` işlevinin hata vermemesi için bu özelliği alıp alamayacağınızı denetler.
 - `editor.can_set(node_id, property)` — bu özellik ile kullanılan `editor.tx.set()` düzenleyici işlemi (transaction) adımının hata vermeyeceğini denetler.
+
+- `editor.resource_children(path)` — glTF/GLB dosyalarının içerdiği kaynaklar dahil, bir klasörün veya dosyanın doğrudan içindeki kaynak yollarını listeler. [Proje kaynaklarını dolaşma](#traversing-project-resources) bölümüne bakın.
 - `editor.create_directory(resource_path)` — bir dizin yoksa onu ve var olmayan tüm üst dizinlerini oluşturur.
 - `editor.create_resources(resources)` — şablonlardan veya özel içerikle 1 ya da daha fazla kaynak oluşturur
 - `editor.delete_directory(resource_path)` — bir dizin varsa onu ve var olan tüm alt dizinlerini ve dosyalarını siler.
@@ -148,7 +150,43 @@ Düzenleyici, `get_commands()` işlevinin her biri ayrı bir komutu açıklayan 
 - `active` - komutun etkin olup olmadığını denetlemek için yürütülen ve mantıksal değer döndürmesi beklenen bir geri çağırım. `locations` içinde `"Assets"`, `"Scene"` veya `"Outline"` varsa `active`, bağlam menüsü gösterilirken çağrılır. Konumlar arasında `"Edit"` veya `"View"` varsa active, klavyede yazma veya fareyle tıklama gibi her kullanıcı etkileşiminde çağrılır; bu nedenle `active` geri çağırımının nispeten hızlı olduğundan emin olun.
 - `run` - kullanıcı menü öğesini seçtiğinde yürütülen bir geri çağırım.
 
-### Düzenleyicinin bellekteki durumunu değiştirmek için komutları kullanma
+### Proje kaynaklarını dolaşma {#traversing-project-resources}
+
+`editor.resource_children(path)`, bir klasörün veya dosyanın doğrudan içindeki kaynak yollarının dizisini döndürür. Hem giriş yolu hem de döndürülen yollar, proje köküne göre `/` ile başlar. Proje kökünden başlamak için `/` kullanın. Bir *.gltf* veya *.glb* dosyası, *Assets* panelinde olduğu gibi örgüleri, materyalleri ve gömülü görüntüleri alt kaynaklar olarak sunabilir.
+
+Betiğiniz dizinleri `editor.get(path, "children")` ile dolaşıyorsa dolaşımı `editor.resource_children(path)` kullanacak şekilde değiştirin ve döndürülen her yolu ziyaret edin. Dosyalar da kaynak içerebilir; bu nedenle özyinelemeyi yalnızca `editor.resource_attributes(path).is_directory` değeri `true` olan yollarla sınırlamak bu içerikleri atlar.
+
+İşlev, alt kaynağı olmayan bir klasör veya dosya için boş tablo (`{}`) döndürür. Var olmayan bir yol hataya yol açar; bir yolun bulunmama olasılığı varsa alt öğelerini sorgulamadan önce `editor.resource_attributes(path).exists` değerini denetleyin. Alt kaynaklar, *Assets* hiyerarşisini izler. Koleksiyon içindeki oyun nesnelerine `editor.get(collection_path, "children")` aracılığıyla erişilir.
+
+Örneğin aşağıdakini `list_resources.editor_script` adıyla kaydedin ve **Project → Reload Editor Scripts** seçeneğini seçin. *Assets* içinde bir klasöre veya *.gltf* ya da *.glb* dosyasına sağ tıklayın, ardından kaynak ağacını konsola yazdırmak için **List Resource Contents** seçeneğini seçin:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
+
+### Düzenleyicinin bellekteki durumunu değiştirmek için komutları kullanma {#use-commands-to-change-the-in-memory-editor-state}
 
 `run` işleyicisinin içinde, düzenleyicinin bellekteki durumunu sorgulayabilir ve değiştirebilirsiniz. Sorgulama, `editor.get()` işleviyle yapılır; bu işlevle düzenleyiciye dosyaların ve seçimin (`query = {selection = ...}` kullanıyorsanız) geçerli durumunu sorabilirsiniz. Metin olarak düzenlenebilen kaynakların `"text"` özelliğini ve Properties görünümünde gösterilen bazı özellikleri alabilirsiniz — özelliğin düzenleyici betiklerindeki adını açıklayan araç ipucunu görmek için özellik adının üzerine gelin. Düzenleyicinin durumunu değiştirmek için `editor.transact()` kullanılır; bu işlevle 1 veya daha fazla değişikliği geri alınabilen tek bir adımda birleştirirsiniz. Örneğin bir oyun nesnesinin dönüşümünü sıfırlayabilmek istiyorsanız şöyle bir komut yazabilirsiniz:
 ```lua
@@ -173,7 +211,7 @@ Düzenleyici, `get_commands()` işlevinin her biri ayrı bir komutu açıklayan 
 }
 ```
 
-### Etkin düzenleyici görünümüyle komutları kullanma
+### Etkin düzenleyici görünümüyle komutları kullanma {#use-commands-with-the-active-editor-view}
 
 `"View"` gibi menü konumlarındaki komutlar, o anda etkin olan düzenleyici görünümünü sorgulayabilir. Bu, bir komutun kullanıcının o anda baktığı dosya veya sahne üzerinde çalışması gerektiğinde yararlıdır:
 
@@ -192,7 +230,7 @@ editor.command({
 })
 ```
 
-#### Atlasları düzenleme
+#### Atlasları düzenleme {#editing-atlases}
 
 Bir atlasın özelliklerini okuyup yazmanın yanı sıra atlas görüntülerini ve animasyonlarını da okuyabilir ve değiştirebilirsiniz. Atlaslar `images` ve `animations` düğüm listesi özelliklerini, animasyonlar ise `images` düğüm listesi özelliğini tanımlar: bu özelliklerle `editor.tx.add`, `editor.tx.remove` ve `editor.tx.clear` işlem adımlarını kullanabilirsiniz.
 
@@ -240,7 +278,7 @@ editor.transact({
 })
 ```
 
-#### Karo kaynaklarını düzenleme
+#### Karo kaynaklarını düzenleme {#editing-tilesources}
 
 Karo kaynakları (tile sources), Outline özelliklerine ek olarak aşağıdaki özellikleri tanımlar:
 - `animations` - karo kaynağının animasyon düğümlerinin listesi
@@ -251,8 +289,8 @@ Karo kaynakları (tile sources), Outline özelliklerine ek olarak aşağıdaki �
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -263,7 +301,26 @@ editor.transact({
 })
 ```
 
-#### Karo haritalarını düzenleme
+Animasyon düğümleri, animasyon sırasına göre bir tabanlı karo numaralarından oluşan Lua dizisini içeren `frames` özelliğini sunar. Düzenleyicideki *Frames* metin alanının aksine, düzenleyici betikleri `"2-6"` gibi bir dize değil, bir tamsayı dizisi alır. Aralıkları dizide tek tek karo numaralarına açın. Karolar herhangi bir sırada bulunabilir ve tekrarlanabilir.
+
+Yukarıdaki örnekteki `walk` animasyonunu okumak ve değiştirmek için:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Döndürülen diziyi değiştirmek, diziyi `editor.tx.set()` işlevine verip işlemi uygulayana kadar animasyonu güncellemez. Karo numaralandırması ve oynatma ayarları için [Karo kaynağı kılavuzuna](/manuals/tilesource/#tile-source-flip-book-animations) bakın.
+
+#### Karo haritalarını düzenleme {#editing-tilemaps}
 
 Karo haritaları, karo haritası katmanlarının düğüm listesi olan `layers` özelliğini tanımlar. Her katman ayrıca, bu katmandaki sınırsız bir 2B karo ızgarasını tutan `tiles` özelliğini tanımlar. Bu, motordan farklıdır: karoların sınırları yoktur ve negatif koordinatlar dahil her yere eklenebilirler. Düzenleyici betiği API'si, karoları düzenlemek için aşağıdaki işlevleri içeren `tilemap.tiles` modülünü tanımlar:
 - `tilemap.tiles.new()`, sınırsız bir 2B karo ızgarasını tutan yeni bir veri yapısı oluşturur (motorun aksine, düzenleyicide karo haritası sınırsızdır ve koordinatlar negatif olabilir)
@@ -301,7 +358,7 @@ editor.transact({
 })
 ```
 
-#### Parçacık efektlerini düzenleme
+#### Parçacık efektlerini düzenleme {#editing-particlefx}
 
 Parçacık efektlerini `modifiers` ve `emitters` özelliklerini kullanarak düzenleyebilirsiniz. Örneğin ivme değiştiricisi içeren bir daire yayıcı şöyle eklenir:
 ```lua
@@ -333,7 +390,7 @@ editor.transact({
 ```
 Elbette, bir yayıcı oluştururken tablodaki `particle_key_alpha` anahtarını kullanmak da mümkündür. Ayrıca "statik" bir eğriyi göstermek için bunun yerine tek bir sayı kullanabilirsiniz.
 
-#### Çarpışma nesnelerini düzenleme
+#### Çarpışma nesnelerini düzenleme {#editing-collision-objects}
 
 Çarpışma nesneleri, varsayılan Outline özelliklerine ek olarak `shapes` düğüm listesi özelliğini tanımlar. Yeni çarpışma şekilleri şöyle eklenir:
 ```lua
@@ -348,7 +405,7 @@ editor.transact({
 - `shape-type-sphere` - `diameter` özelliği olan küre şekli
 - `shape-type-capsule` - `diameter` ve `height` özellikleri olan kapsül şekli
 
-#### GUI dosyalarını düzenleme
+#### GUI dosyalarını düzenleme {#editing-gui-files}
 
 GUI dosyaları, Outline özelliklerine ek olarak birkaç düğüm listesi özelliği tanımlar:
 
@@ -442,7 +499,7 @@ editor.transact({
 print(editor.can_reset(node_in_template, "text")) -- true (overrides a value in the template)
 ```
 
-#### Oyun nesnelerini düzenleme
+#### Oyun nesnelerini düzenleme {#editing-game-objects}
 
 Düzenleyici betiklerini kullanarak bir oyun nesnesi dosyasının bileşenlerini (components) düzenleyebilirsiniz. Bileşenler 2 çeşittir: başvuru yoluyla eklenen (referenced) ve gömülü (embedded). Başvuru yoluyla eklenen bileşenler `component-reference` türünü kullanır ve diğer kaynaklara başvuru görevi görür; yalnızca betiklerde tanımlanan oyun nesnesi özelliklerinin geçersiz kılınmasına izin verir. Gömülü bileşenler `sprite`, `label` vb. türleri kullanır. Bileşen türünde tanımlanan tüm özelliklerin düzenlenmesine ve çarpışma nesnelerinin şekilleri gibi alt bileşenlerin eklenmesine izin verir. Örneğin bir oyun nesnesini yapılandırmak için aşağıdaki kodu kullanabilirsiniz:
 ```lua
@@ -470,7 +527,7 @@ editor.transact({
 })
 ```
 
-#### Koleksiyonları düzenleme
+#### Koleksiyonları düzenleme {#editing-collections}
 Düzenleyici betiklerini kullanarak koleksiyonları düzenleyebilirsiniz. Oyun nesneleri (gömülü veya başvuru yoluyla) ve koleksiyonlar (başvuru yoluyla) ekleyebilirsiniz. Örneğin:
 ```lua
 local coll = "/char.collection"
@@ -515,7 +572,7 @@ editor.transact({
 
 Düzenleyicide olduğu gibi, başvuru yoluyla eklenen koleksiyonlar yalnızca düzenlenen koleksiyonun köküne eklenebilir. Oyun nesneleri ise yalnızca gömülü veya başvuru yoluyla eklenen oyun nesnelerine eklenebilir; başvuru yoluyla eklenen koleksiyonlara ya da bu koleksiyonların içindeki oyun nesnelerine eklenemez.
 
-### Kabuk komutlarını kullanma
+### Kabuk komutlarını kullanma {#use-shell-commands}
 
 `run` işleyicisinin içinde dosyalara yazabilir (`io` modülünü kullanarak) ve kabuk komutları yürütebilirsiniz (`editor.execute()` komutunu kullanarak). Kabuk komutları yürütülürken bir kabuk komutunun çıktısını dize olarak yakalayıp kodda kullanmak mümkündür. Örneğin sistem genelinde kurulu [`jq`](https://jqlang.github.io/jq/) programını kabuk üzerinden çağırarak JSON biçimlendiren bir komut oluşturmak istiyorsanız aşağıdaki komutu yazabilirsiniz:
 ```lua
@@ -575,7 +632,7 @@ Yaşam döngüsü kancalarını tek bir düzenleyici betiği dosyasıyla sınır
 
 Yaşam döngüsü kancalarının şu anda yalnızca düzenleyicide kullanılabilen bir özellik olduğunu ve komut satırından paketleme yapılırken Bob tarafından yürütülmediğini unutmayın.
 
-## Dil sunucuları
+## Dil sunucuları {#language-servers}
 
 Düzenleyici, [Dil Sunucusu Protokolü'nün](https://microsoft.github.io/language-server-protocol/) (Language Server Protocol) bir alt kümesini destekler: tanılama (statik kod denetimleri), tamamlama, üzerine gelindiğinde gösterilen bilgiler, Structure bölmesinde belge simgeleri, tanıma gitme, başvuruları bulma, simgeyi yeniden adlandırma ve belgeyi/aralığı biçimlendirme. Dil sunucusundan gelen bilgileri görmek için bir simgenin üzerine gelin. İmleç bir simgenin üzerindeyken simgeyi yeniden adlandırmak için <kbd>F2</kbd>, tanımına gitmek için <kbd>F12</kbd> veya başvurularını bulmak için <kbd>Shift+F12</kbd> kullanın. Bu eylemlere <kbd>Edit</kbd> menüsünden de erişebilirsiniz. Biçimlendirme komutu ve kaydederken biçimlendirme tercihi için [kod biçimlendirme](/manuals/writing-code/#formatting-code) bölümüne bakın.
 
@@ -735,7 +792,7 @@ Aşağıdaki kod yürütme bağlamları anında modunu kullanır:
 - Menü komutlarının `active` geri çağırımları: düzenleyicinin aynı kullanıcı arayüzü karesi içinde betikten yanıt alması gerekir.
 - Düzenleyici betiklerinin üst düzeyi: düzenleyici betiklerini yeniden yükleme işleminin herhangi bir yan etkisi olmasını beklemiyoruz.
 
-## Eylemler
+## Eylemler {#actions}
 
 ::: sidenote
 Önceden düzenleyici, Lua sanal makinesiyle engelleyici bir şekilde etkileşim kuruyordu. Bazı etkileşimlerin düzenleyicinin kullanıcı arayüzü iş parçacığından yapılması gerektiği için düzenleyici betiklerinin yürütmeyi engellememesi kesin bir gereklilikti. Bu nedenle örneğin `editor.execute()` ve `editor.transact()` yoktu. Betiklerin yürütülmesi ve düzenleyici durumunun değiştirilmesi, bunların yerine kancalardan ve komutların `run` işleyicilerinden bir "eylemler" dizisi döndürülerek tetikleniyordu.
@@ -747,7 +804,7 @@ Düzenleyici betikleri, bir komutun `run` işlevinden veya `/hooks.editor_script
 
 Eylem, düzenleyicinin ne yapması gerektiğini açıklayan bir tablodur. Her eylemin bir `action` anahtarı vardır. Eylemler 2 çeşittir: geri alınabilir ve geri alınamaz.
 
-### Geri alınabilir eylemler
+### Geri alınabilir eylemler {#undoable-actions}
 
 ::: sidenote
 `editor.transact()` kullanmayı tercih edin.
@@ -770,7 +827,7 @@ Mevcut geri alınabilir eylemler:
   - `property` — düğümün ayarlanacak özelliği; örneğin `"text"`;
   - `value` — özelliğin yeni değeri. `"text"` özelliği için bir dize olması önerilir.
 
-### Geri alınamaz eylemler
+### Geri alınamaz eylemler {#non-undoable-actions}
 
 ::: sidenote
 `editor.execute()` kullanmayı tercih edin.
@@ -791,7 +848,7 @@ Mevcut geri alınamaz eylemler:
   ```
   `"shell"` eylemi, komuttan ve bağımsız değişkenlerinden oluşan bir dizi olan `command` anahtarını gerektirir.
 
-### Eylemleri ve yan etkileri birleştirme
+### Eylemleri ve yan etkileri birleştirme {#mixing-actions-and-side-effects}
 
 Geri alınabilir ve geri alınamaz eylemleri bir arada kullanabilirsiniz. Eylemler sırayla yürütülür; dolayısıyla eylemlerin sırasına bağlı olarak komutun bazı bölümlerini geri alma olanağını kaybedersiniz.
 

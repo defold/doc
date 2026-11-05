@@ -85,6 +85,10 @@ Für diese Funktion muss *ADB* installiert und *USB debugging* auf dem verbunden
 
 Eine *.aab*-Datei kann über die [Google Play-Entwicklerkonsole](https://play.google.com/apps/publish/) zu Google Play hochgeladen werden. Mit dem [Android bundletool](https://developer.android.com/studio/command-line/bundletool) kannst du außerdem aus einer *.aab*-Datei eine *`.apk`*-Datei erzeugen, um sie lokal zu installieren.
 
+## Bildschirmaussparungen {#display-cutouts}
+
+`window.get_reserved_areas()` meldet unter Android 9 (API-Level 28) und neuer die Rechtecke von Bildschirmaussparungen. Verwende `window.get_safe_area()`, wenn du ein sicheres Rechteck für dein Layout benötigst. Unter [Reservierte Bildschirmbereiche](/manuals/porting-guidelines/#reserved-screen-areas) findest du die Koordinateneinheiten, das Verhalten auf nicht unterstützten Plattformen und Hinweise zur Aktualisierung des Layouts bei Änderungen der gemeldeten Bereiche.
+
 ## Java-Code und Android-Ressourcen mit R8 verkleinern {#shrinking-java-code-with-r8}
 
 R8 reduziert die Größe von Java-Code durch Verkleinerung, Optimierung und Verschleierung. Mit Defold 1.14.0 oder neuer und einem kompatiblen Extender-Build-Server entfernt R8 außerdem ungenutzte Android-Ressourcen, etwa Layouts, Drawables und Raw-Ressourcen, die von Erweiterungen und ihren Android-Abhängigkeiten bereitgestellt werden. Spielressourcen von Defold im Spielarchiv werden von R8 nicht verarbeitet.
@@ -102,7 +106,7 @@ Stelle sicher, dass jede Erweiterung mit Java-Code eine `.keep`-Datei für die K
 
 Wenn du **R8 Keep Rules** leer lässt, wird D8 ohne Verkleinerung verwendet. Beim Aktivieren von R8 wird der Build-Dienst für native Erweiterungen verwendet, auch für ein Projekt ohne native Erweiterungen.
 
-Ab Defold 1.14.0 wird die Verkleinerung von Android-Ressourcen mit derselben Einstellung **R8 Keep Rules** aktiviert; dafür gibt es keine separate Projekteinstellung. Ältere Defold-SDKs verkleinern mit R8 weiterhin nur Code.
+Die Verkleinerung von Android-Ressourcen wird durch dieselbe Einstellung **R8 Keep Rules** aktiviert; eine separate Projekteinstellung gibt es dafür nicht. Ältere Defold-SDKs verkleinern mit R8 weiterhin nur den Code.
 
 ### Regeln zu einer Erweiterung hinzufügen {#adding-rules-to-an-extension}
 

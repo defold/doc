@@ -27,7 +27,7 @@ Komponent obiektu kolizji ma zestaw *Properties*, które określają jego typ i 
 Aby dodać komponent obiektu kolizji do obiektu gry:
 
 1. W widoku *Outline* kliknij prawym przyciskiem myszy obiekt gry i wybierz z menu kontekstowego <kbd>Add Component ▸ Collision Object</kbd>. Spowoduje to utworzenie nowego komponentu bez żadnych kształtów.
-2. Kliknij prawym przyciskiem myszy nowy komponent i wybierz <kbd>Add Shape</kbd>, a następnie kształt: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> lub <kbd>Mesh</kbd> w projektach z fizyką 3D, albo <kbd>Box</kbd> lub <kbd>Circle</kbd> w projektach z fizyką 2D. Kształty Hull i Mesh są dostępne od wersji Defold 1.13.2 i używają siatki o określonej nazwie ze sceny glTF lub GLB. Do komponentu możesz dodać kilka kształtów. Możesz też użyć mapy kafelków lub zasobu `.convexshape` przez właściwość *Collision Shape*.
+2. Kliknij prawym przyciskiem myszy nowy komponent i wybierz <kbd>Add Shape</kbd>, a następnie kształt: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> lub <kbd>Mesh</kbd> w projektach z fizyką 3D, albo <kbd>Box</kbd> lub <kbd>Circle</kbd> w projektach z fizyką 2D. Kształty Hull i Mesh używają siatki o określonej nazwie ze sceny glTF lub GLB. Do komponentu możesz dodać kilka kształtów. Możesz też użyć mapy kafelków lub zasobu `.convexshape` przez właściwość *Collision Shape*.
 3. Użyj narzędzi do przesuwania, obracania i skalowania, aby edytować kształty.
 4. Wybierz komponent w widoku *Outline* i edytuj *Properties* obiektu kolizji.
 

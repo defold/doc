@@ -60,25 +60,27 @@ function init(self)
 end
 
 function update(self, dt)
-  -- 보정 초기화
+  -- 보정 벡터 초기화
   self.correction = vmath.vector3()
 end
 
 function on_message(self, message_id, message, sender)
   -- 충돌 처리
   if message_id == hash("contact_point_response") then
-    -- 충돌에서 벗어나기 위해 필요한 정보를 가져옵니다. 여러
-    -- 접촉점이 반환될 수 있으므로 이 프레임의 보정 벡터를
-    -- 누적해 접촉점 전체에서 어떻게 벗어날지 계산해야 합니다:
+    -- 충돌에서 벗어나는 데 필요한 정보를 가져옵니다. 여러 접촉점이
+    -- 반환될 수 있으므로 보정 벡터를 누적하여
+    -- 모든 접촉점에서 벗어나는 이동량을
+    -- 이번 프레임에 대해 계산해야 합니다:
     if message.distance > 0 then
-      -- 먼저 누적된 보정을 침투 벡터에 투영합니다
+      -- 먼저 누적된 보정량을
+      -- 침투 벡터에 투영합니다
       local proj = vmath.project(self.correction, message.normal * message.distance)
       if proj < 1 then
-        -- 초과하지 않는 투영만 고려합니다.
+        -- 필요한 보정량을 초과하지 않는 투영만 고려합니다.
         local comp = (message.distance - message.distance * proj) * message.normal
-        -- 보정 적용
+        -- 보정량을 적용합니다
         go.set_position(go.get_position() + comp)
-        -- 완료된 보정 누적
+        -- 적용한 보정량을 누적합니다
         self.correction = self.correction + comp
       end
     end

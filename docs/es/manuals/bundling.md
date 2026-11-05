@@ -3,13 +3,13 @@ title: Crear un bundle de una aplicación
 brief: Este manual explica cómo crear un bundle de aplicación.
 ---
 
-# Crear un bundle de una aplicación
+# Crear un bundle de una aplicación {#bundling-an-application}
 
 Durante el desarrollo de tu aplicación debes acostumbrarte a probar el juego en las plataformas objetivo con la mayor frecuencia posible. Esto ayuda a detectar problemas de rendimiento temprano en el proceso de desarrollo, cuando son mucho más fáciles de corregir. También se recomienda probar en todas las plataformas objetivo para encontrar discrepancias en aspectos como los shaders. Al desarrollar para móviles, tienes la opción de usar la [app de desarrollo móvil](/manuals/dev-app/) para enviar contenido a la app, en lugar de tener que hacer un ciclo completo de crear el bundle y desinstalar/instalar.
 
 Puedes crear un bundle de aplicación para todas las plataformas compatibles con Defold desde el propio editor Defold, sin necesidad de herramientas externas. También puedes crear bundles desde la línea de comando usando nuestras herramientas de línea de comando. La creación de bundles de aplicación requiere una conexión de red si tu proyecto contiene una o más [extensiones nativas](/manuals/extensions).
 
-## Crear bundles desde el editor
+## Crear bundles desde el editor {#bundling-from-within-the-editor}
 
 Creas un bundle de aplicación desde el menú <kbd>Project</kbd> y la opción <kbd>Bundle</kbd>:
 
@@ -53,13 +53,13 @@ La creación de un bundle de aplicación HTML5, así como la configuración opci
 
 Es posible crear una versión especial de un bundle de aplicación HTML5 específicamente para Facebook Instant Games. Este proceso está documentado en el [manual de Facebook Instant Games](/manuals/instant-games/).
 
-## Crear bundles desde la línea de comando
+## Crear bundles desde la línea de comando {#bundling-from-the-command-line}
 
 El editor usa nuestra [herramienta de línea de comando Bob](/manuals/bob/) para crear el bundle de la aplicación.
 
 Durante el desarrollo diario de tu aplicación, es probable que crees builds y bundles desde el editor Defold. En otras circunstancias, quizás quieras generar automáticamente bundles de aplicación, por ejemplo al crear builds por lotes para todos los objetivos al publicar una nueva versión o al crear builds nocturnas de la última versión del juego, quizá en un entorno de CI. La creación de builds y bundles de una aplicación se puede hacer fuera del flujo de trabajo normal del editor usando la [herramienta de línea de comando Bob](/manuals/bob/).
 
-## La estructura del bundle
+## La estructura del bundle {#the-bundle-layout}
 
 La estructura lógica del bundle se organiza así:
 
@@ -82,7 +82,7 @@ Se puede acceder a estos assets mediante la función [`sys.load_resource()`](htt
 Al crear un bundle de aplicación tienes la opción de crear un bundle debug o release. Las diferencias entre los dos bundles son pequeñas, pero es importante tenerlas en cuenta:
 
 * Las builds release no incluyen el [profiler](/manuals/profiling) de forma predeterminada. Define **Profiler** como **Always** en el [manifiesto de la aplicación](/manuals/app-manifest/#profiler) para incluir soporte para el profiler tanto en builds debug como release.
-* Las builds release no incluyen el [grabador de pantalla](/ref/sys/#start_record)
+* Las builds release no incluyen [grabación de video](/manuals/recording) ni el [módulo Lua `recorder`](/ref/recorder/). La grabación está disponible en builds de depuración de escritorio salvo que **Exclude Record** esté activado en [App Manifest](/manuals/app-manifest/#exclude-record).
 * Las builds release no muestran la salida de ninguna llamada a `print()` ni la salida de ninguna extensión nativa
 * Las builds release tienen el valor `is_debug` en `sys.get_engine_info()` establecido en `false`
 * Las builds release no harán búsquedas inversas de valores `hash` al llamar a `tostring()`. En la práctica, esto significa que un `tostring()` para un valor de tipo `url` o `hash` devolverá su representación numérica y no la cadena original (`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)

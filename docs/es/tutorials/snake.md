@@ -548,7 +548,7 @@ function update(self, dt)
         end
 
         for i, s in ipairs(self.segments) do
-            tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
+            tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)
         end
 
         self.time = 0
@@ -575,7 +575,7 @@ Este es el código completo del script como referencia:
 ```lua
 local function put_food(self)
     self.food = {x = math.random(2, 47), y = math.random(2, 47)}
-    tilemap.set_tile("#grid", "layer1", self.food.x, self.food.y, 3)        
+    tilemap.set_tile("#grid", "layer1", self.food.x, self.food.y, 3)
 end
 
 function init(self)
@@ -628,7 +628,7 @@ function update(self, dt)
         end
 
         for i, s in ipairs(self.segments) do
-            tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
+            tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)
         end
 
         self.time = 0

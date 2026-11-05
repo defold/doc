@@ -103,6 +103,23 @@ Klicke auf *Create Bundle*. Anschließend wirst du aufgefordert, den Speicherort
 
 Das Symbol für die App, das Storyboard für den Startbildschirm und weitere Angaben legst du in der Projekteinstellungsdatei *game.project* im [Abschnitt iOS](/manuals/project-settings/#ios) fest.
 
+### Verhalten des Home-Indikators {#home-indicator-behavior}
+
+Du kannst *Home Indicator Mode* im Abschnitt *iOS* von *game.project* auswählen. Der Standardwert *Deferred* schützt alle Bildschirmränder und erfordert zwei Wischgesten, um zum Home-Bildschirm zurückzukehren. Wähle *System* für normale Systemgesten, einschließlich einer einzelnen Wischgeste zum Home-Bildschirm.
+
+Wähle *Auto Hide*, um normale Systemgesten zu verwenden und zusätzlich das automatische Ausblenden des Home-Indikators anzufordern. Du kannst diesen Modus direkt in *game.project* setzen:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Erstelle das Bundle neu und teste es auf einem Gerät mit Home-Indikator. iOS entscheidet, wann der Indikator sichtbar ist; *Auto Hide* garantiert nicht, dass er verborgen bleibt. Ab iOS 26 kann das System ihn sowohl im Modus *System* als auch in *Auto Hide* ausblenden. Alle Werte und ihr Gestenverhalten beschreibt [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode).
+
+### Reservierte Bereiche und Drehung {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()` meldet ab iOS 27.1 Kameraaussparungen und die Dynamic Island einschließlich der Interaktionsränder von UIKit. Orientierungswechsel unter iOS senden ebenfalls `window.WINDOW_EVENT_RESIZED`, auch bei Drehungen mit unveränderten Fensterabmessungen und sicheren Randabständen. Aktualisiere bei jedem Resize-Callback jede auf diesen Bereichen beruhende UI-Platzierung. Koordinaten, Einschränkungen und ein Aktualisierungsbeispiel findest du unter [Reservierte Bildschirmbereiche](/manuals/porting-guidelines/#reserved-screen-areas).
+
 ### Benutzerdefinierte Info.plist und Erkennung lokaler Ziele {#custom-infoplist-and-local-target-discovery}
 
 Die integrierte iOS-Datei `Info.plist` enthält den Bonjour-Dienst und die Beschreibung der Nutzung des lokalen Netzwerks, die für die automatische Zielerkennung im Editor bei Builds erforderlich sind, die keine Release-Builds sind. Eine benutzerdefinierte `Info.plist` ersetzt dieses integrierte Basismanifest. Wenn du für einen Debug-Build ein benutzerdefiniertes Manifest verwendest und Zielerkennung, Profiling, Hot Reload oder die Übertragung von Protokollen über das lokale Netzwerk benötigst, füge diese Einträge hinzu:

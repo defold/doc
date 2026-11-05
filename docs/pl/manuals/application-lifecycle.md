@@ -119,7 +119,7 @@ Ogólna kolejność faz callbacków Lua dla komponentów *script* jest następuj
 Każdy komponent obiektu gry w głównej kolekcji jest odwiedzany. Jeśli którykolwiek z tych komponentów ma skrypt z funkcją `fixed_update()`/`update()`/`late_update()`, to zostanie ona wywołana. Jeśli komponentem jest pełnomocnik kolekcji, każdy komponent w jego kolekcji jest aktualizowany rekurencyjnie we wszystkich krokach fazy `Update`.
 
 ::: sidenote
-Kolejność wywoływania funkcji `update()` komponentów obiektów gry nie jest określona. Nie należy zakładać, że silnik aktualizuje obiekty należące do tej samej kolekcji w jakiejkolwiek konkretnej kolejności. To samo dotyczy `fixed_update()` i `late_update()` (od 1.12.0).
+Kolejność wywoływania funkcji `update()` komponentów obiektów gry nie jest określona. Nie należy zakładać, że silnik aktualizuje obiekty należące do tej samej kolekcji w jakiejkolwiek konkretnej kolejności. To samo dotyczy `fixed_update()` i `late_update()`.
 :::
 
 #### Fizyka
@@ -203,7 +203,7 @@ Liczbę aktualizacji klatki na sekundę, czyli liczbę przebiegów pętli aktual
 
 #### Ograniczanie pracy silnika
 
-W Defold 1.12.0 wprowadzono API ograniczania pracy silnika, które może całkowicie pominąć aktualizacje silnika i renderowanie, a mimo to nadal wykrywać wejście. Każde wejście wybudza silnik, a po czasie wyciszenia silnik może ponownie wejść w tryb ograniczania.
+Defold udostępnia API ograniczania pracy silnika, które może całkowicie pominąć aktualizacje silnika i renderowanie, a mimo to nadal wykrywać wejście. Każde wejście wybudza silnik, a po czasie wyciszenia silnik może ponownie wejść w tryb ograniczania.
 
 Szczegóły i przykłady użycia znajdziesz w API `sys.set_engine_throttle()`.
 

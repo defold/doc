@@ -64,7 +64,7 @@ Propriedades de script são analisadas ao compilar o projeto. Expressões de val
 
 ### Propriedades de texto {#text-properties}
 
-Desde o Defold 1.13.2, um valor padrão do tipo string define uma propriedade de texto. Propriedades de texto aceitam UTF-8 e caracteres de nova linha e são editadas em um campo de várias linhas no editor:
+Um valor padrão do tipo string define uma propriedade de texto. Propriedades de texto oferecem suporte a UTF-8 e caracteres de nova linha e são editadas em um campo de várias linhas no editor:
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")

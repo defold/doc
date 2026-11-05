@@ -89,8 +89,8 @@ uniform vs_uniforms
     mediump mat4 mtx_worldview;
     mediump mat4 mtx_proj;
     mediump mat4 mtx_normal;
-    // 각 vec4는 blend weight 네 개를 저장합니다. morph target이 최대 4개라면
-    // morph_targets_weights[1]을, 최대 8개라면 [2]를, 최대 12개라면 [3]을 사용하는 식입니다.
+    // Each vec4 stores four blend weights. Use morph_targets_weights[1]
+    // for up to 4 morph targets, [2] for up to 8, [3] for up to 12, etc.
     mediump vec4 morph_targets_weights[2];
 };
 

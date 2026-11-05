@@ -83,6 +83,39 @@ Po kliknięciu przycisku <kbd>Create bundle</kbd> zostaniesz poproszony o wybran
 
 Wybierz żądany kontekst graficzny za pomocą [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Domyślnie jest to WebGL 2; wybierz WebGL 1, aby testować lub obsługiwać ten kontekst w przeglądarkach obsługujących obie wersje.
 
+Od wersji Defold 1.14.1 shadery WebGL 1 są domyślnie wykluczone. Wyłącz [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20), aby je dołączyć, zarówno przy bezpośrednim żądaniu WebGL 1, jak i przy dopuszczeniu przełączenia z WebGL 2. Aby jawnie zażądać WebGL 1, ustaw obie opcje w *game.project*:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Limity współczynnika pikseli {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` i `html5.max_pixel_ratio` określają, ile pikseli renderowania canvasu przypada na piksel CSS. Rozmiar canvasu w CSS określa rozmiar gry na stronie, a rozdzielczość renderowania określa liczbę pikseli rysowanych przez silnik.
+
+Włącz *High Dpi* w sekcji *Display* pliku *game.project*, aby używać tych limitów. Współczynnik pikseli urządzenia zgłaszany przez przeglądarkę jest wtedy ograniczany do włączonych granic. Oba limity mają domyślną wartość `0`, która wyłącza daną granicę. Wartości muszą być skończone i nieujemne; jeśli obie są dodatnie, minimum nie może przekraczać maksimum.
+
+Na przykład ogranicz współczynnik do `1.5`, aby zmniejszyć rozdzielczość renderowania na ekranach o dużej gęstości pikseli:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+W przeglądarce zgłaszającej współczynnik pikseli urządzenia `3` canvas wyświetlany w rozmiarze 800 × 600 pikseli CSS będzie z tą konfiguracją renderowany w rozdzielczości 1200 × 900 pikseli. Jego rozmiar na stronie pozostanie niezmieniony. Przy współczynniku przeglądarki `1` ten sam canvas nadal renderuje w rozdzielczości 800 × 600, ponieważ limit maksymalny nie podwyższa współczynnika.
+
+Obsługiwane są też współczynniki ułamkowe poniżej `1`: na przykład maksimum `0.75` renderuje mniej pikseli niż rozmiar wyświetlania CSS. Minimum większe niż współczynnik pikseli urządzenia zwiększa rozdzielczość renderowania w celu supersamplingu. Limity dotyczą wszystkich czterech opcji *Scale Mode*, zachowując ich układ CSS.
+
+Przy wyłączonym *High Dpi* współczynnik pozostaje równy `1`, niezależnie od limitów. W HTML5 [`window.get_display_scale()`](/ref/window/#window.get_display_scale) zwraca efektywny współczynnik renderowania po zastosowaniu ustawienia High DPI i limitów.
+
 ## Weryfikacja pobierania {#download-verification}
 
 Moduł ładujący HTML5 domyślnie sprawdza rozmiary pobranych plików silnika i archiwum. Nieudana weryfikacja powoduje ponowienie pobierania, zanim moduł zgłosi błąd:
@@ -130,7 +163,7 @@ W *game.project* można wyłączyć przycisk `Fullscreen` i link `Made with Defo
 Defold udostępnia ciemny i jasny motyw dla `index.html`. Jasny motyw jest ustawiony domyślnie, ale można go zmienić, modyfikując plik `Custom CSS`. W polu `Scale Mode` dostępne są także cztery predefiniowane tryby skalowania.
 
 ::: important
-Obliczenia dla wszystkich trybów skalowania uwzględniają bieżące DPI ekranu, jeśli włączysz opcję `High Dpi` w *game.project* (sekcja `Display`).
+Gdy *High Dpi* jest włączone w sekcji *Display* pliku *game.project*, wszystkie tryby skalowania używają efektywnego współczynnika pikseli, uwzględniającego [limity współczynnika pikseli](#pixel-ratio-limits), do określenia rozmiaru bufora renderowania canvasu.
 :::
 
 ### Downscale Fit i Fit
@@ -146,7 +179,7 @@ W trybie `Stretch` rozmiar canvasu zostanie zmieniony tak, aby całkowicie wype�
 ![Sekcja HTML5](images/html5/html5_stretch.png)
 
 ### No Scale
-W trybie `No Scale` rozmiar canvasu jest dokładnie taki sam, jak zdefiniowany w pliku *game.project*, w sekcji `[display]`.
+W trybie `No Scale` szerokość i wysokość canvasu w CSS odpowiadają wartościom *Width* i *Height* w sekcji *Display* pliku *game.project*. Rozdzielczość renderowania nadal korzysta z efektywnego współczynnika pikseli.
 
 ![Sekcja HTML5](images/html5/html5_no_scale.png)
 
@@ -197,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : Wynikowy przyrostek dodawany do adresów URL archiwum, oparty na `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true`, gdy prefiks archiwum określa źródło HTTP lub HTTPS, w tym adres URL względny wobec protokołu, taki jak `//cdn.example.com/archive`. Dla względnych prefiksów archiwum ma wartość `false`. Dostępny od wersji Defold 1.13.2.
+: `true`, gdy prefiks archiwum określa źródło HTTP lub HTTPS, w tym adres URL względny wobec protokołu, taki jak `//cdn.example.com/archive`. Dla względnych prefiksów archiwum ma wartość `false`.
 
 DEFOLD_ARCHIVE_ORIGIN
-: Źródło archiwum obejmujące schemat, host i opcjonalny port albo pusty ciąg, jeśli nie określono źródła. Prefiks względny wobec protokołu daje źródło względne wobec protokołu. Używany do wskazówki preconnect; dostępny od wersji Defold 1.13.2.
+: Źródło archiwum obejmujące schemat, host i opcjonalny port albo pusty ciąg, jeśli nie określono źródła. Prefiks względny wobec protokołu daje źródło względne wobec protokołu. Używany do wskazówki preconnect.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true`, jeśli pakiet zawiera silnik WebAssembly: `wasm-web` lub `wasm_pthread-web`.
@@ -266,37 +299,37 @@ Na przykład:
 
 ```
 'archive_location_filter':
-    Funkcja filtrująca, która będzie uruchamiana dla każdej ścieżki archiwum.
+    Filter function that will run for each archive path.
 
 'unsupported_webgl_callback':
-    Funkcja wywoływana, jeśli WebGL nie jest obsługiwany.
+    Function that is called if WebGL is not supported.
 
 'engine_arguments':
-    Lista argumentów (ciągów), które zostaną przekazane do silnika.
+    List of arguments (strings) that will be passed to the engine.
 
 'custom_heap_size':
-    Liczba bajtów określająca rozmiar sterty pamięci.
+    Number of bytes specifying the memory heap size.
 
 'disable_context_menu':
-    Wyłącza menu kontekstowe po kliknięciu prawym przyciskiem myszy na elemencie canvas, jeśli ma wartość true.
+    Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    Czas pauzy w sekundach przed ponowną próbą wczytania pliku po błędzie.
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
-    Liczba prób podejmowanych podczas pobierania pliku.
+    How many attempts we do when trying to download a file.
 
 'can_not_download_file_callback':
-    Funkcja wywoływana, jeśli nie uda się pobrać pliku po próbach określonych w 'retry_count'.
+    Function that is called if you can't download file after 'retry_count' attempts.
 
 'resize_window_callback':
-    Funkcja wywoływana, gdy wystąpią zdarzenia resize/orientationchanges/focus.
+    Function that is called when resize/orientationchanges/focus events happened
 
 'start_success':
-    Funkcja wywoływana tuż przed main, po pomyślnym wczytaniu.
+    Function that is called just before main is called upon successful load.
 
 'update_progress':
-    Funkcja wywoływana w miarę aktualizacji postępu. Parametr progress jest aktualizowany w zakresie 0-100.
+    Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
 ## Operacje na plikach w HTML5

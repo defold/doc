@@ -21,6 +21,30 @@ Defina a propriedade *Font* para a fonte que deseja usar e certifique-se de defi
 
 ![Font and material](images/label/font_material.png)
 
+## Fontes vetoriais e emojis coloridos {#vector-fonts-and-color-emoji}
+
+Para usar uma fonte Vector, siga a [configuração de fontes vetoriais](/manuals/font/#vector-fonts), atribua o recurso `.font` à propriedade *Font* do Label e defina o *Material* do Label como `/builtins/fonts/label-vector.material`. Use *Font Size* para controlar o tamanho exibido.
+
+Para emojis coloridos, conclua também a [configuração do fallback COLRv1 e de inclusão no bundle](/manuals/font/#color-emoji). O exemplo abaixo pressupõe um Label com o id `label` e um script no mesmo objeto de jogo. Deixe *Text* do Label vazio para exibir a saudação somente depois que seus glifos estiverem prontos:
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- Adicione o fallback uma única vez para este recurso de fonte compartilhado.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+As letras comuns usam a fonte original, e os emojis usam a fonte colorida adicionada. Se outros Labels ou nós de texto de GUI compartilham esse recurso de fonte, inicialize o fallback em um só lugar e reutilize-o.
+
 ## Propriedades de label
 
 Além das propriedades *Id*, *Position*, *Rotation* e *Scale*, existem as seguintes propriedades específicas do componente:
@@ -63,7 +87,7 @@ Observe que o material padrão tem a renderização de sombra desativada por mot
 : O recurso de fonte a usar para este label.
 
 *Material*
-: O material a usar para renderizar este label. Certifique-se de selecionar um material criado para o tipo de fonte que você usa (bitmap, distance field ou BMFont).
+: O material usado para renderizar este label. Selecione um material que corresponda ao modo ou à origem da fonte (Bitmap, SDF, Vector ou BMFont). Consulte [Materiais de fontes](/manuals/font/#font-materials) para conhecer os materiais integrados de Label correspondentes.
 
 ### Modos de blend
 :[blend-modes](../shared/blend-modes.md)
@@ -88,7 +112,7 @@ Ao definir a propriedade *Pivot*, você pode alterar o modo de alinhamento do te
 Você pode manipular labels em tempo de execução obtendo e definindo o texto do label, bem como várias outras propriedades.
 
 `text`
-: O conteúdo de texto do label (`string`). Disponível por meio de `go.get()` e `go.set()` desde o Defold 1.13.2.
+: O conteúdo textual do label (`string`). Disponível por meio de `go.get()` e `go.set()`.
 
 `color`
 : A cor do label (`vector4`)
@@ -107,8 +131,8 @@ Você pode manipular labels em tempo de execução obtendo e definindo o texto d
 
 ```lua
 function init(self)
-    -- Set the text of the "my_label" component in the same game object
-    -- as this script.
+    -- Defina o texto do componente "my_label" no mesmo objeto de jogo
+    -- deste script.
     go.set("#my_label", "text", "New text")
     local text = go.get("#my_label", "text")
     print(text) -- New text
@@ -116,7 +140,7 @@ end
 ```
 
 ::: sidenote
-Desde o Defold 1.13.2, `label.set_text()` e `label.get_text()` estão obsoletos em favor da propriedade `text`. As funções antigas continuam disponíveis por compatibilidade. O setter antigo coloca uma mensagem na fila, enquanto `go.set()` atualiza o texto imediatamente.
+`label.set_text()` e `label.get_text()` estão obsoletos em favor da propriedade `text`. As funções antigas continuam disponíveis para compatibilidade. O setter antigo enfileira uma mensagem, enquanto `go.set()` atualiza o texto imediatamente.
 :::
 
 ```lua

@@ -21,39 +21,39 @@ end
 
 ## 获取挂载点
 
-`liveupdate.get_mounts()` 返回当前会话中的活动挂载点。每个条目包含 URI `mount.uri`、数字优先级 `mount.priority` 和哈希值 `mount.name`。重启后挂载点不会恢复；应用必须自行保存所需设置，并再次调用 `liveupdate.add_mount()`。
+`liveupdate.get_mounts()` 返回当前会话中的活动挂载点。每个条目包含字符串 `uri`、数值 `priority` 和哈希值 `name`。列表还包含引擎的基础挂载点，其优先级小于零，且无法移除。
 
-由于 `mount.name` 是哈希值，请将其用作表的键，或与 `hash("name")` 比较；不要将其拼接到路径字符串中。请把每个名称哈希映射到唯一的元数据路径：
+引擎重启后不会恢复挂载点。如果应用需要在后续会话中使用之前下载的内容，必须在自己的存档数据中保存包的 URI、名称和优先级，并在启动时再次调用 `liveupdate.add_mount()`。
+
+挂载多个包时，验证其由应用定义的元数据很有用。由于 `mount.name` 是哈希值，请将其用作表的键，或与 `hash("mount-name")` 比较；不要将其拼接到资源路径中。以下示例将每个名称哈希映射到唯一的元数据资源路径：
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- 包含挂载点的表
 	local version_resources = {
-		[hash("liveupdate")] = "/version_liveupdate.json",
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
 	}
 
-    -- 每个挂载点包含：mount.uri, mount.priority, mount.name
-	for _,mount in ipairs(mounts) do
-
-        -- 这需要文件名是唯一的，这样我们就不会从不同的归档文件中获取文件
-        -- 这些数据由开发人员创建，作为为归档文件指定元数据的方式
+	for _, mount in ipairs(mounts) do
 		local version_resource = version_resources[mount.name]
 		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
 		elseif mount.priority >= 0 then
-			version_data = {version = 0} -- 如果没有版本文件，它可能是旧的/无效的归档文件
+			version_data = {version = 0} -- 如果没有版本文件，则很可能是旧版或无效归档
 		end
 
-        -- 验证归档文件版本与游戏支持的版本
-        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- 它无效，所以我们卸载它！
-            liveupdate.remove_mount(mount.name)
-        end
+		-- 忽略优先级为负数的引擎基础挂载点。
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```
+
+不同包应使用唯一的元数据路径。资源查找遵循挂载优先级，因此多个包使用相同路径时，会读取优先级最高的挂载点中的副本。
 
 ## 使用排除的集合代理进行脚本编写
 

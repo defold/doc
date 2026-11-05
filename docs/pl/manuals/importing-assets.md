@@ -15,7 +15,7 @@ Defold wymaga, aby pliki używane w projekcie znajdowały się w hierarchii kata
 ![Importowanie plików](images/graphics/import.png)
 
 ::: sidenote
-Defold wspiera pliki graficzne w formatach PNG i JPEG. Pliki PNG muszą być w formacie 32-bitowym RGBA. Inne pliki graficzne muszą być przekonwertowane do wspieranych, aby móc ich użyć.
+Do atlasów i źródeł kafelków używaj obrazów PNG lub JPEG. Obsługa PNG obejmuje obrazy RGB, RGBA i z kolorami indeksowanymi (paletą). Można również importować [tekstury źródłowe KTX2](/manuals/importing-graphics/#ktx2-textures) do użycia jako tekstury modeli.
 :::
 
 
@@ -26,7 +26,7 @@ Kiedy zasoby są już zaimportowane do projektu, mogą być wykorzystywane przez
 * Pliki graficzne mogą być używane w różnego rodzaju komponentach wizualnych, często używanych np. w grach 2D. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać grafiki 2D](/manuals/importing-graphics).
 * Pliki dźwiękowe mogą być używane przez [komponent dźwięku](/manuals/sound) w celu odtwarzania dźwięków.
 * Pliki fontów mogą być używane przez [komponent etykiety](/manuals/label) i przez [węzły tekstowe](/manuals/gui-text) w GUI.
-* Modele glTF (*.gltf* i *.glb*) mogą być używane przez [komponent Model](/manuals/model) do wyświetlania modeli 3D z animacjami. Zaimportuj obrazy tekstur używane przez model jako osobne zasoby i przypisz je we właściwościach tekstur materiału komponentu Model. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać modeli 3D](/manuals/importing-models).
+* Modele glTF (*.gltf* i *.glb*) mogą być używane przez [komponent Model](/manuals/model) do wyświetlania modeli 3D z animacjami. Rozwiń te pliki w panelu *Assets*, aby przeglądać ich siatki, wygenerowane materiały i osadzone obrazy. Osadzonych obrazów można używać bezpośrednio; obrazy i bufory wskazane zewnętrznymi odwołaniami dołącz jako osobne pliki projektu. Obsługiwana jest też [geometria skompresowana za pomocą Draco i Meshopt](/manuals/importing-models/#compressed-geometry), dekodowana podczas importowania/budowania. Przy wybieraniu sceny lub siatki w komponencie Model edytor może zaproponować wypełnienie powiązań materiałów i tekstur. Wybierz <kbd>Auto Fill</kbd>, aby je zastosować, zastępując istniejące powiązania, albo <kbd>Keep Current</kbd>, aby zachować własne. Więcej informacji znajdziesz w [instrukcji importowania i używania modeli 3D](/manuals/importing-models).
 
 
 ## Edytowanie zewnętrznych zasobów

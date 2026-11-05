@@ -64,7 +64,7 @@ Le proprietà degli script vengono analizzate durante la build del progetto. Le 
 
 ### Proprietà di testo {#text-properties}
 
-Da Defold 1.13.2, un valore predefinito di tipo stringa definisce una proprietà di testo. Le proprietà di testo supportano UTF-8 e i caratteri di nuova riga e si modificano in un campo su più righe nell'editor:
+Un valore predefinito di tipo stringa definisce una proprietà testuale. Le proprietà testuali supportano UTF-8 e i caratteri di nuova riga e vengono modificate in un campo multiriga nell'editor:
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")

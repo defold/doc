@@ -104,21 +104,20 @@ Carga síncrona
 
   ```lua
   function init(self)
-      -- No se cargan recursos de factory cuando se carga la
-      -- colección padre de la factory de colección. Llamar create sin
-      -- haber llamado load creará los recursos de forma síncrona.
+      -- No se cargan recursos de la factory cuando se carga la colección
+      -- padre de la collection factory. Llamar a create sin
+      -- haber llamado a load creará los recursos de forma síncrona.
       self.go_ids = collectionfactory.create("#collectionfactory")
   end
 
   function final(self)
-      -- Elimina objetos de juego. Reducirá el contador de referencia
-      -- de los recursos.
-      -- En este caso los recursos se eliminan porque el componente
-      -- factory de colección no mantiene ninguna referencia.
+      -- Elimina objetos de juego. Reducirá el contador de referencia de los recursos.
+      -- En este caso, los recursos se eliminan porque el componente
+      -- collection factory no mantiene ninguna referencia.
       go.delete(self.go_ids)
 
-      -- Llamar unload no hará nada porque el factory
-      -- no mantiene referencias.
+      -- Llamar a unload no hará nada porque la factory
+      -- no mantiene referencias
       collectionfactory.unload("#factory")
   end
   ```
@@ -128,27 +127,24 @@ Carga asíncrona
 
   ```lua
   function load_complete(self, url, result)
-      -- La carga terminó; los recursos están listos para generar instancias.
+      -- La carga terminó, los recursos están listos para generar objetos
       self.go_ids = collectionfactory.create(url)
   end
 
   function init(self)
-      -- No se cargan recursos de factory cuando se carga la
-      -- colección padre de la factory de colección. Llamar load cargará
-      -- los recursos.
+      -- No se cargan recursos de la factory cuando se carga la colección
+      -- padre de la collection factory. Llamar a load cargará los recursos.
       collectionfactory.load("#factory", load_complete)
   end
 
   function final(self)
-      -- Elimina el objeto de juego. Reducirá el contador de referencia
-      -- de los recursos.
-      -- En este caso los recursos no se eliminan porque el componente
-      -- factory de colección aún mantiene una referencia.
+      -- Elimina el objeto de juego. Reducirá el contador de referencia de los recursos.
+      -- En este caso, los recursos no se eliminan porque el componente collection factory
+      -- todavía mantiene una referencia.
       go.delete(self.go_ids)
 
-      -- Llamar unload reducirá el contador de referencia de los recursos
-      -- que mantiene el componente factory, lo que causará la destrucción
-      -- de los recursos.
+      -- Llamar a unload reducirá el contador de referencia de los recursos
+      -- mantenidos por el componente factory, lo que hará que se destruyan.
       collectionfactory.unload("#factory")
   end
   ```

@@ -3,18 +3,28 @@ title: Defold 2D图形导入和使用
 brief: 本手册介绍了如何导入和使用2D图形。
 ---
 
-# 导入2D图形
+# 导入2D图形 {#importing-2d-graphics}
 
 Defold支持2D游戏中常用的多种视觉组件。您可以使用Defold创建静态和动画精灵、UI组件、粒子效果、瓦片地图和位图字体。在创建任何这些视觉组件之前，您需要导入包含您希望使用的图形的图像文件。要导入图像文件，只需将文件从计算机的文件系统中拖出，然后放到Defold编辑器的*Assets*面板中的适当位置。
 
 ![Importing files](images/graphics/import.png)
 
 ::: sidenote
-Defold支持PNG和JPEG图像格式。其他图像格式需要先转换才能使用。
+图集和图块源使用 PNG 或 JPEG 图像。还可以导入 KTX2 源纹理作为模型纹理；详见下文。
 :::
 
+## KTX2 纹理 {#ktx2-textures}
 
-## 创建Defold资源
+将独立的 *.ktx2* 文件拖入 *Assets* 面板以导入，再将其分配给模型组件的材质纹理字段。[glTF 和 GLB 模型](/manuals/importing-models/#ktx2-textures)也可以引用外部 KTX2 文件或包含内嵌 KTX2 图像。图集、图块源和立方体贴图面的输入仍使用原有图像格式。
+
+支持的 KTX2 输入为使用 ETC1S/BasisLZ、UASTC、BC7，或 8 位 R/RG/RGB/RGBA UNORM、sRGB 数据的 2D 纹理。不支持 KTX2 数组、立方体贴图、体纹理和 HDR 纹理。KTX2 在构建时被处理为 Defold 的 *.texturec* 资源；运行时不读取 KTX2 容器。
+
+打开 KTX2 资源可检查其源格式、尺寸、色彩空间、alpha 元数据和 mip 层级。在 *Outline* 中可以选择各个已创作的 mip 层级。即使纹理配置文件调整了编译后纹理的大小或禁用了 mipmap，这里显示的仍是源图像。
+
+使用[纹理配置文件](/manuals/texture-profiles/#ktx2-source-textures)选择保留源格式，或转换为其他格式。请选择目标设备支持的输出格式。对已有损压缩的源再次压缩可能进一步降低质量，包括 **Keep KTX2 Format** 因图像处理而需要重新编码的情况。
+
+
+## 创建Defold资源 {#creating-defold-assets}
 
 当图像导入到Defold后，它们可以用来创建Defold特定的资源：
 
@@ -40,7 +50,7 @@ Defold支持PNG和JPEG图像格式。其他图像格式需要先转换才能使�
   ![BMfont](images/font/bm_font.png)
 
 
-## 使用Defold资源
+## 使用Defold资源 {#using-defold-assets}
 
 当您将图像转换为图集和瓦片源文件后，您可以使用这些文件创建多种不同类型的视觉组件：
 

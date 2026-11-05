@@ -37,7 +37,7 @@ Kształty kapsuły są obsługiwane tylko w fizyce 3D, skonfigurowanej w sekcji 
 
 ### Kształty złożone
 
-Kształty złożone mogą korzystać z geometrii mapy kafelków lub danych otoczki wypukłej. Od wersji Defold 1.13.2 obiekty kolizji 3D mogą też tworzyć otoczki wypukłe i kształty siatek trójkątów z siatek w scenach glTF lub GLB.
+Kształty złożone mogą korzystać z geometrii mapy kafelków lub danych otoczki wypukłej. Obiekty kolizji 3D mogą też tworzyć otoczki wypukłe i kształty siatek trójkątów z siatek w scenach glTF lub GLB.
 
 ## Kształty Hull i Mesh w 3D {#hull-and-mesh-shapes-in-3d}
 

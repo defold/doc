@@ -3,11 +3,11 @@ title: Defold 中的物理关节
 brief: Defold 支持 2D 物理关节。本手册解释了如何创建和使用关节。
 ---
 
-# 关节
+# 关节 {#joints}
 
 关节使用约束连接两个碰撞对象。Defold 通过不同的 API，同时支持 2D 和 3D 物理中的关节。
 
-本手册介绍 `physics` 模块提供的 2D 关节。自 Defold 1.13.2 起，3D 项目可以通过 [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) 创建和控制约束，包括铰链、滑动和弹簧约束。请将此 API 与通过 [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) 获得的刚体配合使用。
+本手册介绍 `physics` 模块提供的 2D 关节。3D 项目可以通过 [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/) 创建和控制约束，包括铰链、滑动和弹簧约束。请将此 API 与通过 [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body) 获得的刚体一同使用。
 
 2D `physics` API 支持的关节类型有：
 
@@ -18,7 +18,7 @@ brief: Defold 支持 2D 物理关节。本手册解释了如何创建和使用�
 * **Slider (physics.JOINT_TYPE_SLIDER)** - 滑动关节允许两个碰撞对象沿指定轴相对平移，并防止相对旋转。在 Box2D 中被称为[棱柱关节](https://box2d.org/documentation/group__prismatic__joint.html#details)。
 * **Wheel (physics.JOINT_TYPE_WHEEL)** - 轮子关节将 `bodyB` 上的一个点限制到 `bodyA` 上的一条线上。轮子关节还提供悬架弹簧。在 Box2D 中被称为[轮子关节](https://box2d.org/documentation/group__wheel__joint.html#details)。
 
-## 创建关节
+## 创建关节 {#creating-joints}
 
 这里介绍的 2D 关节通过编程方式使用 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) 创建：
 ::: sidenote
@@ -32,7 +32,7 @@ physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test
 
 上述代码将创建一个 ID 为 `my_test_joint` 的固定关节，连接在两个碰撞对象 `obj_a#collisionobject` 和 `obj_b#collisionobject` 之间。关节连接在碰撞对象 `obj_a#collisionobject` 中心右侧 10 像素和碰撞对象 `obj_b#collisionobject` 中心上方 20 像素的位置。关节的最大长度为 20 像素。
 
-## 销毁关节
+## 销毁关节 {#destroying-joints}
 
 可以使用 [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id) 销毁关节：
 
@@ -41,7 +41,7 @@ physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test
 physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
 ```
 
-## 读取和更新关节
+## 读取和更新关节 {#reading-from-and-updating-joints}
 
 可以使用 [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) 读取关节属性，并使用 [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties) 设置关节属性：
 
@@ -56,6 +56,6 @@ function update(self, dt)
 end
 ```
 
-## 获取关节反作用力和扭矩
+## 获取关节反作用力和扭矩 {#get-joint-reaction-force-and-torque}
 
 可以使用 [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) 和 [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id) 读取施加到关节的反作用力和扭矩。

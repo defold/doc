@@ -78,7 +78,7 @@ Tienes varias opciones para leer logs del juego y del sistema en iOS:
 Para lanzar el juego y conectar el depurador necesitarás una herramienta llamada [ios-deploy](https://github.com/phonegap/ios-deploy). Instala y depura tu juego ejecutando lo siguiente en una terminal:
 
 ```txt
-$ ios-deploy --debug --bundle <path_to_game.app> # NOTA: no es el archivo .ipa
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
 ```
 
 Esto instalará la app en tu dispositivo, la iniciará y conectará automáticamente un depurador LLDB. Si no conoces LLDB, lee [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).

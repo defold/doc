@@ -154,6 +154,8 @@ Si le pas de temps devient trop grand au cours d'une même image, il sera limit�
 
 ### Display {#display}
 
+Sur les plateformes de bureau, les fenêtres du moteur ouvertes depuis l'éditeur peuvent restaurer une taille enregistrée lors d'une exécution précédente. Choisissez <kbd>Debug ▸ Reset Simulated Resolution</kbd> pour effacer les tailles mémorisées et revenir à la taille configurée tout en conservant les positions des fenêtres. Consultez [Placement et réinitialisation de la fenêtre du moteur](/manuals/editor/#engine-window-placement) pour plus de détails.
+
 #### Width {#width}
 La largeur de la fenêtre de l'application, en pixels.
 
@@ -162,6 +164,8 @@ La hauteur de la fenêtre de l'application, en pixels.
 
 #### High Dpi {#high-dpi}
 Crée un tampon arrière à haute densité de pixels sur les écrans compatibles. En général, le jeu sera rendu à une résolution deux fois supérieure à celle définie par les paramètres *Width* et *Height*, qui restera la résolution logique utilisée dans les scripts et les propriétés.
+
+Sur HTML5, utilisez [Min Pixel Ratio](#min-pixel-ratio) et [Max Pixel Ratio](#max-pixel-ratio) pour borner l'échelle de rendu lorsque ce paramètre est activé.
 
 #### Samples {#samples}
 Le nombre d'échantillons à utiliser pour l'anticrénelage par suréchantillonnage. Ce paramètre définit l'indication de fenêtre `GLFW_FSAA_SAMPLES`. Une valeur de `0` signifie que l'anticrénelage est désactivé.
@@ -204,13 +208,6 @@ Canal bleu de la couleur d'effacement, utilisé par le script de rendu et lors d
 
 #### Clear Color Alpha {#clear-color-alpha}
 Canal alpha de la couleur d'effacement, utilisé par le script de rendu et lors de la création de la fenêtre.
-
----
-
-### Font {#font}
-
-#### Runtime Generation {#runtime-generation}
-Utilise la génération des polices à l'exécution.
 
 ---
 
@@ -305,7 +302,7 @@ Le fichier de profils de texture à utiliser pour ce projet, `/builtins/graphics
 Vérifie la valeur de retour après chaque appel graphique et signale les éventuelles erreurs dans le journal.
 
 #### WebGL Version Hint {#webgl-version-hint}
-`graphics.webgl_version_hint` sélectionne la version du contexte WebGL à demander pour HTML5. Les valeurs valides sont `1` (WebGL 1) et `2` (WebGL 2, valeur par défaut). Définissez-la sur `1` pour cibler ou tester WebGL 1, même dans un navigateur prenant en charge WebGL 2. Laissez [Exclude GLES 2.0](#exclude-gles-20) désactivé lorsque vous ciblez WebGL 1 afin d'inclure les shaders nécessaires.
+`graphics.webgl_version_hint` sélectionne la version du contexte WebGL à demander pour HTML5. Les valeurs valides sont `1` (WebGL 1) et `2` (WebGL 2, valeur par défaut). Définissez-la sur `1` pour cibler ou tester WebGL 1, même dans un navigateur prenant en charge WebGL 2. Désactivez [Exclude GLES 2.0](#exclude-gles-20) lorsque vous ciblez WebGL 1 afin d'inclure les shaders nécessaires.
 
 #### OpenGL Version Hint {#opengl-version-hint}
 Indication de la version du contexte OpenGL. Si une version précise est sélectionnée, elle sera utilisée comme version minimale requise (ne s'applique pas à OpenGL ES).
@@ -324,7 +321,16 @@ Définit l'indication de profil OpenGL 'core' lors de la création du contexte. 
 ### Shader {#shader}
 
 #### Exclude GLES 2.0 {#exclude-gles-20}
-Ne compile pas les shaders pour les appareils utilisant OpenGLES 2.0 / WebGL 1.0.
+`shader.exclude_gles_sm100` exclut les shaders pour OpenGLES 2.0 et WebGL 1.0. Activé par défaut (`1`).
+
+Pour cibler ces API graphiques ou permettre un repli vers elles, décochez **Shader ▸ Exclude GLES 2.0** dans *game.project*, ou définissez :
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+Les projets qui ne définissent pas explicitement cette option utilisent la valeur par défaut. Définissez-la explicitement sur `0` si le projet nécessite la prise en charge d'OpenGLES 2.0 ou de WebGL 1.0.
 
 #### GLSL ES Default Precision Float {#glsl-es-default-precision-float}
 `shader.glsl_es_default_precision_float` définit le qualificateur de précision global par défaut des valeurs à virgule flottante dans les shaders GLSL ES issus de la compilation croisée. Les valeurs valides sont `mediump` et `highp` ; la valeur par défaut est `mediump`.
@@ -369,6 +375,9 @@ L'emplacement des données du build du projet, au format URI.
 
 #### Max Resources {#max-resources}
 Le nombre maximal de ressources pouvant être chargées simultanément.
+
+#### Profile {#profile}
+`resource.profile` active les mesures de durée de chargement des ressources et les journaux de niveau INFO pour chaque chargement terminé ou échoué. Désactivé par défaut (`0`). Activez-le (`1`) avant de lancer le jeu pour mesurer les chargements de démarrage. Le profileur de ressources affiche les mesures conservées du chargement initial des ressources actuellement chargées ; cliquez sur **Capture**, puis sur **Show load times** pour les inspecter. Consultez [Durées de chargement des ressources](/manuals/profiling/#resource-loading-times) pour les colonnes de mesure et leur interprétation.
 
 ---
 
@@ -594,6 +603,18 @@ Le nombre maximal de composants factory d'objets de jeu. [(Voir les informations
 
 ### iOS {#ios}
 
+#### Home Indicator Mode {#home-indicator-mode}
+`ios.home_indicator_mode` contrôle les gestes système sur les bords de l'écran et détermine si le jeu demande le masquage automatique de l'indicateur d'accueil.
+
+| Valeur | Gestes système | Demande de masquage automatique |
+|-------|-----------------|--------------------------|
+| `deferred` (par défaut) | Protège tous les bords de l'écran en différant les gestes système. Revenir à l'accueil nécessite deux balayages. | Non |
+| `system` | Utilise les gestes système normaux, permettant un seul balayage pour revenir à l'accueil. | Non |
+| `auto_hide` | Utilise les gestes système normaux, permettant un seul balayage pour revenir à l'accueil. | Oui |
+
+iOS contrôle la visibilité réelle de l'indicateur. Le masquage automatique est une demande, et sur iOS 26 et versions ultérieures, le système peut masquer l'indicateur dans les modes `system` et `auto_hide`. Consultez [Comportement de l'indicateur d'accueil](/manuals/ios/#home-indicator-behavior) pour un exemple de configuration.
+
+
 #### App Icon 57x57--180x180 {#app-icon-57x57-180x180}
 Fichier image (.png) à utiliser comme icône d'application aux dimensions de largeur et de hauteur données `W` &times; `H`.
 
@@ -616,7 +637,7 @@ Le nom court du bundle (15 caractères) (voir [`CFBundleName`](https://developer
 La version du bundle, sous la forme d'un nombre ou de x.y.z. (voir [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist {#infoplist}
-S'il est indiqué, ce fichier *`Info.plist`* est utilisé à la place du manifeste de base iOS intégré lors de la création du bundle de votre application. Le manifeste intégré contient les entrées de réseau local et Bonjour nécessaires à la découverte des cibles par l'éditeur dans les builds autres que ceux de publication. Si vous fournissez un manifeste personnalisé et avez besoin de la découverte des cibles, du profilage, du rechargement à chaud ou de la diffusion des journaux sur un appareil, conservez ces entrées comme indiqué dans le [manuel iOS](/manuals/ios/#creating-an-ios-application-bundle).
+S'il est indiqué, ce fichier *`Info.plist`* est utilisé à la place du manifeste de base iOS intégré, `/builtins/manifests/ios/Info.plist`, lors de la création du bundle de votre application. Les projets utilisant le modèle intégré reçoivent automatiquement les mises à jour du manifeste ; les fichiers personnalisés doivent être mis à jour explicitement.
 
 #### Privacy Manifest {#privacy-manifest}
 Le manifeste de confidentialité Apple de l'application. La valeur par défaut du champ est `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -687,7 +708,7 @@ Détermine si l'application peut être déboguée à l'aide d'outils comme [GAPI
 #### R8 Keep Rules {#r8-keep-rules}
 `android.r8_keep_rules` sélectionne un fichier `.keep` pour activer la suppression du code inutilisé, l'optimisation et l'obfuscation du code Java avec R8 dans les builds Android. Laissez ce paramètre vide pour utiliser D8 sans suppression du code inutilisé.
 
-Avec Defold 1.14.0 ou une version ultérieure et un serveur de build Extender compatible, cela supprime également les ressources Android inutilisées. Les ressources chargées dynamiquement peuvent nécessiter des [règles XML de conservation](/manuals/android/#keeping-android-resources) distinctes.
+Avec un serveur de build Extender compatible, cela supprime également les ressources Android inutilisées. Les ressources chargées dynamiquement peuvent nécessiter des [règles XML de conservation](/manuals/android/#keeping-android-resources) distinctes.
 
 Sélectionnez `/builtins/manifests/android/dmengine.keep` pour utiliser directement les règles par défaut de Defold. Les extensions fournissent leurs propres [règles de conservation](/manuals/extensions/#r8-keep-rules-for-android), qui sont combinées à ce fichier.
 
@@ -775,6 +796,15 @@ Lorsqu'elle est activée, cette option affiche des informations sur le moteur et
 #### Scale Mode {#scale-mode}
 Définit la méthode à utiliser pour mettre le canevas du jeu à l'échelle.
 
+#### Min Pixel Ratio {#min-pixel-ratio}
+`html5.min_pixel_ratio` définit le nombre minimal de pixels de rendu du canvas par pixel CSS lorsque [High Dpi](#high-dpi) est activé. La valeur par défaut est `0`, ce qui désactive la borne inférieure. Les valeurs fractionnaires positives sont prises en charge, y compris celles inférieures à `1`.
+
+#### Max Pixel Ratio {#max-pixel-ratio}
+`html5.max_pixel_ratio` définit le nombre maximal de pixels de rendu du canvas par pixel CSS lorsque [High Dpi](#high-dpi) est activé. La valeur par défaut est `0`, ce qui désactive la borne supérieure. Les valeurs fractionnaires positives sont prises en charge, y compris celles inférieures à `1`.
+
+Les deux limites doivent être des nombres finis, positifs ou nuls. Lorsque les deux bornes sont activées, le minimum ne doit pas dépasser le maximum. Lorsque *High Dpi* est désactivé, le rapport vaut `1` et aucune borne n'est appliquée. Ces limites affectent la résolution de rendu tout en conservant la taille d'affichage CSS du canvas. Consultez [Limites du rapport de pixels](/manuals/html5/#pixel-ratio-limits) pour un exemple de configuration.
+
+
 #### Retry Count {#retry-count}
 Le nombre de nouvelles tentatives après un échec de téléchargement au démarrage, y compris les erreurs réseau, les statuts HTTP d'échec et les écarts de taille du fichier JavaScript ou WebAssembly du moteur. La requête initiale est comptée séparément. La vérification des fichiers de l'archive possède sa propre limite de tentatives ; consultez [Vérification des téléchargements](/manuals/html5/#download-verification) et `Retry Time`.
 
@@ -812,6 +842,35 @@ Le fichier de ressources des paramètres de mise à jour en direct à utiliser l
 Si ce paramètre est défini, utilise le manifeste d'application pour personnaliser le build du moteur. Cela vous permet de retirer les parties inutilisées du moteur afin de réduire la taille du binaire final. Découvrez comment exclure les fonctionnalités inutilisées [dans le manuel du manifeste d'application](/manuals/app-manifest).
 
 ---
+
+### Debugger {#debugger}
+
+Ces paramètres contrôlent les [connexions de débogage](/manuals/debugging-game-logic/#native-dap-connections) dans les builds natifs de débogage et sans interface graphique. Les builds Release et Web ne permettent pas d'attacher le débogueur. Ajoutez ces paramètres en modifiant *game.project* comme du texte, ou utilisez les [valeurs de configuration au démarrage du moteur](#setting-config-values-on-engine-startup). Ils ne sont pas affichés dans le formulaire des paramètres du projet. L'éditeur configure automatiquement la connexion lorsque vous utilisez <kbd>Debug ▸ Start/Attach</kbd>.
+
+Par exemple, pour démarrer une écoute locale et attendre qu'un client configure les points d'arrêt avant l'exécution des scripts de démarrage :
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` démarre l'écoute au démarrage du moteur lorsqu'il vaut `1`. Désactivé par défaut (`0`). Un jeu en cours d'exécution peut aussi démarrer l'écoute avec [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running).
+
+#### Address {#debugger-address}
+`debugger.address` est l'adresse IPv4 sur laquelle l'écoute accepte les connexions. La valeur par défaut, `127.0.0.1`, n'accepte que les connexions locales. Utilisez l'adresse d'une interface de l'appareil ou `0.0.0.0` pour les [connexions distantes](/manuals/debugging-game-logic/#remote-targets).
+
+#### Port {#debugger-port}
+`debugger.port` est le port d'écoute TCP, de `0` à `65535`. La valeur par défaut est `8172`. Définissez-la sur `0` pour sélectionner un port disponible, que le moteur indique dans son journal.
+
+#### Wait {#debugger-wait}
+`debugger.wait` fait attendre le moteur jusqu'à ce que le client ait fini de configurer la session de débogage, y compris les points d'arrêt, avant d'exécuter les scripts de démarrage. Désactivé par défaut (`0`). Définissez-le sur `1` avec `debugger.enabled=1` pour déboguer le code de démarrage. Démarrer l'écoute plus tard avec `debugger.start()` ne provoque aucune attente et ne met pas le jeu en pause. Consultez le [guide de démarrage et d'attachement](/manuals/debugging-game-logic/#native-dap-connections).
+
+---
+
 
 ### Profiler {#profiler}
 

@@ -133,6 +133,22 @@ Na dolnym pasku edytora znajduje się wąski obszar, w którym wyświetlany jest
 - gdy dostępna jest nowa wersja, zobaczysz klikalny przycisk `Update Available`; patrz sekcja o aktualizowaniu edytora poniżej
 - podczas budowania lub bundlowania będzie tam widoczny postęp operacji
 
+## Położenie okna silnika {#engine-window-placement}
+
+Na platformach desktopowych okna silnika otwierane z edytora zapamiętują swój zwykły rozmiar i położenie w trybie okienkowym między uruchomieniami i restartami silnika. Dane są zapisywane osobno dla każdego projektu i instancji silnika. Uruchomienie pojedynczej instancji używa tego samego zapisanego położenia co pierwsza instancja przy uruchamianiu kilku.
+
+Jeśli przesuniesz okno silnika lub zmienisz jego rozmiar, kolejne uruchomienie przywróci ten stan. Zapamiętany rozmiar jest używany, dopóki skonfigurowane wymiary okna nie ulegną zmianie; ich zmiana sprawia, że następne uruchomienie używa nowego rozmiaru. W systemie Linux Wayland przywracany jest tylko rozmiar, ponieważ położeniem okna steruje kompozytor pulpitu.
+
+### Resetowanie rozmiaru okna silnika {#resetting-the-engine-window-size}
+
+Wybierz <kbd>Debug ▸ Reset Simulated Resolution</kbd>, aby wrócić do skonfigurowanego rozmiaru. To polecenie:
+
+- Czyści zapamiętane rozmiary okien wszystkich instancji silnika w bieżącym projekcie, również tych nieuruchomionych.
+- Czyści wybraną symulowaną rozdzielczość i wyłącza **Rotated Device**.
+- Zachowuje zapisane pozycje okien.
+
+Okna wybranych działających instancji silnika są zmieniane do wartości [Display Width i Height](/manuals/project-settings/#display) projektu. Reset można wykonać również bez uruchomionego silnika; następne uruchomienie użyje skonfigurowanego rozmiaru. Późniejsze przesunięcie lub zmiana rozmiaru okna ponownie zapisze jego nowy stan.
+
 ## Rozmiar i widoczność paneli
 
 Rozmiar paneli można zmieniać w edytorze przez <kbd>Dragging</kbd> granic pomiędzy opisanymi wyżej sześcioma panelami.
@@ -244,7 +260,7 @@ Możesz też uzyskać dostęp do logów edytora, gdy uruchomisz go z terminala l
 $ ./path/to/Defold/Defold
 
 # macOS:
-$ ./path/to/Defold.app/Contents/MacOS/Defold
+$ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
 
 ## Serwer edytora

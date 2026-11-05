@@ -3,11 +3,11 @@ title: 编辑器概述
 brief: 本手册概述 Defold 编辑器的外观和工作方式，以及如何在其中导航。
 ---
 
-# 编辑器概述
+# 编辑器概述 {#editor-overview}
 
 编辑器允许您以高效方式浏览和操作游戏项目中的所有文件和文件夹。编辑文件时会打开合适的编辑器，并在单独视图中显示该文件的所有相关信息。
 
-## 启动编辑器
+## 启动编辑器 {#starting-the-editor}
 
 运行 Defold Editor 时，会看到项目选择和创建界面。点击选择您想执行的操作：
 
@@ -40,7 +40,7 @@ SAMPLES
 
 您可以在[项目设置手册](https://www.defold.com/manuals/project-setup/)中了解不同选项的更多信息。
 
-## 编辑器语言
+## 编辑器语言 {#editor-language}
 
 在启动界面左下角可以看到语言选择器，可从当前可用的本地化语言中选择。编辑器内部也可通过 `File ▸ Preferences ▸ General ▸ Editor Language` 访问此设置。
 
@@ -52,7 +52,7 @@ Defold Editor 被划分为一组面板或视图，用于显示特定信息。
 
 ![Editor 2](images/editor/editor_overview.png)
 
-### 1. Assets 面板
+### 1. Assets 面板 {#1-assets-pane}
 以树结构列出项目中的所有文件和文件夹，对应磁盘上的相同结构。点击并滚动可浏览列表。所有面向文件的操作都可以在此视图中完成：
 
    - <kbd>Left Mouse Click</kbd> 选择任意文件或文件夹，按住 <kbd>⇧ Shift</kbd> 可扩展选择，按住 <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> 可选择/取消选择点击项。
@@ -78,7 +78,7 @@ Scene Editor 提供的一些核心功能：
 
 更多内容请阅读 [Scene Editor 手册](/manuals/scene-editing/)。
 
-### 3. Outline 面板
+### 3. Outline 面板 {#3-outline-pane}
 
 此视图以层级树结构显示当前正在编辑的文件内容。Outline 会反映编辑器视图，并允许您对条目执行操作：
 
@@ -90,7 +90,7 @@ Scene Editor 提供的一些核心功能：
 
 ![Outline](images/editor/outline.png)
 
-### 4. Properties 面板
+### 4. Properties 面板 {#4-properties-pane}
 
 此视图显示与当前所选条目相关的属性，例如 Id、URL、Position、Rotation、Scale，以及其他组件特定属性和脚本自定义属性。
 
@@ -98,7 +98,7 @@ Scene Editor 提供的一些核心功能：
 
 ![Properties](images/editor/properties.png)
 
-### 5. Tools 面板
+### 5. Tools 面板 {#5-tools-pane}
 
 此视图有多个标签页。
 
@@ -112,7 +112,7 @@ Scene Editor 提供的一些核心功能：
 
 Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手册](/manuals/debugging/)。
 
-### 6. Changed Files 面板
+### 6. Changed Files 面板 {#6-changed-files-pane}
 
 如果项目使用 Git，此视图会列出与当前提交（`HEAD`）相比在本地修改、添加、重命名或删除的文件。请使用外部 Git 客户端或命令行与远程仓库同步。您可以在[版本控制手册](/manuals/version-control/)中了解更多信息。此视图中可以执行一些面向文件的操作：
 
@@ -120,17 +120,33 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
    - <kbd>Double Left Mouse Click</kbd> 文件可打开该文件视图。编辑器会像 Assets 视图中一样，在合适的编辑器中打开文件。
    - <kbd>Right Mouse Click</kbd> 文件可打开弹出菜单，从中打开差异视图、还原该文件的所有更改、在文件系统中查找文件等。
 
-### 菜单栏
+### 菜单栏 {#menu-bar}
 
 在编辑器视图顶部（或 Mac 的系统菜单栏）可以找到菜单栏，包含 6 个菜单：`File`、`Edit`、`View`、`Project`、`Debug`、`Help`。它们的功能会在各手册中说明。
 
-### 状态栏
+### 状态栏 {#status-bar}
 
 编辑器底部栏有一条窄区域显示状态，例如：
 - 当有新更新可用时，会显示一个可点击按钮 `Update Available`，请查看本手册后面的“更新编辑器”章节。
 - 构建或打包时，进度会显示在这里。
 
-## 面板大小和可见性
+## 引擎窗口的位置与大小 {#engine-window-placement}
+
+在桌面平台上，从编辑器打开的引擎窗口会在多次启动和引擎重启之间记住正常窗口模式的大小和位置。每个项目、每个引擎实例的窗口布局分别保存。启动单个引擎实例时，使用的布局与启动多个实例时的第一个实例相同。
+
+如果移动或调整了引擎窗口，后续启动会恢复该布局。只要配置的窗口尺寸未改变，就会使用记住的大小；改变配置尺寸后，下次启动会采用新大小。在 Linux Wayland 上只恢复大小，因为窗口位置由桌面合成器控制。
+
+### 重置引擎窗口大小 {#resetting-the-engine-window-size}
+
+选择 <kbd>Debug ▸ Reset Simulated Resolution</kbd>，可恢复配置的大小。此命令会：
+
+- 清除当前项目所有引擎实例记住的窗口大小，包括未运行的实例。
+- 清除选中的模拟分辨率，并关闭 **Rotated Device**。
+- 保留已保存的窗口位置。
+
+选中的运行中引擎实例窗口会调整为项目的 [Display Width 和 Height](/manuals/project-settings/#display)。也可以在没有引擎运行时重置；下次启动会使用配置的大小。此后再次移动或调整窗口大小，就会重新保存其布局。
+
+## 面板大小和可见性 {#panes-size-and-visibility}
 
 可以在编辑器中 <kbd>Dragging</kbd> 上述 6 个面板之间的分隔边界，调整面板大小。
 
@@ -144,7 +160,7 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
 
 在 `View` 菜单中，您也可以切换或更改其他可见性相关设置，例如 Grid、Guides、Camera，或将视图适配到选择（`Frame Selection` 或 <kbd>F</kbd> 键），以及在默认 2D 和 3D 视图之间切换（`Realign Camera` 或 <kbd>.</kbd> 键）。其中许多功能也可以从工具栏或快捷键访问。
 
-## 标签页
+## 标签页 {#tabs}
 
 如果打开了多个文件，每个文件都会在编辑器视图顶部显示一个独立标签页。同一面板中的标签页可以移动；<kbd>Drag and Drop</kbd> 它们即可在标签栏内交换位置。您还可以：
 
@@ -156,7 +172,7 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
 
 ![Tabs](images/editor/tabs_custom.png)
 
-## 并排编辑
+## 并排编辑 {#side-by-side-editing}
 
 可以并排打开 2 个编辑器视图。
 
@@ -178,7 +194,7 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
 
 ![create file name](images/editor/create_file_name.png)
 
-## 模板
+## 模板 {#templates}
 
 可以为每个项目指定自定义模板。为此，请在项目根目录中创建名为 `templates` 的新文件夹，并添加带有所需扩展名、名为 `default.*` 的新文件，例如 `/templates/default.gui` 或 `/templates/default.script`。此外，如果这些文件中使用了 `{{NAME}}` 标记，它会被文件创建窗口中指定的文件名替换。
 
@@ -187,13 +203,13 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
 
 ![Templates](images/editor/templates.png)
 
-## 将文件导入项目
+## 将文件导入项目 {#importing-files-to-your-project}
 
 要向项目添加资源文件（图像、声音、模型等），只需将它们拖放到 *Assets* 浏览器中的正确位置。这会在项目文件结构中的所选位置创建这些文件的_副本_。请阅读[如何导入资源的手册](/manuals/importing-assets/)了解更多信息。
 
 ![Import files](images/editor/import.png)
 
-## 更新编辑器
+## 更新编辑器 {#updating-the-editor}
 
 连接互联网时，编辑器会自动检查更新。检测到更新时，项目选择界面左下角或编辑器窗口右下角会显示蓝色可点击链接 `Update Available`。
 
@@ -212,7 +228,7 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
 
 ![Restart to update](images/editor/restart_to_update.png)
 
-## 首选项
+## 首选项 {#preferences}
 
 您可以在 `Preferences` 窗口中修改编辑器设置。要打开它，请点击 `File ▸ Preferences…`，或使用快捷键 <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>,</kbd>
 
@@ -243,7 +259,7 @@ $ ./path/to/Defold/Defold
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
 
-## 编辑器服务器
+## 编辑器服务器 {#editor-server}
 
 编辑器打开项目时，会在随机端口上启动一个 Web 服务器。该服务器可用于从其他应用程序与编辑器交互。端口会写入 `.internal/editor.port` 文件。
 
@@ -266,7 +282,7 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 编辑器启动时，会将启动器和安装路径的信息写入一个已知位置。第三方 IDE 集成和其他工具可以使用这些信息查找已安装的 Defold 编辑器：
 
 | OS      | 位置 |
-|---------|------|
+|---------|----------|
 | macOS   | `~/Library/Application Support/Defold/installations.json` |
 | Linux   | `${XDG_STATE_HOME:-~/.local/state}/Defold/installations.json` |
 | Windows | `%LOCALAPPDATA%\Defold\installations.json` |
@@ -283,7 +299,7 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ]
 ```
 
-## 编辑器样式
+## 编辑器样式 {#editor-styling}
 
 可以通过自定义样式改变编辑器外观。请阅读[编辑器样式手册](/manuals/editor-styling)了解更多信息。
 

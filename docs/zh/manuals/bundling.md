@@ -3,13 +3,13 @@ title: 打包应用程序
 brief: 本手册介绍了如何创建应用程序包.
 ---
 
-# 打包应用程序
+# 打包应用程序 {#bundling-an-application}
 
 在开发应用程序时，您应该养成在目标平台上尽可能频繁地测试游戏的习惯。您应该这样做是为了在开发过程的早期阶段发现性能问题，这些问题在此时更容易解决。还建议在所有目标平台上进行测试，以发现着色器等方面的差异。在移动设备上开发时，您可以选择使用[移动开发应用](/manuals/dev-app/)将内容推送到应用程序，而不必进行完整的打包和卸载/安装循环。
 
 您可以在Defold编辑器本身中为Defold支持的所有平台创建应用程序包，无需任何外部工具。您也可以使用我们的命令行工具从命令行打包。如果您的项目包含一个或多个[原生扩展](/manuals/extensions)，应用程序打包需要网络连接。
 
-## 从编辑器中打包
+## 从编辑器中打包 {#bundling-from-within-the-editor}
 
 您可以通过项目菜单和Bundle选项创建应用程序包：
 
@@ -24,7 +24,6 @@ brief: 本手册介绍了如何创建应用程序包.
 ![build report](images/profiling/build_report.png)
 
 要了解更多关于构建报告的信息，请参考[性能分析手册](/manuals/profiling/#build-reports)。
-
 
 ### Android
 
@@ -54,13 +53,13 @@ brief: 本手册介绍了如何创建应用程序包.
 
 可以为Facebook Instant Games创建一个特殊版本的HTML5应用程序包。这个过程在[Facebook Instant Games手册](/manuals/instant-games/)中有详细说明。
 
-## 从命令行打包
+## 从命令行打包 {#bundling-from-the-command-line}
 
 编辑器使用我们的命令行工具[Bob](/manuals/bob/)来打包应用程序。
 
 在进行应用程序的日常开发时，您可能会在Defold编辑器内进行构建和打包。在其他情况下，您可能希望自动生成应用程序包，例如在发布新版本时为所有目标进行批量构建，或者创建最新版本游戏的夜间构建，也许在CI环境中。应用程序的构建和打包可以在正常编辑器工作流程之外使用[Bob命令行工具](/manuals/bob/)完成。
 
-## 包布局
+## 包布局 {#the-bundle-layout}
 
 逻辑包布局结构如下：
 
@@ -78,12 +77,12 @@ brief: 本手册介绍了如何创建应用程序包.
 使用[custom_resources](https://defold.com/manuals/project-settings/#custom-resources)设置，您可以配置应放置（并压缩）在`game.arcd`中的资源。
 这些资源可以通过[`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource)函数访问。
 
-## Release 与 Debug
+## Release 与 Debug {#release-vs-debug}
 
 创建应用程序包时，您可以选择创建debug或release包。这两种包之间的差异很小，但重要的是要记住：
 
 * Release 构建默认不包含[性能分析器](/manuals/profiling)。要在 Debug 和 Release 构建中都包含分析器支持，请在 [App Manifest](/manuals/app-manifest/#profiler) 中将 **Profiler** 设置为 **Always**。
-* Release构建不包含[屏幕录制器](/ref/sys/#start_record)
+* 发布构建不包含[视频录制](/manuals/recording)或 [`recorder` Lua 模块](/ref/recorder/)。桌面调试构建支持录制，除非在 [App Manifest](/manuals/app-manifest/#exclude-record) 中启用了 **Exclude Record**。
 * Release构建不显示任何对`print()`的调用的输出或任何原生扩展的输出
 * Release构建在`sys.get_engine_info()`中将`is_debug`值设置为`false`
 * Release构建在调用`tostring()`时不会对`hash`值进行反向查找。这在实践中意味着，对于类型为`url`或`hash`的值的`tostring()`将返回其数字表示，而不是原始字符串（`'hash: [/camera_001]'`对比`'hash: [11844936738040519888 (unknown)]'`）

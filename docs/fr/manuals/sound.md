@@ -50,13 +50,44 @@ Le composant créé possède un ensemble de propriétés à configurer :
 Une fois votre composant audio correctement configuré, vous pouvez déclencher la lecture du son en appelant [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) :
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Chaque lecture constitue une *voix* distincte. `sound.play()` renvoie son identifiant numérique de lecture (`play_id`) ; conservez cet identifiant pour [contrôler cette voix individuellement](#controlling-individual-voices).
 
 ::: sidenote
 Un son continue d'être lu même si l'objet de jeu auquel appartenait le composant audio est supprimé. Vous pouvez appeler [`sound.stop()`](/ref/sound/#sound.stop:url) pour arrêter le son (voir ci-dessous).
 :::
 Chaque message envoyé à un composant lui fait jouer une instance supplémentaire du son, jusqu'à ce que le tampon audio disponible soit plein et que le moteur affiche des erreurs dans la console. Il est conseillé de mettre en place un mécanisme de filtrage des déclenchements et de regroupement des sons.
+
+### Contrôler les voix individuellement {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) et [`sound.set_pan()`](/ref/sound/#sound.set_pan) acceptent un troisième argument facultatif contenant un `play_id`. Utilisez l'identifiant renvoyé par `sound.play()` et l'URL du même composant audio :
+
+```lua
+function init(self)
+    -- Save the ID of a voice that will start in one second.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Start another voice on the same component.
+    sound.play("go#sound")
+
+    -- Change only the delayed voice.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Ces appels ciblés ne modifient ni les autres voix ni les valeurs par défaut de gain et de panoramique du composant. Ils fonctionnent pour les voix différées et en pause ; les nouvelles valeurs s'appliquent donc au démarrage ou à la reprise de la voix. Un identifiant inconnu ou correspondant à une lecture terminée n'a aucun effet.
+
+Omettez `play_id` pour mettre à jour toutes les voix et les valeurs par défaut du composant utilisées pour les lectures futures :
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Passer `{ play_id = nil }` omet également l'identifiant. Si vous effacez un identifiant conservé à la fin de la lecture, vérifiez qu'il n'est pas `nil` avant de l'utiliser pour une mise à jour ciblée.
+
 
 ## Arrêt du son {#stopping-the-sound}
 
@@ -73,7 +104,7 @@ sound.stop("go#sound")
 Le système audio possède quatre niveaux de gain :
 
 - Le gain défini sur le composant audio.
-- Le gain défini au démarrage du son par un appel à `sound.play()` ou lors de la modification du gain de la voix par un appel à `sound.set_gain()`.
+- Le gain défini au démarrage du son par un appel à `sound.play()` ou lors de la modification du gain [d’une ou de toutes les voix](#controlling-individual-voices) par un appel à `sound.set_gain()`.
 - Le gain défini sur le groupe par un appel à la fonction [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
 - Le gain défini sur le groupe `master`. Vous pouvez le modifier avec `sound.set_group_gain(hash("master"), gain)`.
 

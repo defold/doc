@@ -112,7 +112,7 @@ Como a engine Defold suporta várias plataformas e APIs gráficas, precisa ser s
 1. O pipeline legado, em que shaders são escritos em código GLSL compatível com ES2.
 2. O pipeline moderno, em que shaders são escritos em código GLSL compatível com SPIR-v.
 
-A partir do Defold 1.9.2, recomenda-se escrever shaders que usem o novo pipeline. Para isso, a maioria dos shaders precisa ser migrada para shaders escritos em pelo menos a versão 140 (OpenGL 3.1). Para migrar um shader, certifique-se de que estes requisitos sejam atendidos:
+Escreva shaders para o pipeline moderno usando pelo menos GLSL versão 140 (OpenGL 3.1). Para migrar um shader, verifique se estes requisitos são atendidos:
 
 ### Declaração de versão
 Coloque pelo menos #version 140 no topo do shader:
@@ -127,9 +127,9 @@ Coloque pelo menos #version 140 no topo do shader:
 Em vertex shaders, substitua a palavra-chave `attribute` por `in`:
 
 ```glsl
-// em vez de:
+// instead of:
 // attribute vec4 position;
-// faça:
+// do:
 in vec4 position;
 ```
 
@@ -139,14 +139,14 @@ Observação: fragment shaders (e compute shaders) não recebem entradas de vér
 Em vertex shaders, varyings devem receber o prefixo `out`. Em fragment shaders, varyings se tornam `in`:
 
 ```glsl
-// Em um vertex shader, em vez de:
+// In a vertex shader, instead of:
 // varying vec4 var_color;
-// faça:
+// do:
 out vec4 var_color;
 
-// Em um fragment shader, em vez de:
+// In a fragment shader, instead of:
 // varying vec4 var_color;
-// faça:
+// do:
 in vec4 var_color;
 ```
 
@@ -173,7 +173,7 @@ uniform vertex_inputs
 
 void main()
 {
-    // Membros individuais do uniform block podem ser usados diretamente
+    // Individual members of the uniform block can be used as-is
     gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
 }
 ```
@@ -185,9 +185,9 @@ Todos os membros no uniform block são expostos a materiais e componentes como c
 Em fragment shaders, `gl_FragColor` está obsoleto a partir da versão 140. Use `out` em vez disso:
 
 ```glsl
-// em vez de:
+// instead of:
 // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-// faça:
+// do:
 out vec4 color_out;
 
 void main()
@@ -204,10 +204,10 @@ Funções específicas de amostragem de textura, como `texture2D` e `texture2DAr
 uniform sampler2D my_texture;
 uniform sampler2DArray my_texture_array;
 
-// em vez de:
+// instead of:
 // vec4 sampler_2d = texture2D(my_texture, uv);
 // vec4 sampler_2d_array = texture2DArray(my_texture_array, vec3(uv, slice));
-// faça:
+// do:
 vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
@@ -230,7 +230,7 @@ uniform vx_uniforms
     mat4 view_proj;
 };
 
-// posições estão em espaço de mundo
+// positions are in world space
 in vec4 position;
 in vec2 texcoord0;
 
@@ -259,7 +259,7 @@ uniform fs_uniforms
 
 void main()
 {
-    // Pré-multiplica alpha, pois todas as texturas de runtime já são assim
+    // Premultiply alpha since all runtime textures already are
     vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
     color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
 }
@@ -271,17 +271,17 @@ void main()
 Shaders no Defold suportam incluir código-fonte de arquivos dentro do projeto que tenham a extensão `.glsl`. Para incluir um arquivo glsl a partir de um shader, use a pragma `#include` com aspas duplas ou colchetes. Includes precisam ter caminhos relativos ao projeto ou um caminho relativo ao arquivo que os inclui:
 
 ```glsl
-// No arquivo /main/my-shader.fp
+// In file /main/my-shader.fp
 
-// Caminho absoluto
+// Absolute path
 #include "/main/my-snippet.glsl"
-// O arquivo está na mesma pasta
+// The file is in the same folder
 #include "my-snippet.glsl"
-// O arquivo está em uma subpasta no mesmo nível de 'my-shader'
+// The file is in a sub-folder on the same level as 'my-shader'
 #include "sub-folder/my-snippet.glsl"
-// O arquivo está em uma subpasta no diretório pai, isto é /some-other-folder/my-snippet.glsl
+// The file is in a sub-folder on the parent directory, i.e /some-other-folder/my-snippet.glsl
 #include "../some-other-folder/my-snippet.glsl"
-// O arquivo está no diretório pai, isto é /root-level-snippet.glsl
+// The file is on the parent directory, i.e /root-level-snippet.glsl
 #include "../root-level-snippet.glsl"
 ```
 
@@ -295,21 +295,21 @@ Há algumas ressalvas sobre como includes são encontrados:
 Trechos podem eles mesmos incluir outros arquivos `.glsl`, o que significa que o shader final produzido pode potencialmente incluir o mesmo código várias vezes. Dependendo do conteúdo dos arquivos, você pode acabar com problemas de compilação por ter os mesmos símbolos declarados mais de uma vez. Para evitar isso, você pode usar *header guards*, um conceito comum em várias linguagens de programação. Exemplo:
 
 ```glsl
-// Em my-shader.vs
+// In my-shader.vs
 #include "math-functions.glsl"
 #include "pi.glsl"
 
-// Em math-functions.glsl
+// In math-functions.glsl
 #include "pi.glsl"
 
-// Em pi.glsl
+// In pi.glsl
 const float PI = 3.14159265359;
 ```
 
 Neste exemplo, a constante `PI` será definida duas vezes, o que causará erros de compilador ao executar o projeto. Em vez disso, você deve proteger o conteúdo com header guards:
 
 ```glsl
-// Em pi.glsl
+// In pi.glsl
 #ifndef PI_GLSL_H
 #define PI_GLSL_H
 
@@ -323,10 +323,10 @@ O código de `pi.glsl` será expandido duas vezes em `my-shader.vs`, mas como vo
 No entanto, isso nem sempre é estritamente necessário, dependendo do caso de uso. Se, em vez disso, você quiser reutilizar código localmente em uma função ou em outro lugar onde não precisa que os valores estejam disponíveis globalmente no código do shader, provavelmente não deve usar header guards. Exemplo:
 
 ```glsl
-// Em red-color.glsl
+// In red-color.glsl
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// Em my-shader.fp
+// In my-shader.fp
 vec3 get_red_color()
 {
   #include "red-color.glsl"
@@ -353,10 +353,10 @@ Use a diretiva de pré-processador `#ifdef EDITOR` para compilar condicionalment
 
 ```glsl
 #ifdef EDITOR
-    // Este código só será executado quando o shader for renderizado no Defold Editor
-    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Cor magenta para pré-visualização no editor
+    // This code will only execute when the shader is rendered in the Defold Editor
+    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Magenta color for editor preview
 #else
-    // Este código será executado ao rodar no jogo
+    // This code will execute when running in the game
     color_out = texture(texture_sampler, var_texcoord0) * tint_pm;
 #endif
 ```

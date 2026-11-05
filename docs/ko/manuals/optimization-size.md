@@ -94,7 +94,7 @@ Defold는 압축을 수행하지 않으므로, 개발자가 각 오디오 포멧
 
 ## Android 전용 크기 최적화
 
-[R8 축소](/manuals/android/#shrinking-java-code-with-r8)를 활성화하여 사용되지 않는 Java 코드를 제거하세요. Defold 1.14.0 이상과 호환되는 Extender 서버에서는 익스텐션과 해당 종속성의 사용되지 않는 Android 리소스도 제거합니다.
+사용하지 않는 Java 코드를 제거하려면 [R8 축소](/manuals/android/#shrinking-java-code-with-r8)를 활성화합니다. 호환되는 Extender 서버에서는 익스텐션과 그 종속성의 사용하지 않는 Android 리소스도 제거합니다.
 
 Android 빌드는 32비트와 64비트 CPU 아키텍처를 모두 지원해야 합니다. [Android용으로 번들링](/manuals/android)할 때 포함할 CPU 아키텍처를 지정할 수 있습니다.
 

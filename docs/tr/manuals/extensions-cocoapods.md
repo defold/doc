@@ -8,7 +8,7 @@ brief: Bu kılavuz, iOS ve macOS derlemelerinde bağımlılıkları çözümleme
 [CocoaPods](https://cocoapods.org/), Swift ve Objective-C ile geliştirilen Cocoa projeleri için bir bağımlılık yöneticisidir. CocoaPods genellikle Xcode projelerindeki bağımlılıkları yönetmek ve projeye dahil etmek için kullanılır. Defold, iOS ve macOS için derleme yaparken Xcode kullanmaz, ancak derleme sunucusundaki bağımlılıkları çözümlemek için yine de CocoaPods kullanır.
 
 
-## Bağımlılıkları çözümleme
+## Bağımlılıkları çözümleme {#resolving-dependencies}
 
 Yerel kod eklentileri (native extension), eklenti bağımlılıklarını belirtmek için `manifests/ios` ve `manifests/osx` klasörlerinde bir `Podfile` dosyası içerebilir. Örnek:
 
@@ -25,3 +25,5 @@ Derleme sunucusu, tüm eklentilerdeki `Podfile` dosyalarını toplar ve bu dosya
 
 * [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile)
+
+Birçok SDK, Swift paketi olarak da dağıtılır. Bunlar, [Swift Package Manager kılavuzunda](/manuals/extensions-spm) açıklandığı gibi CocoaPods yerine veya onunla birlikte kullanılabilir.

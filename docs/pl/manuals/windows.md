@@ -7,6 +7,10 @@ brief: Ta instrukcja opisuje, jak budować i uruchamiać aplikacje Defold na Win
 
 Tworzenie aplikacji Defold na Windows jest prostym procesem i wymaga niewielu dodatkowych uwag.
 
+## Backendy graficzne {#graphics-backends}
+
+Buildy Windows domyślnie używają OpenGL. Ustaw **Graphics (Windows)** w [manifeście aplikacji](/manuals/app-manifest/#graphics), aby wybrać OpenGL, Vulkan lub DirectX 12 (**DX12**). Możesz dołączyć kilka backendów, aby umożliwić użycie rozwiązania zapasowego, gdy preferowany backend jest niedostępny.
+
 ## Ustawienia projektu
 
 Konfigurację aplikacji dla Windows wykonuje się w sekcji [Windows](/manuals/project-settings/#windows) pliku ustawień *game.project*.

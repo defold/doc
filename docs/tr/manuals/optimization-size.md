@@ -3,11 +3,11 @@ title: Bir Defold oyununun boyutunu optimize etme
 brief: Bu kılavuz, bir Defold oyununun boyutunun nasıl optimize edileceğini açıklar.
 ---
 
-# Oyun boyutunu optimize etme
+# Oyun boyutunu optimize etme {#optimizing-game-size}
 
 Oyununuzun boyutu, web ve mobil gibi platformlarda başarıyı belirleyen kritik bir etken olabilir. Disk alanının ucuz ve genellikle bol olduğu masaüstü ve konsollarda ise daha az önem taşır.
 
-### iOS ve Android
+### iOS ve Android {#ios-and-android}
 Apple ve Google, uygulamaların Wifi yerine mobil ağlar üzerinden indirilmesi için boyut sınırları belirlemiştir. Android'de bu sınır, [Android App Bundle](https://developer.android.com/guide/app-bundle#size_restrictions) biçiminde yayımlanan uygulamalar için 200 MB'tır. iOS'te uygulama 200 MB'tan büyükse kullanıcılara bir uyarı gösterilir, ancak kullanıcılar yine de indirmeye devam edebilir.
 
 ::: sidenote
@@ -21,7 +21,7 @@ Facebook, bir Facebook Instant Game oyununun 5 saniyeden kısa sürede, tercihen
 
 Oynanabilir reklamlar, reklam ağına bağlı olarak genellikle 2 ile 5 MB arasında bir boyutla sınırlıdır.
 
-## Boyut optimizasyonu stratejileri
+## Boyut optimizasyonu stratejileri {#size-optimization-strategies}
 Uygulama boyutunu iki şekilde optimize edebilirsiniz: motorun boyutunu ve/veya oyun varlıklarının (assets) boyutunu küçülterek.
 
 Uygulamanızın boyutunu hangi öğelerin oluşturduğunu daha iyi anlamak için paketleme sırasında [bir derleme raporu oluşturabilirsiniz](/manuals/bundling/#build-reports). Oyun boyutunun büyük bölümünü seslerin ve grafiklerin oluşturması oldukça yaygındır.
@@ -30,7 +30,7 @@ Uygulamanızın boyutunu hangi öğelerin oluşturduğunu daha iyi anlamak için
 Defold, uygulamanızı derlerken ve paketlerken bir bağımlılık ağacı oluşturur. Derleme sistemi, *game.project* dosyasında belirtilen başlangıç koleksiyonundan (bootstrap collection) başlayarak başvurulan her koleksiyonu (collection), oyun nesnesini (game object) ve bileşeni (component) inceler ve kullanılan varlıkların bir listesini oluşturur. Son uygulama dağıtım paketine yalnızca bu varlıklar dahil edilir. Doğrudan başvurulmayan her şey dışarıda bırakılır. Kullanılmayan varlıkların dahil edilmeyeceğini bilmek yararlı olsa da geliştirici olarak son uygulamaya nelerin dahil edildiğini, tek tek varlıkların boyutlarını ve uygulama dağıtım paketinin toplam boyutunu yine de göz önünde bulundurmanız gerekir. 
 :::
 
-## Motor boyutunu optimize etme
+## Motor boyutunu optimize etme {#optimize-engine-size}
 Motor boyutunu küçültmenin hızlı bir yolu, motorda kullanmadığınız işlevleri kaldırmaktır. Bu işlem, ihtiyaç duymadığınız motor bileşenlerini kaldırmanıza olanak tanıyan [uygulama bildirimi dosyasında](https://defold.com/manuals/app-manifest/) yapılır. Örnekler:
 
 * Fizik - Oyununuz Box2D veya Bullet3D fiziğini kullanmıyorsa fizik motorlarını kaldırmanız kuvvetle önerilir
@@ -40,10 +40,10 @@ Motor boyutunu küçültmenin hızlı bir yolu, motorda kullanmadığınız işl
 * Görüntü yükleme - Oyununuz `image.load()` kullanarak görüntüleri elle yüklemiyor ve kodlarını çözmüyorsa
 * BasisU - Oyununuz az sayıda doku (texture) içeriyorsa BasisU olmadan (uygulama bildirimi üzerinden kaldırılarak) ve doku sıkıştırması kullanılmadan alınan derlemenin boyutunu, BasisU ve sıkıştırılmış dokular kullanılan bir derlemeyle karşılaştırın. Az sayıda doku içeren oyunlarda ikili dosyanın boyutunu küçültmek ve doku sıkıştırmasını atlamak daha yararlı olabilir. Ayrıca dönüştürücüyü kullanmamak, oyununuzu çalıştırmak için gereken bellek miktarını azaltabilir.
 
-## Varlık boyutunu optimize etme
+## Varlık boyutunu optimize etme {#optimize-asset-size}
 Varlık boyutu optimizasyonunda en büyük kazanımlar genellikle seslerin ve dokuların boyutunu küçülterek elde edilir.
 
-### Sesleri optimize etme
+### Sesleri optimize etme {#optimize-sounds}
 Defold şu biçimleri destekler:
 * .wav
 * .ogg
@@ -57,7 +57,7 @@ Defold herhangi bir sıkıştırma yapmaz; bu nedenle geliştiricinin her ses bi
 
 Sesleri harici bir ses düzenleme yazılımında (veya örneğin [ffmpeg](https://ffmpeg.org) kullanarak komut satırında) düzenleyip kalitelerini düşürebilir veya biçimler arasında dönüştürebilirsiniz. İçeriğin boyutunu daha da küçültmek için sesleri stereodan monoya dönüştürmeyi de değerlendirin.
 
-### Dokuları optimize etme
+### Dokuları optimize etme {#optimize-textures}
 Oyununuzda kullanılan dokuları optimize etmek için çeşitli seçenekleriniz vardır, ancak önce bir atlasa eklenen veya karo kaynağı (tile source) olarak kullanılan görüntülerin boyutunu kontrol etmelisiniz. Görüntüleri hiçbir zaman oyununuzda gerçekten gerekenden daha büyük boyutta kullanmayın. Büyük görüntüleri içe aktarıp uygun boyuta küçültmek, doku belleğini boşa harcar ve bundan kaçınılması önerilir. Öncelikle harici bir görüntü düzenleme yazılımı kullanarak görüntülerin boyutunu oyununuzda gereken gerçek boyuta ayarlayın. Arka plan görüntüleri gibi öğelerde küçük bir görüntü kullanıp istenen boyuta büyütmek de uygun olabilir. Görüntüleri doğru boyuta küçültüp atlaslara ekledikten veya karo kaynaklarında kullanmaya başladıktan sonra atlasların kendi boyutlarını da göz önünde bulundurmanız gerekir. Kullanılabilecek en büyük atlas boyutu, platforma ve grafik donanımına göre değişir.
 
 ::: sidenote
@@ -84,17 +84,17 @@ Bir atlas çok büyükse onu birkaç küçük atlasa bölmeniz, çok sayfalı at
 Dokuları optimize etme ve yönetme hakkında daha fazla bilgiyi [bu forum gönderisinde](https://forum.defold.com/t/texture-management-in-defold/8921) bulabilirsiniz.
 :::
 
-### Yazı tiplerini optimize etme
+### Yazı tiplerini optimize etme {#optimize-fonts}
 Kullanacağınız simgeleri belirleyip All Chars onay kutusunu kullanmak yerine bunları [Characters](/manuals/font/#properties) alanında belirtirseniz yazı tiplerinizin boyutu daha küçük olur.
 
-### Gerektiğinde indirmek üzere içeriği dışarıda bırakma
+### Gerektiğinde indirmek üzere içeriği dışarıda bırakma {#exclude-content-for-download-on-demand}
 Uygulamanın başlangıç boyutunu küçültmenin bir başka yolu, oyun içeriğinin bazı bölümlerini uygulama dağıtım paketinin dışında bırakıp gerektiğinde indirmektir. Defold, gerektiğinde indirmek üzere içeriği dışarıda bırakmak için Live Update adlı bir sistem sunar.
 
 Dışarıda bırakılan içerik, bölümlerin tamamından kilidi açılabilen karakterlere, görünümlere, silahlara veya araçlara kadar her şey olabilir. Oyununuz çok fazla içerik barındırıyorsa yükleme sürecini, başlangıç koleksiyonu ve ilk bölümün koleksiyonu yalnızca o bölüm için gereken asgari kaynakları içerecek şekilde düzenleyin. Bunu, "Exclude" onay kutusu etkinleştirilmiş koleksiyon vekilleri (collection proxy) veya fabrikalar (factory) kullanarak yapabilirsiniz. Kaynakları oyuncunun ilerlemesine göre ayırın. Bu yaklaşım, kaynakların verimli yüklenmesini sağlar ve başlangıçtaki bellek kullanımını düşük tutar. Daha fazla bilgi için [Live Update kılavuzuna](/manuals/live-update/) bakın.
 
-## Android'e özgü boyut optimizasyonları
+## Android'e özgü boyut optimizasyonları {#android-specific-size-optimizations}
 
-Kullanılmayan Java kodunu kaldırmak için [R8 küçültme işlemini](/manuals/android/#shrinking-java-code-with-r8) etkinleştirin. Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender sunucusuyla kullanıldığında bu işlem eklentilerin ve bağımlılıklarının kullanılmayan Android kaynaklarını da kaldırır.
+Kullanılmayan Java kodunu kaldırmak için [R8 küçültme işlemini](/manuals/android/#shrinking-java-code-with-r8) etkinleştirin. Uyumlu bir Extender sunucusuyla kullanıldığında bu işlem eklentilerin ve bağımlılıklarının kullanılmayan Android kaynaklarını da kaldırır.
 
 Android derlemeleri hem 32 bit hem de 64 bit CPU mimarilerini desteklemelidir. [Android için dağıtım paketi oluştururken](/manuals/android) hangi CPU mimarilerinin dahil edileceğini belirtebilirsiniz:
 

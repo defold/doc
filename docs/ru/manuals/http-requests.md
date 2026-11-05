@@ -72,7 +72,7 @@ end
 Когда ответ содержит большой бинарный блок данных, например изображение или музыкальный трек, может иметь смысл записать данные в файл, а не загружать их в память:
 
 ```lua
--- в этом примере мы загружаем myimage.png и сразу записываем его в файл на диске
+-- в этом примере мы скачиваем myimage.png и записываем его прямо в файл на диске
 
 local options = {
 	path = sys.get_save_file("mygame", "myimage.png")
@@ -80,11 +80,11 @@ local options = {
 
 local function handle_response(self, id, response)
 	if response.status == 200 then
-		print("Файл был успешно записан в:", response.path)
-		print("Размер файла:", response.document_size)
-		print("Путь к файлу:", response.path)
+		print("File was successfully written to:", response.path)
+		print("File size:", response.document_size)
+		print("File path:", response.path)
 	else
-		print("Файл не был записан на диск:", response.error)
+		print("File was not written to disk:", response.error)
 	end
 end
 

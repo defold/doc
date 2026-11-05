@@ -94,7 +94,7 @@ All Chars チェックボックスを使う代わりに、使用する文字を�
 
 ## Android 固有のサイズ最適化 {#android-specific-size-optimizations}
 
-[R8 による縮小](/manuals/android/#shrinking-java-code-with-r8)を有効にすると、未使用の Java コードを削除できます。Defold 1.14.0 以降を、対応する Extender サーバーと組み合わせて使用すると、拡張とその依存関係に含まれる未使用の Android リソースも削除します。
+[R8 による縮小](/manuals/android/#shrinking-java-code-with-r8)を有効にすると、未使用の Java コードを削除します。対応する Extender サーバーでは、拡張とその依存関係から未使用の Android リソースも削除します。
 
 Android のビルドは、32ビットと64ビットの両方の CPU アーキテクチャをサポートする必要があります。[Android 向けのバンドルを作成](/manuals/android)するときに、含める CPU アーキテクチャを指定できます:
 

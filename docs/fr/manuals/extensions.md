@@ -75,7 +75,10 @@ Le dossier facultatif *manifests* d'une extension contient des fichiers supplém
   * Les extensions contenant du code Java devraient inclure un [fichier de règles de conservation R8](#r8-keep-rules-for-android) (`.keep`) pour les classes dont elles ont besoin à l'exécution.
 * `ios` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
   * Le dossier peut également contenir un fichier `Podfile` avec des dépendances qui seront [résolues par Cocoapods](/manuals/extensions-cocoapods).
+  * Le dossier peut également contenir un fichier `SwiftPackages.json` avec des dépendances qui seront [résolues par Swift Package Manager](/manuals/extensions-spm).
 * `osx` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
+  * Le dossier peut également contenir un fichier `Podfile` avec des dépendances qui seront [résolues par Cocoapods](/manuals/extensions-cocoapods).
+  * Le dossier peut également contenir un fichier `SwiftPackages.json` avec des dépendances qui seront [résolues par Swift Package Manager](/manuals/extensions-spm).
 * `web` - Ce dossier accepte un fichier de manifeste partiel à fusionner avec celui de l'application principale ([comme décrit ici](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Si l'extension utilise des annotations à l'exécution, ajoutez également :
 
 Ces règles sont combinées au fichier de conservation sélectionné pour le projet lorsque [R8 est activé](/manuals/android/#enabling-r8).
 
-Avec Defold 1.14.0 ou une version ultérieure et un serveur Extender compatible, R8 supprime également les ressources Android inutilisées. Si l'extension recherche des ressources dynamiquement par leur nom, ajoutez des [règles XML de conservation des ressources](/manuals/android/#keeping-android-resources) sous `res/android/res/raw` dans le dossier de l'extension.
+Avec un serveur Extender compatible, R8 supprime également les ressources Android inutilisées. Si l'extension recherche des ressources dynamiquement par leur nom, ajoutez des [règles XML de conservation des ressources](/manuals/android/#keeping-android-resources) sous `res/android/res/raw` dans le dossier de l'extension.
 
 
 ## Ressources personnalisées {#custom-resources}

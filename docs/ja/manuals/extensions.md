@@ -75,7 +75,10 @@ Defold は、使用制限のないクラウドビルドサーバーを無料で�
   * Java コードを持つ拡張には、実行時に必要なクラスの [R8 保持ルールファイル](#r8-keep-rules-for-android)（`.keep`）を含めることをお勧めします。
 * `ios` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
   * このフォルダーには、[Cocoapods で解決する](/manuals/extensions-cocoapods)依存関係を記述した `Podfile` ファイルも配置できます。
+  * このフォルダーには、[Swift Package Manager で解決する](/manuals/extensions-spm)依存関係を指定した `SwiftPackages.json` ファイルも含められます。
 * `osx` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
+  * このフォルダーには、[Cocoapods で解決する](/manuals/extensions-cocoapods)依存関係を記述した `Podfile` ファイルも配置できます。
+  * このフォルダーには、[Swift Package Manager で解決する](/manuals/extensions-spm)依存関係を指定した `SwiftPackages.json` ファイルも含められます。
 * `web` - このフォルダーには、メインアプリケーションにマージするマニフェストのスタブファイルを配置できます（[こちらで説明しています](/manuals/extensions-manifest-merge-tool)）。
 
 
@@ -97,7 +100,7 @@ Defold は、使用制限のないクラウドビルドサーバーを無料で�
 
 これらのルールは、[R8 が有効な場合](/manuals/android/#enabling-r8)に、プロジェクトで選択した保持ルールファイルと統合されます。
 
-Defold 1.14.0 以降を、対応する Extender サーバーと組み合わせて使用すると、R8 は Android リソースも縮小します。拡張がリソースを名前で動的に参照する場合は、拡張フォルダーの `res/android/res/raw` に [XML リソース保持ルール](/manuals/android/#keeping-android-resources)を追加してください。
+対応する Extender サーバーでは、R8 は Android のリソースも縮小します。拡張が名前によってリソースを動的に検索する場合は、拡張フォルダーの `res/android/res/raw` に [XML リソース保持ルール](/manuals/android/#keeping-android-resources)を追加してください。
 
 
 ## カスタムリソース {#custom-resources}

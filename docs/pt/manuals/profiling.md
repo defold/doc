@@ -9,6 +9,7 @@ O Defold inclui ferramentas de profiling integradas à engine e ao pipeline de b
 
 * O profiler básico e o profiler visual dentro do jogo estão disponíveis em todas as plataformas.
 * O [profiler Remotery](https://github.com/Celtoys/Remotery) e o profiler de frames web interativo estão disponíveis em plataformas desktop e mobile.
+* Builds de depuração macOS que usam Metal podem salvar [rastreamentos de GPU](#metal-gpu-trace-capture) para inspeção no Xcode.
 * Builds HTML5 podem publicar escopos do Defold na API Web Performance do navegador.
 
 A configuração **Profiler** no [Manifesto do aplicativo](/manuals/app-manifest/#profiler) controla se o código do profiler é vinculado a um build. **Debug Only** é o padrão, **None** o exclui e **Always** o inclui em builds debug e release. As configurações `profiler` no *game.project* controlam o comportamento em tempo de execução, mas não vinculam novamente a um build o código do profiler que foi excluído. Em particular, **Track CPU** controla a amostragem de uso da CPU; ela é separada da escolha feita no Manifesto do aplicativo.
@@ -88,8 +89,8 @@ A [configuração Max Sample Count](/manuals/project-settings/#max-sample-count)
 ### Perfilador de recursos
 O Resource profiler permite inspecionar seu jogo enquanto ele está em execução e analisar o uso de recursos em detalhe. Para acessar o perfilador:
 
-1. Inicie seu jogo no dispositivo-alvo.
-2. Abra um navegador e acesse http://localhost:8002
+1. Inicie um build de depuração do jogo no dispositivo-alvo.
+2. Abra o [endereço do serviço da engine](/manuals/engine-service/#availability-and-port-discovery) em um navegador: `http://<address>:<port>/`. Use o endereço e a porta informados no console pela engine em execução.
 
 O perfilador de recursos é dividido em 2 seções, uma mostrando uma visualização hierárquica das coleções, objetos de jogo e componentes atualmente instanciados no seu jogo, e a outra mostrando todos os recursos atualmente carregados.
 
@@ -100,6 +101,110 @@ Collection view
 
 Resources view
 : A visualização de recursos mostra todos os recursos atualmente carregados na memória, seu tamanho e o número de referências a cada recurso. Isso é útil ao otimizar o uso de memória na sua aplicação, quando você precisa entender o que está carregado na memória em um determinado momento.
+
+#### Tempos de carregamento de recursos {#resource-loading-times}
+
+Você também pode inspecionar quanto tempo cada recurso leva para carregar. Habilite [Resource → Profile](/manuals/project-settings/#profile) em *game.project* antes de iniciar o jogo. Na visualização de texto, a configuração é:
+
+```ini
+[resource]
+profile = 1
+```
+
+A configuração está desabilitada por padrão. Reinicie o jogo após habilitá-la para medir os carregamentos da inicialização. Cada carregamento concluído ou com falha grava uma entrada de log no nível INFO com o caminho do recurso, o tempo total e os tempos das etapas de pré-carregamento, leitura, criação, pós-criação, fila e espera. Acertos no cache não produzem novos registros de carregamento.
+
+No profiler de recursos, clique em **Capture** e depois em **Show load times** para revelar as colunas de tempo. **Capture** atualiza a visualização das medições armazenadas; não habilita o profiling nem mede retroativamente carregamentos anteriores.
+
+| Coluna | Significado |
+| --- | --- |
+| **Load (ms)** | Tempo total decorrido no carregamento inicial, incluindo dependências, trabalho de pós-criação, enfileiramento e espera. |
+| **Preload (ms)** | Tempo gasto preparando o recurso em seu callback de pré-carregamento. |
+| **Read (ms)** | Tempo gasto lendo os dados do recurso. |
+| **Create (ms)** | Tempo gasto criando o recurso de runtime em seu callback de criação. |
+
+Exibir os tempos de carregamento ordena a tabela pelo tempo total, com os recursos mais lentos primeiro. Clique no cabeçalho de uma coluna de tempo para ordenar por essa etapa; clique novamente para inverter a ordem. As barras da coluna **Load** mostram cada total em relação ao recurso visível mais lento. Clique em **Hide load times** para ocultar as colunas novamente.
+
+Os tempos de carregamento e de callbacks incluem o trabalho de dependências aninhadas. Não some os totais dos recursos para calcular o tempo de inicialização, pois o mesmo trabalho pode aparecer na medição de mais de um recurso. As colunas **Preload**, **Read** e **Create** também não representam todo o tempo total de carregamento; o log fornece as etapas adicionais.
+
+Um travessão (`—`) significa que nenhuma medição concluída está disponível, por exemplo porque o profiling estava desabilitado ou o carregamento inicial ainda não terminou. Um zero medido é exibido como `0.000`. As medições descrevem o carregamento inicial: acertos no cache e hot reloads não as alteram, e descarregar um recurso remove sua medição armazenada.
+
+## Captura de rastreamentos da GPU Metal {#metal-gpu-trace-capture}
+
+O [serviço HTTP da engine](/manuals/engine-service/#metal-gpu-trace-endpoint) pode capturar comandos da GPU Metal em um documento *.gputrace* no macOS. Abra o rastreamento concluído no Xcode para inspecionar os frames capturados. Esse recurso está integrado à engine de depuração.
+
+### Inicializando e verificando o suporte {#launch-and-check-support}
+
+Crie um [bundle de depuração](/manuals/bundling/#release-vs-debug) macOS com o backend gráfico Metal nativo incluído. Se usar um App Manifest, selecione uma opção de **Graphics (macOS)** que inclua Metal; consulte [backends gráficos](/manuals/app-manifest/#graphics).
+
+Inicie o executável do bundle em um terminal com `METAL_CAPTURE_ENABLED=1` e selecione o adaptador Metal. Substitua o caminho do bundle e o nome do executável neste exemplo:
+
+```sh
+METAL_CAPTURE_ENABLED=1 \
+    "/absolute/path/MyGame.app/Contents/MacOS/MyGame" --graphics-adapter=metal
+```
+
+A variável de ambiente deve estar definida quando a engine iniciar. Defini-la apenas em um terminal usado para requisições HTTP não habilita a captura em uma engine já em execução.
+
+Em um segundo terminal, use a [porta do serviço da engine impressa no log](/manuals/engine-service/#availability-and-port-discovery). Os exemplos abaixo usam `curl` e `jq`:
+
+```sh
+ENGINE_URL="http://127.0.0.1:<port>"
+curl -fsS "$ENGINE_URL/openapi.json" | jq '.paths["/profiler/gputrace"]'
+curl -sS -i "$ENGINE_URL/profiler/gputrace"
+```
+
+A rota é registrada apenas no macOS. Uma entrada `null` no documento OpenAPI significa que essa engine não a expõe. Mesmo quando a rota está presente, o suporte à captura depende do adaptador gráfico e do ambiente de inicialização. `GET /profiler/gputrace` retorna HTTP 501 com `error.code: "gputrace_unsupported"` quando a captura Metal está indisponível. Verifique se a engine está usando Metal e foi iniciada com `METAL_CAPTURE_ENABLED=1` antes de prosseguir. Uma requisição compatível retorna HTTP 200 com o status da captura.
+
+### Capturando e inspecionando frames {#capture-and-inspect-frames}
+
+Escolha um caminho absoluto de saída com permissão de escrita que termine em `.gputrace`, com um diretório pai existente e sem um rastreamento já presente nesse caminho. O caminho se refere ao computador que executa a engine. Para uma engine local, este exemplo cria um novo diretório temporário e solicita um frame:
+
+```sh
+GPU_TRACE_DIR=$(mktemp -d /tmp/defold-gputrace.XXXXXX)
+GPU_TRACE_PATH="$GPU_TRACE_DIR/frame.gputrace"
+GPU_TRACE_REQUEST=$(jq -n --arg path "$GPU_TRACE_PATH" '{path: $path, frames: 1}')
+curl -fsS -X POST \
+    -H 'Content-Type: application/json' \
+    --data "$GPU_TRACE_REQUEST" \
+    "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+`frames` é opcional, tem valor padrão `1` e aceita inteiros de `1` a `10000`. A captura começa antes do próximo frame renderizado e termina após o envio da quantidade solicitada de frames completos. Mantenha o jogo renderizando durante a espera. Apenas uma captura pode estar pendente ou ativa; outra solicitação de início retorna HTTP 409 com `error.code: "gputrace_active"`.
+
+`POST` retorna HTTP 200 com `ok: true` e `data.state: "pending"` quando a captura é agendada. A conclusão é informada por requisições posteriores de status. Repita a requisição de status até que `data.state` se torne `complete`, `canceled` ou `failed`:
+
+```sh
+curl -fsS "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+| `data.state` | Significado |
+| --- | --- |
+| `idle` | Nenhuma captura foi agendada. |
+| `pending` | A captura aguarda o início da renderização. |
+| `capturing` | A captura está ativa; `data.frames_captured` informa os frames concluídos. |
+| `complete` | A captura terminou e o rastreamento pode ser aberto. |
+| `canceled` | Uma captura pendente foi cancelada antes de iniciar. |
+| `failed` | A captura não conseguiu iniciar; inspecione `data.error` para ver o erro nativo. |
+
+`GET` descreve a captura atual ou mais recente. Verifique se `data.path` corresponde ao caminho solicitado. Uma captura com falha ainda retorna HTTP 200 com `ok: true`; inspecione `data.state` e `data.error` para determinar o resultado. Em um cliente automatizado, consulte com intervalo e limite de tempo.
+
+Quando o estado for `complete`, abra o rastreamento no Xcode no Mac da engine:
+
+```sh
+open -a Xcode "$GPU_TRACE_PATH"
+```
+
+O endpoint HTTP retorna o status; o rastreamento é salvo em `data.path` no host da engine. Para uma engine remota, recupere o documento concluído desse host antes de abri-lo localmente.
+
+### Cancelando ou encerrando uma captura {#cancel-or-stop-a-capture}
+
+Para cancelar uma captura pendente ou encerrar antecipadamente uma captura ativa:
+
+```sh
+curl -fsS -X DELETE "$ENGINE_URL/profiler/gputrace" | jq
+```
+
+Uma captura pendente muda para `canceled`. Em uma captura ativa, `data.stop_requested` passa a ser `true`, e a captura termina após o envio do frame renderizado atual. Continue consultando `GET` até atingir um estado final. `DELETE` mantém qualquer rastreamento já gravado em disco. Se não houver captura pendente ou ativa, retorna HTTP 409 com `error.code: "gputrace_inactive"`.
 
 ## Timeline de desempenho do navegador em HTML5
 

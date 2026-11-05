@@ -212,25 +212,24 @@ Gdy pole jest zaznaczone, masz dwa sposoby użycia:
 
   ```lua
   function load_complete(self, url, result)
-      -- Ładowanie zakończone, zasoby są gotowe do tworzenia instancji.
+      -- Ładowanie zostało zakończone, zasoby są gotowe do tworzenia obiektów
       self.go_id = factory.create(url)
   end
 
   function init(self)
       -- Gdy zostanie wczytana kolekcja nadrzędna fabryki,
-      -- zasoby fabryki nie są jeszcze załadowane. Wywołanie load
-      -- spowoduje ich wczytanie.
+      -- zasoby fabryki nie są ładowane. Dopiero wywołanie load je załaduje.
       factory.load("#factory", load_complete)
   end
 
   function final(self)
-      -- Usuń obiekt gry. Zmniejszy to licznik referencji zasobów.
-      -- W tym przypadku zasoby nie zostaną usunięte, ponieważ komponent
-      -- fabryki nadal trzyma do nich referencję.
+      -- Usuń obiekt gry. Spowoduje to zmniejszenie liczników referencji zasobów.
+      -- W tym przypadku zasoby nie zostaną usunięte, ponieważ komponent fabryki
+      -- nadal utrzymuje referencję.
       go.delete(self.go_id)
 
-      -- Wywołanie unload zmniejszy licznik referencji zasobów
-      -- trzymanych przez komponent fabryki, co doprowadzi do ich usunięcia.
+      -- Wywołanie unload zmniejszy liczniki referencji zasobów utrzymywanych przez komponent fabryki,
+      -- co doprowadzi do ich usunięcia.
       factory.unload("#factory")
   end
   ```

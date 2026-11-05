@@ -21,22 +21,21 @@ Zalecany sposób polega na pobraniu i zamontowaniu pełnego archiwum Zip za pomo
 
 ## Pobieranie mountów
 
-`liveupdate.get_mounts()` zwraca mounty aktywne w bieżącej sesji. Każdy wpis zawiera URI `mount.uri`, liczbowy priorytet `mount.priority` oraz hash `mount.name`. Mounty nie są przywracane po restarcie; aplikacja musi zapisać potrzebne ustawienia i ponownie wywołać `liveupdate.add_mount()`.
+`liveupdate.get_mounts()` zwraca mounty aktywne w bieżącej sesji. Każdy wpis zawiera łańcuch znaków `uri`, liczbowy priorytet `priority` oraz hash `name`. Lista zawiera również podstawowe mounty silnika, których priorytety są ujemne i których nie można usunąć.
 
-Ponieważ `mount.name` jest hashem, użyj go jako klucza tabeli lub porównaj z `hash("name")`; nie łącz go ze ścieżką. Przypisz każdy hash nazwy do unikalnej ścieżki metadanych:
+Silnik nie przywraca mountów po ponownym uruchomieniu. Jeśli aplikacja potrzebuje wcześniej pobranej zawartości w kolejnej sesji, musi zapisać URI pakietu, nazwę i priorytet we własnych danych zapisu, a podczas uruchamiania ponownie wywołać `liveupdate.add_mount()`.
+
+Gdy zamontowanych jest kilka pakietów, warto zweryfikować metadane zdefiniowane przez aplikację. Ponieważ `mount.name` jest hashem, użyj go jako klucza tabeli lub porównaj z `hash("mount-name")`; nie doklejaj go do ścieżki zasobu. Poniższy przykład przypisuje każdemu hashowi nazwy unikalną ścieżkę do zasobu z metadanymi:
 
 ```lua
 local function remove_old_mounts()
-	local mounts = liveupdate.get_mounts() -- tabela z mountami
+	local mounts = liveupdate.get_mounts() -- tabela mountów
 	local version_resources = {
-		[hash("liveupdate")] = "/version_liveupdate.json",
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
 	}
 
-    -- Każdy mount ma: mount.uri, mount.priority, mount.name
-	for _,mount in ipairs(mounts) do
-
-        -- Wymaga to, aby nazwa pliku była unikalna, dzięki czemu nie pobierzemy pliku z innego archiwum.
-        -- Te dane są tworzone przez twórcę gry jako sposób na określenie metadanych archiwum.
+	for _, mount in ipairs(mounts) do
 		local version_resource = version_resources[mount.name]
 		local version_data = version_resource and sys.load_resource(version_resource)
 
@@ -46,14 +45,15 @@ local function remove_old_mounts()
 			version_data = {version = 0} -- jeśli nie ma pliku wersji, prawdopodobnie jest to stare lub nieprawidłowe archiwum
 		end
 
-        -- Sprawdź wersję archiwum względem wersji obsługiwanej przez grę.
-        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- Było nieprawidłowe, więc je odmontujemy!
-            liveupdate.remove_mount(mount.name)
-        end
+		-- Pomiń podstawowe mounty silnika, które mają ujemne priorytety.
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```
+
+Używaj unikalnych ścieżek metadanych dla różnych pakietów. Wyszukiwanie zasobów uwzględnia priorytet mounta, więc użycie tej samej ścieżki w kilku pakietach spowoduje odczytanie kopii z mounta o najwyższym priorytecie.
 
 ## Skryptowanie z wykluczonymi pełnomocnikami kolekcji
 

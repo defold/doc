@@ -3,7 +3,7 @@ title: Defold中的GUI布局
 brief: Defold支持GUI自动适应移动设备上的屏幕方向变化。本文档解释了此功能的工作原理。
 ---
 
-# 布局
+# 布局 {#layouts}
 
 Defold支持GUI自动适应移动设备上的屏幕方向变化。通过使用此功能，您可以设计适应各种屏幕尺寸的方向和纵横比的GUI。还可以创建与特定设备型号匹配的布局。
 
@@ -32,11 +32,11 @@ Device Models
 
 如果您希望引擎在设备旋转时自动在横屏和竖屏布局之间切换，请勾选*Dynamic Orientation*框。引擎将动态选择匹配的布局，并在设备改变方向时也更改选择。
 
-### 自动布局选择（显示配置文件）
+### 自动布局选择（显示配置文件） {#auto-layout-selection-display-profiles}
 
 Display Profiles 资源有一个“Auto Layout Selection”选项（默认开启）。开启时，引擎会在场景创建时以及窗口/显示尺寸变化时自动选择最匹配的 GUI 布局。关闭时，引擎不会自动切换布局，请从 GUI 脚本使用 `gui.set_layout()` 手动切换布局。此设置保存在 Display Profiles 文件中，并影响所有 GUI 场景。
 
-## GUI布局
+## GUI布局 {#gui-layouts}
 
 当前的显示配置文件集可用于创建GUI节点设置的布局变体。要向GUI场景添加新布局，请在*Outline*视图中右键点击*Layouts*图标并选择<kbd>Add ▸ Layout ▸ ...</kbd>：
 
@@ -54,7 +54,7 @@ Display Profiles 资源有一个“Auto Layout Selection”选项（默认开启
 
 布局不能删除或创建新节点，只能覆盖属性。如果需要从布局中移除节点，可以将其移出屏幕或使用脚本逻辑删除它。您还应注意当前选定的布局。如果向项目添加布局，新布局将根据当前选定的布局进行设置。此外，复制和粘贴节点时考虑当前选定的布局，在复制*和*粘贴时都是如此。
 
-## 动态配置文件选择
+## 动态配置文件选择 {#dynamic-profile-selection}
 
 启用 Auto Layout Selection 后，引擎会自动选择最匹配的布局。动态布局匹配根据以下规则对每个显示配置文件限定符进行评分：
 
@@ -72,7 +72,7 @@ Display Profiles 资源有一个“Auto Layout Selection”选项（默认开启
 
 由于*Default*布局在运行时用作回退，如果没有更好的匹配布局，这意味着如果您添加"Landscape"布局，它将是*所有*方向的最佳匹配，直到您也添加"Portrait"布局。
 
-## 布局更改消息
+## 布局更改消息 {#layout-change-messages}
 
 当布局发生变化时，会向 GUI 组件脚本发送 `layout_changed` 消息。引擎自动切换布局（Auto Layout Selection 开启）或脚本调用 `gui.set_layout()` 且布局确实变化时都会发生这种情况。消息包含布局的哈希ID，以便脚本可以根据选择的布局执行逻辑：
 
@@ -99,7 +99,9 @@ end
 
 当方向切换时，GUI布局管理器将根据您的布局和节点属性自动缩放和重新定位GUI节点。然而，游戏内容在单独的通道中渲染（默认情况下），使用拉伸适配投影到当前窗口。要更改此行为，要么提供自己修改的渲染脚本，要么使用相机[库](/assets/)。
 
-## 手动布局选择（Lua）
+为摄像头缺口周围自定义 UI 位置时，即使选中的 GUI 布局没有变化，也应在 `window.WINDOW_EVENT_RESIZED` 时刷新 `window.get_reserved_areas()`。在 iOS 上，旋转 180° 后窗口尺寸和安全区边距可能不变，但遮挡位置会改变。刷新示例以及窗口像素坐标与 GUI 调整之间的关系，请参阅[屏幕保留区域](/manuals/porting-guidelines/#reserved-screen-areas)。
+
+## 手动布局选择（Lua） {#manual-layout-selection-lua}
 
 当正在使用的 Display Profiles 关闭 Auto Layout Selection 时，引擎不会自动切换布局。请从 GUI 脚本使用这些函数手动管理布局：
 

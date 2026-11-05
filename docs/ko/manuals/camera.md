@@ -56,7 +56,7 @@ Orthographic Mode
   `Orthographic Projection`이 활성화된 경우에만 사용할 수 있습니다.
 
 
-## 카메라 사용하기
+## 카메라 사용하기 {#using-the-camera}
 
 모든 카메라는 프레임 동안 자동으로 활성화되고 업데이트되며, Lua `camera` 모듈은 모든 스크립트 컨텍스트에서 사용할 수 있습니다. Defold 1.8.1부터는 카메라 컴포넌트에 `acquire_camera_focus` 메세지를 보내 카메라를 명시적으로 활성화할 필요가 없어졌습니다. 기존 acquire 및 release 메세지는 아직 사용할 수 있지만, 활성화하거나 비활성화하려는 다른 컴포넌트와 마찬가지로 `enable` 및 `disable` 메세지를 사용하는 것을 권장합니다.
 
@@ -68,21 +68,19 @@ msg.post("#camera", "enable")
 현재 사용할 수 있는 모든 카메라를 나열하려면 `camera.get_cameras()`를 사용할 수 있습니다.
 
 ```lua
--- 참고: render 호출은 렌더 스크립트에서만 사용할 수 있습니다.
+-- 참고: 렌더 호출은 렌더 스크립트에서만 사용할 수 있습니다.
 --       camera.get_cameras() 함수는 어디서든 사용할 수 있지만,
 --       render.set_camera는 렌더 스크립트에서만 사용할 수 있습니다.
 
 for k,v in pairs(camera.get_cameras()) do
-    -- camera 테이블은 모든 카메라의 URL을 포함합니다.
+    -- camera 테이블에는 모든 카메라의 URL이 들어 있습니다
     render.set_camera(v)
-    -- 여기서 렌더링을 수행합니다. 여기서 렌더링되는 것 중 뷰 및
-    -- 투영 매트릭스가 지정된 메터리얼을 사용하는 것은 카메라의
-    -- 매트릭스를 사용합니다.
+    -- 여기서 렌더링합니다. 뷰와 투영 행렬이 지정된 메터리얼을 사용하는
+    -- 모든 렌더링은 카메라의 행렬을 사용합니다.
 end
--- 카메라를 비활성화하려면 render.set_camera에 nil을 전달하거나
--- 인수를 아예 전달하지 않습니다.
--- 이 호출 이후 모든 render 호출은 렌더 컨텍스트에 지정된
--- 뷰 및 투영 매트릭스(render.set_view 및 render.set_projection)를 사용합니다.
+-- 카메라를 비활성화하려면 render.set_camera에 nil을 전달하거나 인자를 생략합니다.
+-- 이 호출 이후에는 모든 렌더 호출이 렌더 컨텍스트에 지정된
+-- 뷰와 투영 행렬을 사용합니다(render.set_view 및 render.set_projection)
 render.set_camera()
 ```
 
@@ -99,7 +97,7 @@ camera.set_aspect_ratio(camera, ratio) -- 종횡비 설정
 camera.set_far_z(camera, far_z) -- far z 설정
 camera.set_near_z(camera, near_z) -- near z 설정
 camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- 직교 모드 설정
-... 기타 등등
+... And so forth
 ```
 
 카메라는 URL로 식별됩니다. 이 URL은 컴포넌트의 전체 씬 경로이며, 컬렉션, 해당 컴포넌트가 속한 게임 오브젝트, 컴포넌트 id를 포함합니다. 이 예제에서는 같은 컬렉션 안에서 카메라 컴포넌트를 식별할 때 URL `/go#camera`를 사용하고, 다른 컬렉션이나 렌더 스크립트에서 카메라에 액세스할 때는 `main:/go#camera`를 사용합니다.
@@ -143,9 +141,8 @@ end
 또는 렌더 스크립트에서 렌더링에 사용할 특정 카메라를 설정할 수 있습니다. 예를 들어 멀티플레이어 게임처럼 어떤 카메라를 렌더링에 사용할지 더 구체적으로 제어해야 하는 경우에 유용할 수 있습니다.
 
 ```lua
--- render.set_camera는 render.set_camera()가 호출될 때까지
--- 발생하는 모든 렌더링에 대해 뷰 및 투영 매트릭스를
--- 자동으로 사용합니다.
+-- render.set_camera는 뷰와 투영 행렬을
+-- render.set_camera()가 호출될 때까지 모든 렌더링에 자동으로 사용합니다.
 render.set_camera("main:/my_go#camera")
 ```
 
@@ -288,7 +285,7 @@ local world_position = camera.screen_to_world(
 [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera])은 반대 방향으로 변환합니다. 화면 픽셀 X와 Y, 그리고 동일한 뷰 깊이 규칙을 사용하는 Z를 반환하므로 결과를 다시 `camera.screen_to_world()`에 전달할 수 있습니다.
 
 ```lua
--- Update the cached world transform first if the object moved this frame.
+-- 이번 프레임에 오브젝트가 이동했다면 먼저 캐쉬된 월드 트랜스폼을 갱신합니다.
 go.update_world_transform("/marker")
 local world_position = go.get_world_position("/marker")
 local screen_position = camera.world_to_screen(world_position, "#camera")

@@ -3,11 +3,11 @@ title: Defold'da hata ayıklama
 brief: Bu kılavuz, Defold'da bulunan hata ayıklama olanaklarını açıklar.
 ---
 
-# Oyun mantığında hata ayıklama
+# Oyun mantığında hata ayıklama {#debugging-game-logic}
 
 Defold, inceleme olanağı sunan tümleşik bir Lua hata ayıklayıcısı (debugger) içerir. Yerleşik [profil çıkarma (profiling) araçlarıyla](/manuals/profiling) birlikte, oyun mantığınızdaki hataların nedenini bulmanıza veya performans sorunlarını analiz etmenize yardımcı olabilecek güçlü bir araçtır.
 
-## Yazdırarak ve görsel olarak hata ayıklama
+## Yazdırarak ve görsel olarak hata ayıklama {#print-and-visual-debugging}
 
 Defold'da oyununuzda hata ayıklamanın en basit yolu, [yazdırarak hata ayıklamayı](http://en.wikipedia.org/wiki/Debugging#Techniques) kullanmaktır. Değişkenleri izlemek veya yürütme akışını göstermek için `print()` ya da [`pprint()`](/ref/builtins#pprint) ifadelerini kullanın. Betiği (script) olmayan bir oyun nesnesi (game object) tuhaf davranıyorsa ona yalnızca hata ayıklama amacı taşıyan bir betik ekleyebilirsiniz. Yazdırma işlevlerinden herhangi birini kullanmak, düzenleyicideki *Console* görünümüne ve [oyun günlüğüne](/manuals/debugging-game-and-system-logs) çıktı yazar.
 
@@ -36,9 +36,13 @@ Görsel hata ayıklama iletileri, görüntü oluşturan işleme (rendering) hatt
 
 Bu verileri muhtemelen her karede güncellemek isteyeceğinizi unutmayın; bu nedenle iletileri `update()` işlevinde göndermek iyi bir fikirdir.
 
-## Hata ayıklayıcıyı çalıştırma
+## Hata ayıklayıcıyı çalıştırma {#running-the-debugger}
 
-Hata ayıklayıcıyı çalıştırmak için <kbd>Debug ▸ Start/Attach</kbd> seçeneğini seçin. Bu seçenek, oyunu hata ayıklayıcı bağlı olarak başlatır veya hata ayıklayıcıyı zaten çalışan bir oyuna bağlar.
+Lua hata ayıklayıcısı, yerel hata ayıklama ve görüntüsüz (headless) derlemelerde kullanılabilir. Düzenleyiciyle aynı Defold sürümüne ait bir motor kullanın. Yayıma yönelik derlemeler ve Web derlemeleri, hata ayıklayıcı bağlamayı desteklemez.
+
+Hata ayıklayıcıyı çalıştırmak için <kbd>Debug ▸ Start/Attach</kbd> seçeneğini seçin. Bu seçenek, oyunu hata ayıklayıcı bağlı olarak başlatır veya zaten çalışan bir oyuna bağlanır. Hata ayıklama için oyun başlatılırken düzenleyici, etkin kesme noktalarını başlangıç betikleri çalışmadan önce kurar; böylece başlatmadan önce `init()` içine kesme noktası koyabilirsiniz.
+
+Bir cihaza bağlanmak için <kbd>Project ▸ Targets</kbd> altında cihazı seçin, ardından <kbd>Debug ▸ Start/Attach</kbd> seçeneğini seçin. Bağlantı, yürütmeyi bir sonraki Lua satırında duraklatır. Düzenleyici, desteklenen yerel ve uzak hedefler için hata ayıklayıcı bağlantısını otomatik olarak kurar. Bağlantı gereksinimleri için [Uzak hedefler](#remote-targets) bölümüne bakın veya [harici bir hata ayıklayıcıyı bağlama](#native-dap-connections) hakkında bilgi edinin.
 
 ![genel bakış](images/debugging/overview.png)
 
@@ -46,7 +50,7 @@ Hata ayıklayıcı bağlanır bağlanmaz konsoldaki hata ayıklayıcı kontrol d
 
 Break
 : ![duraklatma](images/debugging/pause.svg){width=60px .left}
-  Oyunun yürütülmesini hemen kesin. Oyun, o anda bulunduğu noktada duraklar. Artık oyunun durumunu inceleyebilir, oyunu adım adım ilerletebilir veya bir sonraki kesme noktasına (breakpoint) kadar çalıştırmaya devam edebilirsiniz. Geçerli yürütme noktası kod düzenleyicisinde işaretlenir:
+  Lua yürütmesini bir sonraki kaynak satırında duraklatın. Artık oyunun durumunu inceleyebilir, oyunu adım adım ilerletebilir veya bir sonraki kesme noktasına (breakpoint) kadar çalıştırmaya devam edebilirsiniz. Geçerli yürütme noktası kod düzenleyicisinde işaretlenir:
 
   ![betik](images/debugging/script.png)
 
@@ -67,7 +71,7 @@ Step Over
   ![adım](images/debugging/step.png)
 
 ::: sidenote
-Bir Lua kodu satırı tek bir ifadeye karşılık gelmez. Hata ayıklayıcıda adımlama, her seferinde bir ifade ilerler; bu nedenle şu anda bir sonraki satıra geçmek için adım düğmesine birden fazla kez basmanız gerekebilir.
+Adımlama Lua kaynak satırlarını izler. Örneğin bir döngü yinelendiğinde aynı satıra yeniden gelinebilir; bu nedenle her adım dosyadaki bir sonraki satıra ilerlemez.
 :::
 
 Step Into
@@ -100,22 +104,111 @@ Koşullu kesme noktalarını ayarlama
   Kesme noktası koşulunu düzenlemek için kod düzenleyicisinde satır numaralarının hemen sağındaki sütuna sağ tıklayın veya menüden <kbd>Edit ▸ Edit Breakpoint</kbd> seçeneğini seçin.
 
 Lua ifadelerini değerlendirme
-: Hata ayıklayıcı bağlıyken ve oyun bir kesme noktasında duraklatılmışken geçerli bağlamı içeren bir Lua çalışma zamanı ortamı kullanılabilir. Değerlendirmek için konsolun alt kısmına Lua ifadeleri yazın ve <kbd>Enter</kbd> tuşuna basın:
+: Oyun duraklatılmışken *Call Stack* görünümünde bir yığın çerçevesi seçin, konsolun alt kısmına bir Lua ifadesi veya deyimi yazın ve <kbd>Enter</kbd> tuşuna basın. Değerlendirme, seçilen çerçevenin yerel değişkenlerini, üst kapsam değişkenlerini (upvalue) ve genel değişkenlerini kullanır. Tablo sonuçları iç içe içeriklerini de kapsar.
 
   ![konsol](images/debugging/console.png)
 
-  Şu anda değerlendirici aracılığıyla değişkenleri değiştirmek mümkün değildir.
+  Atamalar aracılığıyla değerleri de değiştirebilirsiniz; örneğin `self` değişkeninin kullanılabildiği bir çerçevede `self.score = 100` yazabilirsiniz. Değerlendirilen kod, oyun durumunu oyununuzun yürüttüğü kodla aynı şekilde etkiler.
+
+Değişkenleri inceleme
+: Yerel değişkenlerini ve üst kapsam değişkenlerini *Variables* görünümünde incelemek için *Call Stack* görünümünde bir çerçeve seçin. Genel değişkenleri incelemek için `_G` öğesini, alanlarını incelemek için tabloları veya `self` öğesini genişletin. Düzenleyici, adımlarken, çerçeve değiştirirken veya değerlendirme sonrasında yenilerken güncel değerleri alır ve genişletilmiş yolları, seçimi ve kaydırma konumunu korur.
 
 Hata ayıklayıcının bağlantısını kesme
-: Hata ayıklayıcının oyunla bağlantısını kesmek için <kbd>Debug ▸ Detach Debugger</kbd> seçeneğini seçin. Oyun hemen çalışmaya devam eder.
+: Hata ayıklayıcının oyunla bağlantısını kesmek için <kbd>Debug ▸ Detach Debugger</kbd> seçeneğini seçin. Oyun hemen çalışmaya devam eder. Oyunu yeniden başlatmadan tekrar bağlanmak için <kbd>Debug ▸ Start/Attach</kbd> seçeneğini kullanın.
 
-## Breakpoints sekmesi
+## Yerel DAP bağlantıları {#native-dap-connections}
+
+Motor, TCP üzerinden yerel bir Debug Adapter Protocol (DAP) sunucusu sağlar. Harici bir DAP istemcisi için dinleyiciyi yerel bir Defold hata ayıklama veya görüntüsüz motorda başlatın, ardından istemciyi motorun adresine ve bağlantı noktasına bağlayın. <kbd>Debug ▸ Start/Attach</kbd> seçeneğini kullandığınızda düzenleyici dinleyiciyi otomatik olarak kurar.
+
+Geçerli düzenleyici yalnızca MobDebug destekleyen eski motorlara bağlanamaz. Geçerli sürümlerde `require "builtins.scripts.mobdebug"` çağrısı gerekli değildir ve kullanılamaz.
+
+### Dinleyiciyi başlatma {#starting-the-listener}
+
+Önce projenizi derleyin. `build/default/game.projectc` dosyasını içeren proje dizininden yerel hata ayıklama motorunu şu [başlangıç yapılandırması geçersiz kılmalarıyla](/manuals/project-settings/#setting-config-values-on-engine-startup) çalıştırın:
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+DAP istemcinizi `127.0.0.1:8172` adresine bağlayın. Motor, başlangıç betiklerini çalıştırmadan önce istemcinin kesme noktalarını yapılandırmasını bekler.
+
+| Ayar | Varsayılan | Amaç |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | Dinleyiciyi motorun başlangıcında başlatmak için `1` olarak ayarlayın. |
+| `debugger.address` | `127.0.0.1` | Dinlenecek IPv4 adresi. Varsayılan değer, aynı bilgisayardan gelen bağlantıları kabul eder. |
+| `debugger.port` | `8172` | TCP dinleme bağlantı noktası. Kullanılabilir bir bağlantı noktası seçmek için `0` kullanın. |
+| `debugger.wait` | `0` | Başlangıç betiklerini çalıştırmadan önce hata ayıklayıcı istemcisinin yapılandırmasını beklemek için `1` olarak ayarlayın. |
+
+Bu değerleri [game.project dosyasının Debugger bölümüne](/manuals/project-settings/#debugger) de ekleyebilirsiniz. Düzenleyici, <kbd>Debug ▸ Start/Attach</kbd> için dinleyiciyi otomatik olarak yapılandırır; bu nedenle elle yapılandırma yalnızca dinleyiciyi kendiniz başlatırken gerekir.
+
+Motor günlüğü, seçilen adresi ve bağlantı noktasını bildirir. `debugger.wait=0` olduğunda oyun hemen başlar ve daha sonra bağlanabilirsiniz. `debugger.wait=1` olduğunda motor, istemci kesme noktaları dahil oturumu yapılandırmayı bitirene kadar bekler. Yerel hata ayıklama başlatmalarında düzenleyici kullanılabilir bir bağlantı noktasını otomatik olarak seçer.
+
+İstemcinin bağlantısının kesilmesi yürütmeyi sürdürür ve dinleyiciyi başka bir bağlantı için kullanılabilir bırakır. Başlangıç yapılandırması beklenirken bağlantının kesilmesi de motoru serbest bırakır. Dinleyici başlatılamazsa motor hatayı günlüğe yazar ve başlangıç işlemlerine devam eder; kullanılabilir bir bağlantı noktası seçmek için Lua'dan `debugger.start(0)` ile yeniden deneyebilirsiniz.
+
+### Çalışma sırasında dinleyiciyi etkinleştirme {#enabling-the-listener-while-running}
+
+Oyunu yeniden başlatmadan bir betikten dinleyiciyi etkinleştirmek için:
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])`, dinleme bağlantı noktasını hemen döndürür. İstemci beklemez veya oyunu duraklatmaz. Verilmeyen bağımsız değişkenler için `debugger.port` ve `debugger.address` kullanılır; `0` verilmesi kullanılabilir bir bağlantı noktası seçer. Yinelenen çağrılar mevcut dinleyicinin bağlantı noktasını döndürür ve adresini veya bağlantı noktasını değiştirmez. `debugger` modülünü yerel hata ayıklama ve görüntüsüz motorlar sağlar.
+
+Bağlantı noktası `0` ile `65535` arasında bir tamsayı olmalıdır. Yalnızca adresi geçersiz kılmak için ilk bağımsız değişken olarak `nil` verin. Geçersiz bağımsız değişkenler veya dinleyicinin adrese bağlanamaması bir Lua hatasına yol açar.
+
+### Uzak hedefler {#remote-targets}
+
+Başka bir bilgisayardan doğrudan bağlantı için dinleyiciyi cihazın IPv4 arayüzüne veya `0.0.0.0` adresine (tüm IPv4 arayüzleri) bağlayın. Örneğin `debugger.start(8172, "0.0.0.0")` kullanın veya yukarıdaki başlangıç komutuna `--config=debugger.address=0.0.0.0` ekleyin. İstemciyi cihazın gerçek IP adresine bağlayın ve dinleme bağlantı noktasına TCP erişimine izin verin. `0.0.0.0` bir bağlanma adresidir; istemciye girilecek adres değildir.
+
+Defold düzenleyicisi bu uzak adrese bağlanmayı otomatik olarak ister ve uzak hedefler için `8172 + project.instance_index` bağlantı noktasını kullanır. Dinamik olarak seçilmiş uzak bağlantı noktasını keşfedemez. Uzak dinleyiciyi zaten localhost üzerinde veya farklı bir bağlantı noktasında başlattıysanız düzenleyiciden bağlanmadan önce motoru yeniden başlatın.
+
+Hata ayıklayıcı Lua kodunu değerlendirebilir ve kimlik doğrulaması yapmaz. Uzak erişimi yalnızca güvenilen bir geliştirme ağında etkinleştirin.
+
+### Harici istemciler {#external-clients}
+
+TCP üzerinden doğrudan bir DAP sunucusuna bağlanmayı destekleyen bir istemci kullanın. Kaynak eşlemesini, `game.project` dosyasını içeren klasöre yapılandırın (DAP `localRoot` bağlantı bağımsız değişkeni). Önce motor dinleyicisini başlatın, ardından istemciyi bağlayın.
+
+#### VS Code {#vs-code}
+
+[Lua Debug eklentisini](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug) (`actboy168.lua-debug`) yükleyin, `game.project` dosyasını içeren klasörü VS Code'da açın ve `.vscode/launch.json` dosyasına şu yapılandırmayı ekleyin:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+VS Code bir `.script`, `.gui_script` veya `.render_script` dosyasını düz metin olarak açarsa kesme noktalarını ayarlamadan önce durum çubuğundaki dil göstergesinden **Lua** seçeneğini seçin.
+
+Örneğin bir betiğin `init()` işlevinde kesme noktası ayarlayın. [Yukarıdaki başlangıç komutuyla](#starting-the-listener) motoru başlatın, ardından VS Code'un **Run and Debug** görünümünde **Attach to Defold Lua** seçeneğini seçin. `debugger.wait=1` olduğunda motor, istemci kesme noktalarını kurduktan sonra başlangıç betiklerini çalıştırır. Bağlantıdan sonra bir sonraki Lua satırında da duraklamak istiyorsanız `stopOnEntry` değerini `true` olarak ayarlayın.
+
+VS Code'un [`debugServer` ayarı](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug), motorun yerel TCP dinleyicisine doğrudan bağlanır. Lua Debug eklentisinin bağlantı yapılandırması `address` alanını gerektirir. Dinleyicinin bağlantı noktasını değiştirirseniz her iki alanı da güncelleyin. İstemcinin motorun Lua kaynak adlarını dosyalarınızla eşleyebilmesi için `localRoot` proje klasörünü göstermelidir.
+
+Uzak bir motor için DAP bağlantı noktasını localhost'a yönlendirin ve yönlendirilen bağlantı noktasını her iki alana da yazın veya doğrudan uzak ana bilgisayara bağlanan bir DAP istemcisi kullanın.
+
+## Breakpoints sekmesi {#breakpoints-tab}
 
   ![Breakpoints sekmesi](images/debugging/breakpoints_tab.png)
 
   Farklı betiklerde birden çok kesme noktasıyla çalışırken Breakpoints sekmesi, tüm kesme noktalarınızı tek bir yerden yönetebileceğiniz merkezi bir görünüm sunar.
 
-##### Tek bir kesme noktasının kontrolleri
+##### Tek bir kesme noktasının kontrolleri {#individual-breakpoint-controls}
 
   Tek bir kesme noktasıyla çalışmak için:
   - Kesme noktasını kaldırmak için kırmızı çöp kutusu simgesine tıklayın
@@ -123,17 +216,17 @@ Hata ayıklayıcının bağlantısını kesme
   - Koşullu kesme noktalarını düzenlemek için koşul hücresine çift tıklayın veya kalem simgesine tıklayın
   - Koşulu temizlemek için imleci koşul hücresinin üzerine getirdiğinizde görünen X temizleme düğmesine tıklayın
 
-##### Toplu işlemler
+##### Toplu işlemler {#batch-operations}
 
   Ctrl/Cmd+click veya Shift+click kullanarak birden çok kesme noktası seçin, ardından toplu işlemler yapmak için sağ tıklayın. Birden fazla kesme noktasının koşullarını aynı anda düzenleyebilir, etkinlik durumlarını değiştirebilir veya noktaları tamamen kaldırabilirsiniz.
 
   Araç çubuğundaki düğmeler, tüm kesme noktalarını aynı anda etkinleştirmenizi, devre dışı bırakmanızı veya durumlarını tersine çevirmenizi sağlar. Bu, oyununuzu durmadan çalıştırmak istediğinizde ancak kesme noktalarının konumlarını kaybetmek istemediğinizde yararlıdır. Hata ayıklama oturumunuz bittiğinde tümünü kaldırabilirsiniz.
 
-## Lua hata ayıklama kütüphanesi
+## Lua hata ayıklama kütüphanesi {#lua-debug-library}
 
 Lua, bazı durumlarda, özellikle Lua ortamınızın iç yapısını incelemeniz gerektiğinde yararlı olan bir hata ayıklama kütüphanesiyle gelir. Bu konuda daha fazla bilgiyi [Lua kılavuzundaki hata ayıklama kütüphanesi bölümünde](http://www.lua.org/pil/contents.html#23) bulabilirsiniz.
 
-## Hata ayıklama kontrol listesi
+## Hata ayıklama kontrol listesi {#debugging-checklist}
 
 Bir hatayla karşılaşırsanız veya oyununuz beklendiği gibi davranmazsa aşağıdaki hata ayıklama kontrol listesini izleyin:
 

@@ -21,7 +21,7 @@ brief: Руководство описывает как установить и 
 
 **Примечание для пользователей Windows**: используйте git bash для выполнения команд описанных ниже.
 
-1. Авторизуемся в Google Cloud и создаем учетные данные приложения по умолчанию (Application default credentials/ADC)
+1. __Авторизуйтесь в Google Cloud и создайте учётные данные приложения по умолчанию__ — для загрузки образов контейнеров Docker нужна учётная запись Google. Это позволяет контролировать добросовестное использование публичного реестра и временно приостанавливать учётные записи, чрезмерно загружающие образы.
 
    ```sh
    gcloud auth login
@@ -40,8 +40,8 @@ brief: Руководство описывает как установить и 
    git clone https://github.com/defold/extender.git
    cd extender
    ```
-5. Скачиваем готовые jar файлы:
-```sh
+5. __Скачайте готовые jar-файлы__ — следующий шаг: загрузить готовый сервер (`extender.jar`) и инструмент объединения манифестов (`manifestmergetool.jar`):
+   ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
     # set necessary version of Extender and Manifest merge tool
@@ -88,7 +88,7 @@ docker compose -p extender -f server/docker/docker-compose.yml --profile <profil
 * **metrics** - запускает VictoriaMetrics + Grafana в качестве сервиса для сбора метрик и их визуализации
 Для дополнительной информации о том, какие аргументы могут быть переданы команде `docker compose` смотрите https://docs.docker.com/reference/cli/docker/compose/.
 
-Когда docker compose запустить, то можно использовать адрес **http://localhost:9000** как `адрес сервера сборки` в настройках Редактора или как значение для аргумента `--build-server`, если Вы используете Bob для сборки проекта.
+После запуска docker compose можно использовать адрес **http://localhost:9000** в поле `Build server address` в настройках Редактора или как значение для аргумента `--build-server`, если Вы используете Bob для сборки проекта.
 
 Несколько профилей может быть одновременно передано в командную строку. Например:
 ```sh

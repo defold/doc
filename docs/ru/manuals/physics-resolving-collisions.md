@@ -65,7 +65,7 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-  -- Обработка столкновения
+  -- Обработать столкновение
   if message_id == hash("contact_point_response") then
     -- Получить информацию, необходимую для убирания из столкновения. Мы можем
     -- получить несколько точек соприкосновения и должны вычислить

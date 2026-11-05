@@ -130,6 +130,22 @@ Nella barra inferiore dell'editor trovi una piccola area in cui viene mostrato l
 - quando è disponibile un nuovo aggiornamento, compare il pulsante `Update Available`: consulta la sezione Aggiornamento dell'editor più avanti in questo manuale.
 - durante la creazione di una build o di un bundle, viene mostrato l'avanzamento dell'operazione.
 
+## Posizionamento della finestra del motore {#engine-window-placement}
+
+Sulle piattaforme desktop, le finestre del motore aperte dall'editor ricordano le dimensioni e la posizione normali in modalità finestra tra i lanci e i riavvii del motore. Il posizionamento viene salvato separatamente per ogni progetto e istanza del motore. Il lancio di una sola istanza usa lo stesso posizionamento salvato della prima istanza quando se ne avviano più di una.
+
+Se sposti o ridimensioni la finestra del motore, un lancio successivo ne ripristina il posizionamento. Le dimensioni memorizzate vengono usate finché quelle configurate non cambiano; modificare queste ultime fa sì che il lancio successivo usi le nuove dimensioni. Su Linux Wayland vengono ripristinate soltanto le dimensioni, perché il compositore del desktop controlla il posizionamento delle finestre.
+
+### Ripristino delle dimensioni della finestra del motore {#resetting-the-engine-window-size}
+
+Scegli <kbd>Debug ▸ Reset Simulated Resolution</kbd> per tornare alle dimensioni configurate. Questo comando:
+
+- Cancella le dimensioni memorizzate delle finestre di tutte le istanze del motore del progetto corrente, comprese quelle non in esecuzione.
+- Cancella la risoluzione simulata selezionata e disattiva **Rotated Device**.
+- Conserva le posizioni salvate delle finestre.
+
+Le finestre delle istanze in esecuzione selezionate vengono ridimensionate secondo [Display Width e Height](/manuals/project-settings/#display) del progetto. Puoi eseguire il ripristino anche senza un motore in esecuzione; il lancio successivo userà le dimensioni configurate. Spostare o ridimensionare in seguito la finestra ne salva nuovamente il posizionamento.
+
 ## Dimensioni e visibilità dei pannelli {#panes-size-and-visibility}
 
 Puoi regolare le dimensioni dei pannelli nell'editor <kbd>trascinando</kbd> i bordi delle sezioni che separano i 6 pannelli descritti sopra.

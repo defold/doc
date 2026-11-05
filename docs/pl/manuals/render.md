@@ -188,7 +188,7 @@ Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każd
 
 
 ::: sidenote
-Począwszy od Defold 1.13.0, prymitywy komponentów używają kolejności wierzchołków przeciwnej do ruchu wskazówek zegara, przy czym normalna prymitywu jest skierowana w stronę kamery. Sprite'y, węzły GUI, mapy kafelków (tilegridy) i efekty cząsteczkowe używają tej samej kolejności co pozostałe typy komponentów, dzięki czemu dla wszystkich komponentów można stosować te same ustawienia odrzucania ścian.
+Prymitywy komponentów używają kolejności wierzchołków przeciwnej do ruchu wskazówek zegara, przy czym normalna prymitywu jest skierowana w stronę kamery. Sprite'y, węzły GUI, mapy kafelków (tilegridy) i efekty cząsteczkowe używają tej samej kolejności co pozostałe typy komponentów, dzięki czemu dla wszystkich komponentów można stosować te same ustawienia odrzucania ścian.
 
 Może to wpłynąć na projekty, które ustawiają odrzucanie ścian dla komponentów innych niż modele. Jeśli komponent jest nieoczekiwanie odrzucany, upewnij się, że tylne ściany są wybrane za pomocą `render.set_cull_face(graphics.FACE_TYPE_BACK)`, albo usuń wywołanie `render.set_cull_face()`, aby użyć domyślnego trybu `graphics.FACE_TYPE_BACK`.
 :::
@@ -380,12 +380,12 @@ Dla poniższego fragmentu `update()` nadaj materiałom sceny znacznik `scene`, a
 render.set_render_target(self.offscreen)
 render.set_viewport(0, 0, 1024, 1024)
 render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
--- Set the scene view and projection here.
+-- Tutaj ustaw macierze widoku i projekcji dla sceny.
 render.draw(self.scene_predicate)
 
 render.set_render_target(render.RENDER_TARGET_DEFAULT)
 render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
--- Set the full-screen quad view and projection here.
+-- Tutaj ustaw macierze widoku i projekcji dla pełnoekranowego czworokąta.
 render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
 render.draw(self.present_predicate)
 render.disable_texture(0)
@@ -474,7 +474,7 @@ end
 local p1 = vmath.vector3(0, 0, 0)
 local p2 = vmath.vector3(1000, 1000, 0)
 local col = vmath.vector4(1, 1, 1, 1)
-msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )  
+msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )
 ```
 
 `"draw_text"`
@@ -483,7 +483,7 @@ msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = co
 ```lua
 -- narysuj komunikat tekstowy
 local pos = vmath.vector3(500, 500, 0)
-msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
+msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
 ```
 
 Wizualny profiler dostępny przez wiadomość `"toggle_profile"` wysyłaną do gniazda `@system` nie jest częścią renderera sterowanego skryptem. Jest rysowany oddzielnie od twojego skryptu do renderowania.

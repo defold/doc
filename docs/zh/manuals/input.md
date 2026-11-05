@@ -3,7 +3,7 @@ title: 设备输入在Defold中
 brief: 本手册解释了输入如何工作，如何捕获输入操作并创建交互式脚本反应。
 ---
 
-# 输入
+# 输入 {#input}
 
 所有用户输入都由引擎捕获，并作为操作分派给已获取输入焦点并实现了`on_input()`函数的游戏对象中的脚本和GUI脚本组件。本手册解释了如何设置绑定以捕获输入，以及如何创建响应输入的代码。
 
@@ -17,7 +17,7 @@ brief: 本手册解释了输入如何工作，如何捕获输入操作并创建�
   1. 键盘 (包括按键输入和文本输入)
   2. 鼠标 (位置, 按键, 滚轮输入)
   3. 单点/多点触摸屏 (iOS, Android 设备和 HTML5 手机端)
-  4. 游戏手柄 (操作系统负责将其输入发送给游戏然后映射给脚本. 详见 [游戏手柄配置文件](/manuals/input-gamepads/#gamepads-settings-file))
+  4. 手柄（使用[控制器映射和平台支持](/manuals/input-gamepads/#gamepads-settings-file)）
 
 输入绑定
 : 在输入发送到脚本之前，来自设备的原始输入通过输入绑定表转换为有意义的*操作*。
@@ -34,7 +34,7 @@ brief: 本手册解释了输入如何工作，如何捕获输入操作并创建�
 消耗输入
 : 脚本可以选择消耗接收到的输入，阻止栈中更下方的监听器接收它。
 
-## 设置输入绑定
+## 设置输入绑定 {#setting-up-input-bindings}
 
 输入绑定是项目范围的表，允许您指定设备输入在分派到脚本组件和GUI脚本之前如何转换为命名的*操作*。您可以创建一个新的输入绑定文件，在*Assets*视图中<kbd>右键点击</kbd>一个位置并选择<kbd>New... ▸ Input Binding</kbd>。要使引擎使用新文件，请更改*game.project*中的*Game Binding*条目。
 
@@ -52,7 +52,7 @@ brief: 本手册解释了输入如何工作，如何捕获输入操作并创建�
 *操作*
 : 给输入操作指定的名称，当它们被创建并分派到您的脚本时使用。可以将相同的操作名称分配给多个输入。例如，您可以将<kbd>空格</kbd>键和游戏手柄`A`按钮绑定到操作`jump`。请注意，存在一个已知错误，即触摸输入不幸不能与其他输入具有相同的操作名称。
 
-## 触发器类型
+## 触发器类型 {#trigger-types}
 
 您可以创建五种设备特定的触发器类型：
 
@@ -71,7 +71,7 @@ brief: 本手册解释了输入如何工作，如何捕获输入操作并创建�
 游戏手柄触发器
 : 游戏手柄触发器允许您将标准游戏手柄输入绑定到游戏功能。在[游戏手柄手册](/manuals/input-gamepads)中了解更多。
 
-### 加速度计输入
+### 加速度计输入 {#accelerometer-input}
 
 除了上面列出的五种不同触发器类型外，Defold还在原生Android和iOS应用程序中支持加速度计输入。在*game.project*文件的*Input*部分中勾选*Use Accelerometer*框。
 
@@ -111,10 +111,10 @@ msg.post(".", "acquire_input_focus")
 : 当前脚本实例。
 
 `action_id`
-: 操作的哈希名称，如在输入绑定中设置的那样。
+: 输入绑定中设置的动作名称的哈希值；指针移动和加速度计采样则为 `nil`。请使用 `action.source` 区分这些未命名动作。
 
 `action`
-: 包含有关操作的有用数据的表，如输入的值、其位置（绝对和增量位置）、按钮输入是否`按下`等。有关可用操作字段的详细信息，请参阅[on_input()](/ref/go#on_input)。
+: 包含有关操作的有用数据的表，如输入的值、其位置（绝对和增量位置）、按钮输入是否`pressed`等。有关可用操作字段的详细信息，请参阅[on_input()](/ref/go#on_input)。
 
 ```lua
 function on_input(self, action_id, action)
@@ -132,8 +132,45 @@ function on_input(self, action_id, action)
 end
 ```
 
+### 输入设备来源 {#input-device-source}
 
-### 输入焦点和集合代理组件
+`action.source` 标识输入设备类别，与动作名称无关。脚本和 GUI 脚本的 `on_input()` 回调中均可使用，其值为以下哈希之一：
+
+| `action.source` | 输入类别 |
+|-----------------|----------------|
+| `hash("keyboard")` | Key Triggers 产生的单独按键输入。 |
+| `hash("text")` | Text Triggers 产生的文本和标记文本输入，包括通过物理键盘输入的文本。 |
+| `hash("mouse")` | 物理鼠标按钮、滚轮输入和指针移动。 |
+| `hash("touch")` | 触摸输入，包括由触摸模拟的鼠标点击和指针移动。 |
+| `hash("gamepad")` | 手柄输入，包括原始输入和连接事件。 |
+| `hash("accelerometer")` | 加速度计采样。 |
+
+将 `action.source` 与 `hash("touch")` 等哈希值比较，而不是与字符串比较。例如，鼠标左键动作可能来自物理鼠标，也可能来自触摸。即使首次按下时，来源也能区分两者；请参阅[区分鼠标点击与触摸](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch)。
+
+多个设备共用命名动作时，其输入贡献可以合并。来源按键盘、文本、鼠标、触摸的顺序处理；报告的是最后一个对动作有贡献的来源。按键和鼠标按钮释放时会保留此前来源，除非同一帧有其他输入参与。手柄动作仍按控制器独立处理。如果需要独立处理每个绑定，请使用不同的动作名称。
+
+指针移动和加速度计采样没有动作名称，因此均使用 `action_id == nil`。它们通过独立回调传递：指针移动包含坐标及鼠标或触摸来源，加速度计采样包含 `acc_x`、`acc_y`、`acc_z` 及加速度计来源。如果同一帧两者都出现，每个回调可以独立消耗。即使数值未改变，加速度计采样也会被发送。
+
+以下示例处理这些未命名动作。至少设置一个 Mouse Trigger 以接收指针移动，并在支持的设备上启用 [Use Accelerometer](/manuals/project-settings/#use-accelerometer) 以接收加速度计采样：
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
+end
+```
+
+
+### 输入焦点和集合代理组件 {#input-focus-and-collection-proxy-components}
 
 每个通过集合代理动态加载的游戏世界都有自己的输入栈。为了使操作分派到达加载世界的输入栈，代理组件必须位于主世界的输入栈上。加载世界栈上的所有组件都在分派继续向下主栈之前被处理：
 
@@ -144,7 +181,7 @@ end
 :::
 
 
-### 释放输入
+### 释放输入 {#releasing-input}
 
 要停止监听输入操作，请将`release_input_focus`消息发送到游戏对象。此消息将从输入栈中移除游戏对象的任何组件：
 
@@ -154,7 +191,7 @@ msg.post(".", "release_input_focus")
 ```
 
 
-## 消耗输入
+## 消耗输入 {#consuming-input}
 
 组件的`on_input()`可以主动控制操作是否应该进一步传递到栈的下方：
 

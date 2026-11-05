@@ -3,7 +3,7 @@ title: Grafikleri farklı ekran boyutlarına uyarlama
 brief: Bu kılavuz, oyununuzu ve grafiklerinizi farklı ekran boyutlarına nasıl uyarlayacağınızı açıklar.
 ---
 
-# Giriş
+# Giriş {#introduction}
 
 Oyununuzu ve grafiklerinizi farklı ekran boyutlarına uyarlarken dikkate almanız gereken birkaç nokta vardır:
 
@@ -18,12 +18,12 @@ Oyununuzu ve grafiklerinizi farklı ekran boyutlarına uyarlarken dikkate alman�
 Bu kılavuz, bu konuların bazılarını ele alır ve önerilen uygulamaları sunar.
 
 
-## İçeriğinizin işlenme biçimini değiştirme
+## İçeriğinizin işlenme biçimini değiştirme {#how-to-change-how-your-content-is-rendered}
 
 Defold işleme betiği (render script), grafiklerden görüntü oluşturmayı sağlayan işleme (rendering) hattının tamamı üzerinde tam denetim sağlar. İşleme betiği, çizim sırasının yanı sıra nelerin nasıl çizileceğine de karar verir. İşleme betiğinin varsayılan davranışı, pencere yeniden boyutlandırılsa veya gerçek ekran çözünürlüğü bu boyutlarla eşleşmese de her zaman *game.project* dosyasındaki genişlik ve yüksekliğin tanımladığı aynı piksel alanını çizmektir. Bunun sonucunda en boy oranı değişirse içerik esnetilir, pencere boyutu değişirse içerik yakınlaştırılır veya uzaklaştırılır. Bazı oyunlarda bu kabul edilebilir; ancak ekran çözünürlüğü veya en boy oranı farklı olduğunda büyük olasılıkla oyun içeriğinin daha fazla veya daha az bir bölümünü göstermek ya da en azından en boy oranını değiştirmeden içeriği yakınlaştırmak istersiniz. Varsayılan esnetme davranışı kolayca değiştirilebilir; bunun nasıl yapılacağı hakkında daha fazla bilgiyi [İşleme kılavuzunda](https://www.defold.com/manuals/render/#default-view-projection) bulabilirsiniz.
 
 
-## Retro/8 bit grafikler
+## Retro/8 bit grafikler {#retro8-bit-graphics}
 
 Retro/8 bit grafikler genellikle eski oyun konsollarının veya bilgisayarların düşük çözünürlüğünü ve sınırlı renk paletini içeren grafik tarzını taklit eden oyunları ifade eder. Örneğin Nintendo Entertainment System (NES) 256x240, Commodore 64 320x200 ve Gameboy 160x144 ekran çözünürlüğüne sahipti; bunların tümü modern ekranların boyutunun yalnızca küçük bir bölümüdür. Bu grafik tarzını ve ekran çözünürlüğünü taklit eden oyunların modern, yüksek çözünürlüklü bir ekranda oynanabilmesi için grafiklerin birkaç kat büyütülmesi veya yakınlaştırılması gerekir. Bunu yapmanın basit bir yolu, tüm grafiklerinizi taklit etmek istediğiniz düşük çözünürlükte ve tarzda çizmek ve işlenirken grafikleri yakınlaştırmaktır. Defold'da işleme betiğini kullanarak ve [Sabit izdüşümü](/manuals/render/#fixed-projection) uygun bir yakınlaştırma değerine ayarlayarak bunu kolayca yapabilirsiniz.
 
@@ -77,7 +77,7 @@ Artık retro oyunumuz için keskin, *piksel düzeyinde tam hizalı* grafiklerimi
 
 *Subpixels* seçeneği devre dışı bırakıldığında sprite bileşenleri hiçbir zaman yarım piksel konumlarında işlenmez ve her zaman en yakın tam piksele hizalanır.
 
-## Yüksek çözünürlüklü grafikler
+## Yüksek çözünürlüklü grafikler {#high-resolution-graphics}
 
 Yüksek çözünürlüklü grafiklerle çalışırken proje ve içerik kurulumuna retro/8 bit grafiklerden farklı yaklaşmamız gerekir. Bit eşlem grafiklerde içeriğinizi, yüksek çözünürlüklü bir ekranda 1:1 ölçekte gösterildiğinde iyi görünecek şekilde oluşturmanız gerekir.
 
@@ -91,20 +91,22 @@ Bu, ekranın her zaman *game.project* dosyasında belirtilen miktarda içeriği 
 
 *game.project* dosyasındaki genişlik ve yüksekliği, oyun içeriğinizi ölçeklemeden göstermenize olanak tanıyan bir boyuta ayarlamanız önerilir.
 
-### Yüksek DPI ayarı ve retina ekranlar
+### Yüksek DPI ayarı ve retina ekranlar {#high-dpi-setting-and-retina-screens}
 
 Yüksek çözünürlüklü retina ekranları da desteklemek isterseniz bunu *game.project* dosyasının Display bölümünde etkinleştirebilirsiniz:
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Bu, destekleyen ekranlarda yüksek DPI değerine sahip bir arka arabellek oluşturur. Oyun, Width ve Height ayarlarında belirtilen çözünürlüğün iki katında işlenir; bu ayarlar, betiklerde ve özelliklerde kullanılan mantıksal çözünürlüğü belirtmeye devam eder. Bu, tüm ölçülerin aynı kalacağı ve 1x ölçekte işlenen içeriğin aynı görüneceği anlamına gelir. Ancak yüksek çözünürlüklü görüntüleri içe aktarıp 0.5x ölçeğine küçültürseniz ekranda yüksek DPI değerinde görüntülenirler.
+High DPI, oyunun işleme çözünürlüğünde ekranın piksel yoğunluğunu kullanmasını sağlar. *Width* ve *Height* ayarları projenin mantıksal çözünürlüğünü tanımlamaya devam ederken işleme ölçeği platforma ve ekrana bağlıdır. Örneğin ölçek 2 olduğunda, amaçlanan boyutlarının iki katında içe aktarılıp 0.5x ölçekte çizilen görüntüler yüksek yoğunluklu bir ekranda ayrıntılarını koruyabilir.
+
+HTML5'te ölçek, tarayıcının cihaz piksel oranıyla başlar. `display.high_dpi` etkin olduğunda `html5.min_pixel_ratio` ve `html5.max_pixel_ratio` bu ölçeği sınırlayabilir. Her sınırın varsayılanı `0` (devre dışı) değeridir ve `1` altındaki değerler dahil kesirli oranlar desteklenir. Bu sınırlar, tuvalin CSS görüntüleme boyutunu koruyarak işleme çözünürlüğünü değiştirir. High DPI devre dışı olduğunda oran `1` olarak kalır. Yoğun ekranlarda işlemeyi sınırlayan bir örnek için [Piksel oranı sınırları](/manuals/html5/#pixel-ratio-limits) bölümüne bakın.
 
 
-## Uyarlanabilir bir GUI oluşturma
+## Uyarlanabilir bir GUI oluşturma {#creating-an-adaptive-gui}
 
 GUI bileşenlerini oluşturma sistemi, temel yapı taşları olan [düğümler (node)](/manuals/gui/#node-types) üzerine kuruludur. Fazlasıyla basit görünse de düğmelerden karmaşık menülere ve açılır pencerelere kadar her şeyi oluşturmak için kullanılabilir. Oluşturduğunuz GUI'ler, ekran boyutu ve yönelim değişikliklerine otomatik olarak uyarlanacak şekilde yapılandırılabilir. Örneğin *düğümleri* ekranın üstüne, altına veya yanlarına sabitleyebilirsiniz; düğümler boyutlarını koruyabilir veya esneyebilir. *Düğümler* arasındaki ilişki, boyutları ve görünümleri de ekran boyutu veya yönelimi değiştiğinde değişecek şekilde yapılandırılabilir.
 
-### *Düğüm* özellikleri
+### *Düğüm* özellikleri {#node-properties}
 
 Bir GUI'deki her *düğümün* bir dayanak noktası (pivot), yatay ve dikey sabitleme noktaları (anchor) ve bir uyarlama modu (adjust mode) vardır.
 
@@ -114,12 +116,12 @@ Bir GUI'deki her *düğümün* bir dayanak noktası (pivot), yatay ve dikey sabi
 
 Bu özellikler hakkında daha fazla bilgiyi [GUI kılavuzunda](/manuals/gui/#node-properties) bulabilirsiniz.
 
-### Yerleşimler
+### Yerleşimler {#layouts}
 
 Defold, mobil cihazlarda ekran yönelimi değişikliklerine otomatik olarak uyarlanan GUI'leri destekler. Bu özelliği kullanarak farklı ekran boyutlarının yönelimine ve en boy oranına uyarlanabilen bir GUI tasarlayabilirsiniz. Belirli cihaz modelleriyle eşleşen yerleşimler oluşturmak da mümkündür. Bu sistem hakkında daha fazla bilgiyi [GUI yerleşimleri kılavuzunda](/manuals/gui-layouts/) bulabilirsiniz.
 
 
-## Farklı ekran boyutlarını test etme
+## Farklı ekran boyutlarını test etme {#testing-different-screen-sizes}
 
 *Debug* menüsü, belirli bir cihaz modelinin çözünürlüğünü veya özel bir çözünürlüğü benzetmek için bir seçenek içerir. Uygulama çalışırken <kbd>Debug->Simulate Resolution</kbd> seçeneğini seçip listeden cihaz modellerinden birini seçebilirsiniz. Çalışan uygulamanın penceresi yeniden boyutlandırılır ve oyununuzun farklı bir çözünürlükte veya farklı bir en boy oranıyla nasıl göründüğünü görebilirsiniz.
 

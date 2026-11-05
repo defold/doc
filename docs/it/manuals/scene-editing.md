@@ -46,6 +46,22 @@ Questi controlli sono disponibili negli editor visivi:
 
 Puoi anche utilizzare **Frame Selection** (<kbd>F</kbd>) per inquadrare la selezione corrente con la telecamera.
 
+### Gizmo degli assi {#axis-gizmo}
+
+Il **Scene View Axis Gizmo** compare nell'angolo inferiore destro della vista della scena in modalità 3D. Mostra l'orientamento della camera rispetto agli assi del mondo: **X** è rosso, **Y** è verde e **Z** è blu.
+
+![Vista della scena con il gizmo degli assi nell'angolo inferiore destro](images/editor/axis_gizmo.gif)
+
+| Controllo | Azione |
+| --- | --- |
+| <kbd>Clic con il pulsante sinistro del mouse</kbd> su una maniglia di un asse | Allinea la camera per guardare lungo quell'asse. Le maniglie opposte forniscono le viste dall'altro lato. |
+| Clic su una maniglia di un asse già allineato | Passa alla vista opposta lungo lo stesso asse. |
+| Tieni premuto il <kbd>pulsante sinistro del mouse</kbd> e trascina il gizmo | Orbita attorno al punto di interesse corrente della camera. Puoi trascinare da una maniglia di un asse o dall'area circolare attorno alle maniglie, senza tenere premuto un tasto modificatore. |
+
+L'allineamento agli assi conserva il punto di interesse, la distanza e la proiezione della camera. Usa prima **Frame Selection** (<kbd>F</kbd>) per inquadrare un oggetto, poi il gizmo per ispezionarlo da direzioni diverse. Restano disponibili i controlli standard di panoramica, zoom e orbita con <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>pulsante sinistro del mouse</kbd>.
+
+Il gizmo è disponibile con proiezione sia prospettica sia ortografica in modalità 3D. In modalità 2D è nascosto; usa **Align/Realign Camera 2D/3D** nella [barra degli strumenti](#toolbar-overview), oppure premi <kbd>.</kbd>, per passare al 3D. Usa il [controllo separato della proiezione della camera](#camera-type-perspective-vs-orthographic) per scegliere la proiezione prospettica o ortografica. Il gizmo controlla la vista della scena nell'editor delle scene.
+
 ## Orientamento della scena in 2D e 3D {#2d-and-3d-scene-orientation}
 
 La vista della scena può essere utilizzata sia per lavorare in 2D sia in 3D:
@@ -56,7 +72,7 @@ La vista della scena può essere utilizzata sia per lavorare in 2D sia in 3D:
   - Utilizzi una telecamera **prospettica**,
   - Scegli un piano della griglia adatto (spesso **Y** per il “terreno”).
 
-Puoi accedere a queste funzioni tramite la barra degli strumenti e il menu **View**.
+Puoi accedere a queste funzioni tramite la barra degli strumenti e il menu **View**. Usa il [gizmo degli assi](#axis-gizmo) in modalità 3D per allineare la vista a un asse o orbitare con il mouse.
 
 ![Editor di scena in 3D](images/editor/3d_scene.png)
 

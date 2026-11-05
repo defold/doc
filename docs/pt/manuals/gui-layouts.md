@@ -99,6 +99,8 @@ end
 
 Quando a orientação é alterada, o gerenciador de layout da GUI escala e reposiciona automaticamente os nodes GUI de acordo com seu layout e propriedades de node. O conteúdo dentro do jogo, porém, é renderizado em uma passagem separada (por padrão) com uma projeção stretch-fit na janela atual. Para mudar esse comportamento, forneça seu próprio script de renderização modificado ou use uma [biblioteca](/assets/) de câmera.
 
+Para posicionar uma interface personalizada ao redor de recortes de câmera, atualize `window.get_reserved_areas()` em `window.WINDOW_EVENT_RESIZED` mesmo quando o layout de GUI selecionado permanecer igual. No iOS, uma rotação de 180° pode manter as dimensões da janela e as margens da área segura inalteradas enquanto move a obstrução. Consulte [Áreas reservadas da tela](/manuals/porting-guidelines/#reserved-screen-areas) para ver o exemplo de atualização e como suas coordenadas em pixels da janela se relacionam com o ajuste de GUI.
+
 ## Seleção manual de layout (Lua)
 
 Quando Auto Layout Selection está desativado para os Display Profiles em uso, a engine não alterna layouts automaticamente. Use estas funções a partir de um script de GUI para gerenciar layouts manualmente:

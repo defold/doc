@@ -21,7 +21,7 @@ A escala da pontuação total é então animada para criar um efeito de quique. 
 Cada vez que o total é incrementado, criamos uma quantidade de estrelas menores e as animamos para fora da pontuação total. As estrelas são criadas, animadas e removidas em `spawn_stars()`, `fade_out_star()` e `delete_star()`.
 
 ```lua
--- file: hud.gui_script
+-- arquivo: hud.gui_script
 -- velocidade com que a pontuacao aumenta por segundo
 local score_inc_speed = 1000
 

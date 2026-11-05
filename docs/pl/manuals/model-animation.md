@@ -59,8 +59,8 @@ end
 Tabela wag używa indeksów Lua zaczynających się od jedynki, w tej samej kolejności co cele morfingu w siatce. Nadmiarowe wartości są ignorowane, a brakujące wartości są traktowane jako zero dla siatek, które mają więcej celów morfingu niż wartości w tabeli. Nadpisanie ze skryptu jest stosowane po animacji w każdej klatce, dopóki nie zostanie wyczyszczone:
 
 ```lua
-model.set_blend_weights("#model")     -- clear the override
-model.set_blend_weights("#model", nil) -- also clears the override
+model.set_blend_weights("#model")     -- usuń nadpisanie
+model.set_blend_weights("#model", nil) -- również usuwa nadpisanie
 ```
 
 ### Obsługa shaderów

@@ -3,18 +3,29 @@ title: 2B grafikleri içe aktarma ve kullanma
 brief: Bu kılavuz, 2B grafiklerin nasıl içe aktarılacağını ve kullanılacağını açıklar.
 ---
 
-# 2B grafikleri içe aktarma
+# 2B grafikleri içe aktarma {#importing-2d-graphics}
 
 Defold, 2B oyunlarda sık kullanılan birçok görsel bileşen (component) türünü destekler. Defold ile durağan ve animasyonlu sprite bileşenleri, kullanıcı arayüzü (UI) bileşenleri, parçacık efektleri, karo haritaları ve bit eşlem yazı tipleri oluşturabilirsiniz. Bu görsel bileşenlerden herhangi birini oluşturabilmek için önce kullanmak istediğiniz grafikleri içeren görüntü dosyalarını içe aktarmanız gerekir. Görüntü dosyalarını içe aktarmak için dosyaları bilgisayarınızdaki dosya sisteminden sürükleyip Defold düzenleyicisindeki *Assets panelinde* uygun bir yere bırakmanız yeterlidir.
 
 ![Dosyaları içe aktarma](images/graphics/import.png)
 
 ::: sidenote
-Defold, PNG ve JPEG görüntü biçimlerindeki görüntüleri destekler. Diğer görüntü biçimlerinin kullanılmadan önce dönüştürülmesi gerekir.
+Atlaslar ve karo kaynakları için PNG veya JPEG görüntüleri kullanın. Model dokuları olarak kullanmak üzere KTX2 kaynak dokuları da içe aktarılabilir; aşağıya bakın.
 :::
 
 
-## Defold varlıkları oluşturma
+## KTX2 dokuları {#ktx2-textures}
+
+Bağımsız bir *.ktx2* dosyasını *Assets* paneline sürükleyerek içe aktarın, ardından Model bileşeninin materyal doku alanına atayın. [glTF ve GLB modelleri](/manuals/importing-models/#ktx2-textures) de harici KTX2 dosyalarına başvurabilir veya gömülü KTX2 görüntüleri içerebilir. Atlas, karo kaynağı ve küp haritası yüzü girdileri mevcut görüntü biçimlerini kullanmaya devam eder.
+
+Desteklenen KTX2 girdileri, ETC1S/BasisLZ, UASTC, BC7 veya 8 bit R/RG/RGB/RGBA UNORM ya da sRGB verisi kullanan 2B dokulardır. KTX2 dizileri, küp haritaları, hacimler ve HDR dokuları desteklenmez. KTX2, derleme sırasında Defold'un *.texturec* kaynaklarına dönüştürülür; çalışma zamanı KTX2 kapsayıcılarını okumaz.
+
+Kaynak biçimini, boyutlarını, renk uzayını, alfa üst verilerini ve mip düzeylerini incelemek için bir KTX2 varlığını açın. *Outline*, hazırlanmış mip düzeylerini ayrı ayrı seçmenizi sağlar. Doku profili derlenmiş dokuyu yeniden boyutlandırsa veya mipmap kullanımını devre dışı bıraksa bile bunlar kaynak görüntülerini gösterir.
+
+Kaynak biçimini korumakla başka biçimlere dönüştürmek arasında seçim yapmak için [doku profillerini](/manuals/texture-profiles/#ktx2-source-textures) kullanın. Hedef cihazlarınızın desteklediği çıktı biçimlerini seçin. **Keep KTX2 Format** seçeneğinin görüntü işleme sonrasında yeniden kodlama gerektirmesi dahil, zaten kayıplı olan bir kaynağı yeniden sıkıştırmak kaliteyi daha da düşürebilir.
+
+
+## Defold varlıkları oluşturma {#creating-defold-assets}
 
 Görüntüler Defold'a içe aktarıldıktan sonra Defold'a özgü varlıklar (asset) oluşturmak için kullanılabilir:
 
@@ -40,7 +51,7 @@ Bit eşlem yazı tipleri hakkında daha fazla bilgi için [Yazı tipleri kılavu
   ![BMfont](images/font/bm_font.png)
 
 
-## Defold varlıklarını kullanma
+## Defold varlıklarını kullanma {#using-defold-assets}
 
 Görüntüleri Atlas ve Tile Source dosyalarına dönüştürdükten sonra bunları çeşitli görsel bileşen türleri oluşturmak için kullanabilirsiniz:
 

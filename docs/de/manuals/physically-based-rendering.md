@@ -1,27 +1,55 @@
 ---
 title: Physikalisch basiertes Rendering in Defold
-brief: Dieses Handbuch erklärt die Grundlagen des Zugriffs auf Materialdaten für physikalisch basiertes Rendering in Defold.
+brief: Dieses Handbuch erklärt, wie du integrierte PBR-Materialien verwendest und physikalisch basierte Schattierung in Defold anpasst.
 ---
 
 # Physikalisch basiertes Rendering (PBR) {#physically-based-rendering-pbr}
 
-Physikalisch basiertes Rendering (Physically Based Rendering, PBR) ist ein Shading-Verfahren, das anhand realer physikalischer Prinzipien modelliert, wie Licht mit Oberflächen interagiert. Es erzeugt eine konsistente, realistische Beleuchtung in unterschiedlichen Umgebungen und ermöglicht es, Assets unter verschiedensten Lichtbedingungen korrekt darzustellen.
+Physikalisch basiertes Rendering (Physically Based Rendering, PBR) ist ein Schattierungsansatz, der die Wechselwirkung zwischen Licht und Oberflächen anhand physikalischer Prinzipien modelliert. Materialeigenschaften wie Grundfarbe, Metallfaktor und Rauheit beschreiben die Oberfläche unabhängig von der Beleuchtung der Szene.
 
-Die PBR-Implementierung von Defold folgt der Materialspezifikation von glTF 2.0 und den zugehörigen Khronos-Erweiterungen. Wenn du glTF-Assets in Defold importierst, werden Materialeigenschaften automatisch eingelesen und als strukturierte Materialdaten gespeichert, auf die Shader zur Laufzeit zugreifen können.
+Integrierte glTF-Materialien bieten PBR-Beleuchtung. Defold stellt benutzerdefinierten Shadern außerdem importierte glTF-2.0-Materialeigenschaften und unterstützte Khronos-Erweiterungsdaten bereit.
 
-PBR-Materialien können Effekte wie metallische Reflexionen, Oberflächenrauheit, Transmission, Klarlack, Streuung unter der Oberfläche, Irideszenz und weitere Effekte enthalten.
+## Integrierte PBR-Materialien {#built-in-pbr-materials}
 
-::: sidenote
-Defold stellt Shadern derzeit PBR-Materialdaten zur Verfügung, bietet aber kein integriertes PBR-Beleuchtungsmodell. Du kannst diese Daten in deinen eigenen Beleuchtungs- und Reflexions-Shadern verwenden, um physikalisch basiertes Rendering zu erreichen. Ein standardmäßiges PBR-Beleuchtungsmodell wird Defold zu einem späteren Zeitpunkt hinzugefügt.
-:::
+Weise der Eigenschaft *Scene* einer [Modellkomponente](/manuals/model) eine glTF- oder GLB-Datei zu. Wenn der Editor anbietet, Materialien und Texturen auszufüllen, wähle <kbd>Auto Fill</kbd>, um die erzeugten Materialbindungen der Szene anzuwenden und gegebenenfalls bestehende Bindungen zu ersetzen. Diese Materialien verwenden die integrierten glTF-Shader und können eingebettete Bilder direkt referenzieren. Wähle <kbd>Keep Current</kbd>, um deine Bindungen beizubehalten und Materialien und Texturen manuell zuzuweisen. Das Durchsuchen eingebetteter Ressourcen und die Auswahl einzelner Meshes beschreibt der [Ablauf des Modellimports](/manuals/importing-models/#using-a-model).
 
-::: sidenote
-Eingebettete Texturen aus glTF-Dateien werden in Defold derzeit nicht automatisch zugewiesen. Nur Materialparameter werden Shadern zur Verfügung gestellt. Du kannst Texturen weiterhin manuell Modellkomponenten (model components) zuweisen und sie in deinem Shader abtasten.
-:::
+Die folgenden Materialien sind unter `/builtins/materials/` verfügbar. Wähle die Variante passend zu deinem Modell und dessen Verwendung von Instanzierung:
+
+| Modelltyp | Material |
+|---|---|
+| Statisch, nicht instanziert | `gltf.material` |
+| Statisch, instanziert | `gltf_instanced.material` |
+| Mit Skinning (animiert), nicht instanziert | `gltf_skinned.material` |
+| Mit Skinning (animiert), instanziert | `gltf_skinned_instanced.material` |
+
+Alle vier verwenden lokalen Vertex-Raum und denselben Fragment-Shader `gltf.fp`. Die Skinning-Varianten führen das Skinning auf der GPU aus. Siehe die [Anforderungen an Modellmaterialien](/manuals/model/#material) für GPU-Skinning und Instanzierung.
+
+Für manuelle Texturbindungen verwenden die integrierten Materialien folgende Samplernamen:
+
+| Textur | Sampler | Verwendete Daten |
+|---|---|---|
+| Grundfarbe | `PbrMetallicRoughness_baseColorTexture` | RGB-Farbe und Alpha |
+| Metall/Rauheit | `PbrMetallicRoughness_metallicRoughnessTexture` | Rauheit in G, Metall in B |
+| Normalen | `PbrMaterial_normalTexture` | Normale im Tangentenraum in RGB |
+| Verdeckung | `PbrMaterial_occlusionTexture` | Verdeckung in R |
+| Emission | `PbrMaterial_emissiveTexture` | RGB-Farbe |
+
+Richte eine [Kamera](/manuals/camera/#using-the-camera) ein und füge [Lichtkomponenten](/manuals/light) hinzu, um das Modell zu beleuchten. Der Shader verwendet gerichtete Lichtquellen, Punkt- und Spotlichter für direkte Beleuchtung sowie Umgebungslichtquellen für einen einfachen Umgebungsanteil. Die Materialien besitzen das Tag `model`, das vom Standard-Renderskript gezeichnet wird. Ein eigenes Renderskript muss ein passendes Prädikat zeichnen.
+
+### Verhalten der integrierten Shader {#built-in-shader-behavior}
+
+Die integrierten Shader implementieren Metallic-/Roughness-Schattierung, Grund- und Vertex-Farbe, Normal Mapping bei verfügbaren Tangentendaten, Verdeckung und Emission einschließlich Emissionsstärke. Grundfarben- und Emissionstexturen werden für die Beleuchtung aus sRGB dekodiert, die Endfarbe wird zurück nach sRGB konvertiert. Metallic-/Roughness-, Normalen- und Verdeckungstexturen enthalten lineare Daten.
+
+Der Shader berücksichtigt unbeleuchtete Materialien und maskiertes Alpha und passt Normalen für doppelseitige Oberflächen an. Der Renderzustand bleibt wichtig:
+
+- Deaktiviere bei doppelseitigen Materialien Face Culling im entsprechenden Renderdurchlauf, damit Rückseiten den Shader erreichen.
+- Bei Alpha-Blending gibt der Shader nicht vormultipliziertes Alpha aus. Aktiviere Blending mit `graphics.BLEND_FACTOR_SRC_ALPHA` und `graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA` und verwalte Zeichenreihenfolge und Tiefenschreibzugriffe transparenter Objekte im Renderskript. Der standardmäßige Model-Durchlauf aktiviert Blending nicht automatisch.
+
+Der integrierte Umgebungsanteil ist eine Näherung ohne Environment-Map-Beleuchtung oder Schatten. Effekte wie Klarlack, Transmission, Sheen, Irisieren und der Specular-/Glossiness-Workflow benötigen eigene Schattierung; der Import ihrer Parameter aktiviert diese Effekte nicht in `gltf.fp`.
 
 ## Übersicht der Materialeigenschaften {#material-properties-overview}
 
-Die Materialeigenschaften werden aus den glTF-2.0-Quelldateien eingelesen, die einer Modellkomponente zugewiesen sind. Nicht alle Eigenschaften gehören zum Standard. Einige werden durch optionale glTF-Erweiterungen bereitgestellt, die das zum Exportieren der glTF-Datei verwendete Werkzeug möglicherweise einbezieht. Die jeweilige Erweiterung steht unten in Klammern hinter dem Namen der Eigenschaft.
+Die folgenden Eigenschaften werden aus glTF-2.0-Quelldateien eingelesen, die einer Modellkomponente zugewiesen sind. Diese Liste beschreibt die verfügbaren Materialdaten; die integrierte Beleuchtung verwendet die oben beschriebene Teilmenge. Nicht alle Eigenschaften gehören zum Standard. Einige stammen aus optionalen glTF-Erweiterungen, die das zum Export verwendete Werkzeug möglicherweise einbezieht. Die jeweilige Erweiterung steht unten in Klammern hinter dem Eigenschaftsnamen.
 
 Metallizität und Rauheit
 : Beschreibt, wie Licht mit dem Material interagiert. Das standardmäßige PBR-Modell.
@@ -72,27 +100,64 @@ Alphamodus
 : Transparenzmodi Opaque, Masked oder Blended.
 
 Doppelseitig
-: Wenn der Wert true ist, werden beide Seiten der Oberfläche gerendert.
+: Fordert das Rendern beider Seiten der Oberfläche an. Der Renderdurchlauf muss zulassen, dass Rückseiten den Shader erreichen.
 
 Unbeleuchtet
 : Wenn der Wert true ist, umgeht das Material die Beleuchtungsberechnungen.
 
-::: sidenote
-Einige dieser Eigenschaften geben Hinweise darauf, wie das Material gerendert werden sollte. Die Daten für diese Eigenschaften (Alpha-Schwellenwert, Alphamodus, doppelseitig und unbeleuchtet) stehen in den Shadern zur Verfügung, beeinflussen aber nicht, wie das Material in Defold gerendert wird.
-:::
-
 ## Shader-Integration
 
-Die PBR-Materialdaten werden den Shadern anhand von Typen und Namenskonventionen zur Verfügung gestellt. Das PBR-Materialsystem stellt Shadern alle eingelesenen Materialparameter über einen strukturierten Uniform-Block namens `PbrMaterial` bereit. Jede unterstützte glTF-Erweiterung entspricht einer Struktur innerhalb dieses Blocks, die mithilfe von `#define`-Flags bedingt kompiliert werden kann.
+Die folgenden Abschnitte behandeln benutzerdefinierte Shader. Kopiere die passende integrierte `.material`-Ressource und `gltf.fp` in dein Projekt und setze *Fragment Program* des kopierten Materials auf deinen Shader. Behalte das passende glTF-Vertex-Programm, die Samplernamen und lokalen Vertex-Raum bei, sofern du nicht auch diese Schnittstellen ersetzt.
+
+Die integrierten Hilfsfunktionen trennen Texturabtastung von Oberflächenvorbereitung, BRDF-Berechnungen und Beleuchtung. `gltf_sampling.glsl` liest den rohen Uniform-Block `PbrMaterial` und erzeugt einen Wert vom Typ `PBRMaterial` mit aufgelösten, linearen Materialeingaben. `gltf_lighting.glsl` stellt direkte und Umgebungsbeleuchtung bereit und kombiniert deren Beiträge. Die Großschreibung unterscheidet den rohen Uniform-Block von der Struktur des abgetasteten Materials.
+
+### Beispielshader {#example-shader}
+
+Dieser Fragment-Shader erhöht die Mindestrauheit und behält dabei die integrierte Beleuchtung bei. Er funktioniert mit den Vertex-Programmen aller vier glTF-Materialvarianten:
 
 ```glsl
-uniform PbrMaterial
+#version 140
+
+#include "/builtins/materials/gltf_sampling.glsl"
+#include "/builtins/materials/gltf_lighting.glsl"
+
+out vec4 out_fragColor;
+
+void main()
 {
-	// Material properties
-};
+    PBRMaterial inputs = pbr_sample_material(var_texcoord0, var_color);
+    inputs.roughness = max(inputs.roughness, 0.35);
+
+    // Sample textures, including the normal map, before discarding fragments.
+    PBRSurface surface = pbr_sample_surface(inputs, var_texcoord0);
+    if ((!inputs.doubleSided && !gl_FrontFacing) || pbr_should_discard_alpha(inputs))
+    {
+        discard;
+    }
+
+    // Derive BRDF values after editing the material inputs.
+    MaterialInfo material = pbr_create_material_info(inputs);
+    PBRLighting lighting = pbr_create_lighting();
+    if (!inputs.unlit)
+    {
+        lighting.direct = pbr_evaluate_direct_lighting(material, surface, var_view);
+        lighting.indirect = pbr_evaluate_ambient_lighting(material, ambient_light());
+    }
+
+    vec3 color = pbr_compose_lighting(inputs, lighting, inputs.occlusion, inputs.occlusion);
+    out_fragColor = vec4(pbr_linear_to_srgb(color), pbr_get_alpha(inputs));
+}
 ```
 
-Die verschiedenen Merkmale des Materials werden im Shader als festgelegte Strukturen angegeben. Die Daten wurden so weit wie möglich in `vec4`-Vektoren zusammengefasst, da Konstanten in Defold intern auf diese Weise gesetzt werden. Wo Daten zusammengefasst wurden, wird dies in den Kommentaren der folgenden Shader-Ausschnitte für jedes Merkmal angegeben:
+Bearbeite abgetastete Materialeingaben vor dem Aufruf von `pbr_create_material_info()`. Wenn du die Position im Ansichtsraum oder die Normalen einer Oberfläche änderst, rufe `pbr_finalize_surface(surface, var_view)` auf, um ihre abgeleiteten Felder im Weltraum zu aktualisieren. Verwende oder ersetze für eine eigene BRDF oder einzelne Lichtbeiträge `pbr_evaluate_brdf()` und `pbr_evaluate_light()` aus den integrierten Hilfsfunktionen.
+
+Du kannst `lighting.indirect` durch eigene Umgebungsbeleuchtung oder globale Beleuchtung ersetzen. Seine diffusen und spiegelnden Beiträge sind lineares ausgehendes Licht; wende die BRDF des Materials daher kein zweites Mal an. Wende Schattensichtbarkeit auf den entsprechenden direkten Lichtbeitrag an; die Sichtbarkeitsargumente von `pbr_compose_lighting()` beeinflussen nur indirekte Beleuchtung. Schreibe für eine HDR-Pipeline lineare Farbe in das Zwischenziel und führe die sRGB-Konvertierung im letzten Durchlauf aus.
+
+### Rohe Materialdaten {#raw-material-data}
+
+Deklariere für einen vollständig eigenen Shader einen Uniform-Block namens `PbrMaterial` mit den erkannten Feldnamen und Typen. Defold füllt passende Felder aus dem glTF-Quellmaterial. Die folgenden Deklarationen beschreiben die verfügbaren Funktionsstrukturen; beziehe nur diejenigen ein, die dein Shader benötigt. Die Deklaration einer Struktur stellt Daten bereit, ihr Abtast- und Beleuchtungsverhalten muss dein Shader jedoch implementieren.
+
+Deklariere den Uniform-Block oder `PbrMetallicRoughness` nicht erneut, wenn du `gltf_sampling.glsl` einbindest, da sie dort bereits deklariert sind. Die folgenden Deklarationen sind eine Alternative für Shader, die ihre Materialeingaben selbst verwalten.
 
 ```glsl
 struct PbrMetallicRoughness
@@ -106,287 +171,120 @@ struct PbrMetallicRoughness
 
 struct PbrSpecularGlossiness
 {
-	vec4 diffuseFactor;
-	// RGB: specular (Default=1.0), A: glossiness (Default=1.0)
-	vec4 specularAndSpecularGlossinessFactor;
-	// R: use diffuseTexture, G: use specularGlossinessTexture
-	vec4 specularGlossinessTextures;
+    vec4 diffuseFactor;
+    // RGB: specular (Default=1.0), A: glossiness (Default=1.0)
+    vec4 specularAndSpecularGlossinessFactor;
+    // R: use diffuseTexture, G: use specularGlossinessTexture
+    vec4 specularGlossinessTextures;
 };
 
 struct PbrClearCoat
 {
-	// R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
-	vec4 clearCoatAndClearCoatRoughnessFactor;
-	// R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
-	vec4 clearCoatTextures;
+    // R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
+    vec4 clearCoatAndClearCoatRoughnessFactor;
+    // R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
+    vec4 clearCoatTextures;
 };
 
 struct PbrTransmission
 {
-	// R: transmission (Default=0.0)
-	vec4 transmissionFactor;
-	// R: use transmissionTexture
-	vec4 transmissionTextures;
+    // R: transmission (Default=0.0)
+    vec4 transmissionFactor;
+    // R: use transmissionTexture
+    vec4 transmissionTextures;
 };
 
 struct PbrIor
 {
-	// R: ior (Default=0.0)
-	vec4 ior;
+    // R: ior (Default=0.0)
+    vec4 ior;
 };
 
 struct PbrSpecular
 {
-	// RGB: specularColor, A: specularFactor (Default=1.0);
-	vec4 specularColorAndSpecularFactor;
-	// R: use specularTexture, G: use specularColorTexture
-	vec4 specularTextures;
+    // RGB: specularColor, A: specularFactor (Default=1.0);
+    vec4 specularColorAndSpecularFactor;
+    // R: use specularTexture, G: use specularColorTexture
+    vec4 specularTextures;
 };
 
 struct PbrVolume
 {
-	// R: thicknessFactor (Default=0.0), RGB: attenuationColor
-	vec4 thicknessFactorAndAttenuationColor;
-	// R: attentuationDistance (Default=-1.0)
-	vec4 attenuationDistance;
-	// R: use thicknessTexture
-	vec4 volumeTextures;
+    // R: thicknessFactor (Default=0.0), GBA: attenuationColor
+    vec4 thicknessFactorAndAttenuationColor;
+    // R: attenuationDistance (Default=-1.0)
+    vec4 attenuationDistance;
+    // R: use thicknessTexture
+    vec4 volumeTextures;
 };
 
 struct PbrSheen
 {
-	// RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
-	vec4 sheenColorAndRoughnessFactor;
-	// R: use sheenColorTexture, G: use sheenRoughnessTexture
-	vec4 sheenTextures;
+    // RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
+    vec4 sheenColorAndRoughnessFactor;
+    // R: use sheenColorTexture, G: use sheenRoughnessTexture
+    vec4 sheenTextures;
 };
 
 struct PbrEmissiveStrength
 {
-	// R: emissiveStrength (Default=1.0)
-	vec4 emissiveStrength;
+    // R: emissiveStrength (Default=1.0)
+    vec4 emissiveStrength;
 };
 
 struct PbrIridescence
 {
-	// R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
-	vec4 iridescenceFactorAndIorAndThicknessMinMax;
-	// R: use iridescenceTexture, G: use iridescenceThicknessTexture
-	vec4 iridescenceTextures;
+    // R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
+    vec4 iridescenceFactorAndIorAndThicknessMinMax;
+    // R: use iridescenceTexture, G: use iridescenceThicknessTexture
+    vec4 iridescenceTextures;
 };
 ```
 
-Die gemeinsamen Eigenschaften werden direkt in der Material-Uniform gesetzt (beachte auch hier die Zusammenfassung der Daten in `vec4`).
+Die gemeinsamen Eigenschaften und Funktionsstrukturen sind Mitglieder des Uniform-Blocks. Die gepackten Komponenten sind:
 
 ```glsl
-// Common textures
-uniform sampler2D PbrMaterial_normalTexture;
-uniform sampler2D PbrMaterial_occlusionTexture;
-uniform sampler2D PbrMaterial_emissiveTexture;
-
 uniform PbrMaterial
 {
-	// Common properties:
+    // X: alpha cutoff, Y: double-sided, Z: unlit,
+    // W: alpha mode (0 = opaque, 1 = mask, 2 = blend)
+    vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
+    // X: has normal texture, Y: has occlusion texture, Z: has emissive texture
+    vec4 pbrCommonTextures;
+    // RGB: emissive factor, W: emissive strength
+    vec4 pbrEmissiveFactorAndStrength;
+    // X: normal scale, Y: occlusion strength
+    vec4 pbrNormalScaleAndOcclusionStrength;
 
-	// R: alphaCutoff (Default=0.5), G: doubleSided (Default=false), B: unlit (Default=false)
-	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-	// R: use normalTexture, G: use occlusionTexture, B: use emissiveTexture
-	vec4 pbrCommonTextures;
-
-	// Other properties...
+    PbrMetallicRoughness pbrMetallicRoughness;
+    PbrSpecularGlossiness pbrSpecularGlossiness;
+    PbrClearCoat pbrClearCoat;
+    PbrTransmission pbrTransmission;
+    PbrIor pbrIor;
+    PbrSpecular pbrSpecular;
+    PbrVolume pbrVolume;
+    PbrSheen pbrSheen;
+    PbrEmissiveStrength pbrEmissiveStrength;
+    PbrIridescence pbrIridescence;
 };
 ```
 
-### Beispiel-Shader {#example-shader}
-
-Hier siehst du einen Beispiel-Shader, der alle Merkmale enthält und ein Namensschema für Texturbindungen vorschlägt (auch dies musst du manuell handhaben). Beachte, dass du Merkmale einfach deaktivieren kannst, indem du `#define`-Anweisungen um die einzelnen Felder von `PbrMaterial` selbst setzt, wie im folgenden Beispiel gezeigt:
-
-```glsl
-// Feature flags, comment or remove these to slim down the shader.
-#define PBR_METALLIC_ROUGHNESS
-#define PBR_SPECULAR_GLOSSINESS
-#define PBR_CLEARCOAT
-#define PBR_TRANSMISSION
-#define PBR_IOR
-#define PBR_SPECULAR
-#define PBR_VOLUME
-#define PBR_SHEEN
-#define PBR_EMISSIVE_STRENGTH
-#define PBR_IRIDESCENCE
-
-// Common
-uniform sampler2D PbrMaterial_normalTexture;
-uniform sampler2D PbrMaterial_occlusionTexture;
-uniform sampler2D PbrMaterial_emissiveTexture;
-
-// PbrMetallicRoughness
-uniform sampler2D PbrMetallicRoughness_baseColorTexture;
-uniform sampler2D PbrMetallicRoughness_metallicRoughnessTexture;
-
-struct PbrMetallicRoughness
-{
-    vec4 baseColorFactor;
-    // R: metallic (Default=1.0), G: roughness (Default=1.0)
-    vec4 metallicAndRoughnessFactor;
-    // R: use baseColorTexture, G: use metallicRoughnessTexture
-    vec4 metallicRoughnessTextures;
-};
-
-// PbrSpecularGlossiness
-uniform sampler2D PbrSpecularGlossiness_diffuseTexture;
-uniform sampler2D PbrSpecularGlossiness_specularGlossinessTexture;
-
-struct PbrSpecularGlossiness
-{
-	vec4 diffuseFactor;
-	// RGB: specular (Default=1.0), A: glossiness (Default=1.0)
-	vec4 specularAndSpecularGlossinessFactor;
-	// R: use diffuseTexture, G: use specularGlossinessTexture
-	vec4 specularGlossinessTextures;
-};
-
-// PbrClearCoat
-uniform sampler2D PbrClearCoat_clearcoatTexture;
-uniform sampler2D PbrClearCoat_clearcoatRoughnessTexture;
-uniform sampler2D PbrClearCoat_clearcoatNormalTexture;
-
-struct PbrClearCoat
-{
-	// R: clearCoat (Default=0.0), G: clearCoatRoughness (Default=0.0)
-	vec4 clearCoatAndClearCoatRoughnessFactor;
-	// R: use clearCoatTexture, G: use clearCoatRoughnessTexture, B: use clearCoatNormalTexture
-	vec4 clearCoatTextures;
-};
-
-// PbrTransmission
-uniform sampler2D PbrTransmission_transmissionTexture;
-
-struct PbrTransmission
-{
-	// R: transmission (Default=0.0)
-	vec4 transmissionFactor;
-	// R: use transmissionTexture
-	vec4 transmissionTextures;
-};
-
-struct PbrIor
-{
-	// R: ior (Default=0.0)
-	vec4 ior;
-};
-
-// PbrSpecular
-uniform sampler2D PbrSpecular_specularTexture;
-uniform sampler2D PbrSpecular_specularColorTexture;
-
-struct PbrSpecular
-{
-	// RGB: specularColor, A: specularFactor (Default=1.0);
-	vec4 specularColorAndSpecularFactor;
-	// R: use specularTexture, G: use specularColorTexture
-	vec4 specularTextures;
-};
-
-// PbrVolume
-uniform sampler2D PbrVolume_thicknessTexture;
-
-struct PbrVolume
-{
-	// R: thicknessFactor (Default=0.0), RGB: attenuationColor
-	vec4 thicknessFactorAndAttenuationColor;
-	// R: attentuationDistance (Default=-1.0)
-	vec4 attenuationDistance;
-	// R: use thicknessTexture
-	vec4 volumeTextures;
-};
-
-// PbrSheen
-uniform sampler2D PbrSheen_sheenColorTexture;
-uniform sampler2D PbrSheen_sheenRoughnessTexture;
-
-struct PbrSheen
-{
-	// RGB: sheenColor, A: sheenRoughnessFactor (Default=0.0)
-	vec4 sheenColorAndRoughnessFactor;
-	// R: use sheenColorTexture, G: use sheenRoughnessTexture
-	vec4 sheenTextures;
-};
-
-struct PbrEmissiveStrength
-{
-	// R: emissiveStrength (Default=1.0)
-	vec4 emissiveStrength;
-};
-
-// PbrIridescence
-uniform sampler2D PbrEmissive_iridescenceTexture;
-uniform sampler2D PbrEmissive_iridescenceThicknessTexture;
-
-struct PbrIridescence
-{
-	// R: iridescenceFactor (Default=0.0), G: iridescenceIor (Default=1.3), B: iridescenceThicknessMin (Default=100.0), A: iridescenceThicknessMax (Default=400.0)
-	vec4 iridescenceFactorAndIorAndThicknessMinMax;
-	// R: use iridescenceTexture, G: use iridescenceThicknessTexture
-	vec4 iridescenceTextures;
-};
-
-uniform PbrMaterial
-{
-	// Common properties
-	// R: alphaCutoff (Default=0.5), G: doubleSided (Default=false), B: unlit (Default=false)
-	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-	// R: use normalTexture, G: use occlusionTexture, B: use emissiveTexture
-	vec4 pbrCommonTextures;
-
-	// Features
-#ifdef PBR_METALLIC_ROUGHNESS
-	PbrMetallicRoughness  pbrMetallicRoughness;
-#endif
-#ifdef PBR_SPECULAR_GLOSSINESS
-	PbrSpecularGlossiness pbrSpecularGlossiness;
-#endif
-#ifdef PBR_CLEARCOAT
-	PbrClearCoat pbrClearCoat;
-#endif
-#ifdef PBR_TRANSMISSION
-	PbrTransmission pbrTransmission;
-#endif
-#ifdef PBR_IOR
-	PbrIor pbrIor;
-#endif
-#ifdef PBR_SPECULAR
-	PbrSpecular pbrSpecular;
-#endif
-#ifdef PBR_VOLUME
-	PbrVolume pbrVolume;
-#endif
-#ifdef PBR_SHEEN
-	PbrSheen pbrSheen;
-#endif
-#ifdef PBR_EMISSIVE_STRENGTH
-	PbrEmissiveStrength pbrEmissiveStrength;
-#endif
-#ifdef PBR_IRIDESCENCE
-	PbrIridescence pbrIridescence;
-#endif
-};
-```
-
-::: sidenote
-Wenn bestimmte Datenfelder in der Materialstruktur nicht gefunden werden, werden die Daten für diese Merkmale nicht gesetzt. Wenn beispielsweise `pbrClearCoat` in der Materialstruktur fehlt, werden keine Klarlackdaten gesetzt. Wenn der Uniform-Block nicht gefunden wird, werden beim Rendern überhaupt keine Daten gesetzt.
-:::
+Lasse ungenutzte Funktionsmitglieder aus dem Block weg. Fehlen der Block oder die erkannten Felder einer Funktion, werden die entsprechenden Daten nicht bereitgestellt. Flags zum Vorhandensein von Texturen beschreiben die Texturreferenzen des Quellmaterials; ein eigenes Material benötigt weiterhin passende Samplerdeklarationen und Texturbindungen für die abgetasteten Texturen.
 
 ### Konstanten {#constants}
 
-Jede Materialeigenschaft entspricht einer internen Render-Konstante in Defold. Du kannst Standardwerte überschreiben, indem du direkt in der Materialressource Konstanten nach dem Namensmuster `pbrFeature.structMember` definierst. Diese Werte werden automatisch angewendet, wenn die entsprechenden Daten im glTF-Material fehlen.
+Funktionsfelder verwenden Namen wie `pbrMetallicRoughness.baseColorFactor`; gemeinsame Felder verwenden Namen wie `pbrEmissiveFactorAndStrength`. Die Engine befüllt diese Konstanten aus dem importierten Material oder aus einem Standardmaterial, wenn das Modell keine Materialdaten besitzt. Standardwerte in der `.material`-Ressource überschreiben die importierten Werte nicht.
 
-![Materialkonstanten](images/physically-based-rendering/material-constants.png)
+Um die integrierte Schattierung anzupassen, bearbeite das abgetastete `PBRMaterial` vor der Ableitung seiner BRDF-Werte, wie im obigen Beispiel. Deklariere für zusätzliche Steuerungsmöglichkeiten zur Laufzeit eigene Shader-Konstanten und verwende die [API für Modellmaterialkonstanten](/manuals/model/#material-constants).
 
 ## Nächste Schritte {#next-steps}
 
-Um die Materialdaten für physikalisch basierte Beleuchtung zu verwenden, implementiere eine BRDF in deinem Fragment-Shader mit den Parametern aus dem Block `PbrMaterial`.
+Verwende die integrierten Materialien für den standardmäßigen glTF-Metallic-/Roughness-Workflow. Erweitere die Shader-Hilfsfunktionen oder stelle ein eigenes Material bereit, wenn du eine andere BRDF, Umgebungsbeleuchtung, Schatten oder zusätzliche glTF-Materialeffekte benötigst.
+
 Siehe auch:
 
+* [Lichthandbuch](/manuals/light)
+* [Materialhandbuch](/manuals/material)
 * [Shader-Handbuch](/manuals/shader)
 * [Rendering-Handbuch](/manuals/render)
 * [glTF-2.0-Spezifikation](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)

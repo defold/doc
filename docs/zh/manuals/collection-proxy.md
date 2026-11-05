@@ -46,9 +46,9 @@ msg.post("#myproxy", "load")
 
 ![load](images/collection-proxy/proxy_load.png)
 
-代理组件将指示引擎为新世界分配空间。还会创建一个单独的运行时物理世界，并且集合`"mylevel.collection"`中的所有游戏对象都被实例化。
+代理组件将指示引擎为新世界分配空间。还会创建一个单独的运行时物理世界，并且集合`mylevel.collection`中的所有游戏对象都被实例化。
 
-新世界从集合文件中的*Name*属性获取其名称，在本示例中设置为`"mylevel"`。名称必须是唯一的。如果在集合文件中设置的*Name*已被用于已加载的世界，引擎将发出名称冲突错误：
+新世界从集合文件中的*Name*属性获取其名称，在本示例中设置为`mylevel`。名称必须是唯一的。如果在集合文件中设置的*Name*已被用于已加载的世界，引擎将发出名称冲突错误：
 
 ```txt
 ERROR:GAMEOBJECT: The collection 'default' could not be created since there is already a socket with the same name.
@@ -187,8 +187,8 @@ end
 您通过向代理发送`set_time_step`消息来控制缩放因子和缩放模式：
 
 ```lua
--- 以五分之一速度更新已加载的世界。
-msg.post("#myproxy", "set_time_step", {factor = 0.2, mode = 1})
+-- 以五分之一的速度更新已加载世界。
+msg.post("#myproxy", "set_time_step", {factor = 0.2, mode = 1}
 ```
 
 为了了解更改时间步时发生的情况，我们可以创建一个对象，在其脚本组件中放置以下代码，并将其放在我们正在更改时间步的集合中：

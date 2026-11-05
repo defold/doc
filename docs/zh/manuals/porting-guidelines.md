@@ -3,17 +3,17 @@ title: 移植和发布指南
 brief: 本手册重点介绍了将游戏移植到新平台或首次发布游戏时需要考虑的一些事项。
 ---
 
-# 移植和发布指南
+# 移植和发布指南 {#porting-and-release-guidelines}
 
 本页面包含发布游戏或移植到新平台时需要考虑的有用指南和清单。
 
 将 Defold 游戏移植到新平台或首次发布通常是一个简单直接的过程。理论上，只需确保在 *game.project* 文件中配置了相关部分就足够了，但为了充分利用每个平台的优势，建议将游戏适配到每个平台的具体特性。
 
 
-## 输入
+## 输入 {#input}
 确保将游戏适配到平台的输入方法。考虑添加对[游戏手柄](/manuals/input-gamepads)的支持，如果平台支持的话！并确保游戏支持暂停菜单 - 如果控制器突然断开连接，游戏应该暂停！
 
-## 本地化
+## 本地化 {#localization}
 翻译游戏中的任何文本。在欧洲和美洲发布时，考虑至少翻译成 EFIGS（英语、法语、意大利语、德语和西班牙语）。确保可以在游戏中轻松切换不同语言（通过暂停菜单）。
 
 ::: important
@@ -22,21 +22,21 @@ brief: 本手册重点介绍了将游戏移植到新平台或首次发布游戏�
 
 翻译商店页面上的文本，因为这将对销售产生积极影响！一些平台要求商店页面上的文本必须翻译成游戏可用的每个国家的语言。
 
-## 商店资料
+## 商店资料 {#store-materials}
 
-### 应用图标
+### 应用图标 {#app-icon}
 确保您的游戏在竞争中脱颖而出。图标通常是您与潜在玩家的第一个接触点。它应该在充满游戏图标的页面上容易被找到。
 
-### 商店横幅和图像
+### 商店横幅和图像 {#store-banners-and-images}
 确保为您的游戏使用有影响力和令人兴奋的艺术资源。花一些钱与艺术家合作创作吸引玩家的艺术资源可能是值得的。
 
 
-## 保存游戏
+## 保存游戏 {#save-games}
 
-### 在桌面、移动设备和 Web 上保存游戏
+### 在桌面、移动设备和 Web 上保存游戏 {#save-games-on-desktop-mobile-and-web}
 保存游戏和其他保存的状态可以使用 Defold API 函数 `sys.save(filename, data)` 进行存储，并使用 `sys.load(filename)` 加载。您可以使用 `sys.get_save_file(application_id, name)` 获取操作系统特定位置的路径，文件可以保存在那里，通常在登录用户的个人文件夹中。
 
-### 在游戏主机上保存游戏
+### 在游戏主机上保存游戏 {#save-games-on-console}
 使用 `sys.get_save_file()` 和 `sys.save()` 在大多数平台上都能很好地工作，但在游戏主机上建议采用不同的方法。主机平台通常将用户与每个连接的控制器相关联，因此保存的游戏、成就和其他功能应该与其各自的用户相关联。
 
 游戏手柄输入事件将包含一个用户 ID，可用于将控制器的操作与主机上的用户相关联。
@@ -59,21 +59,21 @@ end
 ```
 
 
-## 构建产物
+## 构建产物 {#build-artifacts}
 
 确保为每个发布的版本[生成调试符号](/manuals/debugging-native-code/#symbolicate-a-callstack)，以便您可以调试崩溃。将这些与应用程序包一起存储。
 
-## 应用程序优化
+## 应用程序优化 {#application-optimizations}
 
 阅读[优化手册](/manuals/optimization)，了解如何优化应用程序的性能、大小、内存使用和电池消耗。
 
 
 
-## 性能
+## 性能 {#performance}
 始终在目标硬件上测试！检查游戏性能，并在需要时进行优化。使用[分析器](/manuals/profiling)查找代码中的瓶颈。
 
 
-## 屏幕分辨率和刷新率
+## 屏幕分辨率和刷新率 {#screen-resolution-and-refresh-rate}
 对于具有固定方向和屏幕分辨率的平台：检查游戏在目标平台屏幕分辨率和宽高比上是否正常工作。对于具有可变屏幕分辨率和宽高比的平台：检查游戏在各种屏幕分辨率和宽高比上是否正常工作。考虑在渲染脚本和相机中使用什么样的[视图投影](/manuals/render/#default-view-projection)。
 
 对于移动平台，可以在 *game.project* 中锁定屏幕方向，或者确保游戏在横向和纵向模式下都能工作。
@@ -86,23 +86,68 @@ end
   * *game.project* 显示部分中的 vsync 和交换间隔
 
 
-<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
-
-## 移动手机的刘海屏和打孔屏相机
+## 移动手机的刘海屏和打孔屏相机 {#mobile-phones-and-notch-and-hole-punch-cameras}
 在显示屏上使用小镜头切口来容纳前置摄像头和传感器（也称为刘海屏或打孔屏相机）变得越来越流行。将游戏移植到移动设备时，请确保关键信息位于平台安全区域内。
 
 Defold 在 Android 和 iOS 上内置安全区域支持。在 *game.project* 中设置 `gui.safe_area_mode`，以控制哪些相对的安全区域内边距会影响 GUI 调整。`none` 为默认值，会忽略内边距；`long` 在横屏时应用左/右边距，在竖屏时应用上/下边距；`short` 应用相反的一对；`both` 应用四个边缘。GUI 脚本可使用 [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode) 为其场景覆盖项目范围的模式。对于自定义 GUI 或渲染逻辑，[`window.get_safe_area()`](/ref/window/#window.get_safe_area) 返回安全矩形和各边缘内边距。没有内置安全区域内边距的平台会返回完整窗口和零内边距。
 
 [Safe Area 扩展](/extension-safearea)仍可供旧项目或需要超出内置 API 行为的工作流程使用；标准 Android 和 iOS 安全区域处理不需要此扩展。
 
+### 屏幕保留区域 {#reserved-screen-areas}
 
-## 平台特定指南
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) 报告遮挡游戏窗口的各个区域，例如摄像头缺口和灵动岛。围绕单独遮挡区域放置内容时，请使用这些矩形。如果需要单个安全布局矩形及其边距，请使用 `window.get_safe_area()`。
+
+结果是包含 `x`、`y`、`width` 和 `height` 字段的表数组。每个矩形均裁剪到游戏窗口内。原点位于左下角：`x` 是左边缘，`y` 是下边缘，单位为与 [`window.get_size()`](/ref/window/#window.get_size) 一致的窗口像素。这些坐标独立于 GUI 调整和 *game.project* 中的逻辑分辨率，因此用作节点位置前，请考虑 GUI 变换。
+
+平台支持如下：
+
+- **iOS 27.1 及更高版本：** UIKit 报告的活动遮挡区域，包括其交互边距。
+- **Android 9（API 级别 28）及更高版本：** 屏幕缺口矩形。
+
+在不支持的平台、操作系统版本，或窗口没有报告遮挡时，函数返回空表。空表不意味着整个窗口都适合放置重要内容：折叠区域、系统栏、键盘和手势区域不在此 API 的范围内。请使用 `window.get_safe_area()` 获取平台的安全矩形。
+
+### 在窗口事件后刷新区域 {#refreshing-areas-after-window-events}
+
+在初始化时查询保留区域，并在每次 [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED) 回调中再次查询。首次查询后，在支持的平台上，保留区域的几何变化也会触发此事件，即使窗口大小没有变化。每个返回的表都是快照；已保存的表不会自动更新。
+
+在 iOS 上，方向切换和安全区边距变化后也会发送此事件。横屏旋转 180° 可能将摄像头缺口或灵动岛移到另一侧，而窗口尺寸和安全区边距均不变。即使 `data.width` 和 `data.height` 与此前相同，也应在收到事件时刷新几何信息。
+
+以下脚本会保持这两组几何信息更新：
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- 使用新的安全矩形和保留区域更新 UI。
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- 即使宽度和高度没有改变，也要刷新。
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+同一时间只能注册一个窗口事件监听器。如果游戏已有监听器，请将此刷新逻辑加入其中。每次刷新时替换已保存的数组，也能在返回空结果时清除过时矩形。
+
+
+## 平台特定指南 {#platform-specific-guidelines}
 
 ### Android
 确保将您的[密钥库](/manuals/android/#creating-a-keystore)存储在安全的地方，以便您可以更新您的游戏。
 
 
-### 游戏主机
+### 游戏主机 {#consoles}
 存储每个版本的完整包。如果您想给游戏打补丁，您将需要这些文件。
 
 

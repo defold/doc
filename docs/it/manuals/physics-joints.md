@@ -7,7 +7,7 @@ brief: Defold supporta i giunti per la fisica 2D. Questo manuale spiega come cre
 
 Un giunto (joint) collega due oggetti di collisione applicando un vincolo. Defold supporta giunti sia nella fisica 2D sia in quella 3D, attraverso API diverse.
 
-Questo manuale descrive i giunti 2D esposti dal modulo `physics`. Da Defold 1.13.2, i progetti 3D possono creare e controllare vincoli tramite [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), tra cui cerniere, cursori e molle. Usa questa API con i corpi rigidi ottenuti tramite [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
+Questo manuale descrive i giunti 2D esposti dal modulo `physics`. I progetti 3D possono creare e controllare vincoli tramite [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/), comprese cerniere, guide e molle. Usa questa API con i corpi rigidi ottenuti tramite [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body).
 
 I tipi di giunto supportati dall'API 2D `physics` sono:
 

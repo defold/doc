@@ -3,7 +3,7 @@ title: Defold materyal kılavuzu
 brief: Bu kılavuz, materyaller, gölgelendirici sabitleri ve örnekleyicilerle nasıl çalışılacağını açıklar.
 ---
 
-# Materyaller
+# Materyaller {#materials}
 
 Materyaller (material), bir grafik bileşeninin (component) görüntüsü oluşturulurken kullanılacak işleme (rendering) biçimini tanımlar; bu bileşen bir sprite bileşeni, karo haritası, yazı tipi, GUI düğümü, model vb. olabilir.
 
@@ -12,7 +12,7 @@ Bir materyal, işleme hattında işlenecek nesneleri seçmeye yarayan bilgileri 
 * İşleme hattı hakkında daha fazla bilgi için [İşleme belgelerine](/manuals/render) bakın.
 * Gölgelendirici programlarının ayrıntılı açıklaması için [Gölgelendirici belgelerine](/manuals/shader) bakın.
 
-## Materyal oluşturma
+## Materyal oluşturma {#creating-a-material}
 
 Materyal oluşturmak için *Assets* tarayıcısındaki hedef klasöre <kbd>sağ tıklayın</kbd> ve <kbd>New... ▸ Material</kbd> seçeneğini seçin. (Menüden <kbd>File ▸ New...</kbd> seçeneğini, ardından <kbd>Material</kbd> seçeneğini de seçebilirsiniz). Yeni materyal dosyasına bir ad verin ve <kbd>Ok</kbd> düğmesine basın.
 
@@ -107,7 +107,7 @@ Value
 Özel öznitelikler, akışları daha küçük bir veri türü veya farklı sayıda öğe kullanacak şekilde yeniden yapılandırarak hem CPU hem de GPU üzerindeki bellek kullanımını azaltmak için de kullanılabilir.
 :::
 
-### Varsayılan öznitelik anlamları
+### Varsayılan öznitelik anlamları {#default-attribute-semantics}
 
 Materyal sistemi, belirli bir ad kümesi için çalışma sırasında özniteliğin adına göre otomatik olarak varsayılan bir anlamsal tür atar:
 
@@ -124,7 +124,7 @@ Materyal sistemi, belirli bir ad kümesi için çalışma sırasında özniteli�
 
 Materyalde bu özniteliklere ait girdiler varsa varsayılan anlamsal türün yerine materyal düzenleyicisinde yapılandırdığınız tür kullanılır.
 
-### Özel köşe özniteliği verilerini ayarlama
+### Özel köşe özniteliği verilerini ayarlama {#setting-custom-vertex-attribute-data}
 
 Kullanıcı tanımlı gölgelendirici sabitlerine benzer şekilde, `go.get`, `go.set` ve `go.animate` çağrılarıyla köşe özniteliklerini de çalışma sırasında güncelleyebilirsiniz:
 
@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Defold 1.14.0'dan itibaren `Mat2`, `Mat3` ve `Mat4` özniteliklerinin tümü, `go.set()` ve `go.get()` ile `vmath.matrix4` değerleri kullanır. Bir `Mat2` veya `Mat3` özniteliğini ayarlarken matrisin sol üst 2×2 veya 3×3 bölümü alınır. Okunduğunda ise kullanılmayan satır ve sütunları birim matristen doldurulmuş bir `vmath.matrix4` döndürülür.
+`Mat2`, `Mat3` ve `Mat4` özniteliklerinin tümü, `go.set()` ve `go.get()` ile `vmath.matrix4` değerleri kullanır. Bir `Mat2` veya `Mat3` özniteliğini ayarlarken matrisin sol üst 2×2 veya 3×3 bölümü alınır. Okunduğunda ise kullanılmayan satır ve sütunları birim matristen doldurulmuş bir `vmath.matrix4` döndürülür.
 
 Örneğin, bir modelin materyalinde `custom_mat2` adlı ve anlamsal türü `None` olan bir `Mat2` özniteliği için:
 
@@ -173,7 +173,7 @@ print(result.m22, result.m33) -- 1, 1 (identity padding)
 
 Her zaman matrisin tamamını atayın. Matris öznitelikleri için `vmath.vector4` gibi düzleştirilmiş değerler ve özniteliğin tek tek alt özelliklerine yapılan atamalar reddedilir. Bir öğeyi değiştirmek için matrisi Lua içinde değiştirip `go.set()` ile geri geçirin.
 
-### Özel köşe özniteliklerini kullanma örnekleri
+### Özel köşe özniteliklerini kullanma örnekleri {#examples-of-using-custom-vertex-attributes}
 
 UV koordinatlarını atlas uzayına dönüştürmek için doku dönüşüm özniteliğini kullanma:
 
@@ -209,7 +209,7 @@ void main()
 }
 ```
 
-### Örneklerle çizim
+### Örneklerle çizim {#instancing}
 
 Örneklerle çizim, bir sahnede aynı nesnenin birden çok kopyasını verimli biçimde çizmek için kullanılan bir tekniktir. Nesne her kullanıldığında ayrı bir kopyasını oluşturmak yerine, grafik motorunun tek bir nesne oluşturup bunu birden çok kez yeniden kullanmasını sağlar. Örneğin, büyük bir orman içeren bir oyunda her ağaç için ayrı bir ağaç modeli oluşturmak yerine, örneklerle çizim sayesinde tek bir ağaç modeli oluşturup bunu farklı konum ve ölçeklerle yüzlerce veya binlerce kez yerleştirebilirsiniz. Böylece orman, her ağaç için ayrı çizim çağrıları yerine tek bir çizim çağrısıyla işlenebilir.
 
@@ -255,7 +255,7 @@ Bu durumda örneklerle çizimin çalıştığını doğrulamak için web profil 
 
 ![Örneklerle çizimde çizim çağrıları](images/materials/instancing-draw-calls.png)
 
-#### Geriye dönük uyumluluk
+#### Geriye dönük uyumluluk {#backwards-compatibility}
 
 Masaüstünde OpenGL 3.1 ve mobilde OpenGL ES 3.0, örneklerle çizimi temel bir özellik olarak sağlar. Daha eski OpenGL ES ve WebGL bağlamları bunu `ANGLE_instanced_arrays` gibi bir uzantıyla destekleyebilir; diğer eski bağdaştırıcılar ise desteklemez. Örneklerle çizim kullanılamadığında işleme varsayılan olarak yine çalışır, ancak performansı daha düşük olabilir.
 
@@ -352,7 +352,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
-### GUI düğümü materyal sabitleri
+### GUI düğümü materyal sabitleri {#gui-node-material-constants}
 
 Bir GUI betiğinde, düğümün materyal sabitlerini okumak ve yazmak için `go` işlevleri yerine `gui.get()` ve `gui.set()` kullanın. Vektör bileşenleri, matris sabitleri ve sabit dizileri desteklenir. Seçenekler tablosundaki dizi indisleri 1'den başlar:
 
@@ -369,7 +369,7 @@ gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
 `CONSTANT_TYPE_USER` veya `CONSTANT_TYPE_USER_MATRIX4` türündeki bir materyal sabitinin `go.get()` ve `go.set()` ya da `gui.get()` ve `gui.set()` ile kullanılabilmesi için gölgelendirici programında kullanılması gerekir. Sabit materyalde tanımlanmış ancak programda kullanılmamışsa materyalden kaldırılır ve çalışma sırasında kullanılamaz.
 :::
 
-## Örnekleyiciler
+## Örnekleyiciler {#samplers}
 
 Örnekleyiciler, bir dokudan (karo kaynağı veya atlas) renk bilgisi örneklemek için kullanılır. Renk bilgisi daha sonra gölgelendirici programındaki hesaplamalarda kullanılabilir.
 
@@ -412,7 +412,7 @@ void main()
 
 ![Model](images/materials/model.png)
 
-## Örnekleyici ayarları
+## Örnekleyici ayarları {#sampler-settings}
 
 Name
 : Örnekleyicinin adı. Bu adın, parça gölgelendiricisinde tanımlanan `sampler2D` adıyla eşleşmesi önerilir.
@@ -438,7 +438,7 @@ Filter Min/Mag
 Max Anisotropy
 : Anizotropik filtreleme, birden çok örnek alıp sonuçları harmanlayan gelişmiş bir filtreleme tekniğidir. Bu ayar, doku örnekleyicilerinin anizotropi düzeyini kontrol eder. GPU anizotropik filtrelemeyi desteklemiyorsa parametrenin hiçbir etkisi olmaz ve varsayılan olarak 1'e ayarlanır.
 
-## Sabit arabellekleri
+## Sabit arabellekleri {#constants-buffers}
 
 İşleme hattı çizim yaparken sabit değerlerini varsayılan sistem sabit arabelleğinden alır. Varsayılan sabitleri geçersiz kılmak ve gölgelendirici programının uniform değerlerini bunun yerine işleme betiğinde kodla ayarlamak için özel bir sabit arabelleği oluşturabilirsiniz:
 

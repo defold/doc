@@ -71,14 +71,14 @@ Defold требует инициализировать сетку. Для это
 Скрипт будет хранить собственное представление поля отдельно от tilemap. Так с ним удобнее работать. Вместо двумерного массива плитки хранятся как одномерный список в Lua-таблице. Список идет последовательно от верхнего левого угла к нижнему правому:
 
 ```lua
--- The completed board looks like this:
+-- Собранная головоломка выглядит так:
 self.board = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0}
 ```
 
 Код, который берет такой список и рисует его на tilemap, довольно простой, но ему нужно преобразовать позицию списка в координаты x и y:
 
 ```lua
--- Draw a table list of tiles onto a 4x4 tilemap
+-- Отобразить список тайлов из таблицы на карте тайлов размером 4x4
 local function draw(t)
     for i=1, #t do
         local y = 5 - math.ceil(i/4) -- <1>
@@ -93,7 +93,7 @@ end
 
 ```lua
 function init(self)
-    -- An inverted board, for test
+    -- Перевёрнутая доска для проверки
     self.board = {15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0}
     draw(self.board)
 end
@@ -102,7 +102,7 @@ end
 Если плитки хранятся в списке Lua, то перемешать их очень легко: достаточно пройти по элементам и поменять каждый из них с другим, выбранным случайно.
 
 ```lua
--- Swap two items in a table list
+-- Поменять местами два элемента списка в таблице
 local function swap(t, i, j)
     local tmp = t[i]
     t[i] = t[j]
@@ -110,7 +110,7 @@ local function swap(t, i, j)
     return t
 end
 
--- Randomize the order of a the elements in a table list
+-- Перемешать элементы списка в таблице
 local function scramble(t)
     local n = #t
     for i = 1, n - 1 do
@@ -135,12 +135,12 @@ end
 
     (В собранной головоломке инверсий нет.)
 
-2. Номер строки, в которой находится пустая клетка (0).
+2. Номер строки, в которой находится пустая клетка (обозначена `0` в списке).
 
 Эти два значения можно получить такими функциями:
 
 ```lua
--- Count the number of inversions in a list of tiles
+-- Подсчитать число инверсий в списке тайлов
 local function inversions(t)
     local inv = 0
     for i=1, #t do
@@ -156,7 +156,7 @@ end
 1. Пустая клетка не считается.
 
 ```lua
--- Find the x and y position of a given tile
+-- Найти координаты x и y заданного тайла
 local function find(t, tile)
     for i=1, #t do
         if t[i] == tile then
@@ -209,7 +209,7 @@ end
 Проверка решаемости выглядит так:
 
 ```lua
--- Is the given table list of 4x4 tiles solvable?
+-- Можно ли решить головоломку с данным списком тайлов для поля 4x4?
 local function solvable(t)
     local x,y = find(t, 0)
     if y % 2 == 1 and inversions(t) % 2 == 0 then
@@ -256,7 +256,7 @@ end
 Теперь вернитесь в скрипт и создайте `on_input()`:
 
 ```lua
--- Deal with user input
+-- Обработать пользовательский ввод
 function on_input(self, action_id, action)
     if action_id == hash("press") and action.pressed and not self.done then -- <1>
         local x = math.ceil(action.x / 128) -- <2>

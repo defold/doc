@@ -50,13 +50,43 @@ Defold의 사운드 구현은 간단하지만 강력합니다. 알아두어야 �
 사운드 컴포넌트를 올바르게 설정했다면 [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function])를 호출하여 사운드를 재생할 수 있습니다:
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+각 재생은 별도의 *보이스(voice)*입니다. `sound.play()`는 숫자 재생 식별자(`play_id`)를 반환합니다. [개별 보이스를 제어](#controlling-individual-voices)하려면 이 ID를 저장하세요.
 
 ::: sidenote
 사운드 컴포넌트가 속해 있던 게임 오브젝트가 삭제되어도 사운드는 계속 재생됩니다. 사운드를 중지하려면 [`sound.stop()`](/ref/sound/#sound.stop:url)을 호출할 수 있습니다(아래 참고).
 :::
 컴포넌트로 보내는 각 메세지는 사운드의 또 다른 인스턴스를 재생하게 하며, 사용 가능한 사운드 버퍼가 가득 차면 엔진이 콘솔에 오류를 출력합니다. 일종의 게이팅 및 사운드 그룹화 메커니즘을 구현하는 것이 좋습니다.
+
+### 개별 보이스 제어하기 {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain)과 [`sound.set_pan()`](/ref/sound/#sound.set_pan)은 선택적 세 번째 인자로 `play_id`가 담긴 값을 받습니다. `sound.play()`가 반환한 ID와 같은 사운드 컴포넌트의 URL을 사용하세요:
+
+```lua
+function init(self)
+    -- 1초 후에 시작할 보이스의 ID를 저장합니다.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- 같은 컴포넌트에서 다른 보이스를 시작합니다.
+    sound.play("go#sound")
+
+    -- 지연된 보이스만 변경합니다.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+이 개별 호출은 다른 보이스와 컴포넌트의 기본 gain/pan 값을 바꾸지 않습니다. 지연되거나 일시 정지된 보이스에도 동작하므로 시작 또는 재개 시 새 값이 적용됩니다. 알 수 없는 ID나 재생이 끝난 ID에는 효과가 없습니다.
+
+모든 보이스와 향후 재생에 사용할 컴포넌트 기본값을 갱신하려면 `play_id`를 생략합니다:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+`{ play_id = nil }`을 전달해도 ID를 생략한 것과 같습니다. 재생이 끝날 때 저장한 ID를 지운다면 개별 갱신에 사용하기 전에 `nil`이 아닌지 확인하세요.
 
 ## 사운드 중지하기
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 사운드 시스템에는 4단계의 게인이 있습니다:
 
 - 사운드 컴포넌트에 설정된 게인.
-- `sound.play()` 호출로 사운드를 시작할 때 설정한 게인, 또는 `sound.set_gain()` 호출로 voice의 게인을 변경할 때 설정한 게인.
+- `sound.play()`로 재생을 시작할 때 설정한 gain 또는 `sound.set_gain()`으로 [하나 또는 모든 보이스](#controlling-individual-voices)의 gain을 변경한 값입니다.
 - [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) 함수 호출로 그룹에 설정한 게인.
 - `master` 그룹에 설정된 게인. `sound.set_group_gain(hash("master"), gain)`으로 변경할 수 있습니다.
 

@@ -73,7 +73,7 @@ local function spawn_stars(self, amount)
         gui.set_texture(star, "star")
         -- ustaw ją jako przezroczystą
         gui.set_color(star, vmath.vector4(1, 1, 1, 0))
-        -- pokaż ją płynnie
+        -- płynne pojawianie się
         gui.animate(star, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_OUT, 0.2, 0.0, fade_out_star)
         -- animuj pozycję
         gui.animate(star, gui.PROP_POSITION, end_p, gui.EASING_NONE, 0.55)
@@ -136,7 +136,7 @@ function on_message(self, message_id, message, sender)
         -- ustaw początkowo przezroczystość
         gui.set_color(node, vmath.vector4(1, 1, 1, 0))
         gui.set_outline(node, vmath.vector4(0, 0, 0, 0))
-        -- pokaż go płynnie
+        -- płynne pojawianie się
         gui.animate(node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_OUT, 0.3)
         gui.animate(node, gui.PROP_OUTLINE, vmath.vector4(0, 0, 0, 1), gui.EASING_OUT, 0.3)
         -- unoś go

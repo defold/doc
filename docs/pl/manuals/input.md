@@ -17,7 +17,7 @@ Urządzenia
   1. Keyboard - klawiatura, zarówno pojedyncze klawisze, jak i wprowadzanie tekstu
   2. Mouse - mysz, czyli pozycja, kliknięcia przycisków i akcje kółka myszy
   3. Single and multi-touch - pojedynczy i wielodotyk, dostępny na urządzeniach z systemem iOS i Android oraz w HTML5 na urządzeniach mobilnych
-  4. Gamepads - gamepady, obsługiwane przez system operacyjny i mapowane w pliku [gamepads](/manuals/input-gamepads/#gamepads-settings-file)
+  4. Gamepads - gamepady, korzystające z [mapowań kontrolerów i obsługi platformy](/manuals/input-gamepads/#gamepads-settings-file)
 
 Wiązania wejścia
 : Zanim wejście zostanie wysłane do skryptu, surowe dane z urządzenia są tłumaczone na znaczące *akcje* za pomocą tabeli wiązań wejścia.
@@ -110,7 +110,7 @@ Każdy komponent znajdujący się na stosie, który zawiera funkcję `on_input()
 : Bieżąca instancja skryptu.
 
 `action_id`
-: Haszowana nazwa akcji, zgodnie z konfiguracją w wiązaniach wejścia.
+: Haszowana nazwa akcji skonfigurowana w wiązaniach wejść albo `nil` dla ruchu wskaźnika i próbek akcelerometru. Używaj `action.source`, aby rozróżniać te akcje bez nazwy.
 
 `action`
 : Tabela zawierająca przydatne dane o akcji, takie jak wartość wejścia, jego położenie (pozycje bezwzględne i różnicowe), czy wejście przycisku zostało `pressed` itd. Szczegóły znajdziesz w [opisie on_input()](/ref/go#on_input).
@@ -128,6 +128,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### Źródło urządzenia wejściowego {#input-device-source}
+
+`action.source` identyfikuje kategorię urządzenia wejściowego niezależnie od nazwy akcji. Jest dostępne w wywołaniach zwrotnych `on_input()` zarówno skryptów, jak i skryptów GUI, i przyjmuje jeden z poniższych haszy:
+
+| `action.source` | Kategoria wejścia |
+|-----------------|----------------|
+| `hash("keyboard")` | Pojedyncze klawisze z Key Triggers. |
+| `hash("text")` | Tekst i zaznaczony tekst z Text Triggers, w tym tekst wprowadzany fizyczną klawiaturą. |
+| `hash("mouse")` | Fizyczne przyciski myszy, kółko i ruch wskaźnika. |
+| `hash("touch")` | Dotyk, w tym kliknięcia myszy i ruch wskaźnika symulowane dotykiem. |
+| `hash("gamepad")` | Wejście gamepada, w tym surowe dane i zdarzenia połączenia. |
+| `hash("accelerometer")` | Próbki akcelerometru. |
+
+Porównuj `action.source` z haszem, na przykład `hash("touch")`, a nie z ciągiem znaków. Akcja lewego przycisku myszy może na przykład pochodzić z fizycznej myszy lub dotknięcia ekranu. Źródło rozróżnia je już przy pierwszym naciśnięciu; zobacz [Odróżnianie kliknięć myszy od dotyku](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+Gdy kilka urządzeń współdzieli nazwaną akcję, ich wkład może zostać połączony. Źródła są przetwarzane w kolejności: klawiatura, tekst, mysz, dotyk; zgłaszane jest ostatnie źródło wnoszące wkład do akcji. Zwolnienie klawisza lub przycisku myszy zachowuje poprzednie źródło, chyba że w tej samej klatce pojawi się inne wejście. Akcje gamepadów pozostają osobne dla każdego kontrolera. Używaj osobnych nazw akcji, jeśli każde wiązanie ma być obsługiwane niezależnie.
+
+Ruch wskaźnika i próbki akcelerometru nie mają nazwy akcji, więc oba używają `action_id == nil`. Przychodzą w osobnych wywołaniach zwrotnych: ruch wskaźnika ma współrzędne i źródło myszy lub dotyku, a próbki akcelerometru mają `acc_x`, `acc_y`, `acc_z` i źródło akcelerometru. Jeśli oba wystąpią w jednej klatce, każde wywołanie można niezależnie przechwycić. Próbki akcelerometru są dostarczane nawet wtedy, gdy ich wartości się nie zmieniły.
+
+Poniższy przykład obsługuje te akcje bez nazwy. Skonfiguruj co najmniej jeden Mouse Trigger, aby odbierać ruch wskaźnika, i włącz [Use Accelerometer](/manuals/project-settings/#use-accelerometer) na obsługiwanym urządzeniu, aby odbierać próbki akcelerometru:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 
@@ -154,7 +191,7 @@ msg.post(".", "release_input_focus")
 
 Funkcja `on_input()` komponentu może aktywnie decydować, czy akcje mają być przekazywane dalej w stosie, czy nie:
 
-- Jeśli `on_input()` zwraca `false` albo nie zwraca niczego, wejście zostanie przekazane do następnego komponentu na stosie wejścia.
+- Jeśli `on_input()` zwraca `false` albo nie zwraca niczego (co oznacza zwrócenie `nil`, czyli wartości traktowanej w Lua jako fałsz), wejście zostanie przekazane do następnego komponentu na stosie wejścia.
 - Jeśli `on_input()` zwraca `true`, wejście zostaje skonsumowane. Żaden komponent niżej w stosie wejścia nie otrzyma tego wejścia. Dotyczy to wszystkich stosów wejścia. Komponent na stosie świata załadowanego przez pełnomocnika może skonsumować wejście i uniemożliwić komponentom na głównym stosie jego odbiór:
 
 ![consuming input](images/input/consuming.png)

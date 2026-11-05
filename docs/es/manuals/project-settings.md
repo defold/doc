@@ -3,7 +3,7 @@ title: Configuración del proyecto Defold
 brief: Este manual describe cómo funciona la configuración específica del proyecto en Defold.
 ---
 
-# Configuración del proyecto
+# Configuración del proyecto {#project-settings}
 
 El archivo *game.project* contiene toda la configuración global del proyecto. Debe permanecer en la carpeta raíz del proyecto y llamarse *game.project*. Lo primero que hace el motor al iniciarse y lanzar tu juego es buscar este archivo.
 
@@ -12,7 +12,7 @@ Cada configuración del archivo pertenece a una categoría. Cuando abres el arch
 ![Configuración del proyecto](images/project-settings/settings.jpg)
 
 
-## Formato de archivo
+## Formato de archivo {#file-format}
 
 La configuración en *game.project* normalmente se cambia desde Defold, pero el archivo también se puede editar en cualquier editor de texto estándar. El archivo sigue el estándar de formato de archivo INI y se ve así:
 
@@ -49,7 +49,7 @@ La clave es una combinación de la categoría y el nombre de la configuración, 
 :::
 
 
-## Secciones y configuraciones
+## Secciones y configuraciones {#sections-and-settings}
 
 A continuación se muestran todas las configuraciones disponibles, organizadas por categoría.
 
@@ -154,6 +154,8 @@ Si el paso de tiempo se vuelve demasiado grande durante un solo frame, se limita
 
 ### Display
 
+En plataformas de escritorio, las ventanas del motor abiertas desde el editor pueden restaurar un tamaño guardado en una ejecución anterior. Elige <kbd>Debug ▸ Reset Simulated Resolution</kbd> para borrar los tamaños recordados y volver al tamaño configurado, conservando las posiciones guardadas. Consulta [posición, tamaño y restablecimiento de ventanas del motor](/manuals/editor/#engine-window-placement) para más detalles.
+
 #### Width
 El ancho en pixeles de la ventana de la aplicación.
 
@@ -162,6 +164,8 @@ La altura en pixeles de la ventana de la aplicación.
 
 #### High Dpi
 Crea un back buffer de alta densidad de pixeles en pantallas que lo soportan. Normalmente, el juego se renderizará al doble de la resolución establecida en las configuraciones *Width* y *Height*, que seguirán siendo la resolución lógica usada en scripts y propiedades.
+
+En HTML5, usa [Min Pixel Ratio](#min-pixel-ratio) y [Max Pixel Ratio](#max-pixel-ratio) para limitar la escala de renderizado cuando este ajuste está activado.
 
 #### Samples
 Cuántas muestras usar para super sampling anti-aliasing. Define el window hint `GLFW_FSAA_SAMPLES`. Un valor de `0` significa que el anti-aliasing está desactivado.
@@ -204,13 +208,6 @@ Canal azul del color de limpieza, usado por el script de render y cuando se crea
 
 #### Clear Color Alpha
 Canal alfa del color de limpieza, usado por el script de render y cuando se crea la ventana.
-
----
-
-### Font
-
-#### Runtime Generation
-Usa generación de fuentes en runtime.
 
 ---
 
@@ -305,7 +302,7 @@ El archivo de perfiles de textura que se usará para este proyecto, `/builtins/g
 Verifica el valor de retorno después de cada llamada gráfica y reporta cualquier error en el log.
 
 #### WebGL Version Hint
-`graphics.webgl_version_hint` selecciona la versión del contexto WebGL que se solicita para HTML5. Los valores válidos son `1` (WebGL 1) y `2` (WebGL 2, el predeterminado). Defínelo como `1` para usar o probar WebGL 1 incluso en un navegador que admita WebGL 2. Mantén [Exclude GLES 2.0](#exclude-gles-20) desactivado al usar WebGL 1 para que se incluyan los shaders necesarios.
+`graphics.webgl_version_hint` selecciona la versión del contexto WebGL que se solicitará en HTML5. Los valores válidos son `1` (WebGL 1) y `2` (WebGL 2, predeterminado). Establécelo en `1` para usar o probar WebGL 1 incluso en un navegador compatible con WebGL 2. Desactiva [Exclude GLES 2.0](#exclude-gles-20) cuando uses WebGL 1 para incluir los shaders necesarios.
 
 #### OpenGL Version Hint
 Indicación de versión de contexto OpenGL. Si se selecciona una versión específica, se usará como versión mínima requerida (no se aplica a OpenGL ES).
@@ -324,7 +321,16 @@ Define la indicación de perfil 'core' de OpenGL al crear el contexto. El perfil
 ### Shader
 
 #### Exclude GLES 2.0
-No compila shaders para dispositivos que ejecutan OpenGLES 2.0 / WebGL 1.0.
+`shader.exclude_gles_sm100` excluye los shaders de OpenGLES 2.0 y WebGL 1.0. Está activado de forma predeterminada (`1`).
+
+Para usar estas API gráficas o permitir recurrir a ellas, desmarca **Shader ▸ Exclude GLES 2.0** en *game.project* o establece:
+
+```ini
+[shader]
+exclude_gles_sm100 = 0
+```
+
+Los proyectos que no establecen esta opción explícitamente usan el valor predeterminado. Establécela en `0` explícitamente si el proyecto necesita compatibilidad con OpenGLES 2.0 o WebGL 1.0.
 
 #### GLSL ES Default Precision Float
 `shader.glsl_es_default_precision_float` define el calificador de precisión global predeterminado para valores de punto flotante en shaders GLSL ES compilados de forma cruzada. Los valores válidos son `mediump` y `highp`; el predeterminado es `mediump`.
@@ -369,6 +375,9 @@ Dónde encontrar los datos de build del proyecto, en formato URI.
 
 #### Max Resources
 El número máximo de recursos que se pueden cargar al mismo tiempo.
+
+#### Profile
+`resource.profile` activa la medición de tiempos de carga de recursos y los logs de nivel INFO para cada carga completada o fallida. Está desactivado de forma predeterminada (`0`). Actívalo (`1`) antes de lanzar el juego para medir las cargas de inicio. El profiler de recursos muestra las mediciones conservadas de carga inicial de los recursos cargados actualmente; haz click en **Capture** y después en **Show load times** para inspeccionarlas. Consulta [Tiempos de carga de recursos](/manuals/profiling/#resource-loading-times) para conocer las columnas y cómo interpretarlas.
 
 ---
 
@@ -594,6 +603,17 @@ Número máximo de factories de objetos de juego. [(Consulta la información sob
 
 ### iOS
 
+#### Home Indicator Mode
+`ios.home_indicator_mode` controla los gestos del sistema en los bordes de la pantalla y si el juego solicita que el indicador de inicio se oculte automáticamente.
+
+| Valor | Gestos del sistema | Solicitar ocultación automática |
+|-------|-----------------|--------------------------|
+| `deferred` (predeterminado) | Protege todos los bordes de la pantalla aplazando los gestos del sistema. Volver al inicio requiere dos deslizamientos. | No |
+| `system` | Usa los gestos normales del sistema y permite volver al inicio con un solo deslizamiento. | No |
+| `auto_hide` | Usa los gestos normales del sistema y permite volver al inicio con un solo deslizamiento. | Sí |
+
+iOS controla la visibilidad real del indicador. La ocultación automática es una solicitud, y en iOS 26 y versiones posteriores el sistema puede ocultarlo tanto en modo `system` como `auto_hide`. Consulta [Comportamiento del indicador de inicio](/manuals/ios/#home-indicator-behavior) para ver un ejemplo de configuración.
+
 #### App Icon 57x57--180x180
 Archivo de imagen (.png) para usar como icono de la aplicación en las dimensiones de ancho y alto dadas `W` &times; `H`.
 
@@ -616,7 +636,7 @@ El nombre corto del bundle (15 caracteres) (consulta [`CFBundleName`](https://de
 La versión del bundle, ya sea un número o x.y.z. (consulta [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-Si se especifica, usa este archivo *`Info.plist`* en lugar del manifiesto base integrado de iOS al crear el bundle de tu app. El manifiesto integrado contiene las entradas de red local y Bonjour necesarias para el descubrimiento de targets del editor en builds que no son release. Si proporcionas un manifiesto personalizado y necesitas descubrimiento de targets, profiling, hot reload o streaming de logs en un dispositivo, conserva esas entradas como se describe en el [manual de iOS](/manuals/ios/#creating-an-ios-application-bundle).
+Si se especifica, usa este archivo *`Info.plist`* en lugar del manifiesto base integrado de iOS, `/builtins/manifests/ios/Info.plist`, al crear el bundle de tu aplicación. Los proyectos que usan la plantilla integrada reciben las actualizaciones del manifiesto automáticamente; los archivos personalizados deben actualizarse explícitamente.
 
 #### Privacy Manifest
 El Apple Privacy Manifest para la aplicación. El campo tendrá como valor predeterminado `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -687,7 +707,7 @@ Indica si la aplicación se puede depurar usando herramientas como [GAPID](https
 #### R8 Keep Rules
 `android.r8_keep_rules` selecciona un archivo `.keep` para activar la eliminación de código no usado, la optimización y la ofuscación de código Java con R8 en builds de Android. Deja la configuración vacía para usar D8 sin eliminar código.
 
-Con Defold 1.14.0 o posterior y un servidor de build Extender compatible, esto también elimina recursos de Android no usados. Los recursos cargados dinámicamente pueden necesitar [reglas XML de conservación](/manuals/android/#keeping-android-resources) aparte.
+Con un servidor de build Extender compatible, también elimina recursos Android no usados. Los recursos cargados dinámicamente pueden necesitar [reglas XML de conservación](/manuals/android/#keeping-android-resources) independientes.
 
 Selecciona `/builtins/manifests/android/dmengine.keep` para usar directamente las reglas predeterminadas de Defold. Las extensiones proporcionan sus propias [reglas de conservación](/manuals/extensions/#r8-keep-rules-for-android), que se combinan con este archivo.
 
@@ -775,6 +795,14 @@ Cuando está activada, esta opción imprimirá información sobre el motor y la 
 #### Scale Mode
 Especifica qué método usar para escalar el canvas del juego.
 
+#### Min Pixel Ratio
+`html5.min_pixel_ratio` establece el número mínimo de píxeles de renderizado del canvas por píxel CSS cuando [High Dpi](#high-dpi) está activado. El valor predeterminado es `0`, que desactiva el límite inferior. Se admiten valores fraccionarios positivos, incluidos los inferiores a `1`.
+
+#### Max Pixel Ratio
+`html5.max_pixel_ratio` establece el número máximo de píxeles de renderizado del canvas por píxel CSS cuando [High Dpi](#high-dpi) está activado. El valor predeterminado es `0`, que desactiva el límite superior. Se admiten valores fraccionarios positivos, incluidos los inferiores a `1`.
+
+Ambos límites deben ser números finitos y no negativos. Cuando ambos están activados, el mínimo no debe superar al máximo. Con *High Dpi* desactivado, la relación es `1` y no se aplica ningún límite. Estos límites afectan a la resolución de renderizado sin cambiar el tamaño de visualización CSS del canvas. Consulta [Límites de la relación de píxeles](/manuals/html5/#pixel-ratio-limits) para ver un ejemplo de configuración.
+
 #### Retry Count
 El número de reintentos después de una descarga fallida durante el inicio, incluidos errores de red, estados HTTP fallidos y discrepancias de tamaño en el archivo JavaScript o WebAssembly del motor. La solicitud inicial se cuenta por separado. La verificación de archivos del juego tiene su propio límite de reintentos; consulta [verificación de descargas](/manuals/html5/#download-verification) y `Retry Time`.
 
@@ -813,6 +841,34 @@ Si se define, usa el manifiesto de la aplicación para personalizar la build del
 
 ---
 
+### Debugger
+
+Estos ajustes controlan las [conexiones del depurador](/manuals/debugging-game-logic/#native-dap-connections) en builds nativas de depuración y headless. Las builds release y web no permiten adjuntarlo. Agrega estos ajustes editando *game.project* como texto o usa [valores de configuración al iniciar el motor](#setting-config-values-on-engine-startup). No se muestran en el formulario de configuración del proyecto. El editor configura la conexión automáticamente cuando usas <kbd>Debug ▸ Start/Attach</kbd>.
+
+Por ejemplo, para iniciar un listener local y esperar a que un cliente configure los breakpoints antes de ejecutar los scripts de inicio:
+
+```ini
+[debugger]
+enabled = 1
+address = 127.0.0.1
+port = 8172
+wait = 1
+```
+
+#### Enabled {#debugger-enabled}
+`debugger.enabled` inicia el listener al arrancar el motor cuando vale `1`. Está desactivado de forma predeterminada (`0`). Un juego en ejecución también puede iniciar el listener con [`debugger.start()`](/manuals/debugging-game-logic/#enabling-the-listener-while-running).
+
+#### Address {#debugger-address}
+`debugger.address` es la dirección IPv4 en la que el listener acepta conexiones. El valor predeterminado, `127.0.0.1`, solo acepta conexiones locales. Usa una dirección de interfaz del dispositivo o `0.0.0.0` para [conexiones remotas](/manuals/debugging-game-logic/#remote-targets).
+
+#### Port {#debugger-port}
+`debugger.port` es el puerto TCP de escucha, entre `0` y `65535`. El valor predeterminado es `8172`. Establécelo en `0` para seleccionar un puerto disponible, que el motor indicará en su log.
+
+#### Wait {#debugger-wait}
+`debugger.wait` hace que el motor espere a que el cliente termine de configurar la sesión de depuración, incluidos los breakpoints, antes de ejecutar los scripts de inicio. Está desactivado de forma predeterminada (`0`). Establécelo en `1` junto con `debugger.enabled=1` para depurar código de inicio. Iniciar el listener más adelante con `debugger.start()` no espera ni pausa el juego. Consulta la [guía de inicio y conexión](/manuals/debugging-game-logic/#native-dap-connections).
+
+---
+
 ### Profiler
 
 El ajuste **Profiler** del manifiesto de la aplicación controla si el código del profiler se enlaza con las builds debug y release. Los ajustes siguientes controlan el comportamiento en runtime del código del profiler presente en la build seleccionada. Consulta el [manual de profiling](/manuals/profiling/) para más detalles.
@@ -837,15 +893,15 @@ Activa la línea de tiempo de rendimiento en el navegador (solo HTML5).
 
 ---
 
-## Definir valores de configuración al iniciar el motor
+## Definir valores de configuración al iniciar el motor {#setting-config-values-on-engine-startup}
 
 Cuando el motor arranca, es posible proporcionar valores de configuración desde la línea de comando que sobrescriben la configuración de *game.project*:
 
 ```bash
-# Especificar una colección bootstrap
+# Specify a bootstrap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
-# Definir dos valores de configuración personalizados
+# Set two custom config values
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
@@ -861,7 +917,7 @@ local my_flag = sys.get_config_boolean("test.my_flag", false)
 :[Component max count optimizations](../shared/component-max-count-optimizations.md)
 
 
-## Configuración personalizada del proyecto
+## Configuración personalizada del proyecto {#custom-project-settings}
 
 Es posible definir configuraciones personalizadas para el proyecto principal o para una [extensión nativa](/manuals/extensions/). Las configuraciones personalizadas para el proyecto principal deben definirse en un archivo `game.properties` en la raíz del proyecto. Los archivos llamados `ext.properties` se detectan en cualquier lugar del proyecto y en las dependencias de bibliotecas obtenidas; no necesitan un `ext.manifest` vecino. Primero se combinan todos los metadatos de extensiones detectados y después se aplica el archivo `game.properties` de la raíz, que puede sobrescribirlos.
 
@@ -879,46 +935,46 @@ Los siguientes atributos están disponibles actualmente:
 
 ```
 [my_extension]
-// `type` - usado para analizar el string del valor
-my_property.type = string // uno de los siguientes valores: bool, string, number, integer, string_array, resource
+// `type` - used for the value string parsing
+my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
 // `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
-// `default` - valor usado como predeterminado si el usuario no definió el valor manualmente
+// `default` - value used as default if user didn't set value manually
 my_property.default = string
 
-// `private` - valor privado usado durante el proceso de bundle, pero eliminado del bundle en sí
-my_property.private = 1 // valor booleano 1 o 0
+// `private` - private value used during the bundle process but will be removed from the bundle itself
+my_property.private = 1 // boolean value 1 or 0
 
-// `label` - etiqueta de input del editor
+// `label` - editor input label
 my_property.label = My Awesome Property
 
-// `minimum` y/o `maximum` - rango válido para propiedades numéricas, validado en la interfaz del editor
+// `minimum` and/or `maximum` - valid range for numeric properties, validated in the editor UI
 my_property.minimum = 0
 my_property.maximum = 255
 
-// `options` - opciones del desplegable para la interfaz del editor, pares value[:label] separados por comas
+// `options` - drop-down choices for the editor UI, comma-separated value[:label] pairs
 my_property.options = android: Android, ios: iOS
 
-// solo tipo `resource`:
-my_property.filter = jpg,png // extensiones de archivo permitidas para el diálogo selector de recursos
-my_property.preserve-extension = 1 // usar la extensión original del recurso en lugar de una generada
+// `resource` type only:
+my_property.filter = jpg,png // allowed file extensions for resource selector dialog
+my_property.preserve-extension = 1 // use original resource extension instead of a built one
 
-// obsolescencia
-my_property.deprecated = 1 // marcar propiedad como obsoleta
-my_property.severity-default = warning // si se especifica una propiedad obsoleta, pero se define con un valor predeterminado
-my_property.severity-override = error  // si se especifica una propiedad obsoleta y se define con un valor no predeterminado
+// deprecation
+my_property.deprecated = 1 // mark property as deprecated
+my_property.severity-default = warning // if deprecated property is specified, but set to a default value
+my_property.severity-override = error  // if deprecated property is specified and set to a non-default value
 
 ```
 Además, puedes definir los siguientes atributos en una categoría de configuración:
 ```
 [my_extension]
-// `group` - grupo de categoría de game.project, por ejemplo, Main, Platforms, Components, Runtime, Distribution
+// `group` - game.project category group, e.g. Main, Platforms, Components, Runtime, Distribution
 group = Runtime
-// `title` - título de categoría mostrado
+// `title` - displayed category title
 title = My Awesome Extension
-// `help` - ayuda de categoría mostrada
+// `help` - displayed category help
 help = Settings for My Awesome Extension
 ```
 

@@ -25,37 +25,35 @@ end
 
 Движок не восстанавливает mount'ы после перезапуска. Если приложению нужен ранее скачанный контент в следующей сессии, оно должно сохранить URI, имя и приоритет пакета в собственных данных сохранения и снова вызвать `liveupdate.add_mount()` при запуске.
 
-Поскольку `mount.name` является хешем, используйте его как ключ таблицы или сравнивайте с `hash("name")`; не добавляйте его к строке пути. Сопоставьте каждому хешу имени уникальный путь к метаданным:
+Когда смонтировано несколько пакетов, полезно проверять их метаданные, определяемые приложением. Поскольку `mount.name` является хешем, используйте его как ключ таблицы или сравнивайте с `hash("mount-name")`; не добавляйте его к пути ресурса. Следующий пример сопоставляет каждому хешу имени уникальный путь к ресурсу метаданных:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- таблица с mount'ами
 	local version_resources = {
-		[hash("liveupdate")] = "/version_liveupdate.json",
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
 	}
 
-    -- У каждого mount'а есть: mount.uri, mount.priority, mount.name
-	for _,mount in ipairs(mounts) do
-
-        -- Имя файла должно быть уникальным, чтобы мы не получили файл из другого архива
-        -- Эти данные разработчик создает как способ задать метаданные для архива
+	for _, mount in ipairs(mounts) do
 		local version_resource = version_resources[mount.name]
 		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
 		elseif mount.priority >= 0 then
-			version_data = {version = 0} -- если файла версии нет, скорее всего архив старый или недействительный
+			version_data = {version = 0} -- если файла версии нет, скорее всего, это старый или недействительный архив
 		end
 
-        -- Проверяем версию архива относительно версии, поддерживаемой игрой
-        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- Архив недействителен, поэтому размонтируем его
-            liveupdate.remove_mount(mount.name)
-        end
+		-- Игнорировать базовые mount'ы движка с отрицательными приоритетами.
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```
+
+Используйте уникальные пути метаданных для разных пакетов. Поиск ресурсов следует приоритету mount, поэтому одинаковый путь в нескольких пакетах приведёт к чтению копии из mount с наибольшим приоритетом.
 
 ## Скриптование с исключенными collection proxy
 
@@ -83,9 +81,9 @@ Collection proxy, исключенный из бандла, работает к�
 
 ```lua
 
--- Нужно отслеживать, какой архив содержит какой контент
--- В этом примере используется только один архив liveupdate, содержащий все отсутствующие ресурсы.
--- Если вы используете несколько архивов, нужно соответствующим образом организовать загрузки
+-- Необходимо отслеживать, какой контент содержится в каждом архиве
+-- В этом примере используется один архив liveupdate, содержащий все недостающие ресурсы.
+-- Если архивов несколько, необходимо соответствующим образом организовать их скачивание
 local lu_infos = {
     liveupdate = {
         name = "liveupdate",
@@ -129,9 +127,9 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        -- Сборка, публикующая контент Live Update, исключает соответствующие записи
-        -- из манифеста бандла, поэтому таблица пуста до монтирования манифеста
-        -- нужного пакета. После монтирования она содержит хеши ресурсов proxy.
+        -- При сборке с публикацией контента Live Update исключённые записи не входят
+        -- в манифест бандла, поэтому эта таблица пуста, пока не смонтирован
+        -- манифест соответствующего пакета. После монтирования она содержит хеши ресурсов прокси.
         if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
@@ -143,34 +141,34 @@ function on_message(self, message_id, message, sender)
         local download_path = sys.get_save_file("mygame", zip_filename)
         local url = self.http_url .. "/" .. zip_filename
 
-        -- Если архив уже существует, пробуем смонтировать его!
+        -- Проверить, существует ли архив. Если да, попробовать его смонтировать!
         if sys.exists(download_path) then
             mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
                 if result == liveupdate.LIVEUPDATE_OK then
-                    msg.post("#", "load_level", message) -- пробуем загрузить уровень снова
+                    msg.post("#", "load_level", message) -- попробовать загрузить уровень снова
                 else
-                    os.remove(download_path)             -- удаляем и пробуем
+                    os.remove(download_path)             -- удалить и попробовать
                     msg.post("#", "load_level", message) -- скачать снова
                 end
             end)
         else
-            -- Выполняем запрос. При необходимости можно использовать учётные данные
+            -- Выполнить запрос. Можно использовать учётные данные
             http.request(url, "GET", function(self, id, response) -- <7>
                 if response.status == 200 or response.status == 304 then
                     mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
                         if result == liveupdate.LIVEUPDATE_OK then
-                            msg.post("#", "load_level", message) -- пробуем загрузить уровень снова
+                            msg.post("#", "load_level", message) -- попробовать загрузить уровень снова
                         else
-                            print("Не удалось смонтировать архив", download_path, ":", result)
+                            print("Failed to mount archive", download_path, ":", result)
                         end
                     end)
                 else
-                    print("Не удалось скачать архив", download_path, "из", url, ":", response.status)
+                    print("Failed to download archive", download_path, "from", url, ":", response.status)
                 end
             end, nil, nil, {path=download_path})
         end
 
-    elseif message_id == hash("proxy_loaded") then -- уровень загружен, и теперь его можно включить
+    elseif message_id == hash("proxy_loaded") then -- уровень загружен, и его можно включить
         msg.post(sender, "init")
         msg.post(sender, "enable")
     end

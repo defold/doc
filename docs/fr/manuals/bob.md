@@ -240,7 +240,7 @@ $
 
 ## Serveur de build {#build-server}
 
-Depuis Defold 1.14.0, Bob choisit le serveur de build des extensions natives par défaut en fonction du canal de publication de sa distribution :
+Bob choisit le serveur de build des extensions natives par défaut en fonction du canal de publication de sa distribution :
 
 | Canal de publication de Bob | Serveur de build par défaut |
 |---|---|

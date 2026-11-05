@@ -31,28 +31,28 @@ Lua API는 하나만 있어야 하며, 그 구현도 하나만 있어야 합니�
 ```
     /root
         /input
-        /main                            -- 실제 예제 프로젝트의 모든 파일
+        /main                            -- All the files for the actual example project
             /...
-        /myextension                     -- 익스텐션의 실제 루트 폴더
+        /myextension                     -- The actual root folder of the extension
             ext.manifest
-            /include                     -- 다른 익스텐션에서 사용하는 외부 include 파일
+            /include                     -- External includes, used by other extensions
             /libs
-                /<platform>              -- 지원되는 모든 플랫폼용 외부 라이브러리
+                /<platform>              -- External libraries for all supported platforms
             /src
-                myextension.cpp          -- 익스텐션 Lua API 및 익스텐션 라이프사이클 함수
-                                            Lua API 함수의 일반 구현도 포함합니다.
-                myextension_private.h    -- 각 플랫폼이 구현할 내부 API(예: `myextension_Init` 등)
-                myextension.mm           -- iOS/macOS에 네이티브 호출이 필요한 경우. iOS/macOS용 `myextension_Init` 등을 구현합니다.
-                myextension_android.cpp  -- Android에 JNI 호출이 필요한 경우. Android용 `myextension_Init` 등을 구현합니다.
+                myextension.cpp          -- The extension Lua api and the extension life cycle functions
+                                            Also contains generic implementations of your Lua api functions.
+                myextension_private.h    -- Your internal api that each platform will implement (I.e. `myextension_Init` etc)
+                myextension.mm           -- If native calls are needed for iOS/macOS. Implements `myextension_Init` etc for iOS/macOS
+                myextension_android.cpp  -- If JNI calls are needed for Android. Implements `myextension_Init` etc for Android
                 /java
-                    /<platform>          -- Android에 필요한 모든 Java 파일
-            /res                         -- 플랫폼에 필요한 모든 리소스
+                    /<platform>          -- Any java files needed for Android
+            /res                         -- Any resources needed for a platform
             /external
-                README.md                -- 외부 라이브러리를 빌드하거나 패키징하는 방법에 대한 참고/스크립트
-        /bundleres                       -- 번들링해야 하는 리소스(game.project 및 [bundle_resources 설정]([physics scale setting](/manuals/project-settings/#project)) 참조)
+                README.md                -- Notes/scripts on how to build or package any external libraries
+        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
             /<platform>
         game.project
-        game.appmanifest                 -- 추가 앱 설정 정보
+        game.appmanifest                 -- Any extra app configuration info
 ```
 
 `myextension.mm` 및 `myextension_android.cpp`는 해당 플랫폼에 특화된 네이티브 호출을 수행하는 경우에만 필요합니다.

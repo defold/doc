@@ -65,7 +65,7 @@ Plik *`.apk`* można skopiować na urządzenie za pomocą narzędzia `adb` albo 
 
 :[Android ADB](../shared/android-adb.md)
 
-```bash
+```
 $ adb install Defold\ examples.apk
 4826 KB/s (18774344 bytes in 3.798s)
   pkg: /data/local/tmp/my_app.apk
@@ -84,6 +84,10 @@ Aby ta funkcja działała, musisz mieć zainstalowany *ADB* oraz włączone *USB
 
 Plik *.aab* można przesłać do Google Play przez [konsolę deweloperską Google Play](https://play.google.com/apps/publish/). Można też wygenerować plik *`.apk`* z pliku *.aab*, aby zainstalować go lokalnie za pomocą [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Wycięcia ekranu {#display-cutouts}
+
+`window.get_reserved_areas()` zwraca prostokąty wycięć ekranu w systemie Android 9 (poziom API 28) i nowszych. Użyj `window.get_safe_area()`, jeśli potrzebujesz prostokątnego obszaru bezpiecznego do rozmieszczenia interfejsu. Sekcja [Zarezerwowane obszary ekranu](/manuals/porting-guidelines/#reserved-screen-areas) opisuje jednostki współrzędnych, zachowanie na nieobsługiwanych platformach i odświeżanie układu po zmianie zgłaszanych obszarów.
+
 ## Zmniejszanie kodu Java i zasobów Androida za pomocą R8 {#shrinking-java-code-with-r8}
 
 R8 zmniejsza rozmiar kodu Java przez usuwanie nieużywanego kodu, optymalizację i zaciemnianie nazw. W wersji Defold 1.14.0 lub nowszej, przy użyciu zgodnego serwera budowania Extender, usuwa również nieużywane zasoby Androida, takie jak układy, zasoby graficzne drawable i zasoby raw dostarczane przez rozszerzenia oraz ich zależności dla Androida. Zasoby gry Defold znajdujące się w archiwum gry nie są przetwarzane przez R8.
@@ -101,7 +105,7 @@ Upewnij się, że każde rozszerzenie zawierające kod Java dostarcza plik `.kee
 
 Pozostawienie pustego pola **R8 Keep Rules** oznacza użycie D8 bez usuwania nieużywanego kodu. Włączenie R8 wymaga usługi budowania natywnych rozszerzeń, nawet w projekcie, który takich rozszerzeń nie zawiera.
 
-Od wersji Defold 1.14.0 usuwanie nieużywanych zasobów Androida jest włączane tym samym ustawieniem **R8 Keep Rules**; nie ma dla niego osobnego ustawienia projektu. Starsze wersje SDK Defold obsługują usuwanie przez R8 wyłącznie nieużywanego kodu.
+Usuwanie nieużywanych zasobów Androida jest włączane tym samym ustawieniem **R8 Keep Rules**; nie ma dla niego osobnego ustawienia projektu. Starsze wersje SDK Defold obsługują usuwanie przez R8 wyłącznie nieużywanego kodu.
 
 ### Dodawanie reguł do rozszerzenia {#adding-rules-to-an-extension}
 

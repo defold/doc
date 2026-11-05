@@ -17,7 +17,7 @@ Geräte
   1. Tastatur (einzelne Tasten sowie Texteingabe)
   2. Maus (Position, Tastenklicks und Mausradaktionen)
   3. Berührungseingabe mit einer oder mehreren Berührungen (auf iOS- und Android-Geräten sowie in HTML5 auf Mobilgeräten)
-  4. Gamepads (soweit sie vom Betriebssystem unterstützt und in der Datei [gamepads](/manuals/input-gamepads/#gamepads-settings-file) zugeordnet werden)
+  4. Gamepads (über [Controller-Zuordnungen und Plattformunterstützung](/manuals/input-gamepads/#gamepads-settings-file))
 
 Eingabebindungen
 : Bevor die Eingabe an ein Skript gesendet wird, werden die unverarbeiteten Eingaben des Geräts über die Tabelle der Eingabebindungen in sinnvolle *Aktionen* übersetzt.
@@ -111,7 +111,7 @@ Bei jeder Komponente im Stapel, die eine Funktion `on_input()` enthält, wird di
 : Die aktuelle Skriptinstanz.
 
 `action_id`
-: Der gehashte Name der Aktion, wie in den Eingabebindungen festgelegt.
+: Der gehashte Aktionsname aus den Eingabebindungen oder `nil` bei Zeigerbewegungen und Beschleunigungssensorwerten. Verwende `action.source`, um diese unbenannten Aktionen zu unterscheiden.
 
 `action`
 : Eine Tabelle mit den nützlichen Daten zur Aktion, etwa dem Eingabewert, ihrer Position (absolute Position und Positionsänderung), ob bei einer Tasteneingabe `pressed` gesetzt war usw. Einzelheiten zu den verfügbaren Aktionsfeldern findest du unter [on_input()](/ref/go#on_input).
@@ -129,6 +129,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### Quelle des Eingabegeräts {#input-device-source}
+
+`action.source` bezeichnet die Kategorie des Eingabegeräts unabhängig vom Aktionsnamen. Sie ist in `on_input()`-Callbacks sowohl von Skripten als auch von GUI-Skripten verfügbar und hat einen dieser Hashwerte:
+
+| `action.source` | Eingabekategorie |
+|-----------------|----------------|
+| `hash("keyboard")` | Einzelne Tasteneingaben aus Key Triggers. |
+| `hash("text")` | Text- und markierte Texteingaben aus Text Triggers, einschließlich mit einer physischen Tastatur eingegebenen Texts. |
+| `hash("mouse")` | Physische Maustasten, Mausradeingaben und Zeigerbewegungen. |
+| `hash("touch")` | Touch-Eingaben, einschließlich aus Berührungen simulierter Mausklicks und Zeigerbewegungen. |
+| `hash("gamepad")` | Gamepad-Eingaben, einschließlich Roheingaben und Verbindungsereignissen. |
+| `hash("accelerometer")` | Beschleunigungssensorwerte. |
+
+Vergleiche `action.source` mit einem Hash wie `hash("touch")`, nicht mit einer Zeichenfolge. Eine Aktion für die linke Maustaste kann beispielsweise von einer physischen Maus oder einer Berührung stammen. Die Quelle unterscheidet beide bereits beim ersten Drücken; siehe [Mausklicks von Berührungen unterscheiden](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+Wenn mehrere Geräte eine benannte Aktion gemeinsam verwenden, können ihre Beiträge kombiniert werden. Quellen werden in dieser Reihenfolge verarbeitet: Tastatur, Text, Maus, dann Touch; gemeldet wird die letzte Quelle, die zur Aktion beiträgt. Beim Loslassen von Tastatur- und Maustasten bleibt die vorherige Quelle erhalten, sofern im selben Frame keine andere Eingabe beiträgt. Gamepad-Aktionen bleiben pro Controller getrennt. Verwende separate Aktionsnamen, wenn du jede Bindung unabhängig verarbeiten musst.
+
+Zeigerbewegungen und Beschleunigungssensorwerte haben keinen Aktionsnamen und verwenden deshalb beide `action_id == nil`. Sie kommen in separaten Callbacks an: Zeigerbewegungen haben Koordinaten und eine Maus- oder Touch-Quelle, Beschleunigungssensorwerte dagegen `acc_x`, `acc_y` und `acc_z` sowie eine Beschleunigungssensorquelle. Treten beide in einem Frame auf, kann jeder Callback unabhängig konsumiert werden. Beschleunigungssensorwerte werden auch dann übermittelt, wenn sie unverändert sind.
+
+Das folgende Beispiel verarbeitet diese unbenannten Aktionen. Richte mindestens einen Mouse Trigger ein, um Zeigerbewegungen zu erhalten, und aktiviere [Use Accelerometer](/manuals/project-settings/#use-accelerometer) auf einem unterstützten Gerät, um Beschleunigungssensorwerte zu erhalten:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 

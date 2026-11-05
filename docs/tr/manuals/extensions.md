@@ -3,7 +3,7 @@ title: Defold için yerel kod eklentileri yazma
 brief: Bu kılavuz, Defold oyun motoru için yerel kod eklentisi yazmayı ve kurulum gerektirmeyen bulut derleme araçlarıyla eklentinin kodunu derlemeyi açıklar.
 ---
 
-# Yerel kod eklentileri
+# Yerel kod eklentileri {#native-extensions}
 
 Lua'nın yeterli olmadığı durumlarda harici yazılım veya donanımla düşük düzeyde özel bir etkileşim kurmanız gerekiyorsa Defold SDK, hedef platforma bağlı olarak motor için C, C++, C#, Objective-C, Java veya JavaScript ile eklentiler yazmanıza olanak tanır. Yerel kod eklentilerinin (native extension) yaygın kullanım alanları şunlardır:
 
@@ -15,7 +15,7 @@ Lua'nın yeterli olmadığı durumlarda harici yazılım veya donanımla düşü
 C# desteği deneyseldir ve Defold betik bileşenleri (script component) için değil, yerel kod eklentileri için tasarlanmıştır. Statik bir kütüphane üretmek için .NET 9 NativeAOT kullanır; eklentinin `src` klasörüne `.cs` kaynak dosyalarını eklediğinizde derleme hizmeti proje dosyasını oluşturur. Hedef desteği, NativeAOT ve derleme hizmetinin mevcut yeteneklerine bağlıdır. Güncel iş akışı ve test edilmiş kurulum için resmî [yerel kod eklentisi dil örneğine](https://github.com/defold/example-languages) bakın.
 :::
 
-## Derleme sunucusu
+## Derleme sunucusu {#the-build-server}
 
 Defold, bulut tabanlı bir derleme çözümüyle yerel kod eklentilerini kullanmaya kurulum gerektirmeden başlamanızı sağlar. Geliştirilip bir oyun projesine doğrudan veya bir [kütüphane projesi](/manuals/libraries/) aracılığıyla eklenen her yerel kod eklentisi, olağan proje içeriğinin bir parçası olur. Motorun özel sürümlerini derleyip ekip üyelerine dağıtmanız gerekmez; bu işlem otomatik olarak yapılır---projeyi derleyip çalıştıran her ekip üyesi, motorun tüm yerel kod eklentilerini içeren, projeye özgü yürütülebilir dosyasını alır.
 
@@ -23,7 +23,7 @@ Defold, bulut tabanlı bir derleme çözümüyle yerel kod eklentilerini kullanm
 
 Defold, bulut derleme sunucusunu herhangi bir kullanım kısıtlaması olmadan ücretsiz sunar. Sunucu Avrupa'da barındırılır ve yerel kodun gönderildiği URL, [düzenleyici tercihleri penceresinde](/manuals/editor-preferences/#extensions) veya [bob](/manuals/bob/#usage) aracının `--build-server` komut satırı seçeneğiyle yapılandırılır. Kendi sunucunuzu kurmak istiyorsanız lütfen [bu yönergeleri izleyin](/manuals/extender-local-setup).
 
-## Proje düzeni
+## Proje düzeni {#project-layout}
 
 Yeni bir eklenti oluşturmak için projenin kök dizininde bir klasör oluşturun. Bu klasör, eklentiyle ilişkili tüm ayarları, kaynak kodu, kütüphaneleri ve kaynakları içerecektir. Eklenti derleme aracı klasör yapısını tanır ve tüm kaynak dosyaları ile kütüphaneleri toplar.
 
@@ -66,7 +66,7 @@ Yeni bir eklenti oluşturmak için projenin kök dizininde bir klasör oluşturu
 *res*
 : Bu isteğe bağlı klasör, eklentinin bağımlı olduğu ek kaynakları içerir. Kaynak dosyalarının, `lib` alt klasörlerinde olduğu gibi `platform` veya `architecture-platform` biçiminde adlandırılan alt klasörlere yerleştirilmesi önerilir. Tüm platformlar için ortak kaynak dosyaları içeren `common` adlı bir alt klasöre de izin verilir.
 
-### Bildirim dosyaları
+### Bildirim dosyaları {#manifest-files}
 
 Bir eklentinin isteğe bağlı *manifests* klasörü, derleme ve paketleme sürecinde kullanılan ek dosyaları içerir. Dosyaların `platform` biçiminde adlandırılan alt klasörlere yerleştirilmesi önerilir:
 
@@ -75,7 +75,10 @@ Bir eklentinin isteğe bağlı *manifests* klasörü, derleme ve paketleme süre
   * Java kodu içeren eklentilerin, çalışma sırasında ihtiyaç duydukları sınıflar için bir [R8 koruma kuralı dosyası](#r8-keep-rules-for-android) (`.keep`) içermesi önerilir.
 * `ios` - Bu klasör, ana uygulamayla birleştirilecek bir bildirim parçası dosyası kabul eder ([burada açıklandığı gibi](/manuals/extensions-manifest-merge-tool)).
   * Klasör, [Cocoapods tarafından çözümlenecek](/manuals/extensions-cocoapods) bağımlılıkları içeren bir `Podfile` dosyası da içerebilir.
+  * Klasör, [Swift Package Manager tarafından çözümlenecek](/manuals/extensions-spm) bağımlılıkları içeren bir `SwiftPackages.json` dosyası da içerebilir.
 * `osx` - Bu klasör, ana uygulamayla birleştirilecek bir bildirim parçası dosyası kabul eder ([burada açıklandığı gibi](/manuals/extensions-manifest-merge-tool)).
+  * Klasör, [Cocoapods tarafından çözümlenecek](/manuals/extensions-cocoapods) bağımlılıkları içeren bir `Podfile` dosyası da içerebilir.
+  * Klasör, [Swift Package Manager tarafından çözümlenecek](/manuals/extensions-spm) bağımlılıkları içeren bir `SwiftPackages.json` dosyası da içerebilir.
 * `web` - Bu klasör, ana uygulamayla birleştirilecek bir bildirim parçası dosyası kabul eder ([burada açıklandığı gibi](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Eklenti çalışma sırasında ek açıklamalara (annotation) dayanıyorsa şunu
 
 Bu kurallar, [R8 etkinleştirildiğinde](/manuals/android/#enabling-r8) projenin seçilen koruma dosyasıyla birleştirilir.
 
-Defold 1.14.0 veya sonraki sürümlerde, uyumlu bir Extender sunucusuyla kullanıldığında R8, Android kaynaklarını da küçültür. Eklenti kaynakları adlarıyla dinamik olarak arıyorsa eklenti klasöründeki `res/android/res/raw` dizinine [XML kaynak koruma kuralları](/manuals/android/#keeping-android-resources) ekleyin.
+Uyumlu bir Extender sunucusuyla kullanıldığında R8, Android kaynaklarını da küçültür. Eklenti kaynakları adlarıyla dinamik olarak arıyorsa eklenti klasöründeki `res/android/res/raw` dizinine [XML kaynak koruma kuralları](/manuals/android/#keeping-android-resources) ekleyin.
 
 
 ## Özel kaynaklar {#custom-resources}
@@ -125,12 +128,12 @@ end
 
 Özel kaynakların dağıtım paketine eklenen kaynaklardan nasıl farklılaştığını öğrenmek için [dosya erişimi](/manuals/file-access/#custom-resources) bölümüne bakın.
 
-## Eklenti paylaşma
+## Eklenti paylaşma {#sharing-an-extension}
 
 Eklentiler, projenizdeki diğer varlıklarla aynı şekilde ele alınır ve aynı şekilde paylaşılabilir. Bir yerel kod eklentisi klasörü, kütüphane klasörü olarak eklenirse paylaşılabilir ve başkaları tarafından proje bağımlılığı olarak kullanılabilir. Daha fazla bilgi için [Kütüphane projesi kılavuzuna](/manuals/libraries/) bakın.
 
 
-## Basit bir eklenti örneği
+## Basit bir eklenti örneği {#a-simple-example-extension}
 
 Çok basit bir eklenti oluşturalım. Önce kök dizinde yeni bir *`myextension`* klasörü oluşturup eklentinin "`MyExtension`" adını içeren bir *`ext.manifest`* dosyası ekliyoruz. Adın bir C++ simgesi olduğunu ve `DM_DECLARE_EXTENSION` makrosunun ilk bağımsız değişkeniyle eşleşmesi gerektiğini unutmayın (aşağıya bakın).
 
@@ -247,7 +250,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 İşte bu kadar! Tamamen çalışan bir yerel kod eklentisi oluşturduk.
 
 
-## Eklentinin yaşam döngüsü
+## Eklentinin yaşam döngüsü {#extension-lifecycle}
 
 Yukarıda gördüğümüz gibi, `DM_DECLARE_EXTENSION` makrosu eklenti kodundaki çeşitli giriş noktalarını tanımlamak için kullanılır:
 
@@ -271,7 +274,7 @@ Giriş noktaları, eklentinin yaşam döngüsünün çeşitli aşamalarında kod
   * Eklentinin `final` giriş noktası
   * Eklentinin `app_final` giriş noktası
 
-## Tanımlanan platform tanımlayıcıları
+## Tanımlanan platform tanımlayıcıları {#defined-platform-identifiers}
 
 Aşağıdaki tanımlayıcılar, ilgili platformların her birinde derleme aracı tarafından tanımlanır:
 
@@ -286,7 +289,7 @@ Aşağıdaki tanımlayıcılar, ilgili platformların her birinde derleme aracı
 
 Proje yerel kod eklentileri kullanıyorsa derleme sunucusu günlüklerine erişilebilir. Derleme sunucusu günlüğü (`log.txt`), proje derlenirken özel motorla birlikte indirilir ve `.internal/%platform%/build.zip` dosyasının içinde saklanır; ayrıca arşivden çıkarılarak projenizin derleme klasörüne yerleştirilir.
 
-## Eklenti örnekleri
+## Eklenti örnekleri {#example-extensions}
 
 * [Temel eklenti örneği](https://github.com/defold/template-native-extension) (bu kılavuzdaki eklenti)
 * [Android eklentisi örneği](https://github.com/defold/extension-android)

@@ -64,7 +64,7 @@ Um sprite também tem várias propriedades diferentes que podem ser manipuladas 
 : A escala não uniforme do sprite (`vector3`).
 
 `size`
-: O tamanho do sprite (`vector3`). Só pode ser alterado se o `modo de tamanho` do sprite estiver definido como `manual`.
+: O tamanho do sprite (`vector3`). Só pode ser alterado se a propriedade `Size Mode` do sprite estiver definida como `Manual`.
 
 ## Constantes de material
 

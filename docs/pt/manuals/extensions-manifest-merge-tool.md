@@ -135,11 +135,11 @@ Manifesto base
         <key>REAL</key>
         <real>8.0</real>
 
-        <!-- Mantém este valor mesmo se um manifesto de extensão contiver a mesma chave -->
+        <!-- Keep this value even if an extension manifest contains the same key -->
         <key merge='keep'>BASE64</key>
         <data>SEVMTE8gV09STEQ=</data>
 
-        <!-- Se um manifesto de extensão também tiver um array com esta chave, quaisquer valores de dicionário serão mesclados com o primeiro valor de dicionário do array base -->
+        <!-- If an extension manifest also has an array with this key then any dictionary values will be merged with the first dictionary value of the base array -->
         <key>Array1</key>
         <array>
             <dict>
@@ -150,7 +150,7 @@ Manifesto base
             </dict>
         </array>
 
-        <!-- Não tente mesclar os valores deste array; em vez disso, valores de manifestos de extensão devem ser adicionados ao fim do array -->
+        <!-- Do not attempt to merge the values of this array, instead values from extension manifests should be added to the end of the array -->
         <key merge='keep'>Array2</key>
         <array>
             <dict>
@@ -187,7 +187,7 @@ Manifesto de extensão:
         <key>INT</key>
         <integer>42</integer>
 
-        <!-- Substitui o valor existente no manifesto base -->
+        <!-- Replace the existing value in the base manifest -->
         <key merge='replace'>REAL</key>
         <integer>16.0</integer>
 
@@ -223,7 +223,7 @@ Resultado:
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
-        <!-- Mesclagem aninhada de dicionários dos manifestos base e de extensão -->
+        <!-- Nested merge of dictionaries from base and extension manifests -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -244,23 +244,23 @@ Resultado:
                 </dict>
             </dict>
 
-            <!-- Do manifesto base -->
+            <!-- From the base manifest -->
             <key>INT</key>
             <integer>8</integer>
 
-            <!-- O valor do manifesto base foi substituído porque o marcador de mesclagem foi definido como "replace" no manifesto de extensão -->
+            <!-- The value from the base manifest was replaced since the merge marker was set to "replace" in the extension manifest -->
             <key>REAL</key>
             <real>16.0</real>
 
-            <!-- O valor do manifesto base foi usado porque o marcador de mesclagem foi definido como "keep" no manifesto base -->
+            <!-- The value from the base manifest was used since the merge marker was set to "keep" in the base manifest -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
 
-            <!-- O valor do manifesto do extender foi adicionado porque nenhum marcador de mesclagem foi especificado -->
+            <!-- The value from the extender manifest was added since no merge marker was specified -->
             <key>INT</key>
             <integer>42</integer>
 
-            <!-- Os valores de dicionário do array foram mesclados porque o manifesto base usa "merge" por padrão -->
+            <!-- The dictionary values of the array were merged since the base manifest defaults to "merge" -->
             <key>Array1</key>
             <array>
                 <dict>
@@ -272,7 +272,7 @@ Resultado:
                 </dict>
             </array>
 
-            <!-- Os valores de dicionário foram adicionados ao array porque o manifesto base usou "keep" -->
+            <!-- The dictionary values were added to the array since the base manifest used "keep" -->
             <key>Array2</key>
             <array>
                 <dict>

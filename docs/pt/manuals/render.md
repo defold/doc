@@ -189,7 +189,7 @@ Frustum culling é implementado na engine por tipo de componente. Status atual:
 
 
 ::: sidenote
-A partir do Defold 1.13.0, as primitivas dos componentes usam a ordem anti-horária dos vértices, com a normal da primitiva apontando para a câmera. Sprites, nós de GUI, tilemaps (tilegrids) e Particle FX usam a mesma ordem que os outros tipos de componentes, portanto as mesmas configurações de descarte de faces podem ser usadas para todos os componentes.
+As primitivas dos componentes usam ordenação de vértices no sentido anti-horário, com a normal da primitiva apontando para a câmera. Sprites, nós de GUI, tilemaps (tilegrids) e Particle FX usam a mesma ordenação dos demais tipos de componente, permitindo usar as mesmas configurações de descarte de faces em todos os componentes.
 
 Isso pode afetar projetos que definem o descarte de faces para componentes além de modelos. Se um componente for descartado inesperadamente, certifique-se de que as faces traseiras estejam selecionadas com `render.set_cull_face(graphics.FACE_TYPE_BACK)`, ou remova a chamada a `render.set_cull_face()` para usar o modo padrão `graphics.FACE_TYPE_BACK`.
 :::
@@ -381,12 +381,12 @@ Para o trecho de `update()` a seguir, atribua a tag `scene` aos materiais da cen
 render.set_render_target(self.offscreen)
 render.set_viewport(0, 0, 1024, 1024)
 render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
--- Set the scene view and projection here.
+-- Defina aqui as matrizes de visualização e projeção da cena.
 render.draw(self.scene_predicate)
 
 render.set_render_target(render.RENDER_TARGET_DEFAULT)
 render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
--- Set the full-screen quad view and projection here.
+-- Defina aqui as matrizes de visualização e projeção do quad de tela inteira.
 render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
 render.draw(self.present_predicate)
 render.disable_texture(0)

@@ -50,13 +50,43 @@ brief: В этом руководстве объясняется порядок 
 При правильной настройке компонента Sound можно заставить его воспроизвести звук, вызвав [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Каждое воспроизведение — отдельный *голос*. `sound.play()` возвращает его числовой идентификатор воспроизведения (`play_id`); сохраните этот ID для [управления отдельным голосом](#controlling-individual-voices).
 
 ::: sidenote
 Звук будет продолжать воспроизводиться, даже если игровой объект, к которому принадлежал компонент Sound, будет удален. Можно вызвать [`sound.stop()`](/ref/sound/#sound.stop:url), чтобы остановить звук (см. ниже).
 :::
 Каждое сообщение, отправленное компоненту, заставляет его воспроизводить другой экземпляр звука, пока доступный звуковой буфер не будет заполнен и движок не выведет ошибки в консоль. Рекомендуется реализовать какой-либо механизм фильтрации и группировки звуков.
+
+### Управление отдельными голосами {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) и [`sound.set_pan()`](/ref/sound/#sound.set_pan) принимают необязательный третий аргумент с `play_id`. Используйте ID, возвращённый `sound.play()`, и URL того же звукового компонента:
+
+```lua
+function init(self)
+    -- Сохранить ID голоса, который начнёт звучать через секунду.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Запустить ещё один голос на том же компоненте.
+    sound.play("go#sound")
+
+    -- Изменить только отложенный голос.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Эти адресные вызовы не меняют остальные голоса и значения усиления и панорамы компонента по умолчанию. Они работают для отложенных и приостановленных голосов, поэтому новые значения применяются при запуске или возобновлении голоса. Неизвестный ID или ID завершённого воспроизведения не оказывает эффекта.
+
+Не указывайте `play_id`, чтобы обновить все голоса и значения компонента по умолчанию для будущего воспроизведения:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Передача `{ play_id = nil }` также означает отсутствие ID. Если вы очищаете сохранённый ID при завершении воспроизведения, проверяйте, что он не равен `nil`, прежде чем использовать его для адресного обновления.
 
 ## Остановка звука
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 Звуковая система имеет 4 уровня усиления:
 
 - Усиление, установленное для компонента звука.
-- Усиление, установленное при запуске звука через вызов `sound.play()` или при изменении усиления голоса через вызов `sound.set_gain()`.
+- Усиление, установленное при запуске звука через вызов `sound.play()` или при изменении усиления [одного или всех голосов](#controlling-individual-voices) через вызов `sound.set_gain()`.
 - Усиление, установленное для группы с помощью вызова функции [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
 - Усиление, установленное в группе `master`. Может быть изменено с помощью `sound.set_group_gain(hash("master"), gain)`.
 
@@ -147,13 +177,13 @@ sound.set_group_gain("master", 1.995)
 local gate_time = 0.3
 
 function init(self)
-    -- Store played sound timers in a table and count down each frame until they have been
-    -- in the table for "gate_time" seconds. Then remove them.
+    -- Сохранить таймеры воспроизведённых звуков в таблице и уменьшать их значения каждый кадр.
+    -- Удалять таймеры, когда они пробудут в таблице "gate_time" секунд.
     self.sounds = {}
 end
 
 function update(self, dt)
-    -- Count down the stored timers
+    -- Уменьшить значения сохранённых таймеров
     for k,_ in pairs(self.sounds) do
         self.sounds[k] = self.sounds[k] - dt
         if self.sounds[k] < 0 then
@@ -164,14 +194,14 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("play_gated_sound") then
-        -- Only play sounds that are not currently in the gating table.
+        -- Воспроизводить только звуки, которых сейчас нет в таблице блокировки.
         if self.sounds[message.soundcomponent] == nil then
-            -- Store sound timer in table
+            -- Сохранить таймер звука в таблице
             self.sounds[message.soundcomponent] = gate_time
-            -- Play the sound
+            -- Воспроизвести звук
             sound.play(message.soundcomponent, { gain = message.gain })
         else
-            -- An attempt to play a sound was gated
+            -- Попытка воспроизвести звук заблокирована
             print("gated " .. message.soundcomponent)
         end
     end

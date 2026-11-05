@@ -83,6 +83,40 @@ Lorsque vous cliquez sur le bouton <kbd>Create bundle</kbd>, vous êtes invité 
 
 Sélectionnez le contexte graphique demandé avec [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Sa valeur par défaut est WebGL 2 ; demandez WebGL 1 pour tester ou cibler ce contexte dans les navigateurs prenant en charge les deux versions.
 
+Depuis Defold 1.14.1, les shaders WebGL 1 sont exclus par défaut. Désactivez [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) pour les inclure, que vous demandiez WebGL 1 directement ou autorisiez un repli depuis WebGL 2. Pour demander explicitement WebGL 1, définissez les deux options dans *game.project* :
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Limites du rapport de pixels {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` et `html5.max_pixel_ratio` contrôlent le nombre de pixels de rendu du canvas utilisés par pixel CSS. La taille CSS du canvas détermine les dimensions apparentes du jeu sur la page ; sa résolution de rendu détermine le nombre de pixels dessinés par le moteur.
+
+Activez *High Dpi* dans la section *Display* de *game.project* pour utiliser ces limites. Le rapport de pixels du périphérique indiqué par le navigateur est alors limité aux bornes activées. Les deux limites valent `0` par défaut, ce qui désactive la borne correspondante. Les valeurs doivent être finies et positives ou nulles ; si elles sont toutes deux strictement positives, le minimum ne doit pas dépasser le maximum.
+
+Par exemple, limitez le rapport à `1.5` pour réduire la résolution de rendu sur les écrans denses :
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+Dans un navigateur indiquant un rapport de pixels de `3`, un canvas affiché à 800 × 600 pixels CSS sera rendu à 1200 × 900 pixels avec cette configuration. Sa taille affichée reste identique. Dans un navigateur indiquant un rapport de `1`, le même canvas reste rendu à 800 × 600 pixels, car le maximum n'augmente pas le rapport.
+
+Les rapports fractionnaires inférieurs à `1` sont également pris en charge : par exemple, un maximum de `0.75` produit moins de pixels que la taille d'affichage CSS. Un minimum supérieur au rapport de pixels du navigateur augmente la résolution de rendu pour le suréchantillonnage. Les limites s'appliquent aux quatre options de *Scale Mode* en conservant leur mise en page CSS.
+
+Lorsque *High Dpi* est désactivé, le rapport reste à `1`, quelles que soient les limites. Sur HTML5, [`window.get_display_scale()`](/ref/window/#window.get_display_scale) renvoie le rapport de rendu effectif après application du paramètre High DPI et des limites.
+
+
 ## Vérification des téléchargements {#download-verification}
 
 Le chargeur HTML5 vérifie par défaut la taille des fichiers du moteur et de l'archive téléchargés. En cas d'échec d'une vérification, les téléchargements sont réessayés avant que le chargeur ne signale une erreur :
@@ -130,7 +164,7 @@ Dans *game.project*, vous pouvez désactiver le bouton `Fullscreen` et le lien `
 Defold fournit un thème sombre et un thème clair pour `index.html`. Le thème clair est défini par défaut, mais vous pouvez le changer en modifiant le fichier `Custom CSS`. Vous pouvez également choisir parmi quatre modes de mise à l'échelle prédéfinis dans le champ `Scale Mode`.
 
 ::: important
-Les calculs de tous les modes de mise à l'échelle tiennent compte de la résolution actuelle de l'écran en DPI si vous activez l'option `High Dpi` dans *game.project* (section `Display`)
+Lorsque *High Dpi* est activé dans la section *Display* de *game.project*, tous les modes de mise à l'échelle utilisent le rapport de pixels effectif, y compris les éventuelles [limites du rapport de pixels](#pixel-ratio-limits), pour dimensionner le tampon de rendu du canvas.
 :::
 
 ### Modes Downscale Fit et Fit {#downscale-fit-and-fit}
@@ -146,7 +180,7 @@ Avec le mode `Stretch`, la taille du canevas est modifiée pour remplir entière
 ![Section HTML5](images/html5/html5_stretch.png)
 
 ### Mode No Scale {#no-scale}
-Avec le mode `No Scale`, la taille du canevas est exactement celle que vous avez définie dans la section `[display]` du fichier *game.project*.
+Avec le mode `No Scale`, la largeur et la hauteur CSS du canvas correspondent aux valeurs *Width* et *Height* de la section *Display* de *game.project*. Sa résolution de rendu utilise toujours le rapport de pixels effectif.
 
 ![Section HTML5](images/html5/html5_no_scale.png)
 
@@ -197,10 +231,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : Le suffixe résolu ajouté aux URL de l'archive, d'après `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true` lorsque le préfixe de l'archive précise une origine HTTP ou HTTPS, y compris une URL relative au protocole comme `//cdn.example.com/archive`. Vaut `false` pour les préfixes d'archive relatifs. Disponible depuis Defold 1.13.2.
+: `true` lorsque le préfixe de l'archive précise une origine HTTP ou HTTPS, y compris une URL relative au protocole comme `//cdn.example.com/archive`. Vaut `false` pour les préfixes d'archive relatifs.
 
 DEFOLD_ARCHIVE_ORIGIN
-: L'origine de l'archive, incluant le schéma, l'hôte et le port facultatif, ou une chaîne vide si aucune origine n'est précisée. Un préfixe relatif au protocole produit une origine relative au protocole. Utilisée pour l'indication de préconnexion et disponible depuis Defold 1.13.2.
+: L'origine de l'archive, incluant le schéma, l'hôte et le port facultatif, ou une chaîne vide si aucune origine n'est précisée. Un préfixe relatif au protocole produit une origine relative au protocole. Utilisée pour l'indication de préconnexion.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true` si le bundle inclut un moteur WebAssembly, soit `wasm-web`, soit `wasm_pthread-web`.

@@ -54,11 +54,11 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 - `editor.editor_sha1` — łańcuch znaków z SHA1 edytora Defold;
 - `editor.get(node_id, property)` — odczytuje wartość wybranego węzła wewnątrz edytora. Węzły w edytorze to różne byty, na przykład pliki skryptów lub kolekcji, obiekty gry wewnątrz kolekcji, pliki JSON wczytane jako zasoby itd. `node_id` to wartość userdata przekazywana skryptowi przez edytor. Zamiast `node_id` możesz też podać ścieżkę zasobu, na przykład `"/main/game.script"`. `property` to łańcuch znaków. Obecnie obsługiwane są między innymi:
   - `"path"` — ścieżka zasobu względem katalogu projektu dla zasobów istniejących jako pliki lub katalogi. Przykładowa wartość: `"/main/game.script"`;
-  - `"children"` — lista ścieżek zasobów potomnych dla zasobów będących katalogami;
+  - `"children"` — lista ścieżek zasobów potomnych dla zasobów będących katalogami. Aby przechodzić również po zasobach wewnątrz plików, zobacz [Przechodzenie po zasobach projektu](#traversing-project-resources);
   - `"parent"` — nadrzędny węzeł edytora dla węzła Outline, który ma element nadrzędny;
   - `"text"` — tekstowa zawartość zasobu edytowalnego jako tekst, na przykład plików skryptów lub JSON. Przykładowa wartość: `"function init(self)\nend"`. To nie jest to samo co odczyt pliku przez `io.open()`, ponieważ plik może być zmieniony, ale jeszcze niezapisany, a takie zmiany są dostępne tylko przez właściwość `"text"`;
   - dla atlasów: `images` (lista węzłów obrazów atlasu) oraz `animations` (lista węzłów animacji);
-  - dla animacji atlasu: `images`;
+  - dla animacji atlasu: `images` (tak samo jak `images` w atlasie);
   - dla tilemap: `layers` (lista węzłów warstw tilemapy);
   - dla warstw tilemapy: `tiles` (nieograniczona dwuwymiarowa siatka kafelków), więcej w `tilemap.tiles.*`;
   - dla `particlefx`: `emitters` (lista węzłów emiterów) i `modifiers` (lista węzłów modyfikatorów);
@@ -76,6 +76,7 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 - `editor.properties(node_id)` — zwraca posortowaną, zależną od kontekstu listę nazw właściwości, które można odczytać z węzła, na przykład `pprint(editor.properties("/game.project"))`. Za pomocą funkcji `editor.can_*` sprawdź, czy wymienioną właściwość można również zmienić, zresetować, uzupełnić lub zmienić jej kolejność;
 - `editor.can_get(node_id, property)` — sprawdza, czy odczyt danej właściwości przez `editor.get()` nie zakończy się błędem;
 - `editor.can_set(node_id, property)` — sprawdza, czy krok transakcji `editor.tx.set()` dla tej właściwości nie zakończy się błędem;
+- `editor.resource_children(path)` — wylicza ścieżki zasobów bezpośrednio wewnątrz folderu lub pliku, w tym zasoby zawarte w plikach glTF/GLB. Zobacz [Przechodzenie po zasobach projektu](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — tworzy katalog, jeśli nie istnieje, wraz z brakującymi katalogami nadrzędnymi;
 - `editor.create_resources(resources)` — tworzy co najmniej jeden zasób, z szablonów albo z własną zawartością;
 - `editor.delete_directory(resource_path)` — usuwa katalog, jeśli istnieje, wraz z istniejącymi podkatalogami i plikami;
@@ -152,6 +153,42 @@ Edytor oczekuje, że `get_commands()` zwróci tablicę tabel, z których każda 
 - `id` — identyfikator polecenia, używany na przykład do zapamiętywania ostatnio użytego polecenia bundlowania w `prefs`;
 - `active` — callback sprawdzający, czy polecenie ma być aktywne. Powinien zwracać wartość logiczną. Jeśli `locations` zawiera `"Assets"`, `"Scene"` albo `"Outline"`, `active` zostanie wywołane przy otwieraniu menu kontekstowego. Jeśli `locations` zawiera `"Edit"` albo `"View"`, `active` będzie uruchamiane przy każdej interakcji użytkownika, na przykład podczas pisania na klawiaturze lub kliknięć myszą, więc musi działać stosunkowo szybko;
 - `run` — callback wykonywany po wybraniu polecenia przez użytkownika.
+
+### Przechodzenie po zasobach projektu {#traversing-project-resources}
+
+`editor.resource_children(path)` zwraca tablicę ścieżek zasobów bezpośrednio wewnątrz folderu lub pliku. Ścieżka wejściowa i zwrócone ścieżki zaczynają się od `/`, względem katalogu głównego projektu. Użyj `/`, aby zacząć od katalogu głównego projektu. Plik *.gltf* lub *.glb* może udostępniać siatki, materiały i osadzone obrazy jako zasoby potomne, podobnie jak w panelu *Assets*.
+
+Jeśli skrypt przechodzi po katalogach przez `editor.get(path, "children")`, zmień go na `editor.resource_children(path)` i odwiedzaj każdą zwróconą ścieżkę. Pliki również mogą zawierać zasoby, więc ograniczenie rekurencji do ścieżek z `editor.resource_attributes(path).is_directory` równym `true` pominie tę zawartość.
+
+Funkcja zwraca pustą tabelę (`{}`) dla folderu lub pliku bez zasobów potomnych. Nieistniejąca ścieżka powoduje błąd; jeśli ścieżka może nie istnieć, sprawdź `editor.resource_attributes(path).exists` przed pobraniem jej elementów potomnych. Zasoby potomne odpowiadają hierarchii *Assets*. Obiekty gry wewnątrz kolekcji odczytuje się przez `editor.get(collection_path, "children")`.
+
+Na przykład zapisz poniższy kod jako `list_resources.editor_script` i wybierz **Project → Reload Editor Scripts**. Kliknij prawym przyciskiem folder lub plik *.gltf* albo *.glb* w *Assets*, a następnie wybierz **List Resource Contents**, aby wypisać jego drzewo zasobów w konsoli:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Używanie poleceń do zmiany stanu edytora w pamięci
 
@@ -251,7 +288,7 @@ editor.transact({
 })
 ```
 
-#### Edycja tilesource
+#### Edycja tilesource {#editing-tilesources}
 
 Poza zwykłymi właściwościami z Outline, tilesource definiuje jeszcze:
 
@@ -259,13 +296,12 @@ Poza zwykłymi właściwościami z Outline, tilesource definiuje jeszcze:
 - `collision_groups` — listę węzłów grup kolizji tilesource;
 - `tile_collision_groups` — tabelę przypisań grup kolizji do kafelków tilesource.
 
-Przykładowa konfiguracja tilesource:
-
+Na przykład tak możesz skonfigurować źródło kafelków:
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -275,6 +311,25 @@ editor.transact({
     })
 })
 ```
+
+Węzły animacji udostępniają właściwość `frames` zawierającą tablicę Lua numerów kafelków liczonych od 1, w kolejności animacji. W odróżnieniu od tekstowego pola *Frames* w edytorze skrypty edytora przyjmują tablicę liczb całkowitych, a nie ciąg taki jak `"2-6"`. Rozwiń zakresy do poszczególnych numerów kafelków w tablicy. Kafelki mogą występować w dowolnej kolejności i mogą się powtarzać.
+
+Aby odczytać i zmodyfikować animację `walk` z powyższego przykładu:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- Animacja używa teraz {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Zmiana zwróconej tablicy nie aktualizuje animacji, dopóki nie przekażesz jej do `editor.tx.set()` i nie zastosujesz transakcji. Numerację kafelków i ustawienia odtwarzania opisano w [podręczniku źródeł kafelków](/manuals/tilesource/#tile-source-flip-book-animations).
 
 #### Edycja tilemap
 

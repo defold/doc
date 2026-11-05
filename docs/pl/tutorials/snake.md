@@ -238,6 +238,7 @@ function update(self, dt)
     self.time = self.time + dt -- <1>
     if self.time >= 1.0 / self.speed then -- <2>
         local head = self.segments[#self.segments] -- <3>
+
         local newhead = {
             x = head.x + self.dir.x,
             y = head.y + self.dir.y

@@ -83,6 +83,39 @@ Ao clicar no botão <kbd>Criar Pacote…</kbd>, você será solicitado a selecio
 
 Selecione o contexto gráfico solicitado por meio de [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). O padrão é WebGL 2; solicite WebGL 1 para testar ou usar esse contexto em navegadores compatíveis com as duas versões.
 
+Desde o Defold 1.14.1, shaders WebGL 1 são excluídos por padrão. Desabilite [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) para incluí-los, seja para solicitar WebGL 1 diretamente ou para permitir fallback de WebGL 2. Para solicitar WebGL 1 explicitamente, defina ambas as opções em *game.project*:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Limites da proporção de pixels {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` e `html5.max_pixel_ratio` controlam quantos pixels de renderização do canvas são usados por pixel CSS. O tamanho do canvas em CSS determina o tamanho com que o jogo aparece na página; sua resolução de renderização determina quantos pixels a engine desenha.
+
+Habilite *High Dpi* na seção *Display* de *game.project* para usar esses limites. A proporção de pixels do dispositivo informada pelo navegador é então restringida aos limites habilitados. Ambos os limites têm valor padrão `0`, que desabilita aquele limite. Os valores devem ser finitos e não negativos; se ambos forem positivos, o mínimo não deve exceder o máximo.
+
+Por exemplo, limite a proporção a `1.5` para restringir a resolução de renderização em telas de alta densidade:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+Em um navegador que informa proporção de pixels do dispositivo de `3`, um canvas exibido com 800 × 600 pixels CSS será renderizado em 1200 × 900 pixels com essa configuração. Seu tamanho de exibição permanece igual. Em um navegador que informa proporção de `1`, o mesmo canvas continua sendo renderizado em 800 × 600 pixels, pois o máximo não aumenta a proporção.
+
+Proporções fracionárias abaixo de `1` também são aceitas: por exemplo, um máximo de `0.75` renderiza menos pixels que o tamanho de exibição CSS. Um mínimo acima da proporção de pixels do dispositivo informada pelo navegador aumenta a resolução de renderização para supersampling. Os limites se aplicam às quatro opções de *Scale Mode*, preservando seu layout CSS.
+
+Com *High Dpi* desabilitado, a proporção permanece em `1`, independentemente dos limites. No HTML5, [`window.get_display_scale()`](/ref/window/#window.get_display_scale) retorna a proporção efetiva de renderização após aplicar a configuração High DPI e os limites.
+
 ## Verificação de downloads {#download-verification}
 
 Por padrão, o carregador HTML5 verifica os tamanhos dos arquivos baixados da engine e do arquivo de jogo. Falhas nas verificações provocam novas tentativas de download antes de o carregador informar um erro:
@@ -130,7 +163,7 @@ Em *game.project*, é possível desativar o botão `Fullscreen` e o link `Made w
 O Defold fornece um tema escuro e um claro para o `index.html`. O tema claro é definido por padrão, mas é possível alterá-lo mudando o arquivo `Custom CSS`. Também existem quatro modos de escala predefinidos para escolher no campo `Scale Mode`.
 
 ::: important
-Os cálculos de todos os modos de escala incluem o DPI atual da tela caso você ative a opção `High Dpi` em *game.project* (seção `Display`)
+Com *High Dpi* habilitado na seção *Display* de *game.project*, todos os modos de escala usam a proporção efetiva de pixels, incluindo quaisquer [limites da proporção de pixels](#pixel-ratio-limits), para dimensionar o buffer de renderização do canvas.
 :::
 
 ### Downscale Fit e Fit
@@ -146,7 +179,7 @@ No modo `Stretch`, o tamanho do canvas será alterado para preencher completamen
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-Com o modo `No Scale`, o tamanho do canvas é exatamente o mesmo que você predefiniu no arquivo *game.project*, seção `[display]`.
+No modo `No Scale`, a largura e a altura CSS do canvas correspondem aos valores *Width* e *Height* da seção *Display* de *game.project*. Sua resolução de renderização ainda usa a proporção efetiva de pixels.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
@@ -198,10 +231,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : O sufixo resolvido acrescentado às URLs do arquivo de jogo, com base em `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true` quando o prefixo do arquivo de jogo especifica uma origem HTTP ou HTTPS, incluindo uma URL relativa ao protocolo como `//cdn.example.com/archive`. É `false` para prefixos relativos. Disponível desde o Defold 1.13.2.
+: `true` quando o prefixo do arquivo de recursos especifica uma origem HTTP ou HTTPS, incluindo uma URL relativa ao protocolo como `//cdn.example.com/archive`. É `false` para prefixos relativos.
 
 DEFOLD_ARCHIVE_ORIGIN
-: A origem do arquivo de jogo, incluindo esquema, host e porta opcional, ou uma string vazia quando nenhuma origem é especificada. Um prefixo relativo ao protocolo produz uma origem relativa ao protocolo. Usado para a dica de pré-conexão e disponível desde o Defold 1.13.2.
+: A origem do arquivo de recursos, incluindo esquema, host e porta opcional, ou uma string vazia quando nenhuma origem é especificada. Um prefixo relativo ao protocolo produz uma origem relativa ao protocolo. Usada para a indicação de pré-conexão.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true` se o pacote incluir uma engine WebAssembly, seja `wasm-web` ou `wasm_pthread-web`.
@@ -267,37 +300,37 @@ Por exemplo:
 
 ```
 'archive_location_filter':
-    Função de filtro que será executada para cada caminho de arquivo.
+    Filter function that will run for each archive path.
 
 'unsupported_webgl_callback':
-    Função chamada se WebGL não tiver suporte.
+    Function that is called if WebGL is not supported.
 
 'engine_arguments':
-    Lista de argumentos (strings) que serão passados para a engine.
+    List of arguments (strings) that will be passed to the engine.
 
 'custom_heap_size':
-    Número de bytes que especifica o tamanho do heap de memória.
+    Number of bytes specifying the memory heap size.
 
 'disable_context_menu':
-    Desativa o menu de contexto do clique direito no elemento canvas se true.
+    Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    Pausa em segundos antes de tentar carregar o arquivo novamente após erro.
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
-    Quantas tentativas fazemos ao tentar baixar um arquivo.
+    How many attempts we do when trying to download a file.
 
 'can_not_download_file_callback':
-    Função chamada se você não conseguir baixar o arquivo após as tentativas de 'retry_count'.
+    Function that is called if you can't download file after 'retry_count' attempts.
 
 'resize_window_callback':
-    Função chamada quando eventos de resize/orientationchanges/focus acontecerem
+    Function that is called when resize/orientationchanges/focus events happened
 
 'start_success':
-    Função chamada pouco antes de main ser chamada após um carregamento bem-sucedido.
+    Function that is called just before main is called upon successful load.
 
 'update_progress':
-    Função chamada à medida que o progresso é atualizado. O parâmetro progress é atualizado de 0 a 100.
+    Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
 ## Operações de arquivo em HTML5

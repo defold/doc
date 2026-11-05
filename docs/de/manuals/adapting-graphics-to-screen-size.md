@@ -97,7 +97,9 @@ Wenn du auch hochauflösende Retina-Bildschirme unterstützen möchtest, kannst 
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Dadurch wird auf Bildschirmen, die dies unterstützen, ein Backbuffer mit hoher Pixeldichte erstellt. Das Spiel rendert mit der doppelten Auflösung der Werte in den Einstellungen Width und Height. Diese Werte bleiben weiterhin die logische Auflösung, die in Skripten und Eigenschaften verwendet wird. Das bedeutet, dass alle Maße gleich bleiben und Inhalte, die mit dem Skalierungsfaktor 1x gerendert werden, gleich aussehen. Wenn du jedoch hochauflösende Bilder importierst und sie auf 0,5x skalierst, werden sie auf dem Bildschirm mit hoher Pixeldichte angezeigt.
+High DPI ermöglicht es dem Spiel, die Pixeldichte des Bildschirms für seine Renderauflösung zu nutzen. Die Einstellungen *Width* und *Height* bestimmen weiterhin die logische Auflösung des Projekts; der Rendermaßstab hängt von Plattform und Bildschirm ab. Bei einem Maßstab von 2 können beispielsweise Bilder, die mit der doppelten vorgesehenen Größe importiert und mit 0,5-facher Größe gezeichnet werden, ihre Details auf einem Bildschirm mit hoher Pixeldichte behalten.
+
+Unter HTML5 beginnt der Maßstab mit dem Gerätepixelverhältnis des Browsers. `html5.min_pixel_ratio` und `html5.max_pixel_ratio` können diesen Maßstab begrenzen, wenn `display.high_dpi` aktiviert ist. Beide Grenzen sind standardmäßig `0` (deaktiviert); auch gebrochene Verhältnisse und Werte unter `1` werden unterstützt. Diese Grenzen verändern die Renderauflösung des Canvas, erhalten aber seine CSS-Anzeigegröße. Wenn High DPI deaktiviert ist, bleibt das Verhältnis bei `1`. Unter [Grenzen des Pixelverhältnisses](/manuals/html5/#pixel-ratio-limits) findest du ein Beispiel für die Begrenzung der Renderauflösung auf Bildschirmen mit hoher Pixeldichte.
 
 
 ## Eine anpassungsfähige GUI erstellen {#creating-an-adaptive-gui}

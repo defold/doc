@@ -83,6 +83,39 @@ Defold HTML5 번들에는 WebAssembly를 지원하는 최신 브라우저가 필
 
 [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint)로 요청할 그래픽 컨텍스트를 선택합니다. 기본값은 WebGL 2입니다. 두 버전을 모두 지원하는 브라우저에서 WebGL 1을 테스트하거나 대상으로 삼으려면 WebGL 1을 요청하세요.
 
+Defold 1.14.1 버전부터 WebGL 1 쉐이더는 기본적으로 제외됩니다. WebGL 1을 직접 요청하거나 WebGL 2에서 대체하도록 허용할 때 모두 [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20)을 비활성화해야 포함됩니다. WebGL 1을 명시적으로 요청하려면 *game.project*에서 두 옵션을 모두 설정합니다:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## 픽셀 비율 제한 {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio`와 `html5.max_pixel_ratio`는 CSS 픽셀당 사용할 캔버스 렌더링 픽셀 수를 제어합니다. 캔버스의 CSS 크기는 페이지에서 게임이 보이는 크기를, 렌더링 해상도는 엔진이 그리는 픽셀 수를 결정합니다.
+
+이 제한을 사용하려면 *game.project*의 *Display* 섹션에서 *High Dpi*를 활성화합니다. 그러면 브라우저의 기기 픽셀 비율이 활성화된 경계 안으로 제한됩니다. 두 제한의 기본값은 `0`이며 해당 경계를 비활성화합니다. 값은 유한한 음이 아닌 수여야 하고, 둘 다 양수이면 최솟값이 최댓값을 넘으면 안 됩니다.
+
+예를 들어 고밀도 디스플레이의 렌더링 해상도를 제한하려면 비율의 상한을 `1.5`로 설정합니다:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+기기 픽셀 비율이 `3`인 브라우저에서 800 × 600 CSS 픽셀로 표시되는 캔버스는 이 설정에 따라 1200 × 900 픽셀로 렌더링됩니다. 표시 크기는 그대로입니다. 비율이 `1`인 브라우저에서는 최댓값이 비율을 높이지 않으므로 같은 캔버스가 여전히 800 × 600 픽셀로 렌더링됩니다.
+
+`1` 미만의 소수 비율도 지원합니다. 예를 들어 최댓값이 `0.75`이면 CSS 표시 크기보다 적은 픽셀을 렌더링합니다. 최솟값을 브라우저의 기기 픽셀 비율보다 높이면 슈퍼샘플링을 위해 렌더링 해상도가 높아집니다. 이 제한은 CSS 레이아웃을 유지하면서 네 가지 *Scale Mode* 옵션 모두에 적용됩니다.
+
+*High Dpi*를 비활성화하면 제한과 관계없이 비율은 `1`입니다. HTML5에서 [`window.get_display_scale()`](/ref/window/#window.get_display_scale)은 High DPI 설정과 제한을 적용한 실제 렌더링 비율을 반환합니다.
+
 ## 다운로드 검증 {#download-verification}
 
 HTML5 로더는 기본적으로 다운로드한 엔진 및 아카이브 파일의 크기를 확인합니다. 확인에 실패하면 오류를 보고하기 전에 다운로드를 재시도합니다.
@@ -130,7 +163,7 @@ canvas에는 border나 padding 스타일을 지정하면 안 됩니다. 지정�
 Defold는 `index.html`에 다크 테마와 라이트 테마를 제공합니다. 기본값은 라이트 테마이며, `Custom CSS` 파일을 변경해 바꿀 수 있습니다. 또한 `Scale Mode` 필드에서 선택할 수 있는 네 가지 미리 정의된 스케일 모드가 있습니다.
 
 ::: important
-*game.project*의 `Display` 섹션에서 `High Dpi` 옵션을 켜면 모든 스케일 모드의 계산에 현재 화면 DPI가 포함됩니다.
+*game.project*의 *Display* 섹션에서 *High Dpi*를 활성화하면 모든 스케일 모드는 [픽셀 비율 제한](#pixel-ratio-limits)을 포함한 실제 픽셀 비율로 캔버스 렌더링 버퍼 크기를 정합니다.
 :::
 
 ### Downscale Fit and Fit
@@ -146,7 +179,8 @@ Defold는 `index.html`에 다크 테마와 라이트 테마를 제공합니다. 
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-`No Scale` 모드에서는 canvas 크기가 *game.project* 파일의 `[display]` 섹션에서 미리 정의한 크기와 정확히 같습니다.
+
+`No Scale` 모드에서는 캔버스의 CSS 너비와 높이가 *game.project*의 *Display* 섹션에 있는 *Width*와 *Height* 값과 일치합니다. 렌더링 해상도에는 실제 픽셀 비율이 계속 적용됩니다.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
@@ -198,10 +232,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : 아카이브 URL에 덧붙이는 확정된 접미어이며, `html5.archive_location_suffix`를 기준으로 합니다.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: 아카이브 접두어에 HTTP 또는 HTTPS 출처(origin)가 지정되어 있으면 `true`입니다. `//cdn.example.com/archive` 같은 프로토콜 상대 URL도 포함됩니다. 상대 아카이브 접두어의 경우 `false`입니다. Defold 1.13.2부터 사용할 수 있습니다.
+: 아카이브 접두사가 `//cdn.example.com/archive` 같은 프로토콜 상대 URL을 포함하여 HTTP 또는 HTTPS 오리진을 지정하면 `true`입니다. 상대 아카이브 접두사에는 `false`입니다.
 
 DEFOLD_ARCHIVE_ORIGIN
-: 스킴, 호스트, 선택적 포트를 포함하는 아카이브 출처이며, 출처가 지정되지 않았으면 빈 문자열입니다. 프로토콜 상대 접두어는 프로토콜 상대 출처를 생성합니다. preconnect 힌트에 사용되며 Defold 1.13.2부터 사용할 수 있습니다.
+: 스킴, 호스트, 선택적 포트를 포함한 아카이브 오리진이며, 오리진이 지정되지 않으면 빈 문자열입니다. 프로토콜 상대 접두사는 프로토콜 상대 오리진을 만듭니다. preconnect 힌트에 사용됩니다.
 
 DEFOLD_HAS_WASM_ENGINE
 : 번들에 `wasm-web` 또는 `wasm_pthread-web` WebAssembly 엔진이 포함되어 있으면 `true`입니다.
@@ -267,37 +301,37 @@ build-timestamp
 
 ```
 'archive_location_filter':
-    각 아카이브 경로마다 실행되는 필터 함수입니다.
+    Filter function that will run for each archive path.
 
 'unsupported_webgl_callback':
-    WebGL이 지원되지 않을 때 호출되는 함수입니다.
+    Function that is called if WebGL is not supported.
 
 'engine_arguments':
-    엔진에 전달할 인자(문자열) 목록입니다.
+    List of arguments (strings) that will be passed to the engine.
 
 'custom_heap_size':
-    메모리 힙 크기를 지정하는 바이트 수입니다.
+    Number of bytes specifying the memory heap size.
 
 'disable_context_menu':
-    true이면 canvas 요소에서 오른쪽 클릭 컨텍스트 메뉴를 비활성화합니다.
+    Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    오류 후 파일 로딩을 다시 시도하기 전 일시 중지 시간(초)입니다.
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
-    파일 다운로드를 시도할 때 수행하는 시도 횟수입니다.
+    How many attempts we do when trying to download a file.
 
 'can_not_download_file_callback':
-    'retry_count'번 시도한 후에도 파일을 다운로드할 수 없을 때 호출되는 함수입니다.
+    Function that is called if you can't download file after 'retry_count' attempts.
 
 'resize_window_callback':
-    resize/orientationchanges/focus 이벤트가 발생했을 때 호출되는 함수입니다.
+    Function that is called when resize/orientationchanges/focus events happened
 
 'start_success':
-    성공적으로 로드된 뒤 main이 호출되기 바로 전에 호출되는 함수입니다.
+    Function that is called just before main is called upon successful load.
 
 'update_progress':
-    진행률이 업데이트될 때 호출되는 함수입니다. progress 파라미터는 0-100으로 업데이트됩니다.
+    Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
 ## HTML5의 파일 작업

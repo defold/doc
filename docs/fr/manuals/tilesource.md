@@ -50,28 +50,33 @@ Collision
 
 ## Animations image par image d'une source de tuiles {#tile-source-flip-book-animations}
 
-Pour définir une animation dans une source de tuiles, les tuiles correspondant aux images de l'animation doivent se suivre de gauche à droite. La séquence peut se poursuivre d'une ligne à la suivante. Toutes les sources de tuiles nouvellement créées possèdent une animation par défaut nommée "`anim`". Vous pouvez ajouter des animations en <kbd>faisant un clic droit</kbd> sur la racine de la source de tuiles dans l'*Outline*, puis en sélectionnant <kbd>Add ▸ Animation</kbd>.
+Pour définir une animation dans une source de tuiles, sélectionnez les tuiles à lire avec la propriété *Frames* de l'animation. Les tuiles peuvent apparaître dans n'importe quel ordre, y compris avec des répétitions ; vous n'avez donc pas besoin de réorganiser l'image source. Toutes les sources de tuiles nouvellement créées possèdent une animation par défaut nommée "`anim`". Vous pouvez ajouter des animations en <kbd>faisant un clic droit</kbd> sur la racine de la source de tuiles dans l'*Outline*, puis en sélectionnant <kbd>Add ▸ Animation</kbd>.
 
 Sélectionner une animation affiche ses *Properties*.
-
-![Animation d'une source de tuiles](images/tilemap/animation.png)
 
 Id
 : L'identifiant de l'animation. Il doit être unique dans la source de tuiles.
 
-Start Tile
-: La première tuile de l'animation. La numérotation commence à 1 dans le coin supérieur gauche et progresse vers la droite, ligne par ligne, jusqu'au coin inférieur droit.
+Frames
+: Les numéros des tuiles dans l'ordre de l'animation, séparés par des virgules. La numérotation commence à 1 dans le coin supérieur gauche et progresse vers la droite, ligne par ligne, jusqu'au coin inférieur droit. Vous pouvez répéter les numéros de tuiles et utiliser des plages inclusives dans les deux sens.
 
-End Tile
-: La dernière tuile de l'animation.
+| Frames | Séquence développée |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+L'éditeur affiche les suites consécutives d'au moins trois images sous forme de plages. Par exemple, `1, 2, 3` devient `1-3`, tandis que `1, 2` reste deux numéros de tuiles. L'ordre des images et les répétitions sont conservés. La liste doit contenir au moins une image, et chaque numéro de tuile doit exister dans l'image source.
+
+*Frames* remplace *Start Tile* et *End Tile*. L'éditeur convertit les plages valides des anciens fichiers de source de tuiles en listes d'images. Dans les scripts de l'éditeur, utilisez le tableau d'entiers `frames` à la place de `start_tile` et `end_tile` ; consultez [Modifier des sources de tuiles](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
-: Indique comment lire l'animation :
+: Indique comment lire l'animation en suivant la liste *Frames* :
 
   - `None` ne lance aucune lecture ; la première image est affichée.
   - `Once Forward` lit l'animation une fois, de la première à la dernière image.
   - `Once Backward` lit l'animation une fois, de la dernière à la première image.
-  - `Once Ping Pong` lit l'animation une fois, de la première à la dernière image, puis revient à la première image.
+  - `Once Ping Pong` lit l'animation une fois, de la première à la dernière image, puis revient à la deuxième image.
   - `Loop Forward` lit l'animation en boucle, de la première à la dernière image.
   - `Loop Backward` lit l'animation en boucle, de la dernière à la première image.
   - `Loop Ping Pong` lit l'animation en boucle, de la première à la dernière image, puis revient à la première image.

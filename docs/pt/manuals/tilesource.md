@@ -48,30 +48,37 @@ Extrude Border
 Collision
 : Especifica a imagem a ser usada para gerar automaticamente formas de colisão para os tiles.
 
+<a id="tile-source-flip-book-animations"></a>
+
 ## Animações flip-book de tile source
 
-Para definir uma animação em um tile source, os tiles dos frames da animação devem estar lado a lado em uma sequência da esquerda para a direita. A sequência pode continuar de uma linha para a próxima. Todos os tile sources recém-criados têm uma animação padrão chamada "`anim`". Você pode adicionar novas animações clicando com o <kbd>right click</kbd> na raiz do tile source no *Outline* e selecionando <kbd>Add ▸ Animation</kbd>.
+Para definir uma animação em uma fonte de tiles, selecione os tiles a reproduzir usando a propriedade *Frames* da animação. Os tiles podem aparecer em qualquer ordem, incluindo repetições, portanto não é necessário reorganizar a imagem de origem. Toda fonte de tiles recém-criada tem uma animação padrão chamada "`anim`". Você pode adicionar novas animações <kbd>clicando com o botão direito</kbd> na raiz da fonte de tiles em *Outline* e selecionando <kbd>Add ▸ Animation</kbd>.
 
 Selecionar uma animação exibe suas *Properties*.
-
-![Tile Source animation](images/tilemap/animation.png)
 
 Id
 : A identidade da animação. Deve ser única para o tile source.
 
-Start Tile
-: O primeiro tile da animação. A numeração começa em 1 no canto superior esquerdo e segue para a direita, linha por linha, até o canto inferior direito.
+Frames
+: Os números dos tiles na ordem da animação, separados por vírgulas. A numeração começa em 1 no canto superior esquerdo e avança para a direita, linha por linha, até o canto inferior direito. Você pode repetir números de tiles e usar intervalos inclusivos em ambas as direções.
 
-End Tile
-: O último tile da animação.
+| Frames | Sequência expandida |
+| --- | --- |
+| `1, 3, 6, 3` | `1, 3, 6, 3` |
+| `1-4, 8` | `1, 2, 3, 4, 8` |
+| `4-2` | `4, 3, 2` |
+
+O editor exibe sequências consecutivas de pelo menos três frames como intervalos. Por exemplo, `1, 2, 3` se torna `1-3`, enquanto `1, 2` permanece como dois números de tiles. A ordem dos frames e as repetições são preservadas. A lista deve conter pelo menos um frame, e cada número de tile deve existir na imagem de origem.
+
+*Frames* substitui *Start Tile* e *End Tile*. O editor converte intervalos válidos de arquivos antigos de fontes de tiles em listas de frames. Em scripts do editor, use o array de inteiros `frames` em vez de `start_tile` e `end_tile`; consulte [Editando fontes de tiles](/manuals/editor-scripts/#editing-tilesources).
 
 Playback
-: Especifica como a animação deve ser reproduzida:
+: Especifica como a animação deve percorrer a lista *Frames*:
 
   - `None` não reproduz; a primeira imagem é exibida.
   - `Once Forward` reproduz a animação uma vez, da primeira à última imagem.
   - `Once Backward` reproduz a animação uma vez, da última à primeira imagem.
-  - `Once Ping Pong` reproduz a animação uma vez, da primeira à última imagem e depois volta para a primeira.
+  - `Once Ping Pong` reproduz a animação uma vez da primeira à última imagem e depois retorna até a segunda imagem.
   - `Loop Forward` reproduz a animação repetidamente, da primeira à última imagem.
   - `Loop Backward` reproduz a animação repetidamente, da última à primeira imagem.
   - `Loop Ping Pong` reproduz a animação repetidamente, da primeira à última imagem e depois volta para a primeira.

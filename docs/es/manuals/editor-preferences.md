@@ -61,7 +61,6 @@ Zoom on Scroll
 Auto-insert closing parens
 : Inserta automáticamente los caracteres de cierre correspondientes al editar código. Esta opción está activada de forma predeterminada.
 
-
 Format on save
 : Ejecuta el formateador del servidor de lenguaje en los archivos de código abiertos y modificados al guardar. Está desactivado de forma predeterminada. El servidor de lenguaje debe admitir el formateo; consulta [formatear código](/manuals/writing-code/#formatting-code) para formatear un documento o una selección manualmente.
 
@@ -72,7 +71,7 @@ Format on save
 
 Para abrir archivos script desde el editor Defold directamente en Visual Studio Code, debes configurar los siguientes ajustes especificando la ruta al archivo ejecutable:
 
-- macOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
+- MacOS: `/Applications/Visual Studio Code.app/Contents/MacOS/Code`
 - Linux: `/usr/bin/code`
 - Windows: `C:\Program Files\Microsoft VS Code\Code.exe`
 

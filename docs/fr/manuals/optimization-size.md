@@ -94,7 +94,7 @@ Le contenu exclu peut aller de niveaux entiers à des personnages, des apparence
 
 ## Optimisations de taille propres à Android {#android-specific-size-optimizations}
 
-Activez la [suppression du code inutilisé avec R8](/manuals/android/#shrinking-java-code-with-r8) pour supprimer le code Java inutilisé. Avec Defold 1.14.0 ou une version ultérieure et un serveur Extender compatible, cela supprime également les ressources Android inutilisées des extensions et de leurs dépendances.
+Activez la [suppression du code inutilisé avec R8](/manuals/android/#shrinking-java-code-with-r8) pour supprimer le code Java inutilisé. Avec un serveur Extender compatible, cela supprime également les ressources Android inutilisées des extensions et de leurs dépendances.
 
 Les builds Android doivent prendre en charge les architectures de processeur 32 et 64 bits. Lorsque vous [créez un bundle pour Android](/manuals/android), vous pouvez spécifier les architectures de processeur à inclure :
 

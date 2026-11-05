@@ -152,15 +152,15 @@ Defold не применяет освещение ко всем материал
 
 struct Light
 {
-    vec4 position;        // xyz: мировая позиция, w: не используется
-    vec4 color;           // rgb: цвет, a: не используется
-    vec4 direction_range; // xyz: нормализованное мировое направление, w: дальность
-    vec4 params;          // x: тип, y: интенсивность, z: внутренний конус, w: внешний конус
+    vec4 position;        // xyz: world position, w: unused
+    vec4 color;           // rgb: color, a: unused
+    vec4 direction_range; // xyz: normalized world direction, w: range
+    vec4 params;          // x: type, y: intensity, z: inner cone, w: outer cone
 };
 
 uniform LightBuffer
 {
-    // xyz: суммарный цвет рассеянного света, w: количество активных нерассеянных источников
+    // xyz: accumulated ambient color, w: active non-ambient light count
     vec4 light_info;
     Light lights[MAX_LIGHT_COUNT];
 };
@@ -192,16 +192,16 @@ vec3 apply_lights(vec3 normal)
         int type = int(lights[i].params.x);
         vec3 light_color = lights[i].color.rgb * lights[i].params.y;
 
-        if (type == 0) // Направленный
+        if (type == 0) // Directional
         {
             vec3 light_dir = normalize(-lights[i].direction_range.xyz);
             result += light_color * max(dot(normal, light_dir), 0.0);
         }
-        else if (type == 1) // Точечный
+        else if (type == 1) // Point
         {
             result += light_color;
         }
-        else if (type == 2) // Прожектор
+        else if (type == 2) // Spot
         {
             result += light_color;
         }

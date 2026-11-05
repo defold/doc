@@ -85,6 +85,10 @@ Pour que cette fonctionnalité fonctionne, *ADB* doit être installé et *USB de
 
 Vous pouvez importer un fichier *.aab* sur Google Play via la [console développeur Google Play](https://play.google.com/apps/publish/). Vous pouvez aussi générer un fichier *`.apk`* à partir d'un fichier *.aab* pour l'installer localement avec [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## Découpes de l'écran {#display-cutouts}
+
+`window.get_reserved_areas()` indique les rectangles des découpes de l'écran sur Android 9 (niveau d'API 28) et versions ultérieures. Utilisez `window.get_safe_area()` pour obtenir un rectangle sûr pour votre mise en page. Consultez [Zones réservées de l'écran](/manuals/porting-guidelines/#reserved-screen-areas) pour connaître les unités des coordonnées, le comportement sur les plateformes non prises en charge et la manière de rafraîchir la mise en page lorsque les zones signalées changent.
+
 ## Réduction du code Java et des ressources Android avec R8 {#shrinking-java-code-with-r8}
 
 R8 réduit la taille du code Java en supprimant le code inutilisé, en l'optimisant et en l'obfusquant. Avec Defold 1.14.0 ou une version ultérieure et un serveur de build Extender compatible, il supprime également les ressources Android inutilisées, comme les mises en page, les drawables et les ressources brutes fournies par les extensions et leurs dépendances Android. Les ressources de jeu Defold contenues dans l'archive du jeu ne sont pas traitées par R8.
@@ -102,7 +106,7 @@ Assurez-vous que chaque extension contenant du code Java fournit un fichier `.ke
 
 Si vous laissez **R8 Keep Rules** vide, D8 est utilisé sans suppression du code inutilisé. L'activation de R8 fait appel au service de build des extensions natives, même pour un projet sans extensions natives.
 
-À partir de Defold 1.14.0, la suppression des ressources Android inutilisées est activée par le même paramètre **R8 Keep Rules** ; il n'existe aucun paramètre de projet distinct pour cela. Les anciens SDK Defold ne suppriment que le code inutilisé avec R8.
+La suppression des ressources Android inutilisées est activée par le même paramètre **R8 Keep Rules** ; il n'existe aucun paramètre de projet distinct pour cela. Les anciens SDK Defold ne suppriment que le code inutilisé avec R8.
 
 ### Ajout de règles à une extension {#adding-rules-to-an-extension}
 

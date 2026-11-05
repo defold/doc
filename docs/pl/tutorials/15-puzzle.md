@@ -222,7 +222,7 @@ local function solvable(t)
     if y % 2 == 0 and inversions(t) % 2 == 1 then
         return true
     end
-    return false    
+    return false
 end
 ```
 
@@ -325,7 +325,7 @@ local function solvable(t)
     if y % 2 == 0 and inversions(t) % 2 == 1 then
         return true
     end
-    return false    
+    return false
 end
 
 local function scramble(t)
@@ -356,7 +356,7 @@ end
 function init(self)
     msg.post(".", "acquire_input_focus")
     math.randomseed(socket.gettime())
-    self.board = scramble({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0})   
+    self.board = scramble({1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0})
     while not solvable(self.board) do
         self.board = scramble(self.board)
     end

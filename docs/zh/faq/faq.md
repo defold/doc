@@ -3,75 +3,75 @@ title: Defold 引擎和编辑器常见问题
 brief: 关于 Defold 游戏引擎、编辑器和平台的常见问题。
 ---
 
-# 常见问题
+# 常见问题 {#frequently-asked-questions}
 
-## 一般问题
+## 一般问题 {#general-questions}
 
-#### 问: Defold 真的免费吗？
+#### 问: Defold 真的免费吗？ {#q-is-defold-really-free}
 
 答: 是的，具有完整功能的 Defold 引擎和编辑器完全免费。没有隐藏成本、费用或版权使用费。就是免费。
 
 
-#### 问: 为什么 Defold 基金会要免费提供 Defold？
+#### 问: 为什么 Defold 基金会要免费提供 Defold？ {#q-why-on-earth-would-the-defold-foundation-give-defold-away}
 
 答: [Defold 基金会](/foundation) 的目标之一是确保 Defold 软件可供全球开发者使用，并且源代码免费提供。
 
 
-#### 问: 你们会支持 Defold 多久？
+#### 问: 你们会支持 Defold 多久？ {#q-how-long-will-you-support-defold}
 
 答: 我们对 Defold 深度投入。[Defold 基金会](/foundation) 的设立方式保证了它将作为 Defold 的负责任所有者存在多年。它不会消失。
 
 
-#### 问: 我可以信任 Defold 用于专业开发吗？
+#### 问: 我可以信任 Defold 用于专业开发吗？ {#q-can-i-trust-defold-for-professional-development}
 
 答: 绝对可以。Defold 已被越来越多的专业游戏开发者和游戏工作室使用。查看 [游戏展示](/showcase) 了解使用 Defold 创建的游戏示例。
 
 
-#### 问: 你们在进行什么样的用户跟踪？
+#### 问: 你们在进行什么样的用户跟踪？ {#q-what-kind-of-user-tracking-are-you-doing}
 
 答: 我们记录来自我们网站和 Defold 编辑器的匿名使用数据，以改进我们的服务和产品。在你创建的游戏中没有用户跟踪（除非你自己添加分析服务）。在我们的 [隐私政策](/privacy-policy) 中阅读更多相关信息。
 
 
-#### 问: 谁创造了 Defold？
+#### 问: 谁创造了 Defold？ {#q-who-made-defold}
 
 答: Defold 由 Ragnar Svensson 和 Christian Murray 创造。他们从 2009 年开始开发引擎、编辑器和服务器。King 和 Defold 在 2013 年开始合作，King 于 2014 年收购了 Defold。阅读完整故事请点击[这里](/about)。
 
 
-## 游戏开发问题
+## 游戏开发问题 {#game-development-questions}
 
-#### 问: 我可以在 Defold 中制作 3D 游戏吗？
+#### 问: 我可以在 Defold 中制作 3D 游戏吗？ {#q-can-i-do-3d-games-in-defold}
 
 答: 当然可以！引擎是一个完整的 3D 引擎。然而，工具集是为 2D 设计的，所以你必须自己完成大量繁重的工作。更好的 3D 支持正在计划中。
 
 
-## 编程语言问题
+## 编程语言问题 {#programming-language-questions}
 
-#### 问: 我在 Defold 中使用什么编程语言？
+#### 问: 我在 Defold 中使用什么编程语言？ {#q-what-programming-language-do-i-work-with-in-defold}
 
 答: Defold 项目中的游戏逻辑主要使用 Lua 语言编写（特别是 Lua 5.1/LuaJIT，详情请参考 [Lua 手册](/manuals/lua)）。Lua 是一种轻量级的动态语言，快速且非常强大。Defold 支持使用能生成 Lua 代码的转译器。安装转译器扩展后，你可以使用替代语言——如 [Teal](https://github.com/defold/extension-teal)——来编写静态类型检查的 Lua。你也可以使用原生代码（根据平台不同，可以是 C/C++、Objective-C、Java 和 JavaScript）来[为 Defold 引擎扩展新功能](/manuals/extensions/)。在构建[自定义材质](/manuals/material/)时，使用 OpenGL ES SL 着色器语言来编写顶点和片段着色器。
 
 
-#### 问: 我可以使用 C++ 来编写游戏逻辑吗？
+#### 问: 我可以使用 C++ 来编写游戏逻辑吗？ {#q-can-i-use-c-to-write-game-logic}
 
 答: Defold 中的 C++ 支持主要用于编写与第三方 SDK 或平台特定 API 交互的原生扩展。[dmSDK](https://defold.com/ref/dmGameObject/)（用于原生扩展的 Defold C++ API）将逐步扩展更多功能，使开发者可以选择完全使用 C++ 编写所有游戏逻辑。Lua 仍将是游戏逻辑的主要语言，但通过扩展的 C++ API，也可以使用 C++ 编写游戏逻辑。扩展 C++ API 的工作主要是将现有的私有头文件移至公共部分，并清理 API 以供公共使用。
 
 
-#### 问: 我可以在 Defold 中使用 TypeScript 吗？
+#### 问: 我可以在 Defold 中使用 TypeScript 吗？ {#q-can-i-use-typescript-with-defold}
 
 答: TypeScript 不是官方支持的。社区维护了一个工具包 [ts-defold](https://ts-defold.dev/)，用于编写 TypeScript 并直接从 VSCode 将其转译为 Lua。
 
 
-#### 问: 我可以在 Defold 中使用 Haxe 吗？
+#### 问: 我可以在 Defold 中使用 Haxe 吗？ {#q-can-i-use-haxe-with-defold}
 
 答: Haxe 不是官方支持的。社区维护了 [hxdefold](https://github.com/hxdefold/hxdefold) 用于编写 Haxe 并将其转译为 Lua。
 
 
-#### 问: 我可以在 Defold 中使用 C# 吗？
+#### 问: 我可以在 Defold 中使用 C# 吗？ {#q-can-i-use-c-with-defold}
 
 答: Defold 基金会将添加 C# 支持并将其作为库依赖项提供。C# 是一种广泛采用的编程语言，它将帮助那些大量投资于 C# 的工作室和开发者过渡到 Defold。
 
 
-#### 问: 我担心添加 C# 支持会对 Defold 产生负面影响。我应该担心吗？
+#### 问: 我担心添加 C# 支持会对 Defold 产生负面影响。我应该担心吗？ {#q-i-am-concerned-that-adding-c-support-will-have-a-negative-impact-on-defold-should-i-be-worried}
 
 答: Defold 不会放弃将 Lua 作为主要脚本语言。C# 支持将作为扩展的新语言添加。除非你在项目中选择使用 C# 扩展，否则它不会影响引擎。
 
@@ -88,9 +88,9 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
 * C# 支持将基于带有 NativeAOT 的 DotNet 9，从而生成现有构建管道可以链接的静态库（就像任何其他 Defold 扩展一样）。
 
 
-## 平台问题
+## 平台问题 {#platform-questions}
 
-#### 问: Defold 可以在哪些平台上运行？
+#### 问: Defold 可以在哪些平台上运行？ {#q-what-platforms-does-defold-run-on}
 
 答: 支持以下平台：
 
@@ -118,30 +118,30 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
   (2 只要图形驱动是最新的，引擎运行时应该在大多数 64 位 Linux 发行版上运行，有关图形 API 的更多信息见下文)
 
 
-#### 问: 使用 Defold 我可以为哪些目标平台开发游戏？
+#### 问: 使用 Defold 我可以为哪些目标平台开发游戏？ {#q-what-target-platforms-can-i-develop-games-for-with-defold}
 
 答: 只需点击一下，您就可以发布到 PS4™、PS5™、Nintendo Switch、iOS（64 位）、Android（32 位和 64 位）和 HTML5，以及 macOS（x86-64 和 arm64）、Windows（64 位）和 Linux（x86-64 和 arm64）。真正的一套代码库，多个支持的平台。
 
 
-#### 问: Defold 依赖哪种渲染 API？
+#### 问: Defold 依赖哪种渲染 API？ {#q-what-rendering-api-does-defold-rely-on}
 
 答: 作为开发者，您只需要担心使用[完全可编程渲染管线](/manuals/render/)的一种渲染 API。Defold 渲染脚本 API 将渲染操作转换为以下图形 API：
 
 :[图形 API](../shared/graphics-api.md)
 
-#### 问: 有什么方法可以知道我运行的是哪个版本？
+#### 问: 有什么方法可以知道我运行的是哪个版本？ {#q-is-there-a-way-to-know-what-version-im-running}
 
 答: 是的，在帮助菜单中选择"关于"选项。弹出窗口清楚地显示了 Defold 测试版版本，更重要的是，特定的发布 SHA1。对于运行时版本查找，请使用 [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info)。
 
 可以从 [http://d.defold.com/beta](http://d.defold.com/beta) 下载的最新测试版可以通过打开 [http://d.defold.com/beta/info.json](http://d.defold.com/beta/info.json) 来检查（稳定版本也存在相同的文件：[http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)）
 
 
-#### 问: 有什么方法可以在运行时知道游戏在哪个平台上运行？
+#### 问: 有什么方法可以在运行时知道游戏在哪个平台上运行？ {#q-is-there-a-way-to-know-what-platform-the-game-is-running-on-at-runtime}
 
 答: 是的，请查看 [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info)。
 
 
-## 编辑器问题
+## 编辑器问题 {#editor-questions}
 :[Editor FAQ](../shared/editor-faq.md)
 
 
@@ -149,29 +149,29 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
 :[Linux FAQ](../shared/linux-faq.md)
 
 
-## Android 问题
+## Android 问题 {#android-questions}
 :[Android FAQ](../shared/android-faq.md)
 
 
-## HTML5 问题
+## HTML5 问题 {#html5-questions}
 :[HTML5 FAQ](../shared/html5-faq.md)
 
 
-## iOS 问题
+## iOS 问题 {#ios-questions}
 :[iOS FAQ](../shared/ios-faq.md)
 
 
-## Windows 问题
+## Windows 问题 {#windows-questions}
 :[Windows FAQ](../shared/windows-faq.md)
 
 
-## 主机问题
+## 主机问题 {#console-questions}
 :[Consoles FAQ](../shared/consoles-faq.md)
 
 
-## 发布游戏
+## 发布游戏 {#publishing-games}
 
-#### 问: 我正在尝试将我的游戏发布到 AppStore。我应该如何回答 IDFA 的问题？
+#### 问: 我正在尝试将我的游戏发布到 AppStore。我应该如何回答 IDFA 的问题？ {#q-im-trying-to-publish-my-game-to-appstore-how-should-i-respond-to-idfa}
 
 答: 提交时，Apple 为其三个有效的 IDFA 用例提供了三个复选框：
 
@@ -182,42 +182,42 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
   如果您选择选项 1，应用审核人员会在应用中寻找广告。如果您的游戏不显示广告，游戏可能会被拒绝。Defold 本身不使用广告 ID。
 
 
-#### 问: 我如何通过游戏获利？
+#### 问: 我如何通过游戏获利？ {#q-how-do-i-monetize-my-game}
 
 答: Defold 支持应用内购买和各种广告解决方案。查看 [资源门户中的盈利类别](https://defold.com/tags/stars/monetization/) 获取最新的可用盈利选项列表。
 
 
-## 使用 Defold 时出现的错误
+## 使用 Defold 时出现的错误 {#errors-using-defold}
 
-#### 问: 我无法启动游戏，也没有构建错误。出了什么问题？
+#### 问: 我无法启动游戏，也没有构建错误。出了什么问题？ {#q-i-cant-start-the-game-and-there-is-no-build-error-whats-wrong}
 
 答: 在极少数情况下，构建过程可能无法重新构建文件，特别是当它之前遇到过您已经修复的构建错误时。通过从菜单中选择 *Project > Rebuild And Launch* 来强制完全重新构建。
 
 
 
-## 游戏内容
+## 游戏内容 {#game-content}
 
-#### 问: Defold 支持预制件吗？
+#### 问: Defold 支持预制件吗？ {#q-does-defold-support-prefabs}
 
 答: 是的，它支持。它们被称为[集合](/manuals/building-blocks/#collections)。它们允许您创建复杂的游戏对象层次结构，并将这些作为单独的构建块存储，您可以在编辑器中或在运行时（通过集合生成）实例化它们。对于 GUI 节点，支持 GUI 模板。
 
 
-#### 问: 我无法将游戏对象添加为另一个游戏对象的子对象，为什么？
+#### 问: 我无法将游戏对象添加为另一个游戏对象的子对象，为什么？ {#q-i-cant-add-a-game-object-as-a-child-to-another-game-object-why}
 
 答: 可能是因为您试图在游戏对象文件中添加子对象，而这是不可能的。要理解为什么，您必须记住父子层次结构严格来说是_场景图_变换层次结构。尚未被放置（或生成）到场景（集合）中的游戏对象不是场景图的一部分，因此不能成为场景图层次结构的一部分。您可以使用 [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id) 获取游戏对象父对象的 id。
 
 
-#### 问: 为什么我不能向游戏对象的所有子对象广播消息？
+#### 问: 为什么我不能向游戏对象的所有子对象广播消息？ {#q-why-cant-i-broadcast-messages-to-all-children-of-a-game-object}
 
 答: 父子关系只表达场景图变换关系，不应被误认为是对象导向的聚合。如果您尝试专注于您的游戏数据以及如何在游戏改变状态时最好地转换它，您可能会发现不需要一直向许多对象发送带有状态数据的消息。在需要数据层次结构的情况下，这些可以在 Lua 中轻松构建和处理。
 
 
-#### 问: 为什么我的精灵边缘周围会出现视觉瑕疵？
+#### 问: 为什么我的精灵边缘周围会出现视觉瑕疵？ {#q-why-am-i-experiencing-visual-artifacts-around-the-edges-of-my-sprites}
 
 答: 这是一种称为"边缘出血"的视觉瑕疵，其中图集中相邻像素的边缘像素会渗入分配给您的精灵的图像中。解决方案是用额外的相同像素行和列填充图集图像的边缘。幸运的是，这可以通过 Defold 中的图集编辑器自动完成。打开您的图集并将 *Extrude Borders* 值设置为 1。
 
 
-#### 问: 我可以为我的精灵着色或使它们透明，还是必须为此编写自己的着色器？
+#### 问: 我可以为我的精灵着色或使它们透明，还是必须为此编写自己的着色器？ {#q-can-i-tint-my-sprites-or-make-them-transparent-or-do-i-have-to-write-my-own-shader-for-it}
 
 答: 所有精灵默认使用的内置精灵着色器定义了一个常量"tint"：
 
@@ -230,93 +230,93 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
   ```
 
 
-#### 问: 如果我将精灵的 z 坐标设置为 100，那么它就不会被渲染。为什么？
+#### 问: 如果我将精灵的 z 坐标设置为 100，那么它就不会被渲染。为什么？ {#q-if-i-set-the-z-coordinate-of-a-sprite-to-100-then-its-not-rendered-why}
 
 答: 游戏对象的 Z 位置控制渲染顺序。低值在高值之前绘制。在默认渲染脚本中，深度在 -1 和 1 之间的游戏对象被绘制，任何低于或高于此值的都不会被绘制。您可以在官方[渲染文档](/manuals/render)中阅读更多关于渲染脚本的信息。在 GUI 节点上，Z 值被忽略，根本不影响渲染顺序。相反，节点按照它们列出的顺序以及子层次结构（和分层）进行渲染。在官方[GUI 文档](/manuals/gui)中阅读更多关于 gui 渲染和使用分层优化绘制调用的信息。
 
 
-#### 问: 将视图投影 Z 范围更改为 -100 到 100 会影响性能吗？
+#### 问: 将视图投影 Z 范围更改为 -100 到 100 会影响性能吗？ {#q-would-changing-the-view-projection-z-range-to-100-to-100-impact-performance}
 
 答: 不会。唯一的影响是精度。z 缓冲区是对数的，对于接近 0 的 z 值具有非常精细的分辨率，而对于远离 0 的 z 值分辨率较低。例如，使用 24 位缓冲区，可以区分 10.0 和 10.000005，而 10000 和 10005 则不能。
 
 
-#### 问: 角度表示方式没有一致性，为什么？
+#### 问: 角度表示方式没有一致性，为什么？ {#q-there-is-no-consistency-to-how-angles-are-represented-why}
 
 答: 实际上有一致性。在编辑器和游戏 API 中，角度处处表示为度数。数学库使用弧度。目前，对于 `angular_velocity` 物理属性，约定被打破，它当前表示为弧度/秒。这预计会改变。
 
 
-#### 问: 当创建一个只有颜色（没有纹理）的 GUI 框节点时，它将如何被渲染？
+#### 问: 当创建一个只有颜色（没有纹理）的 GUI 框节点时，它将如何被渲染？ {#q-when-creating-a-gui-box-node-with-only-color-no-texture-how-will-it-be-rendered}
 
 答: 它只是一个顶点着色的形状。请记住，它仍然会消耗填充率。
 
 
-#### 问: 如果我即时更改资源，引擎会自动卸载它们吗？
+#### 问: 如果我即时更改资源，引擎会自动卸载它们吗？ {#q-if-i-change-assets-on-the-fly-will-the-engine-automatically-unload-them}
 
 答: 所有资源在内部都有引用计数。一旦引用计数为零，资源就会被释放。
 
 
-#### 问: 是否可以在不使用附加到游戏对象的音频组件的情况下播放音频？
+#### 问: 是否可以在不使用附加到游戏对象的音频组件的情况下播放音频？ {#q-is-it-possible-to-play-audio-without-the-use-of-an-audio-component-attached-to-a-game-object}
 
 答: 一切都是基于组件的。可以创建一个带有多个声音的无头游戏对象，并通过向声音控制器对象发送消息来播放声音。
 
 
-#### 问: 是否可以在运行时更改与音频组件关联的音频文件？
+#### 问: 是否可以在运行时更改与音频组件关联的音频文件？ {#q-is-it-possible-to-change-the-audio-file-associated-with-an-audio-component-at-run-time}
 
 答: 通常所有资源都是静态声明的，好处是您可以免费获得资源管理。您可以使用[资源属性](/manuals/script-properties/#resource-properties)来更改分配给组件的资源。
 
 
-#### 问: 有没有办法访问物理碰撞形状属性？
+#### 问: 有没有办法访问物理碰撞形状属性？ {#q-is-there-a-way-to-access-the-physics-collision-shape-properties}
 
 答: 是的，请查看物理 API，尤其是 [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) 和 [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table)。
 
 
-#### 问: 有什么快速方法可以渲染场景中的碰撞对象吗？（就像 Box2D 的调试绘制）
+#### 问: 有什么快速方法可以渲染场景中的碰撞对象吗？（就像 Box2D 的调试绘制） {#q-is-there-any-quick-way-to-render-the-collision-objects-in-my-scene-like-box2ds-debug-draw}
 
 答: 是的，在 *game.project* 中设置 *physics.debug* 标志。（请参考官方[项目设置文档](/manuals/project-settings/#debug)）
 
 
-#### 问: 拥有许多接触/碰撞的性能成本是多少？
+#### 问: 拥有许多接触/碰撞的性能成本是多少？ {#q-what-are-the-performance-costs-of-having-many-contactscollisions}
 
 答: Defold 在后台运行一个修改版本的 Box2D，性能成本应该相当相似。您可以通过调出[分析器](/manuals/debugging)来查看引擎在物理上花费了多少时间。您还应该考虑使用什么类型的碰撞对象。例如，静态对象在性能方面更便宜。有关更多详细信息，请参考 Defold 中的官方[物理文档](/manuals/physics)。
 
 
-#### 问: 拥有许多粒子效果组件的性能影响是什么？
+#### 问: 拥有许多粒子效果组件的性能影响是什么？ {#q-whats-the-performance-impact-of-having-many-particle-effect-components}
 
 答: 这取决于它们是否正在播放。没有播放的 ParticleFx 性能成本为零。必须使用分析器评估播放中的 ParticleFx 的性能影响，因为它的影响取决于它的配置方式。与大多数其他事情一样，内存是为在 *game.project* 中定义为 max_count 的 ParticleFx 数量预先分配的。
 
 
-#### 问: 如何接收通过集合代理加载的集合中游戏对象的输入？
+#### 问: 如何接收通过集合代理加载的集合中游戏对象的输入？ {#q-how-do-i-receive-input-to-a-game-object-inside-a-collection-loaded-via-a-collection-proxy}
 
 答: 每个代理加载的集合都有自己的输入栈。输入从主集合输入栈通过代理组件路由到集合中的对象。这意味着，仅仅让加载集合中的游戏对象获取输入焦点是不够的，_持有_代理组件的游戏对象也需要获取输入焦点。有关详细信息，请参阅[输入文档](/manuals/input)。
 
 
-#### 问: 我可以使用字符串类型的脚本属性吗？
+#### 问: 我可以使用字符串类型的脚本属性吗？ {#q-can-i-use-string-type-script-properties}
 
 答: 不可以。Defold 支持[hash](/ref/builtins#hash)类型的属性。这些可用于指示类型、状态标识符或任何类型的键。哈希也可用于存储游戏对象 id（路径），尽管[url](/ref/msg#msg.url)属性通常更可取，因为编辑器会自动为您填充相关 URL 的下拉列表。有关详细信息，请参阅[脚本属性文档](/manuals/script-properties)。
 
 
-#### 问: 如何访问矩阵的各个单元格（使用 [`vmath.matrix4()`](/ref/vmath/#vmath.matrix4:m1) 或类似方法创建的）？
+#### 问: 如何访问矩阵的各个单元格（使用 [`vmath.matrix4()`](/ref/vmath/#vmath.matrix4:m1) 或类似方法创建的）？ {#q-how-do-i-access-the-individual-cells-of-a-matrix-created-using-vmathmatrix4refvmathvmathmatrix4m1-or-similar}
 
 答: 您可以使用 `mymatrix.m11`、`mymatrix.m12`、`mymatrix.m21` 等访问单元格。
 
 
-#### 问: 使用 [gui.clone()](/ref/gui/#gui.clone:node) 或 [gui.clone_tree()](/ref/gui/#gui.clone_tree:node) 时，我收到 `Not enough resources to clone the node` 错误
+#### 问: 使用 [gui.clone()](/ref/gui/#gui.clone:node) 或 [gui.clone_tree()](/ref/gui/#gui.clone_tree:node) 时，我收到 `Not enough resources to clone the node` 错误 {#q-i-am-getting-not-enough-resources-to-clone-the-node-when-using-guiclonerefguiguiclonenode-or-guiclone_treerefguiguiclone_treenode}
 
 答: 增加 gui 组件的 `Max Nodes` 值。您可以在大纲中选择组件的根时在属性面板中找到此值。
 
 
-## 论坛
+## 论坛 {#the-forum}
 
-#### 问: 我可以发布一个宣传我作品的帖子吗？
+#### 问: 我可以发布一个宣传我作品的帖子吗？ {#q-can-i-post-a-thread-where-i-advertise-my-work}
 
 答: 当然可以！我们有一个专门的["Work for hire" 类别](https://forum.defold.com/c/work-for-hire)。我们将始终鼓励任何有益于社区的事情，向社区提供您的服务——无论是否收费——就是一个很好的例子。
 
 
-#### 问: 我发布了一个帖子并添加了我的作品——我可以添加更多吗？
+#### 问: 我发布了一个帖子并添加了我的作品——我可以添加更多吗？ {#q-i-made-a-thread-and-added-my-workcan-i-add-more}
 
 答: 为了减少"Work for hire"帖子的刷屏，您在自己的帖子中每 14 天只能发布一次（除非是对帖子中评论的直接回复，在这种情况下您可以回复）。如果您想在 14 天内向您的帖子添加更多作品，您必须编辑现有帖子来添加内容。
 
 
-#### 问: 我可以使用 Work for Hire 类别来发布招聘信息吗？
+#### 问: 我可以使用 Work for Hire 类别来发布招聘信息吗？ {#q-can-i-use-the-work-for-hire-category-to-post-job-offerings}
 
 答: 当然可以，随意使用！它可以用于发布招聘信息，也可以用于请求，例如"程序员寻找 2D 像素艺术家；我很富有，我会给你很好的报酬"。

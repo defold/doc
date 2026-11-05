@@ -189,7 +189,7 @@ Il frustum culling è implementato nel motore per ciascun tipo di componente. St
 
 
 ::: sidenote
-A partire da Defold 1.13.0, le primitive dei componenti usano un ordinamento antiorario dei vertici, con la normale della primitiva rivolta verso la camera. Sprite, nodi GUI, tilemap (griglie di tile) ed effetti particellari usano lo stesso ordinamento degli altri tipi di componenti, quindi è possibile usare le stesse impostazioni di esclusione delle facce per tutti i componenti.
+Le primitive dei componenti usano un ordine antiorario dei vertici, con la normale della primitiva rivolta verso la camera. Sprite, nodi GUI, tilemap (tilegrid) e Particle FX usano lo stesso ordine degli altri tipi di componenti, quindi si possono usare le stesse impostazioni di face culling per tutti i componenti.
 
 Questo può influire sui progetti che impostano l'esclusione delle facce per componenti diversi dai modelli. Se un componente viene escluso inaspettatamente, assicurati che siano selezionate le facce posteriori con `render.set_cull_face(graphics.FACE_TYPE_BACK)`, oppure rimuovi la chiamata a `render.set_cull_face()` per usare la modalità predefinita `graphics.FACE_TYPE_BACK`.
 :::

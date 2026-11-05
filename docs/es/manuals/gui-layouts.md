@@ -32,11 +32,11 @@ También necesitas especificar que el motor debe usar tus nuevos perfiles. Abre 
 
 Si quieres que el motor cambie automáticamente entre layouts verticales y horizontales cuando el dispositivo rote, marca la casilla *Dynamic Orientation*. El motor seleccionará dinámicamente un layout coincidente y también cambiará la selección si el dispositivo cambia de orientación.
 
-### Selección automática de layout (Auto Layout Selection, Display Profiles)
+### Selección automática de layout (Auto Layout Selection, Display Profiles) {#auto-layout-selection-display-profiles}
 
 El recurso Display Profiles tiene una opción "Auto Layout Selection" (ON por defecto). Cuando está en ON, el motor selecciona automáticamente el layout de GUI con mejor coincidencia tanto cuando se crea la escena como cuando cambia el tamaño de la ventana/pantalla. Cuando está en OFF, el motor no cambiará layouts automáticamente; usa `gui.set_layout()` desde tu script GUI para cambiar layouts manualmente. Esta configuración se guarda en el archivo Display Profiles y afecta a todas las escenas GUI.
 
-## Layouts de GUI
+## Layouts de GUI {#gui-layouts}
 
 El conjunto actual de perfiles de pantalla puede usarse para crear variantes de layout de tu configuración de nodos GUI. Para añadir un nuevo layout a una escena GUI, haz click derecho en el icono *Layouts* de la vista *Outline* y selecciona <kbd>Add ▸ Layout ▸ ...</kbd>:
 
@@ -54,7 +54,7 @@ Cada cambio que hagas en una propiedad de un nodo con un layout seleccionado _so
 
 Un layout no puede eliminar ni crear nodos nuevos, solo sobrescribir propiedades. Si necesitas quitar un nodo de un layout, puedes mover el nodo fuera de la pantalla o eliminarlo con lógica de script. También debes prestar atención al layout seleccionado actualmente. Si añades un layout a tu proyecto, el nuevo layout se configurará de acuerdo con el layout seleccionado actualmente. Además, copiar y pegar nodos tiene en cuenta el layout seleccionado actualmente, tanto al copiar *como* al pegar.
 
-## Selección dinámica de perfiles
+## Selección dinámica de perfiles {#dynamic-profile-selection}
 
 Cuando Auto Layout Selection está activado, el motor selecciona automáticamente el layout con mejor coincidencia. La coincidencia dinámica de layout puntúa cada calificador de perfil de pantalla de acuerdo con las siguientes reglas:
 
@@ -72,7 +72,7 @@ Cuando Auto Layout Selection está activado, el motor selecciona automáticament
 
 Dado que el layout *Default* se usa como respaldo en runtime si no hay un layout con mejor coincidencia, esto significa que si añades un layout "Landscape", será la mejor coincidencia para *todas* las orientaciones hasta que también añadas un layout "Portrait".
 
-## Mensajes de cambio de layout
+## Mensajes de cambio de layout {#layout-change-messages}
 
 Cuando cambia el layout, se envía un mensaje `layout_changed` al script del componente GUI. Esto ocurre cuando el motor cambia el layout automáticamente (Auto Layout Selection ON) o cuando tu script llama a `gui.set_layout()` y el layout cambia realmente. El mensaje contiene el identificador hash del layout para que el script pueda ejecutar lógica en función de qué layout está seleccionado:
 
@@ -99,7 +99,9 @@ end
 
 Cuando se cambia la orientación, el administrador de layouts de GUI escalará y reposicionará automáticamente los nodos GUI según tu layout y las propiedades de los nodos. Sin embargo, el contenido dentro del juego se renderiza en una pasada separada (por defecto) con una proyección stretch-fit en la ventana actual. Para cambiar este comportamiento, proporciona tu propio script de render modificado o usa una [biblioteca](/assets/) de cámara.
 
-## Selección manual de layout (Lua)
+Para colocar una interfaz alrededor de los recortes de cámara, vuelve a consultar `window.get_reserved_areas()` en `window.WINDOW_EVENT_RESIZED`, incluso si el layout GUI seleccionado no cambia. En iOS, una rotación de 180° puede mantener las dimensiones de la ventana y los márgenes del área segura, pero desplazar la obstrucción. Consulta [Áreas reservadas de la pantalla](/manuals/porting-guidelines/#reserved-screen-areas) para ver un ejemplo de actualización y cómo se relacionan sus coordenadas en píxeles de ventana con el ajuste de la GUI.
+
+## Selección manual de layout (Lua) {#manual-layout-selection-lua}
 
 Cuando Auto Layout Selection está en OFF para los Display Profiles en uso, el motor no cambiará layouts automáticamente. Usa estas funciones desde un script GUI para gestionar layouts manualmente:
 

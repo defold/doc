@@ -186,7 +186,7 @@ function
 
   -- 把函数 'func' 用作参数
   function operate(func, p, q)
-      return func(p, q) -- Calls the provided function with parameters 'p' and 'q'
+      return func(p, q) -- 使用参数 'p' 和 'q' 调用传入的函数
   end
 
   print(operate(my_plus, 4, 5)) --> 9
@@ -224,7 +224,7 @@ table
   t = {}
   t[1] = "first"
   t[a + 1] = "second"
-  t.x = 1 -- same as t["x"] = 1
+  t.x = 1 -- 等同于 t["x"] = 1
 
   -- 迭代表中键值对
   for key, value in pairs(t) do
@@ -237,7 +237,7 @@ table
   u = t -- u 和 t 都保存了对表的引用
   u[1] = "changed"
 
-  for key, value in pairs(t) do --再次迭代t!
+  for key, value in pairs(t) do -- 再次迭代t!
       print(key, value)
   end
   --> 1   changed
@@ -474,7 +474,7 @@ end
 
 ```lua
 function create_counter(x)
-    -- 'x' is a local variable in 'create_counter'
+    -- 'x' 是 'create_counter' 中的局部变量
     return function()
         x = x + 1
         return x

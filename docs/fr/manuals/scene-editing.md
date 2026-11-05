@@ -46,6 +46,23 @@ Ces commandes sont disponibles dans les éditeurs visuels :
 
 Vous pouvez aussi utiliser **Frame Selection** (<kbd>F</kbd>) pour centrer la caméra sur la sélection actuelle.
 
+### Gizmo des axes {#axis-gizmo}
+
+Le **Scene View Axis Gizmo** apparaît dans le coin inférieur droit de la vue de scène en mode 3D. Il indique l'orientation de la caméra par rapport aux axes du monde : **X** en rouge, **Y** en vert et **Z** en bleu.
+
+![Vue de scène avec le gizmo des axes dans le coin inférieur droit](images/editor/axis_gizmo.gif)
+
+| Commande | Action |
+| --- | --- |
+| <kbd>Left Mouse Click</kbd> sur une poignée d'axe | Aligne la caméra pour regarder le long de cet axe. Les poignées opposées donnent une vue depuis l'autre côté. |
+| Cliquer sur une poignée d'axe déjà alignée | Passe à la vue opposée le long du même axe. |
+| Maintenir <kbd>Left Mouse Button</kbd> et faire glisser le gizmo | Fait orbiter la caméra autour de son point de visée actuel. Vous pouvez faire glisser depuis une poignée d'axe ou la zone circulaire autour des poignées, sans maintenir de touche de modification. |
+
+L'alignement sur un axe conserve le point de visée, la distance et la projection de la caméra. Utilisez d'abord **Frame Selection** (<kbd>F</kbd>) pour centrer la vue sur un objet, puis le gizmo pour l'inspecter sous différents angles. Les commandes habituelles de déplacement, zoom et orbite avec <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd> restent disponibles.
+
+Le gizmo est disponible avec les projections perspective et orthographique en mode 3D. Il est masqué en mode 2D ; utilisez **Align/Realign Camera 2D/3D** dans la [barre d'outils](#toolbar-overview), ou appuyez sur <kbd>.</kbd>, pour passer en 3D. Utilisez le [bouton distinct de projection de la caméra](#camera-type-perspective-vs-orthographic) pour choisir la projection perspective ou orthographique. Le gizmo contrôle la vue de votre scène dans l'éditeur de scène.
+
+
 ## Orientation de la scène en 2D et en 3D {#2d-and-3d-scene-orientation}
 
 La vue de scène peut être utilisée dans les flux de travail en 2D comme en 3D :
@@ -56,7 +73,7 @@ La vue de scène peut être utilisée dans les flux de travail en 2D comme en 3D
   - Utiliser une caméra **en perspective**,
   - Choisir un plan de grille approprié (souvent **Y** pour le « sol »).
 
-Vous pouvez accéder à ces fonctions depuis la barre d'outils et le menu **View**.
+Vous pouvez accéder à ces fonctions depuis la barre d'outils et le menu **View**. Utilisez le [gizmo des axes](#axis-gizmo) en mode 3D pour aligner la vue sur un axe ou faire orbiter la caméra à la souris.
 
 ![Éditeur de scène en 3D](images/editor/3d_scene.png)
 

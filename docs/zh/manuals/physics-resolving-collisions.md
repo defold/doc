@@ -55,31 +55,32 @@ l = vmath.project(A, B) * vmath.length(B)
 
 ```lua
 function init(self)
-  -- 校正向量
+  -- 修正向量
   self.correction = vmath.vector3()
 end
 
 function update(self, dt)
-  -- 重置校正
+  -- 重置修正量
   self.correction = vmath.vector3()
 end
 
 function on_message(self, message_id, message, sender)
   -- 处理碰撞
   if message_id == hash("contact_point_response") then
-    -- 获取移出碰撞所需的信息。我们可能会
-    -- 得到多个接触点，必须通过为这一帧累积一个
-    -- 校正向量来计算如何移出所有接触点：
+    -- 获取脱离碰撞所需的信息。我们可能
+    -- 收到多个接触点，需要通过累加
+    -- 本帧的修正向量，计算如何
+    -- 脱离所有接触点：
     if message.distance > 0 then
-      -- 首先，将累积的校正投影到
+      -- 首先将累计的修正量投影到
       -- 穿透向量上
       local proj = vmath.project(self.correction, message.normal * message.distance)
       if proj < 1 then
-        -- 只关心不会过冲的投影。
+        -- 只处理不会超出所需修正量的投影。
         local comp = (message.distance - message.distance * proj) * message.normal
         -- 应用补偿
         go.set_position(go.get_position() + comp)
-        -- 累积完成的校正
+        -- 累加已完成的修正
         self.correction = self.correction + comp
       end
     end

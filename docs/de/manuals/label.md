@@ -21,6 +21,30 @@ Setze die Eigenschaft *Font* auf die Schriftart, die du verwenden möchtest, und
 
 ![Schriftart und Material](images/label/font_material.png)
 
+## Vektorschriftarten und farbige Emojis {#vector-fonts-and-color-emoji}
+
+Folge für eine Vektorschriftart der [Einrichtung für Vektorschriftarten](/manuals/font/#vector-fonts), weise die `.font`-Ressource der Eigenschaft *Font* der Beschriftung zu und setze *Material* der Beschriftung auf `/builtins/fonts/label-vector.material`. Steuere die Anzeigegröße mit *Font Size*.
+
+Führe für farbige Emojis zusätzlich die [Einrichtung der COLRv1-Ausweichschrift und des Bundles](/manuals/font/#color-emoji) durch. Das folgende Beispiel setzt eine Beschriftung mit der ID `label` und ein Skript am selben Spielobjekt voraus. Lasse *Text* der Beschriftung leer, damit der Gruß erst angezeigt wird, wenn seine Glyphen bereitstehen:
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+Die gewöhnlichen Buchstaben verwenden die ursprüngliche Schriftart, die Emojis die hinzugefügte Farbschriftart. Wenn andere Beschriftungen oder GUI-Textknoten diese Schriftartenressource gemeinsam verwenden, initialisiere die Ausweichschrift an einer Stelle und verwende sie wieder.
+
 ## Eigenschaften der Beschriftung {#label-properties}
 
 Neben den Eigenschaften *Id*, *Position*, *Rotation* und *Scale* gibt es die folgenden komponentenspezifischen Eigenschaften:
@@ -63,7 +87,7 @@ Beachte, dass das Rendern von Schatten beim Standardmaterial aus Leistungsgründ
 : Die Schriftressource, die für diese Beschriftung verwendet wird.
 
 *Material*
-: Das Material, das zum Rendern dieser Beschriftung verwendet wird. Achte darauf, ein Material auszuwählen, das für den verwendeten Schrifttyp erstellt wurde (Bitmap, Distanzfeld oder BMFont).
+: Das Material zum Rendern dieser Beschriftung. Wähle ein Material, das zum Modus oder zur Quelle der Schriftart passt (Bitmap, SDF, Vector oder BMFont). Die passenden integrierten Beschriftungsmaterialien stehen unter [Schriftartenmaterialien](/manuals/font/#font-materials).
 
 ### Mischmodi {#blend-modes}
 :[blend-modes](../shared/blend-modes.md)
@@ -88,7 +112,7 @@ Durch das Festlegen der Eigenschaft *Pivot* kannst du die Ausrichtung des Textes
 Du kannst Beschriftungen zur Laufzeit ändern, indem du den Beschriftungstext sowie die verschiedenen anderen Eigenschaften abfragst und festlegst.
 
 `text`
-: Der Textinhalt der Beschriftung (`string`). Seit Defold 1.13.2 über `go.get()` und `go.set()` verfügbar.
+: Der Textinhalt der Beschriftung (`string`). Verfügbar über `go.get()` und `go.set()`.
 
 `color`
 : Die Farbe der Beschriftung (`vector4`)
@@ -116,7 +140,7 @@ end
 ```
 
 ::: sidenote
-Seit Defold 1.13.2 sind `label.set_text()` und `label.get_text()` zugunsten der Eigenschaft `text` veraltet und zur Ablösung vorgesehen. Die alten Funktionen bleiben aus Kompatibilitätsgründen verfügbar. Die alte Setter-Funktion stellt eine Nachricht in die Warteschlange, während `go.set()` den Text sofort aktualisiert.
+`label.set_text()` und `label.get_text()` sind zugunsten der Eigenschaft `text` veraltet. Die bisherigen Funktionen bleiben aus Kompatibilitätsgründen verfügbar. Der bisherige Setter stellt eine Nachricht in die Warteschlange, während `go.set()` den Text sofort aktualisiert.
 :::
 
 ```lua

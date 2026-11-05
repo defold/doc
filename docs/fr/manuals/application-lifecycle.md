@@ -120,7 +120,7 @@ L’ordre général des étapes des fonctions de rappel Lua des composants *scri
 Chaque composant d’objet de jeu de la collection principale est parcouru. Si l’un de ces composants possède un script doté d’une fonction `fixed_update()`/`update()`/`late_update()`, celle-ci est appelée. Si le composant est un proxy de collection, chaque composant de la collection du proxy est mis à jour récursivement en suivant toutes les étapes de la phase `Update`.
 
 ::: sidenote
-L’ordre d’appel des fonctions `update()` des composants des objets de jeu n’est pas défini. Vous ne devez pas supposer que le moteur met à jour les objets d’une même collection dans un ordre particulier. Il en va de même pour `fixed_update()` et `late_update()` (depuis la version 1.12.0).
+L’ordre d’appel des fonctions `update()` des composants des objets de jeu n’est pas défini. Vous ne devez pas supposer que le moteur met à jour les objets d’une même collection dans un ordre particulier. Il en va de même pour `fixed_update()` et `late_update()`.
 :::
 
 #### Physique {#physics}
@@ -204,7 +204,7 @@ Le nombre de mises à jour d’image par seconde (qui correspond au nombre d’e
 
 #### Réduction de l’activité du moteur {#engine-throttling}
 
-Defold 1.12.0 a introduit une API de réduction de l’activité du moteur qui peut suspendre entièrement les mises à jour du moteur et le rendu tout en continuant à détecter les entrées. Toute entrée réactive le moteur, qui peut à nouveau réduire son activité après un délai.
+Defold fournit une API de réduction de l’activité du moteur qui peut suspendre entièrement les mises à jour du moteur et le rendu tout en continuant à détecter les entrées. Toute entrée réactive le moteur, qui peut à nouveau réduire son activité après un délai.
 
 Consultez l’API `sys.set_engine_throttle()` pour plus de détails et des exemples d’utilisation.
 

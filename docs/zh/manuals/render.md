@@ -3,16 +3,16 @@ title: Defold 中的渲染管线
 brief: 本手册解释了 Defold 的渲染管线工作原理以及如何对其进行编程。
 ---
 
-# 渲染
+# 渲染 {#render}
 
 引擎在屏幕上显示的每个对象：精灵、模型、图块、粒子或 GUI 节点均由渲染器绘制。渲染器的核心是控制渲染管线的渲染脚本。默认情况下，每个 2D 对象都使用正确的位图、指定的混合方式和正确的 Z 深度进行绘制——因此，除了排序和简单混合之外，您可能不需要考虑渲染问题。对于大多数 2D 游戏，默认管线功能良好，但如果您的游戏有特殊要求，Defold 允许您编写量身定制的渲染管线。
 
-### 渲染管线 - 是什么、何时以及何处？
+### 渲染管线 - 是什么、何时以及何处？ {#render-pipeline-what-when-and-where}
 
 渲染管线控制渲染什么、何时渲染以及在哪里渲染。渲染什么由[渲染判定](#render-predicates)控制。何时渲染判定在[渲染脚本](#the-render-script)中控制，在哪里渲染判定由[视图投影](#default-view-projection)控制。渲染管线还可以剔除位于定义边界框或视锥体之外的图形，这些图形由渲染判定绘制。这个过程称为视锥体剔除。
 
 
-## 默认渲染
+## 默认渲染 {#the-default-render}
 
 渲染文件包含对当前渲染脚本的引用，以及应在渲染脚本中可用的自定义材质（使用 [`render.enable_material()`](/ref/render/#render.enable_material)）
 
@@ -71,7 +71,7 @@ render.draw(outlined_trees)
 
 默认渲染脚本配置为使用适合 2D 游戏的正交投影。它提供三种不同的正交投影：`Stretch`（默认）、`Fixed Fit` 和 `Fixed`。作为默认渲染脚本中正交投影的替代方案，您还可以选择使用摄像机组件提供的投影矩阵。
 
-### Stretch 投影
+### Stretch 投影 {#stretch-projection}
 
 拉伸投影将始终绘制等于*game.project*中设置的尺寸的游戏区域，即使窗口被调整大小。如果宽高比发生变化，将导致游戏内容在垂直或水平方向上被拉伸：
 
@@ -89,7 +89,7 @@ render.draw(outlined_trees)
 msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 ```
 
-### Fixed fit 投影
+### Fixed fit 投影 {#fixed-fit-projection}
 
 就像拉伸投影一样，固定适配投影将始终显示等于*game.project*中设置尺寸的游戏区域，但如果窗口被调整大小且宽高比发生变化，游戏内容将保持原始宽高比，并且将在垂直或水平方向上显示额外的游戏内容：
 
@@ -133,7 +133,7 @@ msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
 
-### 摄像机投影
+### 摄像机投影 {#camera-projection}
 
 当使用默认渲染脚本且项目中有可用的已启用[摄像机组件](/manuals/camera)时，它们将优先于渲染脚本中设置的任何其他视图/投影。要了解有关在渲染脚本中使用摄像机组件的更多信息，请参阅[摄像机文档](/manuals/camera)。
 
@@ -189,12 +189,12 @@ render.set_camera()
 
 
 ::: sidenote
-从 Defold 1.13.0 开始，组件图元采用逆时针顶点顺序，图元法线朝向摄像机。精灵、GUI 节点、瓦片地图（tilegrid）和粒子特效使用与其他组件类型相同的顶点顺序，因此所有组件都可以使用相同的面剔除设置。
+组件图元使用逆时针顶点绕序，图元法线朝向摄像机。精灵、GUI 节点、瓦片地图（tilegrid）和粒子特效与其他组件类型使用相同绕序，因此所有组件可使用相同的面剔除设置。
 
 这可能会影响为模型以外的组件设置了面剔除的项目。如果组件被意外剔除，请确保通过 `render.set_cull_face(graphics.FACE_TYPE_BACK)` 选择背面，或者移除 `render.set_cull_face()` 调用以使用默认的 `graphics.FACE_TYPE_BACK` 模式。
 :::
 
-## 坐标系统
+## 坐标系统 {#coordinate-systems}
 
 当组件被渲染时，您通常会谈论组件在哪个坐标系统中被渲染。在大多数游戏中，您有一些组件在世界空间中绘制，一些在屏幕空间中绘制。
 
@@ -323,7 +323,7 @@ end
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
-## 渲染资源
+## 渲染资源 {#render-resources}
 要将某些引擎资源传递到渲染脚本中，您可以将它们添加到分配给项目的 `.render` 文件中的 `Render Resources` 表中：
 
 ![Render resources](images/render/render_resources.png)
@@ -381,12 +381,12 @@ self.present_predicate = render.predicate({"present"})
 render.set_render_target(self.offscreen)
 render.set_viewport(0, 0, 1024, 1024)
 render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = vmath.vector4(0, 0, 0, 1)})
--- Set the scene view and projection here.
+-- 在此设置场景的视图和投影。
 render.draw(self.scene_predicate)
 
 render.set_render_target(render.RENDER_TARGET_DEFAULT)
 render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
--- Set the full-screen quad view and projection here.
+-- 在此设置全屏四边形的视图和投影。
 render.enable_texture(0, self.offscreen, graphics.BUFFER_TYPE_COLOR0_BIT)
 render.draw(self.present_predicate)
 render.disable_texture(0)
@@ -407,7 +407,7 @@ end
 
 检查设备支持情况时，请使用此实际值，不要假定请求的采样数可用。完整的参数和结果表请参阅 [`render.render_target()`](/ref/beta/render/#render.render_target:parameters) 和 [`resource.get_render_target_info()`](/ref/beta/resource/#resource.get_render_target_info:path)。
 
-## 纹理句柄
+## 纹理句柄 {#texture-handles}
 
 Defold 中的纹理在内部表示为句柄，这本质上等同于一个数字，应该唯一标识引擎中任何位置的纹理对象。这意味着您可以通过在渲染系统和游戏对象脚本之间传递这些句柄来桥接游戏对象世界和渲染世界。例如，脚本可以在附加到游戏对象的脚本中创建动态纹理，并将其发送到渲染器，以用作绘制命令中的全局纹理。
 
@@ -442,13 +442,13 @@ end
 目前无法更改资源应指向的纹理，您只能在渲染脚本中使用这样的原始句柄。
 :::
 
-## 支持的图形 API
+## 支持的图形 API {#supported-graphics-apis}
 Defold 渲染脚本 API 将渲染操作转换为以下图形 API：
 
 :[Graphics API](../shared/graphics-api.md)
 
 
-## 系统消息
+## 系统消息 {#system-messages}
 
 `"set_view_projection"`
 : 此消息从已获得摄像机焦点的摄像机组件发送。
@@ -496,7 +496,8 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
 
 Defold 将尝试根据下面定义的一组规则批处理渲染操作以减少绘制调用的数量。GUI 组件和所有其他组件类型的规则不同。
 
-### 非 GUI 组件的批处理规则
+
+### 非 GUI 组件的批处理规则 {#batch-rules-for-non-gui-components}
 
 每次 `render.draw()` 调用都控制匹配的世界有序条目的排序方式。默认为 `render.SORT_BACK_TO_FRONT`；使用 `render.SORT_FRONT_TO_BACK` 可按从近到远排序，使用 `render.SORT_NONE` 可保留插入顺序：
 
@@ -519,7 +520,8 @@ render.draw(self.transparent_predicate, {
 
 这意味着，如果同一集合代理中的两个精灵组件在所选排序后相邻，并且使用相同的纹理、材质和常量，它们将被分组到同一个绘制调用中。
 
-### GUI 组件的批处理规则
+
+### GUI 组件的批处理规则 {#batch-rules-for-gui-components}
 
 GUI 组件中节点的渲染是从节点列表的顶部到底部进行的。如果满足以下条件，列表中的每个节点将与前一个节点分组到同一个绘制调用中：
 

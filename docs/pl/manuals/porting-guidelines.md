@@ -88,6 +88,53 @@ Defold ma wbudowaną obsługę bezpiecznego obszaru w Androidzie i iOS. Ustaw `g
 
 [Rozszerzenie Safe Area](/extension-safearea) pozostaje alternatywą dla starszych projektów lub przepływów pracy wymagających zachowania wykraczającego poza wbudowane API; nie jest wymagane do standardowej obsługi bezpiecznego obszaru w Androidzie i iOS.
 
+### Zarezerwowane obszary ekranu {#reserved-screen-areas}
+
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) zwraca poszczególne obszary zasłaniające okno gry, takie jak wycięcia na kamerę i Dynamic Island. Używaj tych prostokątów do rozmieszczania zawartości wokół pojedynczych przeszkód. Używaj `window.get_safe_area()`, gdy potrzebujesz jednego bezpiecznego prostokąta układu i jego wcięć przy krawędziach.
+
+Wynikiem jest tablica tabel z polami `x`, `y`, `width` i `height`. Każdy prostokąt jest przycinany do okna gry. Początek układu znajduje się w lewym dolnym rogu: `x` oznacza lewą krawędź, a `y` dolną, w pikselach okna odpowiadających [`window.get_size()`](/ref/window/#window.get_size). Współrzędne są niezależne od dopasowania GUI i logicznej rozdzielczości w *game.project*, więc przed użyciem ich jako pozycji węzłów uwzględnij transformacje GUI.
+
+Obsługiwane platformy:
+
+- **iOS 27.1 i nowsze:** aktywne przeszkody zgłaszane przez UIKit, w tym jego marginesy interakcji.
+- **Android 9 (poziom API 28) i nowsze:** prostokąty wycięć ekranu.
+
+Funkcja zwraca pustą tabelę na nieobsługiwanych platformach i wersjach systemu lub gdy dla okna nie zgłoszono przeszkód. Pusta tabela nie oznacza, że całe okno jest bezpieczne dla ważnej zawartości: zagięcia, paski systemowe, klawiatury i obszary gestów pozostają poza zakresem tego API. Użyj `window.get_safe_area()`, aby uzyskać bezpieczny prostokąt platformy.
+
+### Odświeżanie obszarów po zdarzeniach okna {#refreshing-areas-after-window-events}
+
+Pobierz zarezerwowane obszary podczas inicjalizacji i ponownie przy każdym wywołaniu zwrotnym [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED). Po pierwszym zapytaniu zmiany geometrii zarezerwowanych obszarów również wywołują to zdarzenie na obsługiwanych platformach, nawet jeśli rozmiar okna się nie zmienia. Każda zwrócona tabela jest migawką; zapisane tabele nie aktualizują się automatycznie.
+
+W systemie iOS zdarzenie jest również wysyłane po zmianach orientacji i wcięć bezpiecznego obszaru. Obrót poziomy o 180° może przesunąć wycięcie na kamerę lub Dynamic Island na drugą stronę, podczas gdy wymiary okna i wcięcia bezpiecznego obszaru pozostają bez zmian. Odświeżaj geometrię po zdarzeniu, nawet jeśli `data.width` i `data.height` są równe poprzednim wartościom.
+
+Poniższy skrypt utrzymuje oba zestawy geometrii w aktualnym stanie:
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- Zaktualizuj interfejs, używając nowego bezpiecznego prostokąta i zarezerwowanych obszarów.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- Odśwież nawet wtedy, gdy szerokość i wysokość nie uległy zmianie.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+Jednocześnie można zarejestrować tylko jednego odbiorcę zdarzeń okna. Jeśli gra już go ma, dodaj tę logikę odświeżania do niego. Zastępowanie zapisanej tablicy przy każdym odświeżeniu usuwa też nieaktualne prostokąty, gdy wynik staje się pusty.
+
 ## Wytyczne specyficzne dla platform
 
 ### Android

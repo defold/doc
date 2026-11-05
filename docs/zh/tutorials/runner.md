@@ -170,7 +170,7 @@ local pieces = { "ground0", "ground1", "ground2", "ground3",
                     "ground4", "ground5", "ground6" } -- <1>
 
 function init(self) -- <2>
-    self.speed = 360  -- Speed in pixels/s
+    self.speed = 360  -- 速度，单位为像素/秒
 end
 
 function update(self, dt) -- <3>
@@ -292,26 +292,26 @@ Defold在Lua之上添加了一组API，以及一个_消息传递_系统，允许
 :::
 
 ```lua
--- gravity pulling the player down in pixel units/sˆ2
+-- 将玩家向下拉的重力，单位为像素/秒²
 local gravity = -20
 
--- take-off speed when jumping in pixel units/s
+-- 跳跃时的起跳速度，单位为像素/秒
 local jump_takeoff_speed = 900
 
 function init(self)
-    -- this tells the engine to send input to on_input() in this script
+    -- 通知引擎将输入发送到此脚本的 on_input()
     msg.post(".", "acquire_input_focus")
 
-    -- save the starting position
+    -- 保存起始位置
     self.position = go.get_position()
 
-    -- keep track of movement vector and if there is ground contact
+    -- 记录移动向量以及是否接触地面
     self.velocity = vmath.vector3(0, 0, 0)
     self.ground_contact = false
 end
 
 function final(self)
-    -- Return input focus when the object is deleted
+    -- 对象删除时归还输入焦点
     msg.post(".", "release_input_focus")
 end
 
@@ -319,45 +319,45 @@ function update(self, dt)
     local gravity = vmath.vector3(0, gravity, 0)
 
     if not self.ground_contact then
-        -- Apply gravity if there's no ground contact
+        -- 未接触地面时应用重力
         self.velocity = self.velocity + gravity
     end
 
-    -- apply velocity to the player character
+    -- 将速度应用到玩家角色
     go.set_position(go.get_position() + self.velocity * dt)
 
-    -- reset volatile state
+    -- 重置临时状态
     self.correction = vmath.vector3()
     self.ground_contact = false
 end
 
 local function handle_geometry_contact(self, normal, distance)
-    -- project the correction vector onto the contact normal
-    -- (the correction vector is the 0-vector for the first contact point)
+    -- 将修正向量投影到接触法线上
+    -- （处理第一个接触点时，修正向量为零向量）
     local proj = vmath.dot(self.correction, normal)
-    -- calculate the compensation we need to make for this contact point
+    -- 计算此接触点所需的补偿
     local comp = (distance - proj) * normal
-    -- add it to the correction vector
+    -- 将其加入修正向量
     self.correction = self.correction + comp
-    -- apply the compensation to the player character
+    -- 将补偿应用到玩家角色
     go.set_position(go.get_position() + comp)
-    -- check if the normal points enough up to consider the player standing on the ground
-    -- (0.7 is roughly equal to 45 degrees deviation from pure vertical direction)
+    -- 检查法线是否足够朝上，以判断玩家是否站在地面上
+    -- （0.7 大约相当于偏离正竖直方向 45 度）
     if normal.y > 0.7 then
         self.ground_contact = true
     end
-    -- project the velocity onto the normal
+    -- 将速度投影到法线上
     proj = vmath.dot(self.velocity, normal)
-    -- if the projection is negative, it means that some of the velocity points towards the contact point
+    -- 如果投影为负数，说明一部分速度指向接触点
     if proj < 0 then
-        -- remove that component in that case
+        -- 在这种情况下移除该分量
         self.velocity = self.velocity - proj * normal
     end
 end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("contact_point_response") then
-        -- check if we received a contact point message. One message for each contact point
+        -- 检查是否收到接触点消息。每个接触点对应一条消息
         if message.group == hash("geometry") then
             handle_geometry_contact(self, message.normal, message.distance)
         end
@@ -365,17 +365,17 @@ function on_message(self, message_id, message, sender)
 end
 
 local function jump(self)
-    -- only allow jump from ground
+    -- 只允许从地面起跳
     if self.ground_contact then
-        -- set take-off speed
+        -- 设置起跳速度
         self.velocity.y = jump_takeoff_speed
     end
 end
 
 local function abort_jump(self)
-    -- cut the jump short if we are still going up
+    -- 如果我们仍然在向上移动，则缩短跳跃
     if self.velocity.y > 0 then
-        -- scale down the upwards speed
+        -- 按比例缩小向上速度
         self.velocity.y = self.velocity.y * 0.5
     end
 end
@@ -506,7 +506,7 @@ end
     ```lua
     -- platform.script
     function init(self)
-        self.speed = 540      -- Default speed in pixels/s
+        self.speed = 540      -- 默认速度，单位为像素/秒
     end
 
     function update(self, dt)
@@ -569,7 +569,7 @@ function update(self, dt) -- <2>
     if self.gridw >= grid then
         self.gridw = 0
 
-        -- Maybe spawn a platform at random height
+        -- 可能在随机高度生成一个平台
         if math.random() > 0.2 then
             local h = platform_heights[math.random(#platform_heights)]
             local f = "#platform_factory"
@@ -601,18 +601,18 @@ end
 ```lua
     -- hero.script
     local function play_animation(self, anim)
-        -- only play animations which are not already playing
+        -- 只播放当前未在播放的动画
         if self.anim ~= anim then
-            -- tell the spine model to play the animation
+            -- 通知 Spine 模型播放动画
             local anim_props = { blend_duration = 0.15 }
             spine.play_anim("#spinemodel", anim, go.PLAYBACK_LOOP_FORWARD, anim_props)
-            -- remember which animation is playing
+            -- 记录当前正在播放的动画
             self.anim = anim
         end
     end
 
     local function update_animation(self)
-        -- make sure the right animation is playing
+        -- 确保播放正确的动画
         if self.ground_contact then
             play_animation(self, hash("run"))
         else
@@ -626,7 +626,7 @@ end
 
 ```lua
     ...
-    -- apply it to the player character
+    -- 将其应用到玩家角色
     go.set_position(go.get_position() + self.velocity * dt)
 
     update_animation(self)
@@ -671,9 +671,9 @@ Lua对局部变量具有"词法范围"，并且对您放置`local`函数的顺�
             msg.post("#collisionobject", "enable")
 
         elseif message_id == hash("contact_point_response") then
-            -- check if we received a contact point message
+            -- 检查是否收到接触点消息
             if message.group == hash("danger") then
-                -- Die and restart
+                -- 死亡并重新开始
                 play_animation(self, hash("death"))
                 msg.post("#collisionobject", "disable")
                 -- <1>
@@ -695,9 +695,9 @@ Lua对局部变量具有"词法范围"，并且对您放置`local`函数的顺�
     ```lua
     -- hero.script
     function init(self)
-        -- this lets us handle input in this script
+        -- 使我们能够在此脚本中处理输入
         msg.post(".", "acquire_input_focus")
-        -- save position
+        -- 保存位置
         self.position = go.get_position()
         msg.post("#", "reset")
     end
@@ -728,7 +728,7 @@ Lua对局部变量具有"词法范围"，并且对您放置`local`函数的顺�
         if self.gridw >= grid then
             self.gridw = 0
 
-            -- Maybe spawn a platform at random height
+            -- 可能在随机高度生成一个平台
             if math.random() > 0.2 then
                 local h = platform_heights[math.random(#platform_heights)]
                 local f = "#platform_factory"
@@ -745,9 +745,9 @@ Lua对局部变量具有"词法范围"，并且对您放置`local`函数的顺�
 
     function on_message(self, message_id, message, sender)
         if message_id == hash("reset") then -- <2>
-            -- Tell the hero to reset.
+            -- 通知角色重置。
             msg.post("hero#hero", "reset")
-            -- Delete all platforms
+            -- 删除所有平台
             for i,p in ipairs(self.spawns) do
                 go.delete(p)
             end
@@ -849,7 +849,7 @@ go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, go.get_position().y - 20
 ```lua
 -- platform.script
 function init(self)
-    self.speed = 540     -- Default speed in pixels/s
+    self.speed = 540     -- 默认速度，单位为像素/秒
     self.coins = {}
 end
 

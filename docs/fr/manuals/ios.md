@@ -103,6 +103,24 @@ Cliquez sur *Create Bundle*. Vous serez alors invité à préciser l'emplacement
 
 Vous définissez l'icône de l'application, le storyboard de l'écran de lancement, etc. dans la [section iOS](/manuals/project-settings/#ios) du fichier de paramètres du projet *game.project*.
 
+### Comportement de l'indicateur d'accueil {#home-indicator-behavior}
+
+Vous pouvez choisir *Home Indicator Mode* dans la section *iOS* de *game.project*. Le mode par défaut, *Deferred*, protège tous les bords de l'écran et demande deux balayages pour revenir à l'accueil. Choisissez *System* pour utiliser les gestes système habituels, notamment un seul balayage pour revenir à l'accueil.
+
+Choisissez *Auto Hide* pour utiliser les gestes système habituels et demander également le masquage automatique de l'indicateur d'accueil. Vous pouvez définir ce mode directement dans *game.project* :
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+Créez à nouveau le bundle et testez-le sur un appareil doté d'un indicateur d'accueil. iOS décide quand l'indicateur est visible ; choisir *Auto Hide* ne garantit pas qu'il reste masqué. Sur iOS 26 et versions ultérieures, le système peut le masquer dans les modes *System* et *Auto Hide*. Consultez [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode) pour toutes les valeurs et leur comportement vis-à-vis des gestes.
+
+### Zones réservées et rotation {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()` indique les découpes de caméra et la Dynamic Island sur iOS 27.1 et versions ultérieures, en incluant les marges d'interaction d'UIKit. Les transitions d'orientation iOS envoient également `window.WINDOW_EVENT_RESIZED`, y compris lors des rotations qui ne modifient ni les dimensions de la fenêtre ni les marges de la zone sûre. Rafraîchissez tout placement de l'interface dépendant de ces zones à chaque callback de redimensionnement. Consultez [Zones réservées de l'écran](/manuals/porting-guidelines/#reserved-screen-areas) pour les coordonnées, les limites et un exemple de rafraîchissement.
+
+
 ### Info.plist personnalisé et découverte de cibles locales {#custom-infoplist-and-local-target-discovery}
 
 Le fichier `Info.plist` iOS intégré contient le service Bonjour et la description de l'utilisation du réseau local nécessaires à la découverte automatique des cibles par l'éditeur dans les builds autres que ceux de publication. Un fichier `Info.plist` personnalisé remplace ce manifeste de base intégré. Si vous utilisez un manifeste personnalisé pour un build de débogage et avez besoin de la découverte de cibles, du profilage, du rechargement à chaud ou de la diffusion des journaux sur le réseau local, ajoutez ces entrées :

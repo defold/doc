@@ -217,7 +217,14 @@ Logika planszy tworzy obiekty gry `block` za pomocą komponentu fabryki `blockfa
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale_xy(0.18)     -- render scaled down without changing Z
+    go.set_scale_xy(0.18)     -- renderuj w pomniejszeniu bez zmiany Z
+
+    if self.color ~= nil then
+        sprite.play_flipbook("#sprite", self.color)
+    else
+        msg.post("#sprite", "disable")
+    end
+end
 ```
 
 Ustaw komponent fabryki "blockfactory" jako *Prototype* na nowy plik obiektu gry *block.go*.
@@ -239,7 +246,7 @@ Potrzebujemy tylko jednego wiązania i przypisujemy `MOUSE_BUTTON_LEFT` do nazwy
 Obsługa wejścia spoczywa na planszy, więc musimy dodać odpowiedni kod do *board.script*:
 
 ```lua
--- board.script
+-- plik: board.script
 function on_input(self, action_id, action)
     if action_id == hash("touch") and action.value == 1 then
         -- Który blok został dotknięty albo przeciągnięty?
@@ -257,7 +264,7 @@ function on_input(self, action_id, action)
 
             self.dragging = true
         elseif self.dragging then
-            -- potem przeciąganie
+            -- następnie przeciąga
             msg.post(self.board[x][y].id, "make_green")
         end
     elseif action_id == hash("touch") and action.released then
@@ -270,7 +277,7 @@ end
 Wiadomości `make_orange` i `make_green` służą tylko tymczasowo do uzyskania wizualnego potwierdzenia, że kod działa. Musimy dodać obsługę tych wiadomości w *block.script*:
 
 ```lua
--- block.script
+-- plik: block.script
 function on_message(self, message_id, message, sender)
     if message_id == hash("make_orange") then
         sprite.play_flipbook("#sprite", hash("orange"))
@@ -297,7 +304,7 @@ Skrypt dla tego obiektu gry jest minimalny, potrzebuje tylko przeskalować grafi
 ```lua
 -- plik: connector.script
 function init(self)
-    go.set_scale_xy(0.18)           -- Scale in 2D without changing Z.
+    go.set_scale_xy(0.18)           -- Skaluj w 2D bez zmiany Z.
     go.set(".", "position.z", 1)    -- Umieść go na wierzchu.
 end
 ```
@@ -364,7 +371,7 @@ function on_input(self, action_id, action)
 
         self.dragging = true
     elseif self.dragging then
-        -- obsłuż przeciąganie
+        -- następnie przeciąga
         if in_blocklist(self.neighbors, self.board[x][y].id) and not in_blocklist(self.chain, self.board[x][y].id) then
             -- przeciąganie nad sąsiadem o tym samym kolorze
             table.insert(self.chain, self.board[x][y])
@@ -545,7 +552,7 @@ Zwróć uwagę, że do obiektu gry block musimy dodać komponent *Factory* i ust
 ```lua
 -- plik: block.script
 function init(self)
-    go.set_scale_xy(0.18) -- render scaled down without changing Z
+    go.set_scale_xy(0.18) -- renderuj w pomniejszeniu bez zmiany Z
 
     self.fx1 = nil
     self.fx2 = nil
@@ -751,7 +758,7 @@ end
 local function adjacent_magic_blocks(blocks, block)
     return filter(function (e)
         return (block.x == e.x and math.abs(block.y - e.y) == 1) or
-               (block.y == e.y and math.abs(block.x - e.x) == 1)
+            (block.y == e.y and math.abs(block.x - e.x) == 1)
     end, blocks)
 end
 
@@ -1015,18 +1022,18 @@ Ponieważ uruchamianiem gry ma się wkrótce zająć skrypt głównego menu, usu
 -- INICJALIZACJA
 --
 function init(self)
-    self.board = {}             -- zawiera strukturę planszy
+    self.board = {}                -- zawiera strukturę planszy
     self.blocks = {}            -- lista wszystkich bloków; używana do prostego filtrowania zaznaczenia
 
-    self.chain = {}             -- bieżący łańcuch zaznaczenia
+    self.chain = {}                -- bieżący łańcuch zaznaczenia
     self.connectors = {}        -- elementy connector oznaczające łańcuch zaznaczenia
-    self.num_magic = 3          -- liczba magicznych bloków na planszy
+    self.num_magic = 3            -- liczba magicznych bloków na planszy
 
-    self.drops = 1              -- liczba dostępnych zrzutów
+    self.drops = 1                -- liczba dostępnych zrzutów
 
-    self.magic_blocks = {}      -- magiczne bloki ustawione obok siebie
+    self.magic_blocks = {}        -- magiczne bloki ustawione obok siebie
 
-    self.dragging = false       -- wejście przeciągania dotykiem
+    self.dragging = false        -- wejście przeciągania dotykiem
 end
 ```
 
@@ -1194,7 +1201,7 @@ Dialog używany do prezentacji bieżącego poziomu, ze skryptem, który tylko uk
 ![GUI prezentacji poziomu](images/magic-link/linker_present_level_gui.png)
 
 ```lua
--- plik: present_level.gui_script
+-- present_level.gui_script
 function init(self)
     msg.post("#", "hide")
 end
@@ -1204,7 +1211,7 @@ function on_message(self, message_id, message, sender)
         msg.post("#", "disable")
     elseif message_id == hash("show") then
         local n = gui.get_node("message")
-        gui.set_text(n, "Poziom " .. message.level)
+        gui.set_text(n, "Level " .. message.level)
         msg.post("#", "enable")
     end
 end

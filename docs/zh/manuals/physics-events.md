@@ -84,7 +84,7 @@ end
 
 ```lua
 local function physics_world_listener(self, events)
-    for _,event in ipair(events) do
+    for _,event in ipairs(events) do
         if event.type == hash("contact_point_event") then
             -- 处理详细的接触点数据
             pprint(event)
@@ -95,10 +95,10 @@ local function physics_world_listener(self, events)
             -- 处理触发器交互数据
             pprint(event)
         elseif event.type == hash("ray_cast_response") then
-            -- 处理射线投射命中数据
+            -- 处理射线命中数据
             pprint(event)
         elseif event.type == hash("ray_cast_missed") then
-            -- 处理射线投射未命中数据
+            -- 处理射线未命中数据
             pprint(event)
         end
     end

@@ -50,13 +50,43 @@ O componente criado tem um conjunto de propriedades que devem ser configuradas:
 Quando você tiver um componente de som configurado corretamente, pode fazê-lo tocar chamando [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Cada reprodução é uma *voz* separada. `sound.play()` retorna seu identificador numérico de reprodução (`play_id`); salve esse ID para [controlar a voz individual](#controlling-individual-voices).
 
 ::: sidenote
 Um som continuará tocando mesmo que o objeto de jogo ao qual o componente de som pertencia seja excluído. Você pode chamar [`sound.stop()`](/ref/sound/#sound.stop:url) para parar o som (veja abaixo).
 :::
 Cada mensagem enviada a um componente fará com que ele reproduza outra instância do som, até que o buffer de som disponível fique cheio e a engine imprima erros no console. Recomenda-se implementar algum tipo de mecanismo de bloqueio e agrupamento de som.
+
+### Controlando vozes individuais {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) e [`sound.set_pan()`](/ref/sound/#sound.set_pan) aceitam um terceiro argumento opcional com um `play_id`. Use o ID retornado por `sound.play()` e a URL do mesmo componente de som:
+
+```lua
+function init(self)
+    -- Salve o ID de uma voz que começará em um segundo.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Inicie outra voz no mesmo componente.
+    sound.play("go#sound")
+
+    -- Altere apenas a voz com início adiado.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Essas chamadas direcionadas não alteram as outras vozes nem os valores padrão de ganho e panorama do componente. Elas funcionam para vozes atrasadas e pausadas, de modo que os novos valores se aplicam quando a voz inicia ou retoma a reprodução. Um ID desconhecido ou cuja reprodução já terminou não tem efeito.
+
+Omita `play_id` para atualizar todas as vozes e os valores padrão do componente usados em reproduções futuras:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Passar `{ play_id = nil }` também omite o ID. Se você limpar um ID salvo ao terminar a reprodução, verifique se ele não é `nil` antes de usá-lo em uma atualização direcionada.
 
 ## Parando o som
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 O sistema de som tem 4 níveis de ganho:
 
 - O ganho definido no componente de som.
-- O ganho definido ao iniciar o som por uma chamada a `sound.play()` ou ao alterar o ganho na voz por uma chamada a `sound.set_gain()`.
+- O ganho definido ao iniciar o som com uma chamada a `sound.play()` ou ao alterar o ganho de [uma ou todas as vozes](#controlling-individual-voices) com uma chamada a `sound.set_gain()`.
 - O ganho definido no grupo por uma chamada à função [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
 - O ganho definido no grupo `master`. Isso pode ser alterado com `sound.set_group_gain(hash("master"), gain)`.
 

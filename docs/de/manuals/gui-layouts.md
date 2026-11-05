@@ -99,6 +99,8 @@ end
 
 Wenn die Ausrichtung wechselt, skaliert der GUI-Layoutmanager die GUI-Knoten automatisch und positioniert sie anhand deines Layouts und der Knoteneigenschaften neu. Spielinhalte werden dagegen standardmäßig in einem separaten Renderdurchlauf mit einer Projektion gerendert, die sie durch Strecken in das aktuelle Fenster einpasst. Um dieses Verhalten zu ändern, verwende entweder ein eigenes angepasstes Render-Skript oder eine Kamera-[Bibliothek](/assets/).
 
+Aktualisiere für eine benutzerdefinierte UI-Platzierung um Kameraaussparungen `window.get_reserved_areas()` bei `window.WINDOW_EVENT_RESIZED`, auch wenn das ausgewählte GUI-Layout unverändert bleibt. Unter iOS kann eine Drehung um 180° Fensterabmessungen und sichere Randabstände unverändert lassen, während sich das Hindernis verschiebt. Unter [Reservierte Bildschirmbereiche](/manuals/porting-guidelines/#reserved-screen-areas) findest du ein Aktualisierungsbeispiel und den Zusammenhang zwischen dessen Koordinaten in Fensterpixeln und der GUI-Anpassung.
+
 ## Manuelle Layoutauswahl (Lua) {#manual-layout-selection-lua}
 
 Wenn Auto Layout Selection für die verwendeten Anzeigeprofile auf OFF gesetzt ist, wechselt die Engine die Layouts nicht automatisch. Verwende die folgenden Funktionen in einem GUI-Skript, um Layouts manuell zu verwalten:

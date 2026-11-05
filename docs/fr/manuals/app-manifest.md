@@ -9,8 +9,6 @@ Le manifeste d'application contrôle les fonctionnalités et les backends liés 
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
 # Appliquer le manifeste {#applying-the-manifest}
 
 Dans `game.project`, affectez le manifeste à `Native Extensions` -> `App Manifest`.
@@ -36,7 +34,7 @@ Contrôlez les fonctionnalités des squelettes et des modèles, ou sélectionnez
 
 ## Exclure l'enregistrement {#exclude-record}
 
-Exclut la capacité d'enregistrement vidéo du moteur (consultez la documentation du message [`start_record`](https://defold.com/ref/sys/#start_record)).
+Exclut l'enregistrement MP4 natif, le [module Lua `recorder`](/ref/recorder/) et le service HTTP d'enregistrement des builds de débogage pour ordinateur. L'enregistrement est déjà omis des builds de publication, sans interface graphique, mobiles et web. Consultez le [manuel d'enregistrement](/manuals/recording) pour connaître le flux de travail.
 
 
 ## Profileur {#profiler}
@@ -118,11 +116,14 @@ Utilise la bibliothèque obsolète Android Support Library à la place d'Android
 
 ## Graphismes {#graphics}
 
-Sélectionnez les backends graphiques à inclure pour chaque plateforme. Un choix combiné inclut les deux backends, ce qui permet de basculer vers l'autre lorsque le backend préféré n'est pas disponible.
+Sélectionnez les backends graphiques à inclure pour chaque plateforme. Un choix combiné inclut plusieurs backends afin que le moteur dispose d'une solution de repli lorsque son backend préféré n'est pas disponible. L'ajout de backends augmente la taille du moteur.
+
+Windows et Linux disposent de champs distincts. L'option **DX12** sélectionne DirectX 12 sous Windows.
 
 | Champ | Plateformes | Choix | Par défaut |
 |---|---|---|---|
-| **Graphics** | Windows et Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -130,11 +131,11 @@ Sélectionnez les backends graphiques à inclure pour chaque plateforme. Un choi
 
 Sur Linux ARM64, le choix **OpenGL** utilise le backend OpenGL ES. Le choix combiné par défaut sur Android privilégie Vulkan lorsqu'il est disponible et utilise OpenGL ES en solution de repli.
 
-Depuis Defold 1.14.0, macOS utilise le backend Metal natif par défaut. Le choix **Vulkan** sur macOS et iOS utilise Vulkan via MoltenVK. Le simulateur iOS (`arm64_sim-ios`) utilise toujours Metal, quel que soit le choix **Graphics (iOS)** pour les appareils.
+macOS utilise le backend Metal natif par défaut. Le choix **Vulkan** sur macOS et iOS utilise Vulkan via MoltenVK. Le simulateur iOS (`arm64_sim-ios`) utilise toujours Metal, quel que soit le choix **Graphics (iOS)** pour les appareils.
 
 ## Utiliser le système complet de mise en page du texte {#use-full-text-layout-system}
 
-Si cette option est activée (`true`), le système complet de mise en page du texte est inclus pour la mise en forme des glyphes, y compris dans les langues s'écrivant de droite à gauche. Activez cette option ainsi que `font.runtime_generation` dans *game.project* pour générer à l'exécution des polices SDF à partir de ressources TrueType (`.ttf`) ou OpenType (`.otf`). La génération à l'exécution à partir de ressources `.otf` est prise en charge depuis Defold 1.13.2. Pour en savoir plus, consultez le [manuel des polices](/manuals/font/#enabling-runtime-fonts).
+Si cette option est activée (`true`), le système complet de mise en page du texte est inclus pour la mise en forme des glyphes, y compris dans les langues s'écrivant de droite à gauche. Activez cette option pour générer à l'exécution des polices TrueType (`.ttf`) ou OpenType (`.otf`), et définissez *Glyph Generation* sur **Dynamic** dans chaque ressource de police qui en a besoin. La génération dynamique prend en charge les modes **SDF** et **Vector**. Pour en savoir plus, consultez le [manuel des polices](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Use Rich Text {#use-rich-text}

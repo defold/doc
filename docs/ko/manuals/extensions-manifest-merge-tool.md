@@ -135,11 +135,11 @@ Android 메니페스트를 수정하는 방법에 대한 전체 지침은 [해�
         <key>REAL</key>
         <real>8.0</real>
 
-        <!-- 익스텐션 메니페스트에 같은 키가 포함되어 있더라도 이 값을 유지합니다 -->
+        <!-- Keep this value even if an extension manifest contains the same key -->
         <key merge='keep'>BASE64</key>
         <data>SEVMTE8gV09STEQ=</data>
 
-        <!-- 익스텐션 메니페스트에도 이 키를 가진 배열이 있으면, 모든 딕셔너리 값이 기본 배열의 첫 번째 딕셔너리 값과 병합됩니다 -->
+        <!-- If an extension manifest also has an array with this key then any dictionary values will be merged with the first dictionary value of the base array -->
         <key>Array1</key>
         <array>
             <dict>
@@ -150,7 +150,7 @@ Android 메니페스트를 수정하는 방법에 대한 전체 지침은 [해�
             </dict>
         </array>
 
-        <!-- 이 배열의 값을 병합하려고 시도하지 않고, 대신 익스텐션 메니페스트의 값을 배열 끝에 추가해야 합니다 -->
+        <!-- Do not attempt to merge the values of this array, instead values from extension manifests should be added to the end of the array -->
         <key merge='keep'>Array2</key>
         <array>
             <dict>
@@ -187,7 +187,7 @@ Android 메니페스트를 수정하는 방법에 대한 전체 지침은 [해�
         <key>INT</key>
         <integer>42</integer>
 
-        <!-- 기본 메니페스트의 기존 값을 대체합니다 -->
+        <!-- Replace the existing value in the base manifest -->
         <key merge='replace'>REAL</key>
         <integer>16.0</integer>
 
@@ -223,7 +223,7 @@ Android 메니페스트를 수정하는 방법에 대한 전체 지침은 [해�
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
-        <!-- 기본 메니페스트와 익스텐션 메니페스트의 딕셔너리를 중첩 병합합니다 -->
+        <!-- Nested merge of dictionaries from base and extension manifests -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -244,23 +244,23 @@ Android 메니페스트를 수정하는 방법에 대한 전체 지침은 [해�
                 </dict>
             </dict>
 
-            <!-- 기본 메니페스트에서 온 값입니다 -->
+            <!-- From the base manifest -->
             <key>INT</key>
             <integer>8</integer>
 
-            <!-- 익스텐션 메니페스트에서 병합 마커가 "replace"로 설정되어 기본 메니페스트의 값이 대체되었습니다 -->
+            <!-- The value from the base manifest was replaced since the merge marker was set to "replace" in the extension manifest -->
             <key>REAL</key>
             <real>16.0</real>
 
-            <!-- 기본 메니페스트에서 병합 마커가 "keep"으로 설정되어 기본 메니페스트의 값이 사용되었습니다 -->
+            <!-- The value from the base manifest was used since the merge marker was set to "keep" in the base manifest -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
 
-            <!-- 병합 마커가 지정되지 않았으므로 익스텐션 메니페스트의 값이 추가되었습니다 -->
+            <!-- The value from the extender manifest was added since no merge marker was specified -->
             <key>INT</key>
             <integer>42</integer>
 
-            <!-- 기본 메니페스트의 기본값이 "merge"이므로 배열의 딕셔너리 값이 병합되었습니다 -->
+            <!-- The dictionary values of the array were merged since the base manifest defaults to "merge" -->
             <key>Array1</key>
             <array>
                 <dict>
@@ -272,7 +272,7 @@ Android 메니페스트를 수정하는 방법에 대한 전체 지침은 [해�
                 </dict>
             </array>
 
-            <!-- 기본 메니페스트가 "keep"을 사용했으므로 딕셔너리 값이 배열에 추가되었습니다 -->
+            <!-- The dictionary values were added to the array since the base manifest used "keep" -->
             <key>Array2</key>
             <array>
                 <dict>

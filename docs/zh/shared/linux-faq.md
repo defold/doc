@@ -124,6 +124,9 @@ A: 这很可能是由使用的窗口管理器（例如 `Qtile` 或 i3）引起�
 
 ```bash
 $ GDK_DISPLAY=1 ./Defold
+
+D=2
+
 ```
 
 或者通过修改 `Defold/config` 文件并在 `vmargs` 行添加 `-Djdk.gtk.version=2`：

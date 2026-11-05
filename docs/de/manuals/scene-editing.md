@@ -46,6 +46,22 @@ Diese Steuerelemente stehen in visuellen Editoren zur Verfügung:
 
 Du kannst auch **Frame Selection** (<kbd>F</kbd>) verwenden, um die Kamera auf die aktuelle Auswahl auszurichten.
 
+### Achsen-Gizmo {#axis-gizmo}
+
+Das **Scene View Axis Gizmo** erscheint im 3D-Modus unten rechts in der Szenenansicht. Es zeigt die Ausrichtung der Kamera relativ zu den Weltachsen: **X** ist rot, **Y** grün und **Z** blau.
+
+![Szenenansicht mit dem Achsen-Gizmo unten rechts](images/editor/axis_gizmo.gif)
+
+| Steuerung | Aktion |
+| --- | --- |
+| <kbd>Linksklick</kbd> auf einen Achsengriff | Richtet die Kamera auf eine Ansicht entlang dieser Achse aus. Gegenüberliegende Griffe bieten Ansichten von der anderen Seite. |
+| Klick auf einen bereits ausgerichteten Achsengriff | Wechselt zur gegenüberliegenden Ansicht entlang derselben Achse. |
+| <kbd>Left Mouse Button</kbd> halten und das Gizmo ziehen | Kreist um den aktuellen Fokuspunkt der Kamera. Du kannst von einem Achsengriff oder dem kreisförmigen Bereich um die Griffe ziehen, ohne eine Zusatztaste zu halten. |
+
+Die Achsenausrichtung erhält Fokuspunkt, Abstand und Projektion der Kamera. Verwende zuerst **Frame Selection** (<kbd>F</kbd>), um ein Objekt zu fokussieren, und anschließend das Gizmo, um es aus verschiedenen Richtungen zu betrachten. Die üblichen Steuerungen zum Verschieben und Zoomen sowie zum Umkreisen mit <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd> bleiben verfügbar.
+
+Das Gizmo ist im 3D-Modus sowohl bei perspektivischer als auch bei orthografischer Projektion verfügbar. Im 2D-Modus ist es ausgeblendet; verwende **Align/Realign Camera 2D/3D** in der [Werkzeugleiste](#toolbar-overview) oder drücke <kbd>.</kbd>, um zu 3D zu wechseln. Verwende den separaten [Schalter für die Kameraprojektion](#camera-type-perspective-vs-orthographic), um perspektivische oder orthografische Projektion auszuwählen. Das Gizmo steuert die Ansicht des Szeneneditors auf deine Szene.
+
 ## Szenenausrichtung in 2D und 3D {#2d-and-3d-scene-orientation}
 
 Du kannst die Szenenansicht sowohl für die Arbeit in 2D als auch in 3D verwenden:
@@ -56,7 +72,7 @@ Du kannst die Szenenansicht sowohl für die Arbeit in 2D als auch in 3D verwende
   - verwendest eine **perspektivische** Kamera,
   - wählst eine geeignete Rasterebene (häufig **Y** für den „Boden“).
 
-Diese Funktionen erreichst du über die Werkzeugleiste und das Menü **View**.
+Du erreichst diese Funktionen über die Werkzeugleiste und das Menü **View**. Verwende im 3D-Modus das [Achsen-Gizmo](#axis-gizmo), um die Ansicht an einer Achse auszurichten oder mit der Maus zu umkreisen.
 
 ![Szeneneditor in 3D](images/editor/3d_scene.png)
 

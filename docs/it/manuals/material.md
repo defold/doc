@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-A partire da Defold 1.14.0, gli attributi `Mat2`, `Mat3` e `Mat4` usano tutti valori `vmath.matrix4` con `go.set()` e `go.get()`. Impostare un attributo `Mat2` o `Mat3` usa la parte in alto a sinistra di 2×2 o 3×3 della matrice. Leggerlo restituisce una `vmath.matrix4` con le righe e le colonne inutilizzate riempite con i valori di una matrice identità.
+Gli attributi `Mat2`, `Mat3` e `Mat4` usano tutti valori `vmath.matrix4` con `go.set()` e `go.get()`. Impostare un attributo `Mat2` o `Mat3` usa la parte 2×2 o 3×3 in alto a sinistra della matrice. Leggerlo restituisce una `vmath.matrix4` con le righe e colonne inutilizzate riempite a partire da una matrice identità.
 
 Per esempio, con un attributo `Mat2` chiamato `custom_mat2` e tipo semantico `None` nel materiale di un modello:
 

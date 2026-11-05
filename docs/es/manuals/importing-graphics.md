@@ -3,18 +3,28 @@ title: Importación y uso de gráficos 2D
 brief: Este manual explica cómo importar y usar gráficos 2D.
 ---
 
-# Importación de gráficos 2D
+# Importación de gráficos 2D {#importing-2d-graphics}
 
 Defold admite muchos tipos de componentes visuales que se usan frecuentemente en juegos 2D. Puedes usar Defold para crear sprites estáticos y animados, componentes de interfaz, efectos de partículas, tile maps y fuentes bitmap. Antes de poder crear cualquiera de estos componentes visuales, debes importar archivos de imagen con los gráficos que quieras usar. Para importar archivos de imagen, simplemente arrastra los archivos desde el sistema de archivos de tu computadora y suéltalos en una ubicación adecuada del panel *Assets* del editor Defold.
 
 ![Importando archivos](images/graphics/import.png)
 
 ::: sidenote
-Defold admite imágenes en los formatos PNG y JPEG. Otros formatos de imagen deben convertirse antes de poder usarse.
+Usa imágenes PNG o JPEG para atlas y tile sources. También puedes importar texturas fuente KTX2 para usarlas como texturas de modelos; consulta más abajo.
 :::
 
+## Texturas KTX2 {#ktx2-textures}
 
-## Crear assets de Defold
+Importa un archivo *.ktx2* independiente arrastrándolo al panel *Assets* y asígnalo a un campo de textura de material de un componente Model. Los [modelos glTF y GLB](/manuals/importing-models/#ktx2-textures) también pueden referenciar archivos KTX2 externos o contener imágenes KTX2 integradas. Las entradas de atlas, tile sources y caras de cubemap siguen usando sus formatos de imagen existentes.
+
+Las entradas KTX2 admitidas son texturas 2D que usan ETC1S/BasisLZ, UASTC, BC7 o datos R/RG/RGB/RGBA de 8 bits UNORM o sRGB. No se admiten arrays KTX2, cubemaps, volúmenes ni texturas HDR. KTX2 se procesa durante la build para generar recursos *.texturec* de Defold; el runtime no lee contenedores KTX2.
+
+Abre un asset KTX2 para inspeccionar su formato de origen, dimensiones, espacio de color, metadatos alpha y niveles mip. *Outline* permite seleccionar cada nivel mip del archivo fuente. Estos muestran las imágenes originales aunque un perfil de textura redimensione la textura compilada o desactive sus mipmaps.
+
+Usa [perfiles de textura](/manuals/texture-profiles/#ktx2-source-textures) para elegir entre conservar el formato de origen y convertirlo a otros formatos. Elige formatos de salida compatibles con tus dispositivos objetivo. Recomprimir una fuente que ya tiene pérdidas puede reducir más la calidad, incluso cuando **Keep KTX2 Format** necesita volver a codificarla después de procesar la imagen.
+
+
+## Crear assets de Defold {#creating-defold-assets}
 
 Cuando las imágenes se importan en Defold, pueden usarse para crear assets específicos de Defold:
 
@@ -40,7 +50,7 @@ Aprende más sobre las fuentes bitmap en el [manual de Fuentes](/manuals/font/#b
   ![BMfont](images/font/bm_font.png)
 
 
-## Usar assets de Defold
+## Usar assets de Defold {#using-defold-assets}
 
 Cuando hayas convertido las imágenes en archivos Atlas y Tile Source, puedes usarlos para crear varios tipos distintos de componentes visuales:
 

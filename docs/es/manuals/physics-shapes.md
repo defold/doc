@@ -3,26 +3,26 @@ title: Formas de colisión
 brief: Los objetos de colisión pueden contener formas primitivas, envolventes convexas o mallas de triángulos, o usar recursos tilemap y de formas convexas.
 ---
 
-# Formas de colisión
+# Formas de colisión {#collision-shapes}
 
 Un objeto de colisión puede contener varias formas integradas. En físicas 3D, estas pueden incluir envolventes convexas y mallas de triángulos de archivos glTF o GLB. También puedes usar un recurso tilemap o de forma convexa mediante la propiedad *Collision Shape* del objeto de colisión.
 
-### Formas primitivas
+### Formas primitivas {#primitive-shapes}
 Las formas primitivas son *box*, *sphere* y *capsule*. Agrega una forma primitiva haciendo <kbd>click derecho</kbd> en el objeto de colisión y seleccionando <kbd>Add Shape</kbd>:
 
 ![Agregar una forma primitiva](images/physics/add_shape.png)
 
-## Forma de caja
+## Forma de caja {#box-shape}
 Una caja tiene posición, rotación y dimensiones (ancho, alto y profundidad):
 
 ![Forma de caja](images/physics/box.png)
 
-## Forma de esfera
+## Forma de esfera {#sphere-shape}
 Una esfera tiene posición, rotación y diámetro:
 
 ![Forma de esfera](images/physics/sphere.png)
 
-## Forma de cápsula
+## Forma de cápsula {#capsule-shape}
 Una cápsula tiene posición, rotación, diámetro y altura:
 
 ![Forma de esfera](images/physics/capsule.png)
@@ -31,8 +31,8 @@ Una cápsula tiene posición, rotación, diámetro y altura:
 Las formas de cápsula solo tienen soporte cuando se usan físicas 3D (configuradas en la sección Physics del archivo *game.project*).
 :::
 
-### Formas complejas
-Las formas complejas pueden usar geometría de tilemap o datos de una envolvente convexa. Desde Defold 1.13.2, los objetos de colisión 3D también pueden crear envolventes convexas y formas de malla de triángulos a partir de mallas de escenas glTF o GLB.
+### Formas complejas {#complex-shapes}
+Las formas complejas pueden usar geometría de tilemap o datos de envolventes convexas. Los objetos de colisión 3D también pueden crear envolventes convexas y formas de malla triangular a partir de mallas de escenas glTF o GLB.
 
 ## Formas Hull y Mesh en 3D {#hull-and-mesh-shapes-in-3d}
 
@@ -48,7 +48,7 @@ La malla seleccionada aporta su geometría local; no se aplican las transformaci
 
 La geometría de mallas de triángulos es de solo lectura a través de las APIs de formas en runtime. Edita la malla de origen y vuelve a compilar para cambiar sus triángulos. Consulta [escalar formas de colisión](#scaling-collision-shapes) para conocer la escala del objeto de juego.
 
-## Forma de colisión de tilemap
+## Forma de colisión de tilemap {#tilemap-collision-shape}
 Defold incluye una funcionalidad que te permite generar fácilmente formas físicas para el tile source usado por un tile map. El [manual de Tilesource](/manuals/tilesource/#tile-source-collision-shapes) explica cómo agregar grupos de colisión a un tile source y asignar tiles a grupos de colisión ([ejemplo](/examples/tilemap/collisions/)).
 
 Para agregar colisión a un tile map:
@@ -64,14 +64,14 @@ Para agregar colisión a un tile map:
 Ten en cuenta que la propiedad *Group* **no** se usa aquí, ya que los grupos de colisión se definen en el tile source del tile map.
 :::
 
-## Forma de envolvente convexa
+## Forma de envolvente convexa {#convex-hull-shape}
 En físicas 3D puedes crear una envolvente convexa directamente a partir de una malla mediante el [procedimiento del editor descrito arriba](#hull-and-mesh-shapes-in-3d). El recurso heredado `.convexshape` también es compatible y se puede crear a partir de puntos usando un editor externo:
 
 1. Crea un archivo de forma de envolvente convexa (extensión de archivo `.convexshape`) usando un editor externo.
 2. Edita el archivo manualmente con un editor de texto o una herramienta externa (ver abajo).
 3. En lugar de agregar formas al componente de objeto de colisión, define la propiedad *Collision Shape* con el archivo *convex shape*.
 
-### Formato de archivo
+### Formato de archivo {#file-format}
 El formato de archivo de envolvente convexa usa el mismo formato de datos que todos los demás archivos de Defold, es decir, el formato de texto protobuf. Una forma de envolvente convexa define los puntos de la envolvente. En físicas 2D, los puntos deben proporcionarse en sentido antihorario. En el modo de físicas 3D se usa una nube de puntos abstracta. Ejemplo 2D:
 
 ```
@@ -103,7 +103,7 @@ El ejemplo anterior define las cuatro esquinas de un rectángulo:
  200x100   400x100
 ```
 
-## Herramientas externas
+## Herramientas externas {#external-tools}
 
 Hay varias herramientas externas distintas que se pueden usar para crear formas de colisión:
 
@@ -112,12 +112,10 @@ Hay varias herramientas externas distintas que se pueden usar para crear formas 
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) se puede usar para crear formas de envolvente convexa.
 
 
-<a id="scaling-collision-shapes"></a>
-
-# Escalar formas de colisión
+# Escalar formas de colisión {#scaling-collision-shapes}
 El objeto de colisión y sus formas heredan la escala del objeto de juego. Para desactivar este comportamiento, desmarca la casilla [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) en la sección Physics de *game.project*. Ten en cuenta que solo se admite el escalado uniforme y que se usará el valor de escala más pequeño si la escala no es uniforme.
 
-# Redimensionar formas de colisión
+# Redimensionar formas de colisión {#resizing-collision-shapes}
 Las formas primitivas se pueden redimensionar en tiempo de ejecución usando `physics.set_shape()`. Esta función no reemplaza los vértices de las envolventes convexas ni la geometría de mallas de triángulos. Ejemplo:
 
 ```lua
@@ -148,15 +146,15 @@ physics.set_shape("#collisionobject", "my_box_shape", box_data)
 Ya debe existir una forma del tipo correcto con el id especificado en el objeto de colisión.
 :::
 
-# Rotar formas de colisión
+# Rotar formas de colisión {#rotating-collision-shapes}
 
-## Rotar formas de colisión en físicas 3D
+## Rotar formas de colisión en físicas 3D {#rotating-collision-shapes-in-3d-physics}
 Las formas de colisión en físicas 3D se pueden rotar alrededor de todos los ejes.
 
 
-## Rotar formas de colisión en físicas 2D
+## Rotar formas de colisión en físicas 2D {#rotating-collision-shapes-in-2d-physics}
 Las formas de colisión en físicas 2D solo se pueden rotar alrededor del eje z. La rotación alrededor del eje x o y dará resultados incorrectos y debe evitarse, incluso al rotar 180 grados para básicamente voltear la forma a lo largo del eje x o y. Para voltear una forma física, se recomienda usar [`physics.set_hlip(url, flip)`](/ref/physics/?#physics.set_hflip:url-flip) y [`physics.set_vlip(url, flip)`](/ref/physics/?#physics.set_vflip:url-flip).
 
 
-# Depuración
+# Depuración {#debugging}
 Puedes [activar la depuración de físicas](/manuals/debugging-game-logic/#debugging-problems-with-physics) para ver las formas de colisión en tiempo de ejecución.

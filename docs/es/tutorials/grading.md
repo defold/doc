@@ -139,7 +139,7 @@ Deja el objeto de juego sin escalar en el origen. Más tarde, cuando rendericemo
     // grade.vp
     uniform mediump mat4 view_proj;
 
-    // las posiciones están en espacio del mundo
+    // positions are in world space
     attribute mediump vec4 position;
     attribute mediump vec2 texcoord0;
 
@@ -164,7 +164,7 @@ Deja el objeto de juego sin escalar en el origen. Más tarde, cuando rendericemo
     void main()
     {
       vec4 color = texture2D(original, var_texcoord0.xy);
-      // Desatura el color muestreado desde la textura original
+      // Desaturate the color sampled from the original texture
       float grey = color.r * 0.3 + color.g * 0.59 + color.b * 0.11;
       gl_FragColor = vec4(grey, grey, grey, 1.0);
     }

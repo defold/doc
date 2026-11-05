@@ -8,7 +8,7 @@ brief: Este manual explica cómo usar CocoaPods para resolver dependencias en bu
 [CocoaPods](https://cocoapods.org/) es un gestor de dependencias para proyectos Cocoa de Swift y Objective-C. CocoaPods se usa normalmente para gestionar e integrar dependencias en proyectos Xcode. Defold no usa Xcode al crear builds para iOS y macOS, pero aun así usa CocoaPods para resolver dependencias en el servidor de build.
 
 
-## Resolución de dependencias
+## Resolución de dependencias {#resolving-dependencies}
 
 Las extensiones nativas pueden incluir un archivo `Podfile` en las carpetas `manifests/ios` y `manifests/osx` para especificar las dependencias de la extensión. Ejemplo:
 
@@ -25,3 +25,5 @@ Ejemplos:
 
 * [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile)
+
+Muchos SDK también se distribuyen como paquetes Swift. Pueden usarse en lugar de CocoaPods o junto con ellos, como se describe en el [manual de Swift Package Manager](/manuals/extensions-spm).

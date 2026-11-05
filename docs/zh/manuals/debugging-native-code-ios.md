@@ -123,6 +123,7 @@ $ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Re
 
 ```sh
 $ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
+
 ```
 
 * 验证源代码映射

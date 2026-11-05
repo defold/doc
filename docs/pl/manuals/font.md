@@ -11,20 +11,30 @@ Fonty służą do renderowania tekstu w komponentach Label oraz węzłach teksto
 - OpenType
 - BMFont
 
-Od wersji Defold 1.13.2 zarówno starszy, jak i pełny system układu tekstu obsługują kontury TrueType oraz kontury OpenType CFF1/CFF2, w tym generowanie w czasie działania z zasobów `.ttf` i `.otf`.
+Zarówno starszy, jak i pełny system układu tekstu obsługują kontury TrueType oraz kontury OpenType CFF1/CFF2, w tym generowanie w czasie działania z zasobów `.ttf` i `.otf`.
 
 Informacje o stylizowaniu poszczególnych fragmentów tekstu oraz pracy z odnośnikami i obrazami osadzonymi w tekście znajdziesz w [instrukcji znaczników tekstu formatowanego](/manuals/font-richtext).
 
-Fonty dodane do projektu są automatycznie konwertowane do formatu tekstury, który Defold potrafi renderować. Dostępne są dwie techniki renderowania fontów, a każda ma własne zalety i wady:
+Dla fontów TrueType i OpenType właściwość *Mode* wybiera sposób renderowania glifów:
 
-- Bitmap
-- Distance field
+- **Bitmap** używa zrasteryzowanych obrazów glifów.
+- **SDF** (signed distance field) zapisuje w teksturze odległości do krawędzi glifów, umożliwiając bardziej elastyczne skalowanie niż Bitmap.
+- **Vector** renderuje kształty glifów z danych krzywych, zachowując ostrość przy skalowaniu. Efekty obrysu i cienia nadal używają danych bitmapowych.
+
+Nowo tworzone zasoby fontów używają trybu **Vector** i generowania glifów **Dynamic**. Istniejące zasoby zachowują tryb Bitmap lub SDF. Źródła BMFont zawsze używają dostarczonej bitmapy.
+
+Tryb Vector wymaga obsługi tekstur `RGBA16F` i `R32UI` i nie jest obsługiwany w OpenGL ES 2 ani WebGL 1. Dla nieobsługiwanych adapterów graficznych używaj fontów Bitmap lub SDF i pasujących materiałów; nie ma automatycznego przełączania z Vector na SDF. Konfigurację opisuje sekcja [Fonty wektorowe](#vector-fonts).
 
 ## Fonty offline i runtime fonts
 
-Domyślnie konwersja do zrasteryzowanych obrazów glifów odbywa się podczas budowania projektu, czyli offline. Ma to tę wadę, że każdy font musi wyrasteryzować wszystkie możliwe glify już na etapie budowania, co może prowadzić do bardzo dużych tekstur zajmujących pamięć i zwiększających rozmiar bundla.
+Właściwość *Glyph Generation* wybiera moment generowania danych glifów każdego fontu:
 
-Przy użyciu runtime fonts pliki `.ttf` i `.otf` są dołączane do bundla bez zmian, a rasteryzacja odbywa się na żądanie w czasie działania programu. Dzięki temu zmniejsza się zarówno zużycie pamięci w runtime, jak i rozmiar bundla.
+- **Static** generuje wybrane glify podczas budowania (offline). *Characters* i *All Chars* określają, które glify zostaną dołączone. Źródłowy plik `.ttf` lub `.otf` nie jest dołączany do paczki do generowania w czasie działania.
+- **Dynamic** dołącza źródłowy plik `.ttf` lub `.otf` i generuje glify na żądanie w czasie działania. *Prewarm Text* przygotowuje glify podczas ładowania fontu. Pozostałe glify mogą być generowane później według potrzeb.
+
+Fonty SDF i Vector obsługują obie opcje. Fonty Bitmap i źródła BMFont używają generowania Static. Każdy zasób fontu jest konfigurowany niezależnie, więc projekt może łączyć fonty Static i Dynamic.
+
+Generowanie dynamiczne może zmniejszyć rozmiar paczki i zużycie pamięci w czasie działania, szczególnie dla fontów z dużym zestawem znaków. Wymaga pełnego systemu układu tekstu w silniku; zobacz [Włączanie generowania fontów w czasie działania](#enabling-runtime-fonts).
 
 <a id="text-layout-support-eg-right-to-left"></a>
 
@@ -53,11 +63,17 @@ Aby utworzyć font do użycia w Defold, wybierz z menu <kbd>File ▸ New...</kbd
 
 Nadaj nowemu plikowi nazwę i kliknij <kbd>Ok</kbd>. Nowy plik otworzy się teraz w edytorze.
 
-![New font](images/font/new_font.png)
+
 
 Przeciągnij font, którego chcesz użyć, do panelu *Assets* i upuść go w odpowiednim miejscu.
 
-Ustaw właściwość *Font* na plik fontu i skonfiguruj pozostałe właściwości według potrzeb.
+Ustaw właściwość *Font* na plik fontu. Dla źródła `.ttf` lub `.otf` wybierz *Mode* i *Glyph Generation*, a następnie skonfiguruj pozostałe właściwości według potrzeb. Dla generowania Dynamic wykonaj też [konfigurację fontów generowanych w czasie działania](#enabling-runtime-fonts).
+
+![Właściwości fontu z trybem Vector i generowaniem glifów Dynamic](images/font/font_properties.png)
+
+W przypadku fontów Vector używaj *Font Size* komponentu Label lub węzła tekstowego GUI do zmiany wyświetlanego rozmiaru tekstu. *Outline/Shadow Bitmap Size* steruje rozdzielczością bitmap efektów niezależnie od rozmiaru wyświetlanego tekstu.
+
+Dla fontów Bitmap i SDF ustaw *Size* w zasobie fontu, aby wybrać rozmiar generowanych glifów. Rozmiary BMFont pochodzą ze źródłowego pliku `.fnt`. Aby zmienić wyświetlany rozmiar tych fontów, skaluj komponent Label lub węzeł tekstowy GUI.
 
 ## Właściwości {#properties}
 
@@ -65,25 +81,28 @@ Ustaw właściwość *Font* na plik fontu i skonfiguruj pozostałe właściwośc
 : Plik TTF, OTF albo *`.fnt`* używany do wygenerowania danych fontu.
 
 *Material*
-: Materiał używany do renderowania tego fontu. Pamiętaj, aby zmienić go dla Distance field i BMFonts. Szczegóły znajdziesz poniżej.
+: Materiał używany do renderowania fontu. Musi pasować do trybu fontu; zobacz [Materiały fontów](#font-materials).
 
-*Output Format*
-: Typ generowanych danych fontu.
+*Mode*
+: Technika renderowania źródła `.ttf` lub `.otf`: **Bitmap**, **SDF** albo **Vector**. Zastępuje dawną właściwość *Output Format*. Nie jest wyświetlana dla źródeł BMFont.
 
-  - `TYPE_BITMAP` konwertuje zaimportowany plik OTF albo TTF do tekstury arkusza fontu, w której dane bitmapowe służą do renderowania tekstu. Kanały kolorów służą do zakodowania kształtu znaku, obrysu i cienia. W przypadku plików *`.fnt`* źródłowa tekstura bitmapowa jest używana bez zmian.
-  - `TYPE_DISTANCE_FIELD` konwertuje zaimportowany font do tekstury arkusza fontu, w której dane pikseli nie reprezentują pikseli ekranu, lecz odległości do krawędzi fontu. Szczegóły znajdziesz poniżej.
+*Glyph Generation*
+: **Static** generuje dane glifów podczas budowania. **Dynamic** generuje je w czasie działania i wymaga [pełnego systemu układu tekstu](#enabling-runtime-fonts). Ta właściwość jest dostępna dla fontów SDF i Vector. W trybie Bitmap jest ustalona na Static, a dla źródeł BMFont nie jest wyświetlana.
 
 *Render Mode*
-: Tryb renderowania używany do renderowania glifów.
+: Układ warstw generowanych fontów Bitmap. Ta właściwość jest wyświetlana tylko w trybie Bitmap dla źródeł `.ttf` i `.otf`. Dla SDF, Vector i BMFont silnik Defold wybiera układ warstw automatycznie.
 
-  - `MODE_SINGLE_LAYER` tworzy pojedynczy quad dla każdego znaku.
-  - `MODE_MULTI_LAYER` tworzy oddzielne quady odpowiednio dla kształtu glifu, obrysu i cieni. Warstwy są renderowane od tyłu do przodu, co zapobiega zasłanianiu wcześniej wyrenderowanych znaków, jeśli obrys jest szerszy niż odstęp między glifami. Ten tryb renderowania umożliwia też poprawne przesuwanie cienia, zgodnie z właściwościami Shadow X/Y w zasobie fontu.
+  - **Single Layer** tworzy pojedynczy czworokąt dla każdego znaku.
+  - **Multi Layer** tworzy osobne czworokąty dla kształtu glifu, obrysu i cienia. Warstwy są renderowane od tyłu do przodu, co zapobiega zasłanianiu poprzednio wyrenderowanych znaków, gdy obrys jest szerszy niż odstęp między glifami. Umożliwia to również przesunięcia cienia określone przez *Shadow X/Y*.
 
 *Size*
-: Docelowy rozmiar glifów w pikselach.
+: Rozmiar glifów w pikselach używany do generowania danych fontów Bitmap lub SDF. Dla źródeł BMFont rozmiar jest odczytywany z pliku `.fnt` i nie można go tu edytować.
+
+*Outline/Shadow Bitmap Size*
+: W trybie Vector zastępuje *Size*. Steruje rozdzielczością bitmap włączonych efektów obrysu i cienia, zarówno dla generowania Static, jak i Dynamic. Jest wyłączone, gdy żaden efekt nie jest włączony, ponieważ kształty glifów używają danych krzywych. Zmiana *Font Size* etykiety lub węzła tekstowego GUI nie zmienia tej współdzielonej rozdzielczości bitmapy.
 
 *Antialias*
-: Określa, czy font ma być wygładzany podczas wypalania do docelowej bitmapy. Ustaw 0, jeśli chcesz uzyskać pikselowo idealne renderowanie fontu.
+: Określa, czy wygładzać glify podczas generowania danych fontu Bitmap. Wyłącz je, aby uzyskać renderowanie z zachowaniem pojedynczych pikseli. Ta właściwość jest wyświetlana tylko w trybie Bitmap dla źródeł `.ttf` i `.otf`.
 
 *Alpha*
 : Przezroczystość glifu. Zakres 0.0-1.0, gdzie 0.0 oznacza pełną przezroczystość, a 1.0 pełną nieprzezroczystość.
@@ -98,19 +117,20 @@ Ustaw właściwość *Font* na plik fontu i skonfiguruj pozostałe właściwośc
 : Przezroczystość wygenerowanego cienia. Zakres 0.0-1.0.
 
 ::: sidenote
-Obsługę cienia zapewniają wbudowane shadery materiałów fontów i działa ona zarówno w trybie renderowania jedno-, jak i wielowarstwowego. Jeśli nie potrzebujesz warstwowego renderowania fontów ani obsługi cienia, najlepiej użyć prostszego shadera, takiego jak *`builtins/font-singlelayer.fp`*.
+Wbudowany shader fontów Bitmap obsługuje cienie w trybach renderowania *Single Layer* i *Multi Layer*. Dla generowanych fontów Bitmap używających *Single Layer* i niewymagających cieni własny materiał może używać `/builtins/fonts/font-singlelayer.fp`. Fonty SDF i Vector wymagają shaderów pasujących do ich trybu; zobacz [Materiały fontów](#font-materials).
 :::
 
 *Shadow Blur*
-: W przypadku fontów bitmapowych to ustawienie określa, ile razy ma zostać zastosowane małe jądro rozmycia do każdego glifu fontu. W przypadku fontów typu distance field odpowiada ono rzeczywistej szerokości rozmycia w pikselach.
+: Stopień rozmycia wygenerowanego cienia. Ustaw 0, aby uzyskać ostry cień.
 
 *Shadow X/Y*
-: Poziome i pionowe przesunięcie wygenerowanego cienia w pikselach. To ustawienie wpływa na cień glifu tylko wtedy, gdy Render Mode ma wartość `MODE_MULTI_LAYER`.
+: Poziome i pionowe przesunięcie wygenerowanego cienia w pikselach. Dla generowanych fontów Bitmap użyj trybu *Multi Layer*, aby zastosować te przesunięcia. Defold automatycznie wybiera odpowiednie warstwy dla fontów SDF i Vector.
 
 *Characters*
-: Określa, które znaki mają zostać uwzględnione w foncie. Domyślnie pole to zawiera drukowalne znaki ASCII o kodach 32-126. Możesz dodawać lub usuwać znaki, aby uwzględnić ich więcej albo mniej.
+: Dla generowania Static określa znaki dołączane do zbudowanego fontu. Domyślnie zawiera drukowalne znaki ASCII (kody 32-126). Dodawaj lub usuwaj znaki, aby określić glify dostępne w czasie działania.
 
-  W przypadku runtime fonts ten tekst działa też jako wstępne podgrzewanie cache odpowiednimi glifami. Dzieje się to podczas ładowania. Zobacz `font.prewarm_text()`.
+*Prewarm Text*
+: Dla generowania Dynamic zastępuje *Characters*. Tekst służy do generowania glifów i przygotowania pamięci podręcznej podczas ładowania fontu. Nie ogranicza znaków, które mogą zostać wygenerowane później. Możesz też przygotować tekst ze skryptu przez [`font.prewarm_text()`](/ref/font/#font.prewarm_text).
 
 ::: sidenote
 Drukowalne znaki ASCII to:
@@ -118,12 +138,54 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 :::
 
 *All Chars*
-: Jeśli zaznaczysz tę właściwość, wszystkie glify dostępne w pliku źródłowym zostaną uwzględnione w wyniku.
+: Dla generowania Static dołącza każdy glif dostępny w źródle zamiast ograniczać font do *Characters*. Ta właściwość jest ukryta dla fontów Dynamic.
 
 *Cache Width/Height*
-: Ogranicza rozmiar bitmapy cache glifów. Gdy silnik renderuje tekst, wyszukuje glif w bitmapie cache. Jeśli go tam nie ma, zostanie on dodany do cache przed renderowaniem. Jeśli bitmapa cache jest zbyt mała, aby pomieścić wszystkie glify, które silnik ma wyrenderować, zostanie zgłoszony błąd (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
+: Ogranicza rozmiar bitmapy cache glifów używanej przez fonty Bitmap i SDF oraz efekty obrysu i cienia fontów Vector. Gdy silnik renderuje tekst, wyszukuje glif w bitmapie cache. Jeśli go tam nie ma, zostanie on dodany do cache przed renderowaniem. Jeśli bitmapa cache jest zbyt mała, aby pomieścić wszystkie glify, które silnik ma wyrenderować, zostanie zgłoszony błąd (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
 
   Jeśli ustawisz tę właściwość na 0, rozmiar cache zostanie dobrany automatycznie i może wzrosnąć maksymalnie do 2048x4096.
+
+## Materiały fontów {#font-materials}
+
+Używaj materiału pasującego do trybu fontu. *Material* zasobu fontu jest używany przez węzły tekstowe GUI. Komponenty Label mają osobną właściwość *Material*, która również musi pasować do fontu:
+
+| Tryb lub źródło fontu | Materiał fontu dla tekstu GUI | Materiał komponentu Label |
+| --- | --- | --- |
+| Bitmap | `/builtins/fonts/font.material` | `/builtins/fonts/label.material` |
+| SDF | `/builtins/fonts/font-df.material` | `/builtins/fonts/label-df.material` |
+| Vector | `/builtins/fonts/font-vector.material` | `/builtins/fonts/label-vector.material` |
+| BMFont (`.fnt`) | `/builtins/fonts/font-fnt.material` | `/builtins/fonts/label-fnt.material` |
+
+Zmiana *Mode* w edytorze fontów przełącza między odpowiadającymi wbudowanymi materiałami Bitmap, SDF i Vector, jeśli jeden z nich jest już przypisany do fontu. Własne materiały nie są zastępowane automatycznie. Sprawdź również właściwość *Material* komponentów Label korzystających z fontu.
+
+## Fonty wektorowe {#vector-fonts}
+
+Fonty wektorowe renderują kształty glifów z krzywych, dzięki czemu zachowują ostrość przy zmianie wyświetlanego rozmiaru tekstu. Aby skonfigurować font generujący glify w czasie działania:
+
+1. Utwórz zasób `.font`, na przykład `/fonts/ui.font`, i wybierz źródło TrueType lub OpenType we właściwości *Font*. Do zwykłego tekstu możesz użyć wbudowanego `/builtins/fonts/vera_mo_bd.ttf`.
+2. Ustaw *Mode* na **Vector**, *Glyph Generation* na **Dynamic**, a *Material* na `/builtins/fonts/font-vector.material`. Są to wartości domyślne nowo tworzonych zasobów fontów.
+3. Włącz **Use full text layout system** w manifeście aplikacji przypisanym do projektu. Postępuj zgodnie z sekcją [Włączanie generowania fontów w czasie działania](#enabling-runtime-fonts), aby skonfigurować niestandardowy silnik.
+4. Włącz [Shader ▸ Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) w *game.project*.
+5. Przypisz font do [etykiety](/manuals/label/) albo dodaj go do *Fonts* sceny GUI i wybierz we [węźle tekstowym](/manuals/gui-text/). Dla etykiety ustaw również *Material* komponentu na `/builtins/fonts/label-vector.material`. Ustaw *Font Size* komponentu lub węzła na żądany rozmiar wyświetlania.
+
+Kształty glifów Vector używają tekstur krzywych, ale włączone obrysy i cienie nadal generują dane bitmapowe SDF i zajmują pamięć tekstury cache glifów. *Outline/Shadow Bitmap Size* ustala rozdzielczość bitmapy niezależnie od *Font Size* etykiety lub węzła tekstowego GUI. Ustaw *Outline Alpha* i *Shadow Alpha* na `0`, gdy te efekty nie są potrzebne, aby uniknąć generowania ich danych bitmapowych.
+
+### Kolorowe emoji {#color-emoji}
+
+Fonty Vector mogą renderować kolorowe emoji COLRv1, w tym kolory palety oraz gradienty liniowe i promieniste. Tryby Bitmap i SDF nie renderują kolorów COLRv1. Użyj powyższej konfiguracji Dynamic Vector, a następnie dodaj font emoji COLRv1 jako font zapasowy do kolekcji. Zwykły tekst nadal korzysta z oryginalnego fontu.
+
+Na przykład skopiuj [font Noto Color Emoji COLRv1](https://github.com/google/fonts/blob/main/ofl/notocoloremoji/NotoColorEmoji-Regular.ttf) do projektu jako `/fonts/NotoColorEmoji-Regular.ttf`. Wybierz wersję COLRv1: inne fonty emoji mogą używać odmiennego formatu kolorów nawet wtedy, gdy nazwa ich pliku kończy się na `.ttf`.
+
+Dopisz `/fonts/NotoColorEmoji-Regular.ttf` do **Project ▸ Custom Resources** w *game.project*. Jeśli nie ma innych zasobów niestandardowych, ustawienie wygląda tak:
+
+```ini
+[project]
+custom_resources = /fonts/NotoColorEmoji-Regular.ttf
+```
+
+Ścieżka fontu zapisana w Lua nie powoduje dołączenia pliku fontu do paczki. [Custom Resources](/manuals/project-settings/#custom-resources) udostępnia ten font źródłowy funkcji [`font.add_font()`](/ref/font/#font.add_font), która ładuje go przez system zasobów. Przy ładowaniu z paczki przekaż ścieżkę fontu źródłowego jako ciąg znaków.
+
+Dodawaj font zapasowy tylko raz dla współdzielonego zasobu fontu. Zmiana wpływa na każdą etykietę i węzeł tekstowy GUI korzystający z tego fontu, a dwukrotne dodanie tego samego fontu zapasowego powoduje błąd. Jeśli używasz [przykładu etykiety](/manuals/label/#vector-fonts-and-color-emoji) i [przykładu GUI](/manuals/gui-text/#vector-fonts-and-color-emoji) z tym samym `.font`, skoordynuj inicjalizację, aby font zapasowy został dodany raz, zanim którykolwiek przykład przygotuje lub wyświetli tekst. Przykłady przygotowują cały tekst po dodaniu fontu zapasowego i wyświetlają go po pomyślnym wywołaniu zwrotnym.
 
 ## Fonty typu Distance field
 
@@ -131,7 +193,7 @@ Fonty typu Distance field przechowują w teksturze odległość do krawędzi gli
 
 ![Distance field font](images/font/df_font.png)
 
-Pamiętaj, aby podczas tworzenia fontu zmienić właściwość *Material* na *`builtins/fonts/font-df.material`* albo inny materiał obsługujący dane distance field, bo w przeciwnym razie font nie będzie używał właściwego shadera podczas renderowania na ekranie.
+Wybierz **SDF** w *Mode* oraz **Static** albo **Dynamic** w *Glyph Generation*. Używaj *`/builtins/fonts/font-df.material`* dla fontu i *`/builtins/fonts/label-df.material`* dla komponentów Label albo własnych materiałów obsługujących dane pola odległości.
 
 ## Bitmap BMFonts
 
@@ -139,7 +201,7 @@ Oprócz generowanych bitmap Defold obsługuje także wstępnie przygotowane font
 
 Tego typu fonty nie dają poprawy wydajności względem fontów bitmapowych generowanych z plików TrueType albo OpenType, ale mogą zawierać dowolną grafikę, kolorowanie i cienie bezpośrednio w obrazie.
 
-Dodaj wygenerowane pliki *`.fnt`* i *`.png`* do projektu Defold. Pliki te powinny znajdować się w tym samym folderze. Utwórz nowy plik fontu i ustaw właściwość *Font* na plik *`.fnt`*. Upewnij się, że *Output Format* ma wartość `TYPE_BITMAP`. Defold nie wygeneruje wtedy bitmapy, tylko użyje tej dostarczonej w pliku PNG.
+Dodaj wygenerowane pliki *`.fnt`* i *`.png`* do projektu Defold. Pliki te powinny znajdować się w tym samym folderze. Utwórz nowy plik fontu i ustaw *Font* na plik *`.fnt`*. Defold używa dostarczonej bitmapy i odczytuje jej rozmiar z pliku `.fnt`. *Mode* i *Glyph Generation* nie są wyświetlane dla źródeł BMFont.
 
 ::: sidenote
 Aby utworzyć BMFont, potrzebujesz narzędzia, które potrafi wygenerować odpowiednie pliki. Dostępnych jest kilka opcji:
@@ -153,7 +215,7 @@ Aby utworzyć BMFont, potrzebujesz narzędzia, które potrafi wygenerować odpow
 
 ![BMfont](images/font/bm_font.png)
 
-Aby font renderował się poprawnie, nie zapomnij ustawić właściwości materiału na *`builtins/fonts/font-fnt.material`* podczas tworzenia fontu.
+Ustaw *Material* fontu na *`/builtins/fonts/font-fnt.material`*. Dla komponentów Label używaj *`/builtins/fonts/label-fnt.material`*.
 
 ## Artefakty i dobre praktyki
 
@@ -171,11 +233,11 @@ Fonty typu Distance field muszą być renderowane do docelowego rozmiaru wystarc
 
 ![Distance field artifacts](images/font/df_artifacts.png)
 
-Jeśli nie chcesz obsługi cienia ani obrysu, ustaw ich odpowiednie wartości alfa na zero. W przeciwnym razie dane cienia i obrysu nadal będą generowane i zajmą niepotrzebnie pamięć.
+Jeśli nie chcesz obsługi cienia ani obrysu, ustaw ich odpowiednie wartości alfa na zero. W przeciwnym razie dane cienia i obrysu nadal będą generowane i zajmą niepotrzebnie pamięć. W trybie Vector wyłączenie obu efektów zapobiega generowaniu ich danych bitmapowych; kształty glifów nadal używają danych krzywych.
 
 ## Pamięć podręczna fontu
 
-Zasób fontu w Defold daje w runtime dwie rzeczy: teksturę i dane fontu.
+Zasoby fontów Bitmap i SDF używają podczas działania tekstury cache glifów oraz danych fontu. Fonty Vector przechowują kształty glifów jako dane krzywych i używają cache bitmap dla włączonych efektów obrysu i cienia. Opisany poniżej układ tekstury dotyczy fontów Bitmap i SDF.
 
 * Dane fontu składają się z listy wpisów glifów, z których każdy zawiera podstawowe informacje o kerningu oraz dane bitmapowe tego glifu.
 * Tekstura jest wewnętrznie nazywana "glyph cache texture" i jest używana podczas renderowania tekstu dla konkretnego fontu.
@@ -197,43 +259,29 @@ Więcej informacji o uniformach shaderów znajdziesz w [Shader manual](/manuals/
 
 ## Włączanie runtime fonts {#enabling-runtime-fonts}
 
-Można generować fonty typu SDF w czasie działania, korzystając z fontów TrueType (`.ttf`) lub OpenType (`.otf`). Generowanie w czasie działania z zasobów `.otf` jest obsługiwane od wersji Defold 1.13.2.
-Takie podejście może znacznie zmniejszyć rozmiar pobieranych danych i zużycie pamięci w runtime gry Defold.
-Niewielką wadą jest asynchroniczny charakter generowania każdego glifu.
+Generowanie w czasie działania jest konfigurowane osobno dla każdego zasobu fontu:
 
-* Włącz tę funkcję, ustawiając `font.runtime_generation` w `game.project`.
+1. Otwórz zasób `.font` i wybierz źródło TrueType (`.ttf`) lub OpenType (`.otf`).
+2. Ustaw *Mode* na **SDF** albo **Vector**, a *Glyph Generation* na **Dynamic**.
+3. Wybierz pasujące [materiały fontu i etykiety](#font-materials).
+4. Dodaj [manifest aplikacji](/manuals/app-manifest), przypisz go do *Native Extensions ▸ App Manifest* w *game.project* i włącz **Use full text layout system**. Spowoduje to zbudowanie niestandardowego silnika z generowaniem fontów w czasie działania i obsługą pełnego układu tekstu.
+5. Ustaw *Prewarm Text* na tekst, który zostanie wyświetlony niedługo po załadowaniu fontu. Dla tekstu potrzebnego później użyj [`font.prewarm_text()`](/ref/font/#font.prewarm_text) i poczekaj na wywołanie zwrotne przed wyświetleniem.
 
-* Dodaj [App Manifest](/manuals/app-manifest) i włącz opcję `Use full text layout system`.
-  Spowoduje to zbudowanie niestandardowego silnika z włączoną obsługą tej funkcji.
-
-::: sidenote
-Ta funkcja jest obecnie eksperymentalna, ale docelowo ma stać się domyślnym sposobem pracy.
-:::
-
-::: important
-Ustawienie `font.runtime_generation` wpływa na wszystkie fonty `.ttf` i `.otf` w projekcie.
-:::
+Nowe zasoby fontów już używają trybu Vector i generowania Dynamic, ale nadal wymagają powyższej konfiguracji manifestu aplikacji.
 
 
 ### Skryptowanie fontów
 
 #### Wstępne podgrzewanie cache glifów
 
-Aby ułatwić korzystanie z runtime fonts, obsługują one wstępne podgrzewanie cache glifów.
-Oznacza to, że font wygeneruje glify wypisane w polu *Characters*.
+Fonty Dynamic generują glify wymagane przez *Prewarm Text* podczas ładowania fontu. Pole jest interpretowane jako tekst do ułożenia, więc pamięć podręczna jest przygotowywana dla glifów potrzebnych temu tekstowi. *All Chars* nie jest dostępne dla fontów Dynamic.
 
-::: sidenote
-Jeśli zaznaczono `All Chars`, wstępne podgrzewanie nie zostanie wykonane, ponieważ przeczyłoby to idei niewymuszania generowania wszystkich glifów naraz.
-:::
-
-Jeśli pole `Characters` w pliku `.fontc` jest ustawione, jest ono używane jako tekst do ustalenia, które glify trzeba zaktualizować w cache glifów.
-
-Można też ręcznie zaktualizować cache glifów, wywołując `font.prewarm_text(font_collection, text, callback)`. Funkcja przyjmuje callback, który informuje, kiedy wszystkie brakujące glify zostały dodane do cache i można bezpiecznie wyświetlić tekst na ekranie.
+Możesz też wywołać `font.prewarm_text(font_collection, text, callback)` dla fontu Dynamic. Wywołanie zwrotne informuje, kiedy wszystkie brakujące glify zostaną dodane do cache i można bezpiecznie wyświetlić tekst. Tej funkcji nie można używać z fontami Static.
 
 ### Dodawanie i usuwanie fontów z kolekcji fontów
 
-W przypadku runtime fonts można dodawać lub usuwać fonty (`.ttf`) z font collection.
-Jest to przydatne, gdy duży font został podzielony na kilka plików dla różnych zestawów znaków, np. CJK.
+Dla fontów Dynamic można dodawać i usuwać fonty źródłowe (`.ttf` lub `.otf`) z kolekcji fontów.
+Jest to przydatne, gdy duży font podzielono na kilka plików dla różnych zestawów znaków (np. CJK).
 
 ::: important
 Dodanie fontu do font collection nie powoduje automatycznego załadowania ani wyrenderowania wszystkich glifów.
@@ -241,22 +289,22 @@ Dodanie fontu do font collection nie powoduje automatycznego załadowania ani wy
 
 ```lua
 function init(self)
-    -- Get the target font collection.
+    -- Pobierz docelową kolekcję fontów.
     self.font_collection = go.get("#label", "font")
 
-    -- Get the first font assigned to the selected language collection.
+    -- Pobierz pierwszy font przypisany do kolekcji wybranego języka.
     local language_collection = go.get("localization_japanese#label", "font")
     local font_info = font.get_info(language_collection)
     self.language_ttf_hash = font_info.fonts[1].path_hash
 
-    -- Associate it with the target collection and increase its reference count.
+    -- Powiąż go z kolekcją docelową i zwiększ jego licznik referencji.
     font.add_font(self.font_collection, self.language_ttf_hash)
 end
 ```
 
 ```lua
 function final(self)
-    -- Remove the association and release the font reference.
+    -- Usuń powiązanie i zwolnij referencję do fontu.
     font.remove_font(self.font_collection, self.language_ttf_hash)
 end
 ```

@@ -25,10 +25,10 @@ Com o modelo criado, você precisa especificar algumas propriedades:
 Além das propriedades *Id*, *Position* e *Rotation*, existem as seguintes propriedades específicas do componente:
 
 *Scene*
-: O arquivo glTF *.gltf* ou *.glb* que contém a geometria do modelo. Se o arquivo contiver morph targets, eles serão importados junto com a cena. Esta propriedade se chamava *Mesh* antes do Defold 1.13.2.
+: O arquivo glTF *.gltf* ou *.glb* que contém a geometria do modelo. Se o arquivo contiver morph targets, eles serão importados junto com a cena. Esta propriedade se chamava *Mesh* anteriormente.
 
 *Mesh*
-: Uma malha nomeada opcional da *Scene* selecionada, disponível desde o Defold 1.13.2. Deixe este campo vazio para renderizar a cena inteira com suas transformações importadas. Selecione uma malha para renderizá-la uma vez em suas coordenadas locais, sem as transformações dos nós glTF. Posicione, gire e dimensione o componente Model ou seu objeto de jogo para posicionar a malha selecionada.
+: Uma malha nomeada opcional da *Scene* selecionada. Deixe este campo vazio para renderizar a cena inteira com suas transformações importadas. Selecione uma malha para renderizá-la uma vez em suas coordenadas locais, sem as transformações dos nós glTF. Posicione, rotacione e redimensione o componente Model ou seu objeto de jogo para posicionar a malha selecionada.
 
 *Create GO Bones*
 : Marque isto para criar um objeto de jogo para cada osso do modelo. Você pode usar os objetos de jogo para anexar outros objetos de jogo, como armas, a ossos das mãos e assim por diante. 
@@ -45,17 +45,14 @@ Além das propriedades *Id*, *Position* e *Rotation*, existem as seguintes propr
 Além das propriedades acima, também haverá um campo para atribuir um material a cada malha do modelo:
 
 *Material*
-: Defina esta propriedade para um material que você criou e que seja adequado para um objeto 3D texturizado. Há vários materiais integrados que você pode usar como ponto de partida:
-
-  * Use *model.material* para modelos estáticos sem instancing
-  * Use *model_instanced.material* para modelos estáticos com instancing
-  * Use *model_skinned.material* para modelos com skinning (animados) sem instancing
-  * Use *model_skinned_instanced.material* para modelos com skinning (animados) com instancing
+: Defina esta propriedade como um material adequado ao modelo. Use um material `gltf` integrado para renderização fisicamente baseada das propriedades de material glTF, um material `model` integrado para sombreamento geral de modelos ou seu próprio material personalizado. Consulte as [variantes de materiais abaixo](#material) e o [manual de PBR](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 Dependendo do material, haverá uma ou mais propriedades de textura:
 
 *Texture*
-: Esta propriedade deve apontar para o arquivo de imagem de textura que você deseja aplicar ao objeto.
+: Esta propriedade deve apontar para a imagem de textura que você deseja aplicar ao objeto. Pode ser um asset separado do projeto ou uma imagem incorporada exposta sob um arquivo glTF ou GLB no painel *Assets*.
+
+Selecionar uma *Scene* glTF ou GLB ou alterar sua seleção de *Mesh* pode oferecer o preenchimento dos vínculos de materiais e texturas. <kbd>Auto Fill</kbd> substitui os vínculos existentes pelos da origem; <kbd>Keep Current</kbd> preserva seus vínculos ao aplicar a nova seleção de cena ou malha. Consulte o [fluxo de importação de modelos](/manuals/importing-models/#using-a-model).
 
 
 ## Manipulação no editor
@@ -112,19 +109,25 @@ Um modelo também tem várias propriedades diferentes que podem ser manipuladas 
 
 Softwares 3D normalmente permitem definir propriedades nos vértices do seu objeto, como coloração e texturização. Essas informações vão para o arquivo glTF *.gltf* ou *.glb* que você exporta do seu software 3D. Dependendo dos requisitos do seu jogo, você terá que selecionar e/ou criar materiais apropriados e _performáticos_ para seus objetos. Um material combina _programas de shader_ com um conjunto de parâmetros para renderização do objeto.
 
-Há vários materiais integrados que você pode usar como ponto de partida:
+Os seguintes materiais integrados estão disponíveis em `/builtins/materials/`:
 
-  * Use *model.material* para modelos estáticos sem instancing
-  * Use *model_instanced.material* para modelos estáticos com instancing
-  * Use *model_skinned.material* para modelos com skinning (animados) sem instancing
-  * Use *model_skinned_instanced.material* para modelos com skinning (animados) com instancing
+| Tipo de modelo | Sombreamento geral de modelos | Sombreamento PBR glTF |
+|---|---|---|
+| Estático, sem instâncias | `model.material` | `gltf.material` |
+| Estático, com instâncias | `model_instanced.material` | `gltf_instanced.material` |
+| Com skinning (animado), sem instâncias | `model_skinned.material` | `gltf_skinned.material` |
+| Com skinning (animado), com instâncias | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Os materiais de modelo integrados usam o espaço local dos vértices. Em modelos com skinning, o espaço local dos vértices permite que o vertex shader execute o skinning na GPU usando uma textura de matrizes de ossos; o espaço local dos vértices também é obrigatório para o instancing de modelos. Portanto, um material personalizado destinado a modelos com skinning na GPU ou instanciados deve usar a configuração de espaço de vértices *Local*.
+Os materiais `gltf` oferecem iluminação integrada baseada em metalicidade/rugosidade usando os dados de material glTF importados. Consulte o [manual de PBR](/manuals/physically-based-rendering/#built-in-pbr-materials) para conhecer vínculos de texturas, luzes e shaders personalizados.
+
+Todos esses materiais integrados usam espaço de vértices local. Em modelos com skinning, o espaço local permite que o vertex shader faça skinning na GPU usando uma textura de matrizes dos ossos; o espaço local também é necessário para instanciamento de modelos. Portanto, um material personalizado destinado a modelos com skinning na GPU ou instanciados deve usar a configuração de espaço de vértices *Local*.
 
 O cache de matrizes de ossos usa uma textura `RGBA32F`. Se o adaptador gráfico ativo não oferecer suporte a esse formato de textura, o Defold não poderá criar um componente Model animado que use um material de espaço local. No OpenGL ES 2.0 e WebGL 1.0, o suporte depende, portanto, da extensão de texturas de ponto flutuante do adaptador. Para ter compatibilidade com um adaptador que não ofereça esse recurso, use um material personalizado de espaço de mundo, que usa skinning na CPU e não pode usar instancing de modelos. As dimensões do cache podem ser ajustadas nas [configurações de projeto de Model](/manuals/project-settings/#model).
 
 Se você precisar criar materiais personalizados para seus modelos, consulte a [documentação de Material](/manuals/material) para informações. O [manual de Shader](/manuals/shader) contém informações sobre como os programas de shader funcionam.
 
+
+<a id="material-constants"></a>
 
 ### Constantes de material
 
@@ -136,7 +139,7 @@ Se você precisar criar materiais personalizados para seus modelos, consulte a [
 
 ## Renderização
 
-O script de renderização padrão é feito sob medida para jogos 2D e não funciona com modelos 3D. Mas, copiando o script de renderização padrão e adicionando algumas linhas de código ao script de renderização, você pode habilitar a renderização dos seus modelos. Por exemplo:
+O script de renderização padrão desenha materiais com a tag `model`, incluindo os materiais integrados de modelos e glTF. Para renderizá-los em um script de renderização personalizado, crie um predicado correspondente e desenhe-o com uma matriz de visualização e uma projeção adequadas à cena. Por exemplo:
 
   ```lua
 

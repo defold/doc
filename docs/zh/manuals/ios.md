@@ -3,7 +3,7 @@ title: Defold iOS 平台开发
 brief: 本手册解释了如何在 Defold 中构建和运行 iOS 设备上的游戏和应用。
 ---
 
-# iOS 开发
+# iOS 开发 {#ios-development}
 
 ::: sidenote
 为 iOS 打包游戏仅适用于 Mac 版本的 Defold 编辑器。
@@ -11,7 +11,7 @@ brief: 本手册解释了如何在 Defold 中构建和运行 iOS 设备上的游
 
 iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_ 使用 Apple 颁发的证书和配置文件进行签名。本手册解释了为 iOS 打包游戏所涉及的步骤。在开发过程中，通过 [开发应用](/manuals/dev-app) 运行游戏通常是首选，因为它允许你直接将内容和代码热重载到你的设备上。
 
-## Apple 的代码签名过程
+## Apple 的代码签名过程 {#apples-code-signing-process}
 
 与 iOS 应用相关的安全性由多个组件组成。你可以通过注册 [Apple 的 iOS 开发者计划](https://developer.apple.com/programs/) 获得所需工具的访问权限。注册后，请前往 [Apple 开发者会员中心](https://developer.apple.com/membercenter/index.action)。
 
@@ -50,15 +50,15 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
   2. 点击 *序列号* 一次，使该字段变为 *UDID*。如果你反复点击，将会显示设备的几条信息。继续点击直到显示 *UDID*。
   3. 右键点击长 UDID 字符串并选择 <kbd>复制</kbd> 将标识符复制到剪贴板，这样你就可以在 Apple 开发者会员中心注册设备时轻松地将其粘贴到 UDID 字段中。
 
-## 使用免费的 Apple 开发者账户进行开发
+## 使用免费的 Apple 开发者账户进行开发 {#developing-using-a-free-apple-developer-account}
 
 从 Xcode 7 开始，任何人都可以安装 Xcode 并免费进行设备开发。你不必注册 iOS 开发者计划。相反，Xcode 会自动为你作为开发者颁发一个证书（有效期1年）和针对你的应用的配置文件（在你的特定设备上有效一周）。
 
 1. 连接你的设备。
 2. 安装 Xcode。
 3. 向 Xcode 添加新账户并使用你的 Apple ID 登录。
-4. 创建一个新项目。最简单的`单视图应用`即可。
-5. 选择你的`团队`（为你自动创建）并为应用提供一个包标识符。
+4. 创建一个新项目。最简单的`Single View App`即可。
+5. 选择你的`Team`（为你自动创建）并为应用提供一个包标识符。
 
 ::: important
 记下包标识符，因为你必须在你的 Defold 项目中使用相同的包标识符。
@@ -69,7 +69,7 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
    ![](images/ios/xcode_certificates.png)
 
 7. 在你的设备上构建应用。第一次，Xcode 会要求你启用开发者模式，并会用调试器支持准备设备。这可能需要一段时间。
-8. 当你验证应用可以正常工作后，在磁盘上找到它。你可以在`报告导航器`的构建报告中查看构建位置。
+8. 当你验证应用可以正常工作后，在磁盘上找到它。你可以在`Report Navigator`的构建报告中查看构建位置。
 
    ![](images/ios/app_location.png)
 
@@ -103,7 +103,24 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 
 你在 *game.project* 项目设置文件的 [iOS 部分](/manuals/project-settings/#ios) 中指定要使用的图标、启动屏幕故事板等。
 
-### 自定义 Info.plist 和本地目标发现
+### Home Indicator 行为 {#home-indicator-behavior}
+
+可以在 *game.project* 的 *iOS* 部分选择 *Home Indicator Mode*。默认值 *Deferred* 会保护所有屏幕边缘，返回主屏幕需要滑动两次。选择 *System* 则使用正常系统手势，包括一次滑动返回主屏幕。
+
+选择 *Auto Hide* 可使用正常系统手势，同时请求自动隐藏 Home Indicator。可以直接在 *game.project* 中设置此模式：
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+重新打包并在有 Home Indicator 的设备上测试。iOS 决定指示条何时显示；选择 *Auto Hide* 不保证它一直隐藏。在 iOS 26 及更高版本上，系统可能在 *System* 和 *Auto Hide* 两种模式下都隐藏它。全部取值及其手势行为请参阅 [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode)。
+
+### 保留区域与旋转 {#reserved-areas-and-rotation}
+
+在 iOS 27.1 及更高版本上，`window.get_reserved_areas()` 报告摄像头缺口和灵动岛区域，包括 UIKit 的交互边距。iOS 方向切换也会发送 `window.WINDOW_EVENT_RESIZED`，包括窗口尺寸和安全区边距未改变的旋转。每次收到调整大小回调时，都应刷新根据这些区域确定的 UI 位置。坐标、限制和刷新示例请参阅[屏幕保留区域](/manuals/porting-guidelines/#reserved-screen-areas)。
+
+### 自定义 Info.plist 和本地目标发现 {#custom-infoplist-and-local-target-discovery}
 
 内置 iOS `Info.plist` 包含非 Release 构建自动发现编辑器目标所需的 Bonjour 服务和本地网络使用说明。自定义 `Info.plist` 会替换该内置基础清单。如果 Debug 构建使用自定义清单，并且需要通过本地网络进行目标发现、性能分析、热重载或日志流传输，请包含以下条目：
 
@@ -122,9 +139,9 @@ Mustache 条件会将发现相关条目排除在 Release bundle 之外。iOS 会
 
 :[Build Variants](../shared/build-variants.md)
 
-## 在已连接的 iPhone 上安装和启动包
+## 在已连接的 iPhone 上安装和启动包 {#installing-and-launching-bundle-on-a-connected-iphone}
 
-你可以使用编辑器的打包对话框中的`在已连接设备上安装`和`启动已安装应用`复选框来安装和启动构建的包：
+你可以使用编辑器的打包对话框中的`Install on connected device`和`Launch installed app`复选框来安装和启动构建的包：
 
 ![Install and launch iOS bundle](images/ios/install_and_launch.png)
 
@@ -183,7 +200,7 @@ $ brew install ios-deploy
 一旦你有了故事板文件，就可以从 *game.project* 中引用它。
 
 
-### 创建图标资源目录
+### 创建图标资源目录 {#creating-an-icon-asset-catalog}
 
 使用资源目录是 Apple 管理应用图标的首选方式。实际上，这是提供 App Store 列表中使用的图标的唯一方法。你以与故事板相同的方式创建资源目录，使用 Xcode。启动 Xcode 并创建一个新项目。选择 iOS 和单视图应用：
 
@@ -226,11 +243,11 @@ App Store 图标不必从 *game.project* 中引用。上传到 iTunes Connect �
 :::
 
 
-## 安装 iOS 应用包
+## 安装 iOS 应用包 {#installing-an-ios-application-bundle}
 
 编辑器会写入一个 *.ipa* 文件，这是一个 iOS 应用包。要在你的设备上安装该文件，你可以使用以下工具之一：
 
-* 通过 Xcode 的`设备和模拟器`窗口
+* 通过 Xcode 的`Devices and Simulators`窗口
 * [`ios-deploy`](https://github.com/ios-control/ios-deploy) 命令行工具
 * 来自 macOS App Store 的 [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/)
 * iTunes
@@ -238,23 +255,23 @@ App Store 图标不必从 *game.project* 中引用。上传到 iTunes Connect �
 你还可以使用 `xcrun simctl` 命令行工具与通过 Xcode 提供的 iOS 模拟器一起工作：
 
 ```
-# 显示可用设备列表
+# show a list of available devices
 xcrun simctl list
 
-# 启动 iPhone X 模拟器
+# boot an iPhone X simulator
 xcrun simctl boot "iPhone X"
 
-# 将 your.app 安装到已启动的模拟器
+# install your.app to a booted simulator
 xcrun simctl install booted your.app
 
-# 启动模拟器
+# launch the simulator
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
 
 :[Apple 隐私清单](../shared/apple-privacy-manifest.md)
 
 
-## 出口合规信息
+## 出口合规信息 {#export-compliance-information}
 
 当你将游戏提交到 App Store 时，你将被要求提供有关游戏中使用加密的出口合规信息。[Apple 解释了为什么这是必需的](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations)：
 
@@ -267,8 +284,7 @@ Defold 游戏引擎将加密用于以下目的：
 
 Defold 引擎中这些加密的使用在美国和欧盟法律下免于出口合规文件要求。大多数 Defold 项目将保持豁免，但添加其他加密方法可能会改变此状态。你有责任确保你的项目符合这些法律和 App Store 规则的要求。有关更多信息，请参阅 Apple 的[出口合规概述](https://help.apple.com/app-store-connect/#/dev88f5c7bf9)。
 
-如果你认为你的项目是豁免的，请在项目的 `Info.plist` 中将 [`ITSAppUsesNonExemptEncryption`](https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption) 键设置为 `False`，有关详细信息，请参阅[应用程序清单](/manuals/extensions-manifest-merge-tool)。
+如果您认为项目属于豁免范围，请在项目的 `Info.plist` 中将 [`ITSAppUsesNonExemptEncryption`](https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption) 键设为 `False`，更多信息请参阅[应用清单](/manuals/extensions-manifest-merge-tool)。
 
-
-## 常见问题
+## 常见问题 {#faq}
 :[iOS FAQ](../shared/ios-faq.md)

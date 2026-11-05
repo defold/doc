@@ -63,7 +63,7 @@ El archivo del puerto pertenece a la sesión actual del editor. Vuelve a leerlo 
 El servidor del editor es una interfaz local de control de confianza. No lo expongas mediante una dirección pública, reenvío de puertos ni un túnel que no sea de confianza.
 :::
 
-## Detectar operaciones mediante OpenAPI
+## Detectar operaciones mediante OpenAPI {#discovering-operations-through-openapi}
 
 La única información de arranque específica de Defold que debería necesitar una herramienta externa es el puerto del editor y el documento OpenAPI:
 

@@ -56,6 +56,8 @@ Orthographic Mode
   Disponível somente quando `Orthographic Projection` está ativado.
 
 
+<a id="using-the-camera"></a>
+
 ## Usando a câmera
 
 Todas as câmeras são ativadas e atualizadas automaticamente durante um frame, e o módulo Lua `camera` fica disponível em todos os contextos de script. Desde o Defold 1.8.1, não é mais necessário ativar explicitamente uma câmera enviando uma mensagem `acquire_camera_focus` ao componente de câmera. As mensagens antigas de adquirir e liberar continuam disponíveis, mas recomenda-se usar as mensagens `enable` e `disable`, como em qualquer outro componente que você queira ativar ou desativar:
@@ -68,20 +70,19 @@ msg.post("#camera", "enable")
 Para listar todas as câmeras disponíveis no momento, você pode usar `camera.get_cameras()`:
 
 ```lua
--- Observação: as chamadas render só estão disponíveis em um script de renderização.
---             A função camera.get_cameras() pode ser usada em qualquer lugar,
---             mas render.set_camera só pode ser usada em um script de renderização.
+-- Observação: chamadas de renderização só estão disponíveis em um script de renderização.
+--       A função camera.get_cameras() pode ser usada em qualquer lugar,
+--       mas render.set_camera só pode ser usada em um script de renderização.
 
 for k,v in pairs(camera.get_cameras()) do
     -- a tabela de câmeras contém as URLs de todas as câmeras
     render.set_camera(v)
-    -- faça a renderização aqui; tudo que for renderizado aqui e usar materiais com
-    -- matrizes de visualização e projeção especificadas usará matrizes da câmera.
+    -- faça a renderização aqui; tudo o que for renderizado aqui com materiais que tenham
+    -- matrizes de visualização e projeção especificadas usará as matrizes da câmera.
 end
--- para desativar uma câmera, passe nil (ou nenhum argumento) para render.set_camera.
--- depois desta chamada, todas as chamadas render usarão as matrizes de visualização
--- e projeção especificadas no contexto de renderização
--- (render.set_view e render.set_projection)
+-- para desabilitar uma câmera, passe nil (ou nenhum argumento) para render.set_camera.
+-- após esta chamada, todas as chamadas de renderização usarão as matrizes de visualização e projeção
+-- especificadas no contexto de renderização (render.set_view e render.set_projection)
 render.set_camera()
 ```
 
@@ -89,16 +90,16 @@ O módulo de script `camera` tem várias funções que podem ser usadas para man
 
 ```lua
 camera.get_aspect_ratio(camera) -- obtém a proporção de tela
-camera.get_far_z(camera) -- obtém far z
+camera.get_far_z(camera) -- obtém o plano de corte distante
 camera.get_fov(camera) -- obtém o campo de visão
-camera.get_orthographic_mode(camera) -- obtém o modo ortográfico (um de camera.ORTHO_MODE_*)
+camera.get_orthographic_mode(camera) -- obtém o modo ortográfico (um dos valores camera.ORTHO_MODE_*)
 camera.get_orthographic_zoom(camera) -- obtém o multiplicador de zoom controlado pelo usuário
 camera.get_orthographic_auto_zoom(camera) -- obtém o zoom calculado automaticamente
 camera.set_aspect_ratio(camera, ratio) -- define a proporção de tela
-camera.set_far_z(camera, far_z) -- define far z
-camera.set_near_z(camera, near_z) -- define near z
+camera.set_far_z(camera, far_z) -- define o plano de corte distante
+camera.set_near_z(camera, near_z) -- define o plano de corte próximo
 camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- define o modo ortográfico
-... e assim por diante
+... And so forth
 ```
 
 Uma câmera é identificada por uma URL, que é o caminho completo do componente na cena, incluindo a coleção, o objeto de jogo ao qual ela pertence e o id do componente. Neste exemplo, você usaria a URL `/go#camera` para identificar o componente de câmera dentro da mesma coleção, e `main:/go#camera` ao acessar uma câmera de uma coleção diferente ou do script de renderização.
@@ -234,12 +235,10 @@ function init(self)
             local design_width = DISPLAY_WIDTH / initial_zoom
             local design_height = DISPLAY_HEIGHT / initial_zoom
 
-            -- max zoom: garante que as dimensões iniciais de design preencham
-            -- e se expandam além dos limites da tela
+            -- zoom máximo: garante que as dimensões originais do projeto preencham a tela e ultrapassem seus limites
             local zoom = math.max(window_width / design_width, window_height / design_height) / display_scale
 
-            -- min zoom: garante que as dimensões iniciais de design encolham
-            -- e fiquem contidas dentro dos limites da tela
+            -- zoom mínimo: garante que as dimensões originais do projeto sejam reduzidas e caibam nos limites da tela
             --local zoom = math.min(window_width / design_width, window_height / design_height) / display_scale
             
             go.set("#camera", "orthographic_zoom", zoom)
@@ -288,7 +287,7 @@ local world_position = camera.screen_to_world(
 [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) realiza a conversão inversa. Ela retorna X e Y em pixels da tela, além da mesma convenção de profundidade da visualização em Z; portanto, seu resultado pode ser passado novamente para `camera.screen_to_world()`:
 
 ```lua
--- Update the cached world transform first if the object moved this frame.
+-- Atualize primeiro a transformação global em cache se o objeto se moveu neste frame.
 go.update_world_transform("/marker")
 local world_position = go.get_world_position("/marker")
 local screen_position = camera.world_to_screen(world_position, "#camera")

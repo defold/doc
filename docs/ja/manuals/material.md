@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Defold 1.14.0 以降では、`Mat2`、`Mat3`、`Mat4` の属性はすべて、`go.set()` と `go.get()` で `vmath.matrix4` の値を使用します。`Mat2` または `Mat3` 属性を設定すると、行列の左上の 2×2 または 3×3 の部分が使われます。取得すると、使われていない行と列を単位行列の値で補った `vmath.matrix4` が返されます。
+`Mat2`、`Mat3`、`Mat4` の属性は、いずれも `go.set()` と `go.get()` で `vmath.matrix4` 値を使います。`Mat2` または `Mat3` の設定では、行列の左上の 2×2 または 3×3 の部分を使います。読み取り時は、未使用の行と列を単位行列から補った `vmath.matrix4` を返します。
 
 たとえば、モデルのマテリアルに `custom_mat2` という名前でセマンティック型が `None` の `Mat2` 属性がある場合は、次のように使えます。
 

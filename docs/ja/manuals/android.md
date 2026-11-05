@@ -85,6 +85,10 @@ Success
 
 *.aab* ファイルは、[Google Play デベロッパーコンソール](https://play.google.com/apps/publish/) 経由で Google Play にアップロードできます。[Android bundletool](https://developer.android.com/studio/command-line/bundletool) を使い、*.aab* ファイルから *`.apk`* ファイルを生成してローカルにインストールすることもできます。
 
+## ディスプレイのカットアウト {#display-cutouts}
+
+`window.get_reserved_areas()` は、Android 9（API レベル 28）以降でディスプレイのカットアウトの矩形を返します。安全に配置できるレイアウト矩形が必要な場合は `window.get_safe_area()` を使います。座標の単位、非対応プラットフォームでの動作、報告された領域が変化したときのレイアウトの更新方法については、[画面の予約領域](/manuals/porting-guidelines/#reserved-screen-areas)を参照してください。
+
 ## R8 による Java コードと Android リソースの縮小 {#shrinking-java-code-with-r8}
 
 R8 は、縮小、最適化、難読化によって Java コードのサイズを削減します。Defold 1.14.0 以降を、対応する Extender ビルドサーバーと組み合わせて使用すると、拡張とその Android 依存関係が提供するレイアウト、ドローアブル、raw リソースなど、未使用の Android リソースも削除します。ゲームアーカイブ内の Defold のゲームアセットは、R8 の処理対象ではありません。
@@ -102,7 +106,7 @@ Java コードを持つすべての拡張に、実行時に必要なクラスの
 
 **R8 Keep Rules** を空にすると、縮小を行わない D8 を使います。R8 を有効にすると、ネイティブ拡張を含まないプロジェクトでもネイティブ拡張ビルドサービスを使います。
 
-Defold 1.14.0 以降では、同じ **R8 Keep Rules** 設定で Android リソースの縮小も有効になります。この機能専用のプロジェクト設定はありません。以前の Defold SDK では、R8 による縮小はコードのみを対象とします。
+Android のリソース縮小も同じ **R8 Keep Rules** 設定で有効になります。専用のプロジェクト設定はありません。古い Defold SDK では、R8 による縮小の対象はコードのみです。
 
 ### 拡張へのルールの追加 {#adding-rules-to-an-extension}
 

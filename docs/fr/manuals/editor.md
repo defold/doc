@@ -130,6 +130,23 @@ Dans la barre inférieure de l'éditeur, un espace étroit affiche l'état des o
 - lorsqu'une nouvelle mise à jour est disponible, un bouton cliquable `Update Available` apparaît ; consultez la section Mise à jour de l'éditeur plus bas dans ce manuel.
 - lors de la création d'un build ou d'un bundle, la progression s'y affiche.
 
+## Placement de la fenêtre du moteur {#engine-window-placement}
+
+Sur les plateformes de bureau, les fenêtres du moteur ouvertes depuis l'éditeur mémorisent leur taille normale en mode fenêtré et leur position entre les lancements et les redémarrages du moteur. Le placement est enregistré séparément pour chaque projet et chaque instance du moteur. Le lancement d'une seule instance utilise le même placement enregistré que la première instance lors d'un lancement multiple.
+
+Si vous déplacez ou redimensionnez la fenêtre du moteur, un lancement ultérieur restaure ce placement. La taille mémorisée est utilisée tant que les dimensions configurées de la fenêtre ne changent pas ; une modification de ces dimensions applique la nouvelle taille au lancement suivant. Sous Linux Wayland, seule la taille est restaurée, car le compositeur du bureau contrôle la position des fenêtres.
+
+### Réinitialiser la taille de la fenêtre du moteur {#resetting-the-engine-window-size}
+
+Choisissez <kbd>Debug ▸ Reset Simulated Resolution</kbd> pour revenir à la taille configurée. Cette commande :
+
+- Efface les tailles de fenêtre mémorisées pour toutes les instances du moteur du projet courant, y compris celles qui ne sont pas en cours d'exécution.
+- Efface la résolution simulée sélectionnée et désactive **Rotated Device**.
+- Conserve les positions de fenêtre enregistrées.
+
+Les fenêtres des instances en cours d'exécution sélectionnées sont redimensionnées selon [Display Width et Height](/manuals/project-settings/#display) du projet. Vous pouvez aussi effectuer la réinitialisation sans moteur en cours d'exécution ; le lancement suivant utilise alors la taille configurée. Un déplacement ou redimensionnement ultérieur de la fenêtre enregistre à nouveau son placement.
+
+
 ## Taille et visibilité des volets {#panes-size-and-visibility}
 
 Vous pouvez ajuster la taille des volets dans l'éditeur en <kbd>faisant glisser</kbd> les bordures qui séparent les six volets décrits ci-dessus.

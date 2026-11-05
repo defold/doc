@@ -3,17 +3,19 @@ title: Microsoft Xbox 向けの Defold 開発
 brief: このマニュアルでは、Defold の Xbox サポートと開発ツールへのアクセスを得る方法を説明します。
 ---
 
-# Microsoft Xbox コンソール向けのゲーム開発 {#xbox-support}
+<a id="xbox-support"></a>
+
+# Microsoft Xbox コンソール向けのゲーム開発 {#game-development-for-microsoft-xbox-consoles}
 
 Defold で Xbox コンソール向けのゲームを開発するには、承認済みの Xbox 開発者であり、Defold の Xbox サポートと Microsoft のコンソール開発ツールにアクセスできる必要があります。
 
-## Xbox 開発者としての登録
+## Xbox 開発者としての登録 {#registering-as-an-xbox-developer}
 
 Microsoft の [Xbox パブリッシングページ](https://developer.microsoft.com/en-US/games/publish)で、ID@Xbox を含むパブリッシングプログラムについて確認し、Xbox コンソール向け開発の登録と承認の手続きを進めてください。
 
 組織が Xbox コンソール向け開発について Microsoft の承認を受けたら、その組織に関連付けられたアカウントで Xbox のミドルウェアページにサインインしてください。Defold を探し、そのページからアクセスを申請してください。
 
-## Defold での Xbox へのアクセス
+## Defold での Xbox へのアクセス {#xbox-access-in-defold}
 
 Xbox のミドルウェアページを通じて開発者ステータスの確認を受け取り、Defold 側で検証でき次第、Xbox 固有の Defold リソースと開発を始めるための手順を提供します。これには以下が含まれます。
 
@@ -23,12 +25,12 @@ Xbox のミドルウェアページを通じて開発者ステータスの確認
 
 Microsoft の秘密保持契約の対象となるコンソール開発の詳細は、アクセス権を持つ開発者向けのドキュメントとサポート窓口を通じて提供されます。
 
-## よくある質問
+## よくある質問 {#faq}
 
-#### Q: Xbox 向けに開発するために追加のツールをインストールする必要がありますか？
+#### Q: Xbox 向けに開発するために追加のツールをインストールする必要がありますか？ {#q-do-i-need-to-install-additional-tools-to-develop-for-xbox}
 
 A: はい。開発者ステータスを検証し、Defold の Xbox サポートへのアクセスを付与した後に、必要な開発ツールと Xbox 実機でのテスト方法についての情報を提供します。
 
-#### Q: Xbox と他のプラットフォームで同じコードベースを使用できますか？
+#### Q: Xbox と他のプラットフォームで同じコードベースを使用できますか？ {#q-can-i-use-a-single-code-base-for-xbox-and-other-platforms}
 
 A: Defold がサポートするプラットフォーム間でゲームロジックとアセットを共有できます。ユーザー管理やゲームのセーブ機能など、Xbox 固有の連携には Xbox 用拡張を使用し、プラットフォーム固有のコードが必要になる場合があります。

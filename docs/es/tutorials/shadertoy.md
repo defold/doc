@@ -5,7 +5,7 @@ locale: es
 title: Tutorial de Shadertoy a Defold
 ---
 
-# Tutorial Shadertoy
+# Tutorial Shadertoy {#shadertoy-tutorial}
 
 [Shadertoy.com](https://www.shadertoy.com/) es un sitio que reúne shaders GL aportados por usuarios. Es un gran recurso para encontrar código de shader e inspiración. En este tutorial tomaremos un shader de Shadertoy y lo haremos funcionar en Defold. Se asume una comprensión básica de shaders. Si necesitas leer más, [el manual de Shader](/manuals/shader/) es un buen lugar para empezar.
 
@@ -15,7 +15,7 @@ El shader que usaremos es [Star Nest](https://www.shadertoy.com/view/XlfGRj) de 
 
 El shader tiene solo 65 líneas de código GLSL bastante complicado, pero no te preocupes. Vamos a tratarlo como una caja negra que hace lo suyo a partir de unas pocas entradas simples. Nuestro trabajo aquí es modificar el shader para que interactúe con Defold en lugar de Shadertoy.
 
-## Algo que texturizar
+## Algo que texturizar {#something-to-texture}
 
 El shader Star Nest es un fragment shader puro, así que solo necesitamos algo que el shader pueda texturizar. Hay varias opciones: un sprite, un tilemap, una GUI o un modelo. Para este tutorial vamos a usar un modelo 3D simple. La razón es que podemos convertir fácilmente el renderizado del modelo en un efecto de pantalla completa---algo que necesitamos hacer si queremos realizar post processing visual, por ejemplo.
 
@@ -47,7 +47,7 @@ El modelo debería aparecer en el editor de escena, pero se renderiza completame
 
 ![quad in Defold](../images/shadertoy/quad_default_material.png)
 
-## Crear el material
+## Crear el material {#creating-the-material}
 
 1. Crea un nuevo archivo de material *`star-nest.material`* haciendo click con <kbd>Right Mouse Button</kbd> en la carpeta `main` del panel `Assets` y seleccionando <kbd>New</kbd>-><kbd>Material</kbd>, y nómbralo `star-nest`.
 
@@ -69,7 +69,7 @@ El modelo debería aparecer en el editor de escena, pero se renderiza completame
     ```glsl
     #version 140
 
-    // las posiciones están en espacio del mundo
+    // positions are in world space
     in vec4 position;
     in vec2 texcoord0;
 
@@ -110,7 +110,7 @@ Ahora el editor debería renderizar el modelo con el nuevo shader y podemos ver 
 
 ![quad in Defold](../images/shadertoy/quad_material.png)
 
-## Cámara
+## Cámara {#camera}
 
 Ahora podemos ejecutar nuestro proyecto (<kbd>Project</kbd>-><kbd>Build</kbd> o el atajo <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>B</kbd>), pero veremos una pantalla negra (bueno, casi, salvo quizá un pixel diminuto en la esquina inferior izquierda). Esto ocurre porque no hay cámara, y el render script predeterminado usa un fallback simple que muestra un espacio 2D enorme, mientras que nuestro modelo está en la posición (0,0,0) con solo 1 de ancho.
 
@@ -123,7 +123,7 @@ Agreguemos un objeto de juego con un componente de cámara para definir lo que v
 
 Opcionalmente, podemos cambiar el tipo de cámara definiendo `Orthographic Projection` como `true`, y luego ajustar también `Orthographic Zoom` a algo como 600, pero en este caso no tendremos una relación de aspecto automática, así que nuestro modelo no llenará la pantalla.
 
-## El shader star nest
+## El shader star nest {#the-star-nest-shader}
 
 Ahora que todo está en su lugar, empecemos a trabajar en el código real del shader. Primero veamos el código original. Consta de algunas secciones:
 
@@ -172,7 +172,7 @@ Usaremos un pipeline moderno con GLSL en versión 140; para hacerlo, declararemo
     ```
     El valor exacto de `aspect` depende de cómo esté configurado el ejemplo. Si el efecto se renderiza en un quad de pantalla completa con un tamaño de display conocido, la relación de aspecto puede hardcodearse para el tutorial. Si el efecto necesita soportar tamaños de ventana arbitrarios, pasa la resolución como una constante de fragmento y colócala dentro de un bloque uniform GLSL 140.
 
-    El tiempo también se configura aquí. Se pasa al shader como `uniform float iGlobalTime`. Defold (desde 1.12.3) proporciona tiempo a los shaders mediante una constante especial `Time` que usaremos.
+    El tiempo también se configura aquí. Se pasa al shader como `uniform float iGlobalTime`. Defold proporciona el tiempo a los shaders mediante una constante especial `Time` que usaremos.
 
     En Defold moderno, los uniforms no opacos se declaran dentro de bloques uniform.
     En el fragment shader lo declaramos así:
@@ -200,7 +200,7 @@ Usaremos un pipeline moderno con GLSL en versión 140; para hacerlo, declararemo
 
 5. Las líneas 41--62 son el núcleo del shader. Podemos dejar este código tal cual.
 
-## El shader star nest modificado
+## El shader star nest modificado {#the-modified-star-nest-shader}
 
 Recorrer las secciones anteriores y hacer los cambios necesarios da como resultado el siguiente código de shader. Se limpió un poco para mejorar la legibilidad. Se indican las diferencias entre las versiones de Defold y Shadertoy:
 
@@ -236,7 +236,7 @@ uniform fragment_inputs // <4>
 
 void main() // <5>
 {
-	// obtiene coordenadas y dirección
+	// get coords and direction
 	vec2 res = vec2(1.0, 1.0); // <6>
 	vec2 uv = var_texcoord0.xy * res.xy - 0.5;
 	vec3 dir = vec3(uv * zoom, 1.0);
@@ -257,7 +257,7 @@ void main() // <5>
 	from.xz *= rot1;
 	from.xy *= rot2;
 
-	// renderizado volumétrico
+	// volumetric rendering
 	float s = 0.1;
 	float fade = 1.0;
 	vec3 v = vec3(0.0);
@@ -265,41 +265,41 @@ void main() // <5>
 	for (int r = 0; r < volsteps; r++) {
 		vec3 p = from + s * dir * 0.5;
 
-		// repetición plegada
+		// tiling fold
 		p = abs(vec3(tile) - mod(p, vec3(tile * 2.0)));
 
 		float pa = 0.0;
 		float a = 0.0;
 
 		for (int i = 0; i < iterations; i++) {
-			// la fórmula mágica
+			// the magic formula
 			p = abs(p) / dot(p, p) - formuparam;
 
-			// suma absoluta del cambio promedio
+			// absolute sum of average change
 			a += abs(length(p) - pa);
 			pa = length(p);
 		}
 
-		// materia oscura
+		// dark matter
 		float dm = max(0.0, darkmatter - a * a * 0.001);
 
 		a *= a * a;
 
-		// materia oscura, no renderizar cerca
+		// dark matter, don't render near
 		if (r > 6) {
 			fade *= 1.0 - dm;
 		}
 
 		v += fade;
 
-		// coloreado basado en distancia
+		// coloring based on distance
 		v += vec3(s, s * s, s * s * s * s) * a * brightness * fade;
 
 		fade *= distfading;
 		s += stepsize;
 	}
 
-	// ajuste de color
+	// color adjust
 	v = mix(vec3(length(v)), v, saturation);
 
 	out_fragColor = vec4(v * 0.01, 1.0); // <9>
@@ -323,7 +323,7 @@ Guarda el fragment shader program. El modelo ahora debería estar bien texturiza
 
 ## Animación {#animation}
 
-La última pieza del puzzle es introducir tiempo para hacer que las estrellas se muevan. Defold (desde 1.12.3) proporciona esto automáticamente mediante una constante de fragmento de tipo `Time`.
+La última pieza del rompecabezas es introducir el tiempo para que las estrellas se muevan. Defold lo proporciona automáticamente mediante una constante de fragmento de tipo `Time`.
 
 1. Abre *star-nest.material*.
 2. Agrega una *Fragment Constant* y llámala "time".
@@ -333,7 +333,7 @@ La última pieza del puzzle es introducir tiempo para hacer que las estrellas se
 
 ¡Y eso es todo! Ya manejamos este `time` en el fragment shader. ¡Terminamos!
 
-## Ejercicios
+## Ejercicios {#exercises}
 
 Un ejercicio de continuación divertido es agregar al shader el input original de movimiento del mouse. Necesitarás crear una nueva Fragment Constant, esta vez de tipo `User`, y actualizarla en `on_input` en algún script que detecte movimiento del mouse usando la función `go.set()` y definiendo las coordenadas de input en la nueva constante.
 

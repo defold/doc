@@ -3,15 +3,21 @@ title: Desenvolvimento Defold para Microsoft Xbox
 brief: Este manual descreve como obter acesso ao suporte a Xbox do Defold e às ferramentas de desenvolvimento
 ---
 
+<a id="game-development-for-microsoft-xbox-consoles"></a>
+
 # Desenvolvimento de jogos para consoles Microsoft Xbox
 
 Para desenvolver jogos para consoles Xbox com o Defold, você precisa ser um desenvolvedor Xbox aprovado e ter acesso ao suporte a Xbox do Defold e às ferramentas de desenvolvimento para consoles da Microsoft.
+
+<a id="registering-as-an-xbox-developer"></a>
 
 ## Registro como desenvolvedor Xbox
 
 Consulte a [página de publicação para Xbox](https://developer.microsoft.com/en-US/games/publish) da Microsoft para conhecer seus programas de publicação, incluindo o ID@Xbox, e siga o processo de registro e aprovação para desenvolvimento em consoles Xbox.
 
 Depois que a Microsoft aprovar sua organização para desenvolvimento em consoles Xbox, entre na página de middleware do Xbox com uma conta associada a essa organização. Encontre o Defold e solicite acesso por essa página.
+
+<a id="xbox-access-in-defold"></a>
 
 ## Acesso a Xbox no Defold
 
@@ -25,9 +31,13 @@ Os detalhes de desenvolvimento para consoles cobertos pelo acordo de confidencia
 
 ## FAQ
 
+<a id="q-do-i-need-to-install-additional-tools-to-develop-for-xbox"></a>
+
 #### P: Preciso instalar ferramentas adicionais para desenvolver para Xbox?
 
 R: Sim. As informações sobre as ferramentas de desenvolvimento necessárias e como testar no hardware Xbox serão fornecidas depois que verificarmos seu status de desenvolvedor e concedermos acesso ao suporte a Xbox do Defold.
+
+<a id="q-can-i-use-a-single-code-base-for-xbox-and-other-platforms"></a>
 
 #### P: Posso usar uma única base de código para Xbox e outras plataformas?
 

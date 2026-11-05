@@ -39,6 +39,30 @@ end
 `MOUSE_BUTTON_LEFT`(또는 `MOUSE_BUTTON_1`) 입력 동작은 단일 터치 입력에도 전송됩니다.
 :::
 
+### 마우스 클릭과 터치 구분하기 {#distinguishing-mouse-clicks-from-touch}
+
+`action.source`는 처음 누르는 시점을 포함하여 물리 마우스 누름과 터치로 시뮬레이션한 클릭을 구분합니다. `MOUSE_BUTTON_LEFT`를 `mouse_button_left`에 바인딩하고 스크립트나 GUI 스크립트에서 다음 코드를 사용합니다:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+별도의 Touch Trigger가 없어도 마우스 클릭으로 시뮬레이션된 터치는 `hash("touch")`를 보고합니다. 탭을 식별하는 데 `action.touch` 테이블이나 이전 이동 이벤트가 필요하지 않습니다. 모든 출처 값과 여러 바인딩이 동작 이름을 공유할 때의 동작은 [입력 기기 출처](/manuals/input/#input-device-source)를 참고하세요.
+
+iOS에서 이 구분을 사용하려면 커스텀 `Info.plist`에 `UIApplicationSupportsIndirectInputEvents`를 활성화해야 합니다. 내장 메니페스트에서는 이미 활성화되어 있습니다.
+
 ## 마우스 휠
 마우스 휠 입력은 스크롤 동작을 감지합니다. 휠을 스크롤하면 `action.value` 필드가 `1`이고, 그렇지 않으면 `0`입니다. (스크롤 동작은 버튼 누름처럼 처리됩니다. Defold는 현재 터치패드의 세밀한 스크롤 입력을 지원하지 않습니다.)
 
@@ -55,11 +79,12 @@ end
 ## 마우스 움직임
 마우스 움직임은 별도로 처리됩니다. 입력 바인딩에 마우스 트리거가 하나 이상 설정되어 있지 않으면 마우스 움직임 이벤트를 받을 수 없습니다.
 
-마우스 움직임은 입력 바인딩에 바인딩되지 않지만 `action_id`는 `nil`로 설정되고 `action` 테이블에는 마우스 위치의 좌표와 델타 이동값이 채워집니다.
+포인터 이동에는 동작 이름이 바인딩되지 않습니다. `action_id`는 `nil`이고 `action` 테이블에는 포인터 위치와 이동량이 들어 있습니다. 출처는 물리 마우스이면 `hash("mouse")`, 터치로 시뮬레이션한 이동이면 `hash("touch")`입니다. 가속도계 샘플도 `action_id == nil`을 사용하므로 [입력 기기 출처](/manuals/input/#input-device-source)의 예제처럼 출처를 확인해 구분하세요.
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- 게임 오브젝트가 마우스/터치 움직임을 따라가게 함
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

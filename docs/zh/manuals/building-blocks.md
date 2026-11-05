@@ -37,7 +37,7 @@ Component
 您无法对集合本身进行寻址，因为没有与"main"和"bean"集合对应的运行时对象。但是，您有时需要使用集合的标识作为游戏对象_路径_的一部分（详细信息请参阅[定位手册](/manuals/addressing)）：
 
 ```lua
--- file: can.script
+-- 文件：can.script
 -- 获取"bean"集合中"bean"游戏对象的位置
 local pos = go.get_position("bean/bean")
 ```

@@ -50,13 +50,43 @@ Il componente creato ha una serie di proprietà da impostare:
 Una volta configurato correttamente un componente audio, puoi avviare la riproduzione del suo suono chiamando [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Ogni riproduzione è una *voce* separata. `sound.play()` restituisce il suo identificatore numerico di riproduzione (`play_id`); salva questo ID per [controllare quella singola voce](#controlling-individual-voices).
 
 ::: sidenote
 Un suono continua a essere riprodotto anche se l'oggetto di gioco a cui apparteneva il componente audio viene eliminato. Puoi chiamare [`sound.stop()`](/ref/sound/#sound.stop:url) per interrompere il suono (vedi sotto).
 :::
 Ogni messaggio inviato a un componente avvia un'altra istanza del suono, finché il buffer audio disponibile non si riempie e il motore non stampa errori nella console. È consigliabile implementare un meccanismo di limitazione delle ripetizioni e di raggruppamento dei suoni.
+
+### Controllo delle singole voci {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) e [`sound.set_pan()`](/ref/sound/#sound.set_pan) accettano un terzo argomento facoltativo con un `play_id`. Usa l'ID restituito da `sound.play()` e l'URL dello stesso componente Sound:
+
+```lua
+function init(self)
+    -- Save the ID of a voice that will start in one second.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Start another voice on the same component.
+    sound.play("go#sound")
+
+    -- Change only the delayed voice.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Queste chiamate mirate lasciano invariate le altre voci e i valori predefiniti di guadagno e pan del componente. Funzionano per le voci ritardate e in pausa, quindi i nuovi valori si applicano all'avvio o alla ripresa della voce. Un ID sconosciuto o il cui audio ha terminato la riproduzione non ha effetto.
+
+Ometti `play_id` per aggiornare tutte le voci e i valori predefiniti del componente usati per le riproduzioni future:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Anche passare `{ play_id = nil }` omette l'ID. Se cancelli un ID salvato alla fine della riproduzione, controlla che non sia `nil` prima di usarlo per un aggiornamento mirato.
 
 ## Interrompere il suono {#stopping-the-sound}
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 Il sistema audio ha 4 livelli di guadagno:
 
 - Il guadagno impostato sul componente audio.
-- Il guadagno impostato all'avvio del suono tramite una chiamata a `sound.play()` oppure quando si modifica il guadagno della voce tramite una chiamata a `sound.set_gain()`.
+- Il guadagno impostato all'avvio del suono tramite una chiamata a `sound.play()` oppure quando si modifica il guadagno di [una o tutte le voci](#controlling-individual-voices) tramite una chiamata a `sound.set_gain()`.
 - Il guadagno impostato sul gruppo tramite una chiamata alla funzione [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
 - Il guadagno impostato sul gruppo `master`. Puoi modificarlo con `sound.set_group_gain(hash("master"), gain)`.
 

@@ -3,11 +3,11 @@ title: Modelos 3D en Defold
 brief: Este manual describe cómo llevar modelos 3D, esqueletos y animaciones a tu juego.
 ---
 
-# Componente Model
+# Componente Model {#model-component}
 
 Defold es, en esencia, un motor 3D. Incluso cuando trabajas solo con material 2D, todo el renderizado se realiza en 3D, pero se proyecta ortográficamente en la pantalla. Defold te permite usar contenido 3D completo al incluir assets 3D, o _modelos_, en tus colecciones. Puedes crear juegos estrictamente en 3D solo con assets 3D, o puedes mezclar contenido 3D y 2D como prefieras.
 
-## Crear un componente Model
+## Crear un componente Model {#creating-a-model-component}
 
 Los componentes Model se crean igual que cualquier otro componente de objeto de juego. Puedes hacerlo de dos formas:
 
@@ -18,17 +18,15 @@ Los componentes Model se crean igual que cualquier otro componente de objeto de 
 
 Una vez creado el modelo, debes especificar varias propiedades:
 
-<a id="model-properties"></a>
-
-### Propiedades de Model
+### Propiedades de Model {#model-properties}
 
 Aparte de las propiedades *Id*, *Position* y *Rotation*, existen las siguientes propiedades específicas del componente:
 
 *Scene*
-: El archivo glTF *.gltf* o *.glb* que contiene la geometría del modelo. Si contiene morph targets, se importan junto con la escena. Esta propiedad se llamaba *Mesh* antes de Defold 1.13.2.
+: El archivo glTF *.gltf* o *.glb* que contiene la geometría del modelo. Si contiene morph targets, se importan junto con la escena. Esta propiedad se llamaba antes *Mesh*.
 
 *Mesh*
-: Una malla con nombre opcional de la *Scene* seleccionada, disponible desde Defold 1.13.2. Deja este campo vacío para renderizar toda la escena con sus transformaciones importadas. Selecciona una malla para renderizarla una vez en sus coordenadas locales, sin las transformaciones de los nodos glTF. Posiciona, rota y escala el componente Model o su objeto de juego para colocar la malla seleccionada.
+: Una malla con nombre opcional de la *Scene* seleccionada. Deja el campo vacío para renderizar toda la escena con sus transformaciones importadas. Selecciona una malla para renderizarla una vez en sus coordenadas locales, sin las transformaciones de los nodos glTF. Coloca, rota y escala el componente Model o su objeto de juego para situar la malla seleccionada.
 
 *Create GO Bones*
 : Activa esto para crear un objeto de juego por cada hueso del modelo. Puedes usar los objetos de juego para adjuntar otros objetos de juego, como armas, a los huesos de las manos y casos similares.
@@ -45,30 +43,27 @@ Aparte de las propiedades *Id*, *Position* y *Rotation*, existen las siguientes 
 Además de las propiedades anteriores, también habrá un campo para asignar un material por cada malla del modelo:
 
 *Material*
-: Define esta propiedad con un material que hayas creado y que sea adecuado para un objeto 3D con textura. Hay varios materiales integrados que puedes usar como punto de partida:
-
-  * Usa *model.material* para modelos estáticos no instanciados
-  * Usa *model_instanced.material* para modelos estáticos instanciados
-  * Usa *model_skinned.material* para modelos con skin (animados) no instanciados
-  * Usa *model_skinned_instanced.material* para modelos con skin (animados) instanciados
+: Establece esta propiedad con un material adecuado para el modelo. Usa un material `gltf` integrado para renderizado basado en física de las propiedades del material glTF, un material `model` integrado para sombreado general de modelos o tu propio material personalizado. Consulta las [variantes de materiales más abajo](#material) y el [manual de PBR](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 Según el material, habrá una o más propiedades de textura:
 
 *Texture*
-: Esta propiedad debe apuntar al archivo de imagen de textura que quieres aplicar al objeto.
+: Esta propiedad debe apuntar a la imagen de textura que quieras aplicar al objeto. Puede ser un asset independiente del proyecto o una imagen integrada expuesta bajo un archivo glTF o GLB en el panel *Assets*.
+
+Seleccionar una *Scene* glTF o GLB, o cambiar su selección *Mesh*, puede ofrecer completar las asignaciones de materiales y texturas. <kbd>Auto Fill</kbd> reemplaza las asignaciones existentes con las del origen; <kbd>Keep Current</kbd> conserva tus asignaciones mientras aplica la nueva selección de escena o malla. Consulta el [flujo de importación de modelos](/manuals/importing-models/#using-a-model).
 
 
-## Manipulación en el editor
+## Manipulación en el editor {#editor-manipulation}
 
 Con el componente Model en su lugar, puedes editar y manipular libremente el componente y/o el objeto de juego que lo encapsula con las herramientas habituales de *Scene Editor* para mover, rotar y escalar el modelo a tu gusto.
 
-## Manipulación en runtime
+## Manipulación en runtime {#runtime-manipulation}
 
 Puedes manipular modelos en runtime mediante varias funciones y propiedades diferentes (consulta la [documentación de la API para su uso](/ref/model/)).
 
 ![Wiggler en el juego](images/model/runtime.png)
 
-### Animación en runtime
+### Animación en runtime {#runtime-animation}
 
 Defold proporciona soporte potente para controlar la animación en runtime. Más información en el [manual de animación de modelos](/manuals/model-animation):
 
@@ -88,7 +83,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 
 Los modelos también pueden usar animaciones de morph targets de glTF. Los pesos de los morph targets se animan con `model.play_anim()` igual que otras animaciones de modelos, y se pueden leer o sobrescribir en runtime con [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) y [`model.set_blend_weights()`](/ref/model#model.set_blend_weights). Consulta la [sección de morph targets](/manuals/model-animation#morph-targets) en el manual de animación de modelos para más detalles.
 
-### Cambiar propiedades
+### Cambiar propiedades {#changing-properties}
 
 Un modelo también tiene varias propiedades diferentes que pueden manipularse con `go.get()` y `go.set()`:
 
@@ -112,21 +107,25 @@ Un modelo también tiene varias propiedades diferentes que pueden manipularse co
 
 El software 3D suele permitirte definir propiedades en los vértices del objeto, como color y texturas. Esta información se guarda en el archivo glTF *.gltf* o *.glb* que exportas desde tu software 3D. Según los requisitos de tu juego, tendrás que seleccionar y/o crear materiales adecuados y _eficientes_ para tus objetos. Un material combina _programas de shader_ con un conjunto de parámetros para renderizar el objeto.
 
-Hay varios materiales integrados que puedes usar como punto de partida:
+Los siguientes materiales integrados están disponibles en `/builtins/materials/`:
 
-  * Usa *model.material* para modelos estáticos no instanciados
-  * Usa *model_instanced.material* para modelos estáticos instanciados
-  * Usa *model_skinned.material* para modelos con skin (animados) no instanciados
-  * Usa *model_skinned_instanced.material* para modelos con skin (animados) instanciados
+| Tipo de modelo | Sombreado general de modelos | Sombreado PBR glTF |
+|---|---|---|
+| Estático, sin instancias | `model.material` | `gltf.material` |
+| Estático, con instancias | `model_instanced.material` | `gltf_instanced.material` |
+| Con skinning (animado), sin instancias | `model_skinned.material` | `gltf_skinned.material` |
+| Con skinning (animado), con instancias | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Los materiales de modelo integrados usan el espacio local de vértices. Para los modelos con skin, el espacio local de vértices permite que el vertex shader realice el skinning en la GPU mediante una textura de matrices de huesos; el espacio local de vértices también es necesario para instancing de modelos. Por tanto, un material personalizado destinado a modelos con skinning por GPU o instanciados debe usar el ajuste de espacio de vértices *Local*.
+Los materiales `gltf` proporcionan iluminación metálica/rugosa integrada usando los datos del material glTF importado. Consulta el [manual de PBR](/manuals/physically-based-rendering/#built-in-pbr-materials) para conocer las asignaciones de texturas, las luces y los shaders personalizados.
+
+Todos estos materiales integrados usan espacio de vértices local. En modelos con skinning, el espacio local permite que el vertex shader realice el skinning en la GPU mediante una textura de matrices de huesos; también se requiere para las instancias de modelos. Por tanto, un material personalizado para modelos con skinning en GPU o instancias debe usar el ajuste de espacio de vértices *Local*.
 
 La caché de matrices de huesos usa una textura `RGBA32F`. Si el adaptador gráfico activo no admite ese formato de textura, Defold no puede crear un componente Model animado que use un material en espacio local. En OpenGL ES 2.0 y WebGL 1.0, la compatibilidad depende por tanto de la extensión de texturas de punto flotante del adaptador. Para ser compatible con un adaptador que no la incluya, usa un material personalizado en espacio del mundo, que emplea skinning por CPU y no admite instancing de modelos. Las dimensiones de la caché pueden ajustarse en las [opciones de proyecto de Model](/manuals/project-settings/#model).
 
 Si necesitas crear materiales personalizados para tus modelos, consulta la [documentación de Material](/manuals/material) para más información. El [manual de Shader](/manuals/shader) contiene información sobre cómo funcionan los programas de shader.
 
 
-### Constantes del material
+### Constantes del material {#material-constants}
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
@@ -134,9 +133,9 @@ Si necesitas crear materiales personalizados para tus modelos, consulta la [docu
 : El tinte de color del modelo (`vector4`). El `vector4` se usa para representar el tinte con x, y, z y w correspondientes al tinte rojo, verde, azul y alfa.
 
 
-## Renderizado
+## Renderizado {#rendering}
 
-El script de render predeterminado está hecho a medida para juegos 2D y no funciona con modelos 3D. Pero puedes habilitar el renderizado de tus modelos copiando el script de render predeterminado y agregando unas pocas líneas de código al script de render. Por ejemplo:
+El script de render predeterminado dibuja materiales con la etiqueta `model`, incluidos los materiales integrados de modelos y glTF. Para renderizarlos en un script personalizado, crea un predicado correspondiente y dibújalo con una vista y proyección adecuadas para la escena. Por ejemplo:
 
   ```lua
 

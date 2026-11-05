@@ -3,75 +3,75 @@ title: FAQ de Editor y motor Defold
 brief: Preguntas frecuentes sobre el motor de videojuegos, editor y plataforma Defold.
 ---
 
-# Preguntas Frecuentes
+# Preguntas Frecuentes {#frequently-asked-questions}
 
-## Preguntas generales
+## Preguntas generales {#general-questions}
 
-#### Q: ¿Es Defold realmente gratuito?
+#### Q: ¿Es Defold realmente gratuito? {#q-is-defold-really-free}
 
 A: Sí, el motor y editor Defold con toda su funcionalidad es completamente libre de cargos. No hay costos, cuotas o regalías escondidas. Solo gratis.
 
 
-#### Q: ¿Por qué la Defold Foundation regalaría Defold?
+#### Q: ¿Por qué la Defold Foundation regalaría Defold? {#q-why-on-earth-would-the-defold-foundation-give-defold-away}
 
 A: Uno de los objetivos de [Defold Foundation](/foundation) es asegurarse que el software Defold esté disponible a desarrolladores globalmente y que el código fuente esté disponible libre de cargos.
 
 
-#### Q: ¿Por cuánto tiempo soportarán Defold?
+#### Q: ¿Por cuánto tiempo soportarán Defold? {#q-how-long-will-you-support-defold}
 
 A: Estamos comprometidos profundamente con Defold. La [Defold Foundation](/foundation) ha sido establecida de una forma que esté garantizada su existencia como responsable de Defold por muchos años próximos. No se va a ir a ningún lado.
 
 
-#### Q: ¿Puedo confiar en Defold para desarrollo profesional?
+#### Q: ¿Puedo confiar en Defold para desarrollo profesional? {#q-can-i-trust-defold-for-professional-development}
 
 A: Absolutamente. Defold es usado por un creciente número de desarrolladores de videojuegos profesionales y estudios de videojuegos. Revisa el [games showcase](/showcase) para ejemplos de videojuegos desarrollados usando Defold.
 
 
-#### Q: ¿Qué tipo de seguimiento de usuario utilizan?
+#### Q: ¿Qué tipo de seguimiento de usuario utilizan? {#q-what-kind-of-user-tracking-are-you-doing}
 
 A: Registramos datos de uso de manera anónima de nuestros sitios y el editor Defold para mejorar nuestros servicios y producto. No hay seguimiento de usuario en los juegos que desarrollas (al menos que añadas un servicio de analytics por tu cuenta). Lee más en nuestra [Política de privacidad](/privacy-policy).
 
 
-#### Q: ¿Quién hizo Defold?
+#### Q: ¿Quién hizo Defold? {#q-who-made-defold}
 
 A: Defold fue creado por Ragnar Svensson y Christian Murray. Empezaron trabajando en el motor, editor y servidores in 2009. King y Defold empezaron una asociación en 2013 y King adquirió Defold en 2014. Lee la historia completa [aquí](/about).
 
 
-## Preguntas sobre desarrollo de juegos
+## Preguntas sobre desarrollo de juegos {#game-development-questions}
 
-#### Q: ¿Puedo hacer juegos 3D en Defold?
+#### Q: ¿Puedo hacer juegos 3D en Defold? {#q-can-i-do-3d-games-in-defold}
 
 A: ¡Absolutamente! El motor es un motor 3D completo. Sin embargo, las herramientas fueron creadas para el 2D así que tendrás que hacer un montón de trabajo pesado. Un mejor soporte 3D está en planeación.
 
 
-## Preguntas sobre lenguajes de programación
+## Preguntas sobre lenguajes de programación {#programming-language-questions}
 
-#### Q: ¿Qué lenguaje de programación utilizo en Defold?
+#### Q: ¿Qué lenguaje de programación utilizo en Defold? {#q-what-programming-language-do-i-work-with-in-defold}
 
 A: La lógica del juego en tu proyecto Defold está escrita principalmente en el lenguaje Lua (específicamente Lua 5.1/LuaJIT, refiere al [manual Lua](/manuals/lua) para más detalles). Lua es un lenguaje dinámico ligero que es rápido y poderoso. Defold soporta transpiladores que emiten código Lua. Con una extensión de transpilador instalada, puedes usar lenguajes alternativos, como [Teal](https://github.com/defold/extension-teal), para escribir Lua con comprobación estática. También puedes usar lenguaje nativo (C/C++, Objective-C, Java and JavaScript dependiendo de la plataforma) para [extender el motor Defold con nuevas funcionalidades](/manuals/extensions/). Cuando crees [materiales personalizados](/manuals/material/), se utiliza OpenGL ES SL shader language para escribir vertex y fragment shaders.
 
 
-#### Q: ¿Puedo usar C++ para escribir la lógica del juego?
+#### Q: ¿Puedo usar C++ para escribir la lógica del juego? {#q-can-i-use-c-to-write-game-logic}
 
 A: El soporte de C++ existe en Defold principalmente para escribir extensiones nativas que interactúan con SDKs de terceros o APIs específicas de plataforma. El [dmSDK](https://defold.com/ref/dmGameObject/) (la API C++ de Defold usada en extensiones nativas) se ampliará gradualmente con más funcionalidad para que sea posible escribir toda la lógica del juego en C++ si un desarrollador lo desea. Lua seguirá siendo el lenguaje principal usado para la lógica del juego, pero con la API C++ ampliada también será posible escribir lógica de juego usando C++. El trabajo para ampliar la API C++ consiste principalmente en mover archivos header privados existentes a la sección pública y limpiar APIs para uso público.
 
 
-#### Q: ¿Puedo usar TypeScript con Defold?
+#### Q: ¿Puedo usar TypeScript con Defold? {#q-can-i-use-typescript-with-defold}
 
 A: TypeScript no está soportado oficialmente. La comunidad mantiene un conjunto de herramientas, [ts-defold](https://ts-defold.dev/), para escribir TypeScript y transpilarlo a Lua directamente desde VSCode.
 
 
-#### Q: ¿Puedo usar Haxe con Defold?
+#### Q: ¿Puedo usar Haxe con Defold? {#q-can-i-use-haxe-with-defold}
 
 A: Haxe no está soportado oficialmente. La comunidad mantiene [hxdefold](https://github.com/hxdefold/hxdefold) para escribir Haxe y transpilarlo a Lua.
 
 
-#### Q: ¿Puedo usar C# con Defold?
+#### Q: ¿Puedo usar C# con Defold? {#q-can-i-use-c-with-defold}
 
 A: La Defold Foundation agregó soporte para C# y lo puso a disposición como dependencia de biblioteca. C# es un lenguaje de programación ampliamente adoptado y ayudará a estudios y desarrolladores muy invertidos en C# a hacer la transición a Defold.
 
 
-#### Q: Me preocupa que agregar soporte de C# tenga un impacto negativo en Defold. ¿Debería preocuparme?
+#### Q: Me preocupa que agregar soporte de C# tenga un impacto negativo en Defold. ¿Debería preocuparme? {#q-i-am-concerned-that-adding-c-support-will-have-a-negative-impact-on-defold-should-i-be-worried}
 
 Defold NO se está alejando de Lua como lenguaje principal de scripting. El soporte de C# se agrega como un nuevo lenguaje para extensiones. No afectará al motor a menos que elijas usar extensiones C# en tu proyecto.
 
@@ -88,9 +88,9 @@ La Defold Foundation antes se oponía a agregar soporte de C# en Defold, pero ca
 * El soporte de C# se basará en DotNet 9 con NativeAOT, generando así bibliotecas estáticas que el pipeline de build existente puede enlazar (igual que cualquier otra extensión de Defold).
 
 
-## Preguntas de Plataforma
+## Preguntas de Plataforma {#platform-questions}
 
-#### Q: ¿En qué plataformas corre Defold?
+#### Q: ¿En qué plataformas corre Defold? {#q-what-platforms-does-defold-run-on}
 
 A: Las siguientes plataformas son compatibles:
 
@@ -118,31 +118,30 @@ A: Las siguientes plataformas son compatibles:
   (2 El runtime del motor debería funcionar en la mayoría de las distribuciones Linux de 64 bits siempre que los controladores gráficos estén actualizados; consulta más abajo la información sobre las API gráficas.)
 
 
-#### Q: ¿Para qué plataformas objetivo puedo desarrollar con Defold?
+#### Q: ¿Para qué plataformas objetivo puedo desarrollar con Defold? {#q-what-target-platforms-can-i-develop-games-for-with-defold}
 
 A: Con un clic puedes publicar en PS4™, PS5™, Nintendo Switch, iOS (64 bits), Android (32 bits y 64 bits) y HTML5, así como en macOS (x86-64 y arm64), Windows (64 bits) y Linux (x86-64 y arm64). Es realmente una única base de código con múltiples plataformas compatibles.
 
 
-#### Q: ¿De cuál API de rendering depende Defold?
+#### Q: ¿De cuál API de rendering depende Defold? {#q-what-rendering-api-does-defold-rely-on}
 
 A: Como desarrollador solo tienes que preocuparte por una única API de render usando un [rendering pipeline completamente scriptable](/manuals/render/). La API de render scripts de Defold traduce las operaciones de render a las siguientes APIs gráficas:
 
 :[Graphics API](../shared/graphics-api.md)
 
-
-#### Q: ¿Hay alguna forma de saber qué versión estoy corriendo?
+#### Q: ¿Hay alguna forma de saber qué versión estoy corriendo? {#q-is-there-a-way-to-know-what-version-im-running}
 
 A: Si, selecciona la opción "About" en el menú Help. El popup muestra claramente la versión beta de Defold y, más importante, el release específico SHA1. Para la versión de runtime, usa [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
 La última version beta disponible para descarga desde [http://d.defold.com/beta](http://d.defold.com/beta) puede revisarse abriendo [http://d.defold.com/beta/info.json](http://d.defold.com/beta/info.json) (el mismo archivo existe para versiones estables: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json))
 
 
-#### Q: ¿Hay alguna forma de saber en que plataforma está corriendo el juego?
+#### Q: ¿Hay alguna forma de saber en que plataforma está corriendo el juego? {#q-is-there-a-way-to-know-what-platform-the-game-is-running-on-at-runtime}
 
 A: Sí, checa [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 
 
-## Preguntas del Editor
+## Preguntas del Editor {#editor-questions}
 :[Editor FAQ](../shared/editor-faq.md)
 
 
@@ -150,29 +149,29 @@ A: Sí, checa [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 :[Linux FAQ](../shared/linux-faq.md)
 
 
-## Preguntas de Android
+## Preguntas de Android {#android-questions}
 :[Android FAQ](../shared/android-faq.md)
 
 
-## Preguntas de HTML5
+## Preguntas de HTML5 {#html5-questions}
 :[HTML5 FAQ](../shared/html5-faq.md)
 
 
-## Preguntas de IOS
+## Preguntas de IOS {#ios-questions}
 :[iOS FAQ](../shared/ios-faq.md)
 
 
-## Preguntas de Windows
+## Preguntas de Windows {#windows-questions}
 :[Windows FAQ](../shared/windows-faq.md)
 
 
-## Preguntas de Consoles
+## Preguntas de Consoles {#console-questions}
 :[Consoles FAQ](../shared/consoles-faq.md)
 
 
-## Publicando juegos
+## Publicando juegos {#publishing-games}
 
-#### Q: Estoy tratando de publicar mi videojuego en la Appstore. ¿Cómo debo responder a IDFA?
+#### Q: Estoy tratando de publicar mi videojuego en la Appstore. ¿Cómo debo responder a IDFA? {#q-im-trying-to-publish-my-game-to-appstore-how-should-i-respond-to-idfa}
 
 A: Cuando estés presentando, Apple tiene tres checkboxes para sus tres usos válidos por el IDFA:
 
@@ -183,42 +182,42 @@ A: Cuando estés presentando, Apple tiene tres checkboxes para sus tres usos vá
   Si seleccionas la opción un, el revisor de la aplicación buscará por anuncios dentro de la app. Si tu juego no muestra anuncios, el juego puede ser rechazado. Defold no usa AD id por sí mismo.
 
 
-#### Q: ¿Cómo monetizo mi juego?
+#### Q: ¿Cómo monetizo mi juego? {#q-how-do-i-monetize-my-game}
 
 A: Defold tiene soporte para compras in-app y varias soluciones de anuncios. Checa la [categoría de Monetización en el Asset Portal](https://defold.com/tags/stars/monetization/) para una lista actualizada de opciones de monetización disponibles.
 
 
-## Errores usando Defold
+## Errores usando Defold {#errors-using-defold}
 
-#### Q: No puedo iniciar el juego y no hay error de build. ¿Que pasó?
+#### Q: No puedo iniciar el juego y no hay error de build. ¿Que pasó? {#q-i-cant-start-the-game-and-there-is-no-build-error-whats-wrong}
 
 A: El proceso de build puede fallar al hacer rebuild en raras ocasiones donde ha encontrado previamente errores de build que hayas reparado. Forza un rebuild completo seleccionando *Project > Rebuild And Launch* desde el menú.
 
 
 
-## Contenido del juego
+## Contenido del juego {#game-content}
 
-#### Q: ¿Defold soporta prefabs?
+#### Q: ¿Defold soporta prefabs? {#q-does-defold-support-prefabs}
 
 A: Si, lo hace. Son llamadas [colecciones](/manuals/building-blocks/#collections). Permiten crear jerarquías de objetos complejas y guardarlos como un bloque de construcción separado que puedes instanciaren el editor o durante la ejecución (a través de la aparición de colección). Para nodos GUI existe soporte para plantillas GUI.
 
 
-#### Q: No puedo agregar un objeto de juego como hijo de otro objeto de juego, ¿por qué?
+#### Q: No puedo agregar un objeto de juego como hijo de otro objeto de juego, ¿por qué? {#q-i-cant-add-a-game-object-as-a-child-to-another-game-object-why}
 
 A: Probablemente sea que trataste de añadir un hijo en el archivo de objeto de juego y eso no es posible. Solo es posible en el archivo de colección. Para entender por qué, hay que recordar que las jerarquías padre-hijo son estrictamente una jerarquía de transformación del gráfico de la escena _(scene-graph_). Un objeto de juego que no se haya colocado (o aparecido) en una escena (colección) no es parte del gráfico de la escena y no puede ser parte de la jerarquía de éste. Puedes obtener un id del padre del objeto de juego usando [`go.get_parent()`](https://defold.com/ref/go-lua/#go.get_parent:id).
 
 
-#### Q: ¿Por quéno puedo transmitir mensajes a todos los hijos de un objeto de juego?
+#### Q: ¿Por quéno puedo transmitir mensajes a todos los hijos de un objeto de juego? {#q-why-cant-i-broadcast-messages-to-all-children-of-a-game-object}
 
 A: Las relaciones padre-hijo no expresan nada más que las relaciones de transformación scene-graph y no deben ser confundidas por agregados de orientación de objeto. Si intentas enfocarte en los datos de tu juego y como transformarlo de la mejor forma posible, encontrarás menor necesidad de enviar mensajes con datos de estado a demasiados objetos al mismo tiempo. En los casos donde necesites jerarquía de datos, éstos son construidos y mantenidos fácilmente en Lua.
 
 
-#### Q: ¿Por qué experimento artefactos visuales alrededor de los bordes de mis sprites?
+#### Q: ¿Por qué experimento artefactos visuales alrededor de los bordes de mis sprites? {#q-why-am-i-experiencing-visual-artifacts-around-the-edges-of-my-sprites}
 
 A: Eso es un artefacto visual llamado "sangrado de borde" (edge bleeding) donde los pixeles del borde de otros pixeles cercanos en un atlas sangran en la imagen asignada a tu sprite. La solución es acomodar los bordes de tus atlas de imágenes con columnas y filas extra de pixeles idénticos. Afortunadamente esto se puede hacer automáticamente en el editor de atlas de Defold. Abre el atlas y cambia el valor de *Extrude Borders* a 1.
 
 
-#### Q: ¿Puedo entintar mis sprites o hacerlos transparente, o tengo que escribir mi propio shader?
+#### Q: ¿Puedo entintar mis sprites o hacerlos transparente, o tengo que escribir mi propio shader? {#q-can-i-tint-my-sprites-or-make-them-transparent-or-do-i-have-to-write-my-own-shader-for-it}
 
 A: El shader de sprites integrado que es usado por defecto en todos los sprites tienen un "tinte" constante definido:
 
@@ -231,93 +230,93 @@ A: El shader de sprites integrado que es usado por defecto en todos los sprites 
   ```
 
 
-#### Q: Si selecciono la coordenada z de un sprite a 100 no se renderiza. ¿Por qué?
+#### Q: Si selecciono la coordenada z de un sprite a 100 no se renderiza. ¿Por qué? {#q-if-i-set-the-z-coordinate-of-a-sprite-to-100-then-its-not-rendered-why}
 
 A: La posición Z de un objeto de juego controla el orden del renderizado. Los valores bajos son dibujados antes de los valores más altos. En el script de render por defecto los objetos del juego con una profundidad del rango -1 a 1 son dibujados, cualquier cosa con el número más bajo o alto no serán dibujados. Puedes leer más sobre el script de render en la [documentación de Render](/manuals/render) oficial. En nodos GUI el valor Z es ignorado y no afecta el orden del renderizado. En lugar de eso los nodos son renderizados en el orden que son enlistados y de acuerdo a las jerarquías de los hijos (y por capas). Lee más sobre el renderizado de GUI y optimización de llamadas de dibujo (draw call) utilizando capas en la [documentación de GUI](/manuals/gui) oficial.
 
 
-#### Q: ¿Cambiar la proyección del rango Z a -100 hasta 100 afectaría el rendimiento?
+#### Q: ¿Cambiar la proyección del rango Z a -100 hasta 100 afectaría el rendimiento? {#q-would-changing-the-view-projection-z-range-to-100-to-100-impact-performance}
 
 A: No. El único efecto es precisión. El buffer Z es logarítmico y tiene una resolución muy fina de valores z cercanos a 0 y menos resolución más lejano al 0. Por instancia, con un buffer de 24 bits los valores 10.0 y 10.000005 pueden ser diferenciados mientras 10000 y 10005 no pueden.
 
 
-#### Q: No hay consistencia en la representación de los ángulos. ¿Por qué?
+#### Q: No hay consistencia en la representación de los ángulos. ¿Por qué? {#q-there-is-no-consistency-to-how-angles-are-represented-why}
 
 A: De hecho, sí hay consistencia. Los ángulos están expresados en grados en todo el editor y el API del juego. Las librerías del videojuego utilizan radianes. Recientemente la convención rompe las físias de la propiedad `angular_velocity`  que son expresadas en radianes/s. Se espera un cambio.
 
 
-#### Q: Cuando se crea un nodo caja (box-node) GUI con solo un color (sin textura), ¿cómo será renderizado?
+#### Q: Cuando se crea un nodo caja (box-node) GUI con solo un color (sin textura), ¿cómo será renderizado? {#q-when-creating-a-gui-box-node-with-only-color-no-texture-how-will-it-be-rendered}
 
 A: Solo es una forma con color de vértice. Ten en cuenta que aún costará un nivel de servicio (fill-rate)
 
 
-#### Q: Si cambio assets en el momento, ¿el motor los descargará al momento?
+#### Q: Si cambio assets en el momento, ¿el motor los descargará al momento? {#q-if-i-change-assets-on-the-fly-will-the-engine-automatically-unload-them}
 
 A: Todos los recursos son contados por referencia de manera interna. Tan pronto el contador de referencia llegue a cero, el recurso es liberado.
 
 
-#### Q: ¿Es posible reproducir un audio sin el uso de un componente de audio adjuntado a un objeto?
+#### Q: ¿Es posible reproducir un audio sin el uso de un componente de audio adjuntado a un objeto? {#q-is-it-possible-to-play-audio-without-the-use-of-an-audio-component-attached-to-a-game-object}
 
 A: Todo está basado por componente. Es posible crear un objeto sin cabeza con múltiples sonidos y reproducir sonidos que envien mensajes al objeto controlador de sonido.
 
 
-#### Q: ¿Es posible cambiar el archivo de audio asociado con un componente de audio en ejecución?
+#### Q: ¿Es posible cambiar el archivo de audio asociado con un componente de audio en ejecución? {#q-is-it-possible-to-change-the-audio-file-associated-with-an-audio-component-at-run-time}
 
 A: En general todos los recursos están estadísticamente declarados con el beneficio que obtienes control de recursos de manera libre. Puedes usar las [propiedades de recursos](/manuals/script-properties/#resource-properties) para cambiar qué recurso es asignado al componente.
 
 
-#### Q: ¿Hay una forma de accesar a las propiedades de la forma de colisión de físicas?
+#### Q: ¿Hay una forma de accesar a las propiedades de la forma de colisión de físicas? {#q-is-there-a-way-to-access-the-physics-collision-shape-properties}
 
 A: Sí, revisa la API de físicas, especialmente [`physics.get_shape()`](https://defold.com/ref/physics-lua/#physics.get_shape:url-shape) y [`physics.set_shape()`](https://defold.com/ref/physics-lua/#physics.set_shape:url-shape-table).
 
 
-#### Q: ¿Hay alguna forma rápida de renderizar los objetos colisionadores en mi escena? (como Box2D's debugdraw)
+#### Q: ¿Hay alguna forma rápida de renderizar los objetos colisionadores en mi escena? (como Box2D's debugdraw) {#q-is-there-any-quick-way-to-render-the-collision-objects-in-my-scene-like-box2ds-debug-draw}
 
 A: Si, utiliza la bandera *physics.debug* en *game.project*. (Refiere a la [documentación de opciones del proyecto](/manuals/project-settings/#debug) oficial).
 
 
-#### Q: ¿Cuáles son los costos de rendimiento por tener muchos contactos/colisiones?
+#### Q: ¿Cuáles son los costos de rendimiento por tener muchos contactos/colisiones? {#q-what-are-the-performance-costs-of-having-many-contactscollisions}
 
 A: Defold utiliza una versión modificada de Box2D en el fondo y el costo de rendimiento debe ser similar. Siempre puedes ver cuánto tiempo el motor tarda en las físicas sacando el [profiler](/manuals/debugging). También deberías considerar que tipo de colisiones usas. Objetos estáticos utilizan menos rendimiento, por ejemplo. Refiere a la [documentación de Físicas](/manuals/physics) en Defold para más detalles.
 
 
-#### Q: ¿Cuál es el impacto en el rendimiento por tener muchos componentes de efectos de partículas?
+#### Q: ¿Cuál es el impacto en el rendimiento por tener muchos componentes de efectos de partículas? {#q-whats-the-performance-impact-of-having-many-particle-effect-components}
 
 A: Depende de si están reproduciéndose o no. Un ParticleFx que no esté reproduciendo no tiene costo en el rendimiento. La implicación del rendimiento por reproducir ParticleFx debe ser evaluada usando el profiler pues su impacto depende en cómo está configurado. Como lo es con muchas otras cosas la memoria está asignada en el frente por el número de ParticleFx definido como max_count en *game.project*.
 
 
-#### Q: ¿Cómo recibo input a un objeto del juego dentro de una colección cargada por un proxy de colección?
+#### Q: ¿Cómo recibo input a un objeto del juego dentro de una colección cargada por un proxy de colección? {#q-how-do-i-receive-input-to-a-game-object-inside-a-collection-loaded-via-a-collection-proxy}
 
 A: Cada proxy de colección cargado tiene su propio input stack. El Input está enrutado desde el input stack de la colección principal por el componente de proxy a los objetos en la colección. Esto significa que no es suficiente para el objeto del juego cargado en la colección el adquirir enfoque en el input, el objeto que aún mantiene _(holds_) el componente proxy necesita adquirir el enfoque de input también. Mira la [documentación de Input](/manuals/input) para más detalles.
 
 
-#### Q: ¿Puedo usar propiedades de script de tipo string?
+#### Q: ¿Puedo usar propiedades de script de tipo string? {#q-can-i-use-string-type-script-properties}
 
 A: No. Defold soporta propiedades de tipo [hash](/ref/builtins#hash). Éstas pueen ser usadas para indicar tipos, identificadores de estado o claves de cualquier tipo. Los Hashes también pueden ser usados para guardar id's de objeto (paths) pero propiedades de [url](/ref/msg#msg.url) son usualmente prefereidas ya que el editor automáticamente puebla un desplegable con URLs relevantes para ti. Ver la [documentación de propiedades de Script](/manuals/script-properties) para más detalles.
 
 
-#### Q: ¿Cómo acceso a las células individuales de una matrix? (creadas usando [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) o similares)?
+#### Q: ¿Cómo accedo a las celdas individuales de una matriz creada usando [`vmath.matrix4()`](/ref/vmath/#vmath.matrix4:m1) o una función similar? {#q-how-do-i-access-the-individual-cells-of-a-matrix-created-using-vmathmatrix4refvmathvmathmatrix4m1-or-similar}
 
-A: Accesas a las células usando `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
+A: Accedes a las celdas usando `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21`, etc.
 
 
-#### Q: Estoy teniendo `Not enough resources to clone the node` cuando uso [gui.clone()](/ref/gui/#gui.clone:node) o [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
+#### Q: Estoy teniendo `Not enough resources to clone the node` cuando uso [gui.clone()](/ref/gui/#gui.clone:node) o [gui.clone_tree()](/ref/gui/#gui.clone_tree:node) {#q-i-am-getting-not-enough-resources-to-clone-the-node-when-using-guiclonerefguiguiclonenode-or-guiclone_treerefguiguiclone_treenode}
 
 A: Incrementa el valor de `Max Nodes` del componente gui. Encontrarás este valor en el panel Properties cuando selecciones la raíz del componente en el Outline.
 
 
-## El foro
+## El foro {#the-forum}
 
-#### Q: ¿Puedo postear un hilo donde anuncie mi trabajo?
+#### Q: ¿Puedo postear un hilo donde anuncie mi trabajo? {#q-can-i-post-a-thread-where-i-advertise-my-work}
 
 A: ¡Por supuesto! Tenemos una [categoría "Work for hire"](https://forum.defold.com/c/work-for-hire) para eso. Siemprealentamos todo y eso benefica a la comunidad, y ofreciendo tus servicios a la comunidad---por remuneración o no---es un buen ejemplo.
 
 
-#### Q: He creado un hilo y añadí mi trabajo-¿puedo añadir más?
+#### Q: He creado un hilo y añadí mi trabajo-¿puedo añadir más? {#q-i-made-a-thread-and-added-my-workcan-i-add-more}
 
 A: En orden para reducir el revivir hilos de "Work for hire", no deberías postear por más de una vez cada 14 días en tu propio hilo (al menos que sea una respuesta directa a un comentario en el hilo, en ese caso puedes responder). Si deseas añadir material adicional de tu trabajo dentro de los 14 días, puedes editar posts existentes con tu contenido añadido.
 
 
-#### Q: ¿Puedo usar la categoría Work for Hire para postear ofertas de trabajo?
+#### Q: ¿Puedo usar la categoría Work for Hire para postear ofertas de trabajo? {#q-can-i-use-the-work-for-hire-category-to-post-job-offerings}
 
 A: Seguro, ¡dense el gusto! Puede ser usado para ofertas así como pedidos, ej. "Programador buscando 2d pixel artist; soy rico y te pagaré bien".

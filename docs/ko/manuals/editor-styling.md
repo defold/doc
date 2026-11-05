@@ -21,26 +21,26 @@ brief: 커스텀 스타일시트를 사용해 에디터의 색상, 타이포그�
 
 ```
 * {
-	// 배경
+	// Background
 	-df-background-darker:    derive(#212428, -10%);
 	-df-background-dark:      derive(#212428, -5%);
 	-df-background:           #212428;
 	-df-background-light:     derive(#212428, 10%);
 	-df-background-lighter:   derive(#212428, 20%);
 
-	// 컴포넌트
+	// Component
 	-df-component-darker:     derive(#464c55, -20%);
 	-df-component-dark:       derive(#464c55, -10%);
 	-df-component:            #464c55;
 	-df-component-light:      derive(#464c55, 10%);
 	-df-component-lighter:    derive(#464c55, 20%);
 
-	// 텍스트 및 아이콘
+	// Text & icons
 	-df-text-dark:            derive(#b4bac1, -10%);
 	-df-text:                 #b4bac1;
 	-df-text-selected:        derive(#b4bac1, 20%);
 
-  이하 생략...
+  and so on...
 ```
 
 기본 테마는 세 가지 색상 그룹(더 어둡고 더 밝은 변형 포함)으로 나뉩니다:
@@ -94,7 +94,7 @@ Text.strong {
   -fx-font-family: $default-font-bold;
 }
 
-이하 생략...
+and so on...
 ```
 
 메인 폰트는 루트 요소에 정의되어 있어 대부분의 위치에서 폰트를 비교적 쉽게 교체할 수 있습니다. `editor.css`에 다음을 추가합니다:

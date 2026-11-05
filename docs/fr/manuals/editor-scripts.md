@@ -50,7 +50,7 @@ Vous pouvez interagir avec l'éditeur à l'aide du paquet `editor`, qui définit
 - `editor.editor_sha1` — une chaîne de caractères contenant le SHA1 de l'éditeur Defold
 - `editor.get(node_id, property)` — récupère la valeur d'une propriété d'un nœud dans l'éditeur. Les nœuds de l'éditeur représentent diverses entités, comme des fichiers de script ou de collection, des objets de jeu (game objects) dans des collections, des fichiers JSON chargés comme ressources, etc. `node_id` est une valeur userdata transmise au script de l'éditeur par l'éditeur. Vous pouvez également transmettre un chemin de ressource à la place de l'identifiant du nœud, par exemple `"/main/game.script"`. `property` est une chaîne de caractères. Les propriétés suivantes sont actuellement prises en charge :
   - `"path"` — chemin du fichier à partir du dossier du projet pour les *ressources* — les entités qui existent sous forme de fichiers ou de répertoires. Exemple de valeur renvoyée : `"/main/game.script"`
-  - `"children"` — liste des chemins des ressources enfants pour les ressources de type répertoire
+  - `"children"` — liste des chemins des ressources enfants pour les ressources de type répertoire. Pour parcourir aussi les ressources contenues dans les fichiers, consultez [Parcourir les ressources du projet](#traversing-project-resources).
   - `"parent"` — nœud parent dans l'éditeur pour un nœud de la vue Outline qui possède un parent
   - `"text"` — contenu textuel d'une ressource modifiable sous forme de texte (comme les fichiers de script ou JSON). Exemple de valeur renvoyée : `"function init(self)\nend"`. Notez que cela diffère de la lecture du fichier avec `io.open()`, car vous pouvez modifier un fichier sans l'enregistrer, et ces modifications ne sont accessibles que via la propriété `"text"`.
   - pour les atlas : `images` (liste des nœuds de l'éditeur correspondant aux images de l'atlas) et `animations` (liste des nœuds d'animation)
@@ -72,6 +72,7 @@ Vous pouvez interagir avec l'éditeur à l'aide du paquet `editor`, qui définit
 - `editor.properties(node_id)` — renvoie une liste triée des noms de propriétés lisibles sur un nœud, adaptée au contexte, par exemple `pprint(editor.properties("/game.project"))`. Utilisez les fonctions `editor.can_*` pour vérifier si une propriété de la liste peut également être modifiée ou réinitialisée, si des éléments peuvent y être ajoutés ou si leur ordre peut être modifié.
 - `editor.can_get(node_id, property)` — vérifie si vous pouvez lire cette propriété afin que `editor.get()` ne lève pas d'erreur.
 - `editor.can_set(node_id, property)` — vérifie qu'une étape de transaction `editor.tx.set()` portant sur cette propriété ne lèvera pas d'erreur.
+- `editor.resource_children(path)` — liste les chemins des ressources directement contenues dans un dossier ou un fichier, y compris les ressources intégrées aux fichiers glTF/GLB. Consultez [Parcourir les ressources du projet](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — crée un répertoire s'il n'existe pas, ainsi que tous les répertoires parents manquants.
 - `editor.create_resources(resources)` — crée une ou plusieurs ressources, à partir de modèles ou avec un contenu personnalisé
 - `editor.delete_directory(resource_path)` — supprime un répertoire s'il existe, ainsi que tous les répertoires et fichiers enfants existants.
@@ -147,6 +148,42 @@ L'éditeur attend de `get_commands()` un tableau de tables, chacune décrivant u
 - `id` - chaîne de caractères identifiant la commande, utilisée par exemple pour conserver dans `prefs` la dernière commande de création de bundle utilisée
 - `active` - un callback exécuté pour vérifier que la commande est active et qui doit renvoyer un booléen. Si `locations` contient `"Assets"`, `"Scene"` ou `"Outline"`, `active` est appelé lors de l'affichage du menu contextuel. Si les emplacements incluent `"Edit"` ou `"View"`, active est appelé à chaque interaction de l'utilisateur, comme une saisie au clavier ou un clic de souris ; veillez donc à ce que `active` soit relativement rapide.
 - `run` - un callback exécuté lorsque l'utilisateur sélectionne l'élément de menu.
+
+### Parcourir les ressources du projet {#traversing-project-resources}
+
+`editor.resource_children(path)` renvoie un tableau des chemins de ressources directement contenus dans un dossier ou un fichier. Le chemin d'entrée et les chemins renvoyés commencent tous par `/`, relativement à la racine du projet. Utilisez `/` pour partir de la racine du projet. Un fichier *.gltf* ou *.glb* peut exposer des maillages, matériaux et images intégrées comme ressources enfants, de la même manière que dans le panneau *Assets*.
+
+Si votre script parcourt les répertoires avec `editor.get(path, "children")`, remplacez ce parcours par `editor.resource_children(path)` et visitez chaque chemin renvoyé. Les fichiers peuvent eux aussi contenir des ressources ; restreindre la récursion aux chemins pour lesquels `editor.resource_attributes(path).is_directory` vaut `true` ignore donc ces contenus.
+
+La fonction renvoie une table vide (`{}`) pour un dossier ou un fichier sans ressource enfant. Un chemin inexistant déclenche une erreur ; si un chemin peut manquer, vérifiez `editor.resource_attributes(path).exists` avant de demander ses enfants. Les ressources enfants suivent la hiérarchie d'*Assets*. Les objets de jeu d'une collection sont accessibles avec `editor.get(collection_path, "children")`.
+
+Par exemple, enregistrez ce script sous `list_resources.editor_script` et sélectionnez **Project → Reload Editor Scripts**. Faites un clic droit sur un dossier ou un fichier *.gltf* ou *.glb* dans *Assets*, puis sélectionnez **List Resource Contents** pour afficher son arborescence de ressources dans la console :
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Utiliser les commandes pour modifier l'état de l'éditeur en mémoire {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -251,8 +288,8 @@ Par exemple, voici comment configurer une source de tuiles :
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +299,26 @@ editor.transact({
     })
 })
 ```
+
+Les nœuds d'animation exposent une propriété `frames` contenant un tableau Lua de numéros de tuiles, indexés à partir de un, dans l'ordre de l'animation. Contrairement au champ textuel *Frames* de l'éditeur, les scripts de l'éditeur attendent un tableau d'entiers, et non une chaîne comme `"2-6"`. Développez les plages en numéros de tuiles individuels dans le tableau. Les tuiles peuvent apparaître dans n'importe quel ordre et être répétées.
+
+Pour lire et modifier l'animation `walk` de l'exemple ci-dessus :
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+La modification du tableau renvoyé ne met pas à jour l'animation tant que vous ne le transmettez pas à `editor.tx.set()` et n'appliquez pas la transaction. Consultez le [manuel des sources de tuiles](/manuals/tilesource/#tile-source-flip-book-animations) pour la numérotation des tuiles et les paramètres de lecture.
+
 
 #### Modifier les tilemaps {#editing-tilemaps}
 

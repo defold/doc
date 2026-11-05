@@ -17,7 +17,7 @@ brief: 이 매뉴얼은 입력이 작동하는 방식과 입력 동작을 캡쳐
   1. 키보드(단일 키 및 텍스트 입력)
   2. 마우스(위치, 버튼 클릭 및 마우스 휠 동작)
   3. 단일 및 멀티터치(iOS 및 Android 장치와 모바일 HTML5)
-  4. 게임패드(운영체제에서 지원되고 [gamepads](/manuals/input-gamepads/#gamepads-settings-file) 파일에 매핑된 경우)
+  4. 게임패드([컨트롤러 매핑 및 플랫폼 지원](/manuals/input-gamepads/#gamepads-settings-file) 사용)
 
 입력 바인딩
 : 입력이 스크립트로 전송되기 전에 장치의 원시 입력은 입력 바인딩 테이블을 통해 의미 있는 *동작*으로 변환됩니다.
@@ -111,7 +111,7 @@ msg.post(".", "acquire_input_focus")
 : 현재 스크립트 인스턴스입니다.
 
 `action_id`
-: 입력 바인딩에 설정된 동작의 해쉬된 이름입니다.
+: 입력 바인딩에 설정한 동작 이름의 해쉬입니다. 포인터 이동과 가속도계 샘플은 `nil`입니다. 이름 없는 동작은 `action.source`로 구분합니다.
 
 `action`
 : 입력의 값, 위치(절대 위치와 델타 위치), 버튼 입력이 `pressed`였는지 등 동작에 대한 유용한 데이터를 담은 테이블입니다. 사용할 수 있는 action 필드에 대한 자세한 내용은 [on_input()](/ref/go#on_input)을 참고하세요.
@@ -129,6 +129,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### 입력 기기 출처 {#input-device-source}
+
+`action.source`는 동작 이름과 독립적으로 입력 기기 종류를 식별합니다. 스크립트와 GUI 스크립트의 `on_input()` 콜백에서 모두 사용할 수 있으며 다음 해쉬 중 하나입니다:
+
+| `action.source` | 입력 종류 |
+|-----------------|----------------|
+| `hash("keyboard")` | Key Triggers에서 발생한 개별 키 입력입니다. |
+| `hash("text")` | 물리 키보드로 입력한 텍스트를 포함한 Text Triggers의 텍스트 및 조합 중 텍스트 입력입니다. |
+| `hash("mouse")` | 물리 마우스 버튼, 휠 입력, 포인터 이동입니다. |
+| `hash("touch")` | 터치에서 시뮬레이션한 마우스 클릭과 포인터 이동을 포함한 터치 입력입니다. |
+| `hash("gamepad")` | 원시 입력과 연결 이벤트를 포함한 게임패드 입력입니다. |
+| `hash("accelerometer")` | 가속도계 샘플입니다. |
+
+`action.source`는 문자열이 아니라 `hash("touch")` 같은 해쉬와 비교하세요. 예를 들어 마우스 왼쪽 버튼 동작은 물리 마우스나 탭에서 올 수 있습니다. 출처를 보면 처음 누르는 시점부터 구분할 수 있습니다. [마우스 클릭과 터치 구분하기](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch)를 참고하세요.
+
+여러 기기가 이름 있는 동작을 공유하면 각 기기의 입력이 결합될 수 있습니다. 출처는 키보드, 텍스트, 마우스, 터치 순서로 처리하며, 동작에 마지막으로 기여한 출처가 보고됩니다. 키와 마우스 버튼을 놓을 때는 같은 프레임에 다른 입력이 기여하지 않으면 이전 출처를 유지합니다. 게임패드 동작은 컨트롤러별로 구분됩니다. 바인딩을 각각 독립적으로 처리하려면 서로 다른 동작 이름을 사용하세요.
+
+포인터 이동과 가속도계 샘플에는 동작 이름이 없으므로 모두 `action_id == nil`을 사용합니다. 각각 별도의 콜백으로 전달됩니다. 포인터 이동에는 좌표와 마우스 또는 터치 출처가 있고, 가속도계 샘플에는 `acc_x`, `acc_y`, `acc_z`와 가속도계 출처가 있습니다. 한 프레임에 둘 다 발생하면 각 콜백을 독립적으로 소비할 수 있습니다. 가속도계 샘플은 값이 바뀌지 않아도 전달됩니다.
+
+다음 예제는 이러한 이름 없는 동작을 처리합니다. 포인터 이동을 받으려면 하나 이상의 Mouse Trigger를 설정하고, 가속도계 샘플을 받으려면 지원 기기에서 [Use Accelerometer](/manuals/project-settings/#use-accelerometer)를 활성화하세요:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 

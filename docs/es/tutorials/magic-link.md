@@ -172,7 +172,7 @@ function init(self)
     self.num_magic = 3          -- Número de magic blocks en el tablero
     self.drops = 1              -- Número de drops disponibles
     self.magic_blocks = {}      -- Magic blocks que están alineados
-    self.dragging = false       -- Drag touch input
+    self.dragging = false       -- Entrada táctil de arrastre
     msg.post(".", "acquire_input_focus")
     msg.post("#", "start_level")
 end
@@ -217,7 +217,7 @@ La lógica del tablero genera objetos de juego "`block`" mediante el componente 
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale_xy(0.18)     -- render scaled down without changing Z
+    go.set_scale_xy(0.18)     -- renderiza a menor escala sin cambiar Z
 
     if self.color ~= nil then
         sprite.play_flipbook("#sprite", self.color)
@@ -304,7 +304,7 @@ El script de este objeto de juego es mínimo; solo necesita escalar los gráfico
 ```lua
 -- connector.script
 function init(self)
-    go.set_scale_xy(0.18)           -- Scale in 2D without changing Z.
+    go.set_scale_xy(0.18)           -- Escala en 2D sin cambiar Z.
     go.set(".", "position.z", 1)    -- Colócalo encima.
 end
 ```
@@ -552,7 +552,7 @@ Ten en cuenta que debemos agregar un componente *Factory* al objeto de juego blo
 ```lua
 -- block.script
 function init(self)
-    go.set_scale_xy(0.18) -- render scaled down without changing Z
+    go.set_scale_xy(0.18) -- renderiza a menor escala sin cambiar Z
 
     self.fx1 = nil
     self.fx2 = nil
@@ -1033,7 +1033,7 @@ function init(self)
 
     self.magic_blocks = {}        -- Magic blocks que están alineados
 
-    self.dragging = false        -- Drag touch input
+    self.dragging = false        -- Entrada táctil de arrastre
 end
 ```
 
@@ -1069,7 +1069,7 @@ function on_message(self, message_id, message, sender)
         msg.post("#boardproxy", "load")
         msg.post("#menu", "disable")
     elseif message_id == hash("proxy_loaded") then
-        -- Board collection has loaded...
+        -- La colección del tablero se ha cargado...
         msg.post(sender, "init")
         msg.post("board:/board#script", "start_level", { difficulty = 1 }) -- <2>
         msg.post(sender, "enable")

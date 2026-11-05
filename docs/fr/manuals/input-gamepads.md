@@ -104,11 +104,23 @@ end
 ```
 
 ## Fichier de paramètres des manettes {#gamepads-settings-file}
-La configuration des entrées de manette utilise un fichier de correspondance distinct pour chaque type de manette physique. Les correspondances propres à chaque manette physique sont définies dans un fichier *gamepads*. Defold fournit un fichier gamepads intégré contenant les paramètres des manettes courantes :
+
+Les correspondances de manette traduisent ses boutons, axes et chapeaux directionnels en commandes standard utilisées par vos liaisons d'entrée. Defold combine deux sources de correspondances configurées dans la section *Input* de *game.project* :
+
+| Paramètre | Format des correspondances | Valeur par défaut |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | Base de données textuelle au format SDL, avec correspondance par GUID de la manette | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Anciennes entrées `.gamepads` par nom de périphérique et plateforme | `/builtins/input/default.gamepads` |
+
+Les correspondances de la base SDL et les correspondances automatiques de la plateforme utilisent [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Les anciennes entrées `.gamepads` définissent leurs propres zones mortes. Sur Android, une manette absente de la base peut aussi recevoir une [correspondance automatique](#gamepads-on-android).
+
+### Anciennes correspondances .gamepads {#legacy-gamepads-mappings}
+
+Un fichier `.gamepads` peut contenir des correspondances pour plusieurs manettes. Les anciennes correspondances existantes restent prises en charge. Defold inclut celles des manettes courantes dans le fichier par défaut :
 
 ![Paramètres des manettes](images/input/gamepads.png)
 
-Si vous devez créer un nouveau fichier de paramètres des manettes, nous proposons un outil simple pour vous aider :
+Si vous devez créer une ancienne correspondance `.gamepads` sur une plateforme de bureau, l'outil suivant peut vous aider. Pour Android, consultez [Manettes sous Android](#gamepads-on-android).
 
 [Cliquez pour télécharger gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -124,7 +136,7 @@ L'outil vous demandera d'appuyer sur différents boutons de votre manette connec
 
 ### Manettes non identifiées {#unidentified-gamepads}
 
-Lorsqu'une manette est connectée et qu'aucune correspondance n'existe pour elle, elle ne génère que des actions `connected`, `disconnected` et `raw`. Dans ce cas, vous devez associer manuellement les données brutes de la manette aux actions de votre jeu.
+Lorsqu'aucune correspondance configurée ni aucune correspondance automatique de la plateforme n'est disponible, la manette ne génère que les actions liées à `Connected`, `Disconnected` et `Raw`. Vous pouvez ajouter une correspondance de manette ou traiter ses entrées brutes dans votre jeu.
 
 Vous pouvez vérifier si une action d'entrée de manette provient ou non d'une manette inconnue en lisant la valeur `gamepad_unknown` de `action` :
 
@@ -168,62 +180,6 @@ Sous Windows, seules les manettes XBox 360 sont actuellement prises en charge. P
 
 ## Manettes sous Android {#gamepads-on-android}
 
-Les manettes sont prises en charge dans les builds Android et génèrent les mêmes événements d'entrée que sur les autres plateformes. Leur prise en charge repose sur le [système d'entrée Android pour les événements de touche et de mouvement](https://developer.android.com/training/game-controllers/controller-input). Les événements d'entrée Android sont convertis en événements de manette Defold à l'aide du même fichier *gamepad* que celui décrit ci-dessus.
+Les manettes sont prises en charge dans les builds Android et génèrent les mêmes actions d'entrée que sur les autres plateformes. Defold utilise les [correspondances de manettes](#gamepads-settings-file) configurées et peut attribuer automatiquement une correspondance à certaines manettes sans entrée correspondante.
 
-Lorsque vous ajoutez des liaisons de manette supplémentaires sous Android, vous pouvez utiliser les tables de correspondance suivantes pour convertir les événements d'entrée Android en valeurs du fichier *gamepad* :
-
-| Événement de touche vers un indice de bouton | Indice |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Définitions Android de `KeyEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Événement de mouvement vers un indice d'axe | Indice |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Définitions Android de `MotionEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Utilisez cette table de correspondance avec une application de test de manette du Google Play Store pour déterminer à quel événement de touche correspond chaque bouton de votre manette.
+Si une manette n'est pas identifiée ou si ses commandes sont incorrectes, testez-la sur l'appareil Android et ajoutez ou mettez à jour sa correspondance. Consultez [Manettes non identifiées](#unidentified-gamepads) et [Entrées brutes des manettes](#raw-gamepads) pour le dépannage.

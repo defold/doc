@@ -97,7 +97,9 @@ Se desideri supportare anche gli schermi Retina ad alta risoluzione, puoi abilit
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Questo crea un back buffer ad alta densità di pixel sugli schermi che lo supportano. Il gioco viene disegnato a una risoluzione doppia rispetto a quella definita nelle impostazioni Width e Height, che rimane comunque la risoluzione logica usata negli script e nelle proprietà. Ciò significa che tutte le misure restano invariate e che i contenuti disegnati in scala 1x mantengono lo stesso aspetto. Se però importi immagini ad alta risoluzione e le ridimensioni a 0.5x, verranno visualizzate sullo schermo con una densità di pixel elevata.
+High DPI consente al gioco di usare la densità di pixel dello schermo per la risoluzione di rendering. Le impostazioni *Width* e *Height* continuano a definire la risoluzione logica del progetto, mentre la scala di rendering dipende dalla piattaforma e dallo schermo. Per esempio, con una scala di 2, le immagini importate al doppio delle dimensioni desiderate e disegnate a 0.5x possono conservare i dettagli su uno schermo ad alta densità.
+
+Su HTML5, la scala parte dal rapporto dei pixel del dispositivo riportato dal browser. `html5.min_pixel_ratio` e `html5.max_pixel_ratio` possono limitarla quando `display.high_dpi` è abilitato. Ogni limite ha come valore predefinito `0` (disabilitato) e sono supportati rapporti frazionari, compresi quelli inferiori a `1`. Questi limiti modificano la risoluzione di rendering del canvas preservandone le dimensioni di visualizzazione CSS. Con High DPI disabilitato, il rapporto rimane `1`. Consulta [Limiti del rapporto dei pixel](/manuals/html5/#pixel-ratio-limits) per un esempio che limita il rendering sugli schermi ad alta densità.
 
 
 ## Creare una GUI adattiva {#creating-an-adaptive-gui}

@@ -75,7 +75,10 @@ Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합
   * Java 코드를 사용하는 익스텐션은 런타임에 필요한 클래스를 위한 [R8 keep 규칙 파일](#r8-keep-rules-for-android)(`.keep`)을 포함해야 합니다.
 * `ios` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
   * 이 폴더에는 [Cocoapods로 해결되는](/manuals/extensions-cocoapods) 종속성이 들어 있는 `Podfile` 파일도 넣을 수 있습니다.
+  * 폴더에는 [Swift Package Manager로 해결할 종속성](/manuals/extensions-spm)이 있는 `SwiftPackages.json` 파일도 포함할 수 있습니다.
 * `osx` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
+  * 이 폴더에는 [Cocoapods로 해결되는](/manuals/extensions-cocoapods) 종속성이 들어 있는 `Podfile` 파일도 넣을 수 있습니다.
+  * 폴더에는 [Swift Package Manager로 해결할 종속성](/manuals/extensions-spm)이 있는 `SwiftPackages.json` 파일도 포함할 수 있습니다.
 * `web` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,8 +100,7 @@ Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합
 
 [R8을 활성화하면](/manuals/android/#enabling-r8) 이 규칙들을 프로젝트에서 선택한 keep 파일과 결합합니다.
 
-Defold 1.14.0 이상과 호환되는 Extender 서버에서는 R8이 Android 리소스도 축소합니다. 익스텐션이 이름으로 리소스를 동적으로 조회한다면 익스텐션 폴더의 `res/android/res/raw` 아래에 [XML 리소스 keep 규칙](/manuals/android/#keeping-android-resources)을 추가하세요.
-
+호환되는 Extender 서버에서는 R8이 Android 리소스도 축소합니다. 익스텐션이 이름으로 리소스를 동적으로 조회한다면 익스텐션 폴더의 `res/android/res/raw` 아래에 [XML 리소스 유지 규칙](/manuals/android/#keeping-android-resources)을 추가하세요.
 
 ## 커스텀 리소스 {#custom-resources}
 
@@ -137,7 +139,7 @@ end
 ![메니페스트](images/extensions/manifest.png)
 
 ```yaml
-# 익스텐션의 C++ 심볼
+# C++ symbol in your extension
 name: "MyExtension"
 ```
 
@@ -149,23 +151,23 @@ name: "MyExtension"
 
 ```cpp
 // myextension.cpp
-// 익스텐션 lib 정의
+// Extension lib defines
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// Defold SDK 포함
+// include the Defold SDK
 #include <dmsdk/sdk.h>
 
 static int Reverse(lua_State* L)
 {
-    // 이 struct가 범위를 벗어났을 때
-    // Lua 스택에 있어야 하는 예상 아이템 수
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
     DM_LUA_STACK_CHECK(L, 1);
 
-    // 스택에서 문자열 파라미터를 확인하고 가져오기
+    // Check and get parameter string from stack
     char* str = (char*)luaL_checkstring(L, 1);
 
-    // 문자열 뒤집기
+    // Reverse the string
     int len = strlen(str);
     for(int i = 0; i < len / 2; i++) {
         const char a = str[i];
@@ -174,14 +176,14 @@ static int Reverse(lua_State* L)
         str[len - i - 1] = a;
     }
 
-    // 뒤집힌 문자열을 스택에 넣기
+    // Put the reverse string on the stack
     lua_pushstring(L, str);
 
-    // 아이템 1개 반환
+    // Return 1 item
     return 1;
 }
 
-// Lua에 노출되는 함수
+// Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
     {"reverse", Reverse},
@@ -192,7 +194,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // Lua 이름 등록
+    // Register lua names
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -206,7 +208,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Lua 초기화
+    // Init Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -223,12 +225,12 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// Defold SDK는 익스텐션 진입점을 설정하기 위해 매크로를 사용합니다.
+// Defold SDK uses a macro for setting up extension entry points:
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
-// MyExtension은 관련된 모든 익스텐션 데이터를 보관하는 C++ 심볼입니다.
-// `ext.manifest`의 name 필드와 일치해야 합니다.
+// MyExtension is the C++ symbol that holds all relevant extension data.
+// It must match the name field in the `ext.manifest`
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
@@ -247,7 +249,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 이제 완료되었습니다. 완전히 동작하는 네이티브 익스텐션을 만들었습니다.
 
 
-## 익스텐션 라이프사이클
+## 익스텐션 라이프사이클 {#extension-lifecycle}
 
 위에서 본 것처럼 `DM_DECLARE_EXTENSION` 매크로는 익스텐션 코드의 다양한 진입점을 선언하는 데 사용됩니다.
 

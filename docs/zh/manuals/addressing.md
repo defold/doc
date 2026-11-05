@@ -214,7 +214,7 @@ fragment
 我们可以向它们发送消息：
 
 ```lua
--- Send "hello" to the manager script and team buddy bean
+-- 向 manager 脚本和队友 bean 发送 "hello"
 msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
@@ -224,23 +224,23 @@ msg.post("main:/team_2/buddy#controller", "hello_buddy")
 URL对象也可以在Lua代码中以编程方式构造：
 
 ```lua
--- Construct URL object from a string:
+-- 从字符串构造 URL 对象：
 local my_url = msg.url("main:/manager#controller")
 print(my_url) --> url: [main:/manager#controller]
 print(my_url.socket) --> 786443 (internal numeric value)
 print(my_url.path) --> hash: [/manager]
 print(my_url.fragment) --> hash: [controller]
 
--- Construct URL from parameters:
+-- 通过参数构造 URL：
 local my_url = msg.url("main", "/manager", "controller")
 print(my_url) --> url: [main:/manager#controller]
 
--- Build from empty URL object:
+-- 从空 URL 对象构造：
 local my_url = msg.url()
-my_url.socket = "main" -- specify by valid name
-my_url.path = hash("/manager") -- specify as string or hash
-my_url.fragment = "controller" -- specify as string or hash
+my_url.socket = "main" -- 通过有效名称指定
+my_url.path = hash("/manager") -- 以字符串或哈希值指定
+my_url.fragment = "controller" -- 以字符串或哈希值指定
 
--- Post to target specified by URL
+-- 向 URL 指定的目标发送消息
 msg.post(my_url, "hello_manager!")
 ```

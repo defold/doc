@@ -63,7 +63,7 @@ Sprite ma też kilka właściwości, którymi można manipulować przy użyciu `
 : Niejednorodna skala sprite'a (`vector3`).
 
 `size`
-: Rozmiar sprite'a (`vector3`). Można go zmienić tylko wtedy, gdy `tryb rozmiaru` sprite'a jest ustawiony na `ręczny`.
+: Rozmiar sprite'a (`vector3`). Można go zmienić tylko wtedy, gdy właściwość `Size Mode` sprite'a jest ustawiona na `Manual`.
 
 ## Stałe materiału
 

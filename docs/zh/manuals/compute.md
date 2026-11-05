@@ -106,7 +106,7 @@ render.dispatch_compute(32, 32, 32, {constants = constants})
 
 目前，从计算程序生成任何类型的输出只能通过`存储纹理`完成。存储纹理类似于"常规纹理"，只是它们支持更多功能和可配置性。顾名思义，存储纹理可以用作通用缓冲区，您可以从计算程序中读取和写入数据。然后，您可以将同一缓冲区绑定到不同的着色器程序以进行读取。
 
-要在 Defold 中创建存储纹理，您需要从常规的 `.script` 文件执行此操作。渲染脚本没有此功能，因为动态纹理需要通过仅在常规 `.script` 文件中可用的`资源` API 创建。
+要在 Defold 中创建存储纹理，您需要从常规的 `.script` 文件执行此操作。渲染脚本没有此功能，因为动态纹理需要通过仅在常规 `.script` 文件中可用的`resource` API 创建。
 
 ```lua
 -- 在 .script 文件中：
@@ -139,17 +139,17 @@ end
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 
-// 指定输入资源
+// specify the input resources
 uniform vec4 color;
 uniform sampler2D texture_in;
 
-// 指定输出图像
+// specify the output image
 layout(rgba32f) uniform image2D texture_out;
 
 void main()
 {
-    // 这不是一个特别有趣的着色器，但它演示了
-    // 如何从纹理和常量缓冲区读取并写入存储纹理
+    // This isn't a particularly interesting shader, but it demonstrates
+    // how to read from a texture and constant buffer and write to a storage texture
 
     ivec2 tex_coord   = ivec2(gl_GlobalInvocationID.xy);
     vec4 output_value = vec4(0.0, 0.0, 0.0, 1.0);
@@ -157,7 +157,7 @@ void main()
     vec4 input_value = texture(texture_in, tex_coord_uv);
     output_value.rgb = input_value.rgb * color.rgb;
 
-    // 将输出值写入存储纹理
+    // Write the output value to the storage texture
     imageStore(texture_out, tex_coord, output_value);
 }
 ```

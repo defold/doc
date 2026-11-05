@@ -23,10 +23,10 @@ Nachdem du das Modell erstellt hast, musst du einige Eigenschaften festlegen:
 Neben den Eigenschaften *Id*, *Position* und *Rotation* gibt es die folgenden komponentenspezifischen Eigenschaften:
 
 *Scene*
-: Die glTF-Datei mit der Erweiterung *.gltf* oder *.glb*, die die Geometrie des Modells enthält. Wenn die Datei Morph-Ziele (morph targets) enthält, werden sie zusammen mit der Szene importiert. Vor Defold 1.13.2 hieß diese Eigenschaft *Mesh*.
+: Die glTF-Datei *.gltf* oder *.glb*, die die Geometrie des Modells enthält. Enthält die Datei Morph Targets, werden diese zusammen mit der Szene importiert. Diese Eigenschaft hieß zuvor *Mesh*.
 
 *Mesh*
-: Ein optionales benanntes Mesh aus der ausgewählten *Scene*, verfügbar seit Defold 1.13.2. Lasse dieses Feld leer, um die gesamte Szene mit ihren importierten Transformationen zu rendern. Wähle ein Mesh aus, um dieses Mesh einmal in seinen lokalen Koordinaten ohne die glTF-Knotentransformationen zu rendern. Positioniere, drehe und skaliere die Modellkomponente oder ihr Spielobjekt, um das ausgewählte Mesh zu platzieren.
+: Ein optionales benanntes Mesh aus der ausgewählten *Scene*. Lasse dieses Feld leer, um die gesamte Szene mit ihren importierten Transformationen zu rendern. Wähle ein Mesh, um es einmal in seinen lokalen Koordinaten ohne glTF-Knotentransformationen zu rendern. Positioniere, drehe und skaliere die Modellkomponente oder ihr Spielobjekt, um das ausgewählte Mesh zu platzieren.
 
 *Create GO Bones*
 : Aktiviere diese Option, um für jeden Knochen des Modells ein Spielobjekt zu erstellen. Du kannst diese Spielobjekte verwenden, um andere Spielobjekte anzuhängen, beispielsweise Waffen an Handknochen und so weiter. 
@@ -43,17 +43,14 @@ Neben den Eigenschaften *Id*, *Position* und *Rotation* gibt es die folgenden ko
 Zusätzlich zu den oben genannten Eigenschaften gibt es für jedes Mesh des Modells ein Feld, in dem du ein Material zuweisen kannst:
 
 *Material*
-: Setze diese Eigenschaft auf ein von dir erstelltes Material, das für ein texturiertes 3D-Objekt geeignet ist. Es gibt einige integrierte Materialien, die du als Ausgangspunkt verwenden kannst:
-
-  * Verwende *model.material* für statische Modelle ohne Instanziierung
-  * Verwende *model_instanced.material* für statische instanziierte Modelle
-  * Verwende *model_skinned.material* für Modelle mit Skinning (animiert) ohne Instanziierung
-  * Verwende *model_skinned_instanced.material* für instanziierte Modelle mit Skinning (animiert)
+: Setze diese Eigenschaft auf ein für das Modell geeignetes Material. Verwende ein integriertes `gltf`-Material für physikalisch basiertes Rendering der glTF-Materialeigenschaften, ein integriertes `model`-Material für allgemeine Modellschattierung oder ein eigenes Material. Siehe die [Materialvarianten unten](#material) und das [PBR-Handbuch](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 Je nach Material gibt es eine oder mehrere Textureigenschaften:
 
 *Texture*
-: Diese Eigenschaft sollte auf die Texturbilddatei verweisen, die du auf das Objekt anwenden möchtest.
+: Diese Eigenschaft sollte auf das Texturbild zeigen, das auf das Objekt angewendet werden soll. Es kann ein separates Projekt-Asset oder ein eingebettetes Bild unter einer glTF- oder GLB-Datei im Bereich *Assets* sein.
+
+Bei der Auswahl einer glTF- oder GLB-*Scene* oder beim Ändern ihrer *Mesh*-Auswahl kann das Ausfüllen von Material- und Texturbindungen angeboten werden. <kbd>Auto Fill</kbd> ersetzt vorhandene Bindungen durch die der Quelle; <kbd>Keep Current</kbd> behält deine Bindungen bei und übernimmt dabei die neue Szenen- oder Mesh-Auswahl. Siehe den [Ablauf des Modellimports](/manuals/importing-models/#using-a-model).
 
 
 ## Bearbeitung im Editor {#editor-manipulation}
@@ -110,14 +107,18 @@ Ein Modell hat außerdem verschiedene Eigenschaften, die mit `go.get()` und `go.
 
 In 3D-Software kannst du üblicherweise Eigenschaften an den Vertices deiner Objekte festlegen, etwa zur Farbgebung und Texturierung. Diese Informationen werden in der glTF-Datei mit der Erweiterung *.gltf* oder *.glb* gespeichert, die du aus deiner 3D-Software exportierst. Je nach den Anforderungen deines Spiels musst du geeignete und _leistungsfähige_ Materialien für deine Objekte auswählen und/oder erstellen. Ein Material kombiniert _Shader-Programme_ mit einem Satz von Parametern für das Rendering des Objekts.
 
-Es gibt einige integrierte Materialien, die du als Ausgangspunkt verwenden kannst:
+Folgende integrierte Materialien sind unter `/builtins/materials/` verfügbar:
 
-  * Verwende *model.material* für statische Modelle ohne Instanziierung
-  * Verwende *model_instanced.material* für statische instanziierte Modelle
-  * Verwende *model_skinned.material* für Modelle mit Skinning (animiert) ohne Instanziierung
-  * Verwende *model_skinned_instanced.material* für instanziierte Modelle mit Skinning (animiert)
+| Modelltyp | Allgemeine Modellschattierung | glTF-PBR-Schattierung |
+|---|---|---|
+| Statisch, nicht instanziert | `model.material` | `gltf.material` |
+| Statisch, instanziert | `model_instanced.material` | `gltf_instanced.material` |
+| Mit Skinning (animiert), nicht instanziert | `model_skinned.material` | `gltf_skinned.material` |
+| Mit Skinning (animiert), instanziert | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Die integrierten Modellmaterialien verwenden ein lokales Koordinatensystem für Vertices. Bei Modellen mit Skinning ermöglicht dieses lokale Koordinatensystem dem Vertex-Shader, das Skinning auf der GPU mithilfe einer Knochenmatrix-Textur durchzuführen. Das lokale Koordinatensystem für Vertices ist auch für die Instanziierung von Modellen erforderlich. Ein benutzerdefiniertes Material für Modelle mit GPU-Skinning oder instanziierte Modelle sollte daher die Einstellung *Local* für das Vertex-Koordinatensystem verwenden.
+Die `gltf`-Materialien bieten integrierte Metallic-/Roughness-Beleuchtung mit den importierten glTF-Materialdaten. Texturbindungen, Lichtquellen und benutzerdefinierte Shader beschreibt das [PBR-Handbuch](/manuals/physically-based-rendering/#built-in-pbr-materials).
+
+Alle diese integrierten Materialien verwenden lokalen Vertex-Raum. Bei geskinnten Modellen kann der Vertex-Shader dadurch das Skinning auf der GPU mithilfe einer Knochenmatrixtextur durchführen; lokaler Vertex-Raum ist auch für Modellinstanzierung erforderlich. Ein benutzerdefiniertes Material für GPU-Skinning oder instanzierte Modelle sollte deshalb die Vertex-Raum-Einstellung *Local* verwenden.
 
 Der Knochenmatrix-Cache verwendet eine `RGBA32F`-Textur. Wenn der aktive Grafikadapter dieses Texturformat nicht unterstützt, kann Defold keine animierte Modellkomponente erstellen, die ein Material mit lokalem Koordinatensystem verwendet. Bei OpenGL ES 2.0 und WebGL 1.0 hängt die Unterstützung daher von der Erweiterung des Adapters für Gleitkommatexturen ab. Für die Kompatibilität mit einem Adapter, dem diese Erweiterung fehlt, verwende ein benutzerdefiniertes Material mit Weltkoordinatensystem. Dieses verwendet CPU-Skinning und kann keine Modellinstanziierung nutzen. Die Abmessungen des Caches kannst du über die [Projekteinstellungen für Model](/manuals/project-settings/#model) anpassen.
 
@@ -134,7 +135,7 @@ Wenn du benutzerdefinierte Materialien für deine Modelle erstellen musst, finde
 
 ## Rendering
 
-Das standardmäßige Render-Skript ist auf 2D-Spiele zugeschnitten und funktioniert nicht mit 3D-Modellen. Indem du das standardmäßige Render-Skript kopierst und einige Codezeilen zum Render-Skript hinzufügst, kannst du jedoch das Rendering deiner Modelle aktivieren. Zum Beispiel:
+Das Standard-Renderskript zeichnet Materialien mit dem Tag `model`, einschließlich der integrierten Modell- und glTF-Materialien. Um sie in einem eigenen Renderskript zu rendern, erstelle ein passendes Prädikat und zeichne es mit einer für die Szene geeigneten Ansicht und Projektion. Zum Beispiel:
 
   ```lua
 

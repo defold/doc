@@ -75,7 +75,10 @@ La cartella facoltativa *manifests* di un'estensione contiene file aggiuntivi us
   * Le estensioni con codice Java dovrebbero includere un [file di regole di conservazione R8](#r8-keep-rules-for-android) (`.keep`) per le classi necessarie a runtime.
 * `ios` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
   * La cartella può contenere anche un file `Podfile` con dipendenze da [risolvere tramite Cocoapods](/manuals/extensions-cocoapods).
+  * La cartella può anche contenere un file `SwiftPackages.json` con dipendenze da [risolvere tramite Swift Package Manager](/manuals/extensions-spm).
 * `osx` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
+  * La cartella può anche contenere un file `Podfile` con dipendenze da [risolvere tramite CocoaPods](/manuals/extensions-cocoapods).
+  * La cartella può anche contenere un file `SwiftPackages.json` con dipendenze da [risolvere tramite Swift Package Manager](/manuals/extensions-spm).
 * `web` - Questa cartella accetta un frammento di file manifest da unire a quello dell'applicazione principale ([come descritto qui](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Se l'estensione dipende da annotazioni a runtime, includi anche:
 
 Queste regole vengono combinate con il file di conservazione selezionato nel progetto quando [R8 è abilitato](/manuals/android/#enabling-r8).
 
-Con Defold 1.14.0 o versioni successive e un server Extender compatibile, R8 rimuove anche le risorse Android inutilizzate. Se l'estensione cerca risorse dinamicamente per nome, aggiungi [regole XML di conservazione delle risorse](/manuals/android/#keeping-android-resources) in `res/android/res/raw` nella cartella dell'estensione.
+Con un server Extender compatibile, R8 rimuove anche le risorse Android inutilizzate. Se l'estensione cerca dinamicamente le risorse per nome, aggiungi [regole XML di conservazione delle risorse](/manuals/android/#keeping-android-resources) in `res/android/res/raw` nella cartella dell'estensione.
 
 
 ## Risorse personalizzate {#custom-resources}

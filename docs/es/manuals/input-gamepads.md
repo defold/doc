@@ -104,11 +104,23 @@ end
 ```
 
 ## Archivo de configuración de gamepads {#gamepads-settings-file}
-La configuración del input de gamepad usa un archivo de mapeo separado para cada tipo de hardware de gamepad. Los mapeos de gamepads para hardware específico se definen en un archivo *gamepads*. Defold incluye un archivo gamepads integrado con configuraciones para gamepads comunes:
+
+Las asignaciones de gamepad convierten los botones, ejes y crucetas de un mando en los controles estándar usados por tus input bindings. Defold combina dos fuentes de asignaciones configuradas en la sección *Input* de *game.project*:
+
+| Ajuste | Formato de asignación | Valor predeterminado |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | Base de datos de texto en formato SDL, con correspondencia mediante el GUID del mando | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Entradas `.gamepads` heredadas para nombres de dispositivos y plataformas | `/builtins/input/default.gamepads` |
+
+Las asignaciones de la base de datos SDL y las asignaciones automáticas de la plataforma usan [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Las entradas `.gamepads` heredadas definen sus propias zonas muertas. En Android, un mando sin entrada en la base de datos también puede recibir una [asignación automática](#gamepads-on-android).
+
+### Asignaciones .gamepads heredadas {#legacy-gamepads-mappings}
+
+Un archivo `.gamepads` puede contener asignaciones para varios mandos. Las asignaciones heredadas existentes siguen admitiéndose. Defold incluye asignaciones para mandos comunes en el archivo predeterminado:
 
 ![Configuración de gamepads](images/input/gamepads.png)
 
-Si necesitas crear un nuevo archivo de configuración de gamepads, tenemos una herramienta simple para ayudarte:
+Si necesitas crear una asignación `.gamepads` heredada en una plataforma de escritorio, la siguiente herramienta puede ayudarte. Para Android, consulta [Gamepads en Android](#gamepads-on-android).
 
 [Haz click para descargar gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -124,7 +136,7 @@ La herramienta te pedirá que presiones distintos botones en tu mando conectado.
 
 ### Gamepads no identificados {#unidentified-gamepads}
 
-Cuando se conecta un gamepad y no existe ningún mapeo para él, el gamepad solo generará acciones `connected`, `disconnected` y `raw`. En este caso necesitas mapear manualmente los datos raw del gamepad a acciones en tu juego.
+Cuando no hay una asignación configurada ni una asignación automática de la plataforma, el gamepad solo genera las acciones vinculadas a `Connected`, `Disconnected` y `Raw`. Puedes agregar una asignación para el mando o procesar su input sin interpretar en tu juego.
 
 Es posible comprobar si una acción de input para un gamepad proviene de un gamepad desconocido o no leyendo el valor `gamepad_unknown` de `action`:
 
@@ -168,62 +180,6 @@ En Windows, actualmente solo se admiten mandos Xbox 360. Para conectar tu mando 
 
 ## Gamepads en Android {#gamepads-on-android}
 
-Los gamepads son compatibles con builds Android y generan los mismos eventos de input que en otras plataformas. El soporte de gamepads se basa en el [sistema de input de Android para eventos de tecla y movimiento](https://developer.android.com/training/game-controllers/controller-input). Los eventos de input de Android se traducirán a eventos de gamepad de Defold usando el mismo archivo *gamepad* descrito arriba.
+Los gamepads se admiten en builds de Android y generan las mismas acciones de input que en otras plataformas. Defold usa las [asignaciones de gamepad](#gamepads-settings-file) configuradas y puede asignar automáticamente algunos mandos que no tienen una entrada correspondiente.
 
-Al agregar bindings de gamepad adicionales en Android, puedes usar las siguientes tablas de consulta para traducir los eventos de input de Android a valores del archivo *gamepad*:
-
-| Evento de tecla a índice de botón | Índice |
-|-----------------------------------|--------|
-| `AKEYCODE_BUTTON_A`               | 0      |
-| `AKEYCODE_BUTTON_B`               | 1      |
-| `AKEYCODE_BUTTON_C`               | 2      |
-| `AKEYCODE_BUTTON_X`               | 3      |
-| `AKEYCODE_BUTTON_L1`              | 4      |
-| `AKEYCODE_BUTTON_R1`              | 5      |
-| `AKEYCODE_BUTTON_Y`               | 6      |
-| `AKEYCODE_BUTTON_Z`               | 7      |
-| `AKEYCODE_BUTTON_L2`              | 8      |
-| `AKEYCODE_BUTTON_R2`              | 9      |
-| `AKEYCODE_DPAD_CENTER`            | 10     |
-| `AKEYCODE_DPAD_DOWN`              | 11     |
-| `AKEYCODE_DPAD_LEFT`              | 12     |
-| `AKEYCODE_DPAD_RIGHT`             | 13     |
-| `AKEYCODE_DPAD_UP`                | 14     |
-| `AKEYCODE_BUTTON_START`           | 15     |
-| `AKEYCODE_BUTTON_SELECT`          | 16     |
-| `AKEYCODE_BUTTON_THUMBL`          | 17     |
-| `AKEYCODE_BUTTON_THUMBR`          | 18     |
-| `AKEYCODE_BUTTON_MODE`            | 19     |
-| `AKEYCODE_BUTTON_1`               | 20     |
-| `AKEYCODE_BUTTON_2`               | 21     |
-| `AKEYCODE_BUTTON_3`               | 22     |
-| `AKEYCODE_BUTTON_4`               | 23     |
-| `AKEYCODE_BUTTON_5`               | 24     |
-| `AKEYCODE_BUTTON_6`               | 25     |
-| `AKEYCODE_BUTTON_7`               | 26     |
-| `AKEYCODE_BUTTON_8`               | 27     |
-| `AKEYCODE_BUTTON_9`               | 28     |
-| `AKEYCODE_BUTTON_10`              | 29     |
-| `AKEYCODE_BUTTON_11`              | 30     |
-| `AKEYCODE_BUTTON_12`              | 31     |
-| `AKEYCODE_BUTTON_13`              | 32     |
-| `AKEYCODE_BUTTON_14`              | 33     |
-| `AKEYCODE_BUTTON_15`              | 34     |
-| `AKEYCODE_BUTTON_16`              | 35     |
-
-([definiciones de Android `KeyEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Evento de movimiento a índice de eje | Índice |
-|--------------------------------------|--------|
-| `AMOTION_EVENT_AXIS_X`               | 0      |
-| `AMOTION_EVENT_AXIS_Y`               | 1      |
-| `AMOTION_EVENT_AXIS_Z`               | 2      |
-| `AMOTION_EVENT_AXIS_RZ`              | 3      |
-| `AMOTION_EVENT_AXIS_LTRIGGER`        | 4      |
-| `AMOTION_EVENT_AXIS_RTRIGGER`        | 5      |
-| `AMOTION_EVENT_AXIS_HAT_X`           | 6      |
-| `AMOTION_EVENT_AXIS_HAT_Y`           | 7      |
-
-([definiciones de Android `MotionEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Usa esta tabla de consulta junto con una app de prueba de gamepad de Google Play Store para averiguar a qué evento de tecla está mapeado cada botón de tu gamepad.
+Si no se identifica un mando o sus controles son incorrectos, pruébalo en el dispositivo Android y agrega o actualiza su asignación. Consulta [Gamepads no identificados](#unidentified-gamepads) y [Gamepads sin interpretar](#raw-gamepads) para resolver problemas.

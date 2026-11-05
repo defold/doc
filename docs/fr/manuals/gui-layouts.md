@@ -99,6 +99,8 @@ end
 
 Lorsque l'orientation change, le gestionnaire de mises en page de l'interface graphique redimensionne et repositionne automatiquement les nœuds de l'interface graphique selon les propriétés de votre mise en page et de vos nœuds. Le contenu du jeu est toutefois rendu dans une passe distincte (par défaut), avec une projection étirée pour remplir la fenêtre actuelle. Pour modifier ce comportement, fournissez votre propre script de rendu modifié ou utilisez une [bibliothèque](/assets/) de caméra.
 
+Pour placer une interface autour des découpes de caméra, rafraîchissez `window.get_reserved_areas()` à chaque `window.WINDOW_EVENT_RESIZED`, même si la disposition GUI sélectionnée ne change pas. Sur iOS, une rotation de 180° peut conserver les dimensions de la fenêtre et les marges de la zone sûre tout en déplaçant l'obstruction. Consultez [Zones réservées de l'écran](/manuals/porting-guidelines/#reserved-screen-areas) pour un exemple de rafraîchissement et pour comprendre le lien entre les coordonnées en pixels de fenêtre et l'ajustement GUI.
+
 ## Sélection manuelle de la mise en page (Lua) {#manual-layout-selection-lua}
 
 Lorsque l'option Auto Layout Selection est sur OFF pour la ressource Display Profiles utilisée, le moteur ne change pas automatiquement de mise en page. Utilisez les fonctions suivantes dans un script GUI pour gérer les mises en page manuellement :

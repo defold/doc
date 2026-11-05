@@ -189,7 +189,7 @@ Das Aussondern von Geometrie außerhalb des Sichtvolumens ist in der Engine für
 
 
 ::: sidenote
-Ab Defold 1.13.0 verwenden die Primitive von Komponenten (components) eine Vertex-Reihenfolge gegen den Uhrzeigersinn, wobei die Normale des Primitivs zur Kamera zeigt. Sprites, GUI-Knoten, Kachelkarten (Kachelraster) und Partikeleffekte verwenden dieselbe Reihenfolge wie andere Komponententypen. Deshalb können für alle Komponenten dieselben Einstellungen zum Aussondern von Flächen verwendet werden.
+Komponentenprimitive verwenden eine Vertex-Reihenfolge gegen den Uhrzeigersinn, wobei die Normale des Primitivs zur Kamera zeigt. Sprites, GUI-Knoten, Kachelkarten (Kachelraster) und Partikeleffekte verwenden dieselbe Reihenfolge wie andere Komponententypen. Dadurch können dieselben Face-Culling-Einstellungen für alle Komponenten verwendet werden.
 
 Dies kann Projekte betreffen, die das Aussondern von Flächen für andere Komponenten als Modelle einstellen. Wenn eine Komponente unerwartet ausgesondert wird, stelle sicher, dass mit `render.set_cull_face(graphics.FACE_TYPE_BACK)` die Rückseiten ausgewählt sind, oder entferne den Aufruf von `render.set_cull_face()`, um den Standardmodus `graphics.FACE_TYPE_BACK` zu verwenden.
 :::

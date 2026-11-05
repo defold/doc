@@ -15,7 +15,7 @@ Defold에서는 프로젝트에서 사용하는 모든 에셋이 프로젝트 �
 ![파일 임포트](images/graphics/import.png)
 
 ::: sidenote
-Defold는 PNG 및 JPEG 이미지 포멧의 이미지를 지원합니다. PNG 이미지는 32비트 RGBA 포멧이어야 합니다. 다른 이미지 포멧은 사용하기 전에 변환해야 합니다.
+아틀라스와 타일 소스에는 PNG 또는 JPEG 이미지를 사용하세요. PNG는 RGB, RGBA, 인덱스 색상(팔레트) 이미지를 지원합니다. 모델 텍스쳐용으로 [KTX2 원본 텍스쳐](/manuals/importing-graphics/#ktx2-textures)도 임포트할 수 있습니다.
 :::
 
 
@@ -26,8 +26,7 @@ Defold는 PNG 및 JPEG 이미지 포멧의 이미지를 지원합니다. PNG 이
 * 이미지는 2D 게임에서 자주 사용되는 여러 종류의 시각적 컴포넌트를 만드는 데 사용할 수 있습니다. [2D 그래픽을 임포트하고 사용하는 방법](/manuals/importing-graphics)을 더 읽어보세요.
 * 사운드는 [Sound 컴포넌트](/manuals/sound)에서 사운드를 재생하는 데 사용할 수 있습니다.
 * 폰트는 [Label 컴포넌트](/manuals/label)와 GUI의 [텍스트 노드](/manuals/gui-text)에서 사용됩니다.
-* glTF 모델(*.gltf* 및 *.glb*)은 [Model 컴포넌트](/manuals/model)에서 애니메이션이 포함된 3D 모델을 표시하는 데 사용할 수 있습니다. 모델에서 사용하는 텍스쳐 이미지는 별도 에셋으로 임포트하고 Model 컴포넌트의 메터리얼 텍스쳐 프로퍼티에 할당하세요. [3D 모델을 임포트하고 사용하는 방법](/manuals/importing-models)을 더 읽어보세요.
-
+* glTF 모델(*.gltf*, *.glb*)은 [Model 컴포넌트](/manuals/model)에서 애니메이션이 있는 3D 모델을 표시할 때 사용합니다. *Assets* 창에서 파일을 펼쳐 메쉬, 생성된 메터리얼, 내장 이미지를 살펴볼 수 있습니다. 내장 이미지는 직접 사용할 수 있으며, 외부 참조 이미지와 버퍼는 별도의 프로젝트 파일로 포함하세요. [Draco 및 Meshopt로 압축된 지오메트리](/manuals/importing-models/#compressed-geometry)도 지원하며 임포트/빌드 시 디코딩합니다. Model 컴포넌트에서 씬이나 메쉬를 선택하면 에디터가 메터리얼 및 텍스쳐 바인딩을 채우도록 제안할 수 있습니다. 기존 바인딩을 교체하여 적용하려면 <kbd>Auto Fill</kbd>, 직접 설정한 바인딩을 유지하려면 <kbd>Keep Current</kbd>를 선택하세요. 자세한 내용은 [3D 모델 임포트 및 사용 방법](/manuals/importing-models)을 참고하세요.
 
 ## 외부 에셋 편집
 

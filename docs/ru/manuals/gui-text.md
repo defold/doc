@@ -26,6 +26,31 @@ Defold поддерживает особый тип GUI-ноды, позволя
 *Line Break*
 : Выравнивание текста следует за настройкой пивота, и настройка этого свойства позволяет тексту располагаться на нескольких строках. Ширина ноды определяет, в каком месте текст будет перенесен.
 
+## Векторные шрифты и цветные эмодзи {#vector-fonts-and-color-emoji}
+
+Выполните [настройку векторного шрифта](/manuals/font/#vector-fonts), добавьте ресурс `.font` в *Fonts* GUI-сцены и выберите его на текстовой ноде. Установите *Material* ресурса шрифта в `/builtins/fonts/font-vector.material`. Управляйте отображаемым размером через *Font Size* ноды.
+
+Для цветных эмодзи также выполните [настройку резервного COLRv1-шрифта и его включения в бандл](/manuals/font/#color-emoji). Создайте текстовую ноду с id `text`, оставьте её *Text* пустым и добавьте следующее в `.gui_script` GUI-сцены:
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Добавить резервный шрифт один раз для этого общего ресурса шрифта.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) возвращает имя шрифта внутри GUI-сцены; [`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) разрешает это имя в ресурс шрифта для `font.add_font()`. Другие ноды и Label, использующие этот ресурс, также получают резервный шрифт, поэтому инициализируйте его только один раз. Текст задаётся после успешного прогрева.
+
 ## Выравнивание
 
 Настроив пивот ноды, можно изменить режим выравнивания текста.

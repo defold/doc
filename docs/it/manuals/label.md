@@ -21,6 +21,30 @@ Imposta la proprietà *Font* sul font che vuoi usare e assicurati di impostare l
 
 ![Font e materiale](images/label/font_material.png)
 
+## Font vettoriali ed emoji a colori {#vector-fonts-and-color-emoji}
+
+Per usare un font Vector, segui la [configurazione dei font vettoriali](/manuals/font/#vector-fonts), assegna la risorsa `.font` alla proprietà *Font* del Label e imposta *Material* del Label su `/builtins/fonts/label-vector.material`. Usa *Font Size* per controllare le dimensioni visualizzate.
+
+Per le emoji a colori, completa anche la [configurazione del ripiego COLRv1 e del bundle](/manuals/font/#color-emoji). L'esempio seguente presuppone un Label con l'ID `label` e uno script sullo stesso oggetto di gioco. Lascia vuoto *Text* del Label per mostrare il saluto soltanto quando i suoi glifi sono pronti:
+
+```lua
+function init(self)
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = go.get("#label", "font")
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            go.set("#label", "text", text)
+        else
+            print("Could not prepare label text:", err)
+        end
+    end)
+end
+```
+
+Le lettere ordinarie usano il font originale e le emoji usano il font a colori aggiunto. Se altri Label o nodi di testo GUI condividono questa risorsa font, inizializza il ripiego in un solo punto e riutilizzalo.
+
 ## Proprietà delle etichette {#label-properties}
 
 Oltre alle proprietà *Id*, *Position*, *Rotation* e *Scale*, sono disponibili le seguenti proprietà specifiche del componente:
@@ -63,7 +87,7 @@ Tieni presente che il materiale predefinito ha il rendering dell'ombra disattiva
 : La risorsa font da usare per questa etichetta.
 
 *Material*
-: Il materiale da usare per il rendering di questa etichetta. Assicurati di selezionare un materiale creato per il tipo di font che usi (bitmap, campo di distanza o BMFont).
+: Il materiale da usare per renderizzare questo Label. Seleziona un materiale corrispondente alla modalità o sorgente del font (Bitmap, SDF, Vector o BMFont). Consulta [Materiali dei font](/manuals/font/#font-materials) per i materiali Label integrati corrispondenti.
 
 ### Modalità di fusione {#blend-modes}
 :[blend-modes](../shared/blend-modes.md)
@@ -88,7 +112,7 @@ Impostando la proprietà *Pivot* puoi cambiare la modalità di allineamento del 
 Puoi modificare le etichette durante l'esecuzione leggendo e impostando il testo dell'etichetta e le altre proprietà.
 
 `text`
-: Il contenuto testuale dell'etichetta (`string`). Disponibile tramite `go.get()` e `go.set()` da Defold 1.13.2.
+: Il contenuto testuale del Label (`string`). Disponibile tramite `go.get()` e `go.set()`.
 
 `color`
 : Il colore dell'etichetta (`vector4`)
@@ -116,7 +140,7 @@ end
 ```
 
 ::: sidenote
-Da Defold 1.13.2, `label.set_text()` e `label.get_text()` sono deprecate a favore della proprietà `text`. Le vecchie funzioni rimangono disponibili per compatibilità. La vecchia funzione di scrittura accoda un messaggio, mentre `go.set()` aggiorna il testo immediatamente.
+`label.set_text()` e `label.get_text()` sono deprecate a favore della proprietà `text`. Le vecchie funzioni restano disponibili per compatibilità. Il vecchio setter accoda un messaggio, mentre `go.set()` aggiorna il testo immediatamente.
 :::
 
 ```lua

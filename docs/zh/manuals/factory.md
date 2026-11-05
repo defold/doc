@@ -192,15 +192,15 @@ end
   ```lua
   function init(self)
       -- 当工厂的父级集合加载时，
--- 没有工厂资源被加载。在没有调用 load 的情况下调用 create
--- 将同步创建资源。
+      -- 没有工厂资源被加载。在没有调用 load 的情况下调用 create
+      -- 将同步创建资源。
       self.go_id = factory.create("#factory")
   end
 
   function final(self)  
       -- 删除游戏对象。将减少资源引用计数。
--- 在这种情况下，资源被删除，因为工厂组件
--- 不持有引用。
+      -- 在这种情况下，资源被删除，因为工厂组件
+      -- 不持有引用。
       go.delete(self.go_id)
 
       -- 调用 unload 不会执行任何操作，因为工厂不持有引用
@@ -219,18 +219,18 @@ end
 
   function init(self)
       -- 当工厂的父级集合加载时，
--- 没有工厂资源被加载。调用 load 将加载资源。
+      -- 没有工厂资源被加载。调用 load 将加载资源。
       factory.load("#factory", load_complete)
   end
 
   function final(self)
       -- 删除游戏对象。将减少资源引用计数。
--- 在这种情况下，资源不会被删除，因为工厂组件
--- 仍然持有引用。
+      -- 在这种情况下，资源不会被删除，因为工厂组件
+      -- 仍然持有引用。
       go.delete(self.go_id)
 
       -- 调用 unload 将减少工厂组件持有的资源引用计数，
--- 导致资源被销毁。
+      -- 导致资源被销毁。
       factory.unload("#factory")
   end
   ```

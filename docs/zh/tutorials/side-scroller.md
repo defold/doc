@@ -9,11 +9,12 @@ github: https://github.com/defold/tutorial-side-scroller
 
 本教程已集成到Defold编辑器中，可以轻松访问：
 
-1. 启动Defold。
-2. 在左侧选择*新建项目*。
-3. 选择*来自教程*选项卡。
-4. 选择"横版卷轴游戏教程"。
-5. 在本地驱动器上选择项目的位置，然后点击*创建新项目*。
+启动 Defold，然后：
+1. 在左侧选择 `Create From` ▸ `TUTORIALS`。
+2. 选择“Side Scroller Tutorial”。
+3. 如有需要，修改项目名称。
+4. 在本地驱动器上选择项目位置。
+5. 点击 `Create New Project`。
 
 ![新建项目](images/new-side-scroller.webp)
 

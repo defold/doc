@@ -31,28 +31,28 @@ W rozszerzeniach często stosuje się następującą strukturę folderów:
 ```
     /root
         /input
-        /main                            -- Wszystkie pliki właściwego projektu przykładowego
+        /main                            -- All the files for the actual example project
             /...
-        /myextension                     -- Rzeczywisty katalog główny rozszerzenia
+        /myextension                     -- The actual root folder of the extension
             ext.manifest
-            /include                     -- Zewnętrzne pliki include używane przez inne rozszerzenia
+            /include                     -- External includes, used by other extensions
             /libs
-                /<platform>              -- Zewnętrzne biblioteki dla wszystkich obsługiwanych platform
+                /<platform>              -- External libraries for all supported platforms
             /src
-                myextension.cpp          -- API Lua rozszerzenia i funkcje cyklu życia rozszerzenia
-                                            Zawiera też ogólne implementacje funkcji API Lua.
-                myextension_private.h    -- Twoje wewnętrzne API, które zaimplementuje każda platforma (np. `myextension_Init` itd.)
-                myextension.mm           -- Potrzebny, jeśli dla iOS/macOS są wymagane natywne wywołania. Implementuje `myextension_Init` itd. dla iOS/macOS
-                myextension_android.cpp  -- Potrzebny, jeśli dla Androida są wymagane wywołania JNI. Implementuje `myextension_Init` itd. dla Androida
+                myextension.cpp          -- The extension Lua api and the extension life cycle functions
+                                            Also contains generic implementations of your Lua api functions.
+                myextension_private.h    -- Your internal api that each platform will implement (I.e. `myextension_Init` etc)
+                myextension.mm           -- If native calls are needed for iOS/macOS. Implements `myextension_Init` etc for iOS/macOS
+                myextension_android.cpp  -- If JNI calls are needed for Android. Implements `myextension_Init` etc for Android
                 /java
-                    /<platform>          -- Dowolne pliki Java potrzebne dla Androida
-            /res                         -- Dowolne zasoby potrzebne dla danej platformy
+                    /<platform>          -- Any java files needed for Android
+            /res                         -- Any resources needed for a platform
             /external
-                README.md                -- Notatki/skrypty dotyczące tego, jak budować lub pakować zewnętrzne biblioteki
-        /bundleres                       -- Zasoby, które powinny zostać dołączone do bundla (zob. game.project oraz [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
+                README.md                -- Notes/scripts on how to build or package any external libraries
+        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
             /<platform>
         game.project
-        game.appmanifest                 -- Dodatkowe informacje o konfiguracji aplikacji
+        game.appmanifest                 -- Any extra app configuration info
 ```
 
 Zwróć uwagę, że `myextension.mm` i `myextension_android.cpp` są potrzebne tylko wtedy, gdy wykonujesz konkretne natywne wywołania dla danej platformy.

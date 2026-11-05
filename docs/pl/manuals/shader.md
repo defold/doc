@@ -112,7 +112,7 @@ Ponieważ silnik Defold obsługuje wiele platform i interfejsów API grafiki, pi
 1. Starszy potok, w którym shadery są pisane w kodzie GLSL zgodnym z ES2.
 2. Nowoczesny potok, w którym shadery są pisane w kodzie GLSL zgodnym ze SPIR-V.
 
-Od Defold 1.9.2 zaleca się pisać shadery korzystające z nowego potoku. Aby to osiągnąć, większość shaderów trzeba przepisać do wersji co najmniej 140 (OpenGL 3.1). Aby przenieść shader, upewnij się, że spełnione są następujące wymagania:
+Pisz shadery dla nowoczesnego potoku, używając co najmniej GLSL w wersji 140 (OpenGL 3.1). Aby przenieść shader, upewnij się, że spełnione są następujące wymagania:
 
 ### Deklaracja wersji
 Umieść #version 140 na początku shadera:
@@ -127,9 +127,9 @@ Tak wybierany jest potok shaderów w procesie budowania, dlatego nadal można u�
 W shaderach wierzchołków zastąp słowo kluczowe `attribute` przez `in`:
 
 ```glsl
-// zamiast:
+// instead of:
 // attribute vec4 position;
-// użyj:
+// do:
 in vec4 position;
 ```
 
@@ -139,14 +139,14 @@ Uwaga: Shadery fragmentów (i shadery obliczeniowe) nie przyjmują żadnych wej�
 W shaderach wierzchołków zmienne varying powinny mieć prefiks `out`. W shaderach fragmentów zmienne varying stają się `in`:
 
 ```glsl
-// W shaderze wierzchołków, zamiast:
+// In a vertex shader, instead of:
 // varying vec4 var_color;
-// użyj:
+// do:
 out vec4 var_color;
 
-// W shaderze fragmentów, zamiast:
+// In a fragment shader, instead of:
 // varying vec4 var_color;
-// użyj:
+// do:
 in vec4 var_color;
 ```
 
@@ -173,7 +173,7 @@ uniform vertex_inputs
 
 void main()
 {
-    // Pojedyncze elementy bloku uniformów można używać bezpośrednio
+    // Individual members of the uniform block can be used as-is
     gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
 }
 ```
@@ -185,9 +185,9 @@ Wszystkie elementy bloku uniformów są udostępniane materiałom i komponentom 
 W shaderach fragmentów `gl_FragColor` jest przestarzały od wersji 140. Zamiast tego użyj `out`:
 
 ```glsl
-// zamiast:
+// instead of:
 // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-// użyj:
+// do:
 out vec4 color_out;
 
 void main()
@@ -204,10 +204,10 @@ Konkretne funkcje pobierania próbek tekstur, takie jak `texture2D` i `texture2D
 uniform sampler2D my_texture;
 uniform sampler2DArray my_texture_array;
 
-// zamiast:
+// instead of:
 // vec4 sampler_2d = texture2D(my_texture, uv);
 // vec4 sampler_2d_array = texture2DArray(my_texture_array, vec3(uv, slice));
-// użyj:
+// do:
 vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
@@ -230,7 +230,7 @@ uniform vx_uniforms
     mat4 view_proj;
 };
 
-// pozycje są w przestrzeni świata
+// positions are in world space
 in vec4 position;
 in vec2 texcoord0;
 
@@ -259,10 +259,11 @@ uniform fs_uniforms
 
 void main()
 {
-    // Premnożenie alfa, ponieważ wszystkie tekstury używane w czasie działania już tak są zapisane
+    // Premultiply alpha since all runtime textures already are
     vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
     color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
 }
+
 ```
 
 ## Dołączanie fragmentów kodu do shaderów
@@ -270,17 +271,17 @@ void main()
 Shadery w Defold obsługują dołączanie kodu źródłowego z plików w projekcie, które mają rozszerzenie `.glsl`. Aby dołączyć plik GLSL z poziomu shadera, użyj dyrektywy `#include` z cudzysłowami albo nawiasami ostrymi. Dołączane pliki muszą mieć ścieżkę względną względem projektu albo ścieżkę względną względem pliku, który wykonuje dołączenie:
 
 ```glsl
-// W pliku /main/my-shader.fp
+// In file /main/my-shader.fp
 
-// Ścieżka bezwzględna
+// Absolute path
 #include "/main/my-snippet.glsl"
-// Plik znajduje się w tym samym folderze
+// The file is in the same folder
 #include "my-snippet.glsl"
-// Plik znajduje się w podfolderze na tym samym poziomie co 'my-shader'
+// The file is in a sub-folder on the same level as 'my-shader'
 #include "sub-folder/my-snippet.glsl"
-// Plik znajduje się w podfolderze katalogu nadrzędnego, tj. /some-other-folder/my-snippet.glsl
+// The file is in a sub-folder on the parent directory, i.e /some-other-folder/my-snippet.glsl
 #include "../some-other-folder/my-snippet.glsl"
-// Plik znajduje się w katalogu nadrzędnym, tj. /root-level-snippet.glsl
+// The file is on the parent directory, i.e /root-level-snippet.glsl
 #include "../root-level-snippet.glsl"
 ```
 
@@ -294,21 +295,21 @@ Do sposobu działania dołączeń obowiązują pewne zastrzeżenia:
 Fragmenty kodu mogą same dołączać inne pliki `.glsl`, co oznacza, że ostatecznie wygenerowany shader może zawierać ten sam kod kilka razy. W zależności od zawartości tych plików może to prowadzić do problemów z kompilacją, ponieważ te same symbole są zadeklarowane więcej niż raz. Aby temu zapobiec, możesz użyć *osłon nagłówkowych* (header guards), czyli rozwiązania znanego z wielu języków programowania. Przykład:
 
 ```glsl
-// W my-shader.vs
+// In my-shader.vs
 #include "math-functions.glsl"
 #include "pi.glsl"
 
-// W math-functions.glsl
+// In math-functions.glsl
 #include "pi.glsl"
 
-// W pi.glsl
+// In pi.glsl
 const float PI = 3.14159265359;
 ```
 
 W tym przykładzie stała `PI` zostanie zdefiniowana dwa razy, co spowoduje błędy kompilatora podczas uruchamiania projektu. Zamiast tego należy zabezpieczyć zawartość za pomocą osłon nagłówkowych:
 
 ```glsl
-// W pi.glsl
+// In pi.glsl
 #ifndef PI_GLSL_H
 #define PI_GLSL_H
 
@@ -322,10 +323,10 @@ Kod z `pi.glsl` zostanie rozwinięty dwa razy w `my-shader.vs`, ale ponieważ zo
 Nie zawsze jest to jednak konieczne, zależnie od przypadku użycia. Jeśli chcesz ponownie wykorzystać kod lokalnie, wewnątrz funkcji albo gdzieś indziej, gdzie nie potrzebujesz globalnej dostępności wartości w kodzie shadera, prawdopodobnie nie powinieneś używać osłon nagłówkowych. Przykład:
 
 ```glsl
-// W red-color.glsl
+// In red-color.glsl
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// W my-shader.fp
+// In my-shader.fp
 vec3 get_red_color()
 {
   #include "red-color.glsl"
@@ -352,10 +353,10 @@ Użyj dyrektywy preprocesora `#ifdef EDITOR`, aby warunkowo kompilować kod, kt�
 
 ```glsl
 #ifdef EDITOR
-    // Ten kod wykona się tylko wtedy, gdy shader jest renderowany w edytorze Defold
-    color_out = vec4(1.0, 0.0, 1.0, 1.0); // kolor magenta do podglądu w edytorze
+    // This code will only execute when the shader is rendered in the Defold Editor
+    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Magenta color for editor preview
 #else
-    // Ten kod wykona się podczas uruchamiania gry
+    // This code will execute when running in the game
     color_out = texture(texture_sampler, var_texcoord0) * tint_pm;
 #endif
 ```
@@ -385,17 +386,17 @@ Bardziej kompletnym przykładem jest wbudowany shader wierzchołków sprite'a:
 
 ```glsl
 -- sprite.vp
-uniform mediump mat4 view_proj;             -- [1]
+uniform mediump mat4 view_proj;             // [1]
 
-attribute mediump vec4 position;            -- [2]
+attribute mediump vec4 position;            // [2]
 attribute mediump vec2 texcoord0;
 
-varying mediump vec2 var_texcoord0;         -- [3]
+varying mediump vec2 var_texcoord0;         // [3]
 
 void main()
 {
-  gl_Position = view_proj * vec4(position.xyz, 1.0);    -- [4]
-  var_texcoord0 = texcoord0;                            -- [5]
+  gl_Position = view_proj * vec4(position.xyz, 1.0);    // [4]
+  var_texcoord0 = texcoord0;                            // [5]
 }
 ```
 1. Stała `uniform` zawierająca pomnożone macierze widoku i projekcji.

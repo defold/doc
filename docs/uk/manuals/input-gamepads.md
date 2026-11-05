@@ -104,11 +104,23 @@ end
 ```
 
 ## Файл налаштувань геймпадів {#gamepads-settings-file}
-Для налаштування введення з геймпада використовується окремий файл відповідностей для кожного типу фізичного геймпада. Відповідності для конкретних фізичних геймпадів задаються у файлі *gamepads*. Defold постачається із вбудованим файлом gamepads, що містить налаштування для поширених геймпадів:
+
+Відповідності геймпадів перетворюють кнопки, осі й перемикачі hat контролера на стандартні елементи керування, які використовують прив’язки введення. Defold поєднує два джерела відповідностей, налаштовані в розділі *Input* файлу *game.project*:
+
+| Налаштування | Формат відповідностей | За замовчуванням |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | Текстова база у форматі SDL, зіставлення за GUID контролера | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | Застарілі записи `.gamepads` для назв пристроїв і платформ | `/builtins/input/default.gamepads` |
+
+Відповідності бази SDL й автоматичні відповідності платформи використовують [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone). Застарілі записи `.gamepads` визначають власні мертві зони. На Android контролер без запису в базі також може отримати [автоматичну відповідність](#gamepads-on-android).
+
+### Застарілі відповідності .gamepads {#legacy-gamepads-mappings}
+
+Файл `.gamepads` може містити відповідності для кількох контролерів. Наявні застарілі відповідності залишаються підтримуваними. Defold містить відповідності поширених контролерів у типовому файлі:
 
 ![Налаштування геймпадів](images/input/gamepads.png)
 
-Якщо вам потрібно створити новий файл налаштувань геймпадів, у нас є простий інструмент, який у цьому допоможе:
+Якщо потрібно створити застарілу відповідність `.gamepads` на настільній платформі, допоможе наведений нижче інструмент. Для Android див. [Геймпади на Android](#gamepads-on-android).
 
 [Натисніть, щоб завантажити gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -124,7 +136,7 @@ end
 
 ### Нерозпізнані геймпади {#unidentified-gamepads}
 
-Якщо підключений геймпад не має визначених відповідностей, він генеруватиме лише дії `connected`, `disconnected` і `raw`. У такому разі вам потрібно вручну зіставити необроблені дані геймпада з діями у вашій грі.
+Якщо немає ані налаштованої відповідності, ані автоматичної відповідності платформи, геймпад генерує лише дії, прив’язані до `Connected`, `Disconnected` і `Raw`. Ви можете додати відповідність контролера або обробляти його необроблене введення у грі.
 
 Щоб перевірити, чи надійшла дія введення з невідомого геймпада, прочитайте значення `gamepad_unknown` у таблиці `action`:
 
@@ -166,64 +178,8 @@ end
 ## Геймпади у Windows {#gamepads-on-windows}
 У Windows наразі підтримуються лише контролери XBox 360. Щоб підключити контролер 360 до комп’ютера з Windows, [переконайтеся, що його правильно налаштовано](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
-## Геймпади в Android {#gamepads-on-android}
+## Геймпади на Android {#gamepads-on-android}
 
-Геймпади підтримуються у збірках Android і генерують ті самі події введення, що й на інших платформах. Підтримка геймпадів ґрунтується на [системі введення Android для подій клавіш і руху](https://developer.android.com/training/game-controllers/controller-input). Події введення Android перетворюються на події геймпадів Defold за допомогою того самого файлу *gamepad*, що описаний вище.
+Геймпади підтримуються у збірках Android і генерують ті самі дії введення, що й на інших платформах. Defold використовує налаштовані [відповідності геймпадів](#gamepads-settings-file) і може автоматично зіставляти деякі контролери, що не мають відповідного запису.
 
-Додаючи додаткові прив’язки геймпадів в Android, ви можете використовувати наведені нижче таблиці відповідностей, щоб перетворювати події введення Android на значення файлу *gamepad*:
-
-| Відповідність події клавіші індексу кнопки | Індекс |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Визначення `KeyEvent` в Android](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Відповідність події руху індексу осі | Індекс |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Визначення `MotionEvent` в Android](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-Використовуйте цю таблицю відповідностей разом із застосунком для тестування геймпадів із Google Play Store, щоб визначити, якій події клавіші відповідає кожна кнопка вашого геймпада.
+Якщо контролер не розпізнано або його елементи керування працюють неправильно, перевірте його на пристрої Android і додайте або оновіть відповідність. Для діагностики див. [Нерозпізнані геймпади](#unidentified-gamepads) і [Необроблені дані геймпадів](#raw-gamepads).

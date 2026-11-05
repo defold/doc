@@ -56,7 +56,7 @@ Orthographic Mode
   Disponible solo cuando `Orthographic Projection` está activado.
 
 
-## Usar la cámara
+## Usar la cámara {#using-the-camera}
 
 Todas las cámaras se activan y actualizan automáticamente durante un frame, y el módulo Lua `camera` está disponible en todos los contextos de script. Desde Defold 1.8.1 ya no es necesario activar explícitamente una cámara enviando un mensaje `acquire_camera_focus` al componente Camera. Los mensajes antiguos para adquirir y liberar siguen disponibles, pero se recomienda usar en su lugar los mensajes `enable` y `disable`, igual que con cualquier otro componente que quieras activar o desactivar:
 
@@ -68,20 +68,19 @@ msg.post("#camera", "enable")
 Para listar todas las cámaras disponibles actualmente, puedes usar `camera.get_cameras()`:
 
 ```lua
--- Nota: Las llamadas de render solo están disponibles en un render script.
+-- Nota: Las llamadas de renderizado solo están disponibles en un script de render.
 --       La función camera.get_cameras() puede usarse en cualquier lugar,
---       pero render.set_camera solo puede usarse en un render script.
+--       pero render.set_camera solo puede usarse en un script de render.
 
 for k,v in pairs(camera.get_cameras()) do
     -- la tabla de cámaras contiene las URL de todas las cámaras
     render.set_camera(v)
-    -- renderiza aquí; cualquier cosa renderizada aquí que use materiales con
-    -- matrices de vista y proyección especificadas usará matrices de la cámara.
+    -- renderiza aquí: todo lo que se dibuje aquí usando materiales con
+    -- matrices de vista y proyección especificadas usará las matrices de la cámara.
 end
 -- para desactivar una cámara, pasa nil (o ningún argumento) a render.set_camera.
--- después de esta llamada, todas las llamadas de render usarán las matrices de
--- vista y proyección especificadas en el contexto de render
--- (render.set_view y render.set_projection)
+-- después de esta llamada, todas las llamadas de renderizado usarán las matrices de vista y proyección
+-- especificadas en el contexto de renderizado (render.set_view y render.set_projection)
 render.set_camera()
 ```
 
@@ -286,7 +285,7 @@ local world_position = camera.screen_to_world(
 [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) realiza la conversión inversa. Devuelve X e Y en píxeles de pantalla y usa en Z la misma convención de profundidad de vista, por lo que el resultado puede pasarse de nuevo a `camera.screen_to_world()`:
 
 ```lua
--- Update the cached world transform first if the object moved this frame.
+-- Actualiza primero la transformación global en caché si el objeto se ha movido en este frame.
 go.update_world_transform("/marker")
 local world_position = go.get_world_position("/marker")
 local screen_position = camera.world_to_screen(world_position, "#camera")

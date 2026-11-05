@@ -26,15 +26,15 @@ brief: Это руководство объясняет, как расширит
 local M = {}
 
 function M.get_commands()
-  -- TODO - define editor commands
+  -- TODO - определить команды редактора
 end
 
 function M.get_language_servers()
-  -- TODO - define language servers
+  -- TODO - определить языковые серверы
 end
 
 function M.get_prefs_schema()
-  -- TODO - define preferences
+  -- TODO - определить настройки
 end
 
 return M
@@ -50,11 +50,11 @@ return M
 - `editor.editor_sha1` — строка, SHA1 редактора Defold.
 - `editor.get(node_id, property)` — получить значение узла в редакторе. Узлы в редакторе — это различные сущности, такие как скриптовые или коллекционные файлы, игровые объекты в коллекциях, json-файлы, загруженные как ресурсы и т.д. `node_id` — это userdata, переданная редактором скрипту. Вместо `node_id` можно также передать путь к ресурсу, например `"/main/game.script"`. `property` — строка. Поддерживаются следующие свойства:
   - `"path"` — путь к файлу из каталога проекта для *ресурсов* — сущностей, существующих как файлы или директории. Пример: `"/main/game.script"`
-  - `"children"` — список путей к дочерним ресурсам (для директорий)
+  - `"children"` — список путей к дочерним ресурсам для директорий. Для обхода ресурсов внутри файлов см. [Обход ресурсов проекта](#traversing-project-resources).
   - `"parent"` — родительский узел редактора для узла Outline, у которого есть родитель
   - `"text"` — текстовое содержимое ресурса, редактируемое как текст (например, скрипты или json). Пример: `"function init(self)\nend"`. Это не то же самое, что чтение через `io.open()`, так как можно редактировать файл без сохранения, и такие изменения доступны только при обращении к свойству `"text"`.
   - для атласов: `images` (список узлов изображений в атласе) и `animations` (список узлов анимаций)
-  - для анимаций атласа: `images` (то же, что и в атласе)
+  - для анимаций атласа: `images` (то же, что и `images` в атласе)
   - для тайлмапов: `layers` (список узлов слоёв в тайлмапе)
   - для слоёв тайлмапа: `tiles` (неограниченная двумерная сетка тайлов), см. `tilemap.tiles.*` для подробностей
   - для particlefx: `emitters` (список узлов-эмиттеров в редакторе) и `modifiers` (список узлов-модификаторов)
@@ -73,6 +73,7 @@ return M
 - `editor.properties(node_id)` — возвращает отсортированный, зависящий от контекста список имён свойств, которые можно прочитать из узла, например `pprint(editor.properties("/game.project"))`. Чтобы определить, можно ли также изменить, сбросить, дополнить или переупорядочить указанное свойство, используйте функции `editor.can_*`.
 - `editor.can_get(node_id, property)` — проверить, можно ли безопасно получить это свойство с помощью `editor.get()`, не вызвав ошибку.
 - `editor.can_set(node_id, property)` — проверить, приведёт ли попытка установки свойства с помощью `editor.tx.set()` к ошибке.
+- `editor.resource_children(path)` — перечислить пути ресурсов непосредственно внутри папки или файла, включая ресурсы внутри glTF/GLB. См. [Обход ресурсов проекта](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — создать директорию (и все отсутствующие родительские директории), если она не существует.
 - `editor.create_resources(resources)` — создать один или несколько ресурсов, либо из шаблонов, либо с пользовательским содержимым.
 - `editor.delete_directory(resource_path)` — удалить директорию, если она существует, включая все вложенные директории и файлы.
@@ -145,8 +146,44 @@ return M
     - Активное представление поддерживает свойства `"type"`, `"resource"` и `"dirty"`. Используйте `editor.get(view, "resource")`, чтобы получить ресурс, открытый в представлении, и `editor.get(view, "dirty")`, чтобы проверить наличие несохранённых изменений.
   - `argument` — аргумент команды. В настоящее время используется только в командах, расположенных в `"Bundle"`. Значение `true` означает, что пользователь явно выбрал команду упаковки, а `false` — что она вызвана повторно.
 - `id` — строковый идентификатор команды, например, используется для запоминания последней использованной команды упаковки в `prefs`.
-- `active` — функция, вызываемая для определения, активна ли команда. Возвращает `true` или `false`. Для `Assets`, `"Scene"` и `Outline` вызывается при открытии контекстного меню. Для `Edit`, `View`, `Project` и `Debug` вызывается при каждом взаимодействии пользователя с редактором (клавиатура, мышь и т.д.), поэтому функция должна быть максимально быстрой.
+- `active` — callback для проверки доступности команды; должен возвращать логическое значение. Если `locations` включает `"Assets"`, `"Scene"` или `"Outline"`, `active` вызывается при показе контекстного меню. Если locations включает `"Edit"` или `"View"`, `active` вызывается при каждом взаимодействии пользователя, например нажатии клавиши или клике мыши, поэтому должен выполняться достаточно быстро.
 - `run` — функция, вызываемая при выборе команды пользователем.
+
+### Обход ресурсов проекта {#traversing-project-resources}
+
+`editor.resource_children(path)` возвращает массив путей ресурсов непосредственно внутри папки или файла. Как входной путь, так и возвращаемые пути начинаются с `/` и отсчитываются от корня проекта. Используйте `/`, чтобы начать с корня проекта. Файл *.gltf* или *.glb* может предоставлять сетки, материалы и встроенные изображения как дочерние ресурсы, так же как в панели *Assets*.
+
+Если скрипт обходит директории через `editor.get(path, "children")`, перейдите на `editor.resource_children(path)` и посещайте каждый возвращённый путь. Файлы тоже могут содержать ресурсы, поэтому ограничение рекурсии путями, для которых `editor.resource_attributes(path).is_directory` равно `true`, пропустит их содержимое.
+
+Функция возвращает пустую таблицу (`{}`) для папки или файла без дочерних ресурсов. Несуществующий путь вызывает ошибку; если путь может отсутствовать, проверяйте `editor.resource_attributes(path).exists` перед запросом дочерних ресурсов. Дочерние ресурсы следуют иерархии *Assets*. Игровые объекты внутри коллекции доступны через `editor.get(collection_path, "children")`.
+
+Например, сохраните это как `list_resources.editor_script` и выберите **Project → Reload Editor Scripts**. Щёлкните правой кнопкой по папке либо файлу *.gltf* или *.glb* в *Assets*, затем выберите **List Resource Contents**, чтобы вывести его дерево ресурсов в консоль:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Использование команд для изменения состояния редактора в памяти
 
@@ -205,12 +242,12 @@ editor.transact({
 Чтобы найти множество всех изображений в атласе, выполните следующий код:
 ```lua
 local all_images = {} ---@type table<string, true>
--- first, collect all "bare" images
+-- сначала собрать все отдельные изображения
 local image_nodes = editor.get("/main.atlas", "images")
 for i = 1, #image_nodes do
     all_images[editor.get(image_nodes[i], "image")] = true
 end
--- second, collect all images used in animations
+-- затем собрать все изображения, используемые в анимациях
 local animation_nodes = editor.get("/main.atlas", "animations")
 for i = 1, #animation_nodes do
     local animation_image_nodes = editor.get(animation_nodes[i], "images")
@@ -240,7 +277,7 @@ editor.transact({
 })
 ```
 
-#### Редактирование tilesource
+#### Редактирование tilesource {#editing-tilesources}
 
 Помимо свойств, отображаемых в Outline, tilesource определяет следующие дополнительные свойства:
 - `animations` — список узлов анимаций tilesource
@@ -251,8 +288,8 @@ editor.transact({
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +299,25 @@ editor.transact({
     })
 })
 ```
+
+Ноды анимации предоставляют свойство `frames`, содержащее массив Lua с номерами тайлов в порядке анимации, начиная с единицы. В отличие от текстового поля *Frames* в редакторе, скрипты редактора принимают массив целых чисел, а не строку вида `"2-6"`. Разворачивайте диапазоны в отдельные номера тайлов массива. Тайлы могут следовать в любом порядке и повторяться.
+
+Чтобы прочитать и изменить анимацию `walk` из примера выше:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- Теперь анимация использует {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Изменение возвращённого массива не обновляет анимацию, пока вы не передадите его в `editor.tx.set()` и не примените транзакцию. Нумерация тайлов и параметры воспроизведения описаны в [руководстве по тайловым источникам](/manuals/tilesource/#tile-source-flip-book-animations).
 
 #### Редактирование tilemap
 
@@ -327,9 +383,9 @@ editor.transact({
 local emitter = editor.get("/fire.particlefx", "emitters")[1]
 editor.transact({
     editor.tx.set(emitter, "particle_key_alpha", { points = {
-        {x = 0,   y = 0, tx = 0.1, ty = 1}, -- start at 0, go up quickly
-        {x = 0.2, y = 1, tx = 1,   ty = 0}, -- reach 1 at 20% of a lifetime
-        {x = 1,   y = 0, tx = 1,   ty = 0}  -- slowly go down to 0
+        {x = 0,   y = 0, tx = 0.1, ty = 1}, -- начать с 0, быстро увеличиваться
+        {x = 0.2, y = 1, tx = 1,   ty = 0}, -- достичь 1 на 20% времени жизни
+        {x = 1,   y = 0, tx = 1,   ty = 0}  -- медленно опуститься до 0
     }})
 })
 ```
@@ -342,7 +398,7 @@ editor.transact({
 ```lua
 editor.transact({
     editor.tx.add("/hero.collisionobject", "shapes", {
-        type = "shape-type-box" -- or "shape-type-sphere", "shape-type-capsule"
+        type = "shape-type-box" -- или "shape-type-sphere", "shape-type-capsule"
     })
 })
 ```
@@ -447,7 +503,7 @@ local node_in_template = editor.get(template, "nodes")[1]
 editor.transact({
     editor.tx.set(node_in_template, "text", "Button text")
 })
-print(editor.can_reset(node_in_template, "text")) -- true (overrides a value in the template)
+print(editor.can_reset(node_in_template, "text")) -- true (переопределяет значение в шаблоне)
 ```
 
 #### Редактирование game object
@@ -473,7 +529,7 @@ editor.transact({
         type = "component-reference",
         path = "/npc.script",
         id = "controller",
-        __hp = 100 -- set a go property defined in the script
+        __hp = 100 -- задать свойство игрового объекта, определённое в скрипте
     })
 })
 ```
@@ -485,24 +541,24 @@ editor.transact({
 local coll = "/char.collection"
 editor.transact({
     editor.tx.add(coll, "children", {
-        -- embbedded game object
+        -- встроенный игровой объект
         type = "go",
         id = "root",
         children = {
             {
-                -- referenced game object
+                -- игровой объект по ссылке
                 type = "go-reference",
                 path = "/char-view.go",
                 id = "view"
             },
             {
-                -- referenced collection
+                -- коллекция по ссылке
                 type = "collection-reference",
                 path = "/body-attachments.collection",
                 id = "attachments"
             }
         },
-        -- embedded gos can also have components
+        -- у встроенных игровых объектов тоже могут быть компоненты
         components = {
             {
                 type = "collisionobject",
@@ -515,7 +571,7 @@ editor.transact({
                 type = "component-reference",
                 id = "controller",
                 path = "/char.script",
-                __hp = 100 -- set a go property defined in the script
+                __hp = 100 -- задать свойство игрового объекта, определённое в скрипте
             }
         }
     })
@@ -539,8 +595,8 @@ editor.transact({
   run = function(opts)
     local text = editor.get(opts.selection, "text")
     local new_text = editor.execute("jq", "-n", "--argjson", "data", text, "$data", {
-      reload_resources = false, -- don't reload resources since jq does not touch disk
-      out = "capture" -- return text output instead of nothing
+      reload_resources = false, -- не перезагружать ресурсы, поскольку jq не обращается к диску
+      out = "capture" -- вернуть текстовый вывод вместо отсутствующего результата
     })
     editor.transact({ editor.tx.set(opts.selection, "text", new_text) })
   end
@@ -560,7 +616,7 @@ local M = {}
 
 function M.on_build_started(opts)
   local file = io.open("assets/build.json", "w")
-  file:write("{\"build_time\": \"".. os.date() .."\"}")
+  file:write('{"build_time": "' .. os.date() .. '"}')
   file:close()
 end
 
@@ -703,13 +759,13 @@ end
 ```
 После перезагрузки такого скрипта редактора редактор зарегистрирует эту схему. Затем скрипт может получать и задавать предпочтения, например:
 ```lua
--- Get a specific preference
+-- Получить конкретную настройку
 editor.prefs.get("my_json_formatter.indent.type")
--- Returns: "spaces"
+-- Возвращает: "spaces"
 
--- Get an entire preference group
+-- Получить целую группу настроек
 editor.prefs.get("my_json_formatter")
--- Returns:
+-- Возвращает:
 -- {
 --   jq_path = "",
 --   indent = {
@@ -718,7 +774,7 @@ editor.prefs.get("my_json_formatter")
 --   }
 -- }
 
--- Set multiple nested preferences at once
+-- Задать сразу несколько вложенных настроек
 editor.prefs.set("my_json_formatter.indent", {
     type = "tabs",
     size = 1
@@ -794,7 +850,7 @@ editor.prefs.set("my_json_formatter.indent", {
     action = "shell",
     command = {
       "./scripts/minify-json.sh",
-      editor.get(opts.selection, "path"):sub(2) -- trim leading "/"
+      editor.get(opts.selection, "path"):sub(2) -- убрать начальный "/"
     }
   }
   ```

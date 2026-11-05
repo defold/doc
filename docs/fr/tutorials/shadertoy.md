@@ -172,7 +172,7 @@ Nous allons utiliser un pipeline moderne avec GLSL en version 140 : pour cela, 
     ```
     La valeur exacte de `aspect` dépend de la configuration de l'exemple. Si l'effet est rendu sur un quadrilatère plein écran dont la taille d'affichage est connue, le rapport largeur/hauteur peut être codé en dur pour le tutoriel. Si l'effet doit prendre en charge des tailles de fenêtre quelconques, transmettez la résolution sous forme de constante de fragment et placez-la dans un bloc uniforme GLSL 140.
 
-    Le temps est également défini ici. Il est transmis au shader sous la forme `uniform float iGlobalTime`. Depuis la version 1.12.3, Defold fournit le temps aux shaders au moyen d'une constante spéciale `Time` que nous allons utiliser.
+    Le temps est également défini ici. Il est transmis au shader sous la forme `uniform float iGlobalTime`. Defold fournit le temps aux shaders au moyen d'une constante spéciale `Time` que nous allons utiliser.
 
     Dans les versions modernes de Defold, les variables uniformes non opaques sont déclarées dans des blocs uniformes.
     Dans le shader de fragments, nous déclarons cette valeur ainsi :
@@ -323,7 +323,7 @@ Enregistrez le programme de shader de fragments. Le modèle devrait maintenant �
 
 ## Animation {#animation}
 
-La dernière pièce du puzzle consiste à introduire le temps pour faire bouger les étoiles. Depuis la version 1.12.3, Defold le fournit automatiquement grâce à une constante de fragment de type `Time`.
+La dernière pièce du puzzle consiste à introduire le temps pour faire bouger les étoiles. Defold le fournit automatiquement grâce à une constante de fragment de type `Time`.
 
 1. Ouvrez *star-nest.material*.
 2. Ajoutez une *Fragment Constant* et nommez-la "time".

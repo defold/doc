@@ -32,7 +32,7 @@ end
 ## 文本
 `text`捕获普通文本输入。它将操作表的`text`字段设置为包含键入字符的字符串。该操作仅在按下按钮时触发，不会发送`release`或`repeated`操作。
 
-  ```lua
+```lua
 function on_input(self, action_id, action)
     if action_id == hash("text") then
         -- 将键入的字符连接到"user"节点...
@@ -41,8 +41,8 @@ function on_input(self, action_id, action)
         name = name .. action.text
         gui.set_text(node, name)
     end
-end 
-  ```
+end
+```
 
 ## 标记文本
 `marked-text`主要用于亚洲键盘，其中多次按键可以映射到单个输入。例如，使用iOS的"Japanese-Kana"键盘，用户可以键入组合，键盘顶部将显示可输入的符号或符号序列。

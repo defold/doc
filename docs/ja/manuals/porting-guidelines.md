@@ -93,6 +93,53 @@ Defold は、Android と iOS のセーフエリアへの対応を組み込んで
 
 [Safe Area 拡張](/extension-safearea)は、従来のプロジェクトや、組み込み API の範囲を超える動作が必要なワークフローで、引き続き代替手段として利用できます。Android と iOS の標準的なセーフエリア処理には必要ありません。
 
+### 画面の予約領域 {#reserved-screen-areas}
+
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas) は、カメラのカットアウトや Dynamic Island など、ゲームウィンドウを遮る個々の領域を報告します。個別の障害領域を避けて配置する場合は、この矩形を使います。単一の安全なレイアウト矩形と端からのインセットが必要な場合は、`window.get_safe_area()` を使います。
+
+結果は、`x`、`y`、`width`、`height` フィールドを持つテーブルの配列です。各矩形はゲームウィンドウ内に切り詰められます。原点は左下で、`x` は左端、`y` は下端を示します。単位は [`window.get_size()`](/ref/window/#window.get_size) と一致するウィンドウのピクセルです。これらの座標は GUI の調整や *game.project* の論理解像度とは独立しているため、ノードの位置として使う前に GUI のトランスフォームを考慮してください。
+
+プラットフォームごとの対応状況は、次のとおりです。
+
+- **iOS 27.1 以降:** UIKit が報告する有効な遮蔽領域です。操作用のマージンも含まれます。
+- **Android 9（API レベル 28）以降:** ディスプレイのカットアウトの矩形です。
+
+非対応のプラットフォームや OS バージョン、またはウィンドウに障害領域が報告されない場合は、空のテーブルを返します。空のテーブルであっても、ウィンドウ全体が重要なコンテンツに安全とは限りません。折り目、システムバー、キーボード、ジェスチャー領域は、この API の対象外です。プラットフォームのセーフエリアの矩形には、`window.get_safe_area()` を使います。
+
+### ウィンドウイベント後の領域の更新 {#refreshing-areas-after-window-events}
+
+初期化時と、[`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED) コールバックのたびに、予約領域を問い合わせます。対応プラットフォームでは、最初の問い合わせ以降、ウィンドウサイズが変わらなくても、予約領域のジオメトリが変わるとこのイベントが発生します。返されたテーブルはスナップショットであり、保存したテーブルが自動更新されることはありません。
+
+iOS では、画面の向きの遷移やセーフエリアのインセット変更後にも、このイベントを送ります。横向きで180° 回転すると、ウィンドウ寸法とセーフエリアのインセットが同じでも、カメラのカットアウトや Dynamic Island が反対側に移動することがあります。`data.width` と `data.height` が以前と同じでも、イベントでジオメトリを更新してください。
+
+次のスクリプトは、両方の領域情報を最新の状態に保ちます。
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- Update your UI using the new safe rectangle and reserved areas.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- Refresh even when the width and height have not changed.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+一度に登録できるウィンドウイベントリスナーは1つだけです。ゲームにすでにリスナーがある場合は、そのリスナーにこの更新処理を追加します。更新のたびに保存済みの配列を置き換えることで、結果が空になった場合に古い矩形も消去できます。
+
 
 ## プラットフォーム固有のガイドライン {#platform-specific-guidelines}
 

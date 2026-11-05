@@ -3,7 +3,7 @@ title: Defold 处理字体手册
 brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将字体显示在屏幕上。
 ---
 
-# 字体文件
+# 字体文件 {#font-files}
 
 字体用于在标签组件和GUI文本节点上渲染文本。Defold支持多种字体文件格式：
 
@@ -11,24 +11,32 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 - OpenType
 - BMFont
 
-自 Defold 1.13.2 起，旧版和完整文本布局引擎均支持 TrueType 轮廓以及 OpenType CFF1/CFF2 轮廓，包括从 `.ttf` 和 `.otf` 资源进行运行时生成。
+旧版和完整文本布局引擎均支持 TrueType 轮廓及 OpenType CFF1/CFF2 轮廓，包括从 `.ttf` 和 `.otf` 资源进行运行时生成。
 
 有关如何为单独的文本片段设置样式，以及使用链接和内嵌精灵，请参阅[富文本标记手册](/manuals/font-richtext)。
 
-添加到项目中的字体会自动转换为Defold可以渲染的纹理格式。有两种字体渲染技术可用，每种都有其特定的优点和缺点：
+对于 TrueType 和 OpenType 字体，*Mode* 属性决定字形的渲染方式：
 
-- 位图
-- 距离场
+- **Bitmap** 使用栅格化的字形图像。
+- **SDF**（有符号距离场）将到字形边缘的距离存储在纹理中，比 Bitmap 更适合缩放。
+- **Vector** 根据曲线数据渲染字形表面，缩放时仍然保持清晰。轮廓和阴影效果仍使用位图数据。
 
-## 离线或运行时字体
+新建字体资源采用 **Vector** 模式和 **Dynamic** 字形生成。现有字体资源保持其 Bitmap 或 SDF 模式。BMFont 源始终使用其提供的位图。
 
-默认情况下，转换为栅格化字形图像会在构建时（离线）完成。缺点是每个字体都需要在构建阶段栅格化所有可能的字形，可能产生非常大的纹理，占用内存并增加包体大小。
+Vector 模式要求图形后端支持 `RGBA16F` 和 `R32UI` 纹理，不支持 OpenGL ES 2 或 WebGL 1。面向不支持的图形适配器时，请使用 Bitmap 或 SDF 字体及匹配的材质；Vector 不会自动回退到 SDF。设置方法请参阅[矢量字体](#vector-fonts)。
 
-使用“运行时字体”时，`.ttf` 和 `.otf` 字体会按原样打包，并在运行时按需栅格化。这会同时最小化运行时内存使用和包体大小。
+## 离线或运行时字体 {#offline-or-runtime-fonts}
 
-<a id="text-layout-support-eg-right-to-left"></a>
+*Glyph Generation* 属性决定每个字体的字形数据在何时生成：
 
-## 文本布局支持（例如从右到左）
+- **Static** 在构建时（离线）生成所选字形。*Characters* 和 *All Chars* 控制包含哪些字形。不会将源 `.ttf` 或 `.otf` 文件打包用于运行时生成。
+- **Dynamic** 将源 `.ttf` 或 `.otf` 文件打包，并在运行时按需生成字形。*Prewarm Text* 会在字体加载时准备字形。其他字形可以稍后按需生成。
+
+SDF 和 Vector 字体支持这两种选择。Bitmap 字体和 BMFont 源使用 Static 生成。每个字体资源独立配置，因此项目可以混用 Static 和 Dynamic 字体。
+
+动态生成可以减少包体大小和运行时内存占用，尤其适用于字符集较大的字体。它要求引擎包含完整文本布局系统；请参阅[启用运行时字体](#enabling-runtime-fonts)。
+
+## 文本布局支持（例如从右到左） {#text-layout-support-eg-right-to-left}
 
 运行时字体还支持完整文本布局，例如从右到左。
 我们目前使用 [HarfBuzz](https://github.com/harfbuzz/harfbuzz)、[SheenBidi](https://github.com/Tehreer/SheenBidi)、[libunibreak](https://github.com/adah1972/libunibreak) 和 [SkriBidi](https://github.com/memononen/Skribidi) 这些库。
@@ -37,7 +45,7 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 
 编辑器使用引擎的字体渲染器预览字体和场景中的文本。文本塑形和从右到左的布局需要[运行时字体](#enabling-runtime-fonts)，并启用 App Manifest 中的 **Use full text layout system** 选项。对于离线字体，预览会遵循字体的 **Characters** 和 **All Chars** 设置。
 
-## 字体集合
+## 字体集合 {#font-collection}
 
 `.fontc` 文件格式也称为字体集合。在离线模式下，它只关联一个字体。
 使用运行时字体时，可以将多个字体文件（`.ttf` 或 `.otf`）关联到字体集合。
@@ -45,7 +53,7 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 这允许在渲染多种语言的文本时使用一个字体集合，同时保持较低的内存占用。
 例如，加载包含日文字体的集合，然后将该字体关联到当前主字体，再卸载日文字体集合。
 
-## 创建字体
+## 创建字体 {#creating-a-font}
 
 要在Defold中创建字体，请从菜单中选择<kbd>文件 ▸ 新建...</kbd>，然后选择<kbd>字体</kbd>。您也可以在*资源*浏览器中<kbd>右键点击</kbd>一个位置，然后选择<kbd>新建... ▸ 字体</kbd>。
 
@@ -53,11 +61,15 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 
 给新字体文件命名并点击<kbd>确定</kbd>。新字体文件现在在编辑器中打开。
 
-![New font](images/font/new_font.png)
-
 将您想要使用的字体拖放到*资源*浏览器中，并将其放在合适的位置。
 
-将*字体*属性设置为您想要使用的字体文件，并根据需要设置字体属性。
+将 *Font* 属性设为字体文件。对于 `.ttf` 或 `.otf` 源，选择 *Mode* 和 *Glyph Generation*，再按需配置其余属性。动态生成还需要完成[运行时字体设置](#enabling-runtime-fonts)。
+
+![采用 Vector 模式和 Dynamic 字形生成的字体属性](images/font/font_properties.png)
+
+对于 Vector 字体，使用标签组件或 GUI 文本节点上的 *Font Size* 改变显示文本大小。*Outline/Shadow Bitmap Size* 单独控制效果位图的分辨率，不受显示文本大小影响。
+
+对于 Bitmap 和 SDF 字体，在字体资源中设置 *Size* 来选择生成的字形大小。BMFont 的大小来自源 `.fnt` 文件。要改变这些字体的显示大小，请缩放标签组件或 GUI 文本节点。
 
 ## 属性 {#properties}
 
@@ -65,25 +77,28 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 : 用于生成字体数据的TTF、OTF或*`.fnt`*文件。
 
 *材质*
-: 渲染此字体时使用的材质。确保为距离场和BMFonts更改此材质（详见下文）。
+: 渲染该字体时使用的材质。必须与字体模式匹配；请参阅[字体材质](#font-materials)。
 
-*输出格式*
-: 生成的字体数据类型。
+*Mode*
+: `.ttf` 或 `.otf` 源的渲染技术：**Bitmap**、**SDF** 或 **Vector**。此属性替代原来的 *Output Format*。BMFont 源不显示此属性。
 
-  - `TYPE_BITMAP` 将导入的OTF或TTF文件转换为字体表纹理，其中位图数据用于渲染文本节点。颜色通道用于编码字体形状、轮廓和阴影。对于*`.fnt`*文件，直接使用源纹理位图。
-  - `TYPE_DISTANCE_FIELD` 导入的字体被转换为字体表纹理，其中像素数据表示的不是屏幕像素，而是到字体边缘的距离。详见下文。
+*Glyph Generation*
+: **Static** 在构建时生成字形数据。**Dynamic** 在运行时生成，并要求[完整文本布局系统](#enabling-runtime-fonts)。SDF 和 Vector 字体可以设置此属性。Bitmap 模式固定为 Static；BMFont 源不显示此属性。
 
 *渲染模式*
-: 用于字形渲染的渲染模式。
+: 生成的 Bitmap 字体的图层排列方式。仅在 `.ttf` 和 `.otf` 源的 Bitmap 模式下显示。对于 SDF、Vector 和 BMFont 源，Defold 自动选择图层排列方式。
 
-  - `MODE_SINGLE_LAYER` 为每个字符生成一个四边形。
-  - `MODE_MULTI_LAYER` 分别为字形形状、轮廓和阴影生成单独的四边形。层按从后到前的顺序渲染，这可以防止字符在轮廓比字形之间的距离更宽时遮挡先前渲染的字符。此渲染模式还支持通过字体资源中的阴影X/Y属性指定的正确阴影偏移。
+  - **Single Layer** 为每个字符生成一个四边形。
+  - **Multi Layer** 为字形形状、轮廓和阴影分别生成四边形。各层从后向前渲染，避免轮廓宽于字形间距时，字符遮挡此前渲染的字符。这也启用了 *Shadow X/Y* 属性指定的阴影偏移。
 
 *大小*
-: 字形的目标大小，以像素为单位。
+: 生成 Bitmap 或 SDF 字体数据时使用的字形像素大小。对于 BMFont 源，大小从 `.fnt` 文件读取，无法在此编辑。
+
+*Outline/Shadow Bitmap Size*
+: 在 Vector 模式下，此属性替代 *Size*。它控制 Static 和 Dynamic 生成中已启用的轮廓和阴影效果的位图分辨率。两种效果都未启用时，此属性禁用，因为字形表面使用曲线数据。改变标签或 GUI 文本节点的 *Font Size* 不会改变这个共享的位图分辨率。
 
 *抗锯齿*
-: 字体在烘焙到目标位图时是否应该抗锯齿。如果您想要像素完美的字体渲染，请设置为0。
+: 生成 Bitmap 字体数据时是否对字形进行抗锯齿。像素精确渲染请禁用此项。仅在 `.ttf` 和 `.otf` 源的 Bitmap 模式下显示。
 
 *透明度*
 : 字形的透明度。0.0--1.0，其中0.0表示透明，1.0表示不透明。
@@ -98,19 +113,20 @@ brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将�
 : 生成的阴影的透明度。0.0--1.0。
 
 ::: sidenote
-阴影支持由内置字体材质着色器启用，并处理单层和多层渲染模式。如果您不需要分层字体渲染或阴影支持，最好使用更简单的着色器，如*`builtins/font-singlelayer.fp`*。
+内置 Bitmap 字体着色器在 *Single Layer* 和 *Multi Layer* 渲染模式下均支持阴影。对于使用 *Single Layer* 渲染且不需要阴影的生成式 Bitmap 字体，自定义材质可以使用 `/builtins/fonts/font-singlelayer.fp`。SDF 和 Vector 字体需要匹配其模式的着色器；请参阅[字体材质](#font-materials)。
 :::
 
 *阴影模糊*
-: 对于位图字体，此设置表示将小模糊核应用于每个字体字形的次数。对于距离场字体，此设置等于模糊的实际像素宽度。
+: 应用于生成阴影的模糊程度。设为 0 可得到清晰的阴影。
 
 *阴影X/Y*
-: 生成的阴影的水平和垂直偏移，以像素为单位。此设置仅在渲染模式设置为`MODE_MULTI_LAYER`时才会影响字形阴影。
+: 生成阴影的水平和垂直像素偏移。对于生成式 Bitmap 字体，请使用 *Multi Layer* 渲染模式应用这些偏移。Defold 会为 SDF 和 Vector 字体自动选择适合的图层。
 
 *字符*
-: 字体中包含哪些字符。默认情况下，此字段包含ASCII可打印字符（字符代码32-126）。您可以从此字段添加或删除字符，以在字体中包含更多或更少的字符。
+: Static 生成时，构建的字体所包含的字符。此字段默认包含 ASCII 可打印字符（字符代码 32-126）。通过添加或移除字符，控制运行时可用的字形。
 
-对于运行时字体，这段文本会作为正确字形的缓存预热内容。这会在加载时发生。参见 `font.prewarm_text()`。
+*Prewarm Text*
+: Dynamic 生成时，此属性替代 *Characters*。字体加载时，使用此文本生成字形并预热缓存。它不限制之后可以生成哪些字符。也可以从脚本使用 [`font.prewarm_text()`](/ref/font/#font.prewarm_text) 预热文本。
 
 ::: sidenote
 ASCII可打印字符是：
@@ -118,20 +134,62 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 :::
 
 *所有字符*
-: 如果您选中此属性，源文件中所有可用的字形都将包含在输出中。
+: Static 生成时，包含源字体中所有可用字形，而不只限于 *Characters*。Dynamic 字体会隐藏此属性。
 
 *缓存宽度/高度*
-: 限制字形缓存位图的大小。当引擎渲染文本时，它从缓存位图中查找字形。如果它不存在于缓存位图中，它将在渲染之前添加到缓存中。如果缓存位图太小而无法包含引擎被要求渲染的所有字形，则会发出错误信号（`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`）。
+: 限制 Bitmap 和 SDF 字体以及 Vector 轮廓、阴影效果使用的字形缓存位图大小。引擎渲染文本时会在缓存位图中查找字形。如果不存在，就会在渲染前将其加入缓存。如果缓存位图太小，无法容纳所有需要渲染的字形，则会报错（`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`）。
 
   如果设置为0，缓存大小将自动设置，最大增长到2048x4096。
 
-## 距离场字体
+## 字体材质 {#font-materials}
+
+请使用与字体模式匹配的材质。GUI 文本节点使用字体资源的 *Material*。标签组件有独立的 *Material* 属性，也必须与字体匹配：
+
+| 字体模式或源 | GUI 文本的字体材质 | 标签组件材质 |
+| --- | --- | --- |
+| Bitmap | `/builtins/fonts/font.material` | `/builtins/fonts/label.material` |
+| SDF | `/builtins/fonts/font-df.material` | `/builtins/fonts/label-df.material` |
+| Vector | `/builtins/fonts/font-vector.material` | `/builtins/fonts/label-vector.material` |
+| BMFont (`.fnt`) | `/builtins/fonts/font-fnt.material` | `/builtins/fonts/label-fnt.material` |
+
+如果字体已使用相应的内置 Bitmap、SDF 或 Vector 材质，在字体编辑器中改变 *Mode* 会切换到匹配的内置材质。自定义材质不会自动替换。还应检查使用该字体的所有标签组件的 *Material* 属性。
+
+## 矢量字体 {#vector-fonts}
+
+矢量字体根据曲线渲染字形表面，因此显示文本大小改变时仍然保持清晰。要设置在运行时生成字形的字体：
+
+1. 创建 `.font` 资源，例如 `/fonts/ui.font`，并在其 *Font* 属性中选择 TrueType 或 OpenType 源。普通文本可以使用内置的 `/builtins/fonts/vera_mo_bd.ttf`。
+2. 将 *Mode* 设为 **Vector**，*Glyph Generation* 设为 **Dynamic**，*Material* 设为 `/builtins/fonts/font-vector.material`。这些是新建字体资源的默认值。
+3. 在指定给项目的 App Manifest 中启用 **Use full text layout system**。按照[启用运行时字体](#enabling-runtime-fonts)配置自定义引擎。
+4. 在 *game.project* 中启用 [Shader ▸ Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20)。
+5. 将字体分配给[标签](/manuals/label/)，或将其添加到 GUI 场景的 *Fonts* 并在[文本节点](/manuals/gui-text/)上选择它。对于标签，还需将组件的 *Material* 设为 `/builtins/fonts/label-vector.material`。将组件或节点的 *Font Size* 设为所需的显示大小。
+
+Vector 字形表面使用曲线纹理，但已启用的轮廓和阴影仍会生成 SDF 位图数据并占用字形缓存纹理内存。*Outline/Shadow Bitmap Size* 设置此位图分辨率，与标签或 GUI 文本节点的 *Font Size* 无关。不需要这些效果时，将 *Outline Alpha* 和 *Shadow Alpha* 设为 `0`，可避免生成相应的位图数据。
+
+### 彩色表情符号 {#color-emoji}
+
+Vector 字体可以渲染 COLRv1 彩色表情符号，包括调色板颜色、线性渐变和径向渐变。Bitmap 和 SDF 模式不渲染 COLRv1 颜色。先按上述方法设置 Dynamic Vector 字体，再将 COLRv1 表情符号字体作为后备字体添加到字体集合。普通文本继续使用原来的字体。
+
+例如，将 COLRv1 [Noto Color Emoji 字体](https://github.com/google/fonts/blob/main/ofl/notocoloremoji/NotoColorEmoji-Regular.ttf)复制到项目中，保存为 `/fonts/NotoColorEmoji-Regular.ttf`。请选择 COLRv1 版本：其他表情符号字体即使文件名以 `.ttf` 结尾，也可能使用不同的颜色格式。
+
+在 *game.project* 的 **Project ▸ Custom Resources** 中追加 `/fonts/NotoColorEmoji-Regular.ttf`。没有其他自定义资源时，设置如下：
+
+```ini
+[project]
+custom_resources = /fonts/NotoColorEmoji-Regular.ttf
+```
+
+在 Lua 中写出字体路径不会使字体文件自动被打包。[Custom Resources](/manuals/project-settings/#custom-resources) 使这个源字体可供 [`font.add_font()`](/ref/font/#font.add_font) 使用，后者通过资源系统加载它。从包中加载时，请传入源字体的字符串路径。
+
+每个共享字体资源只需添加一次后备字体。此变化会影响使用该字体的所有标签和 GUI 文本节点，重复添加相同后备字体会引发错误。如果[标签示例](/manuals/label/#vector-fonts-and-color-emoji)和 [GUI 示例](/manuals/gui-text/#vector-fonts-and-color-emoji)共用同一个 `.font`，请协调初始化，在任一示例预热或显示文本前只添加一次后备字体。这些示例会在添加后备字体后预热完整文本，并在回调成功时显示。
+
+## 距离场字体 {#distance-field-fonts}
 
 距离场字体在纹理中存储到字形边缘的距离，而不是位图数据。当引擎渲染字体时，需要特殊的着色器来解释距离数据并使用它来绘制字形。距离场字体比位图字体更消耗资源，但允许更大的尺寸灵活性。
 
 ![Distance field font](images/font/df_font.png)
 
-确保在创建字体时将字体的*材质*属性更改为*`builtins/fonts/font-df.material`*（或任何其他可以处理距离场数据的材质）---否则字体在渲染到屏幕时将不会使用正确的着色器。
+在 *Mode* 中选择 **SDF**，并在 *Glyph Generation* 中选择 **Static** 或 **Dynamic**。字体使用 *`/builtins/fonts/font-df.material`*，标签组件使用 *`/builtins/fonts/label-df.material`*，或使用能处理距离场数据的自定义材质。
 
 ## 位图BMFonts {#bitmap-bmfonts}
 
@@ -139,7 +197,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 这些类型的字体与从TrueType或OpenType字体文件生成的位图字体相比没有性能改进，但可以在图像中直接包含任意图形、颜色和阴影。
 
-将生成的*`.fnt`*和*`.png`*文件添加到您的Defold项目中。这些文件应该位于同一文件夹中。创建一个新的字体文件，并将*字体*属性设置为*`.fnt`*文件。确保*output_format*设置为`TYPE_BITMAP`。Defold不会生成位图，而是使用PNG中提供的位图。
+将生成的 *`.fnt`* 和 *`.png`* 文件添加到 Defold 项目中，并放在同一目录。创建新字体文件，将 *Font* 属性设为 *`.fnt`* 文件。Defold 使用所提供的位图，并从 `.fnt` 文件读取大小。BMFont 源不显示 *Mode* 和 *Glyph Generation*。
 
 ::: sidenote
 要创建BMFont，您需要使用能够生成适当文件的工具。存在几个选项：
@@ -153,9 +211,9 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 ![BMfont](images/font/bm_font.png)
 
-为了使字体正确渲染，不要忘记在创建字体时将材质属性设置为*`builtins/fonts/font-fnt.material`*。
+将字体的 *Material* 设为 *`/builtins/fonts/font-fnt.material`*。标签组件使用 *`/builtins/fonts/label-fnt.material`*。
 
-## 伪影和最佳实践
+## 伪影和最佳实践 {#artifacts-and-best-practices}
 
 通常，当字体在没有缩放的情况下渲染时，位图字体是最好的。它们比距离场字体渲染到屏幕的速度更快。
 
@@ -171,10 +229,10 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 ![Distance field artifacts](images/font/df_artifacts.png)
 
-如果您不需要阴影或轮廓支持，请将它们各自的alpha值设置为零。否则，阴影和轮廓数据仍将生成，占用不必要的内存。
+如果不需要阴影或轮廓支持，将相应的 alpha 值设为零。否则仍会生成阴影和轮廓数据，占用不必要的内存。在 Vector 模式下，禁用这两种效果可避免生成其位图数据；字形表面仍使用曲线数据。
 
-## 字体缓存
-Defold中的字体资源在运行时会产生两个东西，一个纹理和字体数据。
+## 字体缓存 {#font-cache}
+Bitmap 和 SDF 字体资源在运行时使用字形缓存纹理和字体数据。Vector 字体将字形表面存储为曲线数据，并为已启用的轮廓和阴影效果使用位图缓存。下文描述的纹理布局适用于 Bitmap 和 SDF 字体。
 
 * 字体数据由字形条目列表组成，每个条目包含一些基本的字距调整信息和该字形的位图数据。
 * 纹理在内部称为"字形缓存纹理"，它将在为特定字体渲染文本时使用。
@@ -196,42 +254,27 @@ Defold中的字体资源在运行时会产生两个东西，一个纹理和字�
 
 ## 启用运行时字体 {#enabling-runtime-fonts}
 
-使用 TrueType（`.ttf`）或 OpenType（`.otf`）字体时，可以在运行时生成 SDF 类型字体。自 Defold 1.13.2 起支持从 `.otf` 资源进行运行时生成。
-这种方法可以大大减少Defold游戏的下载大小和运行时内存消耗。
-小缺点是每个字形生成都是异步的。
+运行时生成按字体资源分别配置：
 
-* 通过在 game.project 中设置 `font.runtime_generation` 启用此功能。
+1. 打开 `.font` 资源，选择 TrueType（`.ttf`）或 OpenType（`.otf`）源。
+2. 将 *Mode* 设为 **SDF** 或 **Vector**，*Glyph Generation* 设为 **Dynamic**。
+3. 选择匹配的[字体和标签材质](#font-materials)。
+4. 添加 [App Manifest](/manuals/app-manifest)，在 *game.project* 的 *Native Extensions ▸ App Manifest* 中指定它，并启用 **Use full text layout system**。这会构建支持运行时字体生成和完整文本布局的自定义引擎。
+5. 将 *Prewarm Text* 设为字体加载后即将显示的文本。对于稍后需要的文本，使用 [`font.prewarm_text()`](/ref/font/#font.prewarm_text)，并等待其回调后再显示。
 
-* 添加[应用清单](/manuals/app-manifest)并启用 `Use full text layout system` 选项。
-这会构建启用了此功能的自定义引擎。
+新建字体资源已采用 Vector 模式和 Dynamic 生成，但仍需要上述 App Manifest 配置。
 
-::: sidenote
-此功能目前是实验性的，但打算在未来用作默认工作流程。
-:::
+### 字体脚本 {#font-scripting}
 
-::: important
-`font.runtime_generation` 设置会影响项目中的所有 `.ttf` 和 `.otf` 字体。
-:::
+#### 预热字形缓存 {#prewarming-glyph-cache}
 
+Dynamic 字体会在加载时生成 *Prewarm Text* 所需的字形。该字段被当作待布局的文本，因此缓存会准备文本需要的字形。Dynamic 字体不提供 *All Chars*。
 
-### 字体脚本
+也可以对 Dynamic 字体调用 `font.prewarm_text(font_collection, text, callback)`。回调会告知您所有缺失字形都已加入缓存，可以安全显示文本。此函数不能用于 Static 字体。
 
-#### 预热字形缓存
+### 向字体集合添加/移除字体 {#addingremoving-fonts-to-a-font-collection}
 
-为了使运行时字体更易于使用，它们支持预热字形缓存。
-这意味着字体将生成字体中列出的*字符*中的字形。
-
-::: sidenote
-如果选择了`所有字符`，将不会有预热，因为这违背了不必同时生成所有字形的目的。
-:::
-
-如果设置了 `.fontc` 文件的 `Characters` 字段，它会被当作文本，用于判断字形缓存中需要更新哪些字形。
-
-也可以通过调用 `font.prewarm_text(font_collection, text, callback)` 手动更新字形缓存。它会提供一个回调，在所有缺失字形都加入字形缓存、可以安全地在屏幕上显示文本时通知您。
-
-### 向字体集合添加/移除字体
-
-对于运行时字体，可以向字体集合添加或移除字体（`.ttf`）。
+对于 Dynamic 字体，可以向字体集合添加或移除源字体（`.ttf` 或 `.otf`）。
 当大字体已被拆分为多个文件用于不同字符集时（例如CJK），这很有用。
 
 ::: important
@@ -240,27 +283,27 @@ Defold中的字体资源在运行时会产生两个东西，一个纹理和字�
 
 ```lua
 function init(self)
-    -- Get the target font collection.
+    -- 获取目标字体集合。
     self.font_collection = go.get("#label", "font")
 
-    -- Get the first font assigned to the selected language collection.
+    -- 获取分配给所选语言字体集合的第一个字体。
     local language_collection = go.get("localization_japanese#label", "font")
     local font_info = font.get_info(language_collection)
     self.language_ttf_hash = font_info.fonts[1].path_hash
 
-    -- Associate it with the target collection and increase its reference count.
+    -- 将其关联到目标集合，并增加引用计数。
     font.add_font(self.font_collection, self.language_ttf_hash)
 end
 ```
 
 ```lua
 function final(self)
-    -- Remove the association and release the font reference.
+    -- 移除关联并释放字体引用。
     font.remove_font(self.font_collection, self.language_ttf_hash)
 end
 ```
 
-### 预热字形
+### 预热字形 {#prewarming-glyphs}
 
 要正确显示运行时字体的文本，需要解析字形。`font.prewarm_text()` 会为您完成这件事。
 这是一个异步操作，完成并收到回调后，就可以安全地继续显示包含这些字形的任何消息。

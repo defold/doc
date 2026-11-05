@@ -64,7 +64,7 @@ Les propriétés de script sont analysées lors du build du projet. Les expressi
 
 ### Propriétés textuelles {#text-properties}
 
-Depuis Defold 1.13.2, une valeur par défaut de type chaîne définit une propriété textuelle. Les propriétés textuelles prennent en charge UTF-8 et les caractères de saut de ligne et se modifient dans un champ multiligne de l'éditeur :
+Une valeur par défaut de type chaîne définit une propriété textuelle. Les propriétés textuelles prennent en charge UTF-8 et les caractères de saut de ligne et se modifient dans un champ multiligne de l'éditeur :
 
 ```lua
 go.property("greeting", "Hello!\nWelcome, José!")

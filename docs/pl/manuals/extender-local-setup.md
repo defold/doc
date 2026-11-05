@@ -44,12 +44,12 @@ Po zainstalowaniu powyższego oprogramowania wykonaj poniższe kroki, aby zainst
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # ustaw wymaganą wersję Extender i Manifest merge tool
-    # wersje znajdziesz na stronie wydań GitHub: https://github.com/defold/extender/releases
-    # albo możesz pobrać najnowszą wersję (zobacz przykład kodu poniżej)
+    # set necessary version of Extender and Manifest merge tool
+    # versions can be found at Github release page https://github.com/defold/extender/releases
+    # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
     MANIFESTMERGETOOL_VERSION=1.3.0
-    echo "Pobieranie gotowych plików JAR do ${APPLICATION_DIR}"
+    echo "Download prebuild jars to ${APPLICATION_DIR}"
     rm -rf ${TMP_DIR}
     mkdir -p ${TMP_DIR}
     rm -rf ${APPLICATION_DIR}

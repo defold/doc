@@ -17,7 +17,7 @@ Dispositivi
   1. Tastiera (input da singoli tasti e immissione di testo)
   2. Mouse (posizione, clic dei pulsanti e azioni della rotellina)
   3. Tocco singolo e multitocco (su dispositivi iOS e Android e in HTML5 sui dispositivi mobili)
-  4. Gamepad (secondo il supporto del sistema operativo e la mappatura nel file [gamepads](/manuals/input-gamepads/#gamepads-settings-file))
+  4. Gamepad (tramite [mappature dei controller e supporto della piattaforma](/manuals/input-gamepads/#gamepads-settings-file))
 
 Binding di input
 : Prima che l'input venga inviato a uno script, l'input grezzo del dispositivo viene convertito in *azioni* significative attraverso la tabella dei binding di input.
@@ -111,7 +111,7 @@ Per ogni componente nello stack che contiene una funzione `on_input()`, questa f
 : L'istanza corrente dello script.
 
 `action_id`
-: Il nome dell'azione sottoposto a hash, come configurato nei binding di input.
+: L'hash del nome dell'azione, come configurato nelle associazioni di input, oppure `nil` per il movimento del puntatore e i campioni dell'accelerometro. Usa `action.source` per distinguere queste azioni senza nome.
 
 `action`
 : Una tabella contenente i dati utili sull'azione, come il valore dell'input, la sua posizione (assoluta e relativa allo spostamento), se l'input del pulsante è stato `pressed` e così via. Consulta [on_input()](/ref/go#on_input) per i dettagli sui campi disponibili dell'azione.
@@ -129,6 +129,43 @@ function on_input(self, action_id, action)
     pos.x = pos.x + 100
     go.set_position(pos)
   end
+end
+```
+
+### Origine del dispositivo di input {#input-device-source}
+
+`action.source` identifica la categoria del dispositivo di input indipendentemente dal nome dell'azione. È disponibile nei callback `on_input()` sia degli script sia degli script GUI ed è uno dei seguenti hash:
+
+| `action.source` | Categoria di input |
+|-----------------|----------------|
+| `hash("keyboard")` | Input dei singoli tasti dai Key Trigger. |
+| `hash("text")` | Input di testo e testo contrassegnato dai Text Trigger, compreso il testo immesso con una tastiera fisica. |
+| `hash("mouse")` | Pulsanti del mouse fisico, input della rotellina e movimento del puntatore. |
+| `hash("touch")` | Input tattile, compresi clic del mouse e movimento del puntatore simulati dal tocco. |
+| `hash("gamepad")` | Input del gamepad, compresi input grezzo ed eventi di connessione. |
+| `hash("accelerometer")` | Campioni dell'accelerometro. |
+
+Confronta `action.source` con un hash, come `hash("touch")`, anziché con una stringa. Per esempio, un'azione del pulsante sinistro del mouse può provenire da un mouse fisico o da un tocco. L'origine li distingue anche alla pressione iniziale; consulta [Distinguere i clic del mouse dai tocchi](/manuals/input-mouse-and-touch/#distinguishing-mouse-clicks-from-touch).
+
+Quando più dispositivi condividono un'azione denominata, i loro contributi possono essere combinati. Le origini vengono elaborate in questo ordine: tastiera, testo, mouse, poi tocco; viene riportata l'ultima origine che contribuisce all'azione. I rilasci dei tasti e dei pulsanti del mouse mantengono l'origine precedente, a meno che un altro input non contribuisca nello stesso frame. Le azioni dei gamepad rimangono separate per controller. Usa nomi di azione separati quando devi gestire ogni associazione indipendentemente.
+
+Il movimento del puntatore e i campioni dell'accelerometro non hanno un nome di azione, quindi entrambi usano `action_id == nil`. Arrivano in callback separati: il movimento del puntatore ha coordinate e un'origine mouse o tocco, mentre i campioni dell'accelerometro hanno `acc_x`, `acc_y` e `acc_z` e un'origine accelerometro. Se entrambi si verificano in un frame, ogni callback può essere consumato indipendentemente. I campioni dell'accelerometro vengono consegnati anche se i valori non sono cambiati.
+
+L'esempio seguente gestisce queste azioni senza nome. Configura almeno un Mouse Trigger per ricevere il movimento del puntatore e abilita [Use Accelerometer](/manuals/project-settings/#use-accelerometer) su un dispositivo supportato per ricevere i campioni dell'accelerometro:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == nil then
+        if action.source == hash("mouse") or action.source == hash("touch") then
+            print("Pointer position:", action.x, action.y)
+        elseif action.source == hash("accelerometer") then
+            print("Acceleration:", action.acc_x, action.acc_y, action.acc_z)
+        end
+    end
 end
 ```
 

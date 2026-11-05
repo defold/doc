@@ -55,7 +55,7 @@ Orthographic Mode
   仅在启用 `Orthographic Projection` 时可用。
 
 
-## 使用摄像机
+## 使用摄像机 {#using-the-camera}
 
 所有摄像机都会在帧期间自动启用和更新，并且lua `camera`模块在所有脚本上下文中都可用。自Defold 1.8.1起，不再需要通过向摄像机组件发送`acquire_camera_focus`消息来显式启用摄像机。旧的获取和释放消息仍然可用，但建议改为使用`enable`和`disable`消息，就像您希望启用或禁用的任何其他组件一样：
 
@@ -87,14 +87,16 @@ render.set_camera()
 
 ```lua
 camera.get_aspect_ratio(camera) -- 获取宽高比
-camera.get_far_z(camera) -- 获取远z值
-camera.get_fov(camera) -- 获取视野
-camera.get_orthographic_zoom(camera) -- 获取用户控制的缩放倍数
-camera.get_orthographic_auto_zoom(camera) -- 获取自动计算的缩放
+camera.get_far_z(camera) -- 获取远裁剪面的 z 值
+camera.get_fov(camera) -- 获取视野角度
+camera.get_orthographic_mode(camera) -- 获取正交模式（camera.ORTHO_MODE_* 中的一个值）
+camera.get_orthographic_zoom(camera) -- 获取用户控制的缩放倍率
+camera.get_orthographic_auto_zoom(camera) -- 获取自动计算的缩放值
 camera.set_aspect_ratio(camera, ratio) -- 设置宽高比
-camera.set_far_z(camera, far_z) -- 设置远z值
-camera.set_near_z(camera, near_z) -- 设置近z值
-... 等等
+camera.set_far_z(camera, far_z) -- 设置远裁剪面的 z 值
+camera.set_near_z(camera, near_z) -- 设置近裁剪面的 z 值
+camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- 设置正交模式
+... And so forth
 ```
 
 摄像机通过URL标识，它是组件的完整场景路径，包括集合、它所属的游戏对象和组件ID。在这个例子中，您将使用URL `/go#camera` 来从同一集合中标识摄像机组件，而在从不同集合或渲染脚本访问摄像机时使用 `main:/go#camera`。
@@ -281,7 +283,7 @@ local world_position = camera.screen_to_world(
 [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) 执行反向转换。它返回屏幕像素 X 和 Y，并在 Z 中使用相同的视图深度约定，因此其结果可以传回 `camera.screen_to_world()`：
 
 ```lua
--- Update the cached world transform first if the object moved this frame.
+-- 如果对象在此帧移动过，请先更新缓存的世界变换。
 go.update_world_transform("/marker")
 local world_position = go.get_world_position("/marker")
 local screen_position = camera.world_to_screen(world_position, "#camera")

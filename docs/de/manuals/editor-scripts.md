@@ -50,7 +50,7 @@ Der Editor sammelt dann alle im Projekt und in den Bibliotheken definierten Edit
 - `editor.editor_sha1` — eine Zeichenfolge mit dem SHA1-Wert des Defold-Editors
 - `editor.get(node_id, property)` — einen Wert eines Knotens innerhalb des Editors abrufen. Knoten im Editor sind verschiedene Entitäten, etwa eine Skriptdatei oder eine Datei für eine Sammlung (collection), ein Spielobjekt (game object) innerhalb einer Sammlung, eine als Ressource geladene JSON-Datei usw. `node_id` ist ein userdata-Wert, den der Editor an das Editor-Skript übergibt. Alternativ kannst du statt der Knoten-ID einen Ressourcenpfad übergeben, zum Beispiel `"/main/game.script"`. `property` ist eine Zeichenfolge. Derzeit werden folgende Eigenschaften unterstützt:
   - `"path"` — Dateipfad relativ zum Projektordner für *Ressourcen* — Entitäten, die als Dateien oder Verzeichnisse existieren. Beispiel für einen Rückgabewert: `"/main/game.script"`
-  - `"children"` — Liste der Ressourcenpfade untergeordneter Elemente für Verzeichnisressourcen
+  - `"children"` — Liste der Ressourcenpfade untergeordneter Elemente für Verzeichnisressourcen. Wie du auch Ressourcen innerhalb von Dateien durchläufst, beschreibt [Projektressourcen durchlaufen](#traversing-project-resources).
   - `"parent"` — übergeordneter Editorknoten eines Knotens in Outline, der einen übergeordneten Knoten hat
   - `"text"` — Textinhalt einer als Text bearbeitbaren Ressource (etwa Skriptdateien oder JSON). Beispiel für einen Rückgabewert: `"function init(self)\nend"`. Beachte, dass dies nicht dem Lesen einer Datei mit `io.open()` entspricht: Du kannst eine Datei bearbeiten, ohne sie zu speichern, und diese Änderungen sind nur über den Zugriff auf die Eigenschaft `"text"` verfügbar.
   - für Atlanten: `images` (Liste der Editorknoten für Bilder im Atlas) und `animations` (Liste der Animationsknoten)
@@ -72,6 +72,7 @@ Der Editor sammelt dann alle im Projekt und in den Bibliotheken definierten Edit
 - `editor.properties(node_id)` — eine sortierte, kontextabhängige Liste der Eigenschaftsnamen zurückgeben, die von einem Knoten gelesen werden können, zum Beispiel `pprint(editor.properties("/game.project"))`. Verwende die Funktionen `editor.can_*`, um zu prüfen, ob eine aufgelistete Eigenschaft auch geändert oder zurückgesetzt werden kann, ob sich ihr Elemente hinzufügen lassen oder ob deren Reihenfolge geändert werden kann.
 - `editor.can_get(node_id, property)` — prüfen, ob du diese Eigenschaft abrufen kannst, sodass `editor.get()` keinen Fehler auslöst.
 - `editor.can_set(node_id, property)` — prüfen, ob ein Transaktionsschritt mit `editor.tx.set()` für diese Eigenschaft keinen Fehler auslöst.
+- `editor.resource_children(path)` — Ressourcenpfade direkt innerhalb eines Ordners oder einer Datei auflisten, einschließlich der in glTF-/GLB-Dateien enthaltenen Ressourcen. Siehe [Projektressourcen durchlaufen](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — ein Verzeichnis erstellen, falls es nicht existiert, einschließlich aller fehlenden übergeordneten Verzeichnisse.
 - `editor.create_resources(resources)` — 1 oder mehr Ressourcen erstellen, entweder aus Vorlagen oder mit eigenen Inhalten
 - `editor.delete_directory(resource_path)` — ein Verzeichnis löschen, falls es existiert, einschließlich aller vorhandenen Unterverzeichnisse und Dateien.
@@ -147,6 +148,42 @@ Der Editor erwartet, dass `get_commands()` ein Array von Tabellen zurückgibt, d
 - `id` - eine Zeichenfolge als Bezeichner des Befehls, die z. B. zum Speichern des zuletzt verwendeten Bundle-Befehls in `prefs` dient
 - `active` - ein Callback, der prüft, ob der Befehl aktiv ist, und einen booleschen Wert zurückgeben soll. Wenn `locations` die Werte `"Assets"`, `"Scene"` oder `"Outline"` enthält, wird `active` beim Anzeigen des Kontextmenüs aufgerufen. Wenn locations die Werte `"Edit"` oder `"View"` enthält, wird active bei jeder Interaktion aufgerufen, etwa beim Tippen auf der Tastatur oder beim Klicken mit der Maus. Stelle daher sicher, dass `active` relativ schnell ist.
 - `run` - ein Callback, der ausgeführt wird, wenn du den Menüeintrag auswählst.
+
+### Projektressourcen durchlaufen {#traversing-project-resources}
+
+`editor.resource_children(path)` gibt ein Array der Ressourcenpfade direkt innerhalb eines Ordners oder einer Datei zurück. Sowohl der Eingabepfad als auch die zurückgegebenen Pfade beginnen mit `/`, relativ zum Projektstamm. Verwende `/`, um am Projektstamm zu beginnen. Eine *.gltf*- oder *.glb*-Datei kann Meshes, Materialien und eingebettete Bilder als untergeordnete Ressourcen bereitstellen, wie im Bereich *Assets*.
+
+Wenn dein Skript Verzeichnisse mit `editor.get(path, "children")` durchläuft, stelle den Durchlauf auf `editor.resource_children(path)` um und besuche jeden zurückgegebenen Pfad. Auch Dateien können Ressourcen enthalten. Eine auf Pfade mit `editor.resource_attributes(path).is_directory` gleich `true` beschränkte Rekursion überspringt deshalb diese Inhalte.
+
+Die Funktion gibt für einen Ordner oder eine Datei ohne untergeordnete Ressourcen eine leere Tabelle (`{}`) zurück. Ein nicht vorhandener Pfad löst einen Fehler aus; prüfe bei möglicherweise fehlenden Pfaden vor der Abfrage der untergeordneten Ressourcen `editor.resource_attributes(path).exists`. Untergeordnete Ressourcen folgen der Hierarchie von *Assets*. Auf Spielobjekte innerhalb einer Sammlung greifst du über `editor.get(collection_path, "children")` zu.
+
+Speichere dieses Beispiel als `list_resources.editor_script` und wähle **Project → Reload Editor Scripts**. Führe in *Assets* einen Rechtsklick auf einen Ordner oder eine *.gltf*- oder *.glb*-Datei aus und wähle **List Resource Contents**, um den Ressourcenbaum in der Konsole auszugeben:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Den Zustand des Editors im Arbeitsspeicher mit Befehlen ändern {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -243,6 +280,7 @@ editor.transact({
 #### Kachelquellen bearbeiten {#editing-tilesources}
 
 Zusätzlich zu den Outline-Eigenschaften definiert eine Kachelquelle (tile source) die folgenden Eigenschaften:
+
 - `animations` - eine Liste der Animationsknoten der Kachelquelle
 - `collision_groups` - eine Liste der Kollisionsgruppenknoten der Kachelquelle
 - `tile_collision_groups` - eine Tabelle mit den Zuordnungen von Kollisionsgruppen zu Kacheln in der Kachelquelle
@@ -251,8 +289,8 @@ So kannst du zum Beispiel eine Kachelquelle einrichten:
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -262,6 +300,25 @@ editor.transact({
     })
 })
 ```
+
+Animationsknoten stellen eine Eigenschaft `frames` bereit, die ein Lua-Array mit bei eins beginnenden Kachelnummern in Animationsreihenfolge enthält. Anders als das Textfeld *Frames* im Editor erwarten Editorskripte ein Ganzzahlarray und keine Zeichenfolge wie `"2-6"`. Löse Bereiche im Array in einzelne Kachelnummern auf. Kacheln können in beliebiger Reihenfolge vorkommen und wiederholt werden.
+
+So liest und änderst du die Animation `walk` aus dem obigen Beispiel:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- The animation now uses {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Eine Änderung am zurückgegebenen Array aktualisiert die Animation erst, wenn du es an `editor.tx.set()` übergibst und die Transaktion anwendest. Kachelnummerierung und Wiedergabeeinstellungen beschreibt das [Handbuch zu Kachelquellen](/manuals/tilesource/#tile-source-flip-book-animations).
 
 #### Kachelkarten bearbeiten {#editing-tilemaps}
 

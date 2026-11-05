@@ -27,7 +27,7 @@ Eine Kollisionsobjekt-Komponente hat eine Reihe von *Properties*, die ihren Typ 
 So fügst du einem Spielobjekt eine Kollisionsobjekt-Komponente hinzu:
 
 1. Klicke in der Ansicht *Outline* <kbd>mit der rechten Maustaste</kbd> auf das Spielobjekt und wähle im Kontextmenü <kbd>Add Component ▸ Collision Object</kbd>. Dadurch wird eine neue Komponente ohne Formen erstellt.
-2. Klicke <kbd>mit der rechten Maustaste</kbd> auf die neue Komponente und wähle <kbd>Add Shape</kbd>. Wähle anschließend eine Form: <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> oder <kbd>Mesh</kbd> in Projekten mit 3D-Physik, <kbd>Box</kbd> oder <kbd>Circle</kbd> in Projekten mit 2D-Physik. Die Formen Hull und Mesh sind seit Defold 1.13.2 verfügbar und verwenden ein benanntes Mesh aus einer glTF- oder GLB-Szene. Du kannst der Komponente mehrere Formen hinzufügen. Über die Eigenschaft *Collision Shape* kannst du auch eine Kachelkarte (tile map) oder eine `.convexshape`-Ressource verwenden.
+2. Führe einen <kbd>Rechtsklick</kbd> auf die neue Komponente aus und wähle <kbd>Add Shape</kbd>. Wähle dann eine Form: in Projekten mit 3D-Physik <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd> oder <kbd>Mesh</kbd>, in Projekten mit 2D-Physik <kbd>Box</kbd> oder <kbd>Circle</kbd>. Hull- und Mesh-Formen verwenden ein benanntes Mesh aus einer glTF- oder GLB-Szene. Du kannst der Komponente mehrere Formen hinzufügen. Über die Eigenschaft *Collision Shape* kannst du auch eine Kachelkarte oder eine `.convexshape`-Ressource verwenden.
 3. Verwende die Werkzeuge zum Verschieben, Drehen und Skalieren, um die Formen zu bearbeiten.
 4. Wähle die Komponente in *Outline* aus und bearbeite die *Properties* des Kollisionsobjekts.
 

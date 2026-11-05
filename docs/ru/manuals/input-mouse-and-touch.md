@@ -21,15 +21,15 @@ brief: В этом руководстве объясняется, как раб�
 :::
 
 ## Кнопки мыши
-Кнопки мыши генерируют события `нажатия`, `отпускания` и `повтора`. Пример, показывающий, как обнаружить ввод для левой кнопки мыши (нажата или отпущена):
+Кнопки мыши генерируют события `pressed`, `released` и `repeated`. Пример, показывающий, как обнаружить ввод для левой кнопки мыши (нажата или отпущена):
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("mouse_button_left") then
         if action.pressed then
-            -- left mouse button pressed
+            -- левая кнопка мыши нажата
         elseif action.released then
-            -- left mouse button released
+            -- левая кнопка мыши отпущена
         end
     end
 end
@@ -39,6 +39,30 @@ end
 Действия ввода `MOUSE_BUTTON_LEFT` (или `MOUSE_BUTTON_1`) также отправляются и для одиночных касаний.
 :::
 
+### Различение кликов мыши и касаний {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` отличает нажатие физической мыши от клика, имитируемого касанием, уже при начальном нажатии. Привяжите `MOUSE_BUTTON_LEFT` к `mouse_button_left` и используйте этот код в обычном или GUI-скрипте:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Касание, имитируемое как клик мыши, сообщает `hash("touch")` даже без отдельного Touch Trigger. Для определения касания не нужны таблица `action.touch` или предшествующее событие движения. Все значения источников и их поведение, когда несколько привязок используют одно имя действия, описаны в разделе [Источник устройства ввода](/manuals/input/#input-device-source).
+
+На iOS для этого различения в пользовательском `Info.plist` должен быть включён `UIApplicationSupportsIndirectInputEvents`. Во встроенном манифесте он уже включён.
+
 ## Колесико мыши
 Вводы колесика мыши определяют действия прокрутки. Поле `action.value` равно `1`, если колесико прокручено, и `0` в противном случае. (Действия прокрутки обрабатываются так же, как нажатия кнопок. В настоящее время Defold не поддерживает тонкий ввод прокрутки на тачпадах).
 
@@ -46,7 +70,7 @@ end
 function on_input(self, action_id, action)
     if action_id == hash("mouse_wheel_up") then
         if action.value == 1 then
-            -- mouse wheel is scrolled up
+            -- колесо мыши прокручено вверх
         end
     end
 end
@@ -55,12 +79,13 @@ end
 ## Движение мыши
 Движение мыши обрабатывается отдельно. События движения мыши не принимаются, если в привязках ввода не установлен хотя бы один триггер мыши.
 
-Движение мыши не привязано к input bindings, но `action_id` устанавливается в `nil`, а таблица `action` заполняется координатами и дельтой перемещения позиции мыши.
+Движение указателя не привязано к имени действия: `action_id` равно `nil`, а таблица `action` содержит положение указателя и дельту перемещения. Источник равен `hash("mouse")` для физической мыши или `hash("touch")` для движения, имитируемого касанием. Данные акселерометра также используют `action_id == nil`, поэтому различайте их по источнику, как показано в разделе [Источник устройства ввода](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
-        -- let game object follow mouse/touch movement
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
+        -- перемещать игровой объект вслед за мышью или касанием
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)
     end
@@ -81,7 +106,7 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("touch_multi") then
-        -- Spawn at each touch point
+        -- Создать экземпляр в каждой точке касания
         for i, touchdata in ipairs(action.touch) do
             local pos = vmath.vector3(touchdata.x, touchdata.y, 0)
             factory.create("#factory", pos)

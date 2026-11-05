@@ -152,15 +152,15 @@ Light 组件的最大数量由 `light.max_count` 项目设置控制。默认值�
 
 struct Light
 {
-    vec4 position;        // xyz：世界位置，w：未使用
-    vec4 color;           // rgb：颜色，a：未使用
-    vec4 direction_range; // xyz：规范化的世界方向，w：范围
-    vec4 params;          // x：类型，y：强度，z：内锥角，w：外锥角
+    vec4 position;        // xyz: world position, w: unused
+    vec4 color;           // rgb: color, a: unused
+    vec4 direction_range; // xyz: normalized world direction, w: range
+    vec4 params;          // x: type, y: intensity, z: inner cone, w: outer cone
 };
 
 uniform LightBuffer
 {
-    // xyz：累积的环境光颜色，w：活动的非环境光数量
+    // xyz: accumulated ambient color, w: active non-ambient light count
     vec4 light_info;
     Light lights[MAX_LIGHT_COUNT];
 };
@@ -192,16 +192,16 @@ vec3 apply_lights(vec3 normal)
         int type = int(lights[i].params.x);
         vec3 light_color = lights[i].color.rgb * lights[i].params.y;
 
-        if (type == 0) // 方向光
+        if (type == 0) // Directional
         {
             vec3 light_dir = normalize(-lights[i].direction_range.xyz);
             result += light_color * max(dot(normal, light_dir), 0.0);
         }
-        else if (type == 1) // 点光源
+        else if (type == 1) // Point
         {
             result += light_color;
         }
-        else if (type == 2) // 聚光灯
+        else if (type == 2) // Spot
         {
             result += light_color;
         }

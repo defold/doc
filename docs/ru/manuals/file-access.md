@@ -12,33 +12,33 @@ Defold предоставляет несколько разных функций
 * Вы можете использовать стандартные функции [`io.*`](https://defold.com/ref/io/) для чтения и записи файлов. Эти функции дают вам очень тонкий контроль над процессом ввода-вывода.
 
 ```lua
--- открыть myfile.txt для записи в бинарном режиме
--- возвращает nil и сообщение об ошибке в случае неудачи
+-- открыть myfile.txt для записи в двоичном режиме
+-- при ошибке возвращает nil и сообщение об ошибке
 local f, err = io.open("path/to/myfile.txt", "wb")
 if not f then
-    print("Произошла ошибка при открытии файла", err)
-    return
+	print("Something went wrong while opening the file", err)
+	return
 end
 
--- записать в файл, сбросить буфер на диск и закрыть файл
+-- записать данные в файл, сбросить их на диск и закрыть файл
 f:write("Foobar")
 f:flush()
 f:close()
 
--- открыть myfile.txt для чтения в бинарном режиме
--- возвращает nil и сообщение об ошибке в случае неудачи
+-- открыть myfile.txt для чтения в двоичном режиме
+-- при ошибке возвращает nil и сообщение об ошибке
 local f, err = io.open("path/to/myfile.txt", "rb")
 if not f then
-    print("Произошла ошибка при открытии файла", err)
-    return
+	print("Something went wrong while opening the file", err)
+	return
 end
 
 -- прочитать весь файл как строку
--- возвращает nil в случае неудачи
+-- при ошибке возвращает nil
 local s = f:read("*a")
 if not s then
-    print("Ошибка при чтении файла")
-    return
+	print("Error while reading file")
+	return
 end
 
 print(s) -- Foobar
@@ -49,20 +49,20 @@ print(s) -- Foobar
 * Вы можете использовать [`sys.save()`](https://defold.com/ref/sys/#sys.save:filename-table) и [`sys.load()`](https://defold.com/ref/sys/#sys.load:filename) для чтения и записи Lua таблиц. Дополнительные функции [`sys.*`](https://defold.com/ref/sys/) помогают с платформонезависимым разрешением путей к файлам.
 
 ```lua
--- получить платформонезависимый путь к файлу "highscore" для приложения "mygame"
+-- получить независимый от платформы путь к файлу "highscore" для приложения "mygame"
 local path = sys.get_save_file("mygame", "highscore")
 
--- сохранить Lua таблицу с некоторыми данными
+-- сохранить таблицу Lua с данными
 local ok = sys.save(path, { highscore = 100 })
 if not ok then
-    print("Не удалось сохранить", path)
-    return
+	print("Failed to save", path)
+	return
 end
 
 -- загрузить данные
 local ok, data = pcall(sys.load, path)
 if not ok then
-	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	-- Файл существует, но повреждён, создан другим способом или имеет неподдерживаемый формат.
 	print("Failed to load save data:", data)
 	data = {}
 end
@@ -114,8 +114,8 @@ local path = sys.get_application_path()
 local f = io.open(path .. "/mycommonfile.txt", "rb")
 local txt, err = f:read("*a")
 if not txt then
-    print(err)
-    return
+	print(err)
+	return
 end
 print(txt)
 ```

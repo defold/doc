@@ -62,7 +62,7 @@ end
 -- carrega os dados
 local ok, data = pcall(sys.load, path)
 if not ok then
-	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	-- O arquivo existe, mas está corrompido, foi criado por outra ferramenta ou usa um formato incompatível.
 	print("Failed to load save data:", data)
 	data = {}
 end

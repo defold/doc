@@ -24,7 +24,7 @@ Error: Attribute property#android.adservices.AD_SERVICES_CONFIG@resource
 value=(@xml/ga_ad_services_config) from AndroidManifest.xml:32:13-58 is also
 present at AndroidManifest.xml:92:13-59 value=(@xml/gma_ad_services_config).
 Suggestion: add 'tools:replace="android:resource"' to <property> element at
-AndroidManifest.xml to override. 
+AndroidManifest.xml to override.
 ```
 
 Więcej informacji o tym problemie i obejściu znajdziesz w zgłoszonym problemie Defold [#9453](https://github.com/defold/defold/issues/9453#issuecomment-2367367269) oraz w problemie Google [#327696048](https://issuetracker.google.com/issues/327696048?pli=1).

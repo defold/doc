@@ -46,6 +46,6 @@ Wzorce w pliku `.defunload` używają tych samych reguł co plik `.defignore`. N
 
 Na przykład, jeśli sprite zależy od obrazów w atlasie, atlas musi zostać załadowany, w przeciwnym razie brakujący obraz zostanie zgłoszony jako błąd. Jeśli tak się stanie, powiadomienie ostrzeże użytkownika o sytuacji i poda informacje o tym, który niewczytany zasób został przywołany i skąd.
 
-Edytor uniemożliwi użytkownikowi dodawanie odwołań do zasobów `.defunload` z poziomu załadowanych zasobów, więc taka sytuacja występuje tylko wtedy, gdy zasoby są odczytywane z dysku.
+Edytor uniemożliwi użytkownikowi dodawanie odwołań do zasobów wykluczonych przez `.defunload` z poziomu załadowanych zasobów, więc taka sytuacja występuje tylko wtedy, gdy zasoby są odczytywane z dysku.
 
 W przeciwieństwie do pliku `.defignore`, po edycji pliku `.defunload` trzeba uruchomić ponownie edytor, aby zmiany zaczęły obowiązywać.

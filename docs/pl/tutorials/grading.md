@@ -136,10 +136,10 @@ Pozostaw obiekt gry nieskalowany w punkcie początkowym. Później, podczas rend
 8. Program shaderów vertex można pozostawić w postaci utworzonej z bazowego szablonu:
 
     ```glsl
-    // plik: grade.vp
+    // grade.vp
     uniform mediump mat4 view_proj;
 
-    // pozycje są w przestrzeni świata
+    // positions are in world space
     attribute mediump vec4 position;
     attribute mediump vec2 texcoord0;
 
@@ -155,7 +155,7 @@ Pozostaw obiekt gry nieskalowany w punkcie początkowym. Później, podczas rend
 9. W programie shaderów fragment zamiast ustawiać `gl_FragColor` bezpośrednio na próbkowaną wartość koloru wykonajmy prostą manipulację kolorem. Robimy to głównie po to, żeby upewnić się, że wszystko do tej pory działa zgodnie z oczekiwaniami:
 
     ```glsl
-    // plik: grade.fp
+    // grade.fp
     varying mediump vec4 position;
     varying mediump vec2 var_texcoord0;
 
@@ -164,7 +164,7 @@ Pozostaw obiekt gry nieskalowany w punkcie początkowym. Później, podczas rend
     void main()
     {
       vec4 color = texture2D(original, var_texcoord0.xy);
-      // Desaturuj kolor próbkowany z oryginalnej tekstury
+      // Desaturate the color sampled from the original texture
       float grey = color.r * 0.3 + color.g * 0.59 + color.b * 0.11;
       gl_FragColor = vec4(grey, grey, grey, 1.0);
     }

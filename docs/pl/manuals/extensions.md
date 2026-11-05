@@ -71,11 +71,14 @@ Aby utworzyć nowe rozszerzenie, utwórz folder w katalogu głównym projektu. T
 Opcjonalny folder *manifests* rozszerzenia zawiera dodatkowe pliki używane podczas procesu budowania i pakowania. Pliki należy umieszczać w podfolderach nazwanych według `platform`:
 
 * `android` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
-  * Folder może też zawierać plik `build.gradle` z zależnościami, które mają być rozwiązywane przez Gradle.
+  * Folder może też zawierać plik `build.gradle` z zależnościami [rozwiązywanymi przez Gradle](/manuals/extensions-gradle).
   * Rozszerzenia zawierające kod Java powinny dołączać [plik reguł R8](#r8-keep-rules-for-android) (`.keep`) dla klas potrzebnych w czasie działania.
 * `ios` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
-  * Folder może też zawierać plik `Podfile` z zależnościami, które mają być rozwiązywane przez CocoaPods.
+  * Folder może też zawierać plik `Podfile` z zależnościami [rozwiązywanymi przez CocoaPods](/manuals/extensions-cocoapods).
+  * Folder może też zawierać plik `SwiftPackages.json` z zależnościami [rozwiązywanymi przez Swift Package Manager](/manuals/extensions-spm).
 * `osx` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
+  * Folder może też zawierać plik `Podfile` z zależnościami [rozwiązywanymi przez CocoaPods](/manuals/extensions-cocoapods).
+  * Folder może też zawierać plik `SwiftPackages.json` z zależnościami [rozwiązywanymi przez Swift Package Manager](/manuals/extensions-spm).
 * `web` - Ten folder przyjmuje plik-szablon manifestu, który zostanie scalony z główną aplikacją ([jak opisano tutaj](/manuals/extensions-manifest-merge-tool)).
 
 
@@ -97,7 +100,7 @@ Jeśli rozszerzenie korzysta z adnotacji w czasie działania, dodaj również:
 
 Te reguły są łączone z wybranym plikiem reguł projektu po [włączeniu R8](/manuals/android/#enabling-r8).
 
-W wersji Defold 1.14.0 lub nowszej, przy użyciu zgodnego serwera Extender, R8 usuwa również nieużywane zasoby Androida. Jeśli rozszerzenie wyszukuje zasoby dynamicznie według nazwy, dodaj [reguły zachowywania zasobów w formacie XML](/manuals/android/#keeping-android-resources) w katalogu `res/android/res/raw` w folderze rozszerzenia.
+Przy użyciu zgodnego serwera Extender R8 usuwa również nieużywane zasoby Androida. Jeśli rozszerzenie wyszukuje zasoby dynamicznie według nazwy, dodaj [reguły zachowywania zasobów w formacie XML](/manuals/android/#keeping-android-resources) w katalogu `res/android/res/raw` w folderze rozszerzenia.
 
 
 ## Zasoby niestandardowe {#custom-resources}
@@ -137,7 +140,7 @@ Zbudujmy bardzo proste rozszerzenie. Najpierw tworzymy nowy folder główny *`my
 ![Manifest](images/extensions/manifest.png)
 
 ```yaml
-# Symbol C++ w twoim rozszerzeniu
+# C++ symbol in your extension
 name: "MyExtension"
 ```
 
@@ -149,23 +152,23 @@ Plik źródłowy rozszerzenia zawiera następujący kod:
 
 ```cpp
 // myextension.cpp
-// Definicje biblioteki rozszerzenia
+// Extension lib defines
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// dołącz Defold SDK
+// include the Defold SDK
 #include <dmsdk/sdk.h>
 
 static int Reverse(lua_State* L)
 {
-    // Oczekiwana liczba elementów na stosie Lua
-    // po wyjściu tej struktury z zakresu
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
     DM_LUA_STACK_CHECK(L, 1);
 
-    // Sprawdź i pobierz parametr tekstowy ze stosu
+    // Check and get parameter string from stack
     char* str = (char*)luaL_checkstring(L, 1);
 
-    // Odwróć łańcuch znaków
+    // Reverse the string
     int len = strlen(str);
     for(int i = 0; i < len / 2; i++) {
         const char a = str[i];
@@ -174,14 +177,14 @@ static int Reverse(lua_State* L)
         str[len - i - 1] = a;
     }
 
-    // Umieść odwrócony łańcuch na stosie
+    // Put the reverse string on the stack
     lua_pushstring(L, str);
 
-    // Zwróć 1 element
+    // Return 1 item
     return 1;
 }
 
-// Funkcje udostępnione do Lua
+// Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
     {"reverse", Reverse},
@@ -192,7 +195,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // Zarejestruj nazwy w Lua
+    // Register lua names
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -206,7 +209,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Zainicjalizuj Lua
+    // Init Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -223,12 +226,12 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// Defold SDK używa makra do ustawiania punktów wejścia rozszerzenia:
+// Defold SDK uses a macro for setting up extension entry points:
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
-// MyExtension to symbol C++, który przechowuje wszystkie istotne dane rozszerzenia.
-// Musi odpowiadać polu name w `ext.manifest`
+// MyExtension is the C++ symbol that holds all relevant extension data.
+// It must match the name field in the `ext.manifest`
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
@@ -247,7 +250,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 I to wszystko! Utworzyliśmy w pełni działające natywne rozszerzenie.
 
 
-## Cykl życia rozszerzenia
+## Cykl życia rozszerzenia {#extension-lifecycle}
 
 Jak widzieliśmy wyżej, makro `DM_DECLARE_EXTENSION` służy do deklarowania różnych punktów wejścia do kodu rozszerzenia:
 

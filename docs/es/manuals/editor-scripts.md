@@ -50,7 +50,7 @@ Puedes interactuar con el editor usando el paquete `editor`, que define esta API
 - `editor.editor_sha1` — un string, el SHA1 del editor Defold
 - `editor.get(node_id, property)` — obtiene un valor de algún nodo dentro del editor. Los nodos del editor son varias entidades, como archivos script o de colección, objetos de juego dentro de colecciones, archivos json cargados como recursos, etc. `node_id` es un userdata que el editor pasa al script del editor. Como alternativa, puedes pasar la ruta del recurso en lugar del id del nodo, por ejemplo `"/main/game.script"`. `property` es un string. Actualmente se soportan estas propiedades:
   - `"path"` — ruta de archivo desde la carpeta del proyecto para *recursos*, es decir, entidades que existen como archivos o directorios. Ejemplo de valor devuelto: `"/main/game.script"`
-  - `"children"` — lista de rutas de recursos hijos para recursos de directorio
+  - `"children"` — lista de rutas de recursos hijos para recursos de directorio. Para recorrer también los recursos dentro de archivos, consulta [Recorrer los recursos del proyecto](#traversing-project-resources).
   - `"parent"` — nodo padre del editor para un nodo de Outline que tenga padre
   - `"text"` — contenido textual de un recurso editable como texto (como archivos script o json). Ejemplo de valor devuelto: `"function init(self)\nend"`. Ten en cuenta que esto no es lo mismo que leer el archivo con `io.open()`, porque puedes editar un archivo sin guardarlo, y esas ediciones solo están disponibles al acceder a la propiedad `"text"`.
   - para atlas: `images` (lista de nodos del editor para imágenes en el atlas) y `animations` (lista de nodos de animación)
@@ -72,6 +72,7 @@ Puedes interactuar con el editor usando el paquete `editor`, que define esta API
 - `editor.properties(node_id)` — devuelve una lista ordenada y dependiente del contexto con los nombres de las propiedades que pueden leerse de un nodo, por ejemplo `pprint(editor.properties("/game.project"))`. Usa las funciones `editor.can_*` para comprobar si una propiedad enumerada también puede modificarse, restablecerse, recibir elementos o reordenarse.
 - `editor.can_get(node_id, property)` — comprueba si puedes obtener esta propiedad para que `editor.get()` no genere un error.
 - `editor.can_set(node_id, property)` — comprueba si un paso de transacción `editor.tx.set()` con esta propiedad no generará un error.
+- `editor.resource_children(path)` — enumera las rutas de recursos directamente dentro de una carpeta o archivo, incluidos los recursos contenidos en archivos glTF/GLB. Consulta [Recorrer los recursos del proyecto](#traversing-project-resources).
 - `editor.create_directory(resource_path)` — crea un directorio si no existe, junto con todos los directorios padre inexistentes.
 - `editor.create_resources(resources)` — crea 1 o más recursos, ya sea desde plantillas o con contenido personalizado
 - `editor.delete_directory(resource_path)` — elimina un directorio si existe, junto con todos los directorios y archivos hijos existentes.
@@ -86,6 +87,7 @@ Puedes encontrar la referencia completa de la API del editor [aquí](/ref/editor
 ## Comandos {#commands}
 
 Si un módulo de script del editor define `get_commands()`, se llama cuando se recargan las extensiones. Los comandos devueltos pueden aparecer en los menús de la barra de menús y en los menús contextuales de Assets, Outline, Scene y Code, según sus `locations`. Ejemplo:
+
 ```lua
 local M = {}
 
@@ -146,6 +148,42 @@ El editor espera que `get_commands()` devuelva un array de tablas, cada una desc
 - `id` - string identificador del comando, usado por ejemplo para persistir el último comando de bundle usado en `prefs`
 - `active` - un callback que se ejecuta para comprobar que el comando está activo; se espera que devuelva un booleano. Si `locations` incluye `"Assets"`, `"Scene"` u `"Outline"`, `active` se llamará al mostrar el menú de contexto. Si `locations` incluye `"Edit"` o `"View"`, `active` se llamará en cada interacción del usuario, como escribir en el teclado o hacer click con el mouse, así que asegúrate de que `active` sea relativamente rápido.
 - `run` - un callback que se ejecuta cuando el usuario selecciona el elemento de menú.
+
+### Recorrer los recursos del proyecto {#traversing-project-resources}
+
+`editor.resource_children(path)` devuelve un array de rutas de recursos directamente dentro de una carpeta o archivo. Tanto la ruta de entrada como las devueltas comienzan con `/`, relativas a la raíz del proyecto. Usa `/` para empezar en esa raíz. Un archivo *.gltf* o *.glb* puede exponer mallas, materiales e imágenes integradas como recursos hijos, igual que en el panel *Assets*.
+
+Si tu script recorre directorios con `editor.get(path, "children")`, cambia el recorrido a `editor.resource_children(path)` y visita cada ruta devuelta. Los archivos también pueden contener recursos, por lo que restringir la recursión a rutas donde `editor.resource_attributes(path).is_directory` sea `true` omite ese contenido.
+
+La función devuelve una tabla vacía (`{}`) para carpetas o archivos sin recursos hijos. Una ruta inexistente genera un error; si una ruta puede no existir, comprueba `editor.resource_attributes(path).exists` antes de consultar sus hijos. Los recursos hijos siguen la jerarquía de *Assets*. Los objetos de juego de una colección se acceden mediante `editor.get(collection_path, "children")`.
+
+Por ejemplo, guarda esto como `list_resources.editor_script` y selecciona **Project → Reload Editor Scripts**. Haz click derecho en una carpeta o un archivo *.gltf* o *.glb* de *Assets* y selecciona **List Resource Contents** para imprimir su árbol de recursos en la consola:
+
+```lua
+local M = {}
+
+local function walk(path)
+  print(path)
+  for _, child in ipairs(editor.resource_children(path)) do
+    walk(child)
+  end
+end
+
+function M.get_commands()
+  return {
+    {
+      label = "List Resource Contents",
+      locations = {"Assets"},
+      query = {selection = {type = "resource", cardinality = "one"}},
+      run = function(opts)
+        walk(editor.get(opts.selection, "path"))
+      end
+    }
+  }
+end
+
+return M
+```
 
 ### Usar comandos para cambiar el estado en memoria del editor {#use-commands-to-change-the-in-memory-editor-state}
 
@@ -242,6 +280,7 @@ editor.transact({
 #### Editar tilesources {#editing-tilesources}
 
 Además de las propiedades de outline, los tilesources definen las siguientes propiedades:
+
 - `animations` - una lista de nodos de animación del tilesource
 - `collision_groups` - una lista de nodos de grupo de colisión del tilesource
 - `tile_collision_groups` - una tabla de asignaciones de grupo de colisión para tiles en el tilesource
@@ -250,8 +289,8 @@ Por ejemplo, así puedes configurar un tilesource:
 ```lua
 local tilesource = "/game/world.tilesource"
 editor.transact({
-    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1, playback = "playback-loop-forward"}),
-    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "animations", {id = "idle", frames = {1}, playback = "playback-loop-forward"}),
+    editor.tx.add(tilesource, "animations", {id = "walk", frames = {2, 3, 4, 5, 6}, fps = 10}),
     editor.tx.add(tilesource, "collision_groups", {id = "player"}),
     editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
     editor.tx.set(tilesource, "tile_collision_groups", {
@@ -261,6 +300,25 @@ editor.transact({
     })
 })
 ```
+
+Los nodos de animación exponen una propiedad `frames` que contiene un array Lua de números de tile, empezando en uno, en orden de animación. A diferencia del campo de texto *Frames* del editor, los scripts del editor reciben un array de enteros, no una cadena como `"2-6"`. Expande los rangos a números de tile individuales dentro del array. Los tiles pueden aparecer en cualquier orden y repetirse.
+
+Para leer y modificar la animación `walk` del ejemplo anterior:
+
+```lua
+local animations = editor.get("/game/world.tilesource", "animations")
+for _, animation in ipairs(animations) do
+    if editor.get(animation, "id") == "walk" then
+        local frames = editor.get(animation, "frames")
+        table.insert(frames, 2)
+        editor.transact({editor.tx.set(animation, "frames", frames)})
+        -- La animación ahora usa {2, 3, 4, 5, 6, 2}.
+        break
+    end
+end
+```
+
+Cambiar el array devuelto no actualiza la animación hasta que lo pasas a `editor.tx.set()` y aplicas la transacción. Consulta el [manual de Tile Source](/manuals/tilesource/#tile-source-flip-book-animations) para conocer la numeración de tiles y los ajustes de reproducción.
 
 #### Editar tilemaps {#editing-tilemaps}
 
@@ -317,7 +375,7 @@ Muchas propiedades particlefx son curvas o dispersiones de curva (es decir, curv
 - `x` - la coordenada x del punto, debe comenzar en 0 y terminar en 1
 - `y` - el valor del punto
 - `tx` (0 a 1) y `ty` (-1 a 1) - tangentes del punto. Por ejemplo, para un ángulo de 80 grados, `tx` debe ser `math.cos(math.rad(80))` y `ty` debe ser `math.sin(math.rad(80))`.
-Las dispersiones de curva además tienen una propiedad numérica `spread`.
+Las dispersiones de curvas también tienen una propiedad numérica `spread`.
 
 Por ejemplo, definir una curva alfa de vida de partícula para un emisor ya existente podría verse así:
 ```lua
@@ -350,6 +408,7 @@ La propiedad `type` de la forma es obligatoria durante la creación y no se pued
 #### Editar archivos GUI {#editing-gui-files}
 
 Además de las propiedades de outline, los archivos GUI definen varias propiedades de listas de nodos:
+
 - `layers` — lista de nodos de capa del editor (reordenable)
 - `fonts` — lista de nodos de fuente del editor
 - `materials` — lista de nodos de material del editor
@@ -718,9 +777,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## Modos de ejecución {#execution-modes}
 
-El tiempo de ejecución de scripts del editor usa 2 modos de ejecución que son mayormente transparentes para los scripts del editor: **immediate** y **long-running**.
+El runtime de scripts del editor usa 2 modos de ejecución que son casi transparentes para los scripts: **immediate** y **long-running**.
 
-El modo **immediate** se usa cuando el editor necesita recibir una respuesta del script lo más rápido posible. Por ejemplo, los callbacks `active` de los comandos de menú se ejecutan en modo immediate, porque estas comprobaciones se realizan en el hilo de interfaz del editor en respuesta a la interacción del usuario con el editor, y deben actualizar la interfaz dentro del mismo frame.
+El modo **Immediate** se usa cuando el editor necesita recibir una respuesta del script lo antes posible. Por ejemplo, los callbacks `active` de los comandos de menú se ejecutan en modo inmediato, porque estas comprobaciones se realizan en el hilo de interfaz del editor como respuesta a la interacción del usuario y deben actualizar la interfaz dentro del mismo frame.
 
 El modo **long-running** se usa cuando el editor no necesita una respuesta instantánea del script. Por ejemplo, los callbacks `run` de los comandos de menú se ejecutan en modo **long-running**, lo que permite que el script tome más tiempo para completar su trabajo.
 

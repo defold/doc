@@ -49,14 +49,44 @@ Utworzony komponent ma zestaw właściwości, które należy ustawić:
 Gdy komponent dźwięku jest poprawnie skonfigurowany, możesz odtworzyć dźwięk, wywołując [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
+local play_id = sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
+
+Każde odtwarzanie jest osobnym *głosem*. `sound.play()` zwraca jego liczbowy identyfikator odtwarzania (`play_id`); zapisz go, aby [sterować tym konkretnym głosem](#controlling-individual-voices).
 
 ::: sidenote
 Dźwięk będzie nadal odtwarzany, nawet jeśli obiekt gry, do którego należał komponent dźwięku, zostanie usunięty. Możesz wywołać [`sound.stop()`](/ref/sound/#sound.stop:url), aby zatrzymać dźwięk (patrz niżej).
 :::
 
 Każda wiadomość wysłana do komponentu spowoduje odtworzenie kolejnej instancji dźwięku, aż dostępny bufor dźwięku się zapełni, a silnik zacznie wypisywać błędy w konsoli. Zaleca się zaimplementowanie jakiejś formy bramkowania i mechanizmu grupowania dźwięków.
+
+### Sterowanie pojedynczymi głosami {#controlling-individual-voices}
+
+[`sound.set_gain()`](/ref/sound/#sound.set_gain) i [`sound.set_pan()`](/ref/sound/#sound.set_pan) przyjmują opcjonalny trzeci argument z `play_id`. Użyj identyfikatora zwróconego przez `sound.play()` i adresu URL tego samego komponentu dźwięku:
+
+```lua
+function init(self)
+    -- Zapisz identyfikator głosu, którego odtwarzanie rozpocznie się za sekundę.
+    self.voice_id = sound.play("go#sound", { delay = 1 })
+    -- Uruchom kolejny głos na tym samym komponencie.
+    sound.play("go#sound")
+
+    -- Zmień tylko opóźniony głos.
+    sound.set_gain("go#sound", 0.4, { play_id = self.voice_id })
+    sound.set_pan("go#sound", -0.5, { play_id = self.voice_id })
+end
+```
+
+Takie wywołania pozostawiają inne głosy oraz domyślne wzmocnienie i panoramę komponentu bez zmian. Działają dla głosów opóźnionych i wstrzymanych, więc nowe wartości zostaną zastosowane, gdy głos rozpocznie lub wznowi odtwarzanie. Nieznany identyfikator lub identyfikator zakończonego odtwarzania nie ma żadnego skutku.
+
+Pomiń `play_id`, aby zaktualizować wszystkie głosy i domyślne wartości komponentu używane przy przyszłym odtwarzaniu:
+
+```lua
+sound.set_gain("go#sound", 0.8)
+sound.set_pan("go#sound", 0.0)
+```
+
+Przekazanie `{ play_id = nil }` również pomija identyfikator. Jeśli po zakończeniu odtwarzania czyścisz zapisany identyfikator, sprawdź, czy nie jest `nil`, zanim użyjesz go do aktualizacji pojedynczego głosu.
 
 ## Zatrzymywanie dźwięku
 
@@ -73,7 +103,7 @@ sound.stop("go#sound")
 System dźwięku ma 4 poziomy wzmocnienia:
 
 - Wzmocnienie ustawione na komponencie dźwięku.
-- Wzmocnienie ustawione przy uruchamianiu dźwięku przez wywołanie `sound.play()` albo przy zmianie wzmocnienia głosu przez wywołanie `sound.set_gain()`.
+- Wzmocnienie ustawione przy uruchamianiu dźwięku przez wywołanie `sound.play()` albo przy zmianie wzmocnienia [jednego lub wszystkich głosów](#controlling-individual-voices) przez wywołanie `sound.set_gain()`.
 - Wzmocnienie ustawione na grupie przez wywołanie funkcji [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
 - Wzmocnienie ustawione na grupie `master`. Można je zmienić za pomocą `sound.set_group_gain(hash("master"), gain)`.
 

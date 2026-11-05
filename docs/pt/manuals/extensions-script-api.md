@@ -20,7 +20,7 @@ Um arquivo de definição de API de script usa a extensão `.script_api`. Ele de
   - name: Name of the first member
     type: Member type
     desc: Member description
-    # se o tipo do membro for "function"
+    # if member type is "function"
     parameters:
     - name: Name of the first parameter
       type: Parameter type
@@ -28,7 +28,7 @@ Um arquivo de definição de API de script usa a extensão `.script_api`. Ele de
     - name: Name of the second parameter
       type: Parameter type
       desc: Parameter description
-    # se o tipo do membro for "function"
+    # if member type is "function"
     returns:
     - name: Name of first return value
       type: Return value type

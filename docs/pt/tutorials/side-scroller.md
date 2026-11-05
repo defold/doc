@@ -9,11 +9,12 @@ github: https://github.com/defold/tutorial-side-scroller
 
 O tutorial é integrado ao editor Defold e pode ser acessado facilmente:
 
-1. Inicie o Defold.
-2. Selecione *New Project* à esquerda.
-3. Selecione a aba *From Tutorial*.
-4. Selecione "Side scroller tutorial"
-5. Selecione uma localização para o projeto no seu disco local e clique em *Create New Project*.
+Inicie o Defold e:
+1. Selecione `Create From` ▸ `TUTORIALS` à esquerda.
+2. Selecione "Side Scroller Tutorial".
+3. Renomeie o projeto, se desejar.
+4. Selecione uma localização para o projeto no seu disco local.
+5. Clique em `Create New Project`.
 
 ![new project](images/new-side-scroller.webp)
 

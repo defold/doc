@@ -103,6 +103,23 @@ Simulator 번들은 Apple Silicon Mac의 iOS Simulator에서만 실행됩니다.
 
 앱에서 사용할 아이콘, launch screen storyboard 등은 [iOS section](/manuals/project-settings/#ios)의 *game.project* 프로젝트 설정 파일에서 지정합니다.
 
+### 홈 인디케이터 동작 {#home-indicator-behavior}
+
+*game.project*의 *iOS* 섹션에서 *Home Indicator Mode*를 선택할 수 있습니다. 기본값 *Deferred*는 모든 화면 가장자리를 보호하며 홈으로 돌아가려면 두 번 스와이프해야 합니다. 한 번의 스와이프로 홈으로 돌아가는 일반 시스템 제스처를 사용하려면 *System*을 선택하세요.
+
+일반 시스템 제스처를 사용하면서 홈 인디케이터의 자동 숨김도 요청하려면 *Auto Hide*를 선택합니다. 이 모드는 *game.project*에 직접 설정할 수 있습니다:
+
+```ini
+[ios]
+home_indicator_mode = auto_hide
+```
+
+다시 번들링한 다음 홈 인디케이터가 있는 기기에서 테스트하세요. 인디케이터의 표시 시점은 iOS가 결정하며 *Auto Hide*를 선택해도 계속 숨겨진다고 보장하지 않습니다. iOS 26 이상에서는 *System*과 *Auto Hide* 모드 모두에서 시스템이 인디케이터를 숨길 수 있습니다. 모든 값과 제스처 동작은 [Home Indicator Mode](/manuals/project-settings/#home-indicator-mode)를 참고하세요.
+
+### 예약된 영역과 회전 {#reserved-areas-and-rotation}
+
+`window.get_reserved_areas()`는 iOS 27.1 이상에서 UIKit의 상호작용 여백을 포함한 카메라 컷아웃과 Dynamic Island를 보고합니다. iOS 방향 전환은 창 크기와 안전 영역 여백이 바뀌지 않는 회전에서도 `window.WINDOW_EVENT_RESIZED`를 보냅니다. 크기 변경 콜백마다 이 영역에 기반한 UI 배치를 갱신하세요. 좌표, 제한, 갱신 예제는 [예약된 화면 영역](/manuals/porting-guidelines/#reserved-screen-areas)을 참고하세요.
+
 ### 커스텀 Info.plist 및 로컬 타겟 검색
 
 내장 iOS `Info.plist`에는 릴리스가 아닌 빌드에서 에디터 타겟을 자동으로 검색하는 데 필요한 Bonjour 서비스와 로컬 네트워크 사용 설명이 포함되어 있습니다. 커스텀 `Info.plist`는 이 내장 기본 메니페스트를 대체합니다. 디버그 빌드에 커스텀 메니페스트를 사용하면서 로컬 네트워크를 통한 타겟 검색, 프로파일링, 핫 리로드 또는 로그 스트리밍이 필요하다면 다음 항목을 포함하세요.
@@ -238,16 +255,16 @@ App Store 아이콘은 *game.project*에서 참조할 필요가 없습니다. iT
 Xcode를 통해 사용할 수 있는 iOS simulator를 다루기 위해 `xcrun simctl` 커맨드 라인 도구를 사용할 수도 있습니다.
 
 ```
-# 사용 가능한 기기 목록 표시
+# show a list of available devices
 xcrun simctl list
 
-# iPhone X 시뮬레이터 부팅
+# boot an iPhone X simulator
 xcrun simctl boot "iPhone X"
 
-# 부팅된 시뮬레이터에 your.app 설치
+# install your.app to a booted simulator
 xcrun simctl install booted your.app
 
-# 시뮬레이터 실행
+# launch the simulator
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
 

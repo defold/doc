@@ -14,7 +14,7 @@ Podczas budowania gry w Defold statycznie deklarujesz drzewo zasobów. Każdy el
 - dane obiektów gry i komponentów, na przykład atlasy, dźwięki itd.
 - prototypy komponentów Factory i Collection factory, czyli obiekty gry oraz kolekcje
 - odwołania komponentów Collection proxy
-- zasoby Custom Resources zadeklarowane w *game.project*
+- [zasoby niestandardowe](/manuals/project-settings/#custom-resources) zadeklarowane w *game.project*
 
 ![Resource tree](images/resource/resource_tree.png)
 
@@ -33,7 +33,7 @@ Podczas *uruchamiania* gry silnik zaczyna od bootstrapowego korzenia drzewa i ł
 Silnik nie ładuje jednak automatycznie następujących typów zasobów wskazanych w drzewie:
 
 - kolekcji świata gry wskazywanych przez Collection proxy; takie światy są stosunkowo duże, więc ich ładowanie i zwalnianie trzeba wyzwalać ręcznie w kodzie. Szczegóły znajdziesz w [instrukcji Collection proxy](/manuals/collection-proxy)
-- plików dodanych przez ustawienie Custom Resources w *game.project*; te pliki wczytuje się ręcznie funkcją sys.load_resource()
+- plików dodanych przez ustawienie Custom Resources w *game.project*; te pliki wczytuje się ręcznie funkcją [`sys.load_resource()`](/ref/sys/#sys.load_resource)
 
 Domyślny sposób, w jaki Defold pakuje i ładuje zasoby, można zmienić tak, aby zyskać precyzyjną kontrolę nad tym, kiedy i jak trafiają one do pamięci.
 
@@ -47,8 +47,8 @@ Zasoby wskazywane przez komponenty Factory są zwykle ładowane do pamięci raze
 
 Po zaznaczeniu tego pola silnik nadal dołączy wskazane zasoby do pakietu gry, ale nie załaduje ich automatycznie. Zamiast tego masz dwie możliwości:
 
-1. Wywołaj [factory.create()](/ref/factory/#factory.create) albo [collectionfactory.create()](/ref/collectionfactory/#collectionfactory.create), gdy chcesz tworzyć obiekty. Zasoby zostaną wtedy załadowane synchronicznie, a następnie pojawią się nowe instancje.
-2. Wywołaj [factory.load()](/ref/factory/#factory.load) albo [collectionfactory.load()](/ref/collectionfactory/#collectionfactory.load), aby załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia, zostanie wywołana funkcja zwrotna.
+1. Wywołaj [`factory.create()`](/ref/factory/#factory.create) albo [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create), gdy chcesz tworzyć obiekty. Zasoby zostaną wtedy załadowane synchronicznie, a następnie pojawią się nowe instancje.
+2. Wywołaj [`factory.load()`](/ref/factory/#factory.load) albo [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load), aby załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia, zostanie wywołana funkcja zwrotna.
 
 Szczegóły działania znajdziesz w [instrukcji Factory](/manuals/factory) i [instrukcji Collection factory](/manuals/collection-factory).
 

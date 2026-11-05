@@ -3,7 +3,7 @@ title: Manual de materiales de Defold
 brief: Este manual explica cómo trabajar con materiales, constantes de shader y samplers.
 ---
 
-# Materiales
+# Materiales {#materials}
 
 Los materiales se usan para expresar cómo se debe renderizar un componente gráfico (un sprite, tilemap, fuente, nodo GUI, modelo, etc.).
 
@@ -12,7 +12,7 @@ Un material contiene _tags_, información que se usa en el pipeline de renderiza
 * Para obtener más información sobre el pipeline de render, consulta la [documentación de Render](/manuals/render).
 * Para una explicación detallada de los programas de shader, consulta la [documentación de Shader](/manuals/shader).
 
-## Crear un material
+## Crear un material {#creating-a-material}
 
 Para crear un material, haz <kbd>click derecho</kbd> en una carpeta objetivo en el explorador *Assets* y selecciona <kbd>New... ▸ Material</kbd>. (También puedes seleccionar <kbd>File ▸ New...</kbd> desde el menú y después seleccionar <kbd>Material</kbd>). Nombra el nuevo archivo de material y presiona <kbd>Ok</kbd>.
 
@@ -107,7 +107,7 @@ Value
 Los atributos personalizados también se pueden usar para reducir el uso de memoria tanto en CPU como en GPU reconfigurando los streams para que usen un tipo de dato más pequeño o una cantidad distinta de elementos.
 :::
 
-### Semántica predeterminada de atributos
+### Semántica predeterminada de atributos {#default-attribute-semantics}
 
 El sistema de materiales asignará automáticamente un tipo semántico predeterminado según el nombre del atributo en tiempo de ejecución para un conjunto específico de nombres:
 
@@ -124,7 +124,7 @@ El sistema de materiales asignará automáticamente un tipo semántico predeterm
 
 Si tienes entradas para estos atributos en el material, el tipo semántico predeterminado se sobrescribirá con lo que hayas configurado en el editor de materiales.
 
-### Definir datos de atributos de vértice personalizados
+### Definir datos de atributos de vértice personalizados {#setting-custom-vertex-attribute-data}
 
 Al igual que con las constantes de shader definidas por el usuario, también puedes actualizar atributos de vértice en runtime llamando a `go.get`, `go.set` y `go.animate`:
 
@@ -156,7 +156,7 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-Desde Defold 1.14.0, los atributos `Mat2`, `Mat3` y `Mat4` usan valores `vmath.matrix4` con `go.set()` y `go.get()`. Al definir un atributo `Mat2` o `Mat3`, se toma la parte superior izquierda de 2×2 o 3×3 de la matriz. Al leerlo, se devuelve un `vmath.matrix4` con las filas y columnas no usadas completadas a partir de una matriz identidad.
+Los atributos `Mat2`, `Mat3` y `Mat4` usan valores `vmath.matrix4` con `go.set()` y `go.get()`. Al establecer un atributo `Mat2` o `Mat3`, se toma la parte superior izquierda de 2×2 o 3×3 de la matriz. Al leerlo se devuelve una `vmath.matrix4` cuyas filas y columnas no usadas se rellenan a partir de una matriz identidad.
 
 Por ejemplo, con un atributo `Mat2` llamado `custom_mat2` y tipo semántico `None` en el material de un modelo:
 
@@ -173,7 +173,7 @@ print(result.m22, result.m33) -- 1, 1 (identity padding)
 
 Asigna siempre la matriz completa. Los atributos de matriz rechazan valores aplanados como `vmath.vector4` y las asignaciones a subpropiedades individuales del atributo. Para cambiar un elemento, modifica la matriz en Lua y vuelve a pasarla con `go.set()`.
 
-### Ejemplos de uso de atributos de vértice personalizados
+### Ejemplos de uso de atributos de vértice personalizados {#examples-of-using-custom-vertex-attributes}
 
 Usar un atributo de transformación de textura para convertir coordenadas UV al espacio del atlas:
 
@@ -188,24 +188,24 @@ out vec2 var_texcoord0;
 
 void main()
 {
-  // Extrae la posición de la transformación
+  // Extract position from the transform
   vec2 atlas_pos = texture_transform_2d[2].xy;
-  // Extrae la escala de la transformación
+  // Extract the scale from the transform
   vec2 atlas_size = vec2(
       length(texture_transform_2d[0].xy),
       length(texture_transform_2d[1].xy)
   );
-  // Convierte a UV locales (0..1)
+  // convert to local UV (0..1)
   vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
 
-  // Como alternativa, si las coordenadas UV ya están en el rango 0..1,
-  // puedes transformarlas directamente al espacio del atlas multiplicando la transformación:
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
   vec2 transformedUv = texture_transform_2d * texcoord0;
 
-  // Pasa el valor al fragment shader
+  // Pass the value into the fragment shader
   var_texcoord0 = localUV;
 
-  // ... resto del vertex shader
+  // ... rest of vertex shader
 }
 ```
 
@@ -238,12 +238,12 @@ El material está configurado de la siguiente manera, con un único atributo de 
 El vertex shader tiene varios atributos por instancia especificados:
 
 ```glsl
-// Atributos por vértice
+// Per vertex attributes
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 attribute mediump vec3 normal;
 
-// Atributos por instancia
+// Per instance attributes
 attribute mediump mat4 mtx_world;
 attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;
@@ -255,7 +255,7 @@ Para verificar que instancing funciona en este caso, puedes mirar el profiler we
 
 ![Draw calls de instancing](images/materials/instancing-draw-calls.png)
 
-#### Compatibilidad hacia atrás
+#### Compatibilidad hacia atrás {#backwards-compatibility}
 
 OpenGL 3.1 en escritorio y OpenGL ES 3.0 en móviles proporcionan instancing como funcionalidad básica. Los contextos OpenGL ES y WebGL más antiguos aún pueden admitirlo mediante una extensión como `ANGLE_instanced_arrays`; otros adaptadores antiguos no lo admiten. Cuando instancing no está disponible, el renderizado sigue funcionando de forma predeterminada, pero puede rendir peor.
 
@@ -352,7 +352,7 @@ Ejemplo:
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
-### Constantes de material de los nodos GUI
+### Constantes de material de los nodos GUI {#gui-node-material-constants}
 
 Dentro de un script GUI, lee y escribe las constantes de material de un nodo con `gui.get()` y `gui.set()` en lugar de las funciones `go`. Se admiten componentes de vectores, constantes de matriz y arrays de constantes. Los índices de array de la tabla de opciones empiezan en 1:
 
@@ -412,7 +412,7 @@ void main()
 
 ![Modelo](images/materials/model.png)
 
-## Ajustes de sampler
+## Ajustes de sampler {#sampler-settings}
 
 Name
 : El nombre del sampler. Este nombre debe coincidir con el `sampler2D` declarado en el fragment shader.
@@ -438,7 +438,7 @@ Filter Min/Mag
 Max Anisotropy
 : El filtrado anisotrópico es una técnica de filtrado avanzada que toma varias muestras y mezcla los resultados. Este ajuste controla el nivel de anisotropía para los samplers de textura. Si el filtrado anisotrópico no está soportado por la GPU, el parámetro no tendrá efecto y se definirá en 1 por defecto.
 
-## Buffers de constantes
+## Buffers de constantes {#constants-buffers}
 
 Cuando el pipeline de renderizado dibuja, toma valores de constantes de un buffer de constantes del sistema predeterminado. Puedes crear un buffer de constantes personalizado para sobrescribir las constantes predeterminadas y, en su lugar, definir programáticamente uniforms de programas de shader en el script de render:
 

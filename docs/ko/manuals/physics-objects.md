@@ -27,7 +27,7 @@ brief: 충돌 오브젝트는 게임 오브젝트에 물리 동작을 부여하�
 게임 오브젝트에 충돌 오브젝트 컴포넌트를 추가하려면:
 
 1. *Outline* 뷰에서 게임 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 컨텍스트 메뉴에서 <kbd>Add Component ▸ Collision Object</kbd>를 선택합니다. 이렇게 하면 모양이 없는 새 컴포넌트가 만들어집니다.
-2. 새 컴포넌트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택한 다음 모양을 선택합니다. 3D 물리 프로젝트에서는 <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd>, <kbd>Mesh</kbd>를, 2D 물리 프로젝트에서는 <kbd>Box</kbd> 또는 <kbd>Circle</kbd>을 선택할 수 있습니다. Hull 및 Mesh 모양은 Defold 1.13.2부터 사용할 수 있으며, glTF 또는 GLB 씬의 이름 있는 메쉬를 사용합니다. 컴포넌트에 여러 모양을 추가할 수 있습니다. *Collision Shape* 프로퍼티로 타일맵이나 `.convexshape` 리소스를 사용할 수도 있습니다.
+2. 새 컴포넌트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택한 다음 모양을 선택합니다. 3D 물리 프로젝트에서는 <kbd>Box</kbd>, <kbd>Capsule</kbd>, <kbd>Sphere</kbd>, <kbd>Hull</kbd>, <kbd>Mesh</kbd>를, 2D 물리 프로젝트에서는 <kbd>Box</kbd>나 <kbd>Circle</kbd>을 선택합니다. Hull과 Mesh 모양은 glTF 또는 GLB 씬의 이름 있는 메쉬를 사용합니다. 컴포넌트에 여러 모양을 추가할 수 있습니다. *Collision Shape* 프로퍼티를 통해 타일맵이나 `.convexshape` 리소스도 사용할 수 있습니다.
 3. 이동, 회전, 스케일 도구를 사용해 모양을 편집합니다.
 4. *Outline*에서 컴포넌트를 선택하고 충돌 오브젝트의 *Properties*를 편집합니다.
 

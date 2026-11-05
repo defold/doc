@@ -32,7 +32,8 @@ Capsule 모양은 3D 물리를 사용할 때만 지원됩니다. 3D 물리는 *g
 :::
 
 ### 복잡한 모양
-복잡한 모양에는 타일맵 지오메트리나 convex hull 데이터를 사용할 수 있습니다. Defold 1.13.2부터 3D 충돌 오브젝트에서는 glTF 또는 GLB 씬의 메쉬로 hull과 삼각형 메쉬 모양을 만들 수도 있습니다.
+
+복잡한 모양에는 타일맵 지오메트리나 convex hull 데이터를 사용할 수 있습니다. 3D 충돌 오브젝트는 glTF 또는 GLB 씬의 메쉬에서 hull과 삼각형 메쉬 모양도 만들 수 있습니다.
 
 ## 3D의 Hull 및 Mesh 모양 {#hull-and-mesh-shapes-in-3d}
 

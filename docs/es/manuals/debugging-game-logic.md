@@ -3,11 +3,11 @@ title: Depuración en Defold
 brief: Este manual explica las funcionalidades de depuración presentes en Defold.
 ---
 
-# Depuración de la lógica del juego
+# Depuración de la lógica del juego {#debugging-game-logic}
 
 Defold contiene un depurador Lua integrado con una herramienta de inspección. Junto con las [herramientas de profiling](/manuals/profiling) integradas, es una herramienta potente que puede ayudar a encontrar la causa de errores en la lógica de tu juego o a analizar problemas de rendimiento.
 
-## Depuración visual y con impresión
+## Depuración visual y con impresión {#print-and-visual-debugging}
 
 La forma más sencilla de depurar tu juego en Defold es usar [depuración con impresión](http://en.wikipedia.org/wiki/Debugging#Techniques). Usa sentencias `print()` o [`pprint()`](/ref/builtins#pprint) para observar variables o indicar el flujo de ejecución. Si un objeto de juego sin script se comporta de forma extraña, puedes simplemente adjuntarle un script con el único propósito de depurar. Usar cualquiera de las funciones de impresión imprimirá en la vista *Console* del editor y en el [log del juego](/manuals/debugging-game-and-system-logs).
 
@@ -36,9 +36,13 @@ Los mensajes visuales de depuración agregan datos al pipeline de renderizado y 
 
 Ten en cuenta que probablemente querrás actualizar estos datos en cada frame, así que enviar los mensajes en la función `update()` es una buena idea.
 
-## Ejecutar el depurador
+## Ejecutar el depurador {#running-the-debugger}
 
-Para ejecutar el depurador, selecciona <kbd>Debug ▸ Start/Attach</kbd>, que inicia el juego con el depurador adjunto o adjunta el depurador a un juego que ya está en ejecución.
+El depurador Lua está disponible en builds nativas de depuración y headless. Usa un motor de la misma versión de Defold que el editor. Las builds release y web no permiten adjuntar el depurador.
+
+Para ejecutar el depurador, selecciona <kbd>Debug ▸ Start/Attach</kbd>. Esto inicia el juego con el depurador adjunto o lo adjunta a un juego que ya está en ejecución. Al iniciar un juego para depurarlo, el editor instala los breakpoints activados antes de ejecutar los scripts de inicio, de modo que puedes definir un breakpoint en `init()` antes del lanzamiento.
+
+Para adjuntarlo a un dispositivo, selecciónalo en <kbd>Project ▸ Targets</kbd> y elige <kbd>Debug ▸ Start/Attach</kbd>. La conexión pausa la ejecución en la siguiente línea Lua. El editor configura automáticamente la conexión del depurador para los destinos locales y remotos compatibles. Consulta [Destinos remotos](#remote-targets) para conocer los requisitos de conexión o aprende a [conectar un depurador externo](#native-dap-connections).
 
 ![overview](images/debugging/overview.png)
 
@@ -46,7 +50,7 @@ En cuanto el depurador está adjunto, tienes control de la ejecución del juego 
 
 Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
-  Interrumpe la ejecución del juego inmediatamente. El juego se detendrá en su punto actual. Ahora puedes inspeccionar el estado del juego, avanzar paso a paso o continuar ejecutándolo hasta el siguiente breakpoint. El punto actual de ejecución se marca en el editor de código:
+  Pausa la ejecución de Lua en la siguiente línea de código fuente. Ahora puedes inspeccionar el estado del juego, avanzar paso a paso o continuar hasta el siguiente breakpoint. El punto actual de ejecución se marca en el editor de código:
 
   ![script](images/debugging/script.png)
 
@@ -67,7 +71,7 @@ Step Over
   ![step](images/debugging/step.png)
 
 ::: sidenote
-Una línea de código Lua no corresponde a una sola expresión. Avanzar paso a paso en el depurador avanza una expresión a la vez, lo que significa que actualmente puede que tengas que presionar el botón de paso más de una vez para avanzar a la siguiente línea.
+El avance paso a paso sigue las líneas del código fuente Lua. Un paso puede volver a la misma línea, por ejemplo al repetirse un bucle, por lo que no siempre avanza a la siguiente línea del archivo.
 :::
 
 Step Into
@@ -100,22 +104,111 @@ Definir breakpoints condicionales
   Para editar la condición del breakpoint, haz click derecho en la columna justo a la derecha de los números de línea en el editor de código, o selecciona <kbd>Edit ▸ Edit Breakpoint</kbd> desde el menú.
 
 Evaluar expresiones Lua
-: Con el depurador adjunto y el juego detenido en un breakpoint, hay un runtime Lua disponible con el contexto actual. Escribe expresiones Lua en la parte inferior de la consola y presiona <kbd>Enter</kbd> para evaluarlas:
+: Con el juego pausado, selecciona una entrada de *Call Stack*, escribe una expresión o sentencia Lua en la parte inferior de la consola y presiona <kbd>Enter</kbd>. La evaluación usa las variables locales, los upvalues y las variables globales de la entrada seleccionada. Los resultados que son tablas incluyen su contenido anidado.
 
   ![console](images/debugging/console.png)
 
-  Actualmente no es posible modificar variables mediante el evaluador.
+  También puedes cambiar valores mediante asignaciones, por ejemplo `self.score = 100` en una entrada donde `self` esté disponible. El código evaluado tiene los mismos efectos sobre el estado del juego que el código ejecutado por el propio juego.
+
+Inspeccionar variables
+: Selecciona una entrada de *Call Stack* para inspeccionar sus variables locales y upvalues en la vista *Variables*. Expande `_G` para inspeccionar las variables globales, y las tablas o `self` para inspeccionar sus campos. El editor conserva las rutas expandidas, la selección y la posición de desplazamiento al avanzar, cambiar de entrada o actualizar tras una evaluación, mientras obtiene los valores actuales.
 
 Separar el depurador
-: Selecciona <kbd>Debug ▸ Detach Debugger</kbd> para separar el depurador del juego. El juego continuará ejecutándose inmediatamente.
+: Selecciona <kbd>Debug ▸ Detach Debugger</kbd> para separar el depurador del juego. Este continuará ejecutándose inmediatamente. Usa <kbd>Debug ▸ Start/Attach</kbd> para adjuntarlo de nuevo sin reiniciar el juego.
 
-## Pestaña Breakpoints
+## Conexiones DAP nativas {#native-dap-connections}
+
+El motor proporciona un servidor nativo de Debug Adapter Protocol (DAP) a través de TCP. Para usar un cliente DAP externo, inicia el listener en un motor nativo de Defold de depuración o headless y conecta el cliente a la dirección y el puerto del motor. El editor configura automáticamente el listener cuando usas <kbd>Debug ▸ Start/Attach</kbd>.
+
+El editor actual no puede conectarse a motores antiguos que solo admiten MobDebug. En las versiones actuales no se necesita ni está disponible la llamada `require "builtins.scripts.mobdebug"`.
+
+### Iniciar el listener {#starting-the-listener}
+
+Primero crea una build de tu proyecto. Desde el directorio del proyecto que contiene `build/default/game.projectc`, ejecuta el motor nativo de depuración con estos [valores de configuración al iniciar](/manuals/project-settings/#setting-config-values-on-engine-startup):
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+Conecta tu cliente DAP a `127.0.0.1:8172`. El motor espera a que el cliente configure los breakpoints antes de ejecutar los scripts de inicio.
+
+| Ajuste | Valor predeterminado | Propósito |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | Establécelo en `1` para iniciar el listener al arrancar el motor. |
+| `debugger.address` | `127.0.0.1` | Dirección IPv4 en la que se escuchan conexiones. El valor predeterminado acepta conexiones desde la misma computadora. |
+| `debugger.port` | `8172` | Puerto TCP de escucha. Usa `0` para seleccionar un puerto disponible. |
+| `debugger.wait` | `0` | Establécelo en `1` para esperar a que el cliente del depurador configure la sesión antes de ejecutar los scripts de inicio. |
+
+También puedes agregar estos valores a la [sección Debugger de game.project](/manuals/project-settings/#debugger). El editor configura automáticamente el listener para <kbd>Debug ▸ Start/Attach</kbd>, por lo que solo necesitas configurarlo manualmente cuando lo inicias por tu cuenta.
+
+El log del motor indica la dirección y el puerto seleccionados. Con `debugger.wait=0`, el juego se inicia inmediatamente y puedes adjuntar el depurador después. Con `debugger.wait=1`, espera hasta que el cliente termine de configurar la sesión, incluidos los breakpoints. En los lanzamientos locales de depuración, el editor selecciona automáticamente un puerto disponible.
+
+Al desconectar un cliente se reanuda la ejecución y el listener queda disponible para otra conexión. Desconectar mientras se espera la configuración de inicio también libera al motor. Si el listener no puede iniciarse, el motor registra el error y continúa arrancando; puedes reintentarlo desde Lua con `debugger.start(0)` para seleccionar un puerto disponible.
+
+### Activar el listener durante la ejecución {#enabling-the-listener-while-running}
+
+Para activar el listener desde un script sin reiniciar el juego:
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])` devuelve inmediatamente el puerto de escucha. No espera a un cliente ni pausa el juego. Los argumentos omitidos usan `debugger.port` y `debugger.address`; pasar `0` selecciona un puerto disponible. Las llamadas sucesivas devuelven el puerto del listener existente y no cambian su dirección ni su puerto. Los motores nativos de depuración y headless proporcionan el módulo `debugger`.
+
+El puerto debe ser un entero entre `0` y `65535`. Pasa `nil` como primer argumento para cambiar solo la dirección. Los argumentos no válidos o un fallo al vincular el listener generan un error Lua.
+
+### Destinos remotos {#remote-targets}
+
+Para conectar directamente desde otra computadora, vincula el listener a la interfaz IPv4 del dispositivo o a `0.0.0.0` (todas las interfaces IPv4). Por ejemplo, usa `debugger.start(8172, "0.0.0.0")` o agrega `--config=debugger.address=0.0.0.0` al comando de inicio anterior. Conecta el cliente a la dirección IP real del dispositivo y permite el acceso TCP al puerto de escucha. `0.0.0.0` es una dirección de vinculación, no la dirección que debes introducir en el cliente.
+
+El editor Defold solicita esta vinculación remota automáticamente y usa el puerto `8172 + project.instance_index` para destinos remotos. No puede descubrir un puerto remoto seleccionado dinámicamente. Si ya iniciaste el listener remoto en localhost o en otro puerto, reinicia el motor antes de adjuntarlo desde el editor.
+
+El depurador puede evaluar Lua y no tiene autenticación. Activa el acceso remoto únicamente en una red de desarrollo de confianza.
+
+### Clientes externos {#external-clients}
+
+Usa un cliente que permita adjuntarse directamente a un servidor DAP por TCP. Configura su correspondencia de archivos fuente con la carpeta que contiene `game.project` (el argumento DAP `localRoot` de attach). Inicia primero el listener del motor y después adjunta el cliente.
+
+#### VS Code
+
+Instala la [extensión Lua Debug](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug) (`actboy168.lua-debug`), abre en VS Code la carpeta que contiene `game.project` y agrega esta configuración a `.vscode/launch.json`:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+Si VS Code abre un archivo `.script`, `.gui_script` o `.render_script` como texto sin formato, selecciona **Lua** en el indicador de lenguaje de la barra de estado antes de definir breakpoints.
+
+Define un breakpoint, por ejemplo en la función `init()` de un script. Inicia el motor con el [comando de inicio anterior](#starting-the-listener) y selecciona **Attach to Defold Lua** en la vista **Run and Debug** de VS Code. Con `debugger.wait=1`, el motor ejecuta los scripts de inicio después de que el cliente instale los breakpoints. Establece `stopOnEntry` en `true` si también quieres pausar en la siguiente línea Lua después de adjuntarlo.
+
+El [ajuste `debugServer` de VS Code](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug) conecta directamente con el listener TCP local del motor. El campo `address` es obligatorio en la configuración de attach de la extensión Lua Debug. Si cambias el puerto de escucha, actualiza ambos campos. `localRoot` debe apuntar a la carpeta del proyecto para que el cliente pueda asociar los nombres de código fuente Lua del motor con tus archivos.
+
+Para un motor remoto, reenvía su puerto DAP a localhost y coloca el puerto reenviado en ambos campos, o usa un cliente DAP que se conecte directamente al host remoto.
+
+## Pestaña Breakpoints {#breakpoints-tab}
 
   ![breakpoints tab](images/debugging/breakpoints_tab.png)
 
   Cuando trabajas con múltiples breakpoints en distintos scripts, la pestaña Breakpoints proporciona una vista centralizada para gestionar todos tus breakpoints en un solo lugar.
 
-##### Controles de breakpoints individuales
+##### Controles de breakpoints individuales {#individual-breakpoint-controls}
 
   Para trabajar con breakpoints individuales:
   - Haz click en el icono rojo de papelera para eliminar un breakpoint
@@ -123,17 +216,17 @@ Separar el depurador
   - Haz doble click en la celda de condición o haz click en el icono de lápiz para editar breakpoints condicionales
   - Haz click en el botón X de borrado al pasar el cursor sobre una celda de condición para borrar la condición
 
-##### Operaciones en lote
+##### Operaciones en lote {#batch-operations}
 
   Selecciona múltiples breakpoints usando Ctrl/Cmd+click o Shift+click, y luego haz click derecho para realizar acciones en bloque. Puedes editar condiciones en varios breakpoints simultáneamente, alternar su estado activo o eliminarlos por completo.
 
   Los botones de la barra de herramientas te permiten activar, desactivar o alternar todos los breakpoints a la vez, lo que es útil cuando quieres ejecutar tu juego sin detenerte, pero no quieres perder sus posiciones. También puedes eliminarlos todos cuando termines tu sesión de depuración.
 
-## Biblioteca debug de Lua
+## Biblioteca debug de Lua {#lua-debug-library}
 
 Lua viene con una biblioteca debug que resulta útil en algunas situaciones, especialmente si necesitas inspeccionar los detalles internos de tu entorno Lua. Puedes encontrar más información sobre ella en [el capítulo sobre la Debug Library en el manual de Lua](http://www.lua.org/pil/contents.html#23).
 
-## Checklist de depuración
+## Checklist de depuración {#debugging-checklist}
 
 Si encuentras un error o si tu juego no se comporta como esperabas, aquí tienes un checklist de depuración:
 

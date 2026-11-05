@@ -7,7 +7,7 @@ brief: Defold는 2D 물리용 조인트를 지원합니다. 이 매뉴얼에서�
 
 조인트는 제약 조건으로 두 충돌 오브젝트를 연결합니다. Defold는 서로 다른 API를 통해 2D와 3D 물리 모두에서 조인트를 지원합니다.
 
-이 매뉴얼은 `physics` 모듈에서 제공하는 2D 조인트를 설명합니다. Defold 1.13.2부터 3D 프로젝트에서는 [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/)를 통해 힌지, 슬라이더, 스프링 등의 제약 조건을 만들고 제어할 수 있습니다. [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body)로 얻은 강체와 함께 해당 API를 사용하세요.
+이 매뉴얼은 `physics` 모듈이 제공하는 2D 조인트를 설명합니다. 3D 프로젝트에서는 [`bullet3d.constraint`](/ref/beta/bullet3d.constraint/)로 힌지, 슬라이더, 스프링 등의 제약을 만들고 제어할 수 있습니다. [`bullet3d.get_rigid_body()`](/ref/beta/bullet3d/#bullet3d.get_rigid_body)로 얻은 강체와 함께 이 API를 사용하세요.
 
 2D `physics` API에서 지원하는 조인트 타입은 다음과 같습니다:
 

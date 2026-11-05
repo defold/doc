@@ -139,7 +139,7 @@ end
     // grade.vp
     uniform mediump mat4 view_proj;
 
-    // 포지션은 월드 공간에 있습니다
+    // positions are in world space
     attribute mediump vec4 position;
     attribute mediump vec2 texcoord0;
 
@@ -164,7 +164,7 @@ end
     void main()
     {
       vec4 color = texture2D(original, var_texcoord0.xy);
-      // original 텍스쳐에서 샘플링한 색상의 채도를 낮춥니다
+      // Desaturate the color sampled from the original texture
       float grey = color.r * 0.3 + color.g * 0.59 + color.b * 0.11;
       gl_FragColor = vec4(grey, grey, grey, 1.0);
     }

@@ -26,6 +26,31 @@ Textknoten haben eine Reihe besonderer Eigenschaften:
 *Line Break*
 : Die Textausrichtung richtet sich nach der Einstellung des Bezugspunkts (pivot). Wenn du diese Eigenschaft aktivierst, kann der Text über mehrere Zeilen fließen. Die Breite des Knotens bestimmt, wo der Text umgebrochen wird.
 
+## Vektorschriftarten und farbige Emojis {#vector-fonts-and-color-emoji}
+
+Folge der [Einrichtung für Vektorschriftarten](/manuals/font/#vector-fonts), füge die `.font`-Ressource zu *Fonts* der GUI-Szene hinzu und wähle sie am Textknoten aus. Setze *Material* der Schriftartenressource auf `/builtins/fonts/font-vector.material`. Steuere die angezeigte Größe mit *Font Size* des Knotens.
+
+Führe für farbige Emojis zusätzlich die [Einrichtung der COLRv1-Ausweichschrift und des Bundles](/manuals/font/#color-emoji) durch. Erstelle einen Textknoten mit der ID `text`, lasse *Text* leer und füge Folgendes zur `.gui_script` der GUI-Szene hinzu:
+
+```lua
+function init(self)
+    local node = gui.get_node("text")
+    local text = "Hello 😀 🍎 🚀"
+    local font_resource = gui.get_font_resource(gui.get_font(node))
+    -- Add the fallback once for this shared font resource.
+    font.add_font(font_resource, "/fonts/NotoColorEmoji-Regular.ttf")
+    font.prewarm_text(font_resource, text, function(self, request_id, result, err)
+        if result then
+            gui.set_text(node, text)
+        else
+            print("Could not prepare GUI text:", err)
+        end
+    end)
+end
+```
+
+[`gui.get_font()`](/ref/gui/#gui.get_font) gibt den Schriftartennamen innerhalb der GUI-Szene zurück; [`gui.get_font_resource()`](/ref/gui/#gui.get_font_resource) löst diesen Namen zur Schriftartenressource auf, die `font.add_font()` verwendet. Andere Knoten und Beschriftungen mit derselben Ressource erhalten die Ausweichschrift ebenfalls; initialisiere sie daher nur einmal. Der Text wird nach erfolgreicher Vorbereitung gesetzt.
+
 ## Ausrichtung {#alignment}
 
 Indem du den Bezugspunkt des Knotens festlegst, kannst du den Ausrichtungsmodus für den Text ändern.

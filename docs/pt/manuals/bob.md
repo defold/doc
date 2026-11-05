@@ -240,7 +240,7 @@ $
 
 ## Servidor de build {#build-server}
 
-A partir do Defold 1.14.0, o Bob seleciona o servidor padrão de build de extensões nativas de acordo com o canal de lançamento da sua distribuição:
+O Bob seleciona o servidor padrão de build de extensões nativas de acordo com o canal de lançamento de sua distribuição:
 
 | Canal de lançamento do Bob | Servidor de build padrão |
 |---|---|

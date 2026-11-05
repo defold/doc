@@ -130,6 +130,22 @@ In der unteren Leiste des Editors findest du einen schmalen Bereich, in dem der 
 - Wenn ein neues Update verfügbar ist, erscheint die anklickbare Schaltfläche `Update Available`. Lies dazu weiter unten in diesem Handbuch den Abschnitt zum Aktualisieren des Editors.
 - Beim Erstellen eines Builds oder Bundles wird dort der Fortschritt angezeigt.
 
+## Platzierung des Engine-Fensters {#engine-window-placement}
+
+Auf Desktop-Plattformen merken sich die vom Editor geöffneten Engine-Fenster ihre normale Fenstergröße und -position über Starts und Engine-Neustarts hinweg. Die Platzierung wird für jedes Projekt und jede Engine-Instanz getrennt gespeichert. Der Start einer einzelnen Engine-Instanz verwendet dieselbe gespeicherte Platzierung wie die erste Instanz beim Start mehrerer Instanzen.
+
+Wenn du das Engine-Fenster verschiebst oder seine Größe änderst, stellt ein späterer Start diese Platzierung wieder her. Die gespeicherte Größe wird verwendet, solange die konfigurierten Fensterabmessungen unverändert bleiben; änderst du diese, verwendet der nächste Start die neue Größe. Unter Linux Wayland wird nur die Größe wiederhergestellt, da der Desktop-Compositor die Fensterpositionierung steuert.
+
+### Die Größe des Engine-Fensters zurücksetzen {#resetting-the-engine-window-size}
+
+Wähle <kbd>Debug ▸ Reset Simulated Resolution</kbd>, um zur konfigurierten Größe zurückzukehren. Dieser Befehl:
+
+- Löscht gespeicherte Fenstergrößen für alle Engine-Instanzen im aktuellen Projekt, einschließlich der nicht laufenden Instanzen.
+- Löscht die ausgewählte simulierte Auflösung und deaktiviert **Rotated Device**.
+- Behält gespeicherte Fensterpositionen bei.
+
+Die Fenster der ausgewählten laufenden Engine-Instanzen werden auf die [Display Width und Height](/manuals/project-settings/#display) des Projekts gesetzt. Du kannst das Zurücksetzen auch ohne laufende Engine ausführen; der nächste Start verwendet dann die konfigurierte Größe. Wenn du das Fenster danach verschiebst oder seine Größe änderst, wird die neue Platzierung erneut gespeichert.
+
 ## Größe und Sichtbarkeit der Bereiche {#panes-size-and-visibility}
 
 Du kannst die Größe der Bereiche im Editor anpassen, indem du die Trennlinien zwischen den 6 oben beschriebenen Bereichen <kbd>ziehst</kbd>.

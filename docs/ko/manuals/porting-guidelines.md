@@ -95,6 +95,52 @@ Defold는 Android와 iOS에서 safe area를 기본 지원합니다. *game.projec
 
 [Safe Area extension](/extension-safearea)은 레거시 프로젝트나 내장 API 이상의 동작이 필요한 워크플로에서 대안으로 계속 사용할 수 있지만, 일반적인 Android 및 iOS safe-area 처리에는 필요하지 않습니다.
 
+### 예약된 화면 영역 {#reserved-screen-areas}
+
+[`window.get_reserved_areas()`](/ref/window/#window.get_reserved_areas)는 카메라 컷아웃이나 Dynamic Island처럼 게임 창을 가리는 개별 영역을 보고합니다. 개별 장애물 주변에 컨텐츠를 배치할 때 이 사각형들을 사용하세요. 하나의 안전한 레이아웃 사각형과 가장자리 여백이 필요하면 `window.get_safe_area()`를 사용합니다.
+
+결과는 `x`, `y`, `width`, `height` 필드가 있는 테이블의 배열입니다. 각 사각형은 게임 창 내부로 잘립니다. 원점은 왼쪽 아래이며 `x`는 왼쪽 가장자리, `y`는 아래쪽 가장자리입니다. 단위는 [`window.get_size()`](/ref/window/#window.get_size)와 같은 창 픽셀입니다. 이 좌표는 GUI 조정과 *game.project*의 논리 해상도와 독립적이므로 노드 위치로 사용하기 전에 GUI 트랜스폼을 고려하세요.
+
+플랫폼 지원은 다음과 같습니다:
+
+- **iOS 27.1 이상:** 상호작용 여백을 포함하여 UIKit이 보고하는 활성 가림 영역입니다.
+- **Android 9(API level 28) 이상:** 디스플레이 컷아웃 사각형입니다.
+
+지원하지 않는 플랫폼과 OS 버전이거나 창을 가리는 영역이 보고되지 않으면 빈 테이블을 반환합니다. 빈 테이블이라고 창 전체가 중요한 컨텐츠를 표시하기에 안전하다는 뜻은 아닙니다. 접힘 영역, 시스템 표시줄, 키보드, 제스처 영역은 이 API의 범위 밖입니다. 플랫폼의 안전한 사각형은 `window.get_safe_area()`를 사용하세요.
+
+### 창 이벤트 후 영역 갱신 {#refreshing-areas-after-window-events}
+
+초기화할 때와 모든 [`window.WINDOW_EVENT_RESIZED`](/ref/window/#window.WINDOW_EVENT_RESIZED) 콜백에서 예약된 영역을 조회합니다. 처음 조회한 후에는 지원 플랫폼에서 예약 영역의 지오메트리가 바뀔 때도 창 크기 변화와 관계없이 이 이벤트가 발생합니다. 반환되는 각 테이블은 스냅샷이며 저장해 둔 테이블은 자동으로 갱신되지 않습니다.
+
+iOS에서는 방향 전환과 안전 영역 여백 변경 후에도 이 이벤트를 보냅니다. 가로 방향에서 180° 회전하면 창 크기와 안전 영역 여백은 그대로인데 카메라 컷아웃이나 Dynamic Island가 반대편으로 이동할 수 있습니다. `data.width`와 `data.height`가 이전과 같더라도 이벤트에서 지오메트리를 갱신하세요.
+
+다음 스크립트는 두 종류의 지오메트리를 최신 상태로 유지합니다:
+
+```lua
+local function refresh_screen_areas(self)
+    self.safe_area = window.get_safe_area()
+    self.reserved_areas = window.get_reserved_areas()
+    -- 새 안전 사각형과 예약된 영역을 사용해 UI를 갱신합니다.
+end
+
+local function on_window_event(self, event, data)
+    if event == window.WINDOW_EVENT_RESIZED then
+        -- 너비와 높이가 바뀌지 않았어도 갱신합니다.
+        refresh_screen_areas(self)
+    end
+end
+
+function init(self)
+    refresh_screen_areas(self)
+    window.set_listener(on_window_event)
+end
+
+function final(self)
+    window.set_listener(nil)
+end
+```
+
+창 이벤트 리스너는 한 번에 하나만 등록할 수 있습니다. 게임에 이미 리스너가 있다면 해당 리스너에 이 갱신 로직을 추가하세요. 갱신할 때마다 저장된 배열을 교체하면 결과가 비었을 때 오래된 사각형도 제거됩니다.
 
 ## 플랫폼별 가이드라인
 

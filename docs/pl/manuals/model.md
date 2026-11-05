@@ -25,10 +25,10 @@ Gdy model jest już utworzony, musisz określić kilka właściwości:
 Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu:
 
 *Scene*
-: Plik glTF *.gltf* lub *.glb* zawierający geometrię modelu. Jeśli plik zawiera cele morfingu, są one importowane razem ze sceną. Przed wersją Defold 1.13.2 ta właściwość nosiła nazwę *Mesh*.
+: Plik glTF *.gltf* lub *.glb* zawierający geometrię modelu. Jeśli plik zawiera cele morfingu, są one importowane razem ze sceną. Ta właściwość wcześniej nosiła nazwę *Mesh*.
 
 *Mesh*
-: Opcjonalna siatka o określonej nazwie z wybranej *Scene*, dostępna od wersji Defold 1.13.2. Pozostaw pole puste, aby renderować całą scenę z zaimportowanymi transformacjami. Wybierz siatkę, aby wyrenderować ją jednokrotnie w jej współrzędnych lokalnych, bez transformacji węzłów glTF. Ustaw pozycję, obrót i skalę komponentu modelu lub jego obiektu gry, aby rozmieścić wybraną siatkę.
+: Opcjonalna siatka o określonej nazwie z wybranej *Scene*. Pozostaw pole puste, aby renderować całą scenę z zaimportowanymi transformacjami. Wybierz siatkę, aby wyrenderować ją jednokrotnie w jej współrzędnych lokalnych, bez transformacji węzłów glTF. Ustaw pozycję, obrót i skalę komponentu modelu lub jego obiektu gry, aby rozmieścić wybraną siatkę.
 
 *Create GO Bones*
 : Zaznacz tę opcję, aby utworzyć obiekt gry dla każdej kości modelu. Takie obiekty gry możesz wykorzystać do dołączania innych obiektów, na przykład broni do kości dłoni.
@@ -45,17 +45,14 @@ Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące wł
 Oprócz właściwości powyżej będzie też pole, w którym można przypisać materiał do każdej siatki modelu:
 
 *Material*
-: Ustaw tę właściwość na materiał, który utworzyłeś i który nadaje się do teksturowanego obiektu 3D. Jako punkt wyjścia możesz wykorzystać kilka wbudowanych materiałów:
-
-  * Use *model.material* for static non-instanced models
-  * Use *model_instanced.material* for static instanced models
-  * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
+: Ustaw tę właściwość na materiał odpowiedni dla modelu. Użyj wbudowanego materiału `gltf` do fizycznie poprawnego renderowania właściwości materiałów glTF, wbudowanego materiału `model` do ogólnego cieniowania modeli albo własnego materiału. Zobacz [warianty materiałów poniżej](#material) i [podręcznik PBR](/manuals/physically-based-rendering/#built-in-pbr-materials).
 
 W zależności od materiału będzie dostępna jedna lub więcej właściwości tekstury:
 
 *Texture*
-: Ta właściwość powinna wskazywać plik obrazu tekstury, który ma zostać zastosowany do obiektu.
+: Ta właściwość powinna wskazywać obraz tekstury, który ma zostać zastosowany do obiektu. Może to być osobny zasób projektu albo osadzony obraz udostępniony pod plikiem glTF lub GLB w panelu *Assets*.
+
+Wybranie *Scene* glTF lub GLB albo zmiana wyboru *Mesh* może wywołać propozycję wypełnienia powiązań materiałów i tekstur. <kbd>Auto Fill</kbd> zastępuje istniejące powiązania tymi ze źródła; <kbd>Keep Current</kbd> zachowuje twoje powiązania przy zastosowaniu nowego wyboru sceny lub siatki. Zobacz [przebieg importowania modelu](/manuals/importing-models/#using-a-model).
 
 
 ## Modyfikowanie w edytorze
@@ -112,21 +109,25 @@ Model ma też kilka właściwości, którymi można manipulować za pomocą `go.
 
 Oprogramowanie 3D zwykle pozwala ustawiać na wierzchołkach obiektu właściwości, takie jak kolor i teksturowanie. Informacje te trafiają do pliku glTF *.gltf* lub *.glb*, który eksportujesz z programu 3D. W zależności od potrzeb gry musisz wybrać i/lub utworzyć odpowiednie i _wydajne_ materiały dla swoich obiektów. Materiał łączy _programy cieniujące_ z zestawem parametrów renderowania obiektu.
 
-Istnieje kilka wbudowanych materiałów, których możesz użyć jako punktu wyjścia:
+W katalogu `/builtins/materials/` dostępne są następujące wbudowane materiały:
 
-  * Use *model.material* for static non-instanced models
-  * Use *model_instanced.material* for static instanced models
-  * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
+| Typ modelu | Ogólne cieniowanie modeli | Cieniowanie PBR glTF |
+|---|---|---|
+| Statyczny, bez instancjonowania | `model.material` | `gltf.material` |
+| Statyczny, instancjonowany | `model_instanced.material` | `gltf_instanced.material` |
+| Ze skinningiem (animowany), bez instancjonowania | `model_skinned.material` | `gltf_skinned.material` |
+| Ze skinningiem (animowany), instancjonowany | `model_skinned_instanced.material` | `gltf_skinned_instanced.material` |
 
-Wbudowane materiały modeli używają lokalnej przestrzeni wierzchołków. W przypadku modeli ze skinningiem lokalna przestrzeń wierzchołków pozwala shaderowi wierzchołków wykonywać skinning na GPU przy użyciu tekstury macierzy kości; lokalna przestrzeń wierzchołków jest również wymagana do instancjonowania modeli. Własny materiał przeznaczony dla modeli ze skinningiem GPU lub instancjonowanych powinien zatem używać ustawienia przestrzeni wierzchołków *Local*.
+Materiały `gltf` zapewniają wbudowane oświetlenie metallic/roughness korzystające z zaimportowanych danych materiałów glTF. Powiązania tekstur, światła i własne shadery opisano w [podręczniku PBR](/manuals/physically-based-rendering/#built-in-pbr-materials).
+
+Wszystkie te wbudowane materiały używają lokalnej przestrzeni wierzchołków. Dla modeli ze skinningiem pozwala ona shaderowi wierzchołków wykonywać skinning na GPU przy użyciu tekstury macierzy kości; lokalna przestrzeń jest również wymagana przy instancjonowaniu modeli. Własny materiał przeznaczony dla modeli ze skinningiem GPU lub instancjonowanych powinien więc używać ustawienia przestrzeni wierzchołków *Local*.
 
 Cache macierzy kości używa tekstury `RGBA32F`. Jeśli aktywny adapter graficzny nie obsługuje tego formatu tekstury, Defold nie może utworzyć animowanego komponentu Model używającego materiału w przestrzeni lokalnej. W OpenGL ES 2.0 i WebGL 1.0 obsługa zależy więc od rozszerzenia tekstur zmiennoprzecinkowych adaptera. Aby zachować zgodność z adapterem, który go nie ma, użyj własnego materiału w przestrzeni świata; taki materiał wykonuje skinning na CPU i nie pozwala instancjonować modeli. Wymiary cache można dostosować w [ustawieniach projektu Model](/manuals/project-settings/#model).
 
 Jeśli chcesz tworzyć własne materiały dla modeli, zajrzyj do [dokumentacji materiałów](/manuals/material), aby uzyskać więcej informacji. [Instrukcja shaderów](/manuals/shader) zawiera informacje o tym, jak działają programy cieniujące.
 
 
-### Stałe materiału
+### Stałe materiału {#material-constants}
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
@@ -136,7 +137,7 @@ Jeśli chcesz tworzyć własne materiały dla modeli, zajrzyj do [dokumentacji m
 
 ## Renderowanie
 
-Domyślny skrypt do renderowania jest zaprojektowany specjalnie z myślą o grach 2D i nie działa z modelami 3D. Jednak po skopiowaniu domyślnego skryptu do renderowania i dodaniu kilku linii kodu możesz włączyć renderowanie modeli. Na przykład:
+Domyślny skrypt renderowania rysuje materiały ze znacznikiem `model`, w tym wbudowane materiały modeli i glTF. Aby renderować je we własnym skrypcie renderowania, utwórz pasujący predykat i narysuj go z widokiem i projekcją odpowiednimi dla sceny. Na przykład:
 
   ```lua
 

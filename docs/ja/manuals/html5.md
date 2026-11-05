@@ -83,6 +83,39 @@ Defold の HTML5 バンドルには、WebAssembly をサポートする新しい
 
 [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint) で要求するグラフィックスコンテキストを選択します。既定値は WebGL 2 です。両方のバージョンをサポートするブラウザーで WebGL 1 をテストまたは対象にする場合は、WebGL 1 を要求します。
 
+Defold 1.14.1 以降では、WebGL 1 シェーダーはデフォルトで除外されます。WebGL 1 を直接要求する場合も、WebGL 2 からのフォールバックを許可する場合も、含めるには [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) を無効にします。WebGL 1 を明示的に要求するには、*game.project* で両方のオプションを設定します。
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## ピクセル比の制限 {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` と `html5.max_pixel_ratio` は、CSS の1ピクセルあたりに使うキャンバスのレンダリングピクセル数を制御します。キャンバスの CSS サイズはページ上のゲームの表示サイズを、レンダリング解像度はエンジンが描画するピクセル数を決めます。
+
+これらの制限を使うには、*game.project* の *Display* セクションで *High Dpi* を有効にします。ブラウザーのデバイスピクセル比は、有効な上下限の範囲に制限されます。両方のデフォルトは `0` で、その側の制限を無効にします。値は有限の非負数である必要があります。両方が正の値の場合、最小値は最大値を超えてはいけません。
+
+たとえば、高密度ディスプレイでレンダリング解像度を制限するには、比率の上限を `1.5` にします。
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+デバイスピクセル比が `3` のブラウザーでは、この設定により、800 × 600 CSS ピクセルで表示するキャンバスを 1200 × 900 ピクセルで描画します。表示サイズは変わりません。比率が `1` のブラウザーでは、最大値は比率を引き上げないため、同じキャンバスは引き続き 800 × 600 ピクセルで描画します。
+
+`1` 未満の小数の比率にも対応します。たとえば最大値を `0.75` にすると、CSS 表示サイズより少ないピクセル数で描画します。ブラウザーのデバイスピクセル比より大きい最小値を指定すると、スーパーサンプリングのためにレンダリング解像度を上げます。この制限は、CSS の配置を保ったまま、4つすべての *Scale Mode* に適用されます。
+
+*High Dpi* が無効な場合、制限にかかわらず比率は `1` のままです。HTML5 では、[`window.get_display_scale()`](/ref/window/#window.get_display_scale) が、High DPI 設定と制限の適用後の実際のレンダリング比率を返します。
+
 ## ダウンロードの検証 {#download-verification}
 
 HTML5 ローダーは、既定でダウンロードしたエンジンファイルとアーカイブファイルのサイズを検証します。検証に失敗すると、ローダーがエラーを報告する前にダウンロードを再試行します。
@@ -130,7 +163,7 @@ HTML5 版のゲームを生成すると、Defold はデフォルトのウェブ�
 Defold は、`index.html` 用にダークテーマとライトテーマを用意しています。デフォルトはライトテーマですが、`Custom CSS` ファイルを変更すると切り替えられます。また、`Scale Mode` フィールドでは、あらかじめ定義された4つのスケールモードから選択できます。
 
 ::: important
-*game.project* の `High Dpi` オプション（`Display` セクション）を有効にすると、すべてのスケールモードの計算で現在の画面の DPI が考慮されます。
+*game.project* の *Display* セクションで *High Dpi* を有効にすると、すべてのスケールモードで、[ピクセル比の制限](#pixel-ratio-limits)も反映した実際のピクセル比を使い、キャンバスのレンダリングバッファーのサイズを決めます。
 :::
 
 ### Downscale Fit と Fit {#downscale-fit-and-fit}
@@ -146,7 +179,7 @@ Defold は、`index.html` 用にダークテーマとライトテーマを用意
 ![HTML5 セクション](images/html5/html5_stretch.png)
 
 ### No Scale
-`No Scale` モードでは、キャンバスのサイズは *game.project* ファイルの `[display]` セクションであらかじめ定義したサイズとまったく同じになります。
+`No Scale` モードでは、キャンバスの CSS の幅と高さは、*game.project* の *Display* セクションの *Width* と *Height* に一致します。レンダリング解像度には、引き続き実際のピクセル比を使います。
 
 ![HTML5 セクション](images/html5/html5_no_scale.png)
 
@@ -190,7 +223,6 @@ DEFOLD_SPLASH_IMAGE
 exe-name
 : 使用できない記号を除いたプロジェクト名です。
 
-
 DEFOLD_ARCHIVE_LOCATION_PREFIX
 : `html5.archive_location_prefix` に基づいて解決された、ローダーが使うアーカイブパスのプレフィックスです。
 
@@ -198,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : `html5.archive_location_suffix` に基づいて解決された、アーカイブ URL に追加するサフィックスです。
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: アーカイブのプレフィックスが HTTP または HTTPS のオリジンを指定する場合は `true` です。`//cdn.example.com/archive` のようなプロトコル相対 URL も含まれます。相対アーカイブプレフィックスでは `false` です。Defold 1.13.2 以降で利用できます。
+: アーカイブのプレフィックスが HTTP または HTTPS のオリジンを指定する場合は `true` です。`//cdn.example.com/archive` のようなプロトコル相対 URL も含まれます。相対アーカイブプレフィックスでは `false` です。
 
 DEFOLD_ARCHIVE_ORIGIN
-: スキーム、ホスト、省略可能なポートを含むアーカイブのオリジンです。オリジンが指定されていなければ空文字列です。プロトコル相対プレフィックスからはプロトコル相対オリジンが生成されます。事前接続のヒントに使われ、Defold 1.13.2 以降で利用できます。
+: スキーム、ホスト、省略可能なポートを含むアーカイブのオリジンです。オリジンを指定しない場合は空文字列です。プロトコル相対プレフィックスからは、プロトコル相対オリジンを生成します。事前接続のヒントに使います。
 
 DEFOLD_HAS_WASM_ENGINE
 : バンドルに `wasm-web` または `wasm_pthread-web` の WebAssembly エンジンが含まれる場合は `true` です。

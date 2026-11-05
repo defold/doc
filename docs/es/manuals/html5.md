@@ -3,7 +3,7 @@ title: Desarrollo Defold para la plataforma HTML5
 brief: Este manual describe el proceso de creación de un juego HTML5, junto con problemas y limitaciones conocidos.
 ---
 
-# Desarrollo HTML5
+# Desarrollo HTML5 {#html5-development}
 
 Defold permite crear builds de juegos para la plataforma HTML5 mediante el menú de bundling habitual, igual que para otras plataformas. Además, el juego resultante se incrusta en una página HTML normal que se puede estilizar mediante un sistema sencillo de plantillas.
 
@@ -18,7 +18,7 @@ El soporte de Defold para HTML5 se basa en Emscripten (consulta http://en.wikipe
 1. Define *heap_size* con el valor que prefieras. Debe expresarse en megabytes.
 2. Crea tu bundle HTML5 (consulta más abajo).
 
-## Probar una build HTML5
+## Probar una build HTML5 {#testing-html5-build}
 
 Para probarla, una build HTML5 necesita un servidor HTTP. Defold crea uno por ti si eliges <kbd>Project ▸ Build HTML5</kbd>.
 
@@ -83,6 +83,39 @@ Cuando hagas click en el botón <kbd>Create bundle</kbd>, se te pedirá que sele
 
 Selecciona el contexto gráfico solicitado mediante [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Su valor predeterminado es WebGL 2; solicita WebGL 1 para probar o usar ese contexto en navegadores que admitan ambas versiones.
 
+Desde Defold 1.14.1, los shaders WebGL 1 se excluyen de forma predeterminada. Desactiva [Exclude GLES 2.0](/manuals/project-settings/#exclude-gles-20) para incluirlos, tanto si solicitas WebGL 1 directamente como si permites usarlo cuando WebGL 2 no está disponible. Para solicitar WebGL 1 explícitamente, establece ambas opciones en *game.project*:
+
+```ini
+[graphics]
+webgl_version_hint = 1
+
+[shader]
+exclude_gles_sm100 = 0
+```
+
+## Límites de la relación de píxeles {#pixel-ratio-limits}
+
+`html5.min_pixel_ratio` y `html5.max_pixel_ratio` controlan cuántos píxeles de renderizado del canvas se usan por píxel CSS. El tamaño CSS del canvas determina el tamaño con el que aparece el juego en la página; su resolución de renderizado determina cuántos píxeles dibuja el motor.
+
+Activa *High Dpi* en la sección *Display* de *game.project* para usar estos límites. La relación de píxeles del dispositivo que proporciona el navegador se restringe entonces a los límites activados. Ambos tienen el valor predeterminado `0`, que desactiva ese límite. Los valores deben ser finitos y no negativos; si ambos son positivos, el mínimo no debe superar al máximo.
+
+Por ejemplo, limita la relación a `1.5` para reducir la resolución de renderizado en pantallas de alta densidad:
+
+```ini
+[display]
+high_dpi = 1
+
+[html5]
+min_pixel_ratio = 0
+max_pixel_ratio = 1.5
+```
+
+En un navegador que indique una relación de píxeles de dispositivo de `3`, un canvas mostrado a 800 × 600 píxeles CSS se renderizará a 1200 × 900 píxeles con esta configuración. Su tamaño mostrado no cambia. En un navegador que indique una relación de `1`, el mismo canvas sigue renderizándose a 800 × 600 píxeles porque el límite máximo no aumenta la relación.
+
+También se admiten relaciones fraccionarias inferiores a `1`: por ejemplo, un máximo de `0.75` renderiza menos píxeles que el tamaño de visualización CSS. Un mínimo superior a la relación de píxeles del dispositivo del navegador aumenta la resolución de renderizado para hacer supersampling. Los límites se aplican a las cuatro opciones de *Scale Mode* sin alterar su layout CSS.
+
+Con *High Dpi* desactivado, la relación permanece en `1`, independientemente de los límites. En HTML5, [`window.get_display_scale()`](/ref/window/#window.get_display_scale) devuelve la relación efectiva de renderizado después de aplicar el ajuste High DPI y los límites.
+
 ## Verificación de descargas {#download-verification}
 
 El cargador HTML5 comprueba de forma predeterminada los tamaños de los archivos del motor y del archivo del juego descargados. Las comprobaciones fallidas hacen que se reintenten las descargas antes de que el cargador informe de un error:
@@ -101,14 +134,14 @@ verify_downloaded_file_size = 0
 
 Desactivar **Verify Downloaded File Size** mantiene activada cualquier verificación SHA-1 incluida en el bundle. Consulta la [configuración del proyecto para HTML5](/manuals/project-settings/#verify-downloaded-file-size).
 
-## Problemas conocidos y limitaciones
+## Problemas conocidos y limitaciones {#known-issues-and-limitations}
 
 * Hot Reload - Hot Reload no funciona en builds HTML5. Las aplicaciones Defold deben ejecutar su propio servidor web en miniatura para recibir actualizaciones desde el editor, lo que no es posible en una build HTML5.
 * Chrome
   * Builds debug lentas - En builds debug de HTML5 verificamos todas las llamadas gráficas de WebGL para detectar errores. Lamentablemente, esto es muy lento al probar en Chrome. Es posible desactivarlo definiendo el campo *`Engine Arguments`* de *game.project* como `--verify-graphics-calls=false`.
 * Soporte para gamepad - [Consulta la documentación de Gamepad](/manuals/input-gamepads/#gamepads-in-html5) para conocer consideraciones especiales y pasos que quizá debas seguir en HTML5.
 
-## Personalizar el bundle HTML5
+## Personalizar el bundle HTML5 {#customizing-html5-bundle}
 
 Cuando generas una versión HTML5 de tu juego, Defold proporciona una página web por defecto. Esta hace referencia a recursos de estilo y script que determinan cómo se presenta tu juego.
 
@@ -130,10 +163,10 @@ En *game.project* es posible desactivar el botón `Fullscreen` y el enlace `Made
 Defold proporciona un tema oscuro y uno claro para `index.html`. El tema claro está definido por defecto, pero es posible cambiarlo cambiando el archivo `Custom CSS`. También hay cuatro modos de escala predefinidos para elegir en el campo `Scale Mode`.
 
 ::: important
-Los cálculos de todos los modos de escala incluyen el DPI actual de la pantalla si activas la opción `High Dpi` en *game.project* (sección `Display`).
+Con *High Dpi* activado en la sección *Display* de *game.project*, todos los modos de escala usan la relación efectiva de píxeles, incluidos los [límites de la relación de píxeles](#pixel-ratio-limits), para dimensionar el buffer de renderizado del canvas.
 :::
 
-### Downscale Fit y Fit
+### Downscale Fit y Fit {#downscale-fit-and-fit}
 
 En el modo `Fit`, el tamaño del canvas se cambiará para mostrar todo el canvas del juego en la pantalla con las proporciones originales. La única diferencia en `Downscale Fit` es que cambia el tamaño solo si el tamaño interno de la página web es menor que el canvas original del juego, pero no escala hacia arriba cuando una página web es mayor que el canvas original del juego.
 
@@ -146,8 +179,7 @@ En el modo `Stretch`, el tamaño del canvas se cambiará para llenar por complet
 ![Sección HTML5](images/html5/html5_stretch.png)
 
 ### No Scale
-
-Con el modo `No Scale`, el tamaño del canvas es exactamente el mismo que predefiniste en el archivo *game.project*, sección `[display]`.
+En modo `No Scale`, el ancho y alto CSS del canvas coinciden con los valores *Width* y *Height* de la sección *Display* de *game.project*. Su resolución de renderizado sigue usando la relación efectiva de píxeles.
 
 ![Sección HTML5](images/html5/html5_no_scale.png)
 
@@ -198,10 +230,10 @@ DEFOLD_ARCHIVE_LOCATION_SUFFIX
 : El sufijo resuelto que se agrega a las URL del archivo del juego, basado en `html5.archive_location_suffix`.
 
 DEFOLD_HAS_ARCHIVE_ORIGIN
-: `true` cuando el prefijo del archivo del juego especifica un origen HTTP o HTTPS, incluida una URL relativa al protocolo como `//cdn.example.com/archive`. Es `false` para prefijos relativos. Disponible desde Defold 1.13.2.
+: `true` cuando el prefijo del archivo especifica un origen HTTP o HTTPS, incluida una URL relativa al protocolo como `//cdn.example.com/archive`. Es `false` para prefijos de archivo relativos.
 
 DEFOLD_ARCHIVE_ORIGIN
-: El origen del archivo del juego, incluidos el esquema, el host y el puerto opcional, o una cadena vacía si no se especifica ningún origen. Un prefijo relativo al protocolo produce un origen relativo al protocolo. Se usa para la indicación de preconexión y está disponible desde Defold 1.13.2.
+: El origen del archivo, incluidos el esquema, el host y el puerto opcional, o una cadena vacía si no se especifica un origen. Un prefijo relativo al protocolo produce un origen relativo al protocolo. Se usa para la indicación de preconexión.
 
 DEFOLD_HAS_WASM_ENGINE
 : `true` si el bundle incluye un motor WebAssembly, ya sea `wasm-web` o `wasm_pthread-web`.
@@ -246,7 +278,7 @@ build-timestamp
 : Marca de tiempo de la build actual en segundos.
 
 
-## Parámetros extra
+## Parámetros extra {#extra-parameters}
 
 Si creas una plantilla personalizada, puedes cambiar los parámetros del cargador del motor asignando valores en el objeto global `CUSTOM_PARAMETERS`. La plantilla integrada proporciona un bloque `<script id="engine-setup">` vacío expresamente para estas personalizaciones.
 ::: important
@@ -300,18 +332,19 @@ Por ejemplo:
     Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
-## Operaciones de archivo en HTML5
+## Operaciones de archivo en HTML5 {#file-operations-in-html5}
 
 Las builds HTML5 soportan operaciones de archivo como `sys.save()`, `sys.load()` e `io.open()`, pero la forma en que estas operaciones se manejan internamente es diferente a la de otras plataformas. Cuando JavaScript se ejecuta en un navegador, no existe un concepto real de sistema de archivos y el acceso a archivos locales está bloqueado por motivos de seguridad. En su lugar, Emscripten (y por lo tanto Defold) usa [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB), una base de datos dentro del navegador usada para almacenar datos de forma persistente, para crear un sistema de archivos virtual en el navegador. La diferencia importante con el acceso al sistema de archivos en otras plataformas es que puede haber un pequeño retraso entre escribir en un archivo y que el cambio se almacene realmente en la base de datos. La consola de desarrollador del navegador normalmente te permite inspeccionar el contenido de IndexedDB.
 
 
-## Pasar argumentos a un juego HTML5
+## Pasar argumentos a un juego HTML5 {#passing-arguments-to-an-html5-game}
 
 A veces es necesario proporcionar argumentos adicionales a un juego antes de que se inicie o mientras se inicia. Esto podría ser, por ejemplo, un id de usuario, un token de sesión o qué nivel cargar cuando el juego se inicia. Esto se puede lograr de varias formas distintas, algunas de las cuales se describen aquí.
 
-### Argumentos del motor
+### Argumentos del motor {#engine-arguments}
 
 Es posible especificar argumentos adicionales del motor cuando este se configura y se carga. Estos argumentos extra del motor se pueden recuperar en runtime usando `sys.get_config_string()`. Asigna los argumentos directamente a `CUSTOM_PARAMETERS.engine_arguments` en el bloque `engine-setup` de `index.html`:
+
 
 ```html
     <script id="engine-setup" type="text/javascript">
@@ -336,7 +369,7 @@ print(foo2) -- bar2
 ```
 
 
-### Argumentos de query en la URL
+### Argumentos de query en la URL {#query-arguments-in-the-url}
 
 Puedes pasar argumentos como parte de los parámetros de query en la URL de la página y leerlos en tiempo de ejecución:
 
@@ -375,8 +408,7 @@ function init(self)
 end
 ```
 
-## Optimizaciones
-
+## Optimizaciones {#optimizations}
 Los juegos HTML5 suelen tener requisitos estrictos de tamaño de descarga inicial, tiempo de arranque y uso de memoria para asegurar que carguen rápido y funcionen bien en dispositivos de gama baja y conexiones lentas a internet. Para optimizar un juego HTML5, se recomienda centrarse en las siguientes áreas:
 
 * [Uso de memoria](/manuals/optimization-memory)

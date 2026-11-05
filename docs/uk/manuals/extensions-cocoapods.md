@@ -25,3 +25,5 @@ pod 'FirebaseInstallations', '10.22.0'
 
 * [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile)
+
+Багато SDK також поширюються як пакети Swift. Їх можна використовувати замість CocoaPods або разом із ним, як описано в [посібнику зі Swift Package Manager](/manuals/extensions-spm).

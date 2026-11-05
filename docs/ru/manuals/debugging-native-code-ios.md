@@ -17,7 +17,7 @@ $ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
 $ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 ```
 
-* Установите приложение с помощью `Xcode`,` iTunes` или [ios-deploy](https://github.com/ios-control/ios-deploy) 
+* Установите приложение с помощью `Xcode`,`iTunes` или [ios-deploy](https://github.com/ios-control/ios-deploy)
 
 ```sh
 $ ios-deploy -b <AppName>.ipa

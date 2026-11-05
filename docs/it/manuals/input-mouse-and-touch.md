@@ -39,6 +39,30 @@ end
 Le azioni di input `MOUSE_BUTTON_LEFT` (o `MOUSE_BUTTON_1`) vengono inviate anche per gli input a tocco singolo.
 :::
 
+### Distinguere i clic del mouse dai tocchi {#distinguishing-mouse-clicks-from-touch}
+
+`action.source` distingue una pressione di un mouse fisico da un clic simulato tramite tocco, compresa la pressione iniziale. Associa `MOUSE_BUTTON_LEFT` a `mouse_button_left` e usa questo codice in uno script o script GUI:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("mouse_button_left") and action.pressed then
+        if action.source == hash("mouse") then
+            print("Mouse pressed at:", action.x, action.y)
+        elseif action.source == hash("touch") then
+            print("Touch pressed at:", action.x, action.y)
+        end
+    end
+end
+```
+
+Un tocco simulato come clic del mouse riporta `hash("touch")` anche senza un Touch Trigger separato. Non servono una tabella `action.touch` o un evento di movimento precedente per identificare il tocco. Consulta [Origine del dispositivo di input](/manuals/input/#input-device-source) per tutti i valori di origine e il loro funzionamento quando più associazioni condividono un nome di azione.
+
+Su iOS, un `Info.plist` personalizzato deve abilitare `UIApplicationSupportsIndirectInputEvents` affinché questa distinzione funzioni. Il manifest integrato lo abilita già.
+
 ## Rotella del mouse {#mouse-wheel}
 Gli input della rotella del mouse rilevano le azioni di scorrimento. Il campo `action.value` vale `1` se la rotella viene fatta scorrere e `0` altrimenti. (Le azioni di scorrimento vengono gestite come pressioni di pulsanti. Defold attualmente non supporta l'input di scorrimento preciso dei touchpad.)
 
@@ -55,11 +79,12 @@ end
 ## Movimento del mouse {#mouse-movement}
 Il movimento del mouse viene gestito separatamente. Gli eventi di movimento del mouse vengono ricevuti solo se nei binding di input è configurato almeno un trigger del mouse.
 
-Il movimento del mouse non viene associato nei binding di input: `action_id` viene impostato a `nil` e la tabella `action` viene popolata con la posizione del mouse e la variazione di tale posizione.
+Il movimento del puntatore non è associato a un nome di azione: `action_id` è `nil` e la tabella `action` contiene la posizione del puntatore e il delta del movimento. L'origine è `hash("mouse")` per un mouse fisico o `hash("touch")` per il movimento simulato dal tocco. Anche i campioni dell'accelerometro usano `action_id == nil`: controlla quindi l'origine per distinguerli, come mostrato in [Origine del dispositivo di input](/manuals/input/#input-device-source).
 
 ```lua
 function on_input(self, action_id, action)
-    if action.x and action.y then
+    if action_id == nil and
+        (action.source == hash("mouse") or action.source == hash("touch")) then
         -- let game object follow mouse/touch movement
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)

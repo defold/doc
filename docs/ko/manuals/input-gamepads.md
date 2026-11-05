@@ -104,11 +104,23 @@ end
 ```
 
 ## Gamepads 설정 파일 {#gamepads-settings-file}
-게임패드 입력 설정은 하드웨어 게임패드 타입마다 별도의 매핑 파일을 사용합니다. 특정 하드웨어 게임패드의 게임패드 매핑은 *gamepads* 파일에서 설정합니다. Defold는 일반적인 게임패드 설정이 포함된 내장 gamepads 파일을 제공합니다:
+
+게임패드 매핑은 컨트롤러의 버튼, 축, 햇을 입력 바인딩에서 사용하는 표준 컨트롤로 변환합니다. Defold는 *game.project*의 *Input* 섹션에 설정된 두 매핑 소스를 결합합니다:
+
+| 설정 | 매핑 포멧 | 기본값 |
+| --- | --- | --- |
+| [Gamepad Database](/manuals/project-settings/#gamepad-database) | 컨트롤러 GUID로 일치시키는 SDL 포멧 텍스트 데이터베이스 | `/builtins/input/gamecontrollerdb.txt` |
+| [Gamepads](/manuals/project-settings/#gamepads) | 기기 이름과 플랫폼에 대한 레거시 `.gamepads` 항목 | `/builtins/input/default.gamepads` |
+
+SDL 데이터베이스 매핑과 자동 플랫폼 매핑은 [Gamepad Deadzone](/manuals/project-settings/#gamepad-deadzone)을 사용합니다. 레거시 `.gamepads` 항목은 자체 데드존을 정의합니다. Android에서는 데이터베이스 항목이 없는 컨트롤러에도 [자동 매핑](#gamepads-on-android)이 적용될 수 있습니다.
+
+### 레거시 .gamepads 매핑 {#legacy-gamepads-mappings}
+
+하나의 `.gamepads` 파일에 여러 컨트롤러의 매핑을 넣을 수 있습니다. 기존 레거시 매핑도 계속 지원합니다. Defold는 기본 파일에 일반적인 컨트롤러의 매핑을 포함합니다:
 
 ![게임패드 설정](images/input/gamepads.png)
 
-새 게임패드 설정 파일을 만들어야 한다면, 이를 도와주는 간단한 도구가 있습니다:
+데스크톱 플랫폼에서 레거시 `.gamepads` 매핑을 만들어야 한다면 다음 도구가 도움이 됩니다. Android는 [Android 게임패드](#gamepads-on-android)를 참고하세요.
 
 [gdc.zip 다운로드 클릭](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
@@ -124,7 +136,7 @@ end
 
 ### 식별되지 않은 게임패드 {#unidentified-gamepads}
 
-게임패드가 연결되었지만 해당 게임패드에 대한 매핑이 없으면, 게임패드는 `connected`, `disconnected`, `raw` 동작만 생성합니다. 이 경우 게임에서 원시 게임패드 데이터를 동작에 직접 매핑해야 합니다.
+설정된 매핑도 자동 플랫폼 매핑도 사용할 수 없으면 게임패드는 `Connected`, `Disconnected`, `Raw`에 바인딩된 동작만 생성합니다. 컨트롤러 매핑을 추가하거나 게임에서 원시 입력을 처리할 수 있습니다.
 
 게임패드의 입력 동작이 알 수 없는 게임패드에서 온 것인지 여부는 `action`의 `gamepad_unknown` 값을 읽어 확인할 수 있습니다:
 
@@ -168,62 +180,6 @@ Windows에서는 현재 XBox 360 컨트롤러만 지원됩니다. 360 컨트롤�
 
 ## Android의 게임패드 {#gamepads-on-android}
 
-게임패드는 Android 빌드에서 지원되며 다른 플랫폼과 동일한 입력 이벤트를 생성합니다. 게임패드 지원은 [키 및 모션 이벤트용 Android 입력 시스템](https://developer.android.com/training/game-controllers/controller-input)을 기반으로 합니다. Android 입력 이벤트는 위에서 설명한 것과 같은 *gamepad* 파일을 사용하여 Defold 게임패드 이벤트로 변환됩니다.
+Android 빌드는 게임패드를 지원하며 다른 플랫폼과 같은 입력 동작을 생성합니다. Defold는 설정된 [게임패드 매핑](#gamepads-settings-file)을 사용하고, 일치하는 항목이 없는 일부 컨트롤러는 자동으로 매핑할 수 있습니다.
 
-Android에서 게임패드 바인딩을 추가할 때는 다음 조회 테이블을 사용하여 Android 입력 이벤트를 *gamepad* 파일 값으로 변환할 수 있습니다:
-
-| Key event에서 버튼 인덱스로 | 인덱스 |
-|-----------------------------|-------|
-| `AKEYCODE_BUTTON_A`           | 0     |
-| `AKEYCODE_BUTTON_B`           | 1     |
-| `AKEYCODE_BUTTON_C`           | 2     |
-| `AKEYCODE_BUTTON_X`           | 3     |
-| `AKEYCODE_BUTTON_L1`          | 4     |
-| `AKEYCODE_BUTTON_R1`          | 5     |
-| `AKEYCODE_BUTTON_Y`           | 6     |
-| `AKEYCODE_BUTTON_Z`           | 7     |
-| `AKEYCODE_BUTTON_L2`          | 8     |
-| `AKEYCODE_BUTTON_R2`          | 9     |
-| `AKEYCODE_DPAD_CENTER`        | 10    |
-| `AKEYCODE_DPAD_DOWN`          | 11    |
-| `AKEYCODE_DPAD_LEFT`          | 12    |
-| `AKEYCODE_DPAD_RIGHT`         | 13    |
-| `AKEYCODE_DPAD_UP`            | 14    |
-| `AKEYCODE_BUTTON_START`       | 15    |
-| `AKEYCODE_BUTTON_SELECT`      | 16    |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    |
-| `AKEYCODE_BUTTON_MODE`        | 19    |
-| `AKEYCODE_BUTTON_1`           | 20    |
-| `AKEYCODE_BUTTON_2`           | 21    |
-| `AKEYCODE_BUTTON_3`           | 22    |
-| `AKEYCODE_BUTTON_4`           | 23    |
-| `AKEYCODE_BUTTON_5`           | 24    |
-| `AKEYCODE_BUTTON_6`           | 25    |
-| `AKEYCODE_BUTTON_7`           | 26    |
-| `AKEYCODE_BUTTON_8`           | 27    |
-| `AKEYCODE_BUTTON_9`           | 28    |
-| `AKEYCODE_BUTTON_10`          | 29    |
-| `AKEYCODE_BUTTON_11`          | 30    |
-| `AKEYCODE_BUTTON_12`          | 31    |
-| `AKEYCODE_BUTTON_13`          | 32    |
-| `AKEYCODE_BUTTON_14`          | 33    |
-| `AKEYCODE_BUTTON_15`          | 34    |
-| `AKEYCODE_BUTTON_16`          | 35    |
-
-([Android `KeyEvent` 정의](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
-
-| Motion event에서 축 인덱스로 | 인덱스 |
-|-----------------------------|-------|
-| `AMOTION_EVENT_AXIS_X`        | 0     |
-| `AMOTION_EVENT_AXIS_Y`        | 1     |
-| `AMOTION_EVENT_AXIS_Z`        | 2     |
-| `AMOTION_EVENT_AXIS_RZ`       | 3     |
-| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
-| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
-| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
-| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
-
-([Android `MotionEvent` 정의](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
-
-이 조회 테이블을 Google Play Store의 게임패드 테스트 앱과 함께 사용하면 게임패드의 각 버튼이 어떤 key event에 매핑되는지 파악할 수 있습니다.
+컨트롤러를 식별할 수 없거나 컨트롤이 잘못 동작하면 Android 기기에서 테스트하고 매핑을 추가하거나 갱신하세요. 문제 해결은 [식별되지 않은 게임패드](#unidentified-gamepads)와 [원시 게임패드](#raw-gamepads)를 참고하세요.

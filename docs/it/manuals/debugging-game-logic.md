@@ -38,7 +38,11 @@ Probabilmente vorrai aggiornare questi dati a ogni fotogramma, quindi è consigl
 
 ## Avvio del debugger {#running-the-debugger}
 
-Per avviare il debugger, seleziona <kbd>Debug ▸ Start/Attach</kbd>: il comando avvia il gioco con il debugger collegato oppure collega il debugger a un gioco già in esecuzione.
+Il debugger Lua è disponibile nelle build native di debug e headless. Usa un motore della stessa versione di Defold dell'editor. Le build di release e Web non supportano il collegamento del debugger.
+
+Per avviare il debugger, seleziona <kbd>Debug ▸ Start/Attach</kbd>. Il comando avvia il gioco con il debugger collegato oppure collega il debugger a un gioco già in esecuzione. Quando avvia un gioco per il debug, l'editor installa i breakpoint abilitati prima di eseguire gli script di avvio, così puoi impostare un breakpoint in `init()` prima del lancio.
+
+Per collegarti a un dispositivo, selezionalo in <kbd>Project ▸ Targets</kbd>, quindi scegli <kbd>Debug ▸ Start/Attach</kbd>. Il collegamento sospende l'esecuzione alla riga Lua successiva. L'editor configura automaticamente la connessione del debugger per le destinazioni locali e remote supportate. Consulta [Destinazioni remote](#remote-targets) per i requisiti di connessione oppure scopri come [collegare un debugger esterno](#native-dap-connections).
 
 ![panoramica](images/debugging/overview.png)
 
@@ -46,7 +50,7 @@ Non appena il debugger è collegato, puoi controllare l'esecuzione del gioco tra
 
 Break
 : ![pausa](images/debugging/pause.svg){width=60px .left}
-  Sospendi immediatamente l'esecuzione del gioco. Il gioco si fermerà nel punto corrente. Ora puoi ispezionare lo stato del gioco, farlo avanzare passo dopo passo oppure riprendere l'esecuzione fino al prossimo punto di interruzione. Il punto di esecuzione corrente è evidenziato nell'editor di codice:
+  Sospende l'esecuzione Lua alla riga sorgente successiva. Puoi quindi ispezionare lo stato del gioco, avanzare passo per passo o riprendere l'esecuzione fino al breakpoint successivo. Il punto di esecuzione corrente è indicato nell'editor di codice:
 
   ![script](images/debugging/script.png)
 
@@ -67,7 +71,7 @@ Step Over
   ![passo](images/debugging/step.png)
 
 ::: sidenote
-Una riga di codice Lua non corrisponde a una singola espressione. L'avanzamento per passi nel debugger procede un'espressione alla volta: attualmente potresti quindi dover premere il pulsante di avanzamento più di una volta per passare alla riga successiva.
+L'esecuzione passo per passo segue le righe sorgente Lua. Un passo può tornare sulla stessa riga, per esempio quando si ripete un ciclo, quindi non avanza sempre alla riga successiva nel file.
 :::
 
 Step Into
@@ -100,14 +104,103 @@ Impostazione dei punti di interruzione condizionali
   Per modificare la condizione del punto di interruzione, fai clic con il pulsante destro del mouse nella colonna immediatamente a destra dei numeri di riga nell'editor di codice oppure seleziona <kbd>Edit ▸ Edit Breakpoint</kbd> dal menu.
 
 Valutazione delle espressioni Lua
-: Con il debugger collegato e il gioco fermo a un punto di interruzione, è disponibile un runtime Lua con il contesto corrente. Digita le espressioni Lua nella parte inferiore della console e premi <kbd>Enter</kbd> per valutarle:
+: Con il gioco in pausa, seleziona un frame in *Call Stack*, digita un'espressione o un'istruzione Lua nella parte inferiore della console e premi <kbd>Enter</kbd>. La valutazione usa le variabili locali, gli upvalue e le variabili globali del frame selezionato. I risultati di tipo tabella comprendono i contenuti annidati.
 
   ![console](images/debugging/console.png)
 
-  Attualmente non è possibile modificare le variabili tramite il valutatore.
+  Puoi anche modificare i valori tramite assegnazioni, per esempio `self.score = 100` in un frame in cui è disponibile `self`. Il codice valutato ha sullo stato del gioco gli stessi effetti del codice eseguito dal gioco.
+
+Ispezione delle variabili
+: Seleziona un frame in *Call Stack* per ispezionarne le variabili locali e gli upvalue nella vista *Variables*. Espandi `_G` per ispezionare le variabili globali ed espandi le tabelle o `self` per ispezionarne i campi. L'editor conserva i percorsi espansi, la selezione e la posizione di scorrimento durante l'esecuzione passo per passo, il cambio di frame o l'aggiornamento dopo una valutazione, recuperando i valori correnti.
 
 Scollegamento del debugger
-: Seleziona <kbd>Debug ▸ Detach Debugger</kbd> per scollegare il debugger dal gioco. Il gioco riprenderà immediatamente l'esecuzione.
+: Seleziona <kbd>Debug ▸ Detach Debugger</kbd> per scollegare il debugger dal gioco. L'esecuzione riprende immediatamente. Usa <kbd>Debug ▸ Start/Attach</kbd> per ricollegarti senza riavviare il gioco.
+
+## Connessioni DAP native {#native-dap-connections}
+
+Il motore fornisce un server nativo Debug Adapter Protocol (DAP) su TCP. Per usare un client DAP esterno, avvia il listener in un motore Defold nativo di debug o headless, quindi collega il client all'indirizzo e alla porta del motore. L'editor configura automaticamente il listener quando usi <kbd>Debug ▸ Start/Attach</kbd>.
+
+L'editor corrente non può collegarsi ai motori precedenti che supportano soltanto MobDebug. Nelle versioni correnti la chiamata `require "builtins.scripts.mobdebug"` non è necessaria né disponibile.
+
+### Avvio del listener {#starting-the-listener}
+
+Prima crea una build del progetto. Dalla directory del progetto che contiene `build/default/game.projectc`, esegui il motore nativo di debug con queste [sostituzioni della configurazione all'avvio](/manuals/project-settings/#setting-config-values-on-engine-startup):
+
+```sh
+dmengine --config=debugger.enabled=1 \
+  --config=debugger.port=8172 --config=debugger.wait=1
+```
+
+Collega il client DAP a `127.0.0.1:8172`. Il motore attende che il client configuri i breakpoint prima di eseguire gli script di avvio.
+
+| Impostazione | Valore predefinito | Funzione |
+| --- | --- | --- |
+| `debugger.enabled` | `0` | Imposta a `1` per avviare il listener durante l'avvio del motore. |
+| `debugger.address` | `127.0.0.1` | Indirizzo IPv4 su cui ascoltare. Il valore predefinito accetta connessioni dallo stesso computer. |
+| `debugger.port` | `8172` | Porta TCP di ascolto. Usa `0` per selezionare una porta disponibile. |
+| `debugger.wait` | `0` | Imposta a `1` per attendere la configurazione del client debugger prima di eseguire gli script di avvio. |
+
+Puoi anche aggiungere questi valori alla [sezione Debugger di game.project](/manuals/project-settings/#debugger). L'editor configura automaticamente il listener per <kbd>Debug ▸ Start/Attach</kbd>, quindi la configurazione manuale serve soltanto quando avvii tu il listener.
+
+Il log del motore riporta l'indirizzo e la porta selezionati. Con `debugger.wait=0`, il gioco parte immediatamente e puoi collegarti in seguito. Con `debugger.wait=1`, attende che il client completi la configurazione della sessione, compresi i breakpoint. Per i lanci locali di debug, l'editor seleziona automaticamente una porta disponibile.
+
+Scollegare un client riprende l'esecuzione e lascia il listener disponibile per un nuovo collegamento. Anche uno scollegamento durante l'attesa della configurazione iniziale sblocca il motore. Se il listener non può avviarsi, il motore registra l'errore e prosegue l'avvio; puoi riprovare da Lua con `debugger.start(0)` per selezionare una porta disponibile.
+
+### Abilitazione del listener durante l'esecuzione {#enabling-the-listener-while-running}
+
+Per abilitare il listener da uno script senza riavviare il gioco:
+
+```lua
+if debugger then
+    local port = debugger.start(0)
+    print("DAP listener port:", port)
+end
+```
+
+`debugger.start([port [, address]])` restituisce immediatamente la porta di ascolto. Non attende un client e non mette in pausa il gioco. Gli argomenti omessi usano `debugger.port` e `debugger.address`; passando `0` si seleziona una porta disponibile. Le chiamate ripetute restituiscono la porta del listener esistente senza cambiarne indirizzo o porta. Il modulo `debugger` è fornito dai motori nativi di debug e headless.
+
+La porta deve essere un intero compreso tra `0` e `65535`. Passa `nil` come primo argomento per sostituire soltanto l'indirizzo. Argomenti non validi o l'impossibilità di associare il listener generano un errore Lua.
+
+### Destinazioni remote {#remote-targets}
+
+Per una connessione diretta da un altro computer, associa il listener all'interfaccia IPv4 del dispositivo o a `0.0.0.0` (tutte le interfacce IPv4). Per esempio, usa `debugger.start(8172, "0.0.0.0")` oppure aggiungi `--config=debugger.address=0.0.0.0` al comando di avvio precedente. Collega il client all'indirizzo IP effettivo del dispositivo e consenti l'accesso TCP alla porta di ascolto. `0.0.0.0` è un indirizzo di associazione, non l'indirizzo da inserire nel client.
+
+L'editor Defold richiede automaticamente questa associazione remota e usa la porta `8172 + project.instance_index` per le destinazioni remote. Non può rilevare una porta remota selezionata dinamicamente. Se hai già avviato il listener remoto su localhost o su una porta diversa, riavvia il motore prima di collegarti dall'editor.
+
+Il debugger può valutare codice Lua e non dispone di autenticazione. Abilita l'accesso remoto soltanto su una rete di sviluppo affidabile.
+
+### Client esterni {#external-clients}
+
+Usa un client che supporti il collegamento diretto a un server DAP su TCP. Configura la mappatura dei sorgenti alla cartella contenente `game.project` (l'argomento DAP di collegamento `localRoot`). Avvia prima il listener del motore, quindi collega il client.
+
+#### VS Code
+
+Installa l'[estensione Lua Debug](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug) (`actboy168.lua-debug`), apri in VS Code la cartella contenente `game.project` e aggiungi questa configurazione a `.vscode/launch.json`:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Defold Lua",
+      "type": "lua",
+      "request": "attach",
+      "address": "127.0.0.1:8172",
+      "debugServer": 8172,
+      "localRoot": "${workspaceFolder}",
+      "stopOnEntry": false
+    }
+  ]
+}
+```
+
+Se VS Code apre un file `.script`, `.gui_script` o `.render_script` come testo semplice, seleziona **Lua** dall'indicatore della lingua nella barra di stato prima di impostare i breakpoint.
+
+Imposta un breakpoint, per esempio nella funzione `init()` di uno script. Avvia il motore usando il [comando di avvio precedente](#starting-the-listener), quindi seleziona **Attach to Defold Lua** nella vista **Run and Debug** di VS Code. Con `debugger.wait=1`, il motore esegue gli script di avvio dopo che il client ha installato i breakpoint. Imposta `stopOnEntry` a `true` se vuoi anche fermarti alla riga Lua successiva dopo il collegamento.
+
+L'[impostazione `debugServer`](https://code.visualstudio.com/api/extension-guides/debugger-extension#development-setup-for-mock-debug) di VS Code si collega direttamente al listener TCP locale del motore. Il campo `address` è richiesto dalla configurazione di collegamento dell'estensione Lua Debug. Se cambi la porta del listener, aggiorna entrambi i campi. `localRoot` deve indicare la cartella del progetto affinché il client possa associare i nomi dei sorgenti Lua del motore ai tuoi file.
+
+Per un motore remoto, inoltra la sua porta DAP a localhost e inserisci la porta inoltrata in entrambi i campi, oppure usa un client DAP che si colleghi direttamente all'host remoto.
 
 ## Scheda Breakpoints {#breakpoints-tab}
 

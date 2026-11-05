@@ -19,7 +19,7 @@ brief: 在本示例项目中，您将学习如何呈现主菜单的效果。
 背景在最后有一个特殊的轻微淡出效果，这在`anim5()`中应用。
 
 ```lua
--- file: menu.gui_script
+-- 文件：menu.gui_script
 
 -- 函数animX代表动画时间线
 -- 首先执行anim1，完成后执行anim2，依此类推

@@ -172,7 +172,7 @@ Wir verwenden eine moderne Pipeline mit GLSL in Version 140. Dazu geben wir die 
     ```
     Der genaue Wert von `aspect` hängt vom Aufbau des Beispiels ab. Wird der Effekt auf einem Quad gerendert, das bei bekannter Anzeigegröße den gesamten Bildschirm ausfüllt, kann das Seitenverhältnis für das Tutorial fest im Code vorgegeben werden. Soll der Effekt beliebige Fenstergrößen unterstützen, übergib die Auflösung als Fragmentkonstante und platziere sie in einem GLSL-140-Uniform-Block.
 
-    Hier wird auch die Zeit eingerichtet. Sie wird als `uniform float iGlobalTime` an den Shader übergeben. Defold stellt Shadern seit Version 1.12.3 die Zeit über eine spezielle `Time`-Konstante bereit, die wir verwenden werden.
+    Auch die Zeit wird hier eingerichtet. Sie wird dem Shader als `uniform float iGlobalTime` übergeben. Defold stellt Shadern die Zeit über eine spezielle Konstante `Time` bereit, die wir verwenden werden.
 
     In aktuellen Defold-Versionen werden nicht opake Uniforms innerhalb von Uniform-Blöcken deklariert.
     Im Fragment-Shader deklarieren wir sie so:
@@ -323,7 +323,7 @@ Speichere das Fragment-Shader-Programm. Das Modell sollte jetzt im Szeneneditor 
 
 ## Animation
 
-Das letzte Puzzleteil ist die Zeit, mit der wir die Sterne in Bewegung versetzen. Defold stellt sie seit Version 1.12.3 automatisch über eine Fragmentkonstante vom Typ `Time` bereit.
+Das letzte Puzzleteil ist die Einführung der Zeit, damit sich die Sterne bewegen. Defold stellt sie automatisch über eine Fragment-Konstante vom Typ `Time` bereit.
 
 1. Öffne *star-nest.material*.
 2. Füge eine *Fragment Constant* hinzu und nenne sie „time“.

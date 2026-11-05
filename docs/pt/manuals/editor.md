@@ -130,6 +130,22 @@ Na barra inferior do editor, há um espaço estreito em que o status é exibido,
 - quando uma nova atualização está disponível, um botão clicável `Update Available` ficará visível; veja a seção Atualizando o editor neste manual abaixo.
 - quando um build ou empacotamento está em andamento, o progresso será apresentado ali.
 
+## Posicionamento da janela da engine {#engine-window-placement}
+
+Em plataformas desktop, as janelas da engine abertas pelo editor lembram seu tamanho e posição normais no modo janela entre inicializações e reinicializações da engine. O posicionamento é salvo separadamente para cada projeto e instância da engine. Iniciar uma única instância usa o mesmo posicionamento salvo da primeira instância ao iniciar várias.
+
+Se você mover ou redimensionar a janela da engine, uma inicialização posterior restaura esse posicionamento. Um tamanho memorizado é usado enquanto as dimensões de janela configuradas permanecerem iguais; alterar essas dimensões faz a próxima inicialização usar o novo tamanho. No Linux Wayland, apenas o tamanho é restaurado, pois o compositor do desktop controla o posicionamento das janelas.
+
+### Redefinindo o tamanho da janela da engine {#resetting-the-engine-window-size}
+
+Escolha <kbd>Debug ▸ Reset Simulated Resolution</kbd> para voltar ao tamanho configurado. Esse comando:
+
+- Limpa os tamanhos de janela memorizados de todas as instâncias da engine no projeto atual, incluindo as que não estão em execução.
+- Limpa a resolução simulada selecionada e desativa **Rotated Device**.
+- Mantém as posições de janela salvas.
+
+As janelas das instâncias da engine em execução selecionadas são redimensionadas para [Display Width e Height](/manuals/project-settings/#display) do projeto. Você também pode redefinir sem nenhuma engine em execução; a próxima inicialização usa o tamanho configurado. Mover ou redimensionar a janela depois disso salva novamente seu novo posicionamento.
+
 ## Tamanho e visibilidade dos painéis
 
 O tamanho dos painéis pode ser ajustado dentro do editor usando <kbd>Dragging</kbd> nas bordas das seções entre todos os 6 painéis descritos acima.

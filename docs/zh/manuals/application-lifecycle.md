@@ -3,7 +3,7 @@ title: Defold 应用程序生命周期手册
 brief: 本手册详述了 Defold 游戏和应用程序的生命周期。
 ---
 
-# 应用生命周期
+# 应用生命周期 {#application-lifecycle}
 
 Defold 应用程序或游戏的生命周期，从整体上看很简单。引擎会经历三个执行阶段：初始化、更新循环（应用和游戏大部分时间都处于这个阶段）以及最终化。
 
@@ -23,13 +23,13 @@ Defold 应用程序或游戏的生命周期，从整体上看很简单。引擎�
 
 为清晰起见，["分发消息"](#dispatching-messages)阶段中涉及的步骤会在本手册末尾以单独图表展示，并在图中用一个小的“带箭头信封”图标 📩 标记。
 
-## 初始化
+## 初始化 {#initialization}
 
 这是游戏开始运行的地方，也是运行中游戏的第一步。它可以分为 3 个阶段：
 
 ![Initizalization](images/application_lifecycle/initialization.png)
 
-### 预初始化
+### 预初始化 {#preinitialization}
 
 在 `Preinitialization` 阶段，引擎会在加载主（bootstrap）集合之前执行许多步骤。内存分析器、套接字、图形、HID（输入设备）、声音、物理等都会被设置。应用程序配置（*game.project*）也会被加载和设置。
 
@@ -39,7 +39,7 @@ Defold 应用程序或游戏的生命周期，从整体上看很简单。引擎�
 
 然后主集合会被加载并初始化。
 
-### 集合初始化
+### 集合初始化 {#collection-init}
 
 在 `Collection Init` 阶段，集合中的所有游戏对象都会将它们的变换：平移（位置变化）、旋转和缩放应用到子对象。随后会调用所有存在的组件 `init()` 函数。
 
@@ -49,7 +49,7 @@ Defold 应用程序或游戏的生命周期，从整体上看很简单。引擎�
 游戏对象组件 `init()` 函数的调用顺序未指定。您不应假设引擎会以某个特定顺序初始化同一集合中的对象。
 :::
 
-### 初始化中的后更新
+### 初始化中的后更新 {#post-update-in-initialization}
 
 随后，引擎会执行完整的 `Post Update` 阶段，这与稍后每次 `Update Loop` 步骤之后执行的阶段相同。它在初始化结束时执行，因为您的 `init()` 代码可能会发送新消息、指示工厂生成新对象、将对象标记为删除，或执行其他操作。
 
@@ -82,7 +82,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## 更新循环
+## 更新循环 {#update-loop}
 
 `更新循环`每帧按特定顺序运行一次。此顺序可以定义为 5 个主要阶段：
 
@@ -94,7 +94,7 @@ end
 4. 后更新（卸载集合代理，生成和删除游戏对象）
 5. 帧渲染（渲染最终图形）
 
-### 输入阶段
+### 输入阶段 {#input-phase}
 
 输入会从可用设备读取，根据[输入绑定](/manuals/input)映射，然后分发。任何已获取输入焦点的游戏对象都会将输入发送给其所有组件的 `on_input()` 函数。带脚本组件的游戏对象，以及带 GUI 脚本的 GUI 组件，都会在已定义并获取输入焦点的前提下接收各自组件的 `on_input()` 输入。
 
@@ -102,7 +102,7 @@ end
 
 任何已获取输入焦点且包含集合代理组件的游戏对象，都会将输入分发给代理集合中的组件。此过程会沿着已启用集合代理中的已启用集合代理递归进行。
 
-### 更新阶段
+### 更新阶段 {#update-phase}
 
 `Update` 阶段是`更新循环`的一部分。它会先为根集合启动一次，然后对每个已启用的集合代理递归运行。
 
@@ -120,22 +120,22 @@ end
 主集合中的每个游戏对象组件都会被遍历。如果这些组件中的任意组件带有包含 `fixed_update()`/`update()`/`late_update()` 函数的脚本，就会调用相应函数。如果组件是集合代理，代理集合中的每个组件都会递归地执行 `Update` 阶段中的所有步骤。
 
 ::: sidenote
-游戏对象组件 `update()` 函数的调用顺序未指定。您不应假设引擎会以某个特定顺序更新同一集合中的对象。`fixed_update()` 和 `late_update()`（自 1.12.0 起）也是如此。
+游戏对象组件的 `update()` 函数调用顺序未作规定。不要假设引擎会按特定顺序更新同一集合中的对象。`fixed_update()` 和 `late_update()` 也是如此。
 :::
 
-#### 物理
+#### 物理 {#physics}
 
 对于碰撞对象组件，物理消息（碰撞、触发器、射线检测响应等）会在包含该组件的游戏对象内分发给所有带有 `on_message()` 函数脚本的组件。
 
 如果物理模拟使用[固定时间步](/manuals/physics/#physics-updates)，所有脚本组件中也可能会调用 `fixed_update()` 函数。在基于物理的游戏中，当您希望以固定间隔操作物理对象以获得稳定的物理模拟时，此函数很有用。
 
-#### 变换
+#### 变换 {#transforms}
 
 在 `Update Loop` 期间，如果需要，在**每个**组件类型更新之前都会多次更新变换，将任何游戏对象移动、旋转和缩放应用到每个游戏对象组件以及任何子游戏对象组件。
 
 在 `Update Loop` 末尾，如果需要，还会进行一次额外的最终变换更新。
 
-#### 引擎更新阶段（无固定更新）
+#### 引擎更新阶段（无固定更新） {#engine-update-phase-no-fixed-updates}
 
 下面的表描述了*引擎层级*的更新阶段。它们有意省略了确切的内部组件优先级顺序（这是引擎实现细节），但反映了与脚本相关的顺序保证：
 
@@ -155,7 +155,7 @@ end
 | 2 | **Late Update** | `late_update()` | 对内部优先级顺序中实现 Late Update 的每个组件类型，每帧调用一次。 |
 | 3 | **Transforms** | | 如果需要，会在末尾为每个组件执行一次额外的最终变换更新。 |
 
-#### 使用固定时间步的引擎更新阶段
+#### 使用固定时间步的引擎更新阶段 {#engine-update-phase-with-fixed-timestep}
 
 当 `Use Fixed Timestep` 为 `true` 且 Fixed Update Frequency 非零时，阶段开始时会准备 `dt`（delta time）、`fixed_dt` 和 `num_fixed_steps`（`0..N`），即根据距离上次更新的时间决定固定更新要调用多少次，以确保固定数量的更新。
 
@@ -174,13 +174,13 @@ end
 
 如果您需要更深入了解 Defold 在 Update 阶段内部如何工作，值得直接阅读 [`gameobject.cpp`](https://github.com/defold/defold/blob/dev/engine/gameobject/src/gameobject/gameobject.cpp) 代码。
 
-### 渲染更新阶段
+### 渲染更新阶段 {#render-update-phase}
 
 渲染更新块首先分发所有发送到 `@render` socket 的消息（例如摄像机组件 `set_view_projection` 消息、`set_clear_color` 消息等）。随后调用渲染脚本的 `update()`。
 
 ![Render Update Phase](images/application_lifecycle/render_update_phase.png)
 
-### 后更新阶段
+### 后更新阶段 {#post-update-phase}
 
 更新完成后，会运行后更新序列。它会从内存中卸载标记为卸载的集合代理（这发生在“分发消息”序列期间）。任何标记为删除的游戏对象都会调用其所有组件的 `final()` 函数（如果存在）。`final()` 函数中的代码通常会向队列发送新消息，因此之后会运行“分发消息”阶段。
 
@@ -188,7 +188,7 @@ end
 
 任何被指示生成游戏对象的工厂组件会在接下来执行生成。最后，标记为删除的游戏对象会被实际删除。
 
-### 渲染阶段
+### 渲染阶段 {#render-phase}
 
 更新循环中的最后一步包括分发 `@system` 消息（`exit`、`reboot` 消息，切换 profiler，开始和停止视频捕获等）。
 
@@ -196,19 +196,19 @@ end
 
 随后图形会被渲染，visual profiler 的任何渲染也会执行（参见[调试文档](/manuals/debugging)）。图形渲染之后，会执行视频捕获。
 
-#### 帧率和集合时间步
+#### 帧率和集合时间步 {#frame-rate-and-collection-time-step}
 
 每秒帧更新数（等于每秒更新循环运行次数）可以在项目设置中设置，也可以通过向 `@system` socket 发送 `set_update_frequency` 消息以编程方式设置。此外，还可以通过向代理发送 `set_time_step` 消息，为集合代理单独设置_时间步_。更改集合的时间步不会影响帧率。它会影响物理更新时间步，以及传递给 `update().` 的 `dt` 变量。另请注意，更改时间步不会改变每帧调用 `update()` 的次数——它始终正好调用一次。
 
 （详情请参阅[集合代理手册](/manuals/collection-proxy)和 [`set_time_step`](/ref/collectionproxy#set-time-step)）
 
-#### 引擎节流
+#### 引擎节流 {#engine-throttling}
 
-Defold 1.12.0 引入了引擎节流 API，可以完全跳过引擎更新和渲染，同时仍然检测输入。任何输入都会再次唤醒引擎，并且引擎可以在冷却后重新进入节流。
+Defold 提供引擎节流 API，可完全跳过引擎更新和渲染，同时仍然检测输入。任何输入都会再次唤醒引擎，引擎可以在冷却时间后重新进入节流状态。
 
 有关详细信息和用法示例，请参阅 `sys.set_engine_throttle()` API。
 
-## 最终化
+## 最终化 {#finalization}
 
 当应用程序退出时，它首先完成最后一次更新循环序列，这会卸载所有集合代理：最终化并删除每个代理集合中的所有游戏对象。
 

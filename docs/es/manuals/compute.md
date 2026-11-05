@@ -139,17 +139,17 @@ end
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 
-// especifica los recursos de entrada
+// specify the input resources
 uniform vec4 color;
 uniform sampler2D texture_in;
 
-// especifica la imagen de salida
+// specify the output image
 layout(rgba32f) uniform image2D texture_out;
 
 void main()
 {
-    // Este no es un shader especialmente interesante, pero demuestra
-    // cómo leer desde una textura y un buffer de constantes, y escribir en una storage texture
+    // This isn't a particularly interesting shader, but it demonstrates
+    // how to read from a texture and constant buffer and write to a storage texture
 
     ivec2 tex_coord   = ivec2(gl_GlobalInvocationID.xy);
     vec4 output_value = vec4(0.0, 0.0, 0.0, 1.0);
@@ -157,7 +157,7 @@ void main()
     vec4 input_value = texture(texture_in, tex_coord_uv);
     output_value.rgb = input_value.rgb * color.rgb;
 
-    // Escribe el valor de salida en la storage texture
+    // Write the output value to the storage texture
     imageStore(texture_out, tex_coord, output_value);
 }
 ```

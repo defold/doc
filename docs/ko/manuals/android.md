@@ -85,6 +85,10 @@ Bundle 대화상자의 "Install on connected device" 및 "Launch installed app" 
 
 *.aab* 파일은 [Google Play developer console](https://play.google.com/apps/publish/)을 통해 Google Play에 업로드할 수 있습니다. 또한 [Android bundletool](https://developer.android.com/studio/command-line/bundletool)을 사용해 *.aab* 파일에서 *`.apk`* 파일을 생성하고 로컬에 설치할 수도 있습니다.
 
+## 디스플레이 컷아웃 {#display-cutouts}
+
+`window.get_reserved_areas()`는 Android 9(API level 28) 이상에서 디스플레이 컷아웃 사각형을 반환합니다. 안전한 레이아웃 사각형이 필요하면 `window.get_safe_area()`를 사용하세요. 좌표 단위, 미지원 플랫폼의 동작, 보고된 영역이 바뀔 때 레이아웃을 갱신하는 방법은 [예약된 화면 영역](/manuals/porting-guidelines/#reserved-screen-areas)을 참고하세요.
+
 ## R8로 Java 코드 및 Android 리소스 크기 줄이기 {#shrinking-java-code-with-r8}
 
 R8은 코드 축소, 최적화, 난독화를 통해 Java 코드의 크기를 줄입니다. Defold 1.14.0 이상과 호환되는 Extender 빌드 서버에서는 익스텐션과 해당 Android 종속성이 제공하는 레이아웃, drawable, raw 리소스 등의 사용되지 않는 Android 리소스도 제거합니다. 게임 아카이브에 있는 Defold 게임 에셋은 R8이 처리하지 않습니다.
@@ -102,7 +106,7 @@ Java 코드를 사용하는 모든 익스텐션이 런타임에 필요한 클래
 
 **R8 Keep Rules**를 비워 두면 축소 없이 D8을 사용합니다. R8을 활성화하면 네이티브 익스텐션이 없는 프로젝트도 네이티브 익스텐션 빌드 서비스를 사용합니다.
 
-Defold 1.14.0부터는 같은 **R8 Keep Rules** 설정으로 Android 리소스 축소를 활성화하며, 이를 위한 별도의 프로젝트 설정은 없습니다. 이전 Defold SDK에서는 R8이 코드만 축소합니다.
+Android 리소스 축소도 같은 **R8 Keep Rules** 설정으로 활성화하며, 별도의 프로젝트 설정은 없습니다. 이전 Defold SDK에서는 R8이 코드만 축소합니다.
 
 ### 익스텐션에 규칙 추가하기 {#adding-rules-to-an-extension}
 

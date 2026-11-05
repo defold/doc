@@ -24,7 +24,7 @@ go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNC
 Для остановки всех анимаций заданного свойства, вызовите `go.cancel_animations()`, или, в случае с GUI-нодами, `gui.cancel_animations()`:
 
 ```lua
--- Остановить анимацию эйлерова вращения по Z для текущего игрового объекта 
+-- Остановить анимацию эйлерова вращения по Z для текущего игрового объекта
 go.cancel_animations(".", "euler.z")
 ```
 

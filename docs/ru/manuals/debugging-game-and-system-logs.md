@@ -46,16 +46,16 @@ $ > ./mygame.app/Contents/MacOS/mygame
 
   После установки и настройки подключите ваше устройство к USB, откройте терминал и выполните команды: 
 
-  ```txt
-  cd <path_to_android_sdk>/platform-tools/
-  adb logcat
-  ```
+```txt
+$ cd <path_to_android_sdk>/platform-tools/
+$ adb logcat
+```
 
   После чего устройство сбрасывает весь вывод в текущий терминал вместе со всеми выводами на печать из игры.
 
   Если вы хотите видеть только выходные данные приложения Defold, используйте эту команду: 
 
-  ```txt
+```txt
 $ cd <path_to_android_sdk>/platform-tools/
 $ adb logcat -s defold
 --------- beginning of /dev/log/system
@@ -66,7 +66,7 @@ I/defold  ( 6210): INFO:ENGINE: Initialized sound device 'default'
 I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
-  ```
+```
 
 ### iOS
 
@@ -78,7 +78,7 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 Чтобы запустить игру и подключить отладчик, вам понадобится инструмент под названием [ios-deploy](https://github.com/phonegap/ios-deploy). Установите и отлаживайте игру, запустив в терминале следующую команду:
 
 ```txt
-$ ios-deploy --debug --bundle <path_to_game.app> # ВНИМАНИЕ: не .ipa файл
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
 ```
 
 Эта команда установит приложение на ваше устройство, запустит его и автоматически подключит к нему отладчик LLDB. Если вы не знакомы с LLDB, прочтите руководство [Начало работы с LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).

@@ -112,7 +112,7 @@ Comme le moteur Defold prend en charge plusieurs plateformes et API graphiques, 
 1. Le pipeline historique, dans lequel les shaders sont écrits en code GLSL compatible avec ES2.
 2. Le pipeline moderne, dans lequel les shaders sont écrits en code GLSL compatible avec SPIR-v.
 
-À partir de Defold 1.9.2, il est recommandé d'écrire des shaders qui utilisent le nouveau pipeline. Pour cela, la plupart des shaders doivent être migrés vers des shaders écrits au minimum en version 140 (OpenGL 3.1). Pour migrer un shader, assurez-vous que les exigences suivantes sont respectées :
+Écrivez les shaders pour le pipeline moderne en utilisant au moins la version 140 de GLSL (OpenGL 3.1). Pour migrer un shader, assurez-vous que les conditions suivantes sont remplies :
 
 ### Déclaration de version {#version-declaration}
 Placez au minimum #version 140 au début du shader :

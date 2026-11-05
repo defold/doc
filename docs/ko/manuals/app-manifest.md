@@ -9,8 +9,6 @@ brief: 이 매뉴얼은 어플리케이션 메니페스트를 사용해 엔진�
 
 ![](images/app_manifest/create-app-manifest.png)
 
-![](images/app_manifest/app-manifest.png)
-
 # 메니페스트 적용
 
 `game.project`에서 메니페스트를 `Native Extensions` -> `App Manifest`에 지정합니다.
@@ -36,8 +34,7 @@ Bullet 3D 물리 구현을 포함합니다. 기본적으로 포함되며, 3D 물
 
 ## Exclude Record
 
-엔진에서 비디오 녹화 기능을 제외합니다([`start_record`](https://defold.com/ref/sys/#start_record) 메세지 문서를 참고하세요).
-
+데스크톱 디버그 빌드에서 네이티브 MP4 녹화, [`recorder` Lua 모듈](/ref/recorder/), 녹화 HTTP 서비스를 제외합니다. 릴리스, 헤드리스, 모바일, 웹 빌드에서는 원래 녹화를 포함하지 않습니다. 사용 절차는 [녹화 매뉴얼](/manuals/recording)을 참고하세요.
 
 ## Profiler
 
@@ -118,11 +115,14 @@ Android X 대신 더 이상 사용되지 않는 Android Support Library를 사�
 
 ## Graphics
 
-각 플랫폼에 포함할 그래픽 백엔드를 선택합니다. 결합 선택은 두 백엔드를 모두 포함하므로 선호하는 백엔드를 사용할 수 없을 때 폴백할 수 있습니다.
+각 플랫폼에 포함할 그래픽 백엔드를 선택합니다. 여러 백엔드를 조합하면 엔진이 우선하는 백엔드를 사용할 수 없을 때 다른 백엔드로 대체할 수 있습니다. 더 많은 백엔드를 포함할수록 엔진 크기가 커집니다.
+
+Windows와 Linux는 별도의 필드를 사용합니다. **DX12** 옵션은 Windows에서 DirectX 12를 선택합니다.
 
 | 필드 | 플랫폼 | 선택 | 기본값 |
 |---|---|---|---|
-| **Graphics** | Windows 및 Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
@@ -130,12 +130,11 @@ Android X 대신 더 이상 사용되지 않는 Android Support Library를 사�
 
 Linux ARM64에서 **OpenGL** 선택은 OpenGL ES 백엔드를 사용합니다. Android의 결합 기본값은 사용할 수 있으면 Vulkan을 우선하고, 그렇지 않으면 OpenGL ES로 폴백합니다.
 
-Defold 1.14.0부터 macOS는 기본적으로 네이티브 Metal 백엔드를 사용합니다. macOS와 iOS에서 **Vulkan** 선택은 MoltenVK를 통해 Vulkan을 사용합니다. iOS 시뮬레이터(`arm64_sim-ios`)는 기기용 **Graphics (iOS)** 선택과 관계없이 항상 Metal을 사용합니다.
+macOS는 기본적으로 네이티브 Metal 백엔드를 사용합니다. macOS와 iOS의 **Vulkan** 옵션은 MoltenVK를 통해 Vulkan을 사용합니다. iOS 시뮬레이터(`arm64_sim-ios`)는 기기용 **Graphics (iOS)** 설정에 관계없이 항상 Metal을 사용합니다.
 
 ## Use full text layout system
 
-활성화하면(`true`) 오른쪽에서 왼쪽으로 쓰는 언어를 포함하여 텍스트 셰이핑을 위한 전체 텍스트 레이아웃 시스템을 포함합니다. TrueType(`.ttf`) 또는 OpenType(`.otf`) 리소스에서 SDF 폰트를 런타임에 생성하려면 이 옵션과 *game.project*의 `font.runtime_generation`을 함께 활성화하세요. `.otf` 리소스의 런타임 생성은 Defold 1.13.2부터 지원됩니다. 자세한 내용은 [폰트 매뉴얼](/manuals/font/#enabling-runtime-fonts)을 참고하세요.
-
+활성화하면(`true`) 오른쪽에서 왼쪽으로 쓰는 언어를 포함하여 텍스트 셰이핑을 위한 전체 텍스트 레이아웃 시스템을 포함합니다. TrueType(`.ttf`) 또는 OpenType(`.otf`) 폰트를 런타임에 생성하려면 이 옵션을 활성화하고, 필요한 각 폰트 리소스의 *Glyph Generation*을 **Dynamic**으로 설정하세요. 동적 생성은 **SDF**와 **Vector** 모드를 모두 지원합니다. 자세한 내용은 [폰트 매뉴얼](/manuals/font/#enabling-runtime-fonts)을 참고하세요.
 
 ## Use Rich Text
 

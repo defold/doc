@@ -3,11 +3,11 @@ title: 面向 Unity 用户的 Defold
 brief: 如果你已有 Unity 经验，本指南可以帮助你快速切换到 Defold。它介绍 Unity 中常见的一些关键概念，并说明 Defold 中对应的工具和方法。
 ---
 
-# 面向 Unity 用户的 Defold
+# 面向 Unity 用户的 Defold {#defold-for-unity-users}
 
 如果你已有 Unity 经验，本指南可以帮助你快速上手 Defold。它聚焦于必要概念，并在需要更深入细节时指向官方 Defold 手册。
 
-## 简介
+## 简介 {#introduction}
 
 Defold 是一个完全免费的、真正跨平台的 3D 游戏引擎，并提供适用于 Windows、Linux 和 macOS 的编辑器。完整源代码可在 [Github](https://github.com/defold/defold/) 获取。
 
@@ -26,7 +26,7 @@ Defold 比 Unity 小得多。空项目的引擎体积在所有平台上约为 1-
 
 ---
 
-## 安装
+## 安装 {#installation}
 
 1. 下载适用于你操作系统的 Defold。
 2. 解压并启动。
@@ -35,20 +35,19 @@ Defold 比 Unity 小得多。空项目的引擎体积在所有平台上约为 1-
 
 如需更多细节，请阅读这篇简短的[安装手册](/manuals/install/)。
 
-### 版本
+### 版本 {#versions}
 
 Defold 更新频繁，没有 “LTS” 分支。我们建议始终使用最新版本。新版本会定期发布，通常每月一次，并包含大约两周的公开 beta。你可以直接在编辑器中更新 Defold。
 
 ---
 
-## 欢迎界面
+## 欢迎界面 {#welcome-screen}
 
 Defold 会显示一个类似 Unity Hub 的欢迎界面，你可以从这里打开最近的项目：
 
 ![Welcome screen comparison](images/unity/unity_defold_start.png)
 
 也可以从以下入口新建项目：
-
 - `Templates` - 面向特定平台或类型的基础空项目，用于快速开始。
 - `Tutorials` - 帮助你完成第一步的引导式学习流程。
 - `Samples` - 官方或社区贡献的用例和示例。
@@ -79,11 +78,11 @@ Defold 会显示一个类似 Unity Hub 的欢迎界面，你可以从这里打�
 
 ---
 
-## Defold Editor 概览
+## Defold Editor 概览 {#defold-editor-overview}
 
 这里会从 Unity 用户最先想了解的角度介绍 Defold Editor，不过我们也建议之后阅读完整的[编辑器概览手册](/manuals/editor)。
 
-### 编辑器对比
+### 编辑器对比 {#editors-comparison}
 
 Unity 和 Defold 的第一个明显差异是默认编辑器布局。下面展示的 Unity Editor 布局经过轻微调整，以便与 Defold 的默认布局对应。两者并排放置，方便直观比较主要面板，也更容易识别 Unity 中熟悉的标签页。
 
@@ -97,7 +96,7 @@ Unity 和 Defold 的第一个明显差异是默认编辑器布局。下面展示
 
 ![Defold 3D settings](images/unity/defold_3d.png)
 
-### Defold 面板概览
+### Defold 面板概览 {#defold-panes-overview}
 
 Defold Editor 分为 6 个主要面板。
 
@@ -129,11 +128,11 @@ Defold Editor 分为 6 个主要面板。
 
 ---
 
-## 关键概念
+## 关键概念 {#key-concepts}
 
 从足够抽象的角度看，大多数游戏引擎背后的关键概念都很相似。它们的目标都是帮助开发者更轻松地构建游戏，就像搭积木一样，同时自行处理复杂和平台相关的任务。
 
-### 构建块
+### 构建块 {#building-blocks}
 
 Defold 只使用少量基础构建块：
 
@@ -141,17 +140,15 @@ Defold 只使用少量基础构建块：
 
 更多细节请参阅完整的 [Defold 构建块手册](/manuals/building-blocks/)。
 
-### 游戏对象
-
+### 游戏对象 {#game-objects}
 Defold 使用类似 Unity 的 **"Game Objects"**。在两个引擎中，游戏对象都是带 ID 的数据容器，并且都拥有变换：位置、旋转和缩放。不过在 Defold 中，变换是内置的，而不是一个单独组件。
 
 你可以在游戏对象之间创建父子关系。在 Defold 中，这只能在编辑器内的 "Collection"（下文会解释）中完成，或在脚本中动态完成。游戏对象不能像 Unity 那样把其他游戏对象作为嵌套对象直接包含在内部。
 
-### 组件
-
+### 组件 {#components}
 在两个引擎中，Game Objects 都可以通过 **"Components"** 扩展。Defold 提供一组精简的核心组件。它对 2D 和 3D 的区分比 Unity 少（例如碰撞体），因此整体组件更少，你可能会缺少一些 Unity 中熟悉的组件。
 
-#### 行为组件
+#### 行为组件 {#behaviour-components}
 
 在 Unity 中，"component" 通常指附加到 `GameObject` 的 `MonoBehaviour`。你可以继承 `MonoBehaviour` 创建自己的组件，也可以使用 Unity 内置组件，例如 Light、一些物理组件等。
 
@@ -167,7 +164,7 @@ Defold 使用类似 Unity 的 **"Game Objects"**。在两个引擎中，游戏�
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | 在 Defold 中，只能通过代码修改 tint（颜色属性）。 |
 | [Tilemap](/manuals/tilemap/) | Tilemap / Grid | Defold 内置 Tilemap Editor，支持方形网格（也有例如 [Hexagon](https://github.com/selimanac/defold-hexagon/) 的扩展），但没有内置自动铺瓦规则。[Tiled](https://defold.com/assets/tiled/)、[TileSetter](https://defold.com/assets/tilesetter/) 或 [Sprite Fusion](https://defold.com/assets/spritefusion/) 等工具可导出到 Defold。 |
-| [Label](/manuals/label/) | Text / TextMeshPro | 自 Defold 1.13.2 起，Label 组件和 GUI 文本节点支持内置[富文本标记](/manuals/font-richtext/)，可使用颜色、渐变、轮廓和动画效果。此外也有独立的 [RichText 扩展](https://defold.com/assets/richtext/)。 |
+| [标签](/manuals/label/) | Text / TextMeshPro | 标签组件和 GUI 文本节点支持内置[富文本标记](/manuals/font-richtext/)，可用于颜色、渐变、轮廓和动画效果。另有独立的 [RichText 扩展](https://defold.com/assets/richtext/)可用。 |
 | [Sound](/manuals/sound/) | AudioSource | Defold 只有全局声音源（非空间音频）。Defold 有官方 [FMOD 扩展](https://github.com/defold/extension-fmod)。 |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | 在 Defold 中，Factory 是带有特定原型（prefab）的组件。 |
 | [Collection Factory](/manuals/collection-factory/) | -（无直接组件对应物） | Defold 中的 Collection Factory 组件可以一次生成多个带父子关系的 Game Objects。 |
@@ -181,7 +178,7 @@ Defold 使用类似 Unity 的 **"Game Objects"**。在两个引擎中，游戏�
 | [ParticleFX](/manuals/particlefx/) | Particle System | Defold 的粒子编辑器支持带有许多属性的 2D/3D 粒子效果，并可在 Curve Editor 中用曲线随时间动画化。它没有 Trails 或 Collisions。 |
 | [Script](/manuals/script/) | Script | 编程差异会在下文详细解释。 |
 
-#### 扩展和自定义组件
+#### 扩展和自定义组件 {#extensions-and-custom-components}
 
 Defold 还通过扩展提供官方 [Spine](/extension-spine/) 和 [Rive](/extension-rive/) 组件。
 
@@ -189,7 +186,7 @@ Defold 还通过扩展提供官方 [Spine](/extension-spine/) 和 [Rive](/extens
 
 有些 Unity 组件在 Defold 中没有开箱即用的等价物，例如 Audio Listener、Light、Terrain、LineRenderer、TrailRenderer、Cloth 或 Animator。不过这些功能都可以用脚本实现，而且已有可用方案，例如不同的光照管线、用于生成任意网格（包括地形）的 Mesh 组件，或用于可定制拖尾效果的 [Hyper Trails](https://defold.com/assets/hypertrails/)。Defold 未来也可能添加新的内置组件，例如灯光。
 
-### 资源
+### 资源 {#resources}
 
 有些 Components 需要 **"Resources"**，这与 Unity 类似，例如 sprites 和 models 需要 textures。下面比较其中几个：
 
@@ -200,16 +197,15 @@ Defold 还通过扩展提供官方 [Spine](/extension-spine/) 和 [Rive](/extens
 | [Font](/manuals/font/) | Font | 由 Defold Label 组件或 GUI 中的文本节点使用，类似 Unity 中的 Text/TextMeshPro。 |
 | [Material](/manuals/material/) | Material | 在 Defold 中，着色器被称为 vertex program 和 fragment program。 |
 
-### Collection 与 Scene
+### Collection 与 Scene {#collection-vs-scene}
 
 在 Defold 中，Game Objects 和 Components 可以像 Unity prefabs 一样放在独立文件中，也可以定义在一个组合用的 **"Collection"** 文件里。
 
 Defold 中的 Collection 本质上是带有静态场景描述的文本文件。它**不是**运行时对象。它只定义游戏中应实例化哪些 Game Objects，以及这些对象之间应如何建立父子关系。
 
-#### 游戏世界
+#### 游戏世界 {#game-worlds}
 
 Unity scenes 默认共享同一个全局游戏状态和同一个物理模拟，实际上就是同一个 *world*（*game world*）。在 Defold 中，你有两个选择：
-
 1. 通过 `Factory` 从单个游戏对象文件实例化对象，或通过 `Collection Factory` 从集合文件实例化对象，把它们放入一个已经实例化的指定 *world* 中，类似 prefabs。
 2. 在运行时创建一个独立的游戏 *world*，它拥有自己的游戏对象、物理世界、引擎操作和寻址命名空间。这个 world 可由启动时加载的集合或 `Collection Proxy` 组件创建。
 
@@ -218,15 +214,15 @@ Factories 和 Proxy 组件也会在后文解释。
 
 ---
 
-## 项目资源和资产
+## 项目资源和资产 {#project-resources-and-assets}
 
 Unity 和 Defold 都把游戏内容存储在项目目录中，但它们跟踪和准备资产的方式不同。
 
-### 资产
+### 资产 {#assets}
 
 Unity 把资产放在 `Assets/` 中，并生成 `.meta` 文件。Defold 没有 meta 文件。Defold 项目就是你的文件夹结构，与磁盘上的结构完全一致，`Assets` 面板始终映射该结构。
 
-### 资源格式
+### 资源格式 {#resource-formats}
 
 Unity 会在后台导入资产，并把它们转换为其他格式。在 Defold 中，你直接使用源资源（`.png`、`.gltf`、`.wav`、`.ogg` 等），并把它们分配给 `Components`。
 
@@ -234,13 +230,13 @@ Unity 可以把单张图片用作 Sprite。在 Defold 中，图片可直接用�
 
 大多数 Defold 资源以文本形式存储，对版本控制友好。
 
-### Library 缓存
+### Library 缓存 {#library-cache}
 
 Unity 会为导入资产生成 `Library/` 文件夹。Defold 没有这样的目录；资产会在构建期间处理，缓存输出位于构建文件夹下，也可使用可选的本地/远程构建缓存。
 
 ---
 
-## 代码编写
+## 代码编写 {#code-writing}
 
 Defold 中与 `MonoBehaviour` 脚本最接近的是 Script 组件，但有一些值得了解的差异。
 
@@ -260,7 +256,8 @@ Defold Native Extensions 可以使用多种其他语言编写：C、C++、C#、O
 
 更多扩展内容请阅读 [Defold Native Extensions 手册](/manuals/extensions/)。
 
-### 从 MonoBehaviours 到 Lua 模块
+
+### 从 MonoBehaviours 到 Lua 模块 {#from-monobehaviours-to-lua-modules}
 
 Unity 的脚本模型很开放。由于 `MonoBehaviour` 是在编辑器中添加行为的主要方式，许多 Unity 项目会从每个重要 GameObject 一个控制器式脚本开始：`PlayerController`、`EnemyController`、`BulletController`、`GameManager`、`EnemyManager` 等。
 
@@ -338,18 +335,18 @@ end
 一个展示如何利用 Defold 脚本属性、工厂、寻址和消息传递来控制多个单位的示例可在[这里](https://defold.com/examples/factory/spawn_manager/)找到。
 
 推荐的代码编写手册：
-
 - [Script 手册](/manuals/script/)
 - [Writing code](/manuals/writing-code/)
 - [Debugging](/manuals/debugging/)
 
-### 内置代码编辑器
+
+### 内置代码编辑器 {#built-in-code-editor}
 
 Defold Editor 包含内置代码编辑器，支持代码补全、语法高亮、快速文档查找、linting 和内置调试器。
 
 ![Defold Code Editor](/images/editor/code-editor.png)
 
-### VS Code 和其他编辑器
+### VS Code 和其他编辑器 {#vs-code-and-other-editors}
 
 如果你愿意，仍然可以使用自己的外部编辑器。所有 Defold 组件和相关文件都是基于文本的，所以可用任何文本编辑器编辑，但必须遵循正确的格式和元素结构，因为它们基于 Protobuf。
 
@@ -363,7 +360,7 @@ Defold 使用 GLSL（OpenGL Shading Language）编写着色器，即 `Vertex Pro
 
 更多着色器内容请阅读 [Shaders 手册](/manuals/shader)。
 
-#### 材质
+#### 材质 {#materials}
 
 Defold 使用 `Material` 概念连接 `.fp` 和 `.vp` 着色器、采样器（纹理），以及 Vertex Attributes 或 Constants 等其他内容。
 
@@ -371,7 +368,7 @@ Defold 使用 `Material` 概念连接 `.fp` 和 `.vp` 着色器、采样器（�
 
 ---
 
-## 消息系统
+## 消息系统 {#messaging-system}
 
 在 Defold 中，对象之间不会保存直接引用。没有 `GetComponent`，脚本之间不会跨对象直接调用方法，也没有像 Unity 那样的全局场景访问。
 
@@ -379,7 +376,8 @@ Defold 使用 `Material` 概念连接 `.fp` 和 `.vp` 着色器、采样器（�
 
 一开始这可能不熟悉，但它鼓励低耦合并减少紧密依赖。
 
-### 发送消息
+
+### 发送消息 {#sending-a-message}
 
 在 Unity 中，通信通常看起来像这样：
 
@@ -408,7 +406,7 @@ end
 
 暂时不用关心 `#` 和 `hash`，后面会解释。其余部分应该很直接。你可以向任何已实例化游戏对象上的任何组件发送消息，甚至可以发送给同一个脚本。
 
-#### 脚本以外的组件
+#### 脚本以外的组件 {#components-other-than-scripts}
 
 有时你会向 `Sprite` 或 `Collision` 等组件发送消息，例如启用或禁用它们。有时 `Components` 会向你的脚本发送消息，例如发生碰撞时，你可以处理该消息。Defold 内部也使用同一套消息系统处理引擎事件和游戏通信。
 
@@ -416,20 +414,18 @@ end
 
 更多细节请阅读 [Message Passing 手册](/manuals/message-passing/)。
 
-### 寻址
+### 寻址 {#addressing}
 
 Defold 中的对象和组件通过地址标识，这些地址称为 URL。
 
 每个已实例化对象和组件都有自己的唯一地址，你不需要遍历场景图来查找它们。这让寻址变得显式而直接。
 
 Defold 中的简单 URL 可能如下所示：
-
 ```lua
 "/player"
 ```
 
 它在*概念上*类似于：
-
 ```c#
 GameObject.Find("player")
 ```
@@ -447,20 +443,18 @@ socket: /path #fragment
 ```yaml
 collection: /gameobject #component
 ```
-
 上面的描述中添加空格只是为了直观分隔这 3 部分。
 
 简单来说：
-
 1. `collection:` 标识集合上下文，并以 `:` 结尾。
 2. `/path` 标识 Game Object，并在 ID 前使用 `/`。
 3. `#fragment` 标识该对象上的具体组件（例如 script、sprite 或 collision component），并在 ID 前使用 `#`。
 
-#### 静态地址
+#### 静态地址 {#static-address}
 
 这些标识符在各自创建时确定，之后永不改变，即使你修改父子关系也是如此。你可以在文件的 `Id` 属性中设置它们，或者在运行时通过 `factory.create` 或 `collectionfactory.create` 实例化时获取。
 
-#### 相对寻址
+#### 相对寻址 {#relative-addressing}
 
 你不总是需要使用完整 URL。
 
@@ -469,7 +463,6 @@ collection: /gameobject #component
 ```yaml
 /gameobject #component
 ```
-
 如果要发送到同一个游戏对象内的组件，也可以省略游戏对象部分：
 
 ```yaml
@@ -477,13 +470,12 @@ collection: /gameobject #component
 ```
 
 两个有用的简写：
-
 - `#` 表示发送到当前 *Script* 组件。
 - `.` 表示发送到当前 *Game Object* 中的所有组件。
 
 相对寻址和简写允许你编写可在不同上下文和游戏对象中复用的 URL，而无需指定完整路径。
 
-### 发送消息到 GUI 和 render
+### 发送消息到 GUI 和 render {#messaging-to-gui-and-render}
 
 由于 Defold 将 GUI world 与 Game Object world 分离，你也可以从游戏对象 `.scripts` 向 `.gui_scripts` 发送消息。
 
@@ -497,7 +489,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 
 ---
 
-## Prefabs 和实例
+## Prefabs 和实例 {#prefabs-and-instances}
 
 Unity 可以静态或动态实例化 Scene 中的任何内容，Defold 也可以做到。在 Unity 中，你取一个 Prefab 并调用 `Instantiate(prefab)`。在 Defold 中，有 3 个用于实例化内容的组件：
 
@@ -539,7 +531,7 @@ local spawned_instances = collectionfactory.create("#my_collectionfactory")
 
 更多细节请阅读 [Collection Factory 手册](/manuals/collection-factory/)。
 
-#### 实例的自定义属性
+#### 实例的自定义属性 {#custom-properties-of-instances}
 
 调用 `factory.create()` 或 `collectionfactory.create()` 时，也可以指定可选参数，例如位置、旋转、缩放和脚本属性，从而精确控制实例出现的位置和方式，以及它的行为，例如：
 
@@ -550,7 +542,7 @@ factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 
 可选参数的顺序是先 properties，后 scale。仅缩放 2D 对象的 X 和 Y 轴时，请使用 Z 显式设为 `1.0` 的 `vector3`；数值缩放会统一应用到三个轴。
 
-#### 动态加载
+#### 动态加载 {#dynamic-loading}
 
 在 `Factory` 和 `Collection Factory` 组件中，你可以把 Prototype 标记为动态资源加载，使其较重的资源只在需要时加载到内存，并在不再使用时卸载。
 
@@ -586,7 +578,7 @@ msg.post("#myproxy", "load")
 
 ---
 
-## 应用生命周期
+## 应用生命周期 {#application-lifecycle}
 
 你已经熟悉 Unity 的一组生命周期事件：`Awake`、`Start`、`Update`、`FixedUpdate`、`LateUpdate`、`OnDestroy` 或 `OnApplicationQuit`。
 
@@ -598,7 +590,7 @@ Defold 也有定义明确的应用生命周期，但概念和术语不同。Defo
 |-|-|-|
 | `init()` | `Awake()` / `Start()` / `OnEnable()`| Defold 只有一个初始化入口点和回调：init()。组件创建时都会调用它。 |
 | `on_input` | Input Methods | 当[脚本设置了输入焦点](/manuals/input/#input-focus)时，Defold 会接收输入。它在更新循环中最先处理。 |
-| `fixed_update()` | `FixedUpdate()` | 以固定时间步调用。要在 Defold 中启用它，必须设置 `Use Fixed Timestep`，详见[项目设置](https://defold.com/manuals/project-settings/#use-fixed-timestep)。从 1.12.0 开始，它在 `update()` 前运行。 |
+| `fixed_update()` | `FixedUpdate()` | 以固定时间步长调用。在 Defold 中需要设置 `Use Fixed Timestep` 才能启用，详见[说明](https://defold.com/manuals/project-settings/#use-fixed-timestep)。它在 `update()` 之前运行。 |
 | `update()` | `Update()` | 每帧调用一次，并带有 delta time。 |
 | `late_update()` | `LateUpdate()` | 在 `update()` 后、帧渲染前调用。从 1.12.0 开始可用。 |
 | `on_message` | Message Receiver | Defold 接收消息的核心回调。当队列中有消息时处理。 |
@@ -608,27 +600,27 @@ Defold 也有定义明确的应用生命周期，但概念和术语不同。Defo
 请记住，当多个组件同时初始化、更新或移除时，Defold 不保证它们之间的执行顺序。建议使用解耦设计。
 :::
 
-### 初始化
+### 初始化 {#initialization}
 
 可以把 Defold 的 `init()` 理解为 Unity 中 `Awake()`、`Start()` 和 `OnEnable()` 的组合：这是一个单一入口点，引擎已经设置好一切，你可以安全地准备组件状态。
 
-### 消息何时处理？
+### 消息何时处理？ {#when-messages-are-handled}
 
 因为你已经可以在 `init()` 中发送消息，所以消息会在初始化刚结束后首先分发。
 
 之后，消息会在每个内部处理循环后，只要队列中有内容就被处理。因此 `on_message()` 可能会在一次 update 循环中被调用多次。
 
-### 更新循环
+### 更新循环 {#update-loop}
 
 每一帧，Defold 都会运行一系列操作：处理输入、分发消息、触发脚本和 GUI 更新、应用物理和变换，最后渲染图形。
 
-### 最终化
+### 最终化 {#finalization}
 
 在 Defold 中，清理始终与删除或卸载 world 绑定，而你唯一的组件级退出钩子是 `final()`。
 
 与 Unity 模型相比，一个细微区别是：Defold 不区分组件被禁用和整个应用退出。
 
-### 渲染
+### 渲染 {#rendering}
 
 渲染脚本（`*.render_script`）是渲染管线的一部分，也通过自己的 `init()`、`update()` 和 `on_message()` 回调参与生命周期，但它们运行在渲染线程上，并与游戏对象和 GUI 脚本逻辑分离。
 
@@ -657,20 +649,19 @@ GUI 是一个 Component，并且与 Game Objects 和 Collections 分离。你不
 
 GUI component 有一个用于 GUI scripts 的特殊属性：每个 component 分配一个 `*.gui_script` 文件，用于修改组件行为。因此它与普通 scripts 很相似，只是它不使用 `go.*` 命名空间（该命名空间用于 game object scripts）。它改用只在 GUI scripts（`*.gui_script`）中工作的特殊 `gui.*` 命名空间 API。你可以把它理解为一个独立的 Scene，类似带 Canvas 的 Unity UI (uGUI)。
 
-### GUI 渲染
+### GUI 渲染 {#gui-rendering}
 
 GUI 元素独立于游戏相机渲染，通常在屏幕空间中渲染，但在自定义渲染管线中可以改变此行为。
 
 更多细节请阅读 [GUI 手册](/manuals/gui/)。
 
-## Sorting Layers 在哪里？
+## Sorting Layers 在哪里？ {#where-are-sorting-layers}
 
 这是从 Unity 迁移时非常常见的困惑。
 
 GUI components 有 `Layers`，这几乎与 Unity 中的 "Sorting Layers" 相同，但对 `Sprites`、`Tilemaps`、`Models` 等其他组件来说，没有直接等价物。
 
 通常你会组合使用：
-
 - 使用默认相机时通过 Z 轴进行细粒度排序，或使用 Camera 组件时通过深度排序。
 - 通过渲染脚本中的 render predicates 进行粗粒度排序，按材质标签选择绘制内容。
 
@@ -678,7 +669,7 @@ GUI components 有 `Layers`，这几乎与 Unity 中的 "Sorting Layers" 相同�
 
 ---
 
-## 接下来去哪里？
+## 接下来去哪里？ {#where-to-go-from-here}
 
 - [Defold 示例](/examples)
 - [教程](/tutorials)
