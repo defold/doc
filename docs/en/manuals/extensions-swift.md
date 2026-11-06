@@ -149,9 +149,9 @@ The Swift keys of the `ios` platform apply to both devices and the simulator. A 
 
 ## Minimum OS versions
 
-The Swift runtime is part of iOS 12.2 and later and of macOS 10.14.4 and later. The Swift code is built for the minimum iOS or macOS version of the build, and the application uses the Swift runtime of the operating system. Use an `#available` check before calling APIs that are newer than the minimum version.
+The Swift runtime is part of every iOS and macOS version that Defold supports. The Swift code is built for the minimum iOS or macOS version of the build, and the application uses the Swift runtime of the operating system. Use an `#available` check before calling APIs that are newer than the minimum version.
 
-A few parts of the runtime are part of the operating system only from a later version. For example, Swift concurrency (`async`, `await` and `Task`) is part of iOS 15 and macOS 12. If the minimum version is older and your Swift code uses such a feature, the application needs an extra library to run on those devices. You don't have to do anything for this: the build server finds the libraries that the engine uses, as Xcode does, and adds them to the application. On iOS they are placed in the `Frameworks` folder of the application and are signed together with the rest of its code.
+A few parts of the runtime are part of the operating system only from a later version. For example, `MutableSpan` and related types are part of iOS 26 and macOS 26. If the minimum version is older and your Swift code or a dynamic framework of a package uses such a feature, the application may need an extra library to run on those devices. You don't have to do anything for this: the build server finds the libraries that the engine and the dynamic libraries embedded with it use, as Xcode does, and adds them to the application. On iOS they are placed in the `Frameworks` folder of the application and are signed together with the rest of its code.
 
 The minimum version of a build is the one that the engine supports, which is set by the Defold version and the build server. A `minVersion` in a `SwiftPackages.json` raises it for the packages, the Swift code and the link of the engine, as described in the [Swift Package Manager manual](/manuals/extensions-spm). It can't be lowered.
 
@@ -160,6 +160,7 @@ The minimum version of a build is the one that the engine supports, which is set
 
 * An extension still needs a C++ or Objective-C++ file with `DM_DECLARE_EXTENSION`. Swift code cannot yet register the extension or call the Defold SDK (`dmsdk`) itself. A build with only `.swift` files fails to link with an undefined symbol error named after the extension.
 * Using CocoaPods dependencies from Swift code is not supported. Use them from the Objective-C++ file and pass what is needed to the Swift code.
+* A target of a Swift package with its own `module.modulemap` can't be imported from Swift code, and neither can a Swift target that depends on one. The build fails with a `no such module` or `missing required module` error.
 * Only the Swift 5 language mode is supported. C++ interoperability is not enabled.
 * Swift sources are supported by Defold versions that include this feature. A build server with an older SDK fails with a `Swift sources are not supported by this Defold SDK version` error.
 * Swift sources are not compiled when building the `library` artifact (`--build-artifacts library` in [Bob](/manuals/bob)), so an Objective-C++ file that imports `<Module>-Swift.h` fails to compile there.
@@ -190,6 +191,3 @@ The minimum version of a build is the one that the engine supports, which is set
 
 `invalid 'swiftFlags' value`
 : The value has whitespace, a backslash or template syntax, or names a response file. Put each flag and each value in its own list item.
-
-`Swift sources are not supported for this minimum OS version`
-: The build targets an iOS or macOS version older than iOS 12.2 or macOS 10.14.4, which have no Swift runtime. Use a Defold version with a newer minimum OS version, or remove the Swift sources.
