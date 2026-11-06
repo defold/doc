@@ -169,7 +169,7 @@ The minimum version of a build is the one that the engine supports, which is set
 ## Troubleshooting
 
 `no such module 'Name'`
-: The module is not a product of a package declared in a `SwiftPackages.json`. Check that `products` lists a product that provides the module, as described in the [Swift Package Manager manual](/manuals/extensions-spm).
+: The module is not a product of a package declared in a `SwiftPackages.json`. Check that `products` lists a product that provides the module, as described in the [Swift Package Manager manual](/manuals/extensions-spm). A target with its own `module.modulemap` also gives this error, as listed in the limitations above.
 
 `Swift sources are only supported in the 'src' folder`
 : Move the `.swift` files into the `src` folder of the extension.
