@@ -94,6 +94,8 @@ Excluded content can be anything from entire levels to unlockable characters, sk
 
 ## Android specific size optimizations
 
+To see what your players will actually download, enable the [Google Play download size estimate](/manuals/android/#estimating-the-google-play-download-size) when you bundle. It reports the size Google Play delivers for each CPU architecture, which is smaller than the size of the *`.aab`* file.
+
 Enable [R8 shrinking](/manuals/android/#shrinking-java-code-with-r8) to remove unused Java code. With a compatible Extender server, this also removes unused Android resources from extensions and their dependencies.
 
 Android builds must support both 32-bit and 64-bit CPU architectures. When you [bundle for Android](/manuals/android) you can specify which CPU architectures to include:
