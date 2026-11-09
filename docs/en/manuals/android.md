@@ -58,9 +58,9 @@ Press <kbd>Create Bundle</kbd> when you have configured the application bundle s
 
 ### Estimating the Google Play download size {#estimating-the-google-play-download-size}
 
-Google Play doesn't deliver the *`.aab`* file to players. It generates APKs optimized for each device configuration, so the download a player gets is smaller than the *`.aab`* or the universal *`.apk`*. Check the *Download size estimate* check-box in the Bundle dialog to get the estimated download size when the bundle is created. The estimate works for both the APK and AAB bundle formats.
+Google Play doesn't deliver the *`.aab`* file to players. It generates APKs optimized for each device configuration, so the download a player gets is smaller than the *`.aab`* or the universal *`.apk`*. Check the *Estimate download size* check-box in the Bundle dialog to get the estimated download size when the bundle is created. The estimate works for both the APK and AAB bundle formats.
 
-![Download size estimate](images/android/sign_bundle.png)
+![Estimate download size](images/android/sign_bundle.png)
 
 The estimate is printed to the console:
 
