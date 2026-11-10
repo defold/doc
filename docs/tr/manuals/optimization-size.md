@@ -94,6 +94,8 @@ Dışarıda bırakılan içerik, bölümlerin tamamından kilidi açılabilen ka
 
 ## Android'e özgü boyut optimizasyonları {#android-specific-size-optimizations}
 
+Oyuncularınızın gerçekte ne indireceğini görmek için dağıtım paketi oluştururken [Google Play indirme boyutu tahminini](/manuals/android/#estimating-the-google-play-download-size) etkinleştirin. Bu özellik, Google Play'in her CPU mimarisi için sunduğu ve *`.aab`* dosyasının boyutundan daha küçük olan indirme boyutunu bildirir.
+
 Kullanılmayan Java kodunu kaldırmak için [R8 küçültme işlemini](/manuals/android/#shrinking-java-code-with-r8) etkinleştirin. Uyumlu bir Extender sunucusuyla kullanıldığında bu işlem eklentilerin ve bağımlılıklarının kullanılmayan Android kaynaklarını da kaldırır.
 
 Android derlemeleri hem 32 bit hem de 64 bit CPU mimarilerini desteklemelidir. [Android için dağıtım paketi oluştururken](/manuals/android) hangi CPU mimarilerinin dahil edileceğini belirtebilirsiniz:

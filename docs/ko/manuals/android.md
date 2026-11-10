@@ -56,6 +56,35 @@ Defold는 APK와 AAB 파일 생성을 모두 지원합니다. *Bundle Format* �
 
 ![Android Application Package file](images/android/apk_file.png)
 
+### Google Play 다운로드 크기 추정하기 {#estimating-the-google-play-download-size}
+
+Google Play는 *`.aab`* 파일을 플레이어에게 전달하지 않습니다. 각 기기 구성에 최적화된 APK를 생성하므로 플레이어가 다운로드하는 파일은 *`.aab`* 또는 범용 *`.apk`*보다 작습니다. 번들을 만들 때 예상 다운로드 크기를 확인하려면 Bundle 대화상자에서 *Estimate download size* 체크박스를 선택합니다. 이 추정 기능은 APK와 AAB 번들 포멧 모두에서 사용할 수 있습니다.
+
+![다운로드 크기 추정](images/android/sign_bundle.png)
+
+추정 결과는 콘솔에 출력됩니다.
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+또한 번들 출력 폴더에 `download_size.json`으로 저장됩니다. 이 파일에는 모든 기기 구성에 걸친 최소 및 최대 다운로드 크기가 바이트 단위로 기록되며, 각 CPU 아키텍처별 최소 및 최대 크기도 기록됩니다.
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+커맨드 라인에서 번들링할 때는 `--download-size-report <path>`를 사용해 리포트 파일 경로를 [Bob](/manuals/bob)에 전달합니다. 지속적 통합 환경에서 시간에 따른 게임 다운로드 크기의 변화를 추적하는 데 유용합니다.
+
+추정치는 [bundletool](https://developer.android.com/tools/bundletool)을 사용해, Google Play가 번들에서 생성할 APK를 같은 keystore로 서명한 뒤 계산합니다. 이 APK들을 생성하는 데는 *`.aab`* 파일을 만드는 것과 비슷한 시간이 걸리므로 추정 기능은 기본적으로 비활성화되어 있습니다. 추정에 실패하면 경고가 출력되고 번들은 평소대로 생성되지만, 리포트 파일은 작성되지 않습니다.
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Android 어플리케이션 번들 설치하기

@@ -56,6 +56,35 @@ Defold は APK ファイルと AAB ファイルの両方の作成に対応して
 
 ![Android アプリケーションパッケージファイル](images/android/apk_file.png)
 
+### Google Play のダウンロードサイズの推定 {#estimating-the-google-play-download-size}
+
+Google Play は、*`.aab`* ファイルをそのままプレイヤーに配信するわけではありません。デバイスの構成ごとに最適化した APK を生成するため、プレイヤーがダウンロードするデータのサイズは、*`.aab`* やユニバーサル *`.apk`* より小さくなります。Bundle ダイアログの *Estimate download size* チェックボックスを有効にすると、バンドルの作成時に推定ダウンロードサイズを確認できます。この推定は、APK と AAB の両方のバンドル形式で利用できます。
+
+![ダウンロードサイズの推定](images/android/sign_bundle.png)
+
+推定値はコンソールに出力されます:
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+また、バンドルの出力フォルダーに `download_size.json` として保存されます。このファイルには、すべてのデバイス構成における最小および最大のダウンロードサイズと、CPU アーキテクチャごとの同じ範囲が、バイト単位で記録されます:
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+コマンドラインからバンドルを作成する場合は、`--download-size-report <path>` を使ってレポートファイルのパスを [Bob](/manuals/bob) に渡します。これは、継続的インテグレーションでゲームのダウンロードサイズの推移を追跡する場合に役立ちます。
+
+推定には [bundletool](https://developer.android.com/tools/bundletool) を使います。Google Play がバンドルから生成する APK を、同じキーストアで署名して生成し、その APK から推定値を計算します。APK の生成には *`.aab`* ファイルの作成と同程度の時間がかかるため、推定はデフォルトでは無効です。推定に失敗した場合は警告が出力され、バンドルは通常どおり作成されますが、レポートファイルは書き込まれません。
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Android アプリケーションバンドルのインストール {#installing-an-android-application-bundle}

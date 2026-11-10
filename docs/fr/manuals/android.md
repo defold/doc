@@ -56,6 +56,35 @@ Cliquez sur <kbd>Create Bundle</kbd> lorsque vous avez configuré les paramètre
 
 ![Fichier de paquet d'application Android](images/android/apk_file.png)
 
+### Estimation de la taille du téléchargement sur Google Play {#estimating-the-google-play-download-size}
+
+Google Play ne distribue pas le fichier *`.aab`* aux joueurs. Il génère des APK optimisés pour chaque configuration d'appareil : le téléchargement reçu par un joueur est donc plus petit que le fichier *`.aab`* ou l'*`.apk`* universel. Cochez la case *Estimate download size* dans la boîte de dialogue Bundle pour obtenir une estimation de la taille du téléchargement lors de la création du bundle. L'estimation fonctionne pour les deux formats de bundle, APK et AAB.
+
+![Estimation de la taille du téléchargement](images/android/sign_bundle.png)
+
+L'estimation s'affiche dans la console :
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+Elle est également enregistrée dans le fichier `download_size.json`, dans le dossier de sortie du bundle. Ce fichier contient les tailles minimale et maximale du téléchargement, en octets, pour l'ensemble des configurations d'appareil, ainsi que la même plage pour chaque architecture de processeur :
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+Lorsque vous créez un bundle en ligne de commande, transmettez le chemin du fichier de rapport à [Bob](/manuals/bob) avec `--download-size-report <path>`. Cela permet de suivre l'évolution de la taille du téléchargement de votre jeu en intégration continue.
+
+L'estimation est calculée avec [bundletool](https://developer.android.com/tools/bundletool) à partir des APK que Google Play générerait pour votre bundle, signés avec le même magasin de clés. Leur génération prend à peu près autant de temps que la création du fichier *`.aab`*, ce qui explique pourquoi l'estimation est désactivée par défaut. Si l'estimation échoue, un avertissement s'affiche et le bundle est créé normalement, mais aucun fichier de rapport n'est écrit.
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Installation d'un bundle d'application Android {#installing-an-android-application-bundle}

@@ -56,6 +56,35 @@ Pressione <kbd>Create Bundle</kbd> quando tiver configurado as definições do p
 
 ![Android Application Package file](images/android/apk_file.png)
 
+### Estimando o tamanho do download no Google Play {#estimating-the-google-play-download-size}
+
+O Google Play não entrega o arquivo *`.aab`* aos jogadores. Ele gera APKs otimizados para cada configuração de dispositivo, de modo que o download recebido pelo jogador é menor que o *`.aab`* ou o *`.apk`* universal. Marque a caixa de seleção *Estimate download size* no diálogo de empacotamento para obter o tamanho estimado do download quando o pacote for criado. A estimativa funciona tanto para o formato APK quanto para o AAB.
+
+![Estimar o tamanho do download](images/android/sign_bundle.png)
+
+A estimativa é exibida no console:
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+Ela também é salva como `download_size.json` na pasta de saída do pacote. O arquivo contém os tamanhos mínimo e máximo do download em bytes entre todas as configurações de dispositivo, além do mesmo intervalo para cada arquitetura de CPU:
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+Ao empacotar pela linha de comando, passe o caminho do arquivo de relatório ao [Bob](/manuals/bob) com `--download-size-report <path>`. Isso é útil para acompanhar o tamanho do download do seu jogo ao longo do tempo na integração contínua.
+
+A estimativa é calculada com o [bundletool](https://developer.android.com/tools/bundletool) a partir dos APKs que o Google Play geraria com base no seu pacote, assinados com o mesmo keystore. Gerá-los leva aproximadamente o mesmo tempo que criar o arquivo *`.aab`*, por isso a estimativa fica desativada por padrão. Se a estimativa falhar, um aviso será exibido e o pacote será criado normalmente, mas nenhum arquivo de relatório será gravado.
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Instalando um pacote de aplicativo Android

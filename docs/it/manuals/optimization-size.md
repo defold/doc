@@ -94,6 +94,8 @@ I contenuti esclusi possono comprendere interi livelli oppure personaggi, aspett
 
 ## Ottimizzazioni delle dimensioni specifiche per Android {#android-specific-size-optimizations}
 
+Per vedere che cosa scaricheranno effettivamente i giocatori, abilita la [stima delle dimensioni del download da Google Play](/manuals/android/#estimating-the-google-play-download-size) quando crei il bundle. Riporta le dimensioni del download distribuito da Google Play per ogni architettura CPU, inferiori alle dimensioni del file *`.aab`*.
+
 Abilita la [rimozione del codice inutilizzato con R8](/manuals/android/#shrinking-java-code-with-r8) per rimuovere il codice Java inutilizzato. Con un server Extender compatibile, vengono rimosse anche le risorse Android inutilizzate delle estensioni e delle relative dipendenze.
 
 Le build Android devono supportare architetture CPU sia a 32 bit sia a 64 bit. Quando [crei un bundle per Android](/manuals/android), puoi specificare quali architetture CPU includere:

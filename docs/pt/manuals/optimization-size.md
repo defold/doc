@@ -94,6 +94,8 @@ O conteúdo excluído pode ser qualquer coisa, desde níveis inteiros até perso
 
 ## Otimizações de tamanho específicas do Android
 
+Para ver o que seus jogadores realmente baixarão, ative a [estimativa do tamanho do download no Google Play](/manuals/android/#estimating-the-google-play-download-size) ao empacotar. Ela informa o tamanho que o Google Play entrega para cada arquitetura de CPU, que é menor que o tamanho do arquivo *`.aab`*.
+
 Habilite a [redução com R8](/manuals/android/#shrinking-java-code-with-r8) para remover código Java não utilizado. Com um servidor Extender compatível, isso também remove recursos Android não utilizados das extensões e suas dependências.
 
 Builds Android devem oferecer suporte a arquiteturas de CPU de 32 bits e 64 bits. Ao [empacotar para Android](/manuals/android), você pode especificar quais arquiteturas de CPU incluir:

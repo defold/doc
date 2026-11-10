@@ -94,6 +94,8 @@ Defold 不进行压缩，因此开发人员必须针对每种音频格式专门�
 
 ## Android 特定的大小优化 {#android-specific-size-optimizations}
 
+要了解玩家实际需要下载的大小，请在打包时启用 [Google Play 下载大小估算](/manuals/android/#estimating-the-google-play-download-size)。它会报告 Google Play 为每种 CPU 架构分发的下载大小，该大小小于 *`.aab`* 文件的大小。
+
 启用 [R8 缩减](/manuals/android/#shrinking-java-code-with-r8)可移除未使用的 Java 代码。使用兼容的 Extender 服务器时，还会移除扩展及其依赖中未使用的 Android 资源。
 
 Android 构建必须支持 32 位和 64 位 CPU 架构。当您为 [Android 打包](/manuals/android)时，您可以指定要包含的 CPU 架构：

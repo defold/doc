@@ -94,6 +94,8 @@ All Chars チェックボックスを使う代わりに、使用する文字を�
 
 ## Android 固有のサイズ最適化 {#android-specific-size-optimizations}
 
+プレイヤーが実際にダウンロードするサイズを確認するには、バンドルの作成時に [Google Play のダウンロードサイズの推定](/manuals/android/#estimating-the-google-play-download-size)を有効にします。CPU アーキテクチャごとに Google Play が配信するデータのサイズが報告されます。このサイズは、*`.aab`* ファイルのサイズより小さくなります。
+
 [R8 による縮小](/manuals/android/#shrinking-java-code-with-r8)を有効にすると、未使用の Java コードを削除します。対応する Extender サーバーでは、拡張とその依存関係から未使用の Android リソースも削除します。
 
 Android のビルドは、32ビットと64ビットの両方の CPU アーキテクチャをサポートする必要があります。[Android 向けのバンドルを作成](/manuals/android)するときに、含める CPU アーキテクチャを指定できます:

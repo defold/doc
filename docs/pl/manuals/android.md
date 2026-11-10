@@ -55,6 +55,35 @@ Naciśnij <kbd>Create Bundle</kbd>, gdy skonfigurujesz ustawienia pakietu aplika
 
 ![Android Application Package file](images/android/apk_file.png)
 
+### Szacowanie rozmiaru pobierania z Google Play {#estimating-the-google-play-download-size}
+
+Google Play nie dostarcza graczom pliku *`.aab`*. Generuje pliki APK zoptymalizowane pod kątem konfiguracji poszczególnych urządzeń, więc dane pobierane przez gracza zajmują mniej miejsca niż plik *`.aab`* lub uniwersalny plik *`.apk`*. Zaznacz pole wyboru *Estimate download size* w oknie Bundle, aby podczas tworzenia pakietu uzyskać szacunkowy rozmiar pobieranych danych. Szacowanie działa dla pakietów w formatach APK i AAB.
+
+![Szacowanie rozmiaru pobierania](images/android/sign_bundle.png)
+
+Szacunkowy rozmiar jest wypisywany w konsoli:
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+Jest też zapisywany jako `download_size.json` w folderze wyjściowym pakietu. Plik zawiera minimalny i maksymalny rozmiar pobieranych danych w bajtach dla wszystkich konfiguracji urządzeń oraz taki sam zakres dla każdej architektury CPU:
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+Podczas pakowania z wiersza poleceń przekaż narzędziu [Bob](/manuals/bob) ścieżkę do pliku raportu za pomocą `--download-size-report <path>`. Przydaje się to do śledzenia zmian rozmiaru pobieranej gry w procesie ciągłej integracji.
+
+Do obliczania szacunkowego rozmiaru służy [bundletool](https://developer.android.com/tools/bundletool). Obliczenia opierają się na plikach APK, które Google Play wygenerowałoby z twojego pakietu, podpisanych przy użyciu tego samego keystore. Ich wygenerowanie trwa mniej więcej tyle samo co utworzenie pliku *`.aab`*, dlatego szacowanie jest domyślnie wyłączone. Jeśli oszacowanie się nie powiedzie, pojawi się ostrzeżenie, a pakiet zostanie utworzony jak zwykle, ale plik raportu nie zostanie zapisany.
+
 :[Warianty budowania](../shared/build-variants.md)
 
 ### Instalowanie pakietu aplikacji Android

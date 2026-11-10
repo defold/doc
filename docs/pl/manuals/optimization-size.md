@@ -94,6 +94,8 @@ Wykluczona zawartość może obejmować wszystko, od całych poziomów po odblok
 
 ## Optymalizacje rozmiaru specyficzne dla Androida
 
+Aby zobaczyć, co gracze faktycznie będą pobierać, podczas pakowania włącz [szacowanie rozmiaru pobierania z Google Play](/manuals/android/#estimating-the-google-play-download-size). Funkcja podaje rozmiar danych dostarczanych przez Google Play dla każdej architektury CPU, mniejszy niż rozmiar pliku *`.aab`*.
+
 Włącz [usuwanie nieużywanego kodu przez R8](/manuals/android/#shrinking-java-code-with-r8), aby usunąć nieużywany kod Java. Przy użyciu zgodnego serwera Extender usuwa to również nieużywane zasoby Androida z rozszerzeń i ich zależności.
 
 Kompilacje na Androida muszą obsługiwać zarówno 32-bitowe, jak i 64-bitowe architektury CPU. Podczas [bundlowania dla Androida](/manuals/android) możesz określić, które architektury CPU mają zostać uwzględnione:

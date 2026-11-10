@@ -94,6 +94,8 @@ Defold는 압축을 수행하지 않으므로, 개발자가 각 오디오 포멧
 
 ## Android 전용 크기 최적화
 
+플레이어가 실제로 다운로드할 크기를 확인하려면 번들링할 때 [Google Play 다운로드 크기 추정](/manuals/android/#estimating-the-google-play-download-size)을 활성화합니다. Google Play가 각 CPU 아키텍처에 전달하는 크기를 보여 주며, 이 크기는 *`.aab`* 파일의 크기보다 작습니다.
+
 사용하지 않는 Java 코드를 제거하려면 [R8 축소](/manuals/android/#shrinking-java-code-with-r8)를 활성화합니다. 호환되는 Extender 서버에서는 익스텐션과 그 종속성의 사용하지 않는 Android 리소스도 제거합니다.
 
 Android 빌드는 32비트와 64비트 CPU 아키텍처를 모두 지원해야 합니다. [Android용으로 번들링](/manuals/android)할 때 포함할 CPU 아키텍처를 지정할 수 있습니다.

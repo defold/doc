@@ -56,6 +56,35 @@ Uygulama dağıtım paketi ayarlarını yapılandırdıktan sonra <kbd>Create Bu
 
 ![Android uygulama paketi dosyası](images/android/apk_file.png)
 
+### Google Play indirme boyutunu tahmin etme {#estimating-the-google-play-download-size}
+
+Google Play, oyunculara *`.aab`* dosyasını göndermez. Her cihaz yapılandırması için optimize edilmiş APK dosyaları oluşturur; bu nedenle oyuncunun indirdiği dosya, *`.aab`* dosyasından veya evrensel *`.apk`* dosyasından daha küçüktür. Dağıtım paketi oluşturulurken tahmini indirme boyutunu almak için Bundle iletişim kutusundaki *Estimate download size* onay kutusunu işaretleyin. Tahmin hem APK hem de AAB dağıtım paketi biçimleriyle çalışır.
+
+![İndirme boyutunu tahmin etme](images/android/sign_bundle.png)
+
+Tahmin konsola yazdırılır:
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+Ayrıca dağıtım paketinin çıktı klasörüne `download_size.json` adıyla kaydedilir. Dosya, tüm cihaz yapılandırmaları için bayt cinsinden en düşük ve en yüksek indirme boyutlarını ve her CPU mimarisi için aynı aralığı içerir:
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+Komut satırından dağıtım paketi oluştururken rapor dosyasının yolunu `--download-size-report <path>` seçeneğiyle [Bob'a](/manuals/bob) geçirin. Bu, sürekli tümleştirmede oyununuzun indirme boyutunun zaman içindeki değişimini izlemek için yararlıdır.
+
+Tahmin, Google Play'in dağıtım paketinizden oluşturacağı ve aynı anahtar deposuyla imzalanmış APK dosyalarından [bundletool](https://developer.android.com/tools/bundletool) kullanılarak hesaplanır. Bu dosyaları oluşturmak yaklaşık olarak *`.aab`* dosyasını oluşturmak kadar sürdüğünden tahmin varsayılan olarak kapalıdır. Tahmin başarısız olursa bir uyarı yazdırılır ve dağıtım paketi her zamanki gibi oluşturulur, ancak rapor dosyası yazılmaz.
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Android uygulaması dağıtım paketini kurma {#installing-an-android-application-bundle}

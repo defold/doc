@@ -56,6 +56,35 @@ Klicke auf <kbd>Create Bundle</kbd>, sobald du die Einstellungen für das Anwend
 
 ![Android-Anwendungspaketdatei](images/android/apk_file.png)
 
+### Die Downloadgröße bei Google Play schätzen {#estimating-the-google-play-download-size}
+
+Google Play liefert die *`.aab`*-Datei nicht an Spieler aus. Es erzeugt APKs, die für die jeweilige Gerätekonfiguration optimiert sind. Daher ist der Download, den ein Spieler erhält, kleiner als die *`.aab`*-Datei oder die universelle *`.apk`*-Datei. Aktiviere im Bundle-Dialogfeld das Kontrollkästchen *Estimate download size*, um bei der Bundle-Erstellung eine Schätzung der Downloadgröße zu erhalten. Die Schätzung funktioniert sowohl für das Bundle-Format APK als auch für AAB.
+
+![Downloadgröße schätzen](images/android/sign_bundle.png)
+
+Die Schätzung wird in der Konsole ausgegeben:
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+Sie wird außerdem als `download_size.json` im Ausgabeordner des Bundles gespeichert. Die Datei enthält die minimale und maximale Downloadgröße in Byte über alle Gerätekonfigurationen hinweg sowie denselben Wertebereich für jede CPU-Architektur:
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+Wenn du ein Bundle über die Befehlszeile erstellst, übergib den Pfad der Berichtsdatei mit `--download-size-report <path>` an [Bob](/manuals/bob). Damit kannst du in der kontinuierlichen Integration verfolgen, wie sich die Downloadgröße deines Spiels im Laufe der Zeit verändert.
+
+Die Schätzung wird mit [bundletool](https://developer.android.com/tools/bundletool) aus den APKs berechnet, die Google Play aus deinem Bundle erzeugen würde. Diese werden mit demselben Schlüsselspeicher signiert. Ihre Erstellung dauert ungefähr so lange wie die Erstellung der *`.aab`*-Datei. Deshalb ist die Schätzung standardmäßig deaktiviert. Falls die Schätzung fehlschlägt, wird eine Warnung ausgegeben und das Bundle wie gewohnt erstellt, aber keine Berichtsdatei geschrieben.
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Ein Android-Anwendungs-Bundle installieren {#installing-an-android-application-bundle}

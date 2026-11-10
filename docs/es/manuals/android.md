@@ -56,6 +56,35 @@ Pulsa <kbd>Create Bundle</kbd> cuando hayas configurado las opciones del bundle 
 
 ![Archivo de paquete de aplicación Android](images/android/apk_file.png)
 
+### Estimar el tamaño de descarga de Google Play {#estimating-the-google-play-download-size}
+
+Google Play no entrega el archivo *`.aab`* a los jugadores. Genera APK optimizados para cada configuración de dispositivo, por lo que la descarga que recibe un jugador es menor que el archivo *`.aab`* o el *`.apk`* universal. Marca la casilla *Estimate download size* en el diálogo Bundle para obtener el tamaño estimado de descarga al crear el bundle. La estimación funciona tanto para el formato APK como para AAB.
+
+![Estimar el tamaño de descarga](images/android/sign_bundle.png)
+
+La estimación se muestra en la consola:
+
+```
+Estimated Play Store download size: 18.2 MB - 25.0 MB (arm64-v8a: 25.0 MB, armeabi-v7a: 18.2 MB - 18.9 MB)
+```
+
+También se guarda como `download_size.json` en la carpeta de salida del bundle. El archivo contiene el tamaño mínimo y máximo de descarga en bytes entre todas las configuraciones de dispositivo, y el mismo rango para cada arquitectura de CPU:
+
+```json
+{
+  "min" : 18208826,
+  "max" : 25009450,
+  "abis" : {
+    "arm64-v8a" : { "min" : 25009448, "max" : 25009450 },
+    "armeabi-v7a" : { "min" : 18208826, "max" : 18908828 }
+  }
+}
+```
+
+Al crear el bundle desde la línea de comando, pasa la ruta del archivo de reporte a [Bob](/manuals/bob) con `--download-size-report <path>`. Esto resulta útil para llevar un seguimiento del tamaño de descarga de tu juego a lo largo del tiempo en integración continua.
+
+La estimación se calcula con [bundletool](https://developer.android.com/tools/bundletool) a partir de los APK que Google Play generaría desde tu bundle, firmados con el mismo keystore. Generarlos tarda aproximadamente lo mismo que crear el archivo *`.aab`*, por lo que la estimación está desactivada de forma predeterminada. Si la estimación falla, se muestra una advertencia y el bundle se crea como de costumbre, pero no se escribe ningún archivo de reporte.
+
 :[Build Variants](../shared/build-variants.md)
 
 ### Instalar un bundle de aplicación Android {#installing-an-android-application-bundle}
