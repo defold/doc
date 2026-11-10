@@ -141,6 +141,7 @@ emissive
 emscripten
 Emscripten's
 enum
+enums
 esc
 excitemike
 exe
