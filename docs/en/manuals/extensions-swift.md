@@ -160,7 +160,6 @@ The minimum version of a build is the one that the engine supports, which is set
 
 * An extension still needs a C++ or Objective-C++ file with `DM_DECLARE_EXTENSION`. Swift code cannot yet register the extension or call the Defold SDK (`dmsdk`) itself. A build with only `.swift` files fails to link with an undefined symbol error named after the extension.
 * Using CocoaPods dependencies from Swift code is not supported. Use them from the Objective-C++ file and pass what is needed to the Swift code.
-* A target of a Swift package with its own `module.modulemap` can't be imported from Swift code, and neither can a Swift target that depends on one. The build fails with a `no such module` or `missing required module` error.
 * Only the Swift 5 language mode is supported. C++ interoperability is not enabled.
 * Swift sources are supported by Defold versions that include this feature. A build server with an older SDK fails with a `Swift sources are not supported by this Defold SDK version` error.
 * Swift sources are not compiled when building the `library` artifact (`--build-artifacts library` in [Bob](/manuals/bob)), so an Objective-C++ file that imports `<Module>-Swift.h` fails to compile there.
@@ -169,7 +168,7 @@ The minimum version of a build is the one that the engine supports, which is set
 ## Troubleshooting
 
 `no such module 'Name'`
-: The module is not a product of a package declared in a `SwiftPackages.json`. Check that `products` lists a product that provides the module, as described in the [Swift Package Manager manual](/manuals/extensions-spm). A target with its own `module.modulemap` also gives this error, as listed in the limitations above.
+: The module is not a product of a package declared in a `SwiftPackages.json`. Check that `products` lists a product that provides the module, as described in the [Swift Package Manager manual](/manuals/extensions-spm).
 
 `Swift sources are only supported in the 'src' folder`
 : Move the `.swift` files into the `src` folder of the extension.
