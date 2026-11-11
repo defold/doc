@@ -72,6 +72,8 @@ local play_properties = { blend_duration = 0.1 }
 model.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
 ```
 
+Models can play multiple skeletal animations at the same time using animation layers. For example, play a running animation on the base layer and a waving animation on a layer masked to the upper body. Create a definition with [`model.animation_layer()`](/ref/model#model.animation_layer) and pass its handle in the `layer` option to `model.play_anim()`. See [Playing multiple animations](/manuals/model-animation#playing-multiple-animations) for a complete example, bone masks, blending and layer cleanup.
+
 The animation playback cursor can be animated either by hand or through the property animation system:
 
 ```lua
@@ -101,6 +103,15 @@ A model also has a number of different properties that can be manipulated using 
 
 `textureN`
 : The model textures where N is 0-15 (`hash`). You can read these properties with `go.get()` and change them using a texture resource property and `go.set()`. Defold supports at most 16 textures per draw, but the number usable by a shader may be lower on graphics adapters with a smaller texture-sampler limit.
+
+The `animation`, `cursor` and `playback_rate` properties address the base animation by default. To access an additional layer, use its name hash as the `key`:
+
+```lua
+local cursor = go.get("#model", "cursor", { key = hash("upper_body") })
+go.set("#model", "playback_rate", 0.5, { key = hash("upper_body") })
+```
+
+The layer must already be playing or holding a completed pose on this model. Property access uses the layer name rather than the handle returned by `model.animation_layer()`. See [Reading and changing layer playback](/manuals/model-animation#reading-and-changing-layer-playback).
 
 
 ## Material

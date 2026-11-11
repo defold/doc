@@ -15,7 +15,7 @@ For details on how to import 3D data into a Model for animation, see the [Model 
 
 ## Playing animations
 
-Models are animated with the [`model.play_anim()`](/ref/model#model.play_anim) function:
+Models are animated with the [`model.play_anim()`](/ref/model#model.play_anim) function. Without a layer option, the animation plays on the base layer:
 
 ```lua
 function init(self)
@@ -42,7 +42,7 @@ function init(self)
 end
 ```
 
-Morph target data can be used on its own or together with skeletal animation, but a model component can only play one model animation at a time. This means that you cannot play one skeletal animation and one separate morph target animation at the same time using `model.play_anim()`. If a model has animation data but no skeleton, only morph target animation data will be used.
+Morph target data can be used on its own or together with skeletal animation. Morph weights are animated by the base layer. [Additional animation layers](#playing-multiple-animations) affect only the skeleton and ignore morph weight tracks, so separate morph target clips cannot be played on additional layers. You can play a morph target clip on the base layer while playing skeletal clips on additional layers. If a model has animation data but no skeleton, only morph target animation data will be used, and additional layers are unavailable.
 
 You can still combine skeletal animation playback with morph target changes that come from other sources, for example by setting morph target weights from script with `model.set_blend_weights()`.
 
@@ -195,9 +195,115 @@ go.set("#model", "cursor", 0)
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 3)
 ```
 
+## Playing multiple animations
+
+Animation layers let a model play several skeletal animations at the same time. For example, a character can run on the base layer while waving on an upper-body layer. Each layer has its own animation, cursor, playback rate and completion callback.
+
+Create a layer definition with [`model.animation_layer()`](/ref/model#model.animation_layer), then pass its numeric handle in the `layer` option to `model.play_anim()`. Creating the definition does not start playback or attach it to a model.
+
+The following example assumes the model's animation set contains `run` and `wave`, and its skeleton has a bone named `spine`. Replace these names with the names from your assets:
+
+```lua
+local function wave_done(self, message_id, message, sender)
+    if message.layer == hash("upper_body") then
+        -- Reveal the running animation beneath the upper-body layer.
+        model.cancel("#model", { layer = self.upper_body })
+    end
+end
+
+function init(self)
+    self.upper_body = model.animation_layer("upper_body", {
+        order = 1,
+        weight = 1,
+        bones = { "spine" }
+    })
+
+    -- Run on the base layer.
+    model.play_anim("#model", "run", go.PLAYBACK_LOOP_FORWARD)
+
+    -- Wave with the spine and its descendants while the legs keep running.
+    model.play_anim("#model", "wave", go.PLAYBACK_ONCE_FORWARD, {
+        layer = self.upper_body,
+        blend_duration = 0.15
+    }, wave_done)
+end
+
+function final(self)
+    model.destroy_animation_layer(self.upper_body)
+end
+```
+
+### Layer definitions and bone masks
+
+A layer name can be a string or hash. The options passed to `model.animation_layer()` describe how the layer affects the pose:
+
+| Option | Description |
+|---|---|
+| `order` | Required positive integer. The base layer is evaluated first, followed by additional layers in increasing order. |
+| `weight` | Influence from `0` to `1`, defaulting to `1`. A weight of `0` leaves the pose unchanged, but playback and completion still occur. |
+| `bones` | Optional array of bone names, as strings or hashes. Each listed bone and all its descendants are included. Omit the option or use an empty array to affect all bones. |
+
+Names and orders must each be unique among the layers attached to a particular model. Bone names must exist in that model's skeleton. Playing another animation with the same handle replaces playback on that layer; creating a different definition with a conflicting name or order and playing it on the same model raises an error.
+
+The bone mask selects local bone transforms. A selected bone still inherits movement from its parents, even when those parents are animated by another layer. Within the mask, channels missing from the layer's animation use the skeleton's rest transforms.
+
+A layer blends its pose over the result of the layers below it. With a weight of `1`, it fully overrides the selected bones; a smaller weight blends between the underlying pose and the layer's pose. Weights are not normalized across layers, and layers do not add animation offsets together. Later layers can override earlier layers where their masks overlap.
+
+Definitions are immutable: changing the options table after creation does not change the layer. You can reuse one handle on several models, including models with different skeletons if the selected bone names exist in each. Each model keeps independent playback state, so playing, changing the cursor or cancelling the layer on one model does not affect the others. Keep shared definitions alive until all code that uses their handles is finished with them.
+
+### Blending and completion
+
+When a layer first starts playing, `blend_duration` fades its influence from zero to its configured weight. Playing another animation on the same layer uses `blend_duration` to crossfade between that layer's clips. Replacing a clip does not restart the layer's initial fade-in. The base animation and other layers continue playing independently.
+
+Playing an animation without the `layer` option changes only the base animation. It does not remove additional layers.
+
+A layer that finishes a once-mode animation holds its final pose until you play another animation on it or cancel it. Completion does not automatically remove the layer. The example above cancels the waving layer in its completion callback so that the running animation becomes visible again. See [Completion callbacks](#completion-callbacks) for the completion message fields.
+
+### Reading and changing layer playback
+
+Use the layer's **name hash** in the options to `go.get()` and `go.set()`:
+
+```lua
+local options = { key = hash("upper_body") }
+local animation = go.get("#model", "animation", options)
+local cursor = go.get("#model", "cursor", options)
+local playback_rate = go.get("#model", "playback_rate", options)
+
+go.set("#model", "cursor", 0.5, options)
+go.set("#model", "playback_rate", 0.5, options)
+```
+
+`animation` is read-only. `cursor` is normalized from `0` to `1`, and `playback_rate` is a speed multiplier; setting a negative rate clamps it to `0`. These properties describe playback on the target model, not the shared layer definition. During a crossfade, they address the incoming animation.
+
+Omit the options to access the base animation. Property access uses the layer name, while `model.play_anim()` and `model.cancel()` use the numeric handle. A handle is not a valid property key. The layer must be attached to the target model before you access its properties; an unknown or cancelled layer raises an error.
+
+### Cancelling and destroying layers
+
+Cancel one layer using its handle:
+
+```lua
+model.cancel("#model", { layer = self.upper_body })
+```
+
+The layer's contribution disappears on the next pose update, revealing the base and remaining layers. Its completion callback is not invoked. The handle stays valid and can be used to play the layer again. Cancelling a valid layer that is not attached to the model has no effect.
+
+Call `model.cancel("#model")` without a layer to cancel all animations on that model, freeze the base pose and remove all additional layers.
+
+When you no longer need a definition, release it with [`model.destroy_animation_layer()`](/ref/model#model.destroy_animation_layer). To remove its contribution on the next pose update, cancel it before destroying the handle:
+
+```lua
+model.cancel("#model", { layer = self.upper_body })
+model.destroy_animation_layer(self.upper_body)
+self.upper_body = nil
+```
+
+Destroying a handle invalidates it, including for further play, cancel or destroy calls. It does not stop existing playback on any model: models retain the definition while the layer is attached, including when it holds a completed pose. Property access by name remains available while the layer is attached. After destroying the handle, you can remove retained layers with `model.cancel()` without a layer, or by destroying or reloading their model.
+
+Discarding the numeric handle or running Lua garbage collection does not release the definition. Use explicit destruction, as in the `final()` function of the first example. Definitions that have not been explicitly destroyed are released when their script context is finalized.
+
 ## Completion callbacks
 
-The model animation `model.play_anim()`) support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
+The `model.play_anim()` function supports an optional Lua callback as its last argument. It is called when a once-mode animation finishes. Looping animations do not invoke it, and cancelling an animation with `model.cancel()` or replacing it with another animation on the same layer does not invoke the old callback. The callback can be used to trigger events on animation completion or to chain animations together.
 
 ```lua
 local function wiggle_done(self, message_id, message, sender)
@@ -206,6 +312,22 @@ end
 
 function init(self)
     model.play_anim("#model", "wiggle", go.PLAYBACK_ONCE_FORWARD, nil, wiggle_done)
+end
+```
+
+The callback receives a [`model_animation_done`](/ref/model#model_animation_done) message with `animation_id` and `playback`. For an additional layer, `message.layer` contains the layer's name hash, so you can distinguish the same clip playing on different layers. For the base animation, `message.layer` is absent (`nil`).
+
+If you omit the callback, the message is sent to the script that started the animation and can be handled in `on_message()`:
+
+```lua
+function on_message(self, message_id, message, sender)
+    if message_id == hash("model_animation_done") then
+        if message.layer == hash("upper_body") then
+            -- A once-mode animation finished on the upper-body layer.
+        elseif message.layer == nil then
+            -- A once-mode animation finished on the base layer.
+        end
+    end
 end
 ```
 
