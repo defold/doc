@@ -28,7 +28,7 @@ A lo largo del tutorial, las descripciones detalladas sobre conceptos y cómo ha
 
 Empieza creando un [proyecto nuevo](/manuals/project-setup/) y abriéndolo en el editor. Si haces doble click en el archivo *main/main.collection*, el archivo se abrirá:
 
-![Editor overview](../manuals/images/editor/editor2_overview.png)
+![Editor overview](../manuals/images/editor/editor_overview.png)
 
 El editor consta de las siguientes áreas principales:
 

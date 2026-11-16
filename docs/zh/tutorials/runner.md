@@ -49,7 +49,7 @@ brief: 本教程将从一个空项目开始，构建一个完整的跑酷游戏�
 
 现在，在*Assets pane*中，您将看到属于项目的所有文件。如果您双击"main/main.collection"文件，该文件将在中心的编辑器视图中打开：
 
-![编辑器概览](images/runner/1/editor2_overview.png)
+![编辑器概览](images/runner/1/editor_overview.png)
 
 编辑器由以下主要区域组成：
 

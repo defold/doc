@@ -232,15 +232,15 @@ Defold compiles and runs a `.script` file only once at startup as a single chunk
 
 This is different from a local variable declared at the top of a Defold `.script` file - as it is then shared by **all instances** of that script. In Godot, static variables (`static var`) map to Defold's file-level local variables.
 
-![Difference between instance and local data in Defold](images/godot/self_local.png)
+![Difference between instance and local data in Defold](images/lua/self_local.png)
 
-In the above example, if you changed a single instance's `self.has_shield` to true, it would not affect the other instances, so only one enemy could wear a shield. On the other hand, the local variable `color` is shared for all scripts, so used by all instances, so if you changed it to a different color, this could affect all instances.
+In the above example, if you changed a single instance's `self.has_shield` to `true`, it would not affect the other instances, so only one enemy could wear a shield. On the other hand, the local variable `color` is shared for all scripts, so used by all instances, so if you changed it to a different color, this could affect all instances.
 
 ### Properties
 
 For an editable instance's **property**, use `go.property()`. Such a property lands in the `self` table. Like `@export`, this exposes a value in the editor. In Defold you will see them in `Properties`:
 
-![Properties in Defold Editor](images/godot/properties.png)
+![Properties in Defold Editor](images/script-properties/properties.png)
 
 For comparison, in Godot **GDScript**, attached to a `Node3D`:
 
@@ -561,7 +561,7 @@ Read more about [Resource management in the manual](/manuals/resource/).
 
 Godot's `InputMap` corresponds to Defold's `.input_binding` file. You can assign a device (keyboard, gamepad, mouse, touch, text) trigger to an action name, and select the binding file under **Input ▸ Game Binding** in `game.project`.
 
-![Setup for input bindings in Defold](images/godot/defold_input.png)
+![Input bindings](images/input/defold_input.png)
 
 In Defold, the receiving game object must **acquire input focus**. This places it on the input stack. Its script and GUI components can then receive `on_input()` callbacks.
 
@@ -618,13 +618,17 @@ A Kinematic object in Defold is not quite exactly the same as a `CharacterBody2D
 
 Groups and Masks use names rather than numbered collision layers. **Both objects must include the other's group in their masks** for a collision to be registered.
 
-![Collision Groups and Masks in Defold](images/godot/defold_collision_groups.png)
+![Collision Groups and Masks in Defold](images/physics/collision_groups.png)
 
 By default, collision objects send messages to scripts on their game objects. Handle `"collision_response"`, `"contact_point_response"`, or `"trigger_response"` in `on_message()`. Trigger messages include an `enter` field to distinguish entry from exit. Collision and contact messages can recur while objects remain in contact, so do not assume each message represents a new hit.
 
 You can also handle physics events through a [collision events listener](/manuals/physics-events/). You have to choose one approach deliberately, as using a listener replaces the default physics message dispatch, and messages won't be sent anymore.
 
-Read the [Physics overview](/manuals/physics/), [Collision objects](/manuals/physics-objects/), [Collision messages](/manuals/physics-messages/), and [Ray casts](/manuals/physics-ray-casts/) for the supported interactions and APIs.
+There are different primitive and complex collision shapes available. Read more in the [Shapes manual](/manuals/physics-shapes).
+
+![Mesh shape](images/physics/mesh.png)
+
+Read the [Physics overview](/manuals/physics/), [Collision objects](/manuals/physics-objects/), [Collision messages](/manuals/physics-messages/), and [Ray casts](/manuals/physics-ray-casts/) for more information and APIs.
 
 ---
 

@@ -49,7 +49,7 @@ Düzenleyiciyi ilk kez başlattığınızda hiçbir proje açık olmadan boş ol
 
 Artık *Assets* bölmesinde projenin parçası olan bütün dosyaları göreceksiniz. "main/main.collection" dosyasına çift tıklarsanız dosya ortadaki düzenleyici görünümünde açılır:
 
-![Düzenleyiciye genel bakış](images/runner/1/editor2_overview.png)
+![Düzenleyiciye genel bakış](images/runner/1/editor_overview.png)
 
 Düzenleyici şu ana alanlardan oluşur:
 

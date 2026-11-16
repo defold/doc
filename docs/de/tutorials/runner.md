@@ -49,7 +49,7 @@ Beim ersten Start ist der Editor leer, ohne geöffnetes Projekt. Wähle deshalb 
 
 Im Bereich *Assets pane* siehst du nun alle Dateien, die zum Projekt gehören. Wenn du auf die Datei "main/main.collection" doppelklickst, wird sie in der Editoransicht in der Mitte geöffnet:
 
-![Übersicht des Editors](images/runner/1/editor2_overview.png)
+![Übersicht des Editors](images/runner/1/editor_overview.png)
 
 Der Editor besteht aus den folgenden Hauptbereichen:
 

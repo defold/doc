@@ -28,7 +28,7 @@ In questo tutorial, le spiegazioni dettagliate dei concetti e di come eseguire d
 
 Inizia creando un [nuovo progetto](/manuals/project-setup/) e aprendolo nell'editor. Fai doppio clic sul file *main/main.collection* per aprirlo:
 
-![Panoramica dell'editor](../manuals/images/editor/editor2_overview.png)
+![Panoramica dell'editor](../manuals/images/editor/editor_overview.png)
 
 L'editor è composto dalle seguenti aree principali:
 

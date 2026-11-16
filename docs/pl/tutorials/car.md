@@ -28,7 +28,7 @@ W całym samouczku szczegółowe opisy pojęć i sposobu wykonywania niektórych
 
 Zacznij od utworzenia [nowego projektu](/manuals/project-setup/) i otwarcia go w edytorze. Jeśli dwukrotnie klikniesz plik *main/main.collection*, zostanie on otwarty w edytorze:
 
-![Przegląd edytora](../manuals/images/editor/editor2_overview.png)
+![Przegląd edytora](../manuals/images/editor/editor_overview.png)
 
 Edytor składa się z następujących głównych obszarów:
 

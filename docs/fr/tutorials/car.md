@@ -28,7 +28,7 @@ Tout au long du tutoriel, les descriptions détaillées des concepts et de la ma
 
 Commencez par créer un [nouveau projet](/manuals/project-setup/) et ouvrez-le dans l'éditeur. Double-cliquez sur le fichier *main/main.collection* pour l'ouvrir :
 
-![Vue d'ensemble de l'éditeur](../manuals/images/editor/editor2_overview.png)
+![Vue d'ensemble de l'éditeur](../manuals/images/editor/editor_overview.png)
 
 L'éditeur se compose des principales zones suivantes :
 

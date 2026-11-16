@@ -17,7 +17,7 @@ La registrazione dei log nella console o sullo schermo mostra informazioni solo 
 
 Quando esegui il gioco localmente dall'editor o tramite una connessione all'[app di sviluppo per dispositivi mobili](/manuals/dev-app), tutto l'output viene mostrato nel pannello della console dell'editor:
 
-![Editor 2](images/editor/editor2_overview.png)
+![Editor 2](images/editor/editor_overview.png)
 
 ## Leggere il log di gioco dal terminale {#reading-the-game-log-from-the-terminal}
 

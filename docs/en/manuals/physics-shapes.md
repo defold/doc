@@ -7,32 +7,42 @@ brief: Collision objects can contain primitive shapes, hulls or triangle meshes,
 
 A collision object can contain several embedded shapes. In 3D physics these can include hulls and triangle meshes from glTF or GLB files. You can also use a tilemap or a convex shape resource through the collision object's *Collision Shape* property.
 
-### Primitive shapes
-The primitive shapes are *box*, *sphere* and *capsule*. You add a primitive shape by <kbd>right clicking</kbd> the collision object and selecting <kbd>Add Shape</kbd>:
+Different collision shapes are available for 2D and 3D physics. You can configure the physics type in the `Physics` section of the `game.project` file using the `Type` setting (`2D`/`3D`):
 
-![Add a primitive shape](images/physics/add_shape.png)
+![Physics settings](images/physics/physics_settings.png)
 
-## Box shape
-A box has a position, rotation and dimensions (width, height and depth):
 
+### Collision shapes
+
+You add a shape by <kbd>right-clicking</kbd> the collision object and selecting <kbd>Add Shape</kbd>:
+
+![Add a primitive shape when using 2D physics](images/physics/collision_shapes_2d.png)
+
+The shapes when using 2D physics are:
+- **Circle** (position, rotation and diameter)
+![Circle shape](images/physics/circle.png)
+- **Rectangle** (position, rotation and 2 dimensions (depth is ignored))
+![Rectangle shape](images/physics/rectangle.png)
+
+Similarly, when using 3D physics:
+
+![Add a primitive shape when using 3D physics](images/physics/collision_shapes_3d.png)
+
+The shapes when using 3D physics are:
+- **Box** (position, rotation and 3 dimensions)
 ![Box shape](images/physics/box.png)
-
-## Sphere shape
-A sphere has a position, rotation and diameter:
-
+- **Capsule** (position, rotation, diameter and height)
+![Capsule shape](images/physics/capsule.png)
+- **Hull** (position, rotation, scene and mesh)
+![Hull shape](images/physics/hull.png)
+- **Mesh** (position, rotation, scene and mesh)
+![Mesh shape](images/physics/mesh.png)
+- **Sphere** (position, rotation and diameter)
 ![Sphere shape](images/physics/sphere.png)
 
-## Capsule shape
-A capsule has a position, rotation, diameter and height:
-
-![Sphere shape](images/physics/capsule.png)
-
-::: important
-Capsule shapes are only supported when using 3D physics (configured in the Physics section of the *game.project* file).
-:::
-
 ### Complex shapes
-Complex shapes can use tilemap geometry or convex hull data. 3D collision objects can also create hulls and triangle mesh shapes from meshes in glTF or GLB scenes.
+
+Complex shapes can use tilemap geometry or convex hull data. Since Defold 1.13.2, 3D collision objects can also create hulls and triangle mesh shapes from meshes in glTF or GLB scenes.
 
 ## Hull and mesh shapes in 3D
 

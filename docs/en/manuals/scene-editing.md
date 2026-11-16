@@ -176,6 +176,8 @@ Use the camera toggle in the toolbar to switch. In 3D scenes, perspective naviga
 
 For fast 3D navigation, the Scene Editor provides **Free Camera Mode**, a first-person / “FPS-style” camera.
 
+![Free Camera Mode](images/editor/free_camera.png)
+
 ### Activating Free Camera Mode
 
 - Hold <kbd>Right Mouse Button</kbd> — Free Camera Mode is active as long as the button is held

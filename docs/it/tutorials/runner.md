@@ -49,7 +49,7 @@ Al primo avvio, l'editor è vuoto e non ha alcun progetto aperto: scegli quindi 
 
 Nel *pannello Assets* vedrai tutti i file che fanno parte del progetto. Facendo doppio clic sul file "main/main.collection", questo si aprirà nella vista dell'editor al centro:
 
-![Panoramica dell'editor](images/runner/1/editor2_overview.png)
+![Panoramica dell'editor](images/runner/1/editor_overview.png)
 
 L'editor è composto dalle seguenti aree principali:
 

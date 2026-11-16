@@ -18,6 +18,8 @@ Common use cases are to set the health or speed of a specific enemy AI, the tint
 
 Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any lifecycle functions like `init()` and `update()`. The default value provided for the property governs the type of the property: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
 
+![Properties in Defold Editor](images/script-properties/properties.png)
+
 ::: important
 Note that the reversal of the hash value works only in the Debug build to facilitate debugging. In the Release build, the reversed string value does not exist, so using `tostring()` on a `hash` value to extract the string from it is meaningless.
 :::
@@ -53,7 +55,7 @@ Any script component instance created from this script can then set the property
 
  Select the script component in the *Outline* view in the editor and the properties appear in the *Properties* view allowing you to edit them:
 
-![Properties](images/script-properties/properties.png)
+![Properties](images/script-properties/properties2.png)
 
 Any property that is overridden with a new instance specific value is marked blue. Click the reset button by the property name to revert the value to the default (as set in the script).
 

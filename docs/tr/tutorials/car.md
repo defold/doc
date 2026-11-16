@@ -28,7 +28,7 @@ Boş bir projeyle başlayıp adım adım çok küçük, oynanabilir bir uygulama
 
 [Yeni bir proje](/manuals/project-setup/) oluşturup düzenleyicide açarak başlayın. *main/main.collection* dosyasına çift tıklarsanız dosya açılır:
 
-![Düzenleyiciye genel bakış](../manuals/images/editor/editor2_overview.png)
+![Düzenleyiciye genel bakış](../manuals/images/editor/editor_overview.png)
 
 Düzenleyici şu ana alanlardan oluşur:
 

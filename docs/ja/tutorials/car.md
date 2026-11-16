@@ -28,7 +28,7 @@ Defold を初めて使う方に向けて、エディターの基本的な使い�
 
 まず、[新しいプロジェクト](/manuals/project-setup/)を作成して、エディターで開きます。*main/main.collection* ファイルをダブルクリックすると、次のようにファイルが開きます。
 
-![エディターの概要](../manuals/images/editor/editor2_overview.png)
+![エディターの概要](../manuals/images/editor/editor_overview.png)
 
 エディターは、次の主な領域で構成されています。
 

@@ -11,7 +11,10 @@ For a collision between two objects to register both objects must mutually speci
 
 ![Physics collision group](images/physics/collision_group.png)
 
+![Physics collision groups and masks](images/physics/collision_groups.png)
+
 The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
 
 ## Detecting collisions
+
 When two collision objects with matching groups and masks collide the physics engine will generate [collision messages](/manuals/physics-messages) that can be used in games to react to collisions.
