@@ -146,6 +146,10 @@ Choose <kbd>Debug ▸ Reset Simulated Resolution</kbd> to return to the configur
 
 Windows for the selected running engine instances are resized to the project's [Display Width and Height](/manuals/project-settings/#display). You can also reset with no engine running; the next launch uses the configured size. Moving or resizing the window afterward saves its new placement again.
 
+## 2D and 3D scene orientation
+
+:[2D and 3D scene orientation](../shared/2d-and-3d-scene-orientation.md)
+
 ## Panes Size and Visibility
 
 Panes size can be adjusted inside the Editor by <kbd>Dragging</kbd> the section borders between all described above 6 Panes.
