@@ -64,31 +64,25 @@ Araç, 3B modunda hem perspektif hem de ortografik izdüşümle kullanılabilir.
 
 ## 2B ve 3B sahne yönelimi {#2d-and-3d-scene-orientation}
 
-Sahne görünümü hem 2B hem de 3B iş akışlarında kullanılabilir:
-
-- **2B** çalışırken genellikle 2B yönelimli bir ızgaraya sahip ortografik görünüm kullanırsınız.
-- **3B** çalışırken genellikle:
-  - Görünümü 3B yönelime yeniden hizalarsınız,
-  - **Perspektif** kamera kullanırsınız,
-  - Uygun bir ızgara düzlemi seçersiniz ("zemin" için genellikle **Y**).
+:[2B ve 3B sahne yönelimi](../shared/2d-and-3d-scene-orientation.md)
 
 Bu işlevlere araç çubuğundan ve **View** menüsünden erişebilirsiniz. 3B modunda görünümü bir eksene hizalamak veya fareyle yörüngede döndürmek için [eksen kontrol aracını](#axis-gizmo) kullanın.
 
-![3B sahne düzenleyicisi](images/editor/3d_scene.png)
-
 ## Araç çubuğuna genel bakış {#toolbar-overview}
 
-Sahne görünümünün sağ üst köşesinde, sık kullanılan araçları ve görünüm seçeneklerini içeren bir araç çubuğu bulunur (soldan sağa):
+Sahne görünümünün sağ üst köşesinde sık kullanılan araçları ve görünüm seçeneklerini içeren bir araç çubuğu vardır.
 
-- **Move tool** (<kbd>W</kbd>)
-- **Rotate tool** (<kbd>E</kbd>)
-- **Scale tool** (<kbd>R</kbd>)
-- **Grid Settings** (`▦`)
-- **Align/Realign Camera 2D/3D** (`2D`) — 2B ve 3B yönelim arasında geçiş yapar (kısayol <kbd>.</kbd>)
-- **Camera Perspective/Orthographic**
-- **Visibility Filters** (`👁`)
+![Toolbar](images/editor/toolbar.png)
 
-![Araç çubuğu](images/editor/toolbar.png)
+Araç çubuğundaki numaralı seçenekler soldan sağa şöyledir:
+
+1. **Move tool** (<kbd>W</kbd>) - Seçili nesneleri taşır.
+2. **Rotate tool** (<kbd>E</kbd>) - Seçili nesneleri döndürür.
+3. **Scale tool** (<kbd>R</kbd>) - Seçili nesneleri yeniden boyutlandırır.
+4. **Grid** - Izgarayı gösterir veya gizler. Açılır menü Grid Settings ayarlarını açar.
+5. **2D mode** (`2D`) - 2B ve 3B yönelimi arasında geçiş yapar. **Realign Camera** (<kbd>.</kbd>) da kullanılabilir.
+6. **Perspective camera** - 3B perspektif ve ortografik izdüşüm arasında geçiş yapar. Açılır menü kamera ayarlarını açar.
+7. **Visibility filters** - Bileşen türlerini ve kılavuzları gösterir veya gizler.
 
 ## Nesneleri seçme ve değiştirme {#manipulating-objects}
 
@@ -181,6 +175,8 @@ Aralarında geçiş yapmak için araç çubuğundaki kamera düğmesini kullanı
 ## Serbest kamera modu {#free-camera-mode}
 
 Sahne düzenleyicisi, 3B sahnelerde hızlı gezinmek için birinci şahıs / "FPS tarzı" bir kamera olan **serbest kamera modunu (Free Camera Mode)** sunar.
+
+![Serbest kamera modu](images/editor/free_camera.png)
 
 ### Serbest kamera modunu etkinleştirme {#activating-free-camera-mode}
 

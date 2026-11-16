@@ -56,25 +56,7 @@ Ou iniciar um novo a partir de:
 
 Quando você criar seu primeiro projeto e/ou abri-lo, ele será aberto no Defold Editor.
 
-## Hello World
-
-Esta é uma forma rápida de fazer algo no Defold: siga os passos e depois volte para ler o restante do manual.
-
-1. Selecione um projeto vazio em `Templates`, dê um nome em `Title`, escolha um local e crie-o clicando em `Create New Project`. Ele será aberto no Defold Editor.
-![Hello World Step 1](images/unity/helloworld_1.png)
-2. No lado esquerdo, no painel `Assets`, abra a pasta `main` e dê duplo clique em `main.collection` para abri-la.
-3. No lado direito, no painel `Outline`, clique com o botão direito em `Collection` e selecione `Add Game Object`.
-![Hello World Step 2](images/unity/helloworld_2.png)
-4. Clique com o botão direito no objeto de jogo `go` criado, selecione `Add Component` e depois `Label`.
-![Hello World Step 3](images/unity/helloworld_3.png)
-5. Abaixo, no lado esquerdo, no painel `Properties`, digite algo na propriedade `Text`.
-6. Na visualização principal e central da cena, arraste, mova e solte o label para uma posição em torno de `(480,320,0)`, ou altere isso em `Properties`: `Position`.
-![Hello World Step 4](images/unity/helloworld_4.png)
-7. Depois de alterar a posição do label, salve o projeto clicando em `File` -> `Save All` ou usando o atalho <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>Cmd</kbd>+<kbd>S</kbd> no Mac).
-8. Compile seu projeto clicando em `Project` -> `Build` ou usando o atalho <kbd>Ctrl</kbd>+<kbd>B</kbd> (<kbd>Cmd</kbd>+<kbd>B</kbd> no Mac).
-![Hello World Step 5](images/unity/helloworld_5.png)
-
-Você acabou de compilar seu primeiro projeto no Defold e deve ver seu texto na janela. Os conceitos de objeto de jogo e componente devem ser familiares para você. As coleções, outline, propriedades e o motivo de termos movido um pouco o label na direção superior direita são explicados abaixo.
+:[Hello World](../shared/hello-world.md)
 
 ---
 
@@ -88,13 +70,9 @@ A primeira diferença que você notará entre Unity e Defold é o layout padrão
 
 ![Editor Comparison](images/unity/defold_unity_editor.png)
 
-Por padrão, o Defold Editor abre em uma pré-visualização 2D ortográfica. Se você vai trabalhar em um projeto 3D, ou apenas quer uma experiência mais próxima do Unity, recomendamos mudar de 2D para 3D desmarcando o alternador `2D` na barra de ferramentas e alterando a projeção da câmera para perspectiva marcando o alternador `Perspective`:
+### Orientação de cena 2D e 3D {#2d-and-3d-scene-orientation}
 
-![Defold Toolbar](images/unity/defold_2d.png)
-
-Você também pode ajustar as `Grid Settings` na barra de ferramentas para usar o plano `Y`, como no Unity:
-
-![Defold 3D settings](images/unity/defold_3d.png)
+:[Orientação de cena 2D e 3D](../shared/2d-and-3d-scene-orientation.md)
 
 ### Visão geral dos painéis do Defold
 

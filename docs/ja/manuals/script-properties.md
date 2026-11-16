@@ -18,6 +18,8 @@ brief: このマニュアルでは、スクリプトコンポーネントにカ�
 
 スクリプトプロパティは、特殊な関数 `go.property()` で定義することでスクリプトコンポーネント（script component）に追加します。この関数はトップレベル、つまり `init()` や `update()` などのライフサイクル関数の外側で使用する必要があります。プロパティに指定するデフォルト値によって、そのプロパティの型が決まります。型には `number`、`boolean`、`string`、`hash`、`msg.url`、`vmath.vector3`、`vmath.vector4`、`vmath.quaternion`、`resource` があります（下記を参照）。
 
+![プロパティ](images/script-properties/properties.png)
+
 ::: important
 ハッシュ値から元の文字列を逆引きできるのは、デバッグを容易にするための Debug ビルドだけです。Release ビルドには逆引き用の文字列の値が存在しないため、`tostring()` を `hash` 値に使用して文字列を取り出そうとしても意味がありません。
 :::
@@ -53,7 +55,7 @@ end
 
  エディターの *Outline* ビューでスクリプトコンポーネントを選択すると、*Properties* ビューにプロパティが表示され、編集できるようになります。
 
-![プロパティ](images/script-properties/properties.png)
+![プロパティ](images/script-properties/properties2.png)
 
 インスタンス固有の新しい値で上書きされたプロパティは、青色で表示されます。プロパティ名の横にあるリセットボタンをクリックすると、値がデフォルト（スクリプトで設定した値）に戻ります。
 

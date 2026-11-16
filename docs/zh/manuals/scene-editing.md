@@ -64,31 +64,25 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
 
 ## 2D 和 3D 场景方向 {#2d-and-3d-scene-orientation}
 
-场景视图可用于 2D 和 3D 工作流：
-
-- 在 **2D** 中，通常使用带有 2D 网格的正交视图。
-- 在 **3D** 中，通常会：
-  - 将视图重新对齐到 3D 方向，
-  - 使用**透视**摄像机，
-  - 选择合适的网格平面（通常用 **Y** 表示“地面”）。
+:[2D 和 3D 场景方向](../shared/2d-and-3d-scene-orientation.md)
 
 这些功能可通过工具栏和 **View** 菜单访问。在 3D 模式下，使用[坐标轴控件](#axis-gizmo)可将视图对齐到坐标轴，或通过鼠标环绕观察。
 
-![Scene Editor 3D](images/editor/3d_scene.png)
-
 ## 工具栏概览 {#toolbar-overview}
 
-场景视图右上角有一个工具栏，包含常用工具和视图选项（从左到右）：
-
-- **移动工具**（<kbd>W</kbd>）
-- **旋转工具**（<kbd>E</kbd>）
-- **缩放工具**（<kbd>R</kbd>）
-- **网格设置**（`▦`）
-- **对齐/重新对齐 2D/3D 摄像机**（`2D`）— 在 2D 和 3D 方向之间切换（快捷键 <kbd>.</kbd>）
-- **摄像机透视/正交**
-- **可见性过滤器**（`👁`）
+场景视图的右上角有一个工具栏，包含常用工具和视图选项。
 
 ![Toolbar](images/editor/toolbar.png)
+
+工具栏中从左到右编号的选项如下：
+
+1. **Move tool** (<kbd>W</kbd>) - 移动所选对象。
+2. **Rotate tool** (<kbd>E</kbd>) - 旋转所选对象。
+3. **Scale tool** (<kbd>R</kbd>) - 调整所选对象的大小。
+4. **Grid** - 显示或隐藏网格。下拉菜单可打开 Grid Settings。
+5. **2D mode** (`2D`) - 切换 2D 和 3D 方向。也可使用 **Realign Camera**（<kbd>.</kbd>）。
+6. **Perspective camera** - 在 3D 中切换透视投影和正交投影。下拉菜单可打开摄像机设置。
+7. **Visibility filters** - 显示或隐藏组件类型和辅助线。
 
 ## 选择和操作对象 {#manipulating-objects}
 
@@ -181,6 +175,8 @@ Scene Editor 支持两种摄像机：
 ## 自由摄像机模式 {#free-camera-mode}
 
 为了快速进行 3D 导航，Scene Editor 提供 **Free Camera Mode**，即第一人称 / “FPS 风格”的摄像机。
+
+![自由摄像机模式](images/editor/free_camera.png)
 
 ### 激活自由摄像机模式 {#activating-free-camera-mode}
 

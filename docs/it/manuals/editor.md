@@ -146,6 +146,10 @@ Scegli <kbd>Debug ▸ Reset Simulated Resolution</kbd> per tornare alle dimensio
 
 Le finestre delle istanze in esecuzione selezionate vengono ridimensionate secondo [Display Width e Height](/manuals/project-settings/#display) del progetto. Puoi eseguire il ripristino anche senza un motore in esecuzione; il lancio successivo userà le dimensioni configurate. Spostare o ridimensionare in seguito la finestra ne salva nuovamente il posizionamento.
 
+## Orientamento della scena in 2D e 3D {#2d-and-3d-scene-orientation}
+
+:[Orientamento della scena in 2D e 3D](../shared/2d-and-3d-scene-orientation.md)
+
 ## Dimensioni e visibilità dei pannelli {#panes-size-and-visibility}
 
 Puoi regolare le dimensioni dei pannelli nell'editor <kbd>trascinando</kbd> i bordi delle sezioni che separano i 6 pannelli descritti sopra.

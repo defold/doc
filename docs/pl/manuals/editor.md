@@ -149,6 +149,10 @@ Wybierz <kbd>Debug ▸ Reset Simulated Resolution</kbd>, aby wrócić do skonfig
 
 Okna wybranych działających instancji silnika są zmieniane do wartości [Display Width i Height](/manuals/project-settings/#display) projektu. Reset można wykonać również bez uruchomionego silnika; następne uruchomienie użyje skonfigurowanego rozmiaru. Późniejsze przesunięcie lub zmiana rozmiaru okna ponownie zapisze jego nowy stan.
 
+## Orientacja sceny 2D i 3D {#2d-and-3d-scene-orientation}
+
+:[Orientacja sceny 2D i 3D](../shared/2d-and-3d-scene-orientation.md)
+
 ## Rozmiar i widoczność paneli
 
 Rozmiar paneli można zmieniać w edytorze przez <kbd>Dragging</kbd> granic pomiędzy opisanymi wyżej sześcioma panelami.

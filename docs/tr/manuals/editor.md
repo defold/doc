@@ -146,6 +146,10 @@ Yapılandırılmış boyuta dönmek için <kbd>Debug ▸ Reset Simulated Resolut
 
 Seçili çalışan motor örneklerinin pencereleri, projenin [Display Width ve Height](/manuals/project-settings/#display) boyutlarına getirilir. Hiçbir motor çalışmıyorken de sıfırlayabilirsiniz; sonraki başlatmada yapılandırılmış boyut kullanılır. Daha sonra pencereyi taşımak veya yeniden boyutlandırmak yeni yerleşimini tekrar kaydeder.
 
+## 2B ve 3B sahne yönelimi {#2d-and-3d-scene-orientation}
+
+:[2B ve 3B sahne yönelimi](../shared/2d-and-3d-scene-orientation.md)
+
 ## Bölme boyutu ve görünürlüğü {#panes-size-and-visibility}
 
 Düzenleyicide bölmelerin boyutunu, yukarıda açıklanan 6 bölme arasındaki sınırları <kbd>sürükleyerek</kbd> ayarlayabilirsiniz.

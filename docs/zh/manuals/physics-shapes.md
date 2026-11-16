@@ -7,32 +7,52 @@ brief: 碰撞对象可以包含基本形状、凸包或三角网格，也可以�
 
 碰撞对象可以包含多个内嵌形状。在 3D 物理中，这些形状可以包括来自 glTF 或 GLB 文件的凸包和三角网格。您也可以通过碰撞对象的 *Collision Shape* 属性使用瓦片地图或凸形状资源。
 
-### 基本形状 {#primitive-shapes}
-基本形状有 *盒形*、*球形* 和 *胶囊形*。您可以通过<kbd>右键单击</kbd>碰撞对象并选择<kbd>Add Shape</kbd>来添加基本形状：
+2D 和 3D 物理支持不同的碰撞形状。可在 `game.project` 的 `Physics` 部分通过 `Type`（`2D`/`3D`）设置物理类型：
 
-![Add a primitive shape](images/physics/add_shape.png)
+![物理设置](images/physics/physics_settings.png)
 
-## 盒形 {#box-shape}
-盒形具有位置、旋转和尺寸（宽度、高度和深度）：
+### 碰撞形状 {#collision-shapes-list}
 
-![Box shape](images/physics/box.png)
+右键单击碰撞对象并选择 <kbd>Add Shape</kbd>，即可添加形状：
 
-## 球形 {#sphere-shape}
-球形具有位置、旋转和直径：
+![2D](images/physics/collision_shapes_2d.png)
 
-![Sphere shape](images/physics/sphere.png)
+2D 物理形状：
 
-## 胶囊形 {#capsule-shape}
-胶囊形具有位置、旋转、直径和高度：
+- **Circle** (位置, 旋转, 直径)
 
-![Sphere shape](images/physics/capsule.png)
+![Circle](images/physics/circle.png)
 
-::: important
-胶囊形仅在启用3D物理时受支持（在*game.project*文件的物理部分配置）。
-:::
+- **Rectangle** (位置, 旋转, 2 尺寸, 忽略深度)
+
+![Rectangle](images/physics/rectangle.png)
+
+3D 物理形状：
+
+![3D](images/physics/collision_shapes_3d.png)
+
+- **Box** (位置, 旋转, 3 尺寸)
+
+![Box](images/physics/box.png)
+
+- **Capsule** (位置, 旋转, 直径, 高度)
+
+![Capsule](images/physics/capsule.png)
+
+- **Hull** (位置, 旋转, 场景, 网格)
+
+![Hull](images/physics/hull.png)
+
+- **Mesh** (位置, 旋转, 场景, 网格)
+
+![Mesh](images/physics/mesh.png)
+
+- **Sphere** (位置, 旋转, 直径)
+
+![Sphere](images/physics/sphere.png)
 
 ### 复杂形状 {#complex-shapes}
-复杂形状可以使用瓦片地图几何体或凸包数据。3D 碰撞对象还可以根据 glTF 或 GLB 场景中的网格创建凸包和三角网格形状。
+复杂形状可以使用瓦片地图几何体或凸包数据。自 Defold 1.13.2 起，3D 碰撞对象还可以从 glTF 或 GLB 场景中的网格创建凸包和三角网格形状。
 
 ## 3D 中的凸包和网格形状 {#hull-and-mesh-shapes-in-3d}
 

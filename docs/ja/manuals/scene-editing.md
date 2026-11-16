@@ -64,31 +64,25 @@ brief: シーンエディターでは、コレクション、ゲームオブジ�
 
 ## 2D と 3D のシーンの向き {#2d-and-3d-scene-orientation}
 
-シーンビューは、2D と 3D の両方のワークフローで使用できます。
-
-- **2D** では、通常、2D 向けのグリッドを表示した正投影ビューで作業します。
-- **3D** では、通常、次のように設定します。
-  - ビューの向きを 3D 向けに変更します。
-  - **透視投影** カメラを使用します。
-  - 適切なグリッド平面を選択します（「地面」には **Y** を使用することがよくあります）。
+:[2D と 3D のシーンの向き](../shared/2d-and-3d-scene-orientation.md)
 
 これらの機能は、ツールバーと **View** メニューから使えます。3D モードでは、[軸ギズモ](#axis-gizmo)で表示を軸に揃えたり、マウスで周回したりできます。
 
-![3D のシーンエディター](images/editor/3d_scene.png)
-
 ## ツールバーの概要 {#toolbar-overview}
 
-シーンビューの右上には、よく使うツールと表示オプションを備えたツールバーがあります（左から右の順）。
+シーンビューの右上には、よく使うツールと表示オプションを備えたツールバーがあります。
 
-- **Move tool**（<kbd>W</kbd>）
-- **Rotate tool**（<kbd>E</kbd>）
-- **Scale tool**（<kbd>R</kbd>）
-- **Grid Settings**（`▦`）
-- **Align/Realign Camera 2D/3D**（`2D`）— 2D と 3D の向きを切り替えます（ショートカットは <kbd>.</kbd>）。
-- **Camera Perspective/Orthographic**
-- **Visibility Filters**（`👁`）
+![Toolbar](images/editor/toolbar.png)
 
-![ツールバー](images/editor/toolbar.png)
+ツールバーの番号付きオプションは左から次のとおりです。
+
+1. **Move tool** (<kbd>W</kbd>) - 選択したオブジェクトを移動します。
+2. **Rotate tool** (<kbd>E</kbd>) - 選択したオブジェクトを回転します。
+3. **Scale tool** (<kbd>R</kbd>) - 選択したオブジェクトのサイズを変更します。
+4. **Grid** - グリッドを表示または非表示にします。メニューから Grid Settings を開きます。
+5. **2D mode** (`2D`) - 2D と 3D の向きを切り替えます。**Realign Camera**（<kbd>.</kbd>）も使用できます。
+6. **Perspective camera** - 3D の透視投影と正投影を切り替えます。メニューからカメラ設定を開きます。
+7. **Visibility filters** - コンポーネントの種類とガイドを表示または非表示にします。
 
 ## オブジェクトの選択と操作 {#manipulating-objects}
 
@@ -181,6 +175,8 @@ brief: シーンエディターでは、コレクション、ゲームオブジ�
 ## フリーカメラモード {#free-camera-mode}
 
 3D 内をすばやく移動できるよう、シーンエディターには一人称視点の「FPS スタイル」のカメラである **フリーカメラモード** が用意されています。
+
+![フリーカメラモード](images/editor/free_camera.png)
 
 ### フリーカメラモードの有効化 {#activating-free-camera-mode}
 

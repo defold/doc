@@ -146,6 +146,10 @@ Tools ペインは、統合デバッガーの操作にも使用します。詳�
 
 選択した実行中のエンジンインスタンスのウィンドウは、プロジェクトの [Display の Width と Height](/manuals/project-settings/#display) に合わせてサイズを変更します。エンジンを実行していない状態でもリセットでき、次回の起動で設定したサイズを使います。その後ウィンドウを移動したりサイズを変更したりすると、新しい配置を再び保存します。
 
+## 2D と 3D のシーンの向き {#2d-and-3d-scene-orientation}
+
+:[2D と 3D のシーンの向き](../shared/2d-and-3d-scene-orientation.md)
+
 ## ペインのサイズと表示 {#panes-size-and-visibility}
 
 エディター内で、上記の6つのペインを区切る境界線を<kbd>ドラッグ</kbd>すると、ペインのサイズを調整できます。

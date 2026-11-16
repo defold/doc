@@ -146,6 +146,10 @@ Wähle <kbd>Debug ▸ Reset Simulated Resolution</kbd>, um zur konfigurierten Gr
 
 Die Fenster der ausgewählten laufenden Engine-Instanzen werden auf die [Display Width und Height](/manuals/project-settings/#display) des Projekts gesetzt. Du kannst das Zurücksetzen auch ohne laufende Engine ausführen; der nächste Start verwendet dann die konfigurierte Größe. Wenn du das Fenster danach verschiebst oder seine Größe änderst, wird die neue Platzierung erneut gespeichert.
 
+## Szenenausrichtung in 2D und 3D {#2d-and-3d-scene-orientation}
+
+:[Szenenausrichtung in 2D und 3D](../shared/2d-and-3d-scene-orientation.md)
+
 ## Größe und Sichtbarkeit der Bereiche {#panes-size-and-visibility}
 
 Du kannst die Größe der Bereiche im Editor anpassen, indem du die Trennlinien zwischen den 6 oben beschriebenen Bereichen <kbd>ziehst</kbd>.

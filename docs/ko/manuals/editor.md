@@ -146,6 +146,10 @@ Tools pane은 통합 디버거와 상호작용하는 데에도 사용됩니다. 
 
 선택한 실행 중 엔진 인스턴스의 창 크기를 프로젝트의 [Display Width와 Height](/manuals/project-settings/#display)에 맞춥니다. 엔진이 실행 중이지 않아도 초기화할 수 있으며, 다음 실행에서 설정된 크기를 사용합니다. 이후 창을 이동하거나 크기를 바꾸면 새 배치를 다시 저장합니다.
 
+## 2D와 3D 씬 방향 {#2d-and-3d-scene-orientation}
+
+:[2D와 3D 씬 방향](../shared/2d-and-3d-scene-orientation.md)
+
 ## 창 크기와 표시 여부
 
 창 크기는 위에서 설명한 6개 창 사이의 섹션 경계를 <kbd>Dragging</kbd>해서 에디터 안에서 조정할 수 있습니다.

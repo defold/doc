@@ -146,6 +146,10 @@ Tools 面板也用于与集成调试器交互。更多内容请阅读[调试手�
 
 选中的运行中引擎实例窗口会调整为项目的 [Display Width 和 Height](/manuals/project-settings/#display)。也可以在没有引擎运行时重置；下次启动会使用配置的大小。此后再次移动或调整窗口大小，就会重新保存其布局。
 
+## 2D 和 3D 场景方向 {#2d-and-3d-scene-orientation}
+
+:[2D 和 3D 场景方向](../shared/2d-and-3d-scene-orientation.md)
+
 ## 面板大小和可见性 {#panes-size-and-visibility}
 
 可以在编辑器中 <kbd>Dragging</kbd> 上述 6 个面板之间的分隔边界，调整面板大小。
