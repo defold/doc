@@ -86,7 +86,7 @@ Godot's usual 2D screen coordinates have positive Y pointing **down**. Keep this
 
 ![Coordinates difference between Defold and Godot in 2D](images/godot/godot_6.png)
 
-On the other hand, in 3D mode Godot has the upward axis as positive Y. This is the same as in Defold, because Defold keeps the same coordinate system in 3D - Defold **is** basically a 3D engine only, with orthographic projections with the XY plane available for classic 2D setup. You can set up your camera in Defold differently.
+In Godot's 3D coordinate system, positive Y points up, as it does in Defold. Defold supports both 2D and 3D games using a shared 3D coordinate system; a typical 2D setup uses the XY plane with an orthographic projection. You can configure the camera differently if needed.
 
 ![Coordinates similarity between Defold and Godot in 3D](images/godot/godot_7.png)
 
@@ -111,7 +111,7 @@ In Defold, a **Game Object** is a *container* for Components, that supplies:
 -  **identity**
 - **transform** (position, rotation, scale)
 
-Therefore it might look and feel similar to a `Node3D` (or a Scene with it). Because Defold is a 3D game engine, even if you're making a 2D game, you have transforms in all 3 directions, so there is no `Node2D` equivalent.
+A game object can serve a role similar to a `Node2D` or `Node3D` in Godot. Defold has no separate 2D game-object type: all game objects use a 3D transform, including those in 2D games.
 
 An important distinction between Defold and Godot is that Game Objects can have child or parent relationships with other Game Objects only inside **Collections**. We'll explain Collections in more detail below. You can parent Game Objects to other Game Objects to make them inherit transforms. Note that this does not change the Game Objects' addresses.
 
