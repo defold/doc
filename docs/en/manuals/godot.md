@@ -215,7 +215,7 @@ Godot calls children's `_ready()` before their parent's. Defold does not guarant
 
 If you intend to use `fixed_update()`, set **Engine ▸ Fixed Update Frequency** to a positive value in `game.project`, such as 60 and enable **Physics ▸ Use Fixed Timestep**.
 
-Defold also provides `late_update(self, dt)` for work after all other updates and transforms calculations, just before a frame is rendered (useful for adjusting camera after all game objects' positions are set, etc).
+Defold also provides `late_update(self, dt)` for work after regular updates and before rendering, such as adjusting a camera. A final transform update can still follow it if needed.
 
 Note that disabling a component is different from deleting it.
 
@@ -374,7 +374,7 @@ Importantly, the Defold message is addressed to the GUI **component**, not direc
 
 Both screenshots show the initial text `Score: 0`. These example scripts replace the entire text with the numeric value after a score change.
 
-The `msg.post()` does not immediately (not "in-place", but practically - in the same frame) call the receiver and does not return a result from the receiving script. If the receiver needs to reply, it can post another message to the original sender using the sender URL supplied to `on_message()`.
+`msg.post()` queues the message for later dispatch instead of immediately calling the receiver, and it does not return a result from the receiving script. Messages are often dispatched within the same frame, but this is not guaranteed: dispatch passes are bounded, so a long message chain may extend beyond the frame. If the receiver needs to reply, it can post another message to the original sender using the sender URL supplied to `on_message()`. See [Message chains](/manuals/message-passing/#message-chains) for details.
 
 There is also a difference when communicating with multiple listeners. A Godot signal can be connected to several methods, and emitting it notifies all connected listeners. A Defold message is sent to a particular address. To notify multiple recipients, the sender can post separate messages or the game can implement a subscription system.
 
@@ -910,7 +910,7 @@ See [Hot reload](/manuals/hot-reload/) and [Modules](/manuals/modules/) for more
 
 Defold's collection proxies can load and unload entire game worlds. Unloading a world removes its game objects and their script component instances.
 
-However, Lua modules are not owned by a particular collection in the same way as Godot's Autoload. Modules loaded through `require()` are cached in the shared Lua environment and can continue holding data after the collection that originally used them has been unloaded.
+Both Godot Autoload state and cached Lua-module state can persist across level changes. Autoload nodes remain in the scene tree when the current scene changes; modules loaded through `require()` can retain data after the collection that used them is unloaded. Reset shared state explicitly when needed. Unlike an Autoload node, a Lua module does not receive lifecycle, message, or input callbacks automatically.
 
 See [Collection proxy](/manuals/collection-proxy/) and [Modules](/manuals/modules/) for more details.
 
