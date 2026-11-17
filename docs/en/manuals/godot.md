@@ -86,7 +86,7 @@ Godot's usual 2D screen coordinates have positive Y pointing **down**. Keep this
 
 ![Coordinates difference between Defold and Godot in 2D](images/godot/godot_6.png)
 
-In Godot's 3D coordinate system, positive Y points up, as it does in Defold. Defold supports both 2D and 3D games using a shared 3D coordinate system; a typical 2D setup uses the XY plane with an orthographic projection. You can configure the camera differently if needed.
+In Godot's 3D coordinate system, positive Y points up, as it does in Defold. Defold supports both 2D and 3D games using a shared 3D coordinate system. A typical 2D setup uses the XY plane with an orthographic projection. You can configure the camera differently if needed.
 
 ![Coordinates similarity between Defold and Godot in 3D](images/godot/godot_7.png)
 
@@ -115,7 +115,7 @@ A game object can serve a role similar to a `Node2D` or `Node3D` in Godot. Defol
 
 An important distinction between Defold and Godot is that Game Objects can have child or parent relationships with other Game Objects only inside **Collections**. We'll explain Collections in more detail below. You can parent Game Objects to other Game Objects to make them inherit transforms. Note that this does not change the Game Objects' addresses.
 
-In a collection, a game object can be defined directly in the `.collection` file as an **embedded** object, or added as a reference to a reusable `.go` prototype. Editing an embedded object's definition changes that collection; it does not change other independently defined objects. Editing a `.go` prototype updates the instances that reference it, subject to any instance-specific overrides. Referenced component resources can also be shared, even by embedded objects, so edits to those resources can affect other objects using them. If a collection is reused, changes to its embedded objects appear wherever that collection is referenced.
+In a collection, a game object can be defined directly in the `.collection` file as an **embedded** object, or added as a reference to a reusable `.go` prototype. Editing an embedded object's definition changes that collection, but it does not change other independently defined objects. Editing a `.go` prototype updates the instances that reference it, subject to any instance-specific overrides. Referenced component resources can also be shared, even by embedded objects, so edits to those resources can affect other objects using them. If a collection is reused, changes to its embedded objects appear wherever that collection is referenced.
 
 ### Components
 
@@ -147,7 +147,7 @@ Because components are flat and decoupled from custom scripts, Defold packs them
 
 ### Collections and worlds
 
-A **Collection** describes game objects, their components, and their parent-child relationships. You can include collections inside other collections to reuse a group of objects. It's similar to a Nested Scene in Godot.
+A **Collection** describes game objects, their components, and their parent-child relationships. You can include collections inside other collections to reuse a group of objects. It's similar to a Nested Scene in Godot. Defold does not provide Godot's general-purpose inherited-scene workflow. Instead, reuse prototypes and collections, and customize instances through properties or scripts.
 
 Note that a collection file is not a runtime entity. There is no collection object you can call methods on, and no root node corresponding to the collection itself. A collection is only this - a file - with the definitions Defold is using to create instances of game objects with components and their hierarchy at runtime.
 
@@ -522,7 +522,15 @@ end
 
 The Defold function returns an object **identifier** - it's not an object with methods. Pass it to `go` functions, or construct a component URL with `msg.url(nil, id, "controller")` if the spawned object has a script component named `controller`.
 
-A collection factory returns a table mapping prototype object ids to spawned ids. Keep this table if you need to delete the spawned objects later, as described in [Deleting a hierarchy](#deleting-a-hierarchy).
+A collection factory returns a table mapping prototype object ids to spawned ids. Keep it to delete the spawned objects later:
+
+```lua
+local ids = collectionfactory.create("#collection_factory")
+-- Later, when the spawned objects are no longer needed:
+go.delete(ids)
+```
+
+Unlike Godot's `queue_free()`, `go.delete(id)` does not recursively delete children by default. Use `go.delete(id, true)` to delete an object and its current descendants. Passing the factory's table to `go.delete(ids)` deletes the listed objects without recursively deleting other objects parented to them later. Recursive deletion of a known root also deletes any other objects currently parented beneath it. See [`go.delete()`](/ref/go/#go.delete).
 
 Defold allocates capacity for game objects and components in advance. If spawning fails because a limit is reached, check **Collection ▸ Max Instances** and the relevant component limits in `game.project`. Increasing every limit also increases memory use.
 
@@ -756,7 +764,7 @@ See [Libraries](/manuals/libraries/), [Editor scripts](/manuals/editor-scripts/)
 
 In Defold you can Hot Reload a running game. Build and run the game, edit a supported resource, save it, and then choose **File ▸ Hot Reload** to update it. Hot reload also works with a targeted debug build on a device.
 
-Note that reloading a script does not call `init()` again. Existing instance data remains, so a new initialization value will not automatically appear on `self`. Use `on_reload(self)` if you need to adjust existing state, or rebuild when you need a fresh start. Lua modules have additional reload considerations described in the [Modules manual](/manuals/modules/).
+Note that reloading a script does not call `init()` again. Existing instance data remains, so a new initialization value will not automatically appear on `self`. Use `on_reload(self)` if you need to adjust existing state, or rebuild when you need a fresh start. Reloading a Lua module that returns a new table does not replace references to the old table held by other scripts. See the [Modules manual](/manuals/modules/) for more details.
 
 Read [Hot reload manual](/manuals/hot-reload/).
 
@@ -778,161 +786,51 @@ See [Automation](/manuals/automation/), [Editor HTTP API](/manuals/editor-http-a
 
 ### Treating a collection as a root node
 
-Defold collections serve a different purpose than a root node of a scene in Godot. A `.collection` file describes a group of **game objects**, their components, and their relationships. When the collection is instantiated, Defold **creates** those game objects in runtime, but the collection itself does not become a separate runtime game object with its own script or transform.
-
-Therefore, you cannot attach a script to the collection itself and call methods on it as you would with a Godot scene root. Instead, create a dedicated game object, such as `level_controller`, with a script responsible for coordinating the level.
-
-Use collections to organize and reuse content. Use game objects and their scripts to control behavior.
-
-See [Building blocks](/manuals/building-blocks/) and [Collection proxy](/manuals/collection-proxy/) for more details.
+A Defold collection describes game objects and their relationships, but it does not become a runtime root object. To coordinate the objects in a level, add a game object with its own script. See [Collections and worlds](#collections-and-worlds).
 
 ### Deleting a hierarchy
 
-In Godot, `queue_free()` deletes a node and its descendants. In Defold, `go.delete(id)` does not recursively delete child game objects by default. To delete a game object and its current descendant hierarchy, pass `true`:
-
-```lua
-go.delete(id, true)
-```
-
-A collection factory can spawn several game objects without a single root. Keep the table returned by `collectionfactory.create()` and pass it to `go.delete()` to delete all objects in that table:
-
-```lua
-local ids = collectionfactory.create("#collection_factory")
--- Later, when the spawned objects are no longer needed:
-go.delete(ids)
-```
-
-This deletes the listed objects without recursively deleting other objects that may have been parented to them later. Alternatively, recursively delete a known root if its current hierarchy contains everything you want to remove; that also includes any other objects parented beneath it.
-
-See [`go.delete()`](/ref/go/#go.delete) and [Collection factory](/manuals/collection-factory/) for details.
+In Godot, `queue_free()` also deletes the node's descendants. In Defold, `go.delete(id)` leaves child game objects in place unless you request recursive deletion. See [Factories](#factories) for an example and for cleanup of objects spawned by a collection factory.
 
 ### Expecting scene inheritance
 
-Reuse prototypes and nested collections, and put shared behavior in modules. Defold does not reproduce Godot's inherited scene workflow.
-
-Godot makes extensive use of reusable scenes. Defold also supports reusable content, but its workflow is different.
-
-A `.go` file defines a reusable game object prototype. A `.collection` file can define a reusable group of objects, including parent-child relationships. These can be placed in other collections or spawned dynamically using factories and collection factories. Components can also be saved in your project as files that can then be referenced in other game objects.
-
-However, Defold does not provide the same general-purpose inherited-scene editing workflow found in Godot. You should not expect to derive a new collection from an existing one and freely override its internal structure in the same way as an inherited Godot scene.
-
-Instead, reuse prototypes and customize instances through script properties, component settings, or messages.
-
-Shared behavior can also be moved into Lua modules, allowing multiple enemy types to use the same logic without duplicating code.
-
-See [Building blocks](/manuals/building-blocks/), [Script properties](/manuals/script-properties/), and [Modules](/manuals/modules/) for more details.
+Defold does not provide the same inherited-scene workflow as Godot, so you cannot freely override a derived scene's structure in the same way. You can reuse prototypes and collections and customize instances through properties or scripts. See [Collections and worlds](#collections-and-worlds).
 
 ### Calling another script through an object reference
 
-In Godot, it is common to retrieve another node and call a method on its script:
-
-```gdscript
-get_node("../HUD").set_score(10)
-```
-
-This works because the retrieved node exposes methods defined by its attached script.
-
-Defold does not generally expose another script component's functions for direct invocation in this way. Instead, scripts typically communicate through the message system.
-
-There is an important distinction: Defold also allows scripts to read or modify certain game object, component, and declared script properties using functions such as `go.get()` and `go.set()`. You do not need a message for every property change. However, these functions do not provide general access to arbitrary Lua functions inside another script instance.
-
-If several scripts need to perform the same calculation, it may be better to move that calculation into a Lua module instead of exchanging messages.
-
-See [Message passing](/manuals/message-passing/), [Addressing](/manuals/addressing/), and [Script properties](/manuals/script-properties/) for more details.
+A Defold game object identifier does not provide general access to functions in another script instance. Use messages to communicate between components, or put shared functions in a Lua module. See [Messages and addressing](#messages-and-addressing) and [Autoloads and shared state](#autoloads-and-shared-state).
 
 ### Keeping instance state in a top-level local
 
-In Godot, a variable declared in a script normally belongs to each instance of the node carrying that script.
-
-In Defold, top-level local variables in a script file are shared between component instances using that file. This can lead to unexpected behavior when multiple game objects use the same script.
-
-A local declared inside a function belongs to that function call. The issue specifically concerns persistent variables declared at the top level of a script file.
-
-Lua modules also have shared state when their exported tables are reused through require().
-
-Store per-object state in `self`. Use top-level `local` variables for constants, helper functions, or deliberately shared data.
-
-See [Scripts](/manuals/script/) and [Modules](/manuals/modules/) for more details.
+A top-level local variable in a script file is shared by instances using that file. Changing it for one instance can therefore affect the others. Store individual instance state in `self`, as explained in [Instance data vs local data](#instance-data-vs-local-data).
 
 ### Assuming input is enabled automatically
 
-In Godot, a node with an appropriate input callback can receive input according to the engine's input routing and processing rules.
+A Defold game object must acquire input focus before its components can receive input. For a proxy-loaded world, the object holding the proxy also needs focus. See [Input](#input) for bindings, focus, and input-stack behavior.
 
-Defold requires an additional step: the relevant game object must acquire input focus.
+### Expecting automatic sliding from a kinematic collider
 
-First, define an action in the project's input bindings. If the input binding is missing, or the game object has not acquired input focus, the expected callback will not receive the action.
-
-Input focus also controls priority. Defold maintains an input stack, and input actions are dispatched through that stack. A script can return true from `on_input()` to consume an action and prevent it from reaching listeners below it.
-
-This is useful for menus. For example, an active pause menu can consume input so that pressing a button does not also move the player.
-
-Games using collection proxies require additional care. A dynamically loaded world has its own input stack, but input must first reach the collection proxy component in the parent world. The game object containing that proxy must therefore acquire input focus as well.
-
-So, when an input action is not working, check the binding, input focus, input-stack order, and whether another component consumes the action. For proxy-loaded worlds, check both the proxy holder and the listeners inside the loaded world.
-
-See [Input](/manuals/input/) and [Collection proxy](/manuals/collection-proxy/) for more details.
-
-### Moving a kinematic collider and expecting sliding.
-
-Godot's `CharacterBody2D` offers movement methods such as `move_and_slide()`. Defold's kinematic collision objects work at a lower level. You control the movement of a kinematic game object, while the physics engine detects collisions and provides information about contacts. It does not automatically perform the equivalent of Godot's `move_and_slide()`.
-
-So, do not assume that assigning a kinematic collision object will automatically give your player solid movement and wall sliding. Implement collision resolution or use some Defold character-controller solution.
-
-See [Collision objects](/manuals/physics-objects/) and [Resolving collisions](/manuals/physics-resolving-collisions/) for more details.
+Defold detects contacts for kinematic collision objects, but it does not automatically provide Godot's `move_and_slide()` behavior. Your script must handle the movement and collision response. See [Physics and collisions](#physics-and-collisions).
 
 ### Configuring only one collision mask
 
-Both Godot and Defold use collision groups to determine which objects interact, but their filtering configurations differ.
-
-In Defold, each collision object has a Group and a Mask.  The Group identifies the category to which the object belongs. The Mask lists the groups with which that object is allowed to interact.
-
-A common mistake is to configure the player's mask to include enemies while forgetting to configure the enemy's mask to include players. Defold requires mutual group-mask matching for collision detection.
-
-See [Collision objects](/manuals/physics-objects/) and [Collision messages](/manuals/physics-messages/) for more details.
+A collision will not be registered if only one object is configured to interact with the other. Both objects must include the other's group in their masks. See [Physics and collisions](#physics-and-collisions).
 
 ### Copying 2D coordinates unchanged
 
-In Godot's standard 2D coordinate system, the Y coordinate increases **downward**. In a typical Defold 2D setup, the Y coordinate increases **upward**.
-
-This means that movement code copied directly from Godot can produce the opposite vertical movement in Defold.
-
-Defold game object positions use vector3, even in 2D games. The Z coordinate can also be relevant for rendering, depending on the render pipeline.
-
-However, the direction of the coordinate axes is not the only issue. Game object positions, GUI positions, and physical screen coordinates do not necessarily describe the same space. If a camera moves, zooms, or changes its projection, mouse coordinates cannot simply be used as world positions. Defold provides camera conversion functions, including `camera.screen_xy_to_world()`, for converting screen coordinates into world coordinates.
-
-In general, think in Defold like in Godot 3D, even when working with 2D games.
-
-See [Camera](/manuals/camera/) and [Mouse and touch](/manuals/input-mouse-and-touch/) for more details.
+Godot and a typical Defold 2D setup use opposite Y-axis directions, so copied movement code may move objects in the wrong direction. Screen and world positions also differ when a camera is involved. See [Coordinates](#coordinates) and [Cameras and coordinates](#cameras-and-coordinates).
 
 ### Using world Z to sort GUI nodes
 
-In a typical 2D Godot project, the visual order of objects can be controlled through scene-tree ordering, z_index, and canvas layers. By default, Defold separates world rendering from GUI rendering.
-
-World objects may use their Z positions for depth ordering, depending on the render script and projection. GUI nodes, however, are primarily rendered according to their order in the GUI scene and their assigned GUI layers.
-
-Use GUI node ordering and layers for interface elements. Use the render pipeline and appropriate Z positions for world graphics.
-
-See [GUI](/manuals/gui/) and [Rendering](/manuals/render/) for more details.
+Changing a GUI node's Z position does not control its draw order in Defold. Use the GUI node order and layers instead, as explained in [Draw order and layers](#draw-order-and-layers).
 
 ### Expecting hot reload to restart the object
 
-Hot reload in Defold is not equivalent to destroying and recreating a game object.
-
-When you reload a script, its lifecycle `init()` callback is **not** automatically called again. Existing script-instance state stored in self can therefore remain unchanged, even if you have modified the initialization code.
-
-Lua modules introduce another complication. A module imported with `require()` is cached. Hot reloading a module that returns a newly created table does not automatically replace references to the old table held by other scripts.
-
-Defold provides an `on_reload()` callback that can be used for development-time adjustments.
-
-See [Hot reload](/manuals/hot-reload/) and [Modules](/manuals/modules/) for more details.
+Hot reloading a script does not rerun `init()`, so existing instance state can retain its previous values. See [Hot reload](#hot-reload) for ways to handle state and module reloads.
 
 ### Expecting a level unload to clear shared state
 
-Defold's collection proxies can load and unload entire game worlds. Unloading a world removes its game objects and their script component instances.
-
-Both Godot Autoload state and cached Lua-module state can persist across level changes. Autoload nodes remain in the scene tree when the current scene changes; modules loaded through `require()` can retain data after the collection that used them is unloaded. Reset shared state explicitly when needed. Unlike an Autoload node, a Lua module does not receive lifecycle, message, or input callbacks automatically.
-
-See [Collection proxy](/manuals/collection-proxy/) and [Modules](/manuals/modules/) for more details.
+Both Godot Autoload state and cached Lua-module state can persist across level changes, so reset shared data explicitly when needed. Unlike an Autoload node, a Lua module does not receive callbacks automatically. See [Autoloads and shared state](#autoloads-and-shared-state).
 
 ## Where to go from here?
 
