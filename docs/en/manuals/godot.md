@@ -13,7 +13,7 @@ Defold is a free, cross-platform game engine for 2D and 3D games, with an editor
 
 On the surface, Defold is very similar to Godot. Both engines let you compose a game from reusable pieces and add behavior with scripts. Godot provides many specialized nodes. Defold has a smaller set of more general components, with Lua scripts and modules supplying the gameplay behavior around them. For example, a Defold player character might consist of a game object with components: a sprite or a model, a collision object, and a script.
 
-Defold focuses on a small runtime and efficient use of resources, which is useful for e.g. web and mobile games in particular. Some engine capacities are set in advance so that memory can be preallocated.
+Defold focuses on a small runtime and efficient use of resources, which is especially useful for web and mobile games. Some engine capacities are set in advance so that memory can be preallocated.
 
 You may find fewer ready-made gameplay and UI elements than Godot, but the underlying Defold components can be combined, or extended to achieve the same results. Defold puts a lot of effort into ensuring the core engine is as lightweight as possible and can be scaled down further by excluding unneeded features, or extended with Native Extensions and Lua modules. [Defold Asset Portal](https://defold.com/assets/) contains hundreds of modules, libraries and extensions that can help you e.g. build complex user interfaces, more advanced rendering pipelines or simplify certain development tasks.
 
@@ -42,7 +42,7 @@ You can create a new project in Defold from:
 
 ![Godot project manager and Defold welcome screen](images/godot/godot_2.png)
 
-Defold Samples are starter projects for game development in a particular genre, similarly to many starter kits and examples in the Godot Asset Store:
+Defold Samples include starter projects and examples, similar to the starter kits and examples in the Godot Asset Store:
 
 ![Godot project manager and Defold welcome screen](images/godot/godot_3.png)
 
@@ -74,7 +74,7 @@ In the 3D Editor in Defold, you can also see a toolbar in the top right corner -
 
 ### Panes
 
-Panes in Defold are not un-dockable (yet), but you can adjust each pane's size by dragging and moving the edges of the panes and toggle their visibility with the `F6`, `F7` and `F8` keys or in the `View` menu:
+Defold panes cannot be undocked, but you can resize them by dragging their edges. You can also toggle their visibility with `F6`, `F7`, and `F8` or through the `View` menu:
 
 ![Panes Visibility](images/editor/editor_panes.png)
 
@@ -96,10 +96,10 @@ Read more details about the Defold Editor in the [Editor overview manual](/manua
 
 ## Key concepts
 
-In Godot everything is a **Node** and these could be put inside **Scenes**. In Defold we distinguish components, game objects and collections (of game objects).
+In Godot, you build **Scenes** from nodes. In Defold, you work with components, game objects, and collections of game objects.
 
 In Godot, you might build e.g. a player from a `Node2D` with a `Sprite2D` child and attach a script to the root. You would put it in your first `Scene`.
-In Defold, you might build the player from a `Game Object` and child `Sprite` and `Script` components. You would put it in your first `Collection`.
+In Defold, you might build the player from a game object containing `Sprite` and `Script` components. You would put it in a collection.
 
 ![A Godot node setup compared with Defold Game Objects and Components](images/godot/key_concepts.png)
 
@@ -107,13 +107,14 @@ The [Building blocks manual](/manuals/building-blocks/) explains these concepts 
 
 ### Game Objects
 
-In Defold, a **Game Object** is a *container* for Components, that supplies:
--  **identity**
+In Defold, a **Game Object** is a *container* for components and provides:
+
+- **identity**
 - **transform** (position, rotation, scale)
 
 A game object can serve a role similar to a `Node2D` or `Node3D` in Godot. Defold has no separate 2D game-object type: all game objects use a 3D transform, including those in 2D games.
 
-An important distinction between Defold and Godot is that Game Objects can have child or parent relationships with other Game Objects only inside **Collections**. We'll explain Collections in more detail below. You can parent Game Objects to other Game Objects to make them inherit transforms. Note that this does not change the Game Objects' addresses.
+In Defold, game objects can be parented to other game objects so they inherit transforms. You can arrange these relationships in a collection or change them at runtime. Parenting does not change a game object's address.
 
 In a collection, a game object can be defined directly in the `.collection` file as an **embedded** object, or added as a reference to a reusable `.go` prototype. Editing an embedded object's definition changes that collection, but it does not change other independently defined objects. Editing a `.go` prototype updates the instances that reference it, subject to any instance-specific overrides. Referenced component resources can also be shared, even by embedded objects, so edits to those resources can affect other objects using them. If a collection is reused, changes to its embedded objects appear wherever that collection is referenced.
 
@@ -123,7 +124,7 @@ Components are specialized building blocks that can supply e.g. visual appearanc
 
 Add a `Sprite` component to a game object to display an image, a `Sound` component to play audio, or a `Script` component to run Lua code.
 
-An important distinction is that in Defold Components cannot have child Components, because components cannot exist without their Game Object. Therefore, you nest Game Objects with Components inside Collections.
+Components belong to game objects and cannot have child components. To build a hierarchy, parent game objects to one another in a collection.
 
 You also can't modify a component's behavior by attaching a script like in Godot. You can adjust the component via its Properties and you can create new custom components through Native Extensions, similarly to GDExtensions. Defold supports custom components, e.g. official [Rive](https://github.com/defold/extension-rive) and [Spine](https://github.com/defold/extension-spine) components, or community [Sprite Loop](https://github.com/Balkan-Ram-Games/spriteloop-defold) or [Object Interpolation](https://github.com/indiesoftby/defold-object-interpolation) components.
 
@@ -149,15 +150,15 @@ Because components are flat and decoupled from custom scripts, Defold packs them
 
 A **Collection** describes game objects, their components, and their parent-child relationships. You can include collections inside other collections to reuse a group of objects. It's similar to a Nested Scene in Godot. Defold does not provide Godot's general-purpose inherited-scene workflow. Instead, reuse prototypes and collections, and customize instances through properties or scripts.
 
-Note that a collection file is not a runtime entity. There is no collection object you can call methods on, and no root node corresponding to the collection itself. A collection is only this - a file - with the definitions Defold is using to create instances of game objects with components and their hierarchy at runtime.
+Note that a collection file is not a runtime entity. There is no collection object you can call methods on, and no root node corresponding to the collection itself. The collection file contains definitions that Defold uses to create game objects, components, and their hierarchy at runtime.
 
 Defold starts your game by reading the `game.project` file, which defines which collection to load first - configured in **Bootstrap ▸ Main Collection**. This loads your initial game world. Objects placed in nested collections become part of that same world.
 
-A **Collection Factory** component also instantiates game objects with components in an **existing** world, where it was.
+A **Collection Factory** component instantiates a group of game objects and their components in the **existing** world that contains the factory.
 
 A **Collection Proxy**, however, loads a separate collection - creating a **new world** with its own address namespace and physics simulation. This distinction matters when choosing e.g. how to spawn an enemy in an existing level to react to its geometry or load a completely new level, possibly asynchronously. Those operations are covered below.
 
-In Godot, both map to a `PackedScene` workflow without this distinction between spawning inside an existing world or creating a new world, but for easier understanding - scene switching in Godot using the `SceneTree` is similar to loading a new collection using Collection Proxy in Defold.
+Godot uses `PackedScene` for both instantiation and scene switching. As a comparison, switching scenes with the `SceneTree` is similar to loading a separate world with a collection proxy.
 
 Let's summarize it all:
 
@@ -166,7 +167,7 @@ Let's summarize it all:
 | `Node3D` with child nodes | Game object with components | Components provide capabilities and behaviour. Game objects provide transforms and identity. |
 | `Node2D` / `Node3D` transform | Game object's transform | Built into every game object. |
 | Scene / `PackedScene` | Game object prototype (`.go`) or collection (`.collection`) | A prototype describes one object. A collection describes a group of objects with hierarchy. |
-| `PackedScene.instantiate()` | Factory or collection factory | Creates single, or a group of, game objects in the current world and returns their identifiers. |
+| `PackedScene.instantiate()` | Factory or collection factory | Creates a game object or a group of game objects in the current world and returns their identifiers. |
 | Scene switching through `SceneTree` + `PackedScene.instantiate()` | Collection proxy | Loads and creates a new separate world and spawns game objects inside it. |
 
 ---
@@ -181,7 +182,7 @@ You can also open all Defold text-based files and scripts in an external editor.
 
 Defold gameplay scripts use the Lua language. It might feel similar to GDScript, but there are some meaningful differences. Defold also supports Teal - a statically typed dialect of Lua. Defold can also utilise Native Extensions written in C, C++, C#, Objective-C, Java, or JavaScript, depending on the target platform, similar to GDExtensions, but we'll talk about them separately.
 
-In Lua you will mainly work with:
+In Defold you will mainly work with these Lua files:
 
 | File | Purpose |
 |---|---|
@@ -280,11 +281,11 @@ In Defold you can post a message using the `msg.post()` function from any script
 
 For example, a player can report a score change to a HUD.
 
-In Godot, assume the `Player` (`Node2D`) with a `player.gd` script and a `GUI` (`CanvasLayer`) with `ScoreText`, and it also uses a `gui.gd` script:
+In Godot, the `Player` (`Node2D`) uses `player.gd`. Its sibling `GUI` (`CanvasLayer`) uses `gui.gd` and contains a `ScoreText` Label:
 
 ![Setup for signals in Godot](images/godot/godot_signals.png)
 
-Similarly, in Defold, we have a `player` game object with `player.script` and a `hud` game object with a `gui` GUI component with a `score` text node, and it also uses `hud.gui_script`:
+In Defold, the `player` game object has `player.script`. The `hud` game object has a `gui` component containing a `score` text node and using `hud.gui_script`:
 
 ![Setup for messages in Defold](images/godot/defold_messages.png)
 
@@ -392,7 +393,7 @@ socket:/path#component
 - **Path** - identifies a game object within that world.
 - **Component** - identifies a component on that object.
 
-You can use the absolute path, or only parts of the path forming a relative address, e.g. using only the "component" part, you can use it in a script used in all game objects that want to send a message to their component. Common forms are:
+You can use a full URL or omit parts to form a relative address. For example, a script can use only the component part to address a component on the same game object. Common forms are:
 
 | Address | Meaning |
 |---|---|
@@ -473,8 +474,8 @@ Lua script:
 ```lua
 local my_module = require "my_module"
 
-function init()
-    my_module.init()
+function init(self)
+    my_module.init(self)
 end
 ```
 
@@ -509,6 +510,8 @@ func spawn_bullet():
 In Defold, we have a game object with the factory component with the id `bullet_factory` and we can use the `factory.create()` function to use it to spawn the game object it references as `Prototype`:
 
 ![Setup for factory in Defold](images/godot/defold_factory.png)
+
+The screenshot calls the factory in `init()`. The following helper shows how to supply a spawn position and return the identifier:
 
 **Lua**:
 
@@ -574,7 +577,7 @@ Godot's `InputMap` corresponds to Defold's `.input_binding` file. You can assign
 
 In Defold, the receiving game object must **acquire input focus**. This places it on the input stack. Its script and GUI components can then receive `on_input()` callbacks.
 
-For example, for an action named `fire`:
+The screenshot shows Space bound to `collect`. The following separate example uses an action named `fire`, which you must also add to your input bindings:
 
 **GDScript**:
 
@@ -623,11 +626,13 @@ Defold offers 4 Collision Object types:
 | `CharacterBody2D` / `3D` | `Kinematic` | The physics engine gives you all data about collisions, but your code must react to and resolve them. |
 | `Area2D` | `Trigger` | Reports only entry and exit events without a physical response. |
 
-A Kinematic object in Defold is not quite exactly the same as a `CharacterBody2D` with `move_and_slide()`. Defold detects contacts and gives you all data in the collision response message, but your script supplies the movement and response. Check the [Resolving collisions manual](/manuals/physics-resolving-collisions/) when building a character controller.
+A kinematic object in Defold does not behave exactly like a `CharacterBody2D` with `move_and_slide()`. Defold detects contacts and gives you all data in the collision response message, but your script supplies the movement and response. Check the [Resolving collisions manual](/manuals/physics-resolving-collisions/) when building a character controller.
 
 Groups and Masks use names rather than numbered collision layers. **Both objects must include the other's group in their masks** for a collision to be registered.
 
 ![Collision Groups and Masks in Defold](images/physics/collision_groups.png)
+
+In this screenshot, the game object named `danger` uses the `player` group, while the object named `player` uses the `danger` group. Group names do not have to match object ids, and the masks still allow these two groups to interact.
 
 By default, collision objects send messages to scripts on their game objects. Handle `"collision_response"`, `"contact_point_response"`, or `"trigger_response"` in `on_message()`. Trigger messages include an `enter` field to distinguish entry from exit. Collision and contact messages can recur while objects remain in contact, so do not assume each message represents a new hit.
 
@@ -643,7 +648,7 @@ Read the [Physics overview](/manuals/physics/), [Collision objects](/manuals/phy
 
 ## GUI
 
-Defold's UI lives in a **GUI component**, created from a `.gui` file. Inside it, you can arrange GUI nodes such as boxes, text, and pies. The GUI component is therefore unique here in Defold and is very similar to a classic node in Godot. It even has a specialized `.gui_script` that can be attached to the GUI component, like a script attached to the `CanvasLayer`.
+Defold's UI lives in a **GUI component**, created from a `.gui` file. Inside it, you can arrange GUI nodes such as boxes, text, and pies. A dedicated `.gui_script` controls the GUI component, similar to a script attached to a `CanvasLayer` in Godot.
 
 These nodes belong to the GUI, not the game object's transform hierarchy. By default, GUI is drawn on top of the game and does not move with the game camera or the object holding the GUI component.
 
@@ -693,7 +698,7 @@ local function move_to_target()
 end
 ```
 
-For sequences that change several properties, play sounds, or trigger gameplay events, coordinate the steps in Lua. Defold does not yet have a specialized animation timeline editor. The Curve Editor in the Tools pane in Defold is used only for ParticleFX properties lifetime curve modification.
+For sequences that change several properties, play sounds, or trigger gameplay events, coordinate the steps in Lua. Defold does not yet have a specialized animation timeline editor. The Curve Editor in Defold's Tools pane is used to edit ParticleFX property curves over a particle's lifetime.
 
 See [Animation](/manuals/animation/), [Property animation](/manuals/property-animation/), [Flipbook animation](/manuals/flipbook-animation/), and [Model animation](/manuals/model-animation/). The overview also links to the Spine and Rive extensions.
 
@@ -714,7 +719,7 @@ Defold offers a fully scriptable rendering pipeline with a custom `.render` file
 The default render script in Defold handles common 2D and 3D content. A custom `.render_script` controls draw passes, render targets, and other rendering operations. Material tags let it select groups of components through render predicates. Defold supports PBR rendering out of the box. Additionally, there are a lot of custom rendering pipelines and shaders created by the community.
 
 
-Defold uses GLSL shaders, and, except for a few small nuances, shaders e.g. from Shadertoy or FragCoord can be used in Defold. While both engines use GLSL-style syntax, Godot wraps its code in a custom, engine-specific shading language with built-in shortcuts, whereas Defold uses standard GLSL (version 140+ for its modern SPIR-V pipeline) separated into distinct vertex and fragment files.
+Defold uses GLSL shaders, with separate vertex and fragment files. Godot uses its own GLSL-like shading language with engine-specific built-ins, so shaders from Godot or other sources such as Shadertoy may need adaptation. See the [Shaders manual](/manuals/shader/) for Defold's shader requirements.
 
 Defold **Materials** connect vertex and fragment programs (shaders), textures, and shader constants and attributes. The `builtins` folder contains the default materials, which are useful starting points.
 
@@ -724,7 +729,7 @@ Read [Rendering](/manuals/render/), [Materials](/manuals/material/), and [Shader
 
 Godot's integer `z_index` does not translate directly into a Defold property, as Z axis will always depend on the rendering setup and might not be the same as depth, when we move it. Defold is fundamentally a 3D engine under the hood, so it uses an actual spatial Z-axis coordinate rather than a dedicated 2D sorting integer like Godot's.
 
-Nonetheless, in Defold's **default** orthographic setup, we only render objects with a Z-position between -1.0 and 1.0 (using decimals like 0.1 or 0.2 for layers), but this can be easily changed by sending a message to the render script. Within that range, in a simple default setup Defold uses the physical Z-position of a Game Object or Sprite component to sort depth, so higher Z values draw on top of lower Z values, so it might feel like the same behavior as `z_layer` in Godot. However, if you switch to a perspective camera or modify the `.render_script` this may be changed.
+Nonetheless, in Defold's **default** orthographic setup, we only render objects with a Z-position between -1.0 and 1.0 (using decimals like 0.1 or 0.2 for layers), but this can be easily changed by sending a message to the render script. Within that range, in a simple default setup Defold uses the physical Z-position of a Game Object or Sprite component to sort depth, so higher Z values draw on top of lower Z values, so it can feel similar to `z_index` in Godot. However, if you switch to a perspective camera or modify the `.render_script` this may be changed.
 
 GUI Nodes in Defold ignore world Z - by default GUI components are rendered in a separate pass after world sprites. Thus changing a GUI node's Z-position does not affect its draw order. Instead, GUI draw order is strictly determined by hierarchy order (top-to-bottom in the GUI's hierarchy in the Outline) and GUI `Layers`, which override node order to batch draw calls, so it's a bit similar to `CanvasLayer` layers.
 
