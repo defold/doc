@@ -522,7 +522,7 @@ end
 
 The Defold function returns an object **identifier** - it's not an object with methods. Pass it to `go` functions, or construct a component URL with `msg.url(nil, id, "controller")` if the spawned object has a script component named `controller`.
 
-A collection factory returns a whole table of all spawned game objects - mapping prototype object ids to spawned ids. To remove spawned objects, use `go.delete(id)` and provide an `id` of the given instance.
+A collection factory returns a table mapping prototype object ids to spawned ids. Keep this table if you need to delete the spawned objects later, as described in [Deleting a hierarchy](#deleting-a-hierarchy).
 
 Defold allocates capacity for game objects and components in advance. If spawning fails because a limit is reached, check **Collection ▸ Max Instances** and the relevant component limits in `game.project`. Increasing every limit also increases memory use.
 
@@ -785,6 +785,26 @@ Therefore, you cannot attach a script to the collection itself and call methods 
 Use collections to organize and reuse content. Use game objects and their scripts to control behavior.
 
 See [Building blocks](/manuals/building-blocks/) and [Collection proxy](/manuals/collection-proxy/) for more details.
+
+### Deleting a hierarchy
+
+In Godot, `queue_free()` deletes a node and its descendants. In Defold, `go.delete(id)` does not recursively delete child game objects by default. To delete a game object and its current descendant hierarchy, pass `true`:
+
+```lua
+go.delete(id, true)
+```
+
+A collection factory can spawn several game objects without a single root. Keep the table returned by `collectionfactory.create()` and pass it to `go.delete()` to delete all objects in that table:
+
+```lua
+local ids = collectionfactory.create("#collection_factory")
+-- Later, when the spawned objects are no longer needed:
+go.delete(ids)
+```
+
+This deletes the listed objects without recursively deleting other objects that may have been parented to them later. Alternatively, recursively delete a known root if its current hierarchy contains everything you want to remove; that also includes any other objects parented beneath it.
+
+See [`go.delete()`](/ref/go/#go.delete) and [Collection factory](/manuals/collection-factory/) for details.
 
 ### Expecting scene inheritance
 
