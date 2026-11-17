@@ -42,7 +42,7 @@ You can create a new project in Defold from:
 
 ![Godot project manager and Defold welcome screen](images/godot/godot_2.png)
 
-Defold Samples are pre-made starter projects ready for game development in a particular genre, similarly to many starter kits and examples in the Godot Asset Store:
+Defold Samples are starter projects for game development in a particular genre, similarly to many starter kits and examples in the Godot Asset Store:
 
 ![Godot project manager and Defold welcome screen](images/godot/godot_3.png)
 
@@ -523,7 +523,7 @@ The Defold function returns an object **identifier** - it's not an object with m
 
 A collection factory returns a whole table of all spawned game objects - mapping prototype object ids to spawned ids. To remove spawned objects, use `go.delete(id)` and provide an `id` of the given instance.
 
-Defold preallocates capacity for game objects and components. If spawning fails because a limit is reached, check **Collection ▸ Max Instances** and the relevant component limits in `game.project`. Increasing every limit also increases memory use.
+Defold allocates capacity for game objects and components in advance. If spawning fails because a limit is reached, check **Collection ▸ Max Instances** and the relevant component limits in `game.project`. Increasing every limit also increases memory use.
 
 Read the [Factory](/manuals/factory/) and [Collection factory](/manuals/collection-factory/) manuals for properties, transforms, and dynamic loading.
 
@@ -767,7 +767,7 @@ See [Debugging game logic](/manuals/debugging-game-logic/), and [Profiling](/man
 
 ## Automated workflows
 
-Defold supports automated workflows or AI-assisted development through several interfaces. Editor Scripts can automate repetitive tasks, while the editor's HTTP API, documented through OpenAPI, lets external tools and AI agents inspect projects, execute commands, and trigger builds. The engine's HTTP service and Automation Bridge extension enable runtime inspection, input simulation, and screenshots. Together, these tools allow AI coding agents such as Codex, Claude Code, and Cursor to modify projects, build games, test behavior, and iteratively fix problems.
+Defold supports automated workflows or AI-assisted development through several interfaces. Editor Scripts can automate repetitive tasks, while the editor's HTTP API, documented through OpenAPI, lets external tools and AI agents inspect projects, execute commands, and trigger builds. The engine's HTTP service and Automation Bridge extension enable runtime inspection, input simulation, and screenshots. Together, these tools allow AI coding agents such as Codex, Claude Code, and Cursor to modify projects, build games, test behavior, and fix problems in repeated cycles.
 
 See [Automation](/manuals/automation/), [Editor HTTP API](/manuals/editor-http-api/), [Engine service](/manuals/engine-service/), and [Automated testing](/manuals/automated-testing/) for more details.
 
