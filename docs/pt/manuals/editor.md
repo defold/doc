@@ -146,6 +146,10 @@ Escolha <kbd>Debug ▸ Reset Simulated Resolution</kbd> para voltar ao tamanho c
 
 As janelas das instâncias da engine em execução selecionadas são redimensionadas para [Display Width e Height](/manuals/project-settings/#display) do projeto. Você também pode redefinir sem nenhuma engine em execução; a próxima inicialização usa o tamanho configurado. Mover ou redimensionar a janela depois disso salva novamente seu novo posicionamento.
 
+## Orientação de cena 2D e 3D {#2d-and-3d-scene-orientation}
+
+:[Orientação de cena 2D e 3D](../shared/2d-and-3d-scene-orientation.md)
+
 ## Tamanho e visibilidade dos painéis
 
 O tamanho dos painéis pode ser ajustado dentro do editor usando <kbd>Dragging</kbd> nas bordas das seções entre todos os 6 painéis descritos acima.

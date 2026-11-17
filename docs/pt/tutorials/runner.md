@@ -49,7 +49,7 @@ Na primeira vez que você inicia o editor, ele começa em branco, sem nenhum pro
 
 Agora, no *Assets pane*, você verá todos os arquivos que fazem parte do projeto. Se der um duplo clique no arquivo "main/main.collection", o arquivo será aberto na visualização do editor no centro:
 
-![Editor overview](images/runner/1/editor2_overview.png)
+![Editor overview](images/runner/1/editor_overview.png)
 
 O editor consiste nas seguintes áreas principais:
 

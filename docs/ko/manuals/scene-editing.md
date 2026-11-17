@@ -64,31 +64,25 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 
 ## 2D와 3D 씬 방향 {#2d-and-3d-scene-orientation}
 
-씬 뷰는 2D와 3D 워크플로우 모두에서 사용할 수 있습니다.
-
-- **2D**에서는 일반적으로 2D 지향 그리드가 있는 직교 투영 뷰에서 작업합니다.
-- **3D**에서는 일반적으로 다음과 같이 작업합니다.
-  - 뷰를 3D 방향으로 다시 정렬합니다.
-  - **원근 투영(perspective)** 카메라를 사용합니다.
-  - 적절한 그리드 평면을 선택합니다. “지면”에는 보통 **Y**를 사용합니다.
+:[2D와 3D 씬 방향](../shared/2d-and-3d-scene-orientation.md)
 
 이 기능은 도구 모음과 **View** 메뉴에서 사용할 수 있습니다. 3D 모드의 [축 기즈모](#axis-gizmo)로 시점을 축에 정렬하거나 마우스로 회전할 수 있습니다.
 
-![Scene Editor 3D](images/editor/3d_scene.png)
-
 ## 툴바 개요 {#toolbar-overview}
 
-씬 뷰 오른쪽 위에는 자주 사용하는 도구와 뷰 옵션이 있는 툴바가 있습니다(왼쪽부터 오른쪽 순서).
-
-- **Move tool**(<kbd>W</kbd>)
-- **Rotate tool**(<kbd>E</kbd>)
-- **Scale tool**(<kbd>R</kbd>)
-- **Grid Settings**(`▦`)
-- **Align/Realign Camera 2D/3D**(`2D`) — 2D와 3D 방향을 전환합니다(단축키 <kbd>.</kbd>).
-- **Camera Perspective/Orthographic**
-- **Visibility Filters**(`👁`)
+씬 뷰 오른쪽 위에는 자주 사용하는 도구와 보기 옵션이 있는 툴바가 있습니다.
 
 ![Toolbar](images/editor/toolbar.png)
+
+툴바의 번호가 매겨진 옵션은 왼쪽부터 다음과 같습니다.
+
+1. **Move tool** (<kbd>W</kbd>) - 선택한 오브젝트를 이동합니다.
+2. **Rotate tool** (<kbd>E</kbd>) - 선택한 오브젝트를 회전합니다.
+3. **Scale tool** (<kbd>R</kbd>) - 선택한 오브젝트의 크기를 변경합니다.
+4. **Grid** - 그리드를 표시하거나 숨깁니다. 드롭다운에서 Grid Settings를 엽니다.
+5. **2D mode** (`2D`) - 2D와 3D 방향을 전환합니다. **Realign Camera** (<kbd>.</kbd>)도 사용할 수 있습니다.
+6. **Perspective camera** - 3D에서 원근 투영과 직교 투영을 전환합니다. 드롭다운에서 카메라 설정을 엽니다.
+7. **Visibility filters** - 컴포넌트 유형과 가이드를 표시하거나 숨깁니다.
 
 ## 오브젝트 선택 및 조작 {#manipulating-objects}
 
@@ -181,6 +175,8 @@ Scene Editor는 다음 두 가지를 모두 지원합니다.
 ## Free Camera Mode
 
 빠른 3D 탐색을 위해 Scene Editor는 1인칭/FPS 스타일 카메라인 **Free Camera Mode**를 제공합니다.
+
+![자유 카메라 모드](images/editor/free_camera.png)
 
 ### Free Camera Mode 활성화
 

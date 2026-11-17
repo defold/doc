@@ -49,7 +49,7 @@ The first time you start the editor, the editor starts blank, without any projec
 
 Now, in the *Assets pane* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
 
-![Editor overview](images/runner/1/editor2_overview.png)
+![Editor overview](images/runner/1/editor_overview.png)
 
 The editor consists of the following main areas:
 

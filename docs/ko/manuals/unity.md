@@ -56,25 +56,7 @@ Defold는 Unity Hub와 비슷한 시작 화면으로 사용자를 맞이하며, 
 
 첫 프로젝트를 만들거나 열면 Defold Editor에서 열립니다.
 
-## Hello World
-
-Defold에서 무언가를 빠르게 만들어 보는 간단한 방법입니다. 단계를 따라 한 뒤 이 매뉴얼의 나머지를 계속 읽어 보세요.
-
-1. `Templates`에서 빈 프로젝트를 선택하고, `Title`에 이름을 입력하고, 위치를 선택한 뒤 `Create New Project`를 클릭해 생성합니다. 프로젝트가 Defold Editor에서 열립니다.
-![Hello World Step 1](images/unity/helloworld_1.png)
-2. 왼쪽의 `Assets` 창에서 `main` 폴더를 열고 `main.collection`을 더블 클릭해 엽니다.
-3. 오른쪽의 `Outline` 창에서 `Collection`을 마우스 오른쪽 버튼으로 클릭하고 `Add Game Object`를 선택합니다.
-![Hello World Step 2](images/unity/helloworld_2.png)
-4. 생성된 `go` 게임 오브젝트를 마우스 오른쪽 버튼으로 클릭하고 `Add Component`, 그다음 `Label`을 선택합니다.
-![Hello World Step 3](images/unity/helloworld_3.png)
-5. 아래쪽 왼쪽의 `Properties` 창에서 `Text` 프로퍼티에 텍스트를 입력합니다.
-6. 중앙의 메인 씬 뷰에서 라벨을 드래그하고 이동해 `(480,320,0)` 근처에 놓거나, `Properties`의 `Position`에서 변경합니다.
-![Hello World Step 4](images/unity/helloworld_4.png)
-7. 라벨 위치를 변경한 뒤 `File` -> `Save All`을 클릭하거나 단축키 <kbd>Ctrl</kbd>+<kbd>S</kbd>(Mac에서는 <kbd>Cmd</kbd>+<kbd>S</kbd>)로 프로젝트를 저장합니다.
-8. `Project` -> `Build`를 클릭하거나 단축키 <kbd>Ctrl</kbd>+<kbd>B</kbd>(Mac에서는 <kbd>Cmd</kbd>+<kbd>B</kbd>)로 프로젝트를 빌드합니다.
-![Hello World Step 5](images/unity/helloworld_5.png)
-
-이제 Defold에서 첫 프로젝트를 빌드했으며, 창에서 입력한 텍스트를 볼 수 있을 것입니다. 게임 오브젝트와 컴포넌트 개념은 익숙할 것입니다. 컬렉션, Outline, Properties, 그리고 왜 라벨을 오른쪽 위 방향으로 조금 이동해야 했는지는 아래에서 설명합니다.
+:[Hello World](../shared/hello-world.md)
 
 ---
 
@@ -88,13 +70,9 @@ Unity와 Defold 사이에서 처음 눈에 띄는 차이는 기본 에디터 레
 
 ![Editor Comparison](images/unity/defold_unity_editor.png)
 
-기본적으로 Defold Editor는 2D 직교 투영(orthographic projection) 미리보기로 열립니다. 3D 프로젝트에서 작업하거나 Unity에 더 가까운 경험을 원한다면, 툴바에서 `2D` 토글을 해제해 2D에서 3D로 전환하고 `Perspective` 토글을 체크해 카메라 투영을 원근 투영으로 변경하는 것을 권장합니다.
+### 2D와 3D 씬 방향 {#2d-and-3d-scene-orientation}
 
-![Defold Toolbar](images/unity/defold_2d.png)
-
-툴바의 `Grid Settings`를 조정해 Unity처럼 `Y` 평면을 사용할 수도 있습니다.
-
-![Defold 3D settings](images/unity/defold_3d.png)
+:[2D와 3D 씬 방향](../shared/2d-and-3d-scene-orientation.md)
 
 ### Defold 창 개요
 

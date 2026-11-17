@@ -42,7 +42,7 @@ I binding di input sono una tabella valida per l'intero progetto che consente di
 
 Tutti i modelli di nuovo progetto creano automaticamente un file di binding di input predefinito, quindi in genere non è necessario crearne uno nuovo. Il file predefinito si chiama `game.input_binding` e si trova nella cartella `input` nella radice del progetto. <kbd>Fai doppio clic</kbd> sul file per aprirlo nell'editor:
 
-![Configurazione dei binding di input](images/input/input_binding.png)
+![Configurazione dei binding di input](images/input/defold_input.png)
 
 Per creare un nuovo binding, fai clic sul pulsante <kbd>+</kbd> in fondo alla sezione del tipo di trigger pertinente. Ogni voce ha due campi:
 

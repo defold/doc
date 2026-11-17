@@ -28,7 +28,7 @@ Defold를 처음 접하는 경우, 이 가이드는 에디터에서 방향을 �
 
 [새 프로젝트](/manuals/project-setup/)를 만들고 에디터에서 여는 것으로 시작합니다. *main/main.collection* 파일을 더블 클릭하면 파일이 열립니다.
 
-![Editor overview](../manuals/images/editor/editor2_overview.png)
+![Editor overview](../manuals/images/editor/editor_overview.png)
 
 에디터는 다음과 같은 주요 영역으로 구성되어 있습니다.
 

@@ -64,33 +64,27 @@ O gizmo está disponível com projeção em perspectiva e ortográfica no modo 3
 
 ## Orientação de cena 2D e 3D {#2d-and-3d-scene-orientation}
 
-A visualização de cena pode ser usada em fluxos de trabalho 2D e 3D:
-
-- Em **2D**, você normalmente trabalha em uma visualização ortográfica com uma grade orientada a 2D.
-- Em **3D**, você normalmente:
-  - Realinha a visualização para uma orientação 3D,
-  - Usa uma câmera **perspectiva**,
-  - Escolhe um plano de grade apropriado (frequentemente **Y** para "chão").
+:[Orientação de cena 2D e 3D](../shared/2d-and-3d-scene-orientation.md)
 
 Você pode acessar essas funções pela barra de ferramentas e pelo menu **View**. Use o [gizmo de eixos](#axis-gizmo) no modo 3D para alinhar a visualização a um eixo ou orbitar com o mouse.
-
-![Scene Editor 3D](images/editor/3d_scene.png)
 
 <a id="toolbar-overview"></a>
 
 ## Visão geral da barra de ferramentas
 
-No canto superior direito da visualização de cena há uma barra de ferramentas com ferramentas e opções de visualização usadas com frequência (da esquerda para a direita):
-
-- **Move tool** (<kbd>W</kbd>)
-- **Rotate tool** (<kbd>E</kbd>)
-- **Scale tool** (<kbd>R</kbd>)
-- **Grid Settings** (`▦`)
-- **Align/Realign Camera 2D/3D** (`2D`) - alterna entre orientação 2D e 3D (atalho <kbd>.</kbd>)
-- **Camera Perspective/Orthographic**
-- **Visibility Filters** (`👁`)
+No canto superior direito da visualização de cena há uma barra com ferramentas e opções de visualização comuns.
 
 ![Toolbar](images/editor/toolbar.png)
+
+Opções numeradas da barra da esquerda para a direita:
+
+1. **Move tool** (<kbd>W</kbd>) - Move os objetos selecionados.
+2. **Rotate tool** (<kbd>E</kbd>) - Gira os objetos selecionados.
+3. **Scale tool** (<kbd>R</kbd>) - Redimensiona os objetos selecionados.
+4. **Grid** - Mostra ou oculta a grade. O menu abre Grid Settings.
+5. **2D mode** (`2D`) - Alterna entre orientação 2D e 3D. Também é possível usar **Realign Camera** (<kbd>.</kbd>).
+6. **Perspective camera** - Alterna entre projeção em perspectiva e ortográfica em 3D. O menu abre as configurações da câmera.
+7. **Visibility filters** - Mostra ou oculta tipos de componentes e guias.
 
 ## Selecionando e manipulando objetos {#manipulating-objects}
 
@@ -185,6 +179,8 @@ Use o alternador de câmera na barra de ferramentas para trocar. Em cenas 3D, a 
 ## Free Camera Mode
 
 Para navegação 3D rápida, o Scene Editor fornece o **Free Camera Mode**, uma câmera em primeira pessoa / estilo "FPS".
+
+![Modo de câmera livre](images/editor/free_camera.png)
 
 ### Ativando o Free Camera Mode
 

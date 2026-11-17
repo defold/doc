@@ -17,7 +17,7 @@ El logging en consola/en pantalla solo muestra información en builds Debug. En 
 
 Cuando ejecutas tu juego localmente desde el editor o conectado a la [app de desarrollo móvil](/manuals/dev-app), toda la salida se mostrará en el panel de consola del editor:
 
-![Editor 2](images/editor/editor2_overview.png)
+![Editor 2](images/editor/editor_overview.png)
 
 ## Leer el log del juego desde la terminal
 

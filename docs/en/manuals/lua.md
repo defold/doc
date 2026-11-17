@@ -545,6 +545,10 @@ end
 
 Variables are global unless declared with `local`. All game object scripts, GUI scripts and render scripts share one Lua context, so globals and the cache of modules loaded with `require()` are shared between them. Store state that belongs to a single script instance in `self`, or create separate state tables explicitly, instead of keeping it in shared globals or module tables.
 
+![Difference between instance and local data in Defold](images/lua/self_local.png)
+
+In the above example, if you changed a single instance's `self.has_shield` to `true`, it would not affect the other instances, so only one enemy could wear a shield. On the other hand, the local variable `color` is shared for all scripts, so used by all instances, so if you changed it to a different color, this could affect all instances.
+
 Defold allows you to use the same script file in several separate game object components. Variables declared with `local` at the top level of the script file are shared between components that run that file. Variables declared with `local` inside a function are local to that function call.
 ```lua
 -- 'my_global_value' will be available from all scripts, gui_scripts, render script and modules (Lua files)
@@ -645,20 +649,23 @@ print(collectgarbage("count") * 1024)
 
 A common implementation design consideration is how to structure code for shared behaviors. Several approaches are possible.
 
-Behaviors in a module
-: Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects are a necessity (or lead to cleaner design). If you have to store the internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
+### Behaviors in a module
+
+Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects are a necessity (or lead to cleaner design). If you have to store the internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
 
   ![Module](images/lua/lua_module.png)
 
   Also, even if it is possible to have module code directly modify the internals of a game object (by passing `self` to a module function) we strongly discourage you from doing so since you will create very tight coupling.
 
-A helper game object with encapsulated behavior
-: Just like you can contain script code in a Lua module, you can contain it in a game object with a script component. The difference is that if you contain it in a game object you can communicate with it strictly through message passing.
+### A helper game object with encapsulated behavior
+
+Just like you can contain script code in a Lua module, you can contain it in a game object with a script component. The difference is that if you contain it in a game object you can communicate with it strictly through message passing.
 
   ![Helper](images/lua/lua_helper.png)
 
-Grouping game object with helper behavior object inside a collection
-: In this design, you can create a behavior game object that automatically acts upon another target game object, either by a predefined name (the user has to rename the target game object to match) or through a `go.property()` URL that points to the target game object.
+### Grouping game object with helper behavior object inside a collection
+
+In this design, you can create a behavior game object that automatically acts upon another target game object, either by a predefined name (the user has to rename the target game object to match) or through a `go.property()` URL that points to the target game object.
 
   ![Collection](images/lua/lua_collection.png)
 

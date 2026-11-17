@@ -1167,6 +1167,10 @@
                         "name": "Defold for Unity users"
                     },
                     {
+                        "path": "/manuals/godot",
+                        "name": "Defold for Godot users"
+                    },
+                    {
                         "path": "/manuals/flash",
                         "name": "Defold for Flash users"
                     },

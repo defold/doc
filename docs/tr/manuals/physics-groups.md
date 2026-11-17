@@ -11,6 +11,8 @@ Fizik motoru, fizik nesnelerinizi gruplandırmanızı ve nasıl çarpışacaklar
 
 ![Fizik çarpışma grubu](images/physics/collision_group.png)
 
+![Fizik çarpışma grubu](images/physics/collision_groups.png)
+
 *Mask* alanı birden fazla grup adı içerebilir; bu da karmaşık etkileşim senaryolarına olanak tanır.
 
 ## Çarpışmaları algılama

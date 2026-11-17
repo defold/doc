@@ -7,32 +7,52 @@ brief: Objetos de colisão podem conter formas primitivas, cascos convexos ou ma
 
 Um objeto de colisão pode conter várias formas incorporadas. Na física 3D, elas podem incluir cascos convexos e malhas de triângulos de arquivos glTF ou GLB. Você também pode usar um tilemap ou um recurso de forma convexa pela propriedade *Collision Shape* do objeto de colisão.
 
-### Formas primitivas
-As formas primitivas são *box*, *sphere* e *capsule*. Você adiciona uma forma primitiva clicando com o botão direito no objeto de colisão e selecionando <kbd>Add Shape</kbd>:
+As formas de colisão disponíveis são diferentes para física 2D e 3D. Configure o tipo de física em `Physics` no arquivo `game.project` usando `Type` (`2D`/`3D`):
 
-![Add a primitive shape](images/physics/add_shape.png)
+![Configurações de física](images/physics/physics_settings.png)
 
-## Forma box
-Uma box tem posição, rotação e dimensões (largura, altura e profundidade):
+### Formas de colisão {#collision-shapes-list}
 
-![Box shape](images/physics/box.png)
+Para adicionar uma forma, clique com o botão direito no objeto de colisão e selecione <kbd>Add Shape</kbd>:
 
-## Forma sphere
-Uma sphere tem posição, rotação e diâmetro:
+![2D](images/physics/collision_shapes_2d.png)
 
-![Sphere shape](images/physics/sphere.png)
+Formas para física 2D:
 
-## Forma capsule
-Uma capsule tem posição, rotação, diâmetro e altura:
+- **Circle** (posição, rotação, diâmetro)
 
-![Sphere shape](images/physics/capsule.png)
+![Circle](images/physics/circle.png)
 
-::: important
-Formas capsule são suportadas apenas ao usar física 3D (configurada na seção Physics do arquivo *game.project*).
-:::
+- **Rectangle** (posição, rotação, 2 dimensões, a profundidade é ignorada)
+
+![Rectangle](images/physics/rectangle.png)
+
+Formas para física 3D:
+
+![3D](images/physics/collision_shapes_3d.png)
+
+- **Box** (posição, rotação, 3 dimensões)
+
+![Box](images/physics/box.png)
+
+- **Capsule** (posição, rotação, diâmetro, altura)
+
+![Capsule](images/physics/capsule.png)
+
+- **Hull** (posição, rotação, cena, malha)
+
+![Hull](images/physics/hull.png)
+
+- **Mesh** (posição, rotação, cena, malha)
+
+![Mesh](images/physics/mesh.png)
+
+- **Sphere** (posição, rotação, diâmetro)
+
+![Sphere](images/physics/sphere.png)
 
 ### Formas complexas
-Formas complexas podem usar geometria de tilemap ou dados de envoltória convexa. Objetos de colisão 3D também podem criar envoltórias e formas de malha triangular a partir de malhas em cenas glTF ou GLB.
+Formas complexas podem usar a geometria de tilemaps ou dados de cascos convexos. Desde o Defold 1.13.2, objetos de colisão 3D também podem criar cascos convexos e formas de malhas de triângulos a partir de malhas em cenas glTF ou GLB.
 
 ## Formas Hull e Mesh em 3D {#hull-and-mesh-shapes-in-3d}
 

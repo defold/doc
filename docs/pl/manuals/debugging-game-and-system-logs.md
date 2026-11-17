@@ -17,7 +17,7 @@ Logowanie do konsoli/na ekranie pokazuje informacje tylko w buildach Debug. W bu
 
 Gdy uruchamiasz grę lokalnie z edytora albo na urządzeniu połączonym z [mobilną aplikacją deweloperską](/manuals/dev-app), całe wyjście będzie widoczne w panelu konsoli edytora:
 
-![Edytor 2](images/editor/editor2_overview.png)
+![Edytor 2](images/editor/editor_overview.png)
 
 ## Odczytywanie logu gry z terminala
 

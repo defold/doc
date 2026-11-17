@@ -18,6 +18,8 @@ Tra i casi d'uso comuni ci sono l'impostazione della vita o della velocità di u
 
 Per aggiungere proprietà a un componente script, definiscile con la funzione speciale `go.property()`. La funzione deve essere usata al livello principale dello script---al di fuori delle funzioni del ciclo di vita come `init()` e `update()`. Il valore predefinito fornito per la proprietà ne determina il tipo: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` e `resource` (vedi sotto).
 
+![Proprietà](images/script-properties/properties.png)
+
 ::: important
 Tieni presente che è possibile risalire alla stringa di un valore hash solo nelle build di debug, per facilitare il debug. Nelle build di release, la stringa corrispondente non è disponibile, quindi usare `tostring()` su un valore `hash` per estrarne la stringa non ha senso.
 :::
@@ -53,7 +55,7 @@ Puoi quindi impostare i valori delle proprietà di qualsiasi istanza di componen
 
  Seleziona il componente script nella vista *Outline* dell'editor: le proprietà compaiono nella vista *Properties*, dove puoi modificarle:
 
-![Proprietà](images/script-properties/properties.png)
+![Proprietà](images/script-properties/properties2.png)
 
 Ogni proprietà sovrascritta con un nuovo valore specifico dell'istanza viene evidenziata in blu. Fai clic sul pulsante di ripristino accanto al nome della proprietà per tornare al valore predefinito (impostato nello script).
 

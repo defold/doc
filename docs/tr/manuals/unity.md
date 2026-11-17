@@ -56,25 +56,7 @@ Veya aşağıdakilerden yeni bir proje başlatabilirsiniz:
 
 İlk projenizi oluşturduğunuzda ve/veya açtığınızda proje Defold düzenleyicisinde açılır.
 
-## Merhaba dünya {#hello-world}
-
-Bu bölüm, Defold'da hızla bir şeyler ortaya çıkarmanın kısa bir yoludur. Adımları izleyin, ardından kılavuzun geri kalanını okumaya dönün.
-
-1. `Templates` bölümünden boş bir proje seçin, `Title` alanında adlandırın, konum seçin ve `Create New Project` düğmesine tıklayarak oluşturun. Proje Defold düzenleyicisinde açılır.
-![Merhaba dünya, 1. adım](images/unity/helloworld_1.png)
-2. Sol taraftaki `Assets` bölmesinde `main` klasörünü açın ve `main.collection` dosyasını açmak için dosyaya çift tıklayın.
-3. Sağ taraftaki `Outline` bölmesinde `Collection` öğesine sağ tıklayın ve `Add Game Object` seçeneğini seçin.
-![Merhaba dünya, 2. adım](images/unity/helloworld_2.png)
-4. Oluşturulan `go` oyun nesnesine sağ tıklayın ve `Add Component`, ardından `Label` seçeneğini seçin.
-![Merhaba dünya, 3. adım](images/unity/helloworld_3.png)
-5. Aşağıda, sol taraftaki `Properties` bölmesinde `Text` özelliğine bir şey yazın.
-6. Ortadaki ana sahne görünümünde etiketi sürükleyip taşıyarak yaklaşık `(480,320,0)` konumuna bırakın veya `Properties` içindeki `Position` değerini değiştirin.
-![Merhaba dünya, 4. adım](images/unity/helloworld_4.png)
-7. Etiketin konumunu değiştirdikten sonra `File` -> `Save All` seçeneğine tıklayarak veya <kbd>Ctrl</kbd>+<kbd>S</kbd> (Mac'te <kbd>Cmd</kbd>+<kbd>S</kbd>) kısayolunu kullanarak projeyi kaydedin.
-8. `Project` -> `Build` seçeneğine tıklayarak veya <kbd>Ctrl</kbd>+<kbd>B</kbd> (Mac'te <kbd>Cmd</kbd>+<kbd>B</kbd>) kısayolunu kullanarak projenizi derleyin.
-![Merhaba dünya, 5. adım](images/unity/helloworld_5.png)
-
-Defold'da ilk projenizi derlediniz; metninizi pencerede görmeniz gerekir. Oyun nesnesi (game object) ve bileşen kavramları size tanıdık gelmelidir. Koleksiyonlar, Outline görünümü, özellikler ve etiketi neden biraz sağ üste taşımamız gerektiği aşağıda açıklanmıştır.
+:[Hello World](../shared/hello-world.md)
 
 ---
 
@@ -88,13 +70,9 @@ Unity ile Defold arasında ilk fark edeceğiniz şey varsayılan düzenleyici ye
 
 ![Düzenleyicilerin karşılaştırması](images/unity/defold_unity_editor.png)
 
-Defold düzenleyicisi varsayılan olarak 2B ortografik önizlemeyle açılır. Bir 3B proje üzerinde çalışacaksanız veya yalnızca Unity'ye daha yakın bir deneyim istiyorsanız --- araç çubuğundaki `2D` seçeneğinin işaretini kaldırarak 2B'den 3B'ye geçmenizi ve `Perspective` seçeneğini işaretleyerek kamera izdüşümünü perspektif olarak değiştirmenizi öneririz:
+### 2B ve 3B sahne yönelimi {#2d-and-3d-scene-orientation}
 
-![Defold araç çubuğu](images/unity/defold_2d.png)
-
-Araç çubuğundaki `Grid Settings` ayarlarını da Unity'deki gibi `Y` düzlemini kullanacak şekilde değiştirebilirsiniz:
-
-![Defold 3B ayarları](images/unity/defold_3d.png)
+:[2B ve 3B sahne yönelimi](../shared/2d-and-3d-scene-orientation.md)
 
 ### Defold bölmelerine genel bakış {#defold-panes-overview}
 

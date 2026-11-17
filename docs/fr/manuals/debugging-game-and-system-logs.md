@@ -17,7 +17,7 @@ La journalisation dans la console ou à l'écran n'affiche des informations que 
 
 Lorsque vous exécutez votre jeu localement depuis l'éditeur ou en étant connecté à l'[application de développement mobile](/manuals/dev-app), toutes les sorties s'affichent dans le panneau de console de l'éditeur :
 
-![Éditeur 2](images/editor/editor2_overview.png)
+![Éditeur 2](images/editor/editor_overview.png)
 
 ## Lire le journal du jeu depuis le terminal {#reading-the-game-log-from-the-terminal}
 

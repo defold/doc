@@ -28,7 +28,7 @@ brief: 如果您是 Defold 的新手，本指南将帮助您在编辑器中找�
 
 首先创建一个[新项目](/manuals/project-setup/)并在编辑器中打开它。如果您双击文件 *main/main.collection*，该文件将会打开：
 
-![编辑器概览](../manuals/images/editor/editor2_overview.png)
+![编辑器概览](../manuals/images/editor/editor_overview.png)
 
 编辑器由以下主要区域组成：
 

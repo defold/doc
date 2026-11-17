@@ -49,7 +49,7 @@ brief: В этом учебнике вы начнёте с пустого про
 
 Теперь в панели *Assets* вы увидите все файлы проекта. Если дважды щёлкнуть по файлу "main/main.collection", он откроется в центральной области редактора:
 
-![Editor overview](images/runner/1/editor2_overview.png)
+![Editor overview](images/runner/1/editor_overview.png)
 
 Редактор состоит из следующих основных областей:
 

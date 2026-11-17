@@ -49,7 +49,7 @@ Lua 프로그래밍 입문이 필요하다면 [Defold의 Lua 매뉴얼](/manuals
 
 이제 *Assets pane*에서 프로젝트에 포함된 모든 파일을 볼 수 있습니다. "main/main.collection" 파일을 더블 클릭하면 중앙의 에디터 뷰에서 파일이 열립니다.
 
-![에디터 개요](images/runner/1/editor2_overview.png)
+![에디터 개요](images/runner/1/editor_overview.png)
 
 에디터는 다음과 같은 주요 영역으로 구성됩니다.
 

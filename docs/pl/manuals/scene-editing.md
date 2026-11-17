@@ -64,31 +64,25 @@ Manipulator jest dostępny w trybie 3D zarówno przy projekcji perspektywicznej,
 
 ## Orientacja sceny 2D i 3D
 
-Widok sceny może być używany zarówno w przepływie pracy 2D, jak i 3D:
-
-- W **2D** zwykle pracujesz w widoku ortograficznym z siatką zorientowaną na 2D.
-- W **3D** zwykle:
-  - zmieniasz orientację widoku na 3D,
-  - używasz kamery **perspektywicznej**,
-  - wybierasz odpowiednią płaszczyznę siatki, często **Y** jako „podłoże”.
+:[Orientacja sceny 2D i 3D](../shared/2d-and-3d-scene-orientation.md)
 
 Te funkcje są dostępne z paska narzędzi oraz menu **View**. Używaj [manipulatora osi](#axis-gizmo) w trybie 3D, aby wyrównać widok do osi lub obracać go myszą.
 
-![Edytor scen 3D](images/editor/3d_scene.png)
-
 ## Przegląd paska narzędzi {#toolbar-overview}
 
-W prawym górnym rogu widoku sceny znajduje się pasek narzędzi z często używanymi narzędziami i opcjami widoku (od lewej do prawej):
+W prawym górnym rogu widoku sceny znajduje się pasek z często używanymi narzędziami i opcjami widoku.
 
-- **Move tool** (<kbd>W</kbd>)
-- **Rotate tool** (<kbd>E</kbd>)
-- **Scale tool** (<kbd>R</kbd>)
-- **Grid Settings** (`▦`)
-- **Align/Realign Camera 2D/3D** (`2D`) - przełącza orientację 2D i 3D (skrót <kbd>.</kbd>)
-- **Camera Perspective/Orthographic**
-- **Visibility Filters** (`👁`)
+![Toolbar](images/editor/toolbar.png)
 
-![Pasek narzędzi](images/editor/toolbar.png)
+Ponumerowane opcje paska od lewej do prawej:
+
+1. **Move tool** (<kbd>W</kbd>) - Przesuwa zaznaczone obiekty.
+2. **Rotate tool** (<kbd>E</kbd>) - Obraca zaznaczone obiekty.
+3. **Scale tool** (<kbd>R</kbd>) - Zmienia rozmiar zaznaczonych obiektów.
+4. **Grid** - Włącza lub wyłącza siatkę. Menu rozwijane otwiera Grid Settings.
+5. **2D mode** (`2D`) - Przełącza orientację 2D i 3D. Można też użyć **Realign Camera** (<kbd>.</kbd>).
+6. **Perspective camera** - Przełącza projekcję perspektywiczną i ortograficzną w 3D. Menu rozwijane otwiera ustawienia kamery.
+7. **Visibility filters** - Pokazuje lub ukrywa typy komponentów i linie pomocnicze.
 
 ## Zaznaczanie i manipulowanie obiektami {#manipulating-objects}
 
@@ -181,6 +175,8 @@ Do przełączania użyj przełącznika kamery na pasku narzędzi. W scenach 3D n
 ## Free Camera Mode
 
 Do szybkiej nawigacji 3D edytor scen udostępnia **Free Camera Mode**, czyli kamerę pierwszoosobową w stylu FPS.
+
+![Tryb swobodnej kamery](images/editor/free_camera.png)
 
 ### Włączanie Free Camera Mode
 

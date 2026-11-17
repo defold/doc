@@ -42,7 +42,7 @@ Girdi eşlemeleri, cihaz girdileri betik bileşenlerinize ve GUI betiklerinize d
 
 Tüm yeni proje şablonlarıyla birlikte varsayılan bir girdi eşlemesi dosyası otomatik olarak oluşturulur; bu nedenle genellikle yeni bir eşleme dosyası oluşturmanız gerekmez. Varsayılan dosyanın adı `game.input_binding` şeklindedir ve projenin kök dizinindeki `input` klasöründe bulunur. Dosyayı düzenleyicide açmak için dosyaya <kbd>çift tıklayın</kbd>:
 
-![Girdi eşlemelerini ayarlama](images/input/input_binding.png)
+![Girdi eşlemelerini ayarlama](images/input/defold_input.png)
 
 Yeni bir eşleme oluşturmak için ilgili tetikleyici türü bölümünün altındaki <kbd>+</kbd> düğmesine tıklayın. Her kayıt iki alan içerir:
 

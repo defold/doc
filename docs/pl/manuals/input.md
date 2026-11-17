@@ -42,7 +42,7 @@ Wiązania wejścia to tabela obejmująca cały projekt, która pozwala określi�
 
 Domyślny plik wiązań wejścia jest automatycznie tworzony w każdym nowym szablonie projektu, więc zwykle nie ma potrzeby tworzenia nowego pliku. Domyślny plik nazywa się `game.input_binding` i znajduje się w folderze `input` w katalogu głównym projektu. Kliknij dwukrotnie ten plik, aby otworzyć go w edytorze:
 
-![Input set bindings](images/input/input_binding.png)
+![Input set bindings](images/input/defold_input.png)
 
 Aby utworzyć nowe wiązanie, kliknij przycisk <kbd>+</kbd> na dole odpowiedniej sekcji typu wyzwalacza. Każdy wpis ma dwa pola:
 

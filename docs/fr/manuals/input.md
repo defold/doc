@@ -42,7 +42,7 @@ Les liaisons d'entrée constituent une table commune à l'ensemble du projet qui
 
 Un fichier de liaisons d'entrée par défaut est automatiquement créé avec tous les modèles de nouveaux projets ; il n'est donc généralement pas nécessaire d'en créer un autre. Le fichier par défaut s'appelle `game.input_binding` et se trouve dans le dossier `input` à la racine du projet. <kbd>Double-cliquez</kbd> sur le fichier pour l'ouvrir dans l'éditeur :
 
-![Configuration des liaisons d'entrée](images/input/input_binding.png)
+![Configuration des liaisons d'entrée](images/input/defold_input.png)
 
 Pour créer une nouvelle liaison, cliquez sur le bouton <kbd>+</kbd> en bas de la section correspondant au type de déclencheur. Chaque entrée comporte deux champs :
 

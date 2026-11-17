@@ -38,7 +38,6 @@ To add a collision object component to a game object:
 
 A collision component can contain several embedded shapes, including hulls and triangle meshes in 3D physics, or use a tilemap or convex shape resource. Learn more about the various shapes and how to add them to a collision component in the [Collision Shapes manual](/manuals/physics-shapes).
 
-
 ## Collision object properties
 
 Id

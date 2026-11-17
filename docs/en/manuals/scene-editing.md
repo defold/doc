@@ -64,31 +64,25 @@ The gizmo is available with both perspective and orthographic projection in 3D m
 
 ## 2D and 3D scene orientation
 
-The scene view can be used in both 2D and 3D workflows:
+:[2D and 3D scene orientation](../shared/2d-and-3d-scene-orientation.md)
 
-- In **2D**, you typically work in an orthographic view with a 2D-oriented grid.
-- In **3D**, you typically:
-  - Realign the view to a 3D orientation,
-  - Use a **perspective** camera,
-  - Choose an appropriate grid plane (often **Y** for “ground”).
-
-You can access these functions via the toolbar and the **View** menu. Use the [axis gizmo](#axis-gizmo) in 3D mode to align the view to an axis or orbit with the mouse.
-
-![Scene Editor 3D](images/editor/3d_scene.png)
+Use the [axis gizmo](#axis-gizmo) in 3D mode to align the view to an axis or orbit with the mouse.
 
 ## Toolbar overview
 
-In the top-right of the scene view there is a toolbar with commonly used tools and view options (left to right):
+In the top-right of the scene view there is a toolbar with commonly used tools and view options.
 
-- **Move tool** (<kbd>W</kbd>)
-- **Rotate tool** (<kbd>E</kbd>)
-- **Scale tool** (<kbd>R</kbd>)
-- **Grid Settings** (`▦`)
-- **Align/Realign Camera 2D/3D** (`2D`) — toggles between 2D and 3D orientation (shortcut <kbd>.</kbd>)
-- **Camera Perspective/Orthographic**
-- **Visibility Filters** (`👁`)
+![Scene Editor toolbar with controls numbered 1 to 7](images/editor/toolbar.png)
 
-![Toolbar](images/editor/toolbar.png)
+The options in the toolbar numbered from left to right are:
+
+1. **Move tool** (<kbd>W</kbd>) - move selected objects.
+2. **Rotate tool** (<kbd>E</kbd>) - rotate selected objects.
+3. **Scale tool** (<kbd>R</kbd>) - resize selected objects.
+4. **Grid** - toggle the grid, or use the dropdown to open Grid Settings.
+5. **2D mode** (`2D`) - switch between 2D and 3D orientation. You can also use **Realign Camera** (<kbd>.</kbd>).
+6. **Perspective camera** - switch between perspective and orthographic projection in 3D mode. Use the dropdown for camera settings.
+7. **Visibility filters** - show or hide component types and guides in the scene view.
 
 ## Selecting and manipulating objects {#manipulating-objects}
 
@@ -181,6 +175,8 @@ Use the camera toggle in the toolbar to switch. In 3D scenes, perspective naviga
 ## Free Camera Mode
 
 For fast 3D navigation, the Scene Editor provides **Free Camera Mode**, a first-person / “FPS-style” camera.
+
+![Free Camera Mode](images/editor/free_camera.png)
 
 ### Activating Free Camera Mode
 

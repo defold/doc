@@ -17,7 +17,7 @@ Konsola/ekrana günlük çıktısı yalnızca Debug derlemelerinde bilgi göster
 
 Oyununuzu düzenleyiciden yerel olarak veya [mobil geliştirme uygulamasına](/manuals/dev-app) bağlı olarak çalıştırdığınızda tüm çıktılar düzenleyicinin konsol bölmesinde gösterilir:
 
-![Düzenleyici 2](images/editor/editor2_overview.png)
+![Düzenleyici 2](images/editor/editor_overview.png)
 
 ## Oyun günlüğünü terminalden okuma
 

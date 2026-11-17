@@ -7,33 +7,53 @@ brief: 충돌 오브젝트는 기본 모양, hull 또는 삼각형 메쉬를 포
 
 충돌 오브젝트는 여러 내장 모양을 포함할 수 있습니다. 3D 물리에서는 glTF 또는 GLB 파일의 hull과 삼각형 메쉬를 포함할 수 있습니다. 충돌 오브젝트의 *Collision Shape* 프로퍼티로 타일맵이나 convex shape 리소스를 사용할 수도 있습니다.
 
-### 기본 모양
-기본 모양은 *box*, *sphere*, *capsule*입니다. 충돌 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택하여 기본 모양을 추가합니다:
+2D와 3D 물리에서 사용할 수 있는 충돌 모양은 다릅니다. `game.project`의 `Physics` 섹션에서 `Type` (`2D`/`3D`)으로 물리 유형을 설정합니다.
 
-![기본 모양 추가](images/physics/add_shape.png)
+![물리 설정](images/physics/physics_settings.png)
 
-## Box 모양
-box에는 위치, 회전, 크기(너비, 높이, 깊이)가 있습니다:
+### 충돌 모양 {#collision-shapes-list}
 
-![Box 모양](images/physics/box.png)
+충돌 오브젝트를 마우스 오른쪽 버튼으로 클릭하고 <kbd>Add Shape</kbd>를 선택하여 모양을 추가합니다.
 
-## Sphere 모양
-sphere에는 위치, 회전, 지름이 있습니다:
+![2D](images/physics/collision_shapes_2d.png)
 
-![Sphere 모양](images/physics/sphere.png)
+2D 물리 모양:
 
-## Capsule 모양
-capsule에는 위치, 회전, 지름, 높이가 있습니다:
+- **Circle** (위치, 회전, 지름)
 
-![Sphere 모양](images/physics/capsule.png)
+![Circle](images/physics/circle.png)
 
-::: important
-Capsule 모양은 3D 물리를 사용할 때만 지원됩니다. 3D 물리는 *game.project* 파일의 Physics 섹션에서 설정합니다.
-:::
+- **Rectangle** (위치, 회전, 2 치수, 깊이는 무시됨)
+
+![Rectangle](images/physics/rectangle.png)
+
+3D 물리 모양:
+
+![3D](images/physics/collision_shapes_3d.png)
+
+- **Box** (위치, 회전, 3 치수)
+
+![Box](images/physics/box.png)
+
+- **Capsule** (위치, 회전, 지름, 높이)
+
+![Capsule](images/physics/capsule.png)
+
+- **Hull** (위치, 회전, 씬, 메시)
+
+![Hull](images/physics/hull.png)
+
+- **Mesh** (위치, 회전, 씬, 메시)
+
+![Mesh](images/physics/mesh.png)
+
+- **Sphere** (위치, 회전, 지름)
+
+![Sphere](images/physics/sphere.png)
 
 ### 복잡한 모양
 
-복잡한 모양에는 타일맵 지오메트리나 convex hull 데이터를 사용할 수 있습니다. 3D 충돌 오브젝트는 glTF 또는 GLB 씬의 메쉬에서 hull과 삼각형 메쉬 모양도 만들 수 있습니다.
+복잡한 모양에는 타일맵 지오메트리나 convex hull 데이터를 사용할 수 있습니다. Defold 1.13.2부터 3D 충돌 오브젝트에서는 glTF 또는 GLB 씬의 메쉬로 hull과 삼각형 메쉬 모양을 만들 수도 있습니다.
 
 ## 3D의 Hull 및 Mesh 모양 {#hull-and-mesh-shapes-in-3d}
 

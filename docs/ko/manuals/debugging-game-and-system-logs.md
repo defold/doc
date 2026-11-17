@@ -17,7 +17,7 @@ brief: 이 매뉴얼은 게임 및 시스템 로그를 읽는 방법을 설명�
 
 에디터에서 로컬로 게임을 실행하거나 [모바일 개발용 앱](/manuals/dev-app)에 연결하면 모든 출력이 에디터의 콘솔 창에 표시됩니다.
 
-![Editor 2](images/editor/editor2_overview.png)
+![Editor 2](images/editor/editor_overview.png)
 
 ## 터미널에서 게임 로그 읽기
 

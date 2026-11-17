@@ -11,6 +11,8 @@ Para que uma colisão entre dois objetos seja registrada, ambos os objetos devem
 
 ![Physics collision group](images/physics/collision_group.png)
 
+![Physics collision group](images/physics/collision_groups.png)
+
 O campo *Mask* pode conter vários nomes de grupos, permitindo cenários de interação complexos.
 
 ## Detectando colisões

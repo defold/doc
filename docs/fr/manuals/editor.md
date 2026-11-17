@@ -146,6 +146,9 @@ Choisissez <kbd>Debug ▸ Reset Simulated Resolution</kbd> pour revenir à la ta
 
 Les fenêtres des instances en cours d'exécution sélectionnées sont redimensionnées selon [Display Width et Height](/manuals/project-settings/#display) du projet. Vous pouvez aussi effectuer la réinitialisation sans moteur en cours d'exécution ; le lancement suivant utilise alors la taille configurée. Un déplacement ou redimensionnement ultérieur de la fenêtre enregistre à nouveau son placement.
 
+## Orientation de la scène en 2D et en 3D {#2d-and-3d-scene-orientation}
+
+:[Orientation de la scène en 2D et en 3D](../shared/2d-and-3d-scene-orientation.md)
 
 ## Taille et visibilité des volets {#panes-size-and-visibility}
 

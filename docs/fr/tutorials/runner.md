@@ -49,7 +49,7 @@ Au premier démarrage, l'éditeur s'affiche vide, sans projet ouvert. Choisissez
 
 Le panneau *Assets pane* affiche maintenant tous les fichiers du projet. Si vous double-cliquez sur le fichier "main/main.collection", il s'ouvre dans la vue de l'éditeur au centre :
 
-![Vue d'ensemble de l'éditeur](images/runner/1/editor2_overview.png)
+![Vue d'ensemble de l'éditeur](images/runner/1/editor_overview.png)
 
 L'éditeur se compose des principales zones suivantes :
 

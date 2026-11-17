@@ -17,7 +17,7 @@ Logging no console/na tela só mostra informações em builds Debug. Em builds R
 
 Quando você executa seu jogo localmente pelo editor ou conectado ao [aplicativo de desenvolvimento mobile](/manuals/dev-app), toda a saída será mostrada no painel Console do editor:
 
-![Editor 2](images/editor/editor2_overview.png)
+![Editor 2](images/editor/editor_overview.png)
 
 ## Lendo o log do jogo pelo terminal
 

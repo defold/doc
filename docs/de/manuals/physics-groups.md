@@ -11,6 +11,8 @@ Damit eine Kollision zwischen zwei Objekten registriert wird, müssen beide Obje
 
 ![Kollisionsgruppe der Physik-Engine](images/physics/collision_group.png)
 
+![Kollisionsgruppe der Physik-Engine](images/physics/collision_groups.png)
+
 Das Feld *Mask* kann mehrere Gruppennamen enthalten und ermöglicht dadurch komplexe Interaktionsszenarien.
 
 ## Kollisionen erkennen {#detecting-collisions}

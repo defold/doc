@@ -17,7 +17,7 @@ brief: 本手册解释了如何读取游戏和系统日志。
 
 当您从编辑器本地运行游戏或连接到[移动开发应用](/manuals/dev-app)时，所有输出将显示在编辑器的控制台窗格中：
 
-![Editor 2](images/editor/editor2_overview.png)
+![Editor 2](images/editor/editor_overview.png)
 
 ## 从终端读取游戏日志
 

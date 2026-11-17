@@ -17,7 +17,7 @@ brief: このマニュアルでは、ゲームログとシステムログの確�
 
 エディターからローカルでゲームを実行するか、[モバイル開発用アプリ](/manuals/dev-app) に接続して実行すると、すべての出力がエディターのコンソールペインに表示されます。
 
-![エディター 2](images/editor/editor2_overview.png)
+![エディター 2](images/editor/editor_overview.png)
 
 ## ターミナルでゲームログを確認する {#reading-the-game-log-from-the-terminal}
 

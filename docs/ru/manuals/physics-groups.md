@@ -11,6 +11,8 @@ brief: Физический движок позволяет группирова
 
 ![Physics collision group](images/physics/collision_group.png)
 
+![Physics collision group](images/physics/collision_groups.png)
+
 Поле *Mask* может содержать множество имен групп, допуская сложные сценарии взаимодействия.
 
 ## Определение столкновений

@@ -42,7 +42,7 @@ The input bindings is a project wide table that allows you to specify how device
 
 A default input binding file is automatically created with all new project templates so there is usually no need to create a new binding file. The default file is called `game.input_binding` and can be found in the `input` folder in the project root. <kbd>Double click</kbd> the file to open it in the editor:
 
-![Input set bindings](images/input/input_binding.png)
+![Input bindings](images/input/defold_input.png)
 
 To create a new binding, click the <kbd>+</kbd> button at the bottom of the relevant trigger type section. Each entry has two fields:
 

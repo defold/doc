@@ -146,6 +146,10 @@ Elige <kbd>Debug ▸ Reset Simulated Resolution</kbd> para volver al tamaño con
 
 Las ventanas de las instancias del motor seleccionadas que están en ejecución se redimensionan al [ancho y alto de pantalla](/manuals/project-settings/#display) del proyecto. También puedes restablecerlas sin que haya ningún motor ejecutándose; el siguiente lanzamiento usa el tamaño configurado. Mover o redimensionar la ventana después vuelve a guardar su nueva posición y tamaño.
 
+## Orientación de escena 2D y 3D {#2d-and-3d-scene-orientation}
+
+:[Orientación de escena 2D y 3D](../shared/2d-and-3d-scene-orientation.md)
+
 ## Tamaño y visibilidad de los paneles {#panes-size-and-visibility}
 
 El tamaño de los paneles se puede ajustar dentro del editor con la acción <kbd>Arrastrar</kbd> sobre los bordes de sección entre los 6 paneles descritos arriba.
