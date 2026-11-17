@@ -224,21 +224,21 @@ Read the [Application lifecycle manual](/manuals/application-lifecycle/) for the
 
 ### Instance data vs local data
 
-Defold passes `self` to script callbacks. This is a Lua table assigned to every instance of the game object containing the given script component. You can store instance related data here, such as `self.health` or `self.target`. In Godot, instance variables (`var`) map directly to Defold's `self` table.
+Each script component instance receives its own `self` in callbacks for storing instance state, such as `self.health` or `self.target`. Even two script components on the same game object have separate `self` values. `self` is userdata with table-like field access, not a Lua table, so operations such as `pairs(self)` do not work. In Godot, instance variables (`var`) serve a similar purpose.
 
 Godot treats every `.gd` file as a Class Blueprint. When you attach a `.gd` file to 10 enemies, Godot instantiates 10 separate class objects, giving each one its own copy of top-level var declarations.
 
-Defold compiles and runs a `.script` file only once at startup as a single chunk of Lua code. To give each Game Object its own state, Defold creates an empty Lua table (`self`) per Game Object instance and passes it into every lifecycle callback (`init(self)`, `update(self, dt)`, etc.).
+Defold runs a `.script` file as a chunk of Lua code when the script resource is loaded. Each script component instance receives its own `self` in lifecycle callbacks such as `init(self)` and `update(self, dt)`.
 
 This is different from a local variable declared at the top of a Defold `.script` file - as it is then shared by **all instances** of that script. In Godot, static variables (`static var`) map to Defold's file-level local variables.
 
 ![Difference between instance and local data in Defold](images/lua/self_local.png)
 
-In the above example, if you changed a single instance's `self.has_shield` to `true`, it would not affect the other instances, so only one enemy could wear a shield. On the other hand, the local variable `color` is shared for all scripts, so used by all instances, so if you changed it to a different color, this could affect all instances.
+In the above example, changing one instance's `self.has_shield` to `true` does not affect the other instances. On the other hand, the local variable `color` is shared by instances using this script file, so changing it could affect all of those instances.
 
 ### Properties
 
-For an editable instance's **property**, use `go.property()`. Such a property lands in the `self` table. Like `@export`, this exposes a value in the editor. In Defold you will see them in `Properties`:
+For an editable instance's **property**, use `go.property()`. The property is available through `self`. Like `@export`, this exposes a value in the editor. In Defold you will see them in `Properties`:
 
 ![Properties in Defold Editor](images/script-properties/properties.png)
 
