@@ -115,7 +115,7 @@ Therefore it might look and feel similar to a `Node3D` (or a Scene with it). Bec
 
 An important distinction between Defold and Godot is that Game Objects can have child or parent relationships with other Game Objects only inside **Collections**. We'll explain Collections in more detail below. You can parent Game Objects to other Game Objects to make them inherit transforms. Note that this does not change the Game Objects' addresses.
 
-Game Objects in Defold are runtime instances, similarly to Nodes in Godot, but you can also save their data in a file (`.go`) or in a collection file (`.collection`) - we'll be calling them **embedded** game objects, similarly to how Godot saves any Node or a group of Nodes as an independent scene file (`.tscn`). You can then instantiate the Game Objects from files inside Collections, like Scenes inside other Scenes.
+In a collection, a game object can be defined directly in the `.collection` file as an **embedded** object, or added as a reference to a reusable `.go` prototype. Editing an embedded object's definition changes that collection; it does not change other independently defined objects. Editing a `.go` prototype updates the instances that reference it, subject to any instance-specific overrides. Referenced component resources can also be shared, even by embedded objects, so edits to those resources can affect other objects using them. If a collection is reused, changes to its embedded objects appear wherever that collection is referenced.
 
 ### Components
 
