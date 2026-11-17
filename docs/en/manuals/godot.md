@@ -461,7 +461,7 @@ Lua module `my_module`:
 ```lua
 local M = {}
 
-M.init() = function(self)
+function M.init(self)
     print("My init")
 end
 
