@@ -74,7 +74,7 @@ In the 3D Editor in Defold, you can also see a toolbar in the top right corner -
 
 ### Panes
 
-Defold panes cannot be undocked, but you can resize them by dragging their edges. You can also toggle their visibility with `F6`, `F7`, and `F8` or through the `View` menu:
+Defold panes cannot be detached into separate windows, but you can resize them by dragging their edges. You can also toggle their visibility with `F6`, `F7`, and `F8` or through the `View` menu:
 
 ![Panes Visibility](images/editor/editor_panes.png)
 
