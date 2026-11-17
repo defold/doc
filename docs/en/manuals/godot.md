@@ -316,7 +316,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 In Godot, the `Player` defines a signal named `score_changed`. During `_ready()`, it connects that signal to the GUI script's `set_score()` method. Whenever `collect()` is called, the score increases and the signal emits the new value.
 
-In Defold, the `player` initializes its score in `init()` and requests input focus to receive input events. When `collect(self)` is called, it increments the score and posts a `score_changed` message to `/hud#gui`, carrying the new score in the message table.
+In Defold, bind the **Space** key to the `collect` action in your input bindings. The `player` initializes its score in `init()` and requests input focus to receive input events. When `collect(self)` is called, it increments the score and posts a `score_changed` message to `/hud#gui`, carrying the new score in the message table.
 
 **Lua**, `player.script`:
 
@@ -342,15 +342,15 @@ Unlike Godot, Defold does not require the Player to connect a signal to the GUI 
 
 ### Receiving and handling messages
 
-Then, the HUD receives the value and updates its text.
+Then, the GUI receives the value and updates its score text.
 
-**GDScript**, `hud.gd`, attached to the `HUD` Label:
+**GDScript**, `gui.gd`, attached to `GUI` (`CanvasLayer`):
 
 ```gdscript
-extends Label
+extends CanvasLayer
 
-func set_score(value: int):
-    text = str(value)
+func set_score(value: int) -> void:
+    $ScoreText.text = str(value)
 ```
 
 The GUI script receives the emitted value through `set_score()`. It then updates its child `ScoreText` Label. The Player does not access or modify the Label directly.
@@ -372,6 +372,8 @@ end
 ```
 
 Importantly, the Defold message is addressed to the GUI **component**, not directly to the score text node. The receiving GUI script decides how to use the message and which text node to update.
+
+Both screenshots show the initial text `Score: 0`. These example scripts replace the entire text with the numeric value after a score change.
 
 The `msg.post()` does not immediately (not "in-place", but practically - in the same frame) call the receiver and does not return a result from the receiving script. If the receiver needs to reply, it can post another message to the original sender using the sender URL supplied to `on_message()`.
 
