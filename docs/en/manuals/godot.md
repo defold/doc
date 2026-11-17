@@ -137,13 +137,12 @@ Because components are flat and decoupled from custom scripts, Defold packs them
 | `Area2D` / `RigidBody2D` / `StaticBody2D` and their 3D counterparts | [Collision object](/manuals/physics-objects/) | Handles physics and triggers. Collision shapes are defined directly inside this component rather than as separate child Nodes. You can select static, dynamic, kinematic, or trigger type. |
 | `.gd` script attached to a node | Script | Contains Lua code to drive logic, handle input, and control other components and game objects. |
 | `TileMapLayer` | [Tilemap](/manuals/tilemap/) | Renders a grid-based map using a tile source and tilemap layers. |
-| `Label` | [Label](/manuals/label/) | Defold supports bitmap, SDF and vector fonts, emoji and RichText support. |
+| `Label` | [GUI text node](/manuals/gui-text/) | Use GUI text for interface text. For text in the game world, use a [Label component](/manuals/label/). |
 | `AudioStreamPlayer` | [Sound](/manuals/sound/) | Plays audio. Configure Speed, Pan, and Gain. |
-| Physics bodies and `Area2D` / `Area3D` | 
 | `Camera2D` / `Camera3D` | [Camera](/manuals/camera/) | Supports orthographic and perspective projection. |
 | `Control` hierarchy / `CanvasLayer` | [GUI](/manuals/gui/) | Defold has a separate hierarchy of nodes (e.g. Box, Text, Pie) inside a GUI component and a dedicated `.gui_script` for GUI handling. |
 | `MeshInstance3D` | [Model](/manuals/model/) or [Mesh](/manuals/mesh/) | Model supports imported 3D content, and Mesh supports custom geometry from a buffer. |
-| `CPUParticle2D` / `GPUParticle2D` and their 3D counterparts | [ParticleFX](/manuals/particlefx/) | Emits 2D/3D particles configured in Defold's particle editor. |
+| `CPUParticles2D` / `GPUParticles2D` and their 3D counterparts | [ParticleFX](/manuals/particlefx/) | Emits 2D/3D particles configured in Defold's particle editor. |
 | `PackedScene.instantiate()` | Factory / Collection Factory | Defold has separate components for defining which game objects or collections can be spawned at runtime. |
 
 ### Collections and worlds
