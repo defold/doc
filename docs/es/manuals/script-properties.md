@@ -18,7 +18,7 @@ Los casos de uso comunes son definir la salud o la velocidad de una IA enemiga e
 
 Las propiedades de script se agregan a un componente script definiéndolas con la función especial `go.property()`. La función debe usarse en el nivel superior, fuera de cualquier función de ciclo de vida como `init()` y `update()`. El valor predeterminado proporcionado para la propiedad determina el tipo de la propiedad: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` y `resource` (ver más abajo).
 
-![Properties](images/script-properties/properties.png)
+![Propiedades en el editor Defold](images/script-properties/properties.png)
 
 ::: important
 Ten en cuenta que la conversión inversa del valor hash funciona solo en la build Debug para facilitar la depuración. En la build Release, el valor de string inverso no existe, por lo que usar `tostring()` en un valor `hash` para extraer el string no tiene sentido.

@@ -66,13 +66,13 @@ Manipulator jest dostępny w trybie 3D zarówno przy projekcji perspektywicznej,
 
 :[Orientacja sceny 2D i 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Te funkcje są dostępne z paska narzędzi oraz menu **View**. Używaj [manipulatora osi](#axis-gizmo) w trybie 3D, aby wyrównać widok do osi lub obracać go myszą.
+W trybie 3D użyj [manipulatora osi](#axis-gizmo), aby wyrównać widok do wybranej osi lub obracać go myszą.
 
 ## Przegląd paska narzędzi {#toolbar-overview}
 
 W prawym górnym rogu widoku sceny znajduje się pasek z często używanymi narzędziami i opcjami widoku.
 
-![Toolbar](images/editor/toolbar.png)
+![Pasek narzędzi edytora scen z elementami ponumerowanymi od 1 do 7](images/editor/toolbar.png)
 
 Ponumerowane opcje paska od lewej do prawej:
 
@@ -82,7 +82,7 @@ Ponumerowane opcje paska od lewej do prawej:
 4. **Grid** - Włącza lub wyłącza siatkę. Menu rozwijane otwiera Grid Settings.
 5. **2D mode** (`2D`) - Przełącza orientację 2D i 3D. Można też użyć **Realign Camera** (<kbd>.</kbd>).
 6. **Perspective camera** - Przełącza projekcję perspektywiczną i ortograficzną w 3D. Menu rozwijane otwiera ustawienia kamery.
-7. **Visibility filters** - Pokazuje lub ukrywa typy komponentów i linie pomocnicze.
+7. **Visibility filters** - Pokazuje lub ukrywa typy komponentów i linie pomocnicze w widoku sceny.
 
 ## Zaznaczanie i manipulowanie obiektami {#manipulating-objects}
 

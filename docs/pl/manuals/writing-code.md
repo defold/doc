@@ -19,6 +19,8 @@ Defold obsługuje transpilatory generujące kod Lua. Po zainstalowaniu rozszerze
 
 Defold pozwala rozszerzać silnik kodem natywnym, aby uzyskać dostęp do funkcji specyficznych dla platformy, których sam silnik nie udostępnia. Kod natywny przydaje się też wtedy, gdy wydajność Lua nie wystarcza, na przykład przy kosztownych obliczeniach lub przetwarzaniu obrazów. Więcej informacji znajdziesz w [instrukcjach o Native Extensions](/manuals/extensions/).
 
+<a id="using-the-built-in-code-editor"></a>
+
 ## Używanie wbudowanego edytora kodu
 
 Defold ma wbudowany edytor kodu, który pozwala otwierać i edytować pliki Lua (.lua), pliki skryptów Defold (.script, .gui_script i .render_script), a także inne pliki z rozszerzeniami, których edytor nie obsługuje natywnie. Edytor zapewnia też podświetlanie składni dla plików Lua i plików skryptów.
@@ -68,6 +70,8 @@ ignore = {
     "614"                -- białe znaki na końcu komentarza
 },
 ```
+
+<a id="using-an-external-code-editor"></a>
 
 ## Używanie zewnętrznego edytora kodu
 

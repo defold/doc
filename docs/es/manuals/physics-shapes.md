@@ -13,43 +13,45 @@ Hay distintas formas de colisión para físicas 2D y 3D. Configura el tipo de f�
 
 ### Formas de colisión {#collision-shapes-list}
 
-Para añadir una forma, haz clic derecho en el objeto de colisión y selecciona <kbd>Add Shape</kbd>:
+Para añadir una forma, haz <kbd>clic derecho</kbd> en el objeto de colisión y selecciona <kbd>Add Shape</kbd>.
 
-![2D](images/physics/collision_shapes_2d.png)
+![Añadir una forma primitiva con la física 2D activada](images/physics/collision_shapes_2d.png)
 
 Formas para físicas 2D:
 
 - **Circle** (posición, rotación, diámetro)
 
-![Circle](images/physics/circle.png)
+![Forma de colisión circular](images/physics/circle.png)
 
 - **Rectangle** (posición, rotación, 2 dimensiones, se ignora la profundidad)
 
-![Rectangle](images/physics/rectangle.png)
+![Forma de colisión rectangular](images/physics/rectangle.png)
+
+En la física 3D, las formas se añaden del mismo modo.
+
+![Añadir una forma primitiva con la física 3D activada](images/physics/collision_shapes_3d.png)
 
 Formas para físicas 3D:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (posición, rotación, 3 dimensiones)
 
-![Box](images/physics/box.png)
+![Forma de colisión de caja](images/physics/box.png)
 
 - **Capsule** (posición, rotación, diámetro, altura)
 
-![Capsule](images/physics/capsule.png)
+![Forma de colisión de cápsula](images/physics/capsule.png)
 
 - **Hull** (posición, rotación, escena, malla)
 
-![Hull](images/physics/hull.png)
+![Forma de colisión de envolvente convexa](images/physics/hull.png)
 
 - **Mesh** (posición, rotación, escena, malla)
 
-![Mesh](images/physics/mesh.png)
+![Forma de colisión de malla triangular](images/physics/mesh.png)
 
 - **Sphere** (posición, rotación, diámetro)
 
-![Sphere](images/physics/sphere.png)
+![Forma de colisión esférica](images/physics/sphere.png)
 
 ### Formas complejas {#complex-shapes}
 Las formas complejas pueden usar geometría de tilemap o datos de una envolvente convexa. Desde Defold 1.13.2, los objetos de colisión 3D también pueden crear envolventes convexas y formas de malla de triángulos a partir de mallas de escenas glTF o GLB.

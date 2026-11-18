@@ -42,7 +42,7 @@ Die Eingabebindungen bilden eine projektweite Tabelle, mit der du festlegst, wie
 
 Bei allen neuen Projektvorlagen wird automatisch eine Standarddatei für Eingabebindungen erstellt, daher musst du normalerweise keine neue Bindungsdatei erstellen. Die Standarddatei heißt `game.input_binding` und befindet sich im Ordner `input` im Projektstammverzeichnis. <kbd>Doppelklicke</kbd> auf die Datei, um sie im Editor zu öffnen:
 
-![Eingabebindungen festlegen](images/input/defold_input.png)
+![Eingabebindungen](images/input/defold_input.png)
 
 Um eine neue Bindung zu erstellen, klicke unten im Abschnitt des entsprechenden Auslösertyps auf die Schaltfläche <kbd>+</kbd>. Jeder Eintrag hat zwei Felder:
 

@@ -201,6 +201,8 @@ msg.post("level:/player#controller", "wake_up")
 ```
 Puedes encontrar una descripción más detallada de cómo funcionan los proxies en la documentación de [proxies de colección](/manuals/collection-proxy).
 
+<a id="message-chains"></a>
+
 ## Cadenas de mensajes
 
 Cuando un mensaje que se ha enviado finalmente se despacha, se llama al `on_message()` de los destinatarios. Es bastante común que el código de reacción envíe nuevos mensajes, que se agregan a la cola de mensajes.

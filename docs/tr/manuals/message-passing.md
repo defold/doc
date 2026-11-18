@@ -201,6 +201,8 @@ msg.post("level:/player#controller", "wake_up")
 ```
 Vekillerin nasıl çalıştığına ilişkin daha ayrıntılı bir açıklamayı [Koleksiyon vekilleri](/manuals/collection-proxy) belgesinde bulabilirsiniz.
 
+<a id="message-chains"></a>
+
 ## İleti zincirleri
 
 Gönderilmiş bir ileti sonunda dağıtıldığında alıcıların `on_message()` işlevi çağrılır. Tepki veren kodun, ileti kuyruğuna eklenen yeni iletiler göndermesi oldukça yaygındır.

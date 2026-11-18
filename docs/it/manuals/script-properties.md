@@ -18,7 +18,7 @@ Tra i casi d'uso comuni ci sono l'impostazione della vita o della velocità di u
 
 Per aggiungere proprietà a un componente script, definiscile con la funzione speciale `go.property()`. La funzione deve essere usata al livello principale dello script---al di fuori delle funzioni del ciclo di vita come `init()` e `update()`. Il valore predefinito fornito per la proprietà ne determina il tipo: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` e `resource` (vedi sotto).
 
-![Proprietà](images/script-properties/properties.png)
+![Proprietà nell'editor Defold](images/script-properties/properties.png)
 
 ::: important
 Tieni presente che è possibile risalire alla stringa di un valore hash solo nelle build di debug, per facilitare il debug. Nelle build di release, la stringa corrispondente non è disponibile, quindi usare `tostring()` su un valore `hash` per estrarne la stringa non ha senso.

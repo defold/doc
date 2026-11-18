@@ -545,7 +545,7 @@ end
 
 Las variables son globales a menos que se declaren con `local`. Todos los scripts de objetos de juego, scripts GUI y render scripts comparten un único contexto Lua, por lo que las variables globales y la caché de los módulos cargados con `require()` se comparten entre ellos. Guarda en `self` el estado que pertenece a una sola instancia de script, o crea explícitamente tablas de estado separadas, en lugar de guardarlo en variables globales o tablas de módulos compartidas.
 
-![Datos de instancia y locales](images/lua/self_local.png)
+![Diferencia entre los datos de instancia y los datos locales en Defold](images/lua/self_local.png)
 
 En el ejemplo, si cambias `self.has_shield` a `true` en una instancia, las demás no se verán afectadas y solo un enemigo podrá llevar un escudo. En cambio, la variable local `color` es compartida por todas las instancias, por lo que cambiar su color puede afectarlas a todas.
 
@@ -649,6 +649,8 @@ print(collectgarbage("count") * 1024)
 
 Una consideración de diseño de implementación común es cómo estructurar el código para comportamientos compartidos. Son posibles varios enfoques.
 
+<a id="behaviors-in-a-module"></a>
+
 ### Comportamientos en un módulo
 
 Encapsular un comportamiento en un módulo te permite compartir código fácilmente entre componentes script de distintos objetos de juego (y scripts GUI). Al escribir funciones de módulo, generalmente es mejor escribir código estrictamente funcional. Hay casos en los que el estado almacenado o los efectos secundarios son necesarios (o llevan a un diseño más limpio). Si tienes que almacenar el estado interno en el módulo, ten en cuenta que los componentes comparten contextos Lua. Consulta la [documentación de módulos](/manuals/modules) para más detalles.
@@ -657,11 +659,15 @@ Encapsular un comportamiento en un módulo te permite compartir código fácilme
 
   Además, aunque sea posible que el código de un módulo modifique directamente los internos de un objeto de juego (pasando `self` a una función del módulo), lo desaconsejamos firmemente porque crearás un acoplamiento muy fuerte.
 
+<a id="a-helper-game-object-with-encapsulated-behavior"></a>
+
 ### Un objeto de juego auxiliar con comportamiento encapsulado
 
 Igual que puedes contener código script en un módulo Lua, puedes contenerlo en un objeto de juego con un componente script. La diferencia es que si lo contienes en un objeto de juego, puedes comunicarte con él estrictamente mediante paso de mensajes.
 
   ![Auxiliar](images/lua/lua_helper.png)
+
+<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
 
 ### Objeto de juego agrupador con objeto de comportamiento auxiliar dentro de una colección
 

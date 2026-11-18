@@ -13,43 +13,45 @@ Für 2D und 3D stehen unterschiedliche Kollisionsformen zur Verfügung. Den Phys
 
 ### Kollisionsformen {#collision-shapes-list}
 
-Klicke mit der rechten Maustaste auf das Kollisionsobjekt und wähle <kbd>Add Shape</kbd>, um eine Form hinzuzufügen:
+Klicke mit der <kbd>rechten Maustaste</kbd> auf das Kollisionsobjekt und wähle <kbd>Add Shape</kbd>, um eine Form hinzuzufügen.
 
-![2D](images/physics/collision_shapes_2d.png)
+![Eine primitive Kollisionsform in der 2D-Physik hinzufügen](images/physics/collision_shapes_2d.png)
 
 Formen für 2D-Physik:
 
 - **Circle** (Position, Drehung, Durchmesser)
 
-![Circle](images/physics/circle.png)
+![Kreisförmige Kollisionsform](images/physics/circle.png)
 
 - **Rectangle** (Position, Drehung, 2 Abmessungen, Tiefe wird ignoriert)
 
-![Rectangle](images/physics/rectangle.png)
+![Rechteckige Kollisionsform](images/physics/rectangle.png)
+
+In der 3D-Physik fügst du Formen auf dieselbe Weise hinzu.
+
+![Eine primitive Kollisionsform in der 3D-Physik hinzufügen](images/physics/collision_shapes_3d.png)
 
 Formen für 3D-Physik:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (Position, Drehung, 3 Abmessungen)
 
-![Box](images/physics/box.png)
+![Quaderförmige Kollisionsform](images/physics/box.png)
 
 - **Capsule** (Position, Drehung, Durchmesser, Höhe)
 
-![Capsule](images/physics/capsule.png)
+![Kapselförmige Kollisionsform](images/physics/capsule.png)
 
 - **Hull** (Position, Drehung, Szene, Mesh)
 
-![Hull](images/physics/hull.png)
+![Konvexe Hülle als Kollisionsform](images/physics/hull.png)
 
 - **Mesh** (Position, Drehung, Szene, Mesh)
 
-![Mesh](images/physics/mesh.png)
+![Dreiecksmesh als Kollisionsform](images/physics/mesh.png)
 
 - **Sphere** (Position, Drehung, Durchmesser)
 
-![Sphere](images/physics/sphere.png)
+![Kugelförmige Kollisionsform](images/physics/sphere.png)
 
 ### Komplexe Formen {#complex-shapes}
 Komplexe Formen können die Geometrie einer Kachelkarte oder Daten einer konvexen Hülle (convex hull) verwenden. Seit Defold 1.13.2 können 3D-Kollisionsobjekte auch Hüllen und Dreiecksmesh-Formen aus Meshes in glTF- oder GLB-Szenen erstellen.

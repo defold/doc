@@ -66,13 +66,13 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 
 :[2D와 3D 씬 방향](../shared/2d-and-3d-scene-orientation.md)
 
-이 기능은 도구 모음과 **View** 메뉴에서 사용할 수 있습니다. 3D 모드의 [축 기즈모](#axis-gizmo)로 시점을 축에 정렬하거나 마우스로 회전할 수 있습니다.
+3D 모드의 [축 기즈모](#axis-gizmo)로 시점을 축에 정렬하거나 마우스로 회전할 수 있습니다.
 
 ## 툴바 개요 {#toolbar-overview}
 
 씬 뷰 오른쪽 위에는 자주 사용하는 도구와 보기 옵션이 있는 툴바가 있습니다.
 
-![Toolbar](images/editor/toolbar.png)
+![도구에 1번부터 7번까지 번호가 표시된 씬 에디터 툴바](images/editor/toolbar.png)
 
 툴바의 번호가 매겨진 옵션은 왼쪽부터 다음과 같습니다.
 
@@ -82,7 +82,7 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 4. **Grid** - 그리드를 표시하거나 숨깁니다. 드롭다운에서 Grid Settings를 엽니다.
 5. **2D mode** (`2D`) - 2D와 3D 방향을 전환합니다. **Realign Camera** (<kbd>.</kbd>)도 사용할 수 있습니다.
 6. **Perspective camera** - 3D에서 원근 투영과 직교 투영을 전환합니다. 드롭다운에서 카메라 설정을 엽니다.
-7. **Visibility filters** - 컴포넌트 유형과 가이드를 표시하거나 숨깁니다.
+7. **Visibility filters** - 씬 뷰에서 컴포넌트 유형과 가이드를 표시하거나 숨깁니다.
 
 ## 오브젝트 선택 및 조작 {#manipulating-objects}
 

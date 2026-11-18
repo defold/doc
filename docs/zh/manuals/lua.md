@@ -545,7 +545,7 @@ end
 
 除非使用 `local` 声明，否则变量都是全局的。所有游戏对象脚本、GUI 脚本和渲染脚本共享一个 Lua 上下文，因此它们共享全局变量和通过 `require()` 加载的模块缓存。属于单个脚本实例的状态应存储在 `self` 中，或显式创建独立的状态表，不应保存在共享的全局变量或模块表中。
 
-![实例数据和局部数据](images/lua/self_local.png)
+![Defold 中实例数据与局部数据的区别](images/lua/self_local.png)
 
 在上面的示例中，将某个实例的 `self.has_shield` 改为 `true` 不会影响其他实例，因此只有一个敌人可以持有盾牌。而局部变量 `color` 由所有实例共享，因此更改颜色可能影响所有实例。
 
@@ -651,6 +651,8 @@ print(collectgarbage("count") * 1024)
 
 一个常见的实现设计考虑是如何为共享行为构建代码结构。有几种可能的方法。
 
+<a id="behaviors-in-a-module"></a>
+
 ### 模块中的行为
 
 将行为封装在模块中允许您在不同的游戏对象脚本组件（和 GUI 脚本）之间轻松共享代码。在编写模块函数时，通常最好编写严格的函数式代码。在某些情况下，存储状态或副作用是必要的（或导致更清晰的设计）。如果必须在模块中存储内部状态，请注意组件共享 Lua 上下文。有关详细信息，请参阅[模块文档](/manuals/modules)。
@@ -659,11 +661,15 @@ print(collectgarbage("count") * 1024)
 
   此外，即使可以让模块代码直接修改游戏对象的内部（通过将 `self` 传递给模块函数），我们也强烈不鼓励您这样做，因为您会创建非常紧密的耦合。
 
+<a id="a-helper-game-object-with-encapsulated-behavior"></a>
+
 ### 带有封装行为的辅助游戏对象
 
 就像您可以将脚本代码包含在 Lua 模块中一样，您也可以将其包含在带有脚本组件的游戏对象中。不同之处在于，如果将其包含在游戏对象中，您只能严格通过消息传递与其通信。
 
   ![Helper](images/lua/lua_helper.png)
+
+<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
 
 ### 在集合内将游戏对象与辅助行为对象分组
 

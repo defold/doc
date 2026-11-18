@@ -11,7 +11,7 @@ brief: 物理引擎允许您将物理对象分组，并过滤它们应该如何�
 
 ![Physics collision group](images/physics/collision_group.png)
 
-![Physics collision group](images/physics/collision_groups.png)
+![物理碰撞分组与掩码](images/physics/collision_groups.png)
 
 *掩码(Mask)* 字段可以包含多个组名，从而允许实现复杂的交互场景。
 

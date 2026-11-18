@@ -11,7 +11,7 @@ Aby kolizja między dwoma obiektami została zarejestrowana, oba obiekty muszą 
 
 ![Physics collision group](images/physics/collision_group.png)
 
-![Physics collision group](images/physics/collision_groups.png)
+![Grupy i maski kolizji w Defold](images/physics/collision_groups.png)
 
 Pole *Mask* może zawierać wiele nazw grup, co pozwala tworzyć złożone scenariusze interakcji.
 

@@ -1,3 +1,5 @@
+<a id="hello-world"></a>
+
 ## Witaj, świecie
 
 To szybki sposób, aby sprawnie zrobić coś w Defold, wykonać kroki, a potem wrócić do reszty instrukcji.

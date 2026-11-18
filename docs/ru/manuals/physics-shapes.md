@@ -13,43 +13,45 @@ brief: Объекты столкновения могут содержать п�
 
 ### Формы столкновений {#collision-shapes-list}
 
-Чтобы добавить форму, щёлкните правой кнопкой по объекту столкновения и выберите <kbd>Add Shape</kbd>:
+Чтобы добавить форму, <kbd>щёлкните правой кнопкой мыши</kbd> по объекту столкновения и выберите <kbd>Add Shape</kbd>:
 
-![2D](images/physics/collision_shapes_2d.png)
+![Добавление примитивной формы столкновения в режиме 2D-физики](images/physics/collision_shapes_2d.png)
 
 Формы для физики 2D:
 
 - **Circle** (позиция, поворот, диаметр)
 
-![Circle](images/physics/circle.png)
+![Форма столкновения Circle (круг)](images/physics/circle.png)
 
-- **Rectangle** (позиция, поворот, 2 размеры, глубина игнорируется)
+- **Rectangle** (позиция, поворот, ширина и высота, глубина игнорируется)
 
-![Rectangle](images/physics/rectangle.png)
+![Форма столкновения Rectangle (прямоугольник)](images/physics/rectangle.png)
+
+В режиме 3D-физики форма добавляется таким же способом:
+
+![Добавление примитивной формы столкновения в режиме 3D-физики](images/physics/collision_shapes_3d.png)
 
 Формы для физики 3D:
 
-![3D](images/physics/collision_shapes_3d.png)
+- **Box** (позиция, поворот, ширина, высота и глубина)
 
-- **Box** (позиция, поворот, 3 размеры)
-
-![Box](images/physics/box.png)
+![Форма столкновения Box (прямоугольный параллелепипед)](images/physics/box.png)
 
 - **Capsule** (позиция, поворот, диаметр, высота)
 
-![Capsule](images/physics/capsule.png)
+![Форма столкновения Capsule (капсула)](images/physics/capsule.png)
 
 - **Hull** (позиция, поворот, сцена, меш)
 
-![Hull](images/physics/hull.png)
+![Форма столкновения Hull (выпуклая оболочка)](images/physics/hull.png)
 
 - **Mesh** (позиция, поворот, сцена, меш)
 
-![Mesh](images/physics/mesh.png)
+![Форма столкновения Mesh (треугольная сетка)](images/physics/mesh.png)
 
 - **Sphere** (позиция, поворот, диаметр)
 
-![Sphere](images/physics/sphere.png)
+![Форма столкновения Sphere (сфера)](images/physics/sphere.png)
 
 ### Комплексные формы
 Сложные формы могут использовать геометрию тайловой карты или данные выпуклой оболочки. Начиная с Defold 1.13.2, 3D-объекты столкновения также могут создавать формы в виде выпуклых оболочек и треугольных сеток из сеток в сценах glTF или GLB.

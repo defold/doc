@@ -13,43 +13,45 @@ brief: Об’єкти колізій можуть містити приміти
 
 ### Форми колізії {#collision-shapes-list}
 
-Щоб додати форму, клацніть правою кнопкою миші об’єкт колізії та виберіть <kbd>Add Shape</kbd>:
+Щоб додати форму, <kbd>клацніть правою кнопкою миші</kbd> об’єкт колізії та виберіть <kbd>Add Shape</kbd>:
 
-![2D](images/physics/collision_shapes_2d.png)
+![Додавання примітивної форми у 2D-фізиці](images/physics/collision_shapes_2d.png)
 
 Форми для фізики 2D:
 
 - **Circle** (позиція, обертання, діаметр)
 
-![Circle](images/physics/circle.png)
+![Кругла форма колізії](images/physics/circle.png)
 
 - **Rectangle** (позиція, обертання, 2 розміри, глибина ігнорується)
 
-![Rectangle](images/physics/rectangle.png)
+![Прямокутна форма колізії](images/physics/rectangle.png)
+
+У 3D-фізиці форми додають так само.
+
+![Додавання примітивної форми у 3D-фізиці](images/physics/collision_shapes_3d.png)
 
 Форми для фізики 3D:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (позиція, обертання, 3 розміри)
 
-![Box](images/physics/box.png)
+![Форма колізії у вигляді прямокутного паралелепіпеда](images/physics/box.png)
 
 - **Capsule** (позиція, обертання, діаметр, висота)
 
-![Capsule](images/physics/capsule.png)
+![Форма колізії у вигляді капсули](images/physics/capsule.png)
 
 - **Hull** (позиція, обертання, сцена, меш)
 
-![Hull](images/physics/hull.png)
+![Опукла оболонка як форма колізії](images/physics/hull.png)
 
 - **Mesh** (позиція, обертання, сцена, меш)
 
-![Mesh](images/physics/mesh.png)
+![Трикутна сітка як форма колізії](images/physics/mesh.png)
 
 - **Sphere** (позиція, обертання, діаметр)
 
-![Sphere](images/physics/sphere.png)
+![Сферична форма колізії](images/physics/sphere.png)
 
 ### Складні форми {#complex-shapes}
 Складні форми можуть використовувати геометрію карти плиток або дані опуклої оболонки. Починаючи з Defold 1.13.2, об’єкти колізій у 3D також можуть створювати оболонки й форми трикутних сіток із сіток у сценах glTF або GLB.

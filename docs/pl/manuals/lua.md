@@ -542,7 +542,7 @@ end
 
 Zmienne są globalne, chyba że zadeklarowano je z użyciem `local`. Wszystkie skrypty obiektów gry, skrypty GUI i skrypty renderowania współdzielą jeden kontekst Lua, więc zmienne globalne i pamięć podręczna modułów załadowanych przez `require()` są wspólne dla wszystkich tych skryptów. Stan należący do jednej instancji skryptu przechowuj w `self` albo jawnie twórz osobne tablice stanu, zamiast przechowywać go we współdzielonych zmiennych globalnych lub tablicach modułów.
 
-![Dane instancji i dane lokalne](images/lua/self_local.png)
+![Dane jednej instancji skryptu a zmienna lokalna wspólna dla instancji w Defold](images/lua/self_local.png)
 
 W powyższym przykładzie zmiana `self.has_shield` na `true` w jednej instancji nie wpłynie na pozostałe, więc tylko jeden przeciwnik może mieć tarczę. Z kolei lokalna zmienna `color` jest współdzielona przez wszystkie instancje, więc zmiana koloru może wpłynąć na nie wszystkie.
 
@@ -646,6 +646,8 @@ print(collectgarbage("count") * 1024)
 
 Jednym z ważnych pytań projektowych jest to, jak strukturyzować kod dla współdzielonych zachowań. Można przyjąć kilka różnych podejść.
 
+<a id="behaviors-in-a-module"></a>
+
 ### Zachowania w module
 
 Umieszczenie zachowania w module ułatwia współdzielenie kodu między komponentami skryptów obiektów gry i skryptami GUI. Przy pisaniu funkcji modułu zazwyczaj najlepiej trzymać się kodu czysto funkcyjnego. Zdarzają się jednak przypadki, w których przechowywanie stanu lub skutków ubocznych jest konieczne albo po prostu daje czystszy projekt. Jeśli musisz przechowywać stan w module, pamiętaj, że komponenty współdzielą konteksty Lua. Szczegóły znajdziesz w [instrukcji do modułów](/manuals/modules).
@@ -654,12 +656,16 @@ Umieszczenie zachowania w module ułatwia współdzielenie kodu między komponen
 
   Nawet jeśli kod modułu może bezpośrednio modyfikować wnętrze obiektu gry przez przekazanie `self` do funkcji modułu, zdecydowanie tego odradzamy, bo prowadzi to do bardzo silnego sprzężenia.
 
+<a id="a-helper-game-object-with-encapsulated-behavior"></a>
+
 ### Pomocniczy obiekt gry z kapsułkowanym zachowaniem
 
 Tak samo jak można umieścić kod skryptu w module Lua, można go umieścić w obiekcie gry z komponentem skryptowym. Różnica polega na tym, że wtedy komunikacja z nim odbywa się wyłącznie przez wiadomości.
 
   ![Helper](images/lua/lua_helper.png)
   
+<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
+
 ### Grupowanie obiektu gry z pomocniczym obiektem zachowania w kolekcji
 
 W takim układzie można stworzyć obiekt gry, który automatycznie działa na innym obiekcie docelowym, albo przez z góry zdefiniowaną nazwę, którą użytkownik musi dopasować, albo przez adres URL z `go.property()`, wskazujący obiekt docelowy.

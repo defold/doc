@@ -18,7 +18,7 @@ Les cas d'utilisation courants consistent à définir les points de vie ou la vi
 
 Les propriétés de script sont ajoutées à un composant script en les définissant avec la fonction spéciale `go.property()`. Cette fonction doit être utilisée au niveau supérieur, en dehors de toute fonction du cycle de vie comme `init()` et `update()`. La valeur par défaut fournie détermine le type de la propriété : `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` et `resource` (voir ci-dessous).
 
-![Propriétés](images/script-properties/properties.png)
+![Propriétés d’un script dans l’éditeur Defold](images/script-properties/properties.png)
 
 ::: important
 Notez que retrouver la chaîne d'origine à partir d'une valeur de hachage n'est possible que dans un build Debug, afin de faciliter le débogage. Dans un build Release, cette chaîne n'existe pas ; utiliser `tostring()` sur une valeur `hash` pour en extraire la chaîne n'a donc aucun sens.

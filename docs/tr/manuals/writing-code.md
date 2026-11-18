@@ -19,6 +19,8 @@ Defold, Lua kodu üreten kaynak kod dönüştürücülerin (transpiler) kullanı
 
 Defold, motorun kendisinin sunmadığı platforma özgü işlevlere erişmek için oyun motorunu yerel kodla (native code) genişletmenize olanak tanır. Lua'nın performansı yeterli olmadığında da yerel kod kullanabilirsiniz (yoğun kaynak gerektiren hesaplamalar, görüntü işleme vb.). Daha fazla bilgi için [yerel kod eklentileri kılavuzlarımıza](/manuals/extensions/) bakın.
 
+<a id="using-the-built-in-code-editor"></a>
+
 ## Yerleşik kod düzenleyicisini kullanma
 
 Defold'un yerleşik kod düzenleyicisi, Lua dosyalarını (.lua), Defold betik dosyalarını (.script, .gui_script ve .render_script) ve düzenleyicinin doğrudan işlemediği dosya uzantılarına sahip diğer tüm dosyaları açıp düzenlemenize olanak tanır. Ayrıca düzenleyici, Lua ve betik dosyaları için sözdizimi vurgulaması sağlar.
@@ -66,6 +68,8 @@ ignore = {
     "614"                -- trailing whitespace in a comment
 },
 ```
+
+<a id="using-an-external-code-editor"></a>
 
 ## Harici bir kod düzenleyicisi kullanma
 

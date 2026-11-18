@@ -62,18 +62,17 @@ L'alignement sur un axe conserve le point de visée, la distance et la projectio
 
 Le gizmo est disponible avec les projections perspective et orthographique en mode 3D. Il est masqué en mode 2D ; utilisez **Align/Realign Camera 2D/3D** dans la [barre d'outils](#toolbar-overview), ou appuyez sur <kbd>.</kbd>, pour passer en 3D. Utilisez le [bouton distinct de projection de la caméra](#camera-type-perspective-vs-orthographic) pour choisir la projection perspective ou orthographique. Le gizmo contrôle la vue de votre scène dans l'éditeur de scène.
 
-
 ## Orientation de la scène en 2D et en 3D {#2d-and-3d-scene-orientation}
 
 :[Orientation de la scène en 2D et en 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Vous pouvez accéder à ces fonctions depuis la barre d'outils et le menu **View**. Utilisez le [gizmo des axes](#axis-gizmo) en mode 3D pour aligner la vue sur un axe ou faire orbiter la caméra à la souris.
+Utilisez le [gizmo des axes](#axis-gizmo) en mode 3D pour aligner la vue sur un axe ou faire orbiter la caméra à la souris.
 
 ## Présentation de la barre d'outils {#toolbar-overview}
 
 En haut à droite de la vue de scène se trouve une barre d’outils contenant les outils et options d’affichage courants.
 
-![Toolbar](images/editor/toolbar.png)
+![Barre d’outils de l’éditeur de scène avec les commandes numérotées de 1 à 7](images/editor/toolbar.png)
 
 Options numérotées de gauche à droite :
 
@@ -83,7 +82,7 @@ Options numérotées de gauche à droite :
 4. **Grid** - Afficher ou masquer la grille. Le menu ouvre Grid Settings.
 5. **2D mode** (`2D`) - Basculer entre les orientations 2D et 3D. Vous pouvez aussi utiliser **Realign Camera** (<kbd>.</kbd>).
 6. **Perspective camera** - Basculer entre les projections perspective et orthographique en 3D. Le menu ouvre les réglages de caméra.
-7. **Visibility filters** - Afficher ou masquer les types de composants et les guides.
+7. **Visibility filters** - Afficher ou masquer les types de composants et les guides dans la vue de scène.
 
 ## Sélectionner et manipuler des objets {#manipulating-objects}
 

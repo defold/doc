@@ -18,7 +18,7 @@ Yaygın kullanım örnekleri arasında belirli bir düşman yapay zekâsının c
 
 Betik özellikleri, özel `go.property()` işleviyle tanımlanarak bir betik bileşenine (script component) eklenir. Bu işlevin en üst düzeyde, yani `init()` ve `update()` gibi yaşam döngüsü işlevlerinin dışında kullanılması gerekir. Özellik için verilen varsayılan değer, özelliğin türünü belirler: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` ve `resource` (aşağıya bakın).
 
-![Properties görünümü](images/script-properties/properties.png)
+![Defold düzenleyicisinde betik özellikleri](images/script-properties/properties.png)
 
 ::: important
 Karma değerinden (hash value) özgün dizeyi geri elde etmenin, hata ayıklamayı kolaylaştırmak amacıyla yalnızca Debug derlemesinde çalıştığını unutmayın. Release derlemesinde geri elde edilebilecek dize değeri bulunmaz; bu nedenle `tostring()` işlevini bir `hash` değeri üzerinde kullanarak bu değerden dizeyi elde etmeye çalışmak anlamsızdır.

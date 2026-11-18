@@ -66,13 +66,13 @@ Araç, 3B modunda hem perspektif hem de ortografik izdüşümle kullanılabilir.
 
 :[2B ve 3B sahne yönelimi](../shared/2d-and-3d-scene-orientation.md)
 
-Bu işlevlere araç çubuğundan ve **View** menüsünden erişebilirsiniz. 3B modunda görünümü bir eksene hizalamak veya fareyle yörüngede döndürmek için [eksen kontrol aracını](#axis-gizmo) kullanın.
+3B modunda görünümü bir eksene hizalamak veya fareyle yörüngede döndürmek için [eksen kontrol aracını](#axis-gizmo) kullanın.
 
 ## Araç çubuğuna genel bakış {#toolbar-overview}
 
 Sahne görünümünün sağ üst köşesinde sık kullanılan araçları ve görünüm seçeneklerini içeren bir araç çubuğu vardır.
 
-![Toolbar](images/editor/toolbar.png)
+![Sahne düzenleyicisinin 1'den 7'ye kadar numaralandırılmış denetimleri gösteren araç çubuğu](images/editor/toolbar.png)
 
 Araç çubuğundaki numaralı seçenekler soldan sağa şöyledir:
 
@@ -82,7 +82,7 @@ Araç çubuğundaki numaralı seçenekler soldan sağa şöyledir:
 4. **Grid** - Izgarayı gösterir veya gizler. Açılır menü Grid Settings ayarlarını açar.
 5. **2D mode** (`2D`) - 2B ve 3B yönelimi arasında geçiş yapar. **Realign Camera** (<kbd>.</kbd>) da kullanılabilir.
 6. **Perspective camera** - 3B perspektif ve ortografik izdüşüm arasında geçiş yapar. Açılır menü kamera ayarlarını açar.
-7. **Visibility filters** - Bileşen türlerini ve kılavuzları gösterir veya gizler.
+7. **Visibility filters** - Sahne görünümünde bileşen türlerini ve kılavuzları gösterir veya gizler.
 
 ## Nesneleri seçme ve değiştirme {#manipulating-objects}
 

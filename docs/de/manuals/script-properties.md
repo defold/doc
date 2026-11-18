@@ -18,7 +18,7 @@ Typische Anwendungsfälle sind das Festlegen der Lebenspunkte oder Geschwindigke
 
 Skripteigenschaften werden einer Skriptkomponente (script component) hinzugefügt, indem du sie mit der speziellen Funktion `go.property()` definierst. Die Funktion muss auf der obersten Ebene verwendet werden---außerhalb von Lebenszyklusfunktionen wie `init()` und `update()`. Der für die Eigenschaft angegebene Standardwert bestimmt ihren Typ: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` und `resource` (siehe unten).
 
-![Properties](images/script-properties/properties.png)
+![Eigenschaften im Defold-Editor](images/script-properties/properties.png)
 
 ::: important
 Beachte, dass sich der ursprüngliche Zeichenfolgenwert eines Hash-Werts nur im Debug-Build ermitteln lässt, um die Fehlersuche zu erleichtern. Im Release-Build ist dieser Zeichenfolgenwert nicht vorhanden. Daher ist es dort nicht sinnvoll, mit `tostring()` die Zeichenfolge aus einem `hash`-Wert auszulesen.

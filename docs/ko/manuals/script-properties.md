@@ -18,7 +18,7 @@ brief: 이 매뉴얼은 스크립트 컴포넌트에 커스텀 프로퍼티를 �
 
 스크립트 프로퍼티는 `go.property()` 특수 함수로 정의해 스크립트 컴포넌트에 추가합니다. 이 함수는 `init()`과 `update()` 같은 라이프사이클 함수 바깥의 최상위 레벨에서 사용해야 합니다. 프로퍼티에 제공한 기본값이 프로퍼티의 타입을 결정합니다: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion`, `resource`(아래 참고).
 
-![프로퍼티](images/script-properties/properties.png)
+![Defold 에디터의 프로퍼티](images/script-properties/properties.png)
 
 ::: important
 해쉬값의 역변환은 디버깅을 돕기 위해 Debug 빌드에서만 동작합니다. Release 빌드에는 역변환된 문자열 값이 존재하지 않으므로, `hash` 값에서 문자열을 추출하려고 `tostring()`을 사용하는 것은 의미가 없습니다.

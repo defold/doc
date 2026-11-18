@@ -66,13 +66,13 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
 
 :[2D 和 3D 场景方向](../shared/2d-and-3d-scene-orientation.md)
 
-这些功能可通过工具栏和 **View** 菜单访问。在 3D 模式下，使用[坐标轴控件](#axis-gizmo)可将视图对齐到坐标轴，或通过鼠标环绕观察。
+在 3D 模式下，使用[坐标轴控件](#axis-gizmo)可将视图对齐到坐标轴，或通过鼠标环绕观察。
 
 ## 工具栏概览 {#toolbar-overview}
 
 场景视图的右上角有一个工具栏，包含常用工具和视图选项。
 
-![Toolbar](images/editor/toolbar.png)
+![场景编辑器工具栏，控件按 1 到 7 编号](images/editor/toolbar.png)
 
 工具栏中从左到右编号的选项如下：
 
@@ -82,7 +82,7 @@ Scene Editor 摄像机可以通过鼠标和键盘控制。可用控制取决于�
 4. **Grid** - 显示或隐藏网格。下拉菜单可打开 Grid Settings。
 5. **2D mode** (`2D`) - 切换 2D 和 3D 方向。也可使用 **Realign Camera**（<kbd>.</kbd>）。
 6. **Perspective camera** - 在 3D 中切换透视投影和正交投影。下拉菜单可打开摄像机设置。
-7. **Visibility filters** - 显示或隐藏组件类型和辅助线。
+7. **Visibility filters** - 在场景视图中显示或隐藏组件类型和辅助线。
 
 ## 选择和操作对象 {#manipulating-objects}
 

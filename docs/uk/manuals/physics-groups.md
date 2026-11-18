@@ -11,7 +11,7 @@ brief: Фізичний рушій дає змогу групувати фізи
 
 ![Група фізичних колізій](images/physics/collision_group.png)
 
-![Група фізичних колізій](images/physics/collision_groups.png)
+![Групи й маски фізичних колізій](images/physics/collision_groups.png)
 
 Поле *Mask* може містити кілька назв груп, що дає змогу створювати складні сценарії взаємодії.
 

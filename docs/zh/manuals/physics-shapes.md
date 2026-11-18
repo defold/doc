@@ -13,43 +13,45 @@ brief: 碰撞对象可以包含基本形状、凸包或三角网格，也可以�
 
 ### 碰撞形状 {#collision-shapes-list}
 
-右键单击碰撞对象并选择 <kbd>Add Shape</kbd>，即可添加形状：
+<kbd>右键单击</kbd>碰撞对象并选择 <kbd>Add Shape</kbd>，即可添加形状：
 
-![2D](images/physics/collision_shapes_2d.png)
+![使用 2D 物理时添加基本碰撞形状](images/physics/collision_shapes_2d.png)
 
 2D 物理形状：
 
 - **Circle** (位置, 旋转, 直径)
 
-![Circle](images/physics/circle.png)
+![圆形碰撞形状](images/physics/circle.png)
 
 - **Rectangle** (位置, 旋转, 2 尺寸, 忽略深度)
 
-![Rectangle](images/physics/rectangle.png)
+![矩形碰撞形状](images/physics/rectangle.png)
+
+使用 3D 物理时，添加形状的方法相同。
+
+![使用 3D 物理时添加基本碰撞形状](images/physics/collision_shapes_3d.png)
 
 3D 物理形状：
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (位置, 旋转, 3 尺寸)
 
-![Box](images/physics/box.png)
+![长方体碰撞形状](images/physics/box.png)
 
 - **Capsule** (位置, 旋转, 直径, 高度)
 
-![Capsule](images/physics/capsule.png)
+![胶囊体碰撞形状](images/physics/capsule.png)
 
 - **Hull** (位置, 旋转, 场景, 网格)
 
-![Hull](images/physics/hull.png)
+![凸包碰撞形状](images/physics/hull.png)
 
 - **Mesh** (位置, 旋转, 场景, 网格)
 
-![Mesh](images/physics/mesh.png)
+![三角网格碰撞形状](images/physics/mesh.png)
 
 - **Sphere** (位置, 旋转, 直径)
 
-![Sphere](images/physics/sphere.png)
+![球形碰撞形状](images/physics/sphere.png)
 
 ### 复杂形状 {#complex-shapes}
 复杂形状可以使用瓦片地图几何体或凸包数据。自 Defold 1.13.2 起，3D 碰撞对象还可以从 glTF 或 GLB 场景中的网格创建凸包和三角网格形状。

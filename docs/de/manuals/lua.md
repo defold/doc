@@ -545,7 +545,7 @@ end
 
 Variablen sind global, sofern sie nicht mit `local` deklariert werden. Alle Spielobjektskripte, GUI-Skripte und Render-Skripte teilen sich einen Lua-Kontext. Daher werden globale Variablen und der Cache der mit `require()` geladenen Module von allen gemeinsam genutzt. Speichere den Zustand, der zu einer einzelnen Skriptinstanz gehört, in `self` oder erstelle explizit separate Zustandstabellen, statt ihn in gemeinsam genutzten globalen Variablen oder Modultabellen zu speichern.
 
-![Instanz- und lokale Daten](images/lua/self_local.png)
+![Unterschied zwischen Instanzdaten und lokalen Daten in Defold](images/lua/self_local.png)
 
 Wenn du im Beispiel `self.has_shield` einer einzelnen Instanz auf `true` setzt, bleiben die anderen Instanzen unverändert. Nur ein Gegner könnte also einen Schild tragen. Die lokale Variable `color` wird dagegen von allen Instanzen gemeinsam genutzt. Eine Änderung ihrer Farbe kann sich daher auf alle Instanzen auswirken.
 
@@ -649,6 +649,8 @@ print(collectgarbage("count") * 1024)
 
 Eine häufige Überlegung beim Entwurf einer Implementierung ist, wie Code für gemeinsam genutzte Verhaltensweisen strukturiert werden sollte. Dafür gibt es mehrere Ansätze.
 
+<a id="behaviors-in-a-module"></a>
+
 ### Verhaltensweisen in einem Modul
 
 Wenn du eine Verhaltensweise in einem Modul kapselst, kannst du Code leicht zwischen den Skriptkomponenten verschiedener Spielobjekte (und GUI-Skripten) gemeinsam nutzen. Beim Schreiben von Modulfunktionen ist es in der Regel am besten, streng funktionalen Code zu schreiben. Es gibt Fälle, in denen ein gespeicherter Zustand oder Seiteneffekte erforderlich sind oder zu einem übersichtlicheren Entwurf führen. Wenn du den internen Zustand im Modul speichern musst, beachte, dass Komponenten Lua-Kontexte gemeinsam nutzen. Einzelheiten findest du in der [Dokumentation zu Modulen](/manuals/modules).
@@ -657,11 +659,15 @@ Wenn du eine Verhaltensweise in einem Modul kapselst, kannst du Code leicht zwis
 
   Auch wenn Modulcode das Innere eines Spielobjekts direkt ändern kann, indem du `self` an eine Modulfunktion übergibst, raten wir dringend davon ab, da dadurch eine sehr enge Kopplung entsteht.
 
+<a id="a-helper-game-object-with-encapsulated-behavior"></a>
+
 ### Ein Hilfsspielobjekt mit gekapseltem Verhalten
 
 So wie du Skriptcode in einem Lua-Modul kapseln kannst, kannst du ihn auch in einem Spielobjekt mit einer Skriptkomponente kapseln. Der Unterschied besteht darin, dass du bei der Kapselung in einem Spielobjekt ausschließlich über Nachrichten mit ihm kommunizieren kannst.
 
   ![Hilfsspielobjekt](images/lua/lua_helper.png)
+
+<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
 
 ### Spielobjekt und Hilfsobjekt für das Verhalten in einer Sammlung gruppieren
 

@@ -13,43 +13,45 @@ As formas de colisão disponíveis são diferentes para física 2D e 3D. Configu
 
 ### Formas de colisão {#collision-shapes-list}
 
-Para adicionar uma forma, clique com o botão direito no objeto de colisão e selecione <kbd>Add Shape</kbd>:
+Para adicionar uma forma, <kbd>clique com o botão direito</kbd> no objeto de colisão e selecione <kbd>Adicionar Forma</kbd> (Add Shape).
 
-![2D](images/physics/collision_shapes_2d.png)
+![Como adicionar uma forma primitiva na física 2D](images/physics/collision_shapes_2d.png)
 
 Formas para física 2D:
 
 - **Circle** (posição, rotação, diâmetro)
 
-![Circle](images/physics/circle.png)
+![Forma circular](images/physics/circle.png)
 
 - **Rectangle** (posição, rotação, 2 dimensões, a profundidade é ignorada)
 
-![Rectangle](images/physics/rectangle.png)
+![Forma retangular](images/physics/rectangle.png)
+
+Na física 3D, você adiciona a forma da mesma maneira.
+
+![Como adicionar uma forma primitiva na física 3D](images/physics/collision_shapes_3d.png)
 
 Formas para física 3D:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (posição, rotação, 3 dimensões)
 
-![Box](images/physics/box.png)
+![Forma de caixa](images/physics/box.png)
 
 - **Capsule** (posição, rotação, diâmetro, altura)
 
-![Capsule](images/physics/capsule.png)
+![Forma de cápsula](images/physics/capsule.png)
 
 - **Hull** (posição, rotação, cena, malha)
 
-![Hull](images/physics/hull.png)
+![Forma de casco convexo](images/physics/hull.png)
 
 - **Mesh** (posição, rotação, cena, malha)
 
-![Mesh](images/physics/mesh.png)
+![Forma de malha](images/physics/mesh.png)
 
 - **Sphere** (posição, rotação, diâmetro)
 
-![Sphere](images/physics/sphere.png)
+![Forma esférica](images/physics/sphere.png)
 
 ### Formas complexas
 Formas complexas podem usar a geometria de tilemaps ou dados de cascos convexos. Desde o Defold 1.13.2, objetos de colisão 3D também podem criar cascos convexos e formas de malhas de triângulos a partir de malhas em cenas glTF ou GLB.
