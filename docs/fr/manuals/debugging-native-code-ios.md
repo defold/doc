@@ -101,7 +101,7 @@ Plusieurs possibilités s'offrent à vous pour déboguer une application
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
+![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
 * Vérifiez que `lldb` a lu les symboles correctement
 

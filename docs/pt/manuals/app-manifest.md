@@ -32,9 +32,7 @@ Inclui a implementação de física 3D Bullet. Ela é incluída por padrão; des
 Controla a funcionalidade de rig e modelo, ou selecione None para excluir modelo e rig completamente. (Veja a documentação de [`Model`](https://defold.com/manuals/model/#model-component)).
 
 
-<a id="exclude-record"></a>
-
-## Excluir Gravação
+## Excluir Gravação {#exclude-record}
 
 Exclui a gravação nativa de MP4, o [módulo Lua `recorder`](/ref/recorder/) e o serviço HTTP de gravação dos builds de depuração para desktop. A gravação já é omitida de builds de release, headless, móveis e web. Consulte o [manual de gravação](/manuals/recording) para conhecer o fluxo de trabalho.
 
@@ -114,9 +112,7 @@ Exclui a biblioteca de compressão de textura [Basis Universal](/manuals/texture
 Usa a biblioteca Android Support Library obsoleta em vez do AndroidX. [Mais informações](https://defold.com/manuals/android/#using-androidx).
 
 
-<a id="graphics"></a>
-
-## Gráficos
+## Gráficos {#graphics}
 
 Selecione quais backends gráficos incluir em cada plataforma. Uma opção combinada inclui vários backends para que a engine possa recorrer a outro quando o preferido não estiver disponível. Incluir mais backends aumenta o tamanho da engine.
 

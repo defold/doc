@@ -56,9 +56,7 @@ Orthographic Mode
   Disponível somente quando `Orthographic Projection` está ativado.
 
 
-<a id="using-the-camera"></a>
-
-## Usando a câmera
+## Usando a câmera {#using-the-camera}
 
 Todas as câmeras são ativadas e atualizadas automaticamente durante um frame, e o módulo Lua `camera` fica disponível em todos os contextos de script. Desde o Defold 1.8.1, não é mais necessário ativar explicitamente uma câmera enviando uma mensagem `acquire_camera_focus` ao componente de câmera. As mensagens antigas de adquirir e liberar continuam disponíveis, mas recomenda-se usar as mensagens `enable` e `disable`, como em qualquer outro componente que você queira ativar ou desativar:
 

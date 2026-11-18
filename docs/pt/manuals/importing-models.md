@@ -57,9 +57,7 @@ Texturas de modelos podem usar fontes *.ktx2*, tanto como arquivos externos quan
 
 [Perfis de textura](/manuals/texture-profiles/#ktx2-source-textures) determinam se o formato KTX2 de origem será mantido ou convertido para os formatos de saída configurados. **Keep KTX2 Format** preserva o formato de codificação de origem quando a compressão de texturas está habilitada, mas o processamento de imagens ainda pode exigir recodificação. Verifique o suporte ao formato nos dispositivos-alvo e considere a possível perda adicional de qualidade ao recomprimir uma textura já comprimida. Consulte [Formatos de entrada e prévias KTX2](/manuals/importing-graphics/#ktx2-textures).
 
-<a id="using-a-model"></a>
-
-## Usando um modelo
+## Usando um modelo {#using-a-model}
 Depois de importar o modelo, use-o em um [componente de Modelo](/manuals/model):
 
 1. Crie um arquivo Model no painel *Assets* com <kbd>New... ▸ Model</kbd>, ou adicione um componente Model diretamente a um objeto de jogo com <kbd>Add Component ▸ Model</kbd>.

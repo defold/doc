@@ -101,7 +101,7 @@ You have a few options to debug an app
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
+![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
 * Verify that `lldb` read the symbols successfully
 

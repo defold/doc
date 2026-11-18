@@ -649,9 +649,7 @@ print(collectgarbage("count") * 1024)
 
 일반적인 구현 설계 고려사항 중 하나는 공유 동작을 위한 코드를 어떻게 구조화할지입니다. 여러 접근 방식이 가능합니다.
 
-<a id="behaviors-in-a-module"></a>
-
-### 모듈의 동작
+### 모듈의 동작 {#behaviors-in-a-module}
 
 동작을 모듈에 캡슐화하면 서로 다른 게임 오브젝트의 스크립트 컴포넌트(및 GUI 스크립트) 사이에서 코드를 쉽게 공유할 수 있습니다. 모듈 함수를 작성할 때는 일반적으로 엄격한 함수형 코드로 작성하는 것이 가장 좋습니다. 저장된 상태나 부작용이 꼭 필요하거나 더 깔끔한 설계로 이어지는 경우도 있습니다. 모듈에 내부 상태를 저장해야 한다면 컴포넌트가 Lua 컨텍스트를 공유한다는 점을 알고 있어야 합니다. 자세한 내용은 [모듈 문서](/manuals/modules)를 참고하세요.
 
@@ -659,17 +657,13 @@ print(collectgarbage("count") * 1024)
 
   또한 모듈 함수에 `self`를 전달해 모듈 코드가 게임 오브젝트 내부를 직접 수정하는 것이 가능하더라도, 매우 강한 결합을 만들게 되므로 이 방식은 강력히 권장하지 않습니다.
 
-<a id="a-helper-game-object-with-encapsulated-behavior"></a>
-
-### 캡슐화된 동작을 가진 헬퍼 게임 오브젝트
+### 캡슐화된 동작을 가진 헬퍼 게임 오브젝트 {#a-helper-game-object-with-encapsulated-behavior}
 
 Lua 모듈에 스크립트 코드를 담을 수 있는 것처럼, 스크립트 컴포넌트를 가진 게임 오브젝트에도 담을 수 있습니다. 차이는 게임 오브젝트에 담는 경우 메세지 전달을 통해서만 엄격하게 통신할 수 있다는 점입니다.
 
   ![Helper](images/lua/lua_helper.png)
 
-<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
-
-### 컬렉션 안에서 헬퍼 동작 오브젝트와 게임 오브젝트 그룹화
+### 컬렉션 안에서 헬퍼 동작 오브젝트와 게임 오브젝트 그룹화 {#grouping-game-object-with-helper-behavior-object-inside-a-collection}
 
 이 설계에서는 미리 정의된 이름(사용자가 타겟 게임 오브젝트 이름을 일치하도록 변경해야 함)이나 타겟 게임 오브젝트를 가리키는 `go.property()` URL을 통해 다른 타겟 게임 오브젝트에 자동으로 작용하는 동작 게임 오브젝트를 만들 수 있습니다.
 

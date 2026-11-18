@@ -702,9 +702,7 @@ iOS керує фактичною видимістю індикатора. Ав�
 #### Debuggable
 Визначає, чи можна налагоджувати застосунок за допомогою таких інструментів, як [GAPID](https://github.com/google/gapid) або [Android Studio](https://developer.android.com/studio/profile/android-profiler). Це задає прапорець `android:debuggable` у маніфесті Android ([офіційна документація](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-<a id="proguard-config"></a>
-
-#### R8 Keep Rules {#r8-keep-rules}
+#### R8 Keep Rules
 `android.r8_keep_rules` вибирає файл `.keep`, який вмикає вилучення невикористаного коду, оптимізацію й обфускацію Java за допомогою R8 у збірках для Android. Залиште налаштування порожнім, щоб використовувати D8 без вилучення невикористаного коду.
 
 Із сумісним сервером збирання Extender це також вилучає невикористані ресурси Android. Для ресурсів, які завантажуються динамічно, можуть знадобитися окремі [правила збереження у XML](/manuals/android/#keeping-android-resources).

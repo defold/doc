@@ -27,5 +27,5 @@ Serwer budowania zbierze pliki `build.gradle` ze wszystkich rozszerzeń i użyje
 
 Przykłady:
 
-* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/android/)build.gradle
+* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/android/build.gradle)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)

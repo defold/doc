@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-Un altro caso d'uso del caricamento di grandi quantità di dati dalla rete è lo streaming audio, in cui "blocchi" di dati audio vengono caricati da un URL e trasferiti a una risorsa audio. Trovi un esempio completo nel [manuale sullo streaming audio](/sound-streaming#sound-streaming).
+Un altro caso d'uso del caricamento di grandi quantità di dati dalla rete è lo streaming audio, in cui "blocchi" di dati audio vengono caricati da un URL e trasferiti a una risorsa audio. Trovi un esempio completo nel [manuale sullo streaming audio](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Intestazioni della richiesta {#request-headers}
@@ -130,7 +130,7 @@ Defold imposta automaticamente alcune intestazioni della richiesta:
 * `If-None-Match: <etag>` viene impostata con l'ETag di un'eventuale risposta precedentemente memorizzata nella cache.
 * `Transfer-Encoding: chunked` viene impostata se il corpo della richiesta supera i 16384 byte.
 * `Content-Length` viene impostata con la dimensione del corpo della richiesta (a meno che la richiesta non sia suddivisa in blocchi).
-* `Range: bytes=<from>-<to>` viene impostata se viene richiesta una risposta parziale, per esempio durante lo [streaming audio](/sound-streaming#sound-streaming).
+* `Range: bytes=<from>-<to>` viene impostata se viene richiesta una risposta parziale, per esempio durante lo [streaming audio](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Intestazioni della risposta {#response-headers}

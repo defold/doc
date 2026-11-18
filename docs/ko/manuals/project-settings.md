@@ -710,8 +710,6 @@ display cutout 영역까지 확장합니다.
 #### Debuggable
 어플리케이션을 [GAPID](https://github.com/google/gapid) 또는 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 같은 도구로 디버깅할 수 있는지 여부입니다. 이 설정은 Android manifest의 `android:debuggable` flag를 설정합니다([공식 문서](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-<a id="proguard-config"></a>
-
 #### R8 Keep Rules
 `android.r8_keep_rules`는 Android 빌드에서 Java 코드의 R8 축소, 최적화, 난독화를 활성화할 `.keep` 파일을 선택합니다. 축소 없이 D8을 사용하려면 설정을 비워 둡니다.
 

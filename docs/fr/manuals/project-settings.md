@@ -703,9 +703,7 @@ Si cette option est activée, les barres de navigation et d'état sont masquées
 #### Debuggable {#debuggable}
 Détermine si l'application peut être déboguée à l'aide d'outils comme [GAPID](https://github.com/google/gapid) ou [Android Studio](https://developer.android.com/studio/profile/android-profiler). Cela définit l'indicateur `android:debuggable` dans le manifeste Android ([documentation officielle](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-<a id="proguard-config"></a>
-
-#### R8 Keep Rules {#r8-keep-rules}
+#### R8 Keep Rules
 `android.r8_keep_rules` sélectionne un fichier `.keep` pour activer la suppression du code inutilisé, l'optimisation et l'obfuscation du code Java avec R8 dans les builds Android. Laissez ce paramètre vide pour utiliser D8 sans suppression du code inutilisé.
 
 Avec un serveur de build Extender compatible, cela supprime également les ressources Android inutilisées. Les ressources chargées dynamiquement peuvent nécessiter des [règles XML de conservation](/manuals/android/#keeping-android-resources) distinctes.

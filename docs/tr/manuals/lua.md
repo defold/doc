@@ -649,9 +649,7 @@ print(collectgarbage("count") * 1024)
 
 Yaygın bir uygulama tasarımı konusu, ortak davranışlar için kodun nasıl yapılandırılacağıdır. Birkaç yaklaşım mümkündür.
 
-<a id="behaviors-in-a-module"></a>
-
-### Modül içindeki davranışlar
+### Modül içindeki davranışlar {#behaviors-in-a-module}
 
 Bir davranışı bir modül içinde kapsüllemek, farklı oyun nesnelerinin betik bileşenleri (ve GUI betikleri) arasında kodu kolayca paylaşmanızı sağlar. Modül işlevleri yazarken genellikle tamamen işlevsel programlamaya dayalı kod yazmak en iyisidir. Durum saklamanın veya yan etkilerin gerekli olduğu (ya da daha temiz bir tasarım sağladığı) durumlar vardır. Dahili durumu modülde saklamanız gerekiyorsa bileşenlerin Lua bağlamlarını paylaştığını unutmayın. Ayrıntılar için [Modüller belgelerine](/manuals/modules) bakın.
 
@@ -659,17 +657,13 @@ Bir davranışı bir modül içinde kapsüllemek, farklı oyun nesnelerinin beti
 
   Ayrıca modül kodunun bir oyun nesnesinin iç yapısını doğrudan değiştirmesi mümkün olsa da (bir modül işlevine `self` aktararak), çok sıkı bir bağımlılık oluşturacağınız için bunu yapmaktan kesinlikle kaçınmanızı öneririz.
 
-<a id="a-helper-game-object-with-encapsulated-behavior"></a>
-
-### Davranışı kapsülleyen yardımcı bir oyun nesnesi
+### Davranışı kapsülleyen yardımcı bir oyun nesnesi {#a-helper-game-object-with-encapsulated-behavior}
 
 Betik kodunu bir Lua modülünde barındırabildiğiniz gibi, betik bileşeni olan bir oyun nesnesinde de barındırabilirsiniz. Aradaki fark, kodu bir oyun nesnesinde barındırdığınızda onunla yalnızca ileti aktarımı (message passing) yoluyla iletişim kurabilmenizdir.
 
   ![Yardımcı](images/lua/lua_helper.png)
 
-<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
-
-### Oyun nesnesini yardımcı davranış nesnesiyle bir koleksiyon içinde gruplama
+### Oyun nesnesini yardımcı davranış nesnesiyle bir koleksiyon içinde gruplama {#grouping-game-object-with-helper-behavior-object-inside-a-collection}
 
 Bu tasarımda, başka bir hedef oyun nesnesi üzerinde otomatik olarak işlem yapan bir davranış oyun nesnesi oluşturabilirsiniz. Bunun için önceden tanımlanmış bir ad (kullanıcının hedef oyun nesnesinin adını buna uyacak şekilde değiştirmesi gerekir) veya hedef oyun nesnesini gösteren bir `go.property()` URL değeri kullanılabilir.
 

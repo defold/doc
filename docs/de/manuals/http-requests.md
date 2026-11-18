@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-Ein weiterer Anwendungsfall für das Laden großer Datenmengen über das Netzwerk ist Audiostreaming. Dabei werden „Blöcke“ von Audiodaten von einer URL geladen und einer Audioressource zugeführt. Ein vollständiges Beispiel findest du im [Handbuch zum Audiostreaming](/sound-streaming#sound-streaming).
+Ein weiterer Anwendungsfall für das Laden großer Datenmengen über das Netzwerk ist Audiostreaming. Dabei werden „Blöcke“ von Audiodaten von einer URL geladen und einer Audioressource zugeführt. Ein vollständiges Beispiel findest du im [Handbuch zum Audiostreaming](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Anfrage-Header {#request-headers}
@@ -130,7 +130,7 @@ Defold setzt einige Anfrage-Header automatisch:
 * `If-None-Match: <etag>` wird auf den ETag einer zuvor zwischengespeicherten Antwort gesetzt.
 * `Transfer-Encoding: chunked` wird gesetzt, wenn der Anfrageinhalt größer als 16384 Bytes ist.
 * `Content-Length` wird auf die Größe des Anfrageinhalts gesetzt (außer wenn die Anfrage in Blöcken übertragen wird).
-* `Range: bytes=<from>-<to>` wird gesetzt, wenn eine Teilantwort angefordert wird, beispielsweise beim [Streamen von Audiodaten](/sound-streaming#sound-streaming).
+* `Range: bytes=<from>-<to>` wird gesetzt, wenn eine Teilantwort angefordert wird, beispielsweise beim [Streamen von Audiodaten](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Antwort-Header {#response-headers}

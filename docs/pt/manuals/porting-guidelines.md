@@ -86,9 +86,7 @@ Para plataformas mobile, bloqueie a orientação da tela em *game.project* ou ce
   * O vsync e o intervalo de swap na seção Display de *game.project*
 
 
-<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
-
-## Celulares, notch e câmeras hole punch
+## Celulares, notch e câmeras hole punch {#mobile-phones-and-notch-and-hole-punch-cameras}
 Tornou-se cada vez mais comum usar um pequeno recorte de lente na tela para acomodar a câmera frontal e sensores (também conhecido como notch ou câmera hole punch). Ao portar um jogo para mobile, mantenha as informações críticas dentro da área segura da plataforma.
 
 O Defold tem suporte integrado a áreas seguras no Android e iOS. Defina `gui.safe_area_mode` em *game.project* para controlar quais insets opostos da área segura afetam o ajuste da GUI. `none` é o padrão e ignora os insets; `long` aplica esquerda/direita no modo paisagem e superior/inferior no modo retrato; `short` aplica o par oposto; e `both` aplica as quatro bordas. Um GUI script pode substituir o modo do projeto para sua cena com [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Para lógica personalizada de GUI ou renderização, [`window.get_safe_area()`](/ref/window/#window.get_safe_area) retorna o retângulo seguro e os insets individuais de cada borda. Plataformas sem insets de área segura integrados retornam a janela inteira e insets iguais a zero.

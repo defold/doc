@@ -702,8 +702,6 @@ Android デバイスでキーボード入力を取得する方法を指定しま
 #### Debuggable
 [GAPID](https://github.com/google/gapid) や [Android Studio](https://developer.android.com/studio/profile/android-profiler) などのツールを使用して、アプリケーションをデバッグできるかどうかを指定します。Android マニフェストの `android:debuggable` フラグを設定します（[公式ドキュメント](https://developer.android.com/guide/topics/manifest/application-element#debug)）。
 
-<a id="proguard-config"></a>
-
 #### R8 Keep Rules
 `android.r8_keep_rules` で `.keep` ファイルを選択すると、Android ビルドで Java コードの R8 による縮小、最適化、難読化が有効になります。縮小を行わない D8 を使うには、設定を空にします。
 

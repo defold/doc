@@ -48,9 +48,7 @@ Extrude Border
 Collision
 : Especifica a imagem a ser usada para gerar automaticamente formas de colisão para os tiles.
 
-<a id="tile-source-flip-book-animations"></a>
-
-## Animações flip-book de tile source
+## Animações flip-book de tile source {#tile-source-flip-book-animations}
 
 Para definir uma animação em uma fonte de tiles, selecione os tiles a reproduzir usando a propriedade *Frames* da animação. Os tiles podem aparecer em qualquer ordem, incluindo repetições, portanto não é necessário reorganizar a imagem de origem. Toda fonte de tiles recém-criada tem uma animação padrão chamada "`anim`". Você pode adicionar novas animações <kbd>clicando com o botão direito</kbd> na raiz da fonte de tiles em *Outline* e selecionando <kbd>Add ▸ Animation</kbd>.
 

@@ -651,9 +651,7 @@ print(collectgarbage("count") * 1024)
 
 一个常见的实现设计考虑是如何为共享行为构建代码结构。有几种可能的方法。
 
-<a id="behaviors-in-a-module"></a>
-
-### 模块中的行为
+### 模块中的行为 {#behaviors-in-a-module}
 
 将行为封装在模块中允许您在不同的游戏对象脚本组件（和 GUI 脚本）之间轻松共享代码。在编写模块函数时，通常最好编写严格的函数式代码。在某些情况下，存储状态或副作用是必要的（或导致更清晰的设计）。如果必须在模块中存储内部状态，请注意组件共享 Lua 上下文。有关详细信息，请参阅[模块文档](/manuals/modules)。
 
@@ -661,17 +659,13 @@ print(collectgarbage("count") * 1024)
 
   此外，即使可以让模块代码直接修改游戏对象的内部（通过将 `self` 传递给模块函数），我们也强烈不鼓励您这样做，因为您会创建非常紧密的耦合。
 
-<a id="a-helper-game-object-with-encapsulated-behavior"></a>
-
-### 带有封装行为的辅助游戏对象
+### 带有封装行为的辅助游戏对象 {#a-helper-game-object-with-encapsulated-behavior}
 
 就像您可以将脚本代码包含在 Lua 模块中一样，您也可以将其包含在带有脚本组件的游戏对象中。不同之处在于，如果将其包含在游戏对象中，您只能严格通过消息传递与其通信。
 
   ![Helper](images/lua/lua_helper.png)
 
-<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
-
-### 在集合内将游戏对象与辅助行为对象分组
+### 在集合内将游戏对象与辅助行为对象分组 {#grouping-game-object-with-helper-behavior-object-inside-a-collection}
 
 在此设计中，您可以创建一个自动作用于另一个目标游戏对象的行为游戏对象，要么通过预定义的名称（用户必须重命名目标游戏对象以匹配），要么通过指向目标游戏对象的 `go.property()` URL。
 

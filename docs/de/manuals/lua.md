@@ -649,9 +649,7 @@ print(collectgarbage("count") * 1024)
 
 Eine häufige Überlegung beim Entwurf einer Implementierung ist, wie Code für gemeinsam genutzte Verhaltensweisen strukturiert werden sollte. Dafür gibt es mehrere Ansätze.
 
-<a id="behaviors-in-a-module"></a>
-
-### Verhaltensweisen in einem Modul
+### Verhaltensweisen in einem Modul {#behaviors-in-a-module}
 
 Wenn du eine Verhaltensweise in einem Modul kapselst, kannst du Code leicht zwischen den Skriptkomponenten verschiedener Spielobjekte (und GUI-Skripten) gemeinsam nutzen. Beim Schreiben von Modulfunktionen ist es in der Regel am besten, streng funktionalen Code zu schreiben. Es gibt Fälle, in denen ein gespeicherter Zustand oder Seiteneffekte erforderlich sind oder zu einem übersichtlicheren Entwurf führen. Wenn du den internen Zustand im Modul speichern musst, beachte, dass Komponenten Lua-Kontexte gemeinsam nutzen. Einzelheiten findest du in der [Dokumentation zu Modulen](/manuals/modules).
 
@@ -659,17 +657,13 @@ Wenn du eine Verhaltensweise in einem Modul kapselst, kannst du Code leicht zwis
 
   Auch wenn Modulcode das Innere eines Spielobjekts direkt ändern kann, indem du `self` an eine Modulfunktion übergibst, raten wir dringend davon ab, da dadurch eine sehr enge Kopplung entsteht.
 
-<a id="a-helper-game-object-with-encapsulated-behavior"></a>
-
-### Ein Hilfsspielobjekt mit gekapseltem Verhalten
+### Ein Hilfsspielobjekt mit gekapseltem Verhalten {#a-helper-game-object-with-encapsulated-behavior}
 
 So wie du Skriptcode in einem Lua-Modul kapseln kannst, kannst du ihn auch in einem Spielobjekt mit einer Skriptkomponente kapseln. Der Unterschied besteht darin, dass du bei der Kapselung in einem Spielobjekt ausschließlich über Nachrichten mit ihm kommunizieren kannst.
 
   ![Hilfsspielobjekt](images/lua/lua_helper.png)
 
-<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
-
-### Spielobjekt und Hilfsobjekt für das Verhalten in einer Sammlung gruppieren
+### Spielobjekt und Hilfsobjekt für das Verhalten in einer Sammlung gruppieren {#grouping-game-object-with-helper-behavior-object-inside-a-collection}
 
 Bei diesem Entwurf kannst du ein Spielobjekt für eine Verhaltensweise erstellen, das automatisch auf ein anderes Zielspielobjekt einwirkt. Dies geschieht entweder über einen vordefinierten Namen, an den der Name des Zielspielobjekts angepasst werden muss, oder über eine URL in `go.property()`, die auf das Zielspielobjekt verweist.
 

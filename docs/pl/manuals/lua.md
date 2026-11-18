@@ -646,9 +646,7 @@ print(collectgarbage("count") * 1024)
 
 Jednym z ważnych pytań projektowych jest to, jak strukturyzować kod dla współdzielonych zachowań. Można przyjąć kilka różnych podejść.
 
-<a id="behaviors-in-a-module"></a>
-
-### Zachowania w module
+### Zachowania w module {#behaviors-in-a-module}
 
 Umieszczenie zachowania w module ułatwia współdzielenie kodu między komponentami skryptów obiektów gry i skryptami GUI. Przy pisaniu funkcji modułu zazwyczaj najlepiej trzymać się kodu czysto funkcyjnego. Zdarzają się jednak przypadki, w których przechowywanie stanu lub skutków ubocznych jest konieczne albo po prostu daje czystszy projekt. Jeśli musisz przechowywać stan w module, pamiętaj, że komponenty współdzielą konteksty Lua. Szczegóły znajdziesz w [instrukcji do modułów](/manuals/modules).
 
@@ -656,17 +654,13 @@ Umieszczenie zachowania w module ułatwia współdzielenie kodu między komponen
 
   Nawet jeśli kod modułu może bezpośrednio modyfikować wnętrze obiektu gry przez przekazanie `self` do funkcji modułu, zdecydowanie tego odradzamy, bo prowadzi to do bardzo silnego sprzężenia.
 
-<a id="a-helper-game-object-with-encapsulated-behavior"></a>
-
-### Pomocniczy obiekt gry z kapsułkowanym zachowaniem
+### Pomocniczy obiekt gry z kapsułkowanym zachowaniem {#a-helper-game-object-with-encapsulated-behavior}
 
 Tak samo jak można umieścić kod skryptu w module Lua, można go umieścić w obiekcie gry z komponentem skryptowym. Różnica polega na tym, że wtedy komunikacja z nim odbywa się wyłącznie przez wiadomości.
 
   ![Helper](images/lua/lua_helper.png)
   
-<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
-
-### Grupowanie obiektu gry z pomocniczym obiektem zachowania w kolekcji
+### Grupowanie obiektu gry z pomocniczym obiektem zachowania w kolekcji {#grouping-game-object-with-helper-behavior-object-inside-a-collection}
 
 W takim układzie można stworzyć obiekt gry, który automatycznie działa na innym obiekcie docelowym, albo przez z góry zdefiniowaną nazwę, którą użytkownik musi dopasować, albo przez adres URL z `go.property()`, wskazujący obiekt docelowy.
 

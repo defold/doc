@@ -702,8 +702,6 @@ Extiende la aplicación al display cutout.
 #### Debuggable
 Indica si la aplicación se puede depurar usando herramientas como [GAPID](https://github.com/google/gapid) o [Android Studio](https://developer.android.com/studio/profile/android-profiler). Esto definirá el flag `android:debuggable` en el manifiesto de Android ([documentación oficial](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-<a id="proguard-config"></a>
-
 #### R8 Keep Rules
 `android.r8_keep_rules` selecciona un archivo `.keep` para activar la eliminación de código no usado, la optimización y la ofuscación de código Java con R8 en builds de Android. Deja la configuración vacía para usar D8 sin eliminar código.
 

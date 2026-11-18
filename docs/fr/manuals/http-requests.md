@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-La diffusion audio en continu est un autre cas d'utilisation du chargement de grandes quantités de données via le réseau : des « fragments » de données audio sont chargés depuis une URL et transmis à une ressource sonore. Vous trouverez un exemple complet dans le [manuel sur la diffusion audio en continu](/sound-streaming#sound-streaming).
+La diffusion audio en continu est un autre cas d'utilisation du chargement de grandes quantités de données via le réseau : des « fragments » de données audio sont chargés depuis une URL et transmis à une ressource sonore. Vous trouverez un exemple complet dans le [manuel sur la diffusion audio en continu](/manuals/sound-streaming/#sound-streaming).
 
 
 ### En-têtes de requête {#request-headers}
@@ -130,7 +130,7 @@ Defold définit automatiquement plusieurs en-têtes de requête :
 * `If-None-Match: <etag>` sera défini avec l'ETag d'une éventuelle réponse précédemment mise en cache.
 * `Transfer-Encoding: chunked` sera défini si le corps de la requête dépasse 16384 octets.
 * `Content-Length` sera défini avec la taille du corps de la requête (sauf si la requête est envoyée par fragments).
-* `Range: bytes=<from>-<to>` sera défini si vous demandez une réponse partielle, par exemple lors de la [diffusion de sons en continu](/sound-streaming#sound-streaming).
+* `Range: bytes=<from>-<to>` sera défini si vous demandez une réponse partielle, par exemple lors de la [diffusion de sons en continu](/manuals/sound-streaming/#sound-streaming).
 
 
 ### En-têtes de réponse {#response-headers}

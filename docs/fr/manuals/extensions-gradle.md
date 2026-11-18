@@ -27,5 +27,5 @@ Le serveur de build rassemble les fichiers `build.gradle` de toutes les extensio
 
 Exemples :
 
-* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/android/)build.gradle
+* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/android/build.gradle)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)

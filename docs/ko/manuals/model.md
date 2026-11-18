@@ -18,9 +18,7 @@ Defold는 기본적으로 3D 엔진입니다. 2D 메터리얼만으로 작업하
 
 모델을 만들고 나면 여러 프로퍼티를 지정해야 합니다:
 
-<a id="model-properties"></a>
-
-### 모델 프로퍼티
+### 모델 프로퍼티 {#model-properties}
 
 *Id*, *Position*, *Rotation* 프로퍼티 외에 다음 컴포넌트별 프로퍼티가 있습니다:
 

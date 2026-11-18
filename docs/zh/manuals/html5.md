@@ -134,16 +134,12 @@ verify_downloaded_file_size = 0
 
 禁用 **Verify Downloaded File Size** 后，包中包含的 SHA-1 验证仍然启用。请参阅 [HTML5 项目设置](/manuals/project-settings/#verify-downloaded-file-size)。
 
-<a id="已知问题和局限性"></a>
-
 ## 已知问题和局限性 {#known-issues-and-limitations}
 
 * 热重载 - 热重载在HTML5构建中不起作用。Defold应用程序必须运行自己的小型Web服务器才能从编辑器接收更新，这在HTML5构建中是不可能的。
 * Chrome
   * 调试构建缓慢 - 在HTML5的调试构建中，我们验证所有WebGL图形调用以检测错误。不幸的是，在Chrome上测试时这非常慢。可以通过将*game.project*的*`Engine Arguments`*字段设置为`--verify-graphics-calls=false`来禁用此功能。
 * 游戏手柄支持 - 有关HTML5上可能需要采取的特殊考虑和步骤，请[参阅游戏手柄文档](/manuals/input-gamepads/#gamepads-in-html5)。
-
-<a id="自定义HTML5打包"></a>
 
 ## 自定义HTML5包 {#customizing-html5-bundle}
 

@@ -27,5 +27,5 @@ Derleme sunucusu, tüm eklentilerin `build.gradle` dosyalarını toplar ve bunla
 
 Örnekler:
 
-* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/android/)build.gradle
+* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/android/build.gradle)
 * [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)

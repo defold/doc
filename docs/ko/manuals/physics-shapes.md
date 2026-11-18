@@ -135,9 +135,7 @@ data: 0.0
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/)는 convex hull 모양을 만드는 데 사용할 수 있습니다.
 
 
-<a id="scaling-collision-shapes"></a>
-
-# 충돌 모양 스케일링
+# 충돌 모양 스케일링 {#scaling-collision-shapes}
 충돌 오브젝트와 그 모양은 게임 오브젝트의 스케일을 상속합니다. 이 동작을 비활성화하려면 *game.project*의 Physics 섹션에서 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) 체크박스를 해제합니다. 균일 스케일링만 지원되며, 스케일이 균일하지 않으면 가장 작은 스케일 값이 사용된다는 점에 유의하세요.
 
 # 충돌 모양 크기 변경

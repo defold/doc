@@ -201,9 +201,7 @@ msg.post("level:/player#controller", "wake_up")
 ```
 Uma descrição mais aprofundada sobre como proxies funcionam pode ser encontrada na documentação de [Proxies de Coleção](/manuals/collection-proxy).
 
-<a id="message-chains"></a>
-
-## Cadeias de mensagens
+## Cadeias de mensagens {#message-chains}
 
 Quando uma mensagem publicada é finalmente despachada, o `on_message()` dos destinatários é chamado. É bastante comum que o código de reação publique novas mensagens, que são adicionadas à fila de mensagens.
 

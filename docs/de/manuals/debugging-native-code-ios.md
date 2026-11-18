@@ -101,7 +101,7 @@ Du hast mehrere Möglichkeiten, eine App zu debuggen
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![Debug-Symbole hinzufügen](images/extensions/debugging/ios/add_dsym.png)
+![Debug-Symbole hinzufügen](images/extensions/debugging/ios/add_dsym.png)
 
 * Prüfe, ob `lldb` die Symbole erfolgreich eingelesen hat
 

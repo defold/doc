@@ -19,18 +19,14 @@ Defold soporta el uso de transpiladores que emiten código Lua. Con una extensi�
 
 Defold te permite extender el motor de videojuegos con código nativo para acceder a funcionalidad específica de la plataforma que no proporciona el propio motor. También puedes usar código nativo cuando el rendimiento de Lua no sea suficiente (cálculos intensivos en recursos, procesamiento de imágenes, etc.). Consulta nuestros [manuales sobre extensiones nativas (Native Extensions)](/manuals/extensions/) para aprender más.
 
-<a id="using-the-built-in-code-editor"></a>
-
-## Usar el editor de código integrado
+## Usar el editor de código integrado {#using-the-built-in-code-editor}
 
 Defold tiene un editor de código integrado que te permite abrir y editar archivos Lua (.lua), archivos script de Defold (.script, .gui_script y .render_script), así como cualquier otro archivo con una extensión que el editor no maneje de forma nativa. Además, el editor proporciona resaltado de sintaxis para archivos Lua y script.
 
 ![](/images/editor/code-editor.png)
 
 
-<a id="code-completion"></a>
-
-### Autocompletado de código
+### Autocompletado de código {#code-completion}
 
 El editor de código integrado mostrará autocompletado de funciones mientras escribes código:
 
@@ -72,9 +68,7 @@ ignore = {
 },
 ```
 
-<a id="using-an-external-code-editor"></a>
-
-## Usar un editor de código externo
+## Usar un editor de código externo {#using-an-external-code-editor}
 
 El editor de código de Defold proporciona la funcionalidad básica que necesitas para escribir código, pero para casos de uso más avanzados o para usuarios avanzados con un editor de código favorito, es posible hacer que Defold abra los archivos usando un editor externo. En la [ventana Preferences, en la pestaña Code](/manuals/editor-preferences/#code), es posible definir un editor externo que se debe usar al editar código.
 

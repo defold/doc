@@ -101,7 +101,7 @@ Bir uygulamada hata ayıklamak için birkaç seçeneğiniz vardır
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![dSYM ekleme](images/extensions/debugging/ios/add_dsym.png)
+![dSYM ekleme](images/extensions/debugging/ios/add_dsym.png)
 
 * `lldb` tarafından sembollerin başarıyla okunduğunu doğrulayın
 

@@ -649,9 +649,7 @@ print(collectgarbage("count") * 1024)
 
 Une question fréquente lors de la conception d'une implémentation est la façon de structurer le code des comportements partagés. Plusieurs approches sont possibles.
 
-<a id="behaviors-in-a-module"></a>
-
-### Comportements dans un module
+### Comportements dans un module {#behaviors-in-a-module}
 
 Encapsuler un comportement dans un module vous permet de partager facilement du code entre les composants script de différents objets de jeu (et les scripts d'interface graphique). Lorsque vous écrivez les fonctions d'un module, il est généralement préférable d'écrire du code strictement fonctionnel. Dans certains cas, conserver un état ou produire des effets de bord est nécessaire (ou conduit à une conception plus claire). Si vous devez stocker l'état interne dans le module, gardez à l'esprit que les composants partagent les contextes Lua. Consultez la [documentation sur les modules](/manuals/modules) pour plus de détails.
 
@@ -659,17 +657,13 @@ Encapsuler un comportement dans un module vous permet de partager facilement du 
 
   Même s'il est possible que le code d'un module modifie directement les éléments internes d'un objet de jeu (en passant `self` à une fonction du module), nous vous le déconseillons vivement, car cela crée un couplage très fort.
 
-<a id="a-helper-game-object-with-encapsulated-behavior"></a>
-
-### Un objet de jeu auxiliaire avec un comportement encapsulé
+### Un objet de jeu auxiliaire avec un comportement encapsulé {#a-helper-game-object-with-encapsulated-behavior}
 
 Tout comme vous pouvez regrouper du code de script dans un module Lua, vous pouvez le regrouper dans un objet de jeu doté d'un composant script. La différence est que, si vous le placez dans un objet de jeu, vous pouvez communiquer avec lui uniquement par échange de messages.
 
   ![Objet auxiliaire](images/lua/lua_helper.png)
 
-<a id="grouping-game-object-with-helper-behavior-object-inside-a-collection"></a>
-
-### Regroupement d'un objet de jeu et d'un objet auxiliaire de comportement dans une collection
+### Regroupement d'un objet de jeu et d'un objet auxiliaire de comportement dans une collection {#grouping-game-object-with-helper-behavior-object-inside-a-collection}
 
 Avec cette conception, vous pouvez créer un objet de jeu de comportement qui agit automatiquement sur un autre objet de jeu cible, soit en utilisant un nom prédéfini (l'utilisateur doit renommer l'objet de jeu cible pour qu'il corresponde), soit à l'aide d'une URL `go.property()` qui pointe vers l'objet de jeu cible.
 

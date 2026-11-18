@@ -68,9 +68,7 @@ O gizmo está disponível com projeção em perspectiva e ortográfica no modo 3
 
 Use o [gizmo de eixos](#axis-gizmo) no modo 3D para alinhar a visualização a um eixo ou girar a vista em torno da cena com o mouse.
 
-<a id="toolbar-overview"></a>
-
-## Visão geral da barra de ferramentas
+## Visão geral da barra de ferramentas {#toolbar-overview}
 
 No canto superior direito da visualização de cena há uma barra com ferramentas e opções de visualização comuns.
 
@@ -165,9 +163,7 @@ As configurações incluem:
 - Um botão **Reset to Defaults**
   Restaura todas as configurações da grade para seus valores originais.
 
-<a id="camera-type-perspective-vs-orthographic"></a>
-
-## Tipo de câmera: Perspective vs Orthographic
+## Tipo de câmera: Perspective vs Orthographic {#camera-type-perspective-vs-orthographic}
 
 O Scene Editor suporta ambos:
 

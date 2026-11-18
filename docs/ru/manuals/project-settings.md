@@ -704,8 +704,6 @@ Sender Id для Google Cloud Messaging. Установите строку, вы
 #### Debuggable
 Определяет, может ли приложение быть отлажено с помощью таких инструментов, как [GAPID](https://github.com/google/gapid) или [Android Studio](https://developer.android.com/studio/profile/android-profiler). Устанавливает флаг `android:debuggable` в Android-манифесте ([официальная документация](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-<a id="proguard-config"></a>
-
 #### R8 Keep Rules
 `android.r8_keep_rules` выбирает файл `.keep`, включающий удаление неиспользуемого Java-кода, оптимизацию и обфускацию с помощью R8 в сборках Android. Оставьте настройку пустой, чтобы использовать D8 без удаления неиспользуемого кода.
 

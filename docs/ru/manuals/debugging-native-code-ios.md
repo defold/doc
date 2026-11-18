@@ -9,7 +9,7 @@ brief: В этом руководстве описывается, как отл�
 
 ## Xcode
 
-* Соберите бандл приложения с помощью утилиты bob с ключом `--with-symbols` 
+* Соберите бандл приложения с помощью утилиты bob с ключом `--with-symbols` ([подробнее о расшифровке стека вызовов](/manuals/debugging-native-code/#symbolicate-a-callstack)):
 
 ```sh
 $ cd myproject
@@ -101,7 +101,7 @@ $ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Re
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
+![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
 * Убедитесь, что `lldb` успешно прочитал символы
 
@@ -119,6 +119,7 @@ $ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Re
 ```
 
 * Возможно получить папку с задачами из исполняемого файла. Папка задачи называется `job1298751322870374150`, каждый раз это имя со случайным номером.
+
 ```sh
 $ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
 

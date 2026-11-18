@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-ネットワーク経由で大量のデータを読み込む別の用途として、サウンドストリーミングがあります。これは、音声データの「チャンク」を URL から読み込み、サウンドリソース（sound resource）に渡すものです。完全な例は、[サウンドストリーミングのマニュアル](/sound-streaming#sound-streaming)で確認できます。
+ネットワーク経由で大量のデータを読み込む別の用途として、サウンドストリーミングがあります。これは、音声データの「チャンク」を URL から読み込み、サウンドリソース（sound resource）に渡すものです。完全な例は、[サウンドストリーミングのマニュアル](/manuals/sound-streaming/#sound-streaming)で確認できます。
 
 
 ### リクエストヘッダー {#request-headers}
@@ -130,7 +130,7 @@ Defold は、いくつかのリクエストヘッダーを自動的に設定し�
 * `If-None-Match: <etag>` には、以前にキャッシュされたレスポンスの ETag が設定されます。
 * リクエスト本文が 16384 バイトを超える場合、`Transfer-Encoding: chunked` が設定されます。
 * `Content-Length` には、リクエスト本文のサイズが設定されます（リクエストがチャンク形式の場合を除きます）。
-* [サウンドのストリーミング](/sound-streaming#sound-streaming)など、部分的なレスポンスを要求する場合は、`Range: bytes=<from>-<to>` が設定されます。
+* [サウンドのストリーミング](/manuals/sound-streaming/#sound-streaming)など、部分的なレスポンスを要求する場合は、`Range: bytes=<from>-<to>` が設定されます。
 
 
 ### レスポンスヘッダー {#response-headers}

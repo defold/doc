@@ -134,9 +134,7 @@ Há várias ferramentas externas diferentes que podem ser usadas para criar form
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) pode ser usado para criar formas de casco convexo.
 
 
-<a id="scaling-collision-shapes"></a>
-
-# Escalando formas de colisão
+# Escalando formas de colisão {#scaling-collision-shapes}
 O objeto de colisão e suas formas herdam a escala do objeto de jogo. Para desabilitar esse comportamento, desmarque a caixa de seleção [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) na seção Physics de *game.project*. Observe que apenas escala uniforme é suportada e que o menor valor de escala será usado se a escala não for uniforme.
 
 # Redimensionando formas de colisão

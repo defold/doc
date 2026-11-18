@@ -138,9 +138,7 @@ Istnieje kilka narzędzi zewnętrznych, których można użyć do tworzenia kszt
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) również można użyć do tworzenia kształtów convex hull.
 
 
-<a id="scaling-collision-shapes"></a>
-
-# Skalowanie kształtów kolizji
+# Skalowanie kształtów kolizji {#scaling-collision-shapes}
 
 Obiekt kolizji i jego kształty dziedziczą skalę obiektu gry. Aby wyłączyć to zachowanie, odznacz pole [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w sekcji Physics pliku *game.project*. Zwróć uwagę, że obsługiwane jest tylko skalowanie jednolite, a jeśli skala nie jest jednolita, użyta zostanie najmniejsza wartość skali.
 

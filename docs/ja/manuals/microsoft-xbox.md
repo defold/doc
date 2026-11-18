@@ -3,8 +3,6 @@ title: Microsoft Xbox 向けの Defold 開発
 brief: このマニュアルでは、Defold の Xbox サポートと開発ツールへのアクセスを得る方法を説明します。
 ---
 
-<a id="xbox-support"></a>
-
 # Microsoft Xbox コンソール向けのゲーム開発 {#game-development-for-microsoft-xbox-consoles}
 
 Defold で Xbox コンソール向けのゲームを開発するには、承認済みの Xbox 開発者であり、Defold の Xbox サポートと Microsoft のコンソール開発ツールにアクセスできる必要があります。
