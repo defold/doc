@@ -36,9 +36,7 @@ SDF와 Vector 폰트는 두 방식을 모두 지원합니다. Bitmap 폰트와 B
 
 동적 생성은 특히 문자 집합이 큰 폰트에서 번들 크기와 런타임 메모리 사용량을 줄일 수 있습니다. 엔진의 전체 텍스트 레이아웃 시스템이 필요합니다. [런타임 폰트 활성화](#enabling-runtime-fonts)를 참고하세요.
 
-<a id="text-layout-support-eg-right-to-left"></a>
-
-## 텍스트 레이아웃 지원(예: 오른쪽에서 왼쪽)
+## 텍스트 레이아웃 지원(예: 오른쪽에서 왼쪽) {#text-layout-support-eg-right-to-left}
 
 런타임 폰트는 전체 텍스트 레이아웃, 예를 들어 오른쪽에서 왼쪽으로 쓰는 텍스트도 지원한다는 장점이 있습니다.
 현재 [HarfBuzz](https://github.com/harfbuzz/harfbuzz), [SheenBidi](https://github.com/Tehreer/SheenBidi), [libunibreak](https://github.com/adah1972/libunibreak), [SkriBidi](https://github.com/memononen/Skribidi) 라이브러리를 사용합니다.

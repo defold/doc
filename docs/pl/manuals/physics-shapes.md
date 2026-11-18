@@ -13,43 +13,45 @@ Dostępne kształty kolizji różnią się dla fizyki 2D i 3D. Typ fizyki ustawi
 
 ### Kształty kolizji {#collision-shapes-list}
 
-Aby dodać kształt, kliknij obiekt kolizji prawym przyciskiem myszy i wybierz <kbd>Add Shape</kbd>:
+Aby dodać kształt, kliknij obiekt kolizji <kbd>prawym przyciskiem myszy</kbd> i wybierz <kbd>Add Shape</kbd>:
 
-![2D](images/physics/collision_shapes_2d.png)
+![Dodawanie podstawowego kształtu kolizji w fizyce 2D](images/physics/collision_shapes_2d.png)
 
 Kształty dla fizyki 2D:
 
 - **Circle** (pozycja, obrót, średnica)
 
-![Circle](images/physics/circle.png)
+![Kształt kolizji w postaci koła](images/physics/circle.png)
 
 - **Rectangle** (pozycja, obrót, 2 wymiary, głębokość jest ignorowana)
 
-![Rectangle](images/physics/rectangle.png)
+![Prostokątny kształt kolizji](images/physics/rectangle.png)
+
+W fizyce 3D kształty dodaje się w ten sam sposób.
+
+![Dodawanie podstawowego kształtu kolizji w fizyce 3D](images/physics/collision_shapes_3d.png)
 
 Kształty dla fizyki 3D:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (pozycja, obrót, 3 wymiary)
 
-![Box](images/physics/box.png)
+![Kształt kolizji w postaci prostopadłościanu](images/physics/box.png)
 
 - **Capsule** (pozycja, obrót, średnica, wysokość)
 
-![Capsule](images/physics/capsule.png)
+![Kształt kolizji w postaci kapsuły](images/physics/capsule.png)
 
 - **Hull** (pozycja, obrót, scena, siatka)
 
-![Hull](images/physics/hull.png)
+![Otoczka wypukła jako kształt kolizji](images/physics/hull.png)
 
 - **Mesh** (pozycja, obrót, scena, siatka)
 
-![Mesh](images/physics/mesh.png)
+![Siatka trójkątów jako kształt kolizji](images/physics/mesh.png)
 
 - **Sphere** (pozycja, obrót, średnica)
 
-![Sphere](images/physics/sphere.png)
+![Kulisty kształt kolizji](images/physics/sphere.png)
 
 ### Kształty złożone
 
@@ -136,9 +138,7 @@ Istnieje kilka narzędzi zewnętrznych, których można użyć do tworzenia kszt
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) również można użyć do tworzenia kształtów convex hull.
 
 
-<a id="scaling-collision-shapes"></a>
-
-# Skalowanie kształtów kolizji
+# Skalowanie kształtów kolizji {#scaling-collision-shapes}
 
 Obiekt kolizji i jego kształty dziedziczą skalę obiektu gry. Aby wyłączyć to zachowanie, odznacz pole [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w sekcji Physics pliku *game.project*. Zwróć uwagę, że obsługiwane jest tylko skalowanie jednolite, a jeśli skala nie jest jednolita, użyta zostanie najmniejsza wartość skali.
 

@@ -66,13 +66,13 @@ El gizmo está disponible con proyección tanto en perspectiva como ortográfica
 
 :[Orientación de escena 2D y 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Puedes acceder a estas funciones mediante la barra de herramientas y el menú **View**. Usa el [gizmo de ejes](#axis-gizmo) en modo 3D para alinear la vista con un eje u orbitar con el ratón.
+Usa el [gizmo de ejes](#axis-gizmo) en modo 3D para alinear la vista con un eje u orbitar con el ratón.
 
 ## Vista general de la barra de herramientas {#toolbar-overview}
 
 En la esquina superior derecha de la vista de escena hay una barra con herramientas y opciones de vista de uso frecuente.
 
-![Toolbar](images/editor/toolbar.png)
+![Barra de herramientas del editor de escenas con los controles numerados del 1 al 7](images/editor/toolbar.png)
 
 Opciones numeradas de la barra de izquierda a derecha:
 
@@ -82,7 +82,7 @@ Opciones numeradas de la barra de izquierda a derecha:
 4. **Grid** - Mostrar u ocultar la cuadrícula. El menú abre Grid Settings.
 5. **2D mode** (`2D`) - Cambiar entre orientación 2D y 3D. También puedes usar **Realign Camera** (<kbd>.</kbd>).
 6. **Perspective camera** - Cambiar entre proyección perspectiva y ortográfica en 3D. El menú abre los ajustes de cámara.
-7. **Visibility filters** - Mostrar u ocultar tipos de componentes y guías.
+7. **Visibility filters** - Mostrar u ocultar tipos de componentes y guías en la vista de escena.
 
 ## Seleccionar y manipular objetos {#manipulating-objects}
 

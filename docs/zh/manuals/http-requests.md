@@ -90,7 +90,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-通过网络加载大量数据的另一个用例是声音流式传输，即从 URL 加载声音数据的“块”并将其送入声音资源。完整示例可在[声音流式传输手册](/sound-streaming#sound-streaming)中找到。
+通过网络加载大量数据的另一个用例是声音流式传输，即从 URL 加载声音数据的“块”并将其送入声音资源。完整示例可在[声音流式传输手册](/manuals/sound-streaming/#sound-streaming)中找到。
 
 ### 请求头
 
@@ -128,7 +128,7 @@ Defold 会自动设置几个请求头：
 * `If-None-Match: <etag>` 会使用任何之前缓存响应的 ETag 进行设置。
 * `Transfer-Encoding: chunked` 会在请求体大于 16384 字节时设置。
 * `Content-Length` 会设置为请求体大小（除非请求使用分块传输）。
-* `Range: bytes=<from>-<to>` 会在请求部分响应时设置，例如[流式传输声音](/sound-streaming#sound-streaming)时。
+* `Range: bytes=<from>-<to>` 会在请求部分响应时设置，例如[流式传输声音](/manuals/sound-streaming/#sound-streaming)时。
 
 
 ### 响应头

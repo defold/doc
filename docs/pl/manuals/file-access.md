@@ -87,9 +87,7 @@ Podczas zapisywania i odczytywania plików specyficznych dla aplikacji, takich j
 ### Jak uzyskiwać dostęp do plików dołączonych do aplikacji {#how-to-access-files-bundled-with-the-application}
 Pliki możesz dołączać do aplikacji za pomocą zasobów pakietu i zasobów niestandardowych.
 
-<a id="custom-resources"></a>
-
-#### Zasoby niestandardowe
+#### Zasoby niestandardowe {#custom-resources}
 :[Zasoby niestandardowe](../shared/custom-resources.md)
 
 Rozszerzenia mogą też dostarczać takie pliki przez `ext.properties`. Ich ścieżki są łączone z zasobami niestandardowymi projektu zarówno podczas budowania w edytorze, jak i w archiwach Bob. Zobacz [zasoby niestandardowe rozszerzeń](/manuals/extensions/#custom-resources).

@@ -18,7 +18,7 @@ brief: 本手册介绍了如何向脚本组件添加自定义属性以及如何�
 
 脚本属性是通过使用`go.property()`特殊函数将它们添加到脚本组件中的。该函数必须在顶层使用---在任何生命周期函数（如`init()`和`update()`）之外。为属性提供的默认值决定了属性的类型：`number`、`boolean`、`string`、`hash`、`msg.url`、`vmath.vector3`、`vmath.vector4`、`vmath.quaternion`和`resource`（见下文）。
 
-![Properties](images/script-properties/properties.png)
+![Defold 编辑器中的属性](images/script-properties/properties.png)
 
 ::: important
 请注意，哈希值的反转仅在Debug构建中有效，以方便调试。在Release构建中，反转的字符串值不存在，因此对`hash`值使用`tostring()`来从中提取字符串是没有意义的。

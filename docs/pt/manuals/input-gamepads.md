@@ -89,9 +89,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-<a id="raw-gamepads"></a>
-
-## Gamepads brutos
+## Gamepads brutos {#raw-gamepads}
 
 Mapeamentos de entrada de gamepad também fornecem um mapeamento separado chamado `Raw` para disponibilizar a entrada não filtrada (sem deadzone aplicada) de botões, eixos e hats de qualquer gamepad conectado.
 
@@ -136,9 +134,7 @@ A ferramenta pedirá que você pressione diferentes botões no controle conectad
 
 ![Gamepad settings](images/input/gamepad_setting.png)
 
-<a id="unidentified-gamepads"></a>
-
-### Gamepads não identificados
+### Gamepads não identificados {#unidentified-gamepads}
 
 Quando não há um mapeamento configurado nem um mapeamento automático da plataforma, o gamepad gera apenas as ações vinculadas a `Connected`, `Disconnected` e `Raw`. Você pode adicionar um mapeamento do controle ou processar sua entrada bruta no jogo.
 
@@ -182,9 +178,7 @@ Se um gamepad conectado for identificado pelo navegador como um gamepad padrão,
 ## Gamepads no Windows
 No Windows, atualmente apenas controles Xbox 360 têm suporte. Para conectar seu controle 360 à sua máquina Windows, [certifique-se de que ele esteja configurado corretamente](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
-<a id="gamepads-on-android"></a>
-
-## Gamepads no Android
+## Gamepads no Android {#gamepads-on-android}
 
 Gamepads são aceitos em builds Android e geram as mesmas ações de entrada que em outras plataformas. O Defold usa os [mapeamentos de gamepad](#gamepads-settings-file) configurados e pode mapear automaticamente alguns controles sem uma entrada correspondente.
 

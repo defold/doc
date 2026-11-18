@@ -79,9 +79,7 @@ Na platformach mobilnych albo zablokuj orientację ekranu w *game.project*, albo
 * **Częstotliwość odświeżania** - Czy gra działa dobrze na ekranie o częstotliwości odświeżania większej niż 60 Hz?
   * Vsync i swap interval w sekcji Display pliku *game.project*.
 
-<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
-
-## Telefony komórkowe oraz kamery z wycięciem i otworem w ekranie
+## Telefony komórkowe oraz kamery z wycięciem i otworem w ekranie {#mobile-phones-and-notch-and-hole-punch-cameras}
 Coraz popularniejsze staje się stosowanie niewielkiego wycięcia w ekranie na przednią kamerę i czujniki, nazywanego też notchem albo hole punch camera. Podczas portowania gry na urządzenia mobilne zadbaj, aby ważne informacje mieściły się w bezpiecznym obszarze platformy.
 
 Defold ma wbudowaną obsługę bezpiecznego obszaru w Androidzie i iOS. Ustaw `gui.safe_area_mode` w pliku *game.project*, aby określić, które przeciwległe marginesy bezpiecznego obszaru wpływają na dostosowanie GUI. `none` jest ustawieniem domyślnym i ignoruje marginesy; `long` stosuje lewy i prawy w orientacji poziomej oraz górny i dolny w pionowej; `short` stosuje przeciwną parę; a `both` stosuje wszystkie cztery krawędzie. Skrypt GUI może zastąpić tryb całego projektu dla swojej sceny za pomocą [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Dla własnej logiki GUI lub renderowania funkcja [`window.get_safe_area()`](/ref/window/#window.get_safe_area) zwraca bezpieczny prostokąt i marginesy poszczególnych krawędzi. Platformy bez wbudowanych marginesów bezpiecznego obszaru zwracają całe okno i zerowe marginesy.

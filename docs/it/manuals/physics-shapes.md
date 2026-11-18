@@ -13,43 +13,45 @@ Le forme di collisione disponibili variano tra fisica 2D e 3D. Configura il tipo
 
 ### Forme di collisione {#collision-shapes-list}
 
-Per aggiungere una forma, fai clic destro sull’oggetto di collisione e seleziona <kbd>Add Shape</kbd>:
+Per aggiungere una forma, <kbd>fai clic con il pulsante destro</kbd> sull'oggetto di collisione e seleziona <kbd>Add Shape</kbd>:
 
-![2D](images/physics/collision_shapes_2d.png)
+![Aggiunta di una forma primitiva con la fisica 2D](images/physics/collision_shapes_2d.png)
 
 Forme per la fisica 2D:
 
 - **Circle** (posizione, rotazione, diametro)
 
-![Circle](images/physics/circle.png)
+![Forma circolare](images/physics/circle.png)
 
 - **Rectangle** (posizione, rotazione, 2 dimensioni, la profondità viene ignorata)
 
-![Rectangle](images/physics/rectangle.png)
+![Forma rettangolare](images/physics/rectangle.png)
+
+Con la fisica 3D, lo stesso comando offre queste opzioni:
+
+![Aggiunta di una forma primitiva con la fisica 3D](images/physics/collision_shapes_3d.png)
 
 Forme per la fisica 3D:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (posizione, rotazione, 3 dimensioni)
 
-![Box](images/physics/box.png)
+![Forma a parallelepipedo](images/physics/box.png)
 
 - **Capsule** (posizione, rotazione, diametro, altezza)
 
-![Capsule](images/physics/capsule.png)
+![Forma a capsula](images/physics/capsule.png)
 
 - **Hull** (posizione, rotazione, scena, mesh)
 
-![Hull](images/physics/hull.png)
+![Forma a inviluppo convesso](images/physics/hull.png)
 
 - **Mesh** (posizione, rotazione, scena, mesh)
 
-![Mesh](images/physics/mesh.png)
+![Forma a mesh](images/physics/mesh.png)
 
 - **Sphere** (posizione, rotazione, diametro)
 
-![Sphere](images/physics/sphere.png)
+![Forma sferica](images/physics/sphere.png)
 
 ### Forme complesse {#complex-shapes}
 Le forme complesse possono usare la geometria di una tilemap o dati di inviluppi convessi. Da Defold 1.13.2, gli oggetti di collisione 3D possono anche creare inviluppi convessi e forme a mesh triangolare dalle mesh di scene glTF o GLB.

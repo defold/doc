@@ -36,9 +36,7 @@ brief: В этом руководстве описаны особенности 
 
 Динамическая генерация может уменьшить размер бандла и потребление памяти, особенно для шрифтов с большими наборами символов. Она требует полной системы раскладки текста в движке; см. [Включение runtime-шрифтов](#enabling-runtime-fonts).
 
-<a id="text-layout-support-eg-right-to-left"></a>
-
-## Поддержка раскладки текста (например, справа налево)
+## Поддержка раскладки текста (например, справа налево) {#text-layout-support-eg-right-to-left}
 
 Runtime-шрифты также дают преимущество в виде полной поддержки раскладки текста, например письма справа налево.
 Сейчас для этого используются библиотеки [HarfBuzz](https://github.com/harfbuzz/harfbuzz), [SheenBidi](https://github.com/Tehreer/SheenBidi), [libunibreak](https://github.com/adah1972/libunibreak) и [SkriBidi](https://github.com/memononen/Skribidi).
@@ -206,7 +204,7 @@ custom_resources = /fonts/NotoColorEmoji-Regular.ttf
 
 * [Bitmap Font Generator](http://www.angelcode.com/products/bmfont/) --- только для Windows, предоставляется AngelCode.
 * [Shoebox](http://renderhjs.net/shoebox/) --- бесплатное приложение на базе Adobe Air для Windows и macOS.
-* [Hiero](https://github.com/libgdx/libgdx/wiki/Hiero) --- инструмент с открытым исходным кодом на языке Java.
+* [Hiero](https://libgdx.com/wiki/tools/hiero) --- инструмент с открытым исходным кодом на языке Java.
 * [Glyph Designer](https://71squared.com/glyphdesigner) --- коммерческий инструмент для macOS от 71 Squared.
 * [bmGlyph](https://www.bmglyph.com) --- коммерческий инструмент для macOS от Sovapps.
 :::

@@ -702,8 +702,6 @@ Firebase Cloud Messaging 应用 ID。
 #### Debuggable
 应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具进行调试。这将在 Android 清单中设置 `android:debuggable` 标志（[官方文档](https://developer.android.com/guide/topics/manifest/application-element#debug)）。
 
-<a id="proguard-config"></a>
-
 #### R8 Keep Rules
 `android.r8_keep_rules` 选择一个 `.keep` 文件，以在 Android 构建中启用 R8 对 Java 代码的缩减、优化和混淆。将该设置留空会使用 D8，不执行缩减。
 

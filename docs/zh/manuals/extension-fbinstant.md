@@ -25,7 +25,7 @@ Instant Games 可以让玩家在 Facebook 平台上随时玩到游戏的新方�
    <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
    ```
 
-   关于打包设置详情请见 [HTML5 教程](/manuals/html5/#自定义HTML5打包)。
+   关于打包设置详情请见 [HTML5 教程](/manuals/html5/#customizing-html5-bundle)。
 
 4. 都准备好之后，打包 HTML5 游戏并上传至 Facebook。
 
@@ -82,4 +82,4 @@ Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games
 
 ## 已知问题
 
-关于 HTML5 和 Instant Games 的已知问题详见 [HTML5 教程已知问题部分](/manuals/html5/#已知问题和局限性)。
+关于 HTML5 和 Instant Games 的已知问题详见 [HTML5 教程已知问题部分](/manuals/html5/#known-issues-and-limitations)。

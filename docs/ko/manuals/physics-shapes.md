@@ -13,43 +13,45 @@ brief: 충돌 오브젝트는 기본 모양, hull 또는 삼각형 메쉬를 포
 
 ### 충돌 모양 {#collision-shapes-list}
 
-충돌 오브젝트를 마우스 오른쪽 버튼으로 클릭하고 <kbd>Add Shape</kbd>를 선택하여 모양을 추가합니다.
+충돌 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Shape</kbd>를 선택하여 모양을 추가합니다.
 
-![2D](images/physics/collision_shapes_2d.png)
+![2D 물리에서 기본 충돌 모양 추가](images/physics/collision_shapes_2d.png)
 
 2D 물리 모양:
 
 - **Circle** (위치, 회전, 지름)
 
-![Circle](images/physics/circle.png)
+![원형 충돌 모양](images/physics/circle.png)
 
 - **Rectangle** (위치, 회전, 2 치수, 깊이는 무시됨)
 
-![Rectangle](images/physics/rectangle.png)
+![직사각형 충돌 모양](images/physics/rectangle.png)
+
+3D 물리에서도 같은 방법으로 모양을 추가합니다.
+
+![3D 물리에서 기본 충돌 모양 추가](images/physics/collision_shapes_3d.png)
 
 3D 물리 모양:
 
-![3D](images/physics/collision_shapes_3d.png)
-
 - **Box** (위치, 회전, 3 치수)
 
-![Box](images/physics/box.png)
+![상자 충돌 모양](images/physics/box.png)
 
 - **Capsule** (위치, 회전, 지름, 높이)
 
-![Capsule](images/physics/capsule.png)
+![캡슐 충돌 모양](images/physics/capsule.png)
 
 - **Hull** (위치, 회전, 씬, 메시)
 
-![Hull](images/physics/hull.png)
+![볼록 껍질 충돌 모양](images/physics/hull.png)
 
 - **Mesh** (위치, 회전, 씬, 메시)
 
-![Mesh](images/physics/mesh.png)
+![삼각형 메쉬 충돌 모양](images/physics/mesh.png)
 
 - **Sphere** (위치, 회전, 지름)
 
-![Sphere](images/physics/sphere.png)
+![구형 충돌 모양](images/physics/sphere.png)
 
 ### 복잡한 모양
 
@@ -133,9 +135,7 @@ data: 0.0
 * [Physics Body Editor](https://selimanac.github.io/physics-body-editor/)는 convex hull 모양을 만드는 데 사용할 수 있습니다.
 
 
-<a id="scaling-collision-shapes"></a>
-
-# 충돌 모양 스케일링
+# 충돌 모양 스케일링 {#scaling-collision-shapes}
 충돌 오브젝트와 그 모양은 게임 오브젝트의 스케일을 상속합니다. 이 동작을 비활성화하려면 *game.project*의 Physics 섹션에서 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) 체크박스를 해제합니다. 균일 스케일링만 지원되며, 스케일이 균일하지 않으면 가장 작은 스케일 값이 사용된다는 점에 유의하세요.
 
 # 충돌 모양 크기 변경

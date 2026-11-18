@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-Outro caso de uso para carregar grandes quantidades de dados pela rede é o streaming de som, quando "chunks" de dados de som são carregados de uma URL e alimentam um recurso de som. Um exemplo completo pode ser encontrado no [manual de Sound Streaming](/sound-streaming#sound-streaming).
+Outro caso de uso para carregar grandes quantidades de dados pela rede é o streaming de som, quando "chunks" de dados de som são carregados de uma URL e alimentam um recurso de som. Um exemplo completo pode ser encontrado no [manual de Sound Streaming](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Cabeçalhos de requisição
@@ -130,7 +130,7 @@ O Defold definirá automaticamente alguns cabeçalhos de requisição:
 * `If-None-Match: <etag>` será definido com o ETag de qualquer resposta previamente armazenada em cache.
 * `Transfer-Encoding: chunked` será definido se o corpo da requisição for maior que 16384 bytes.
 * `Content-Length` será definido com o tamanho do corpo da requisição (a menos que a requisição seja em chunks).
-* `Range: bytes=<from>-<to>` será definido ao solicitar uma resposta parcial, por exemplo ao fazer [streaming de sons](/sound-streaming#sound-streaming).
+* `Range: bytes=<from>-<to>` será definido ao solicitar uma resposta parcial, por exemplo ao fazer [streaming de sons](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Cabeçalhos de resposta

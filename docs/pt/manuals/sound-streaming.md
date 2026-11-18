@@ -3,7 +3,7 @@ title: Streaming de som no Defold
 brief: Este manual explica como fazer streaming de sons para a engine de jogos Defold
 ---
 
-# Streaming de som
+# Streaming de som {#sound-streaming}
 
 Embora o comportamento padrão seja carregar os dados de som por completo, também pode ser vantajoso carregar os dados em partes, antes de serem usados. Isso costuma ser chamado de "streaming".
 

@@ -201,7 +201,7 @@ msg.post("level:/player#controller", "wake_up")
 ```
 프록시가 동작하는 방식에 대한 더 자세한 설명은 [컬렉션 프록시](/manuals/collection-proxy) 문서에서 찾을 수 있습니다.
 
-## 메세지 체인
+## 메세지 체인 {#message-chains}
 
 게시된 메세지가 결국 디스패치되면 수신자의 `on_message()`가 호출됩니다. 반응 코드에서 새 메세지를 게시하고, 그 메세지들이 메세지 큐에 추가되는 일은 꽤 흔합니다.
 

@@ -68,11 +68,11 @@ Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otw
 
 Kilka podstawowych funkcji edytora scen:
 
-- [nawigacja sceny 2D i 3D](/manuals/scene-editing/#orientacja-sceny-2d-i-3d) z trybami kamery ortograficznej i perspektywicznej,
+- [nawigacja sceny 2D i 3D](/manuals/scene-editing/#2d-and-3d-scene-orientation) z trybami kamery ortograficznej i perspektywicznej,
 - [narzędzia transformacji](/manuals/scene-editing/#manipulating-objects) do przesuwania, obracania i skalowania obiektów,
 - [Free Camera Mode](/manuals/scene-editing/#free-camera-mode) do nawigacji 3D z perspektywy pierwszej osoby,
-- [ustawienia siatki](/manuals/scene-editing/#ustawienia-siatki) z konfigurowalnym rozmiarem, płaszczyzną i wyglądem,
-- [filtry widoczności](/manuals/scene-editing/#filtry-widocznosci) do przełączania typów komponentów i prowadnic.
+- [ustawienia siatki](/manuals/scene-editing/#grid-settings) z konfigurowalnym rozmiarem, płaszczyzną i wyglądem,
+- [filtry widoczności](/manuals/scene-editing/#visibility-filters) do przełączania typów komponentów i prowadnic.
 
 Więcej informacji znajdziesz w [podręczniku edytora scen](/manuals/scene-editing/).
 

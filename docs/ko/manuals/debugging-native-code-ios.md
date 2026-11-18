@@ -101,7 +101,7 @@ $ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Re
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
+![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
 * `lldb`가 심볼을 성공적으로 읽었는지 확인합니다.
 

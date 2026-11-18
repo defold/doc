@@ -18,7 +18,7 @@ brief: このマニュアルでは、スクリプトコンポーネントにカ�
 
 スクリプトプロパティは、特殊な関数 `go.property()` で定義することでスクリプトコンポーネント（script component）に追加します。この関数はトップレベル、つまり `init()` や `update()` などのライフサイクル関数の外側で使用する必要があります。プロパティに指定するデフォルト値によって、そのプロパティの型が決まります。型には `number`、`boolean`、`string`、`hash`、`msg.url`、`vmath.vector3`、`vmath.vector4`、`vmath.quaternion`、`resource` があります（下記を参照）。
 
-![プロパティ](images/script-properties/properties.png)
+![Defold エディターの Properties ペイン](images/script-properties/properties.png)
 
 ::: important
 ハッシュ値から元の文字列を逆引きできるのは、デバッグを容易にするための Debug ビルドだけです。Release ビルドには逆引き用の文字列の値が存在しないため、`tostring()` を `hash` 値に使用して文字列を取り出そうとしても意味がありません。

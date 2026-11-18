@@ -42,7 +42,7 @@ brief: 本手册解释了输入如何工作，如何捕获输入操作并创建�
 
 所有新项目模板都会自动创建一个默认的输入绑定文件，因此通常不需要创建新的绑定文件。默认文件名为`game.input_binding`，可以在项目根目录的`input`文件夹中找到。<kbd>双击</kbd>该文件在编辑器中打开：
 
-![Input set bindings](images/input/defold_input.png)
+![输入绑定](images/input/defold_input.png)
 
 要创建新绑定，点击相关触发类型部分底部的<kbd>+</kbd>按钮。每个条目有两个字段：
 

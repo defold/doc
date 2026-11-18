@@ -11,7 +11,7 @@ brief: 물리 엔진에서는 충돌 오브젝트를 그룹화하고, 서로 어
 
 ![물리 충돌 그룹](images/physics/collision_group.png)
 
-![물리 충돌 그룹](images/physics/collision_groups.png)
+![물리 충돌 그룹과 마스크](images/physics/collision_groups.png)
 
 *Mask* 필드에는 여러 그룹 이름을 포함할 수 있으므로 복잡한 상호작용 시나리오를 만들 수 있습니다.
 

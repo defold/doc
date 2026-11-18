@@ -13,43 +13,33 @@ Bir çarpışma nesnesi (collision object) birden çok gömülü şekil içerebi
 
 ### Çarpışma şekilleri {#collision-shapes-list}
 
-Şekil eklemek için çarpışma nesnesine sağ tıklayıp <kbd>Add Shape</kbd> seçin:
+Şekil eklemek için çarpışma nesnesine <kbd>sağ tıklayın</kbd> ve <kbd>Add Shape</kbd> seçeneğini seçin:
 
-![2D](images/physics/collision_shapes_2d.png)
+![2B fizikte temel çarpışma şekli ekleme](images/physics/collision_shapes_2d.png)
 
-2B fizik şekilleri:
+2B fizikte şu şekilleri kullanabilirsiniz:
 
-- **Circle** (konum, dönüş, çap)
+- **Circle** (konum, dönme ve çap)
+  ![Daire şekli](images/physics/circle.png)
+- **Rectangle** (konum, dönme ve iki boyut). Derinlik yok sayılır.
+  ![Dikdörtgen şekli](images/physics/rectangle.png)
 
-![Circle](images/physics/circle.png)
+3B fizikte de şekilleri aynı yolla eklersiniz.
 
-- **Rectangle** (konum, dönüş, 2 boyut, derinlik yok sayılır)
+![3B fizikte temel çarpışma şekli ekleme](images/physics/collision_shapes_3d.png)
 
-![Rectangle](images/physics/rectangle.png)
+3B fizikte şu şekilleri kullanabilirsiniz:
 
-3B fizik şekilleri:
-
-![3D](images/physics/collision_shapes_3d.png)
-
-- **Box** (konum, dönüş, 3 boyut)
-
-![Box](images/physics/box.png)
-
-- **Capsule** (konum, dönüş, çap, yükseklik)
-
-![Capsule](images/physics/capsule.png)
-
-- **Hull** (konum, dönüş, sahne, mesh)
-
-![Hull](images/physics/hull.png)
-
-- **Mesh** (konum, dönüş, sahne, mesh)
-
-![Mesh](images/physics/mesh.png)
-
-- **Sphere** (konum, dönüş, çap)
-
-![Sphere](images/physics/sphere.png)
+- **Box** (konum, dönme ve üç boyut)
+  ![Kutu şekli](images/physics/box.png)
+- **Capsule** (konum, dönme, çap ve yükseklik)
+  ![Kapsül şekli](images/physics/capsule.png)
+- **Hull** (konum, dönme, sahne ve örgü)
+  ![Dışbükey zarf şekli](images/physics/hull.png)
+- **Mesh** (konum, dönme, sahne ve örgü)
+  ![Örgü şekli](images/physics/mesh.png)
+- **Sphere** (konum, dönme ve çap)
+  ![Küre şekli](images/physics/sphere.png)
 
 ### Karmaşık şekiller {#complex-shapes}
 Karmaşık şekiller karo haritası geometrisini veya dışbükey zarf (convex hull) verilerini kullanabilir. Defold 1.13.2 sürümünden itibaren 3B çarpışma nesneleri glTF veya GLB sahnelerindeki örgülerden zarf ve üçgen örgüsü şekilleri de oluşturabilir.

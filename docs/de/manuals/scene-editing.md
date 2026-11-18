@@ -66,13 +66,13 @@ Das Gizmo ist im 3D-Modus sowohl bei perspektivischer als auch bei orthografisch
 
 :[Szenenausrichtung in 2D und 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Du erreichst diese Funktionen über die Werkzeugleiste und das Menü **View**. Verwende im 3D-Modus das [Achsen-Gizmo](#axis-gizmo), um die Ansicht an einer Achse auszurichten oder mit der Maus zu umkreisen.
+Verwende im 3D-Modus das [Achsen-Gizmo](#axis-gizmo), um die Ansicht an einer Achse auszurichten oder sie mit der Maus um den Fokuspunkt zu drehen.
 
 ## Übersicht der Werkzeugleiste {#toolbar-overview}
 
 Oben rechts in der Szenenansicht befindet sich eine Werkzeugleiste mit häufig verwendeten Werkzeugen und Ansichtsoptionen.
 
-![Toolbar](images/editor/toolbar.png)
+![Werkzeugleiste des Szeneneditors mit den von 1 bis 7 nummerierten Bedienelementen](images/editor/toolbar.png)
 
 Die nummerierten Optionen der Werkzeugleiste von links nach rechts:
 
@@ -82,7 +82,7 @@ Die nummerierten Optionen der Werkzeugleiste von links nach rechts:
 4. **Grid** - Raster ein- oder ausblenden. Das Dropdown öffnet Grid Settings.
 5. **2D mode** (`2D`) - Zwischen 2D- und 3D-Ausrichtung wechseln. Alternativ **Realign Camera** (<kbd>.</kbd>) verwenden.
 6. **Perspective camera** - Zwischen perspektivischer und orthografischer Projektion in 3D wechseln. Das Dropdown öffnet die Kameraeinstellungen.
-7. **Visibility filters** - Komponententypen und Hilfslinien ein- oder ausblenden.
+7. **Visibility filters** - Komponententypen und Hilfslinien in der Szenenansicht ein- oder ausblenden.
 
 ## Objekte auswählen und verändern {#manipulating-objects}
 

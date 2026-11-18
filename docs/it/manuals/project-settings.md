@@ -702,8 +702,6 @@ Estende la visualizzazione all'area del ritaglio dello schermo.
 #### Debuggable
 Indica se è possibile eseguire il debug dell'applicazione con strumenti come [GAPID](https://github.com/google/gapid) o [Android Studio](https://developer.android.com/studio/profile/android-profiler). Imposta il flag `android:debuggable` nel manifest Android ([documentazione ufficiale](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-<a id="proguard-config"></a>
-
 #### R8 Keep Rules
 `android.r8_keep_rules` seleziona un file `.keep` per abilitare la rimozione del codice inutilizzato, l'ottimizzazione e l'offuscamento del codice Java tramite R8 nelle build Android. Lascia vuota l'impostazione per usare D8 senza rimuovere il codice inutilizzato.
 

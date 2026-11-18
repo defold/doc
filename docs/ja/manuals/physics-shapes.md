@@ -13,43 +13,45 @@ brief: コリジョンオブジェクトにはプリミティブ形状、凸包�
 
 ### コリジョンシェイプ {#collision-shapes-list}
 
-コリジョンオブジェクトを右クリックし、<kbd>Add Shape</kbd> を選択してシェイプを追加します。
+コリジョンオブジェクトを <kbd>右クリック</kbd> し、<kbd>Add Shape</kbd> を選択して形状を追加します。
 
-![2D](images/physics/collision_shapes_2d.png)
+![2D 物理でプリミティブ形状を追加する](images/physics/collision_shapes_2d.png)
 
-2D 物理で使用できるシェイプ:
+2D 物理で使用できる形状は次のとおりです。
 
 - **Circle** (位置, 回転, 直径)
 
-![Circle](images/physics/circle.png)
+![円形のコリジョン形状](images/physics/circle.png)
 
 - **Rectangle** (位置, 回転, 2 寸法, 奥行きは無視されます)
 
-![Rectangle](images/physics/rectangle.png)
+![長方形のコリジョン形状](images/physics/rectangle.png)
 
-3D 物理で使用できるシェイプ:
+3D 物理でも、同様の手順で形状を追加します。
 
-![3D](images/physics/collision_shapes_3d.png)
+![3D 物理でプリミティブ形状を追加する](images/physics/collision_shapes_3d.png)
+
+3D 物理で使用できる形状は次のとおりです。
 
 - **Box** (位置, 回転, 3 寸法)
 
-![Box](images/physics/box.png)
+![ボックス形状](images/physics/box.png)
 
 - **Capsule** (位置, 回転, 直径, 高さ)
 
-![Capsule](images/physics/capsule.png)
+![カプセル形状](images/physics/capsule.png)
 
 - **Hull** (位置, 回転, シーン, メッシュ)
 
-![Hull](images/physics/hull.png)
+![凸包形状](images/physics/hull.png)
 
 - **Mesh** (位置, 回転, シーン, メッシュ)
 
-![Mesh](images/physics/mesh.png)
+![メッシュ形状](images/physics/mesh.png)
 
 - **Sphere** (位置, 回転, 直径)
 
-![Sphere](images/physics/sphere.png)
+![球形のコリジョン形状](images/physics/sphere.png)
 
 ### 複雑な形状 {#complex-shapes}
 複雑な形状には、タイルマップ（tilemap）のジオメトリや凸包（convex hull）のデータを使えます。Defold 1.13.2 以降では、3D コリジョンオブジェクトで、glTF または GLB シーンのメッシュから凸包や三角形メッシュの形状を作成することもできます。

@@ -66,15 +66,13 @@ O gizmo está disponível com projeção em perspectiva e ortográfica no modo 3
 
 :[Orientação de cena 2D e 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Você pode acessar essas funções pela barra de ferramentas e pelo menu **View**. Use o [gizmo de eixos](#axis-gizmo) no modo 3D para alinhar a visualização a um eixo ou orbitar com o mouse.
+Use o [gizmo de eixos](#axis-gizmo) no modo 3D para alinhar a visualização a um eixo ou girar a vista em torno da cena com o mouse.
 
-<a id="toolbar-overview"></a>
-
-## Visão geral da barra de ferramentas
+## Visão geral da barra de ferramentas {#toolbar-overview}
 
 No canto superior direito da visualização de cena há uma barra com ferramentas e opções de visualização comuns.
 
-![Toolbar](images/editor/toolbar.png)
+![Barra de ferramentas do editor de cenas com controles numerados de 1 a 7](images/editor/toolbar.png)
 
 Opções numeradas da barra da esquerda para a direita:
 
@@ -84,7 +82,7 @@ Opções numeradas da barra da esquerda para a direita:
 4. **Grid** - Mostra ou oculta a grade. O menu abre Grid Settings.
 5. **2D mode** (`2D`) - Alterna entre orientação 2D e 3D. Também é possível usar **Realign Camera** (<kbd>.</kbd>).
 6. **Perspective camera** - Alterna entre projeção em perspectiva e ortográfica em 3D. O menu abre as configurações da câmera.
-7. **Visibility filters** - Mostra ou oculta tipos de componentes e guias.
+7. **Visibility filters** - Mostra ou oculta tipos de componentes e guias na visualização de cena.
 
 ## Selecionando e manipulando objetos {#manipulating-objects}
 
@@ -165,9 +163,7 @@ As configurações incluem:
 - Um botão **Reset to Defaults**
   Restaura todas as configurações da grade para seus valores originais.
 
-<a id="camera-type-perspective-vs-orthographic"></a>
-
-## Tipo de câmera: Perspective vs Orthographic
+## Tipo de câmera: Perspective vs Orthographic {#camera-type-perspective-vs-orthographic}
 
 O Scene Editor suporta ambos:
 

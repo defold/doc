@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-네트워크를 통해 많은 양의 데이터를 로드하는 또 다른 사용 사례는 사운드 스트리밍입니다. 이 경우 URL에서 사운드 데이터의 "chunks"를 로드해 사운드 리소스에 공급합니다. 완전한 예제는 [사운드 스트리밍 매뉴얼](/sound-streaming#sound-streaming)에서 볼 수 있습니다.
+네트워크를 통해 많은 양의 데이터를 로드하는 또 다른 사용 사례는 사운드 스트리밍입니다. 이 경우 URL에서 사운드 데이터의 "chunks"를 로드해 사운드 리소스에 공급합니다. 완전한 예제는 [사운드 스트리밍 매뉴얼](/manuals/sound-streaming/#sound-streaming)에서 볼 수 있습니다.
 
 
 ### 요청 헤더
@@ -130,7 +130,7 @@ Defold는 몇 가지 요청 헤더를 자동으로 설정합니다:
 * `If-None-Match: <etag>`는 이전에 캐쉬된 응답의 ETag로 설정됩니다.
 * 요청 본문이 16384바이트보다 크면 `Transfer-Encoding: chunked`가 설정됩니다.
 * `Content-Length`는 요청 본문의 크기로 설정됩니다(요청이 `chunked` 방식이 아닌 경우).
-* 부분 응답을 요청할 때, 예를 들어 [사운드를 스트리밍](/sound-streaming#sound-streaming)할 때 `Range: bytes=<from>-<to>`가 설정됩니다.
+* 부분 응답을 요청할 때, 예를 들어 [사운드를 스트리밍](/manuals/sound-streaming/#sound-streaming)할 때 `Range: bytes=<from>-<to>`가 설정됩니다.
 
 
 ### 응답 헤더

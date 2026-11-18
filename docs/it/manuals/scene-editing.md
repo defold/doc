@@ -66,13 +66,13 @@ Il gizmo è disponibile con proiezione sia prospettica sia ortografica in modali
 
 :[Orientamento della scena in 2D e 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Puoi accedere a queste funzioni tramite la barra degli strumenti e il menu **View**. Usa il [gizmo degli assi](#axis-gizmo) in modalità 3D per allineare la vista a un asse o orbitare con il mouse.
+Usa il [gizmo degli assi](#axis-gizmo) in modalità 3D per allineare la vista a un asse o orbitare con il mouse.
 
 ## Panoramica della barra degli strumenti {#toolbar-overview}
 
 In alto a destra nella vista della scena si trova una barra con gli strumenti e le opzioni di visualizzazione più comuni.
 
-![Toolbar](images/editor/toolbar.png)
+![Barra degli strumenti dell'editor di scena con i comandi numerati da 1 a 7](images/editor/toolbar.png)
 
 Opzioni numerate da sinistra a destra:
 
@@ -82,7 +82,7 @@ Opzioni numerate da sinistra a destra:
 4. **Grid** - Mostra o nasconde la griglia. Il menu apre Grid Settings.
 5. **2D mode** (`2D`) - Passa tra orientamento 2D e 3D. Puoi usare anche **Realign Camera** (<kbd>.</kbd>).
 6. **Perspective camera** - Passa tra proiezione prospettica e ortografica in 3D. Il menu apre le impostazioni della telecamera.
-7. **Visibility filters** - Mostra o nasconde tipi di componenti e guide.
+7. **Visibility filters** - Mostra o nasconde tipi di componenti e guide nella vista della scena.
 
 ## Selezionare e manipolare gli oggetti {#manipulating-objects}
 

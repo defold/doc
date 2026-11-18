@@ -18,9 +18,7 @@ Componentes Model são criados como qualquer outro componente de objeto de jogo.
 
 Com o modelo criado, você precisa especificar algumas propriedades:
 
-<a id="model-properties"></a>
-
-### Propriedades de model
+### Propriedades de model {#model-properties}
 
 Além das propriedades *Id*, *Position* e *Rotation*, existem as seguintes propriedades específicas do componente:
 
@@ -127,9 +125,7 @@ O cache de matrizes de ossos usa uma textura `RGBA32F`. Se o adaptador gráfico 
 Se você precisar criar materiais personalizados para seus modelos, consulte a [documentação de Material](/manuals/material) para informações. O [manual de Shader](/manuals/shader) contém informações sobre como os programas de shader funcionam.
 
 
-<a id="material-constants"></a>
-
-### Constantes de material
+### Constantes de material {#material-constants}
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 

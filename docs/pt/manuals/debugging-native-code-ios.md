@@ -101,7 +101,7 @@ Você tem algumas opções para depurar um app
 (lldb) add-dsym <PathTo.dSYM>
 ```
 
-	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
+![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
 * Verifique se o `lldb` leu os símbolos com sucesso
 

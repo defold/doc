@@ -3,7 +3,7 @@ title: Defold'da akış yoluyla ses oynatma
 brief: Bu kılavuz, seslerin Defold oyun motoruna akış yoluyla nasıl aktarılacağını açıklar
 ---
 
-# Akış yoluyla ses oynatma
+# Akış yoluyla ses oynatma {#sound-streaming}
 
 Varsayılan davranış ses verisini bütünüyle yüklemek olsa da, veriyi kullanılmadan önce parçalar hâlinde yüklemek de yararlı olabilir. Bu yöntem genellikle "akış" (streaming) olarak adlandırılır.
 

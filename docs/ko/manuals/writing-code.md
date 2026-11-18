@@ -19,16 +19,14 @@ Defold는 Lua 코드를 생성하는 트랜스파일러 사용을 지원합니�
 
 Defold에서는 엔진 자체에서 제공하지 않는 플랫폼별 기능에 액세스하기 위해 네이티브 코드로 게임엔진을 확장할 수 있습니다. Lua의 성능이 충분하지 않은 경우(리소스 집약적인 계산, 이미지 처리 등)에도 네이티브 코드를 사용할 수 있습니다. 자세한 내용은 [네이티브 익스텐션 매뉴얼](/manuals/extensions/)을 참고하세요.
 
-## 내장 코드 에디터 사용하기
+## 내장 코드 에디터 사용하기 {#using-the-built-in-code-editor}
 
 Defold에는 Lua 파일(.lua), Defold 스크립트 파일(.script, .gui_script 및 .render_script)은 물론 에디터가 기본적으로 처리하지 않는 파일 확장자를 가진 다른 파일도 열고 편집할 수 있는 내장 코드 에디터가 있습니다. 또한 에디터는 Lua 및 스크립트 파일에 구문 강조를 제공합니다.
 
 ![](/images/editor/code-editor.png)
 
 
-<a id="code-completion"></a>
-
-### 코드 자동 완성
+### 코드 자동 완성 {#code-completion}
 
 내장 코드 에디터는 코드를 작성하는 동안 함수의 코드 자동 완성을 표시합니다.
 
@@ -70,7 +68,7 @@ ignore = {
 },
 ```
 
-## 외부 코드 에디터 사용하기
+## 외부 코드 에디터 사용하기 {#using-an-external-code-editor}
 
 Defold의 코드 에디터는 코드 작성에 필요한 기본 기능을 제공하지만, 더 고급 사용 사례나 선호하는 코드 에디터가 있는 숙련된 사용자를 위해 Defold가 외부 에디터로 파일을 열도록 설정할 수 있습니다. [Preferences 창의 Code 탭](/manuals/editor-preferences/#code)에서 코드를 편집할 때 사용할 외부 에디터를 정의할 수 있습니다.
 

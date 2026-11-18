@@ -62,17 +62,17 @@ Wyrównanie do osi zachowuje punkt skupienia, odległość i projekcję kamery. 
 
 Manipulator jest dostępny w trybie 3D zarówno przy projekcji perspektywicznej, jak i ortograficznej. W trybie 2D jest ukryty; użyj **Align/Realign Camera 2D/3D** na [pasku narzędzi](#toolbar-overview) albo naciśnij <kbd>.</kbd>, aby przełączyć na 3D. Użyj osobnego [przełącznika projekcji kamery](#camera-type-perspective-vs-orthographic), aby wybrać perspektywę lub projekcję ortograficzną. Manipulator steruje widokiem sceny w edytorze scen.
 
-## Orientacja sceny 2D i 3D
+## Orientacja sceny 2D i 3D {#2d-and-3d-scene-orientation}
 
 :[Orientacja sceny 2D i 3D](../shared/2d-and-3d-scene-orientation.md)
 
-Te funkcje są dostępne z paska narzędzi oraz menu **View**. Używaj [manipulatora osi](#axis-gizmo) w trybie 3D, aby wyrównać widok do osi lub obracać go myszą.
+W trybie 3D użyj [manipulatora osi](#axis-gizmo), aby wyrównać widok do wybranej osi lub obracać go myszą.
 
 ## Przegląd paska narzędzi {#toolbar-overview}
 
 W prawym górnym rogu widoku sceny znajduje się pasek z często używanymi narzędziami i opcjami widoku.
 
-![Toolbar](images/editor/toolbar.png)
+![Pasek narzędzi edytora scen z elementami ponumerowanymi od 1 do 7](images/editor/toolbar.png)
 
 Ponumerowane opcje paska od lewej do prawej:
 
@@ -82,7 +82,7 @@ Ponumerowane opcje paska od lewej do prawej:
 4. **Grid** - Włącza lub wyłącza siatkę. Menu rozwijane otwiera Grid Settings.
 5. **2D mode** (`2D`) - Przełącza orientację 2D i 3D. Można też użyć **Realign Camera** (<kbd>.</kbd>).
 6. **Perspective camera** - Przełącza projekcję perspektywiczną i ortograficzną w 3D. Menu rozwijane otwiera ustawienia kamery.
-7. **Visibility filters** - Pokazuje lub ukrywa typy komponentów i linie pomocnicze.
+7. **Visibility filters** - Pokazuje lub ukrywa typy komponentów i linie pomocnicze w widoku sceny.
 
 ## Zaznaczanie i manipulowanie obiektami {#manipulating-objects}
 
@@ -136,13 +136,13 @@ To narzędzie składa się z zestawu kwadratowych lub sześciennych manipulator�
 - 3 czerwone, niebieskie i zielone sześcienne manipulatory skalują obiekt osobno wzdłuż osi X, Y i Z,
 - 3 czerwone, zielone i niebieskie kwadratowe manipulatory z przezroczystym wypełnieniem skalują obiekt osobno na płaszczyznach X-Y, X-Z lub Y-Z.
 
-### Filtry widoczności {#filtry-widocznosci}
+### Filtry widoczności {#visibility-filters}
 
 Kliknij **ikonę oka** (`👁`) na pasku narzędzi, aby przełączać widoczność różnych typów komponentów oraz obwiedni i linii pomocniczych (`Component Guides` albo skrót <kbd>Ctrl</kbd> + <kbd>H</kbd> w Windows/Linux lub <kbd>^ Ctrl</kbd> + <kbd>⌘ Cmd</kbd> + <kbd>H</kbd> na Macu).
 
 ![Filtry widoczności](images/editor/visibilityfilters.png)
 
-## Ustawienia siatki
+## Ustawienia siatki {#grid-settings}
 
 Siatkę można dostosować do swojego przepływu pracy, co jest szczególnie przydatne w 3D. Kliknij przycisk **Grid Settings** (`▦`), aby otworzyć okno ustawień siatki.
 

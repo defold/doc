@@ -42,7 +42,7 @@ Os mapeamentos de entrada são uma tabela de todo o projeto que permite especifi
 
 Um arquivo de mapeamento de entrada padrão é criado automaticamente com todos os novos modelos de projeto, então normalmente não há necessidade de criar um novo arquivo de mapeamento. O arquivo padrão se chama `game.input_binding` e pode ser encontrado na pasta `input` na raiz do projeto. Dê <kbd>clique duplo</kbd> no arquivo para abri-lo no editor:
 
-![Input set bindings](images/input/defold_input.png)
+![Mapeamento de entrada](images/input/defold_input.png)
 
 Para criar um novo mapeamento, clique no botão <kbd>+</kbd> na parte inferior da seção do tipo de trigger relevante. Cada entrada tem dois campos:
 

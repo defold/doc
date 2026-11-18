@@ -11,7 +11,7 @@ brief: 物理エンジンでは、物理オブジェクトをグループ化し�
 
 ![物理のコリジョングループ](images/physics/collision_group.png)
 
-![物理のコリジョングループ](images/physics/collision_groups.png)
+![物理のコリジョングループとマスク](images/physics/collision_groups.png)
 
 *Mask* フィールドには複数のグループ名を含められるため、複雑な相互作用を実現できます。
 

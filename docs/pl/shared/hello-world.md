@@ -1,4 +1,4 @@
-## Witaj, świecie
+## Witaj, świecie {#hello-world}
 
 To szybki sposób, aby sprawnie zrobić coś w Defold, wykonać kroki, a potem wrócić do reszty instrukcji.
 

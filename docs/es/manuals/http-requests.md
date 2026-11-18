@@ -91,7 +91,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-Otro caso de uso para cargar grandes cantidades de datos por la red es el streaming de sonido, cuando se cargan "chunks" de datos de sonido desde una URL y se entregan a un recurso de sonido. Puedes encontrar un ejemplo completo en el [manual de streaming de sonido](/sound-streaming#sound-streaming).
+Otro caso de uso para cargar grandes cantidades de datos por la red es el streaming de sonido, cuando se cargan "chunks" de datos de sonido desde una URL y se entregan a un recurso de sonido. Puedes encontrar un ejemplo completo en el [manual de streaming de sonido](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Headers de solicitud
@@ -130,7 +130,7 @@ Defold definirá automáticamente algunos headers de solicitud:
 * `If-None-Match: <etag>` se definirá con el ETag de cualquier respuesta almacenada previamente en caché.
 * `Transfer-Encoding: chunked` se definirá si el cuerpo de la solicitud es mayor que 16384 bytes.
 * `Content-Length` se definirá con el tamaño del cuerpo de la solicitud (a menos que la solicitud esté dividida en chunks).
-* `Range: bytes=<from>-<to>` se definirá si se solicita una respuesta parcial, por ejemplo al hacer [streaming de sonidos](/sound-streaming#sound-streaming).
+* `Range: bytes=<from>-<to>` se definirá si se solicita una respuesta parcial, por ejemplo al hacer [streaming de sonidos](/manuals/sound-streaming/#sound-streaming).
 
 
 ### Headers de respuesta

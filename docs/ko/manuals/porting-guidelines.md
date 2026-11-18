@@ -86,9 +86,7 @@ end
   * *game.project*의 Display 섹션에 있는 vsync와 swap interval
 
 
-<a id="mobile-phones-and-notch-and-hole-punch-cameras"></a>
-
-## 모바일 폰과 notch 및 hole punch camera
+## 모바일 폰과 notch 및 hole punch camera {#mobile-phones-and-notch-and-hole-punch-cameras}
 전면 카메라와 센서를 넣기 위해 디스플레이 화면에 작은 렌즈 컷아웃을 사용하는 방식(노치 또는 hole punch camera라고도 함)이 점점 더 흔해졌습니다. 게임을 모바일로 포팅할 때는 중요한 정보를 플랫폼 safe area 안에 유지하세요.
 
 Defold는 Android와 iOS에서 safe area를 기본 지원합니다. *game.project*의 `gui.safe_area_mode`를 설정해 GUI 조정에 영향을 주는 서로 반대편의 safe-area inset을 제어합니다. `none`은 기본값으로 inset을 무시합니다. `long`은 가로 방향에서 왼쪽/오른쪽, 세로 방향에서 위쪽/아래쪽에 적용합니다. `short`는 반대 쌍에 적용하고 `both`는 네 가장자리 모두에 적용합니다. GUI 스크립트는 [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode)로 해당 씬의 프로젝트 전체 모드를 override할 수 있습니다. 커스텀 GUI 또는 렌더링 로직에서는 [`window.get_safe_area()`](/ref/window/#window.get_safe_area)가 safe rectangle과 각 가장자리 inset을 반환합니다. 내장 safe-area inset이 없는 플랫폼은 전체 window와 0 inset을 반환합니다.

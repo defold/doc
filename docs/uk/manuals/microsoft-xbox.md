@@ -3,8 +3,6 @@ title: Розробка в Defold для Microsoft Xbox
 brief: У цьому посібнику описано, як отримати доступ до підтримки Xbox у Defold та інструментів розробки
 ---
 
-<a id="xbox-support"></a>
-
 # Розробка ігор для консолей Microsoft Xbox {#game-development-for-microsoft-xbox-consoles}
 
 Щоб розробляти ігри для консолей Xbox за допомогою Defold, потрібно бути схваленим розробником Xbox і мати доступ до підтримки Xbox у Defold та інструментів Microsoft для розробки на консолях.

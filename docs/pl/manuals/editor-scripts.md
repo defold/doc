@@ -16,7 +16,7 @@ Skrypty edytora działają wewnątrz edytora, w maszynie wirtualnej Lua emulowan
 - nie ma `os.tmpname` ani `io.tmpfile` — obecnie skrypty edytora mogą uzyskiwać dostęp tylko do plików wewnątrz katalogu projektu;
 - obecnie nie ma `os.rename`, choć planujemy je dodać;
 - nie ma `os.exit` ani `os.setlocale`;
-- w kontekstach, w których edytor potrzebuje natychmiastowej odpowiedzi od skryptu, nie wolno używać niektórych długo działających funkcji; szczegóły znajdziesz w sekcji [Tryby wykonania](#tryby-wykonania).
+- w kontekstach, w których edytor potrzebuje natychmiastowej odpowiedzi od skryptu, nie wolno używać niektórych długo działających funkcji; szczegóły znajdziesz w sekcji [Tryby wykonania](#execution-modes).
 
 Wszystkie rozszerzenia edytora zdefiniowane w skryptach edytora są ładowane podczas otwierania projektu. Gdy pobierasz biblioteki, rozszerzenia są przeładowywane, ponieważ w zależnościach mogą pojawić się nowe skrypty edytora. Podczas takiego przeładowania zmiany w twoich własnych skryptach nie są wykrywane, bo możesz być akurat w trakcie ich edycji. Aby przeładować także je, uruchom polecenie **Project → Reload Editor Scripts**.
 
@@ -833,7 +833,7 @@ editor.prefs.set("my_json_formatter.indent", {
 })
 ```
 
-## Tryby wykonania
+## Tryby wykonania {#execution-modes}
 
 Środowisko uruchomieniowe skryptów edytora używa dwóch trybów wykonania, które w większości są przezroczyste dla samego skryptu: **immediate** i **long-running**.
 

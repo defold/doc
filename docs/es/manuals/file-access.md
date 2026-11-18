@@ -87,9 +87,7 @@ Al guardar y cargar archivos específicos de la aplicación, como puntuaciones a
 ### Cómo acceder a archivos empaquetados con la aplicación {#how-to-access-files-bundled-with-the-application}
 Puedes incluir archivos con tu aplicación usando Custom Resources y Bundle Resources.
 
-<a id="custom-resources"></a>
-
-#### Recursos personalizados (Custom Resources)
+#### Recursos personalizados (Custom Resources) {#custom-resources}
 :[Custom Resources](../shared/custom-resources.md)
 
 Las extensiones también pueden aportar estos archivos mediante `ext.properties`. Sus rutas se combinan con los recursos personalizados del proyecto tanto en las builds del editor como en los archivos generados por Bob. Consulta [recursos personalizados de las extensiones](/manuals/extensions/#custom-resources).
