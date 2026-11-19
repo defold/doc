@@ -23,17 +23,17 @@ Defold vous permet d'étendre le moteur de jeu avec du code natif pour accéder 
 
 Defold dispose d'un éditeur de code intégré qui vous permet d'ouvrir et de modifier des fichiers Lua (.lua), des fichiers de script Defold (.script, .gui_script et .render_script), ainsi que tout autre fichier dont l'extension n'est pas prise en charge nativement par l'éditeur. De plus, l'éditeur propose la coloration syntaxique pour les fichiers Lua et les fichiers de script.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### Complétion de code {#code-completion}
 
 L'éditeur de code intégré propose la complétion des fonctions pendant que vous écrivez du code :
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Appuyez sur <kbd>CTRL</kbd> + <kbd>Space</kbd> pour afficher des informations supplémentaires sur les fonctions, les arguments et les valeurs de retour :
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 Le serveur de langage Lua fourni inclut des annotations de types pour les API Defold. La complétion, les informations au survol et les diagnostics comprennent les types Defold tels que les hachages, les URL, les vecteurs et les quaternions, ainsi que les arguments et les valeurs de retour des fonctions. L'éditeur fournit des annotations pour les scripts de jeu et les API `editor.*` utilisées dans les fichiers `.editor_script`. Aucune bibliothèque d'annotations distincte n'est nécessaire pour les API intégrées lorsque vous utilisez l'éditeur de code Defold.
 
@@ -51,7 +51,7 @@ L'éditeur de code intégré peut afficher une liste des symboles du fichier de 
 
 Commencez à saisir du texte pour effectuer une recherche approximative parmi les symboles, utilisez les touches fléchées pour parcourir les résultats et prévisualiser leur emplacement dans l'éditeur, puis appuyez sur <kbd>Enter</kbd> pour accéder au symbole sélectionné. Appuyez sur <kbd>Esc</kbd> pour fermer la boîte de dialogue et revenir aux positions précédentes du curseur et du défilement.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Configuration de l'analyse statique {#linting-configuration}
 

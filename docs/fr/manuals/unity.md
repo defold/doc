@@ -322,7 +322,7 @@ Manuels utiles sur l’écriture du code :
 
 L’éditeur Defold comprend un éditeur de code intégré avec complétion du code, coloration syntaxique, consultation rapide de la documentation, analyse du code et débogueur intégré.
 
-![Éditeur de code de Defold](/images/editor/code-editor.png)
+![Éditeur de code de Defold](images/editor/code-editor.png)
 
 ### VS Code et les autres éditeurs {#vs-code-and-other-editors}
 

@@ -322,7 +322,7 @@ Kod yazma hakkında yararlı kılavuzlar:
 
 Defold düzenleyicisi; kod tamamlama, sözdizimi vurgulama, belgelere hızlı erişim, statik kod denetimi ve yerleşik hata ayıklayıcı sunan bir kod düzenleyicisi içerir.
 
-![Defold kod düzenleyicisi](/images/editor/code-editor.png)
+![Defold kod düzenleyicisi](images/editor/code-editor.png)
 
 ### VS Code ve diğer düzenleyiciler {#vs-code-and-other-editors}
 

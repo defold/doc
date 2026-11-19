@@ -322,7 +322,7 @@ Manuali utili sulla scrittura del codice:
 
 L'editor Defold include un editor di codice integrato con completamento del codice, evidenziazione della sintassi, consultazione rapida della documentazione, analisi del codice e un debugger integrato.
 
-![Editor di codice di Defold](/images/editor/code-editor.png)
+![Editor di codice di Defold](images/editor/code-editor.png)
 
 ### VS Code e altri editor {#vs-code-and-other-editors}
 

@@ -23,18 +23,18 @@ O Defold permite estender a engine de jogos com código nativo para acessar func
 
 O Defold tem um editor de código integrado que permite abrir e editar arquivos Lua (.lua), arquivos de script do Defold (.script, .gui_script e .render_script), assim como qualquer outro arquivo com uma extensão não tratada nativamente pelo editor. Além disso, o editor fornece destaque de sintaxe para arquivos Lua e scripts.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 
 ### Autocompletar código {#code-completion}
 
 O editor de código integrado mostrará autocompletar de funções enquanto você escreve código:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Pressionar <kbd>CTRL</kbd> + <kbd>Space</kbd> mostrará informações adicionais sobre funções, argumentos e valores de retorno:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 O servidor de linguagem Lua incluído contém anotações de tipos para as APIs do Defold. O preenchimento automático, as informações ao passar o mouse e os diagnósticos reconhecem tipos do Defold como hashes, URLs, vetores e quatérnios, além de argumentos e valores de retorno de funções. O editor fornece anotações para scripts do jogo e para as APIs `editor.*` usadas em arquivos `.editor_script`. Não é necessária uma biblioteca de anotações separada para as APIs integradas ao usar o editor de código do Defold.
 
@@ -52,7 +52,7 @@ O editor de código integrado pode exibir uma lista pesquisável de símbolos no
 
 Comece a digitar para fazer uma busca aproximada pelos símbolos, use as teclas de seta para percorrer os resultados e pré-visualizar suas localizações no editor e, em seguida, pressione <kbd>Enter</kbd> para ir até o símbolo selecionado. Pressione <kbd>Esc</kbd> para fechar a caixa de diálogo e retornar à posição anterior do cursor e da rolagem.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Configuração de linting {#linting-configuration}
 

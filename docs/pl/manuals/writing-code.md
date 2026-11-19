@@ -23,17 +23,17 @@ Defold pozwala rozszerzać silnik kodem natywnym, aby uzyskać dostęp do funkcj
 
 Defold ma wbudowany edytor kodu, który pozwala otwierać i edytować pliki Lua (.lua), pliki skryptów Defold (.script, .gui_script i .render_script), a także inne pliki z rozszerzeniami, których edytor nie obsługuje natywnie. Edytor zapewnia też podświetlanie składni dla plików Lua i plików skryptów.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### Uzupełnianie kodu {#code-completion}
 
 Wbudowany edytor kodu wyświetla podpowiedzi dotyczące funkcji podczas pisania:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Naciśnięcie <kbd>CTRL</kbd> + <kbd>Space</kbd> pokazuje dodatkowe informacje o funkcjach, argumentach i wartościach zwracanych:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 Dołączony serwer językowy Lua zawiera adnotacje typów dla API Defold. Podpowiedzi, informacje po najechaniu kursorem i diagnostyka rozpoznają typy Defold, takie jak hasze, adresy URL, wektory i kwaterniony, a także argumenty funkcji i wartości zwracane. Edytor dostarcza adnotacje dla skryptów gry oraz API `editor.*` używanych w plikach `.editor_script`. Korzystanie z wbudowanych API w edytorze kodu Defold nie wymaga osobnej biblioteki adnotacji.
 
@@ -51,7 +51,7 @@ Wbudowany edytor kodu może wyświetlić przeszukiwalną listę symboli w bież�
 
 Zacznij pisać, aby wyszukiwać symbole metodą dopasowania rozmytego. Za pomocą klawiszy strzałek poruszaj się po wynikach i podglądaj położenie symboli w edytorze, a następnie naciśnij <kbd>Enter</kbd>, aby przejść do wybranego symbolu. Naciśnij <kbd>Esc</kbd>, aby zamknąć okno dialogowe i wrócić do poprzedniego położenia kursora oraz przewinięcia.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Konfiguracja lintingu {#linting-configuration}
 

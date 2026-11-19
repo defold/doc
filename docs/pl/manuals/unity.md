@@ -322,7 +322,7 @@ Dobre instrukcje o pisaniu kodu:
 
 Defold Editor zawiera wbudowany edytor kodu z podpowiadaniem kodu, podświetlaniem składni, szybkim podglądem dokumentacji, lintingiem i wbudowanym debuggerem.
 
-![Edytor kodu Defold](/images/editor/code-editor.png)
+![Edytor kodu Defold](images/editor/code-editor.png)
 
 ### VS Code i inne edytory
 

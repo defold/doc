@@ -23,18 +23,18 @@ Defold에서는 엔진 자체에서 제공하지 않는 플랫폼별 기능에 �
 
 Defold에는 Lua 파일(.lua), Defold 스크립트 파일(.script, .gui_script 및 .render_script)은 물론 에디터가 기본적으로 처리하지 않는 파일 확장자를 가진 다른 파일도 열고 편집할 수 있는 내장 코드 에디터가 있습니다. 또한 에디터는 Lua 및 스크립트 파일에 구문 강조를 제공합니다.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 
 ### 코드 자동 완성 {#code-completion}
 
 내장 코드 에디터는 코드를 작성하는 동안 함수의 코드 자동 완성을 표시합니다.
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 <kbd>CTRL</kbd> + <kbd>Space</kbd>를 누르면 함수, 인자, 반환값에 대한 추가 정보가 표시됩니다.
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 기본으로 제공되는 Lua 언어 서버에는 Defold API의 타입 어노테이션이 포함되어 있습니다. 자동 완성, 마우스를 올렸을 때 표시되는 정보, 진단 기능은 해쉬, URL, 벡터, 쿼터니언 같은 Defold 타입뿐 아니라 함수 인자와 반환값도 이해합니다. 에디터는 게임 스크립트와 `.editor_script` 파일에서 사용하는 `editor.*` API용 어노테이션을 제공합니다. Defold 코드 에디터를 사용할 때 내장 API를 위한 별도의 어노테이션 라이브러리는 필요하지 않습니다.
 
@@ -52,7 +52,7 @@ Defold에는 Lua 파일(.lua), Defold 스크립트 파일(.script, .gui_script �
 
 입력을 시작해 심볼을 퍼지 검색하고, 화살표 키를 사용해 결과 사이를 이동하면서 에디터에서 해당 위치를 미리 본 다음, <kbd>Enter</kbd>를 눌러 선택한 심볼로 이동합니다. <kbd>Esc</kbd>를 누르면 다이얼로그가 닫히고 이전 커서 및 스크롤 위치로 돌아갑니다.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### 린팅 설정 {#linting-configuration}
 

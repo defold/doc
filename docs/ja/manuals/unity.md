@@ -322,7 +322,7 @@ Defold のスクリプトプロパティ、ファクトリー、アドレス指�
 
 Defold エディターには、コード補完、構文の強調表示、すばやいドキュメント参照、lint によるチェック、組み込みのデバッガーを備えたコードエディターが含まれています。
 
-![Defold のコードエディター](/images/editor/code-editor.png)
+![Defold のコードエディター](images/editor/code-editor.png)
 
 ### VS Code とその他のエディター {#vs-code-and-other-editors}
 

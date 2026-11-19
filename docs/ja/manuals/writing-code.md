@@ -23,17 +23,17 @@ Defold では、ネイティブコードでゲームエンジンを拡張し、�
 
 Defold にはコードエディターが組み込まれています。Lua ファイル（.lua）、Defold のスクリプト（script）ファイル（.script、.gui_script、.render_script）に加え、エディターが標準で扱わない拡張子のファイルも開いて編集できます。また、Lua ファイルとスクリプトファイルのシンタックスハイライトに対応しています。
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### コード補完 {#code-completion}
 
 組み込みのコードエディターは、コードの記述中に関数の補完候補を表示します。
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 <kbd>CTRL</kbd> + <kbd>Space</kbd> を押すと、関数、引数、戻り値に関する追加情報が表示されます。
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 同梱の Lua 言語サーバーには、Defold API の型アノテーションが含まれます。補完、ホバー情報、診断は、ハッシュ、URL、ベクトル、クォータニオンなどの Defold の型に加え、関数の引数と戻り値を理解します。エディターは、ゲームスクリプトと、`.editor_script` ファイルで使う `editor.*` API のアノテーションを提供します。Defold のコードエディターを使う場合、組み込み API 用に別のアノテーションライブラリを用意する必要はありません。
 
@@ -51,7 +51,7 @@ Defold にはコードエディターが組み込まれています。Lua ファ
 
 入力を始めるとシンボルをあいまい検索できます。矢印キーで検索結果を移動すると、エディターでそれぞれの位置をプレビューできます。<kbd>Enter</kbd> を押すと、選択したシンボルに移動します。<kbd>Esc</kbd> を押すとダイアログを閉じ、元のカーソル位置とスクロール位置に戻ります。
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### リントの設定 {#linting-configuration}
 

@@ -322,7 +322,7 @@ Defold 스크립트 프로퍼티, 팩토리, 주소 지정, 메세징을 활용�
 
 Defold Editor에는 코드 완성, 구문 강조, 빠른 문서 조회, linting, 내장 debugger를 갖춘 내장 코드 에디터가 포함되어 있습니다.
 
-![Defold Code Editor](/images/editor/code-editor.png)
+![Defold Code Editor](images/editor/code-editor.png)
 
 ### VS Code와 다른 에디터
 

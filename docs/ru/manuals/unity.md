@@ -322,7 +322,7 @@ end
 
 В редактор Defold встроен редактор кода с автодополнением, подсветкой синтаксиса, быстрым доступом к документации, linting'ом и встроенным debugger'ом.
 
-![Редактор кода Defold](/images/editor/code-editor.png)
+![Редактор кода Defold](images/editor/code-editor.png)
 
 ### VS Code и другие редакторы
 

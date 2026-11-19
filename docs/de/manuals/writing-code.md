@@ -23,17 +23,17 @@ Defold ermöglicht dir, die Game-Engine mit nativem Code zu erweitern, um auf pl
 
 Defold verfügt über einen integrierten Code-Editor, mit dem du Lua-Dateien (.lua), Defold-Skriptdateien (.script, .gui_script und .render_script) sowie alle anderen Dateien öffnen und bearbeiten kannst, deren Dateierweiterung der Editor nicht von Haus aus verarbeitet. Außerdem bietet der Editor Syntaxhervorhebung für Lua- und Skriptdateien.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### Codevervollständigung {#code-completion}
 
 Der integrierte Code-Editor zeigt beim Schreiben von Code Vorschläge zur Vervollständigung von Funktionen an:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Wenn du <kbd>CTRL</kbd> + <kbd>Space</kbd> drückst, werden zusätzliche Informationen zu Funktionen, Argumenten und Rückgabewerten angezeigt:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 Der mitgelieferte Lua-Sprachserver enthält Typannotationen für die Defold-APIs. Die Vervollständigung, Informationen beim Überfahren mit dem Mauszeiger und die Diagnosefunktionen berücksichtigen Defold-Typen wie Hashwerte, URLs, Vektoren und Quaternionen sowie Funktionsargumente und Rückgabewerte. Der Editor stellt Annotationen für Spielskripte und für die `editor.*`-APIs bereit, die in `.editor_script`-Dateien verwendet werden. Wenn du den Code-Editor von Defold verwendest, benötigst du für die integrierten APIs keine separate Annotationsbibliothek.
 
@@ -51,7 +51,7 @@ Der integrierte Code-Editor kann eine durchsuchbare Liste der Symbole in der akt
 
 Beginne zu tippen, um die Symbole mit einer unscharfen Suche zu durchsuchen. Verwende die Pfeiltasten, um durch die Ergebnisse zu navigieren und ihre Positionen im Editor in der Vorschau zu sehen. Drücke anschließend <kbd>Enter</kbd>, um zum ausgewählten Symbol zu springen. Drücke <kbd>Esc</kbd>, um das Dialogfeld zu schließen und zur vorherigen Cursor- und Scrollposition zurückzukehren.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Statische Codeprüfung konfigurieren {#linting-configuration}
 

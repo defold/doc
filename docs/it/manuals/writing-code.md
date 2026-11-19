@@ -23,17 +23,17 @@ Defold ti permette di estendere il motore di gioco con codice nativo per acceder
 
 Defold dispone di un editor di codice integrato che ti permette di aprire e modificare file Lua (.lua), file di script Defold (.script, .gui_script e .render_script) e qualsiasi altro file la cui estensione non sia gestita nativamente dall'editor. Inoltre, l'editor offre l'evidenziazione della sintassi per i file Lua e gli script.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### Completamento del codice {#code-completion}
 
 L'editor di codice integrato mostra suggerimenti per completare i nomi delle funzioni mentre scrivi il codice:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Premendo <kbd>CTRL</kbd> + <kbd>Space</kbd> vengono mostrate ulteriori informazioni su funzioni, argomenti e valori restituiti:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 Il server di linguaggio Lua incluso contiene annotazioni dei tipi per le API Defold. Il completamento, le informazioni al passaggio del puntatore e la diagnostica comprendono i tipi Defold, come hash, URL, vettori e quaternioni, oltre agli argomenti e ai valori restituiti dalle funzioni. L'editor fornisce annotazioni per gli script di gioco e per le API `editor.*` usate nei file `.editor_script`. Quando usi l'editor di codice Defold, non serve una libreria di annotazioni separata per le API integrate.
 
@@ -51,7 +51,7 @@ L'editor di codice integrato può mostrare un elenco ricercabile dei simboli pre
 
 Inizia a digitare per cercare i simboli anche con corrispondenze approssimative, usa i tasti freccia per spostarti tra i risultati e visualizzare in anteprima le rispettive posizioni nell'editor, poi premi <kbd>Enter</kbd> per passare al simbolo selezionato. Premi <kbd>Esc</kbd> per chiudere la finestra di dialogo e ripristinare la posizione precedente del cursore e dello scorrimento.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Configurazione dell'analisi statica {#linting-configuration}
 

@@ -322,7 +322,7 @@ Nützliche Handbücher zum Schreiben von Code:
 
 Der Defold-Editor enthält einen integrierten Code-Editor mit Codevervollständigung, Syntaxhervorhebung, schnellem Nachschlagen in der Dokumentation, statischer Codeprüfung und einem integrierten Debugger.
 
-![Defold-Code-Editor](/images/editor/code-editor.png)
+![Defold-Code-Editor](images/editor/code-editor.png)
 
 ### VS Code und andere Editoren {#vs-code-and-other-editors}
 

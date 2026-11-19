@@ -23,18 +23,18 @@ Defold te permite extender el motor de videojuegos con código nativo para acced
 
 Defold tiene un editor de código integrado que te permite abrir y editar archivos Lua (.lua), archivos script de Defold (.script, .gui_script y .render_script), así como cualquier otro archivo con una extensión que el editor no maneje de forma nativa. Además, el editor proporciona resaltado de sintaxis para archivos Lua y script.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 
 ### Autocompletado de código {#code-completion}
 
 El editor de código integrado mostrará autocompletado de funciones mientras escribes código:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Presionar <kbd>CTRL</kbd> + <kbd>Space</kbd> mostrará información adicional sobre funciones, argumentos y valores de retorno:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 El servidor de lenguaje Lua incluido contiene anotaciones de tipos para las APIs de Defold. El completado, la información al pasar el cursor y los diagnósticos reconocen tipos de Defold como hashes, URL, vectores y cuaterniones, además de los argumentos y valores de retorno de las funciones. El editor proporciona anotaciones para los scripts del juego y para las APIs `editor.*` usadas en archivos `.editor_script`. No se necesita una biblioteca de anotaciones adicional para las APIs integradas al usar el editor de código de Defold.
 
@@ -52,7 +52,7 @@ El editor de código integrado puede mostrar una lista en la que puedes buscar l
 
 Empieza a escribir para buscar coincidencias aproximadas entre los símbolos, usa las teclas de flecha para recorrer los resultados y previsualizar su ubicación en el editor y, a continuación, presiona <kbd>Enter</kbd> para ir al símbolo seleccionado. Presiona <kbd>Esc</kbd> para cerrar el cuadro de diálogo y volver a las posiciones anteriores del cursor y del desplazamiento.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Configuración de linting {#linting-configuration}
 

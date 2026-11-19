@@ -23,17 +23,17 @@ Defold, motorun kendisinin sunmadığı platforma özgü işlevlere erişmek iç
 
 Defold'un yerleşik kod düzenleyicisi, Lua dosyalarını (.lua), Defold betik dosyalarını (.script, .gui_script ve .render_script) ve düzenleyicinin doğrudan işlemediği dosya uzantılarına sahip diğer tüm dosyaları açıp düzenlemenize olanak tanır. Ayrıca düzenleyici, Lua ve betik dosyaları için sözdizimi vurgulaması sağlar.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### Kod tamamlama {#code-completion}
 
 Yerleşik kod düzenleyicisi, kod yazarken işlevler için kod tamamlama önerileri gösterir:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 <kbd>CTRL</kbd> + <kbd>Space</kbd> tuşlarına bastığınızda işlevler, bağımsız değişkenler ve dönüş değerleri hakkında ek bilgiler gösterilir:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 Birlikte gelen Lua dil sunucusu, Defold API'leri için tür açıklamaları (type annotations) içerir. Kod tamamlama, üzerine gelindiğinde gösterilen bilgiler ve tanılama işlevleri; karma değerleri (hash), URL'ler, vektörler ve kuaterniyonlar (quaternion) gibi Defold türlerini, işlev bağımsız değişkenlerini ve dönüş değerlerini tanır. Düzenleyici, oyun betikleri ve `.editor_script` dosyalarında kullanılan `editor.*` API'leri için açıklamalar sağlar. Defold kod düzenleyicisini kullanırken yerleşik API'ler için ayrı bir açıklama kütüphanesine gerek yoktur.
 
@@ -51,7 +51,7 @@ Yerleşik kod düzenleyicisi, geçerli kod dosyasındaki işlevler, nesneler ve 
 
 Simgeler arasında yaklaşık eşleşmeyle arama yapmak için yazmaya başlayın. Sonuçlar arasında ilerlemek ve düzenleyicideki konumlarını önizlemek için ok tuşlarını kullanın, ardından seçili simgeye gitmek için <kbd>Enter</kbd> tuşuna basın. İletişim kutusunu kapatıp önceki imleç ve kaydırma konumuna dönmek için <kbd>Esc</kbd> tuşuna basın.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Statik kod denetimini yapılandırma {#linting-configuration}
 

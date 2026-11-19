@@ -322,7 +322,7 @@ Good manuals on code writing:
 
 Defold Editor includes a built-in code editor with code completion, syntax highlighting, quick documentation lookup, linting, and a built-in debugger.
 
-![Defold Code Editor](/images/editor/code-editor.png)
+![Defold Code Editor](images/editor/code-editor.png)
 
 ### VS Code and other editors
 

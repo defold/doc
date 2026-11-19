@@ -322,7 +322,7 @@ end
 
 Defold Editor 包含内置代码编辑器，支持代码补全、语法高亮、快速文档查找、linting 和内置调试器。
 
-![Defold Code Editor](/images/editor/code-editor.png)
+![Defold Code Editor](images/editor/code-editor.png)
 
 ### VS Code 和其他编辑器 {#vs-code-and-other-editors}
 

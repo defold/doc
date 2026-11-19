@@ -23,17 +23,17 @@ Defold allows you to extend the game engine with native code to access platform 
 
 Defold has a built-in code editor that allows you to open and edit Lua files (.lua), Defold script files (.script, .gui_script and .render_script) as well as any other file with a file extension not natively handled by the editor. Additionally the editor provides syntax highlighting for Lua and script files.
 
-![](/images/editor/code-editor.png)
+![](images/editor/code-editor.png)
 
 ### Code completion
 
 The built-in code editor will show code completion of functions while writing code:
 
-![](/images/editor/codecompletion.png)
+![](images/editor/codecompletion.png)
 
 Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information about functions, arguments and return values:
 
-![](/images/editor/apireference.png)
+![](images/editor/apireference.png)
 
 The bundled Lua language server includes type annotations for Defold APIs. Completion, hover information and diagnostics understand Defold types such as hashes, URLs, vectors and quaternions, as well as function arguments and return values. The editor provides annotations for game scripts and for the `editor.*` APIs used in `.editor_script` files. No separate annotation library is needed for the built-in APIs when using the Defold code editor.
 
@@ -51,7 +51,7 @@ The built-in code editor can show a searchable list of symbols in the current co
 
 Start typing to fuzzy search the symbols, use the arrow keys to move through the results and preview their locations in the editor, then press <kbd>Enter</kbd> to jump to the selected symbol. Press <kbd>Esc</kbd> to close the dialog and return to the previous cursor and scroll position.
 
-![](/images/editor/jump-to-symbol.png)
+![](images/editor/jump-to-symbol.png)
 
 ### Linting configuration
 
