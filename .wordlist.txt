@@ -102,6 +102,7 @@ customizable
 customizations
 cutscene
 cutscenes
+DevTools
 ds
 dt
 dae
@@ -229,6 +230,7 @@ indexeddb
 INI
 init
 initializer
+inlined
 instantiation
 integrations
 intialize

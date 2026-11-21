@@ -134,6 +134,10 @@ verify_downloaded_file_size = 0
 
 Disabling **Verify Downloaded File Size** leaves any SHA-1 verification included in the bundle enabled. See the [HTML5 project settings](/manuals/project-settings/#verify-downloaded-file-size).
 
+## Debugging native code
+
+You can debug the engine and native extensions as C/C++ code in the browser, and symbolicate callstacks from your players. Refer to [Debugging native code on HTML5](/manuals/debugging-native-code-html5).
+
 ## Known issues and limitations
 
 * Hot Reload - Hot Reload doesn't work in HTML5 builds. Defold applications must run their own miniature web server in order to receive updates from the editor, which isn't possible in a HTML5 build.
