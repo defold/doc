@@ -50,7 +50,7 @@ Pour créer une nouvelle extension, créez un dossier à la racine du projet. Ce
 : Le dossier de l'extension _doit_ contenir un fichier *ext.manifest*. Ce fichier de configuration contient les options et les définitions utilisées lors du build d'une extension individuelle. La définition du format de fichier se trouve dans le [manuel du manifeste des extensions](https://defold.com/manuals/extensions-ext-manifests/).
 
 *src*
-: Ce dossier devrait contenir tous les fichiers de code source.
+: Ce dossier devrait contenir tous les fichiers de code source. Placez-y aussi les fichiers Swift (`.swift`) pour iOS et macOS. Consultez [Swift dans les extensions natives](/manuals/extensions-swift).
 
 *include*
 : Ce dossier facultatif contient les fichiers d'inclusion.

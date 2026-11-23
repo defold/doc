@@ -50,7 +50,7 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 : 扩展文件夹_必须_包含一个*ext.manifest*文件。此文件是配置文件，包含构建单个扩展时使用的标志和定义。文件格式定义可在[扩展清单手册](https://defold.com/manuals/extensions-ext-manifests/)中找到。
 
 *src*
-: 此文件夹应包含所有源代码文件。
+: 此文件夹应包含所有源代码文件。用于 iOS 和 macOS 的 Swift 文件（`.swift`）也应放在这里，详见[在原生扩展中使用 Swift](/manuals/extensions-swift)。
 
 *include*
 : 此可选文件夹包含任何包含文件。

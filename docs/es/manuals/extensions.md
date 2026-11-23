@@ -50,7 +50,7 @@ Para crear una extensión nueva, crea una carpeta en la raíz del proyecto. Esta
 : La carpeta de la extensión _debe_ contener un archivo *ext.manifest*. Este archivo es un archivo de configuración con flags y defines usados al crear la build de una extensión individual. La definición del formato de archivo se puede encontrar en el [manual de Extension Manifest](https://defold.com/manuals/extensions-ext-manifests/).
 
 *src*
-: Esta carpeta debe contener todos los archivos de código fuente.
+: Esta carpeta debe contener todos los archivos de código fuente. Coloca aquí también los archivos Swift (`.swift`) para iOS y macOS. Consulta [Swift en extensiones nativas](/manuals/extensions-swift).
 
 *include*
 : Esta carpeta opcional contiene cualquier archivo include.

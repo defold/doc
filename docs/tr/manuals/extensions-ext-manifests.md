@@ -67,6 +67,9 @@ Platforma özgü kod derleme bayrakları için izin verilen anahtarlar şunlard�
 * `linkFlags` - Bağlayıcıya aktarılacak bayraklar
 * `libs` - Bağlama sırasında dahil edilecek ek kütüphaneler
 * `defines` - Derleme sırasında ayarlanacak tanımlar
+* `swiftFlags` - Swift derleyicisine aktarılacak bayraklar (iOS ve macOS). Yalnızca belirli bayraklara izin verilir. Liste için [Swift derleyicisi seçeneklerine](/manuals/extensions-swift#compiler-options) bakın.
+* `additionalSwiftIncludePaths` - Eklenti içinde Swift derleyicisinin başlık dosyalarını ve modülleri arayacağı ek klasörler (iOS ve macOS). Ayrıntılar için [Swift derleyicisi seçeneklerine](/manuals/extensions-swift#compiler-options) bakın.
+* `additionalFrameworkSearchPaths` - Eklenti içinde derleme ve bağlama sırasında framework'lerin aranacağı ek klasörler (iOS ve macOS). Ayrıntılar için [Swift derleyicisi seçeneklerine](/manuals/extensions-swift#compiler-options) bakın.
 * `aaptExtraPackages` - Oluşturulacak ek paket adı (Android)
 * `aaptExcludePackages` - Dışlanacak paketleri belirten düzenli ifade (regexp) veya paketlerin tam adları (Android)
 * `aaptExcludeResourceDirs` - Dışlanacak kaynak dizinlerini belirten düzenli ifade veya dizinlerin tam adları (Android)

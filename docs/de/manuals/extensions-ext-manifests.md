@@ -67,6 +67,9 @@ Die zulässigen Schlüssel für plattformspezifische Kompilieroptionen sind:
 * `linkFlags` - Optionen, die an den Linker übergeben werden sollen
 * `libs` - Zusätzliche Bibliotheken, die beim Linken eingebunden werden sollen
 * `defines` - Präprozessor-Definitionen, die beim Erstellen eines Builds gesetzt werden sollen
+* `swiftFlags` - Optionen, die an den Swift-Compiler übergeben werden (iOS und macOS). Zulässig sind nur die im Abschnitt [Compileroptionen für Swift](/manuals/extensions-swift#compiler-options) aufgeführten Optionen.
+* `additionalSwiftIncludePaths` - Ordner innerhalb der Erweiterung, in denen der Swift-Compiler nach Headern und Modulen sucht (iOS und macOS). Siehe [Compileroptionen für Swift](/manuals/extensions-swift#compiler-options).
+* `additionalFrameworkSearchPaths` - Ordner innerhalb der Erweiterung, in denen beim Kompilieren und Linken der Erweiterung nach Frameworks gesucht wird (iOS und macOS). Siehe [Compileroptionen für Swift](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` - Zusätzlicher Paketname, der generiert werden soll (Android)
 * `aaptExcludePackages` - Reguläre Ausdrücke (oder genaue Namen) der auszuschließenden Pakete (Android)
 * `aaptExcludeResourceDirs` - Reguläre Ausdrücke (oder genaue Namen) der auszuschließenden Ressourcenverzeichnisse (Android)

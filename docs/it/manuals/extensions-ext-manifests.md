@@ -67,6 +67,9 @@ Le chiavi ammesse per le opzioni di compilazione specifiche di una piattaforma s
 * `linkFlags` - Opzioni da passare al linker
 * `libs` - Librerie aggiuntive da includere durante il collegamento
 * `defines` - Definizioni del preprocessore da impostare durante la build
+* `swiftFlags` - Opzioni da passare al compilatore Swift (iOS e macOS). Sono ammesse solo le opzioni elencate nella sezione [Opzioni del compilatore](/manuals/extensions-swift#compiler-options).
+* `additionalSwiftIncludePaths` - Cartelle dell'estensione in cui il compilatore Swift cerca header e moduli (iOS e macOS). Consulta la sezione [Opzioni del compilatore](/manuals/extensions-swift#compiler-options).
+* `additionalFrameworkSearchPaths` - Cartelle dell'estensione in cui vengono cercati i framework durante la compilazione e il collegamento dell'estensione (iOS e macOS). Consulta la sezione [Opzioni del compilatore](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` - Nome del pacchetto aggiuntivo da generare (Android)
 * `aaptExcludePackages` - Espressioni regolari (o nomi esatti) dei pacchetti da escludere (Android)
 * `aaptExcludeResourceDirs` - Espressioni regolari (o nomi esatti) delle directory di risorse da escludere (Android)
