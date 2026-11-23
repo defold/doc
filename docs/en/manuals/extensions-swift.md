@@ -125,8 +125,8 @@ platforms:
         context:
             defines: ["MY_DEFINE"]
             swiftFlags: ["-strict-concurrency=complete"]
-            additionalSwiftIncludePaths: ["vendor/headers"]
-            additionalFrameworkSearchPaths: ["vendor/frameworks"]
+            additionalSwiftIncludePaths: ["include/vendor/headers"]
+            additionalFrameworkSearchPaths: ["lib/ios/vendor/frameworks"]
     osx:
         context:
             defines: ["MY_DEFINE"]
@@ -142,7 +142,7 @@ platforms:
 * `additionalSwiftIncludePaths` - Folders that the Swift compiler searches for headers and modules, in addition to the `include` folder of the extension.
 * `additionalFrameworkSearchPaths` - Folders that are searched for frameworks, in addition to the `lib/<platform>` folder of the extension. This is not specific to Swift: the folders are used by the Swift compiler, by the C++ and Objective-C++ compiler for the sources of the extension, and by the linker.
 
-The paths are relative to the extension folder, must stay inside of it, and may only contain letters, digits and `._+-/`.
+The paths are relative to the extension folder, must stay inside of it, and may only contain letters, digits and `._+-/`. Only the `include`, `src`, `commonsrc`, `pluginsrc`, `lib/<platform>`, `manifests/<platform>` and `res/<platform>` folders of an extension are sent to the build server, so the paths must point into one of them. Files in other folders, such as a `vendor` folder at the top of the extension, are not available during the build.
 
 The Swift keys of the `ios` platform apply to both devices and the simulator. A build server that predates Swift support rejects them with a `Manifest context variable unsupported` error, and the project then fails to build until the Defold version and the build server are updated.
 
@@ -158,10 +158,10 @@ The minimum version of a build is the one that the engine supports, which is set
 
 ## Limitations
 
-* An extension still needs a C++ or Objective-C++ file with `DM_DECLARE_EXTENSION`. Swift code cannot yet register the extension or call the Defold SDK (`dmsdk`) itself. A build with only `.swift` files fails to link with an undefined symbol error named after the extension.
+* An extension still needs a C++ or Objective-C++ file with `DM_DECLARE_EXTENSION`. Swift code cannot register the extension, and the C++ API of the Defold SDK (`dmsdk`) is not available from Swift, so call it from the Objective-C++ file. The `dmsdk` headers that are C-compatible, such as `dmsdk/dlib/hash.h`, can be included in the bridging header. A build with only `.swift` files fails to link with an undefined symbol error named after the extension.
 * Using CocoaPods dependencies from Swift code is not supported. Use them from the Objective-C++ file and pass what is needed to the Swift code.
 * Only the Swift 5 language mode is supported. C++ interoperability is not enabled.
-* Swift sources are supported by Defold versions that include this feature. A build server with an older SDK fails with a `Swift sources are not supported by this Defold SDK version` error.
+* Swift sources are supported from Defold 1.14.2. A build server with an older SDK fails with a `Swift sources are not supported by this Defold SDK version` error.
 * Swift sources are not compiled when building the `library` artifact (`--build-artifacts library` in [Bob](/manuals/bob)), so an Objective-C++ file that imports `<Module>-Swift.h` fails to compile there.
 
 
