@@ -67,6 +67,9 @@ platforms:
 * `linkFlags` - флаги, которые должны быть переданы линкеру
 * `libs` - дополнительные библиотеки, которые нужно подключить при линковке
 * `defines` - defines, которые нужно установить при сборке
+* `swiftFlags` - флаги, передаваемые компилятору Swift (iOS и macOS). Допустим только фиксированный набор флагов. См. [параметры компилятора Swift](/manuals/extensions-swift#compiler-options).
+* `additionalSwiftIncludePaths` - папки расширения, в которых компилятор Swift ищет заголовочные файлы и модули (iOS и macOS). См. [параметры компилятора Swift](/manuals/extensions-swift#compiler-options).
+* `additionalFrameworkSearchPaths` - папки расширения, в которых выполняется поиск фреймворков при компиляции и линковке расширения (iOS и macOS). См. [параметры компилятора Swift](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` - имя дополнительного package, который должен быть сгенерирован (Android)
 * `aaptExcludePackages` - regexp (или точные имена) пакетов, которые нужно исключить (Android)
 * `aaptExcludeResourceDirs` - regexp (или точные имена) директорий ресурсов, которые нужно исключить (Android)

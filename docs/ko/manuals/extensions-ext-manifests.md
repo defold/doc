@@ -67,6 +67,9 @@ platforms:
 * `linkFlags` - 링커에 전달할 flags
 * `libs` - 링크할 때 포함할 추가 라이브러리
 * `defines` - 빌드할 때 설정할 defines
+* `swiftFlags` - iOS 및 macOS용 빌드에서 Swift 컴파일러에 전달할 플래그입니다. [Swift 컴파일러 옵션](/manuals/extensions-swift#compiler-options)에 나열된 플래그만 사용할 수 있습니다.
+* `additionalSwiftIncludePaths` - iOS 및 macOS용 빌드에서 Swift 컴파일러가 헤더와 모듈을 검색할 익스텐션 내 폴더입니다. [Swift 컴파일러 옵션](/manuals/extensions-swift#compiler-options)을 참고하세요.
+* `additionalFrameworkSearchPaths` - iOS 및 macOS용 익스텐션을 컴파일하고 링크할 때 프레임워크를 검색할 익스텐션 내 폴더입니다. [Swift 컴파일러 옵션](/manuals/extensions-swift#compiler-options)을 참고하세요.
 * `aaptExtraPackages` - 생성해야 하는 추가 패키지 이름(Android)
 * `aaptExcludePackages` - 제외할 패키지의 정규식(regexp) 또는 정확한 이름(Android)
 * `aaptExcludeResourceDirs` - 제외할 리소스 디렉토리의 정규식(regexp) 또는 정확한 이름(Android)

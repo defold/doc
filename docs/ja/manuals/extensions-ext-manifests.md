@@ -67,6 +67,9 @@ platforms:
 * `linkFlags` - リンカーに渡すフラグ
 * `libs` - リンク時に含める追加のライブラリ
 * `defines` - ビルド時に設定する定義
+* `swiftFlags` - Swift コンパイラーに渡すフラグ（iOS および macOS）。許可リストにあるフラグだけを指定できます。[ネイティブ拡張で Swift を使う](/manuals/extensions-swift#compiler-options)を参照してください。
+* `additionalSwiftIncludePaths` - Swift コンパイラーがヘッダーやモジュールを検索する拡張内のフォルダー（iOS および macOS）。[ネイティブ拡張で Swift を使う](/manuals/extensions-swift#compiler-options)を参照してください。
+* `additionalFrameworkSearchPaths` - 拡張のコンパイル時とリンク時にフレームワークの検索対象となる拡張内のフォルダー（iOS および macOS）。[ネイティブ拡張で Swift を使う](/manuals/extensions-swift#compiler-options)を参照してください。
 * `aaptExtraPackages` - 生成する追加のパッケージ名（Android）
 * `aaptExcludePackages` - 除外するパッケージの正規表現（または正確な名前）（Android）
 * `aaptExcludeResourceDirs` - 除外するリソースディレクトリの正規表現（または正確な名前）（Android）

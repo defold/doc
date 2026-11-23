@@ -50,7 +50,7 @@ Para criar uma nova extensão, crie uma pasta na raiz do projeto. Essa pasta con
 : A pasta da extensão _deve_ conter um arquivo *ext.manifest*. Esse arquivo é um arquivo de configuração com flags e definições usadas ao compilar uma única extensão. A definição do formato do arquivo pode ser encontrada no [manual de manifesto de extensão](https://defold.com/manuals/extensions-ext-manifests/).
 
 *src*
-: Esta pasta deve conter todos os arquivos de código-fonte.
+: Esta pasta deve conter todos os arquivos de código-fonte. Coloque aqui também os arquivos Swift (`.swift`) para iOS e macOS. Consulte [Swift em extensões nativas](/manuals/extensions-swift).
 
 *include*
 : Esta pasta opcional contém quaisquer arquivos de inclusão.

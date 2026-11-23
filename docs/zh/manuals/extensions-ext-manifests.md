@@ -67,6 +67,9 @@ platforms:
 * `linkFlags` - 应传递给链接器的标志
 * `libs` - 链接时要包含的额外库
 * `defines` - 构建时要设置的定义
+* `swiftFlags` - 传递给 Swift 编译器的标志（iOS 和 macOS）。只能使用预先列出的标志，详见[在原生扩展中使用 Swift](/manuals/extensions-swift#compiler-options)。
+* `additionalSwiftIncludePaths` - Swift 编译器在扩展中查找头文件和模块时使用的额外目录（iOS 和 macOS），详见[在原生扩展中使用 Swift](/manuals/extensions-swift#compiler-options)。
+* `additionalFrameworkSearchPaths` - 扩展内的额外目录，编译和链接扩展时会在这些目录中查找框架（iOS 和 macOS），详见[在原生扩展中使用 Swift](/manuals/extensions-swift#compiler-options)。
 * `aaptExtraPackages` - 应生成的额外包名（Android）
 * `aaptExcludePackages` - 要排除的包的正则表达式（或确切名称）（Android）
 * `aaptExcludeResourceDirs` - 要排除的资源目录的正则表达式（或确切名称）（Android）

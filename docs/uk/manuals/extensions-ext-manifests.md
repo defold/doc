@@ -67,6 +67,9 @@ platforms:
 * `linkFlags` — прапорці, які слід передати компонувальнику
 * `libs` — додаткові бібліотеки, які слід включити під час компонування
 * `defines` — визначення препроцесора, які слід задати під час збирання
+* `swiftFlags` — прапорці, які слід передати компілятору Swift (iOS і macOS). Дозволено лише прапорці з переліку в посібнику [«Swift у нативних розширеннях»](/manuals/extensions-swift#compiler-options).
+* `additionalSwiftIncludePaths` — папки розширення, у яких компілятор Swift шукає заголовки й модулі (iOS і macOS). Докладніше див. у посібнику [«Swift у нативних розширеннях»](/manuals/extensions-swift#compiler-options).
+* `additionalFrameworkSearchPaths` — папки розширення, у яких під час компіляції та компонування шукають фреймворки (iOS і macOS). Докладніше див. у посібнику [«Swift у нативних розширеннях»](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` — назва додаткового пакета, який слід згенерувати (Android)
 * `aaptExcludePackages` — регулярний вираз (або точні назви) для пакетів, які слід вилучити (Android)
 * `aaptExcludeResourceDirs` — регулярний вираз (або точні назви) для каталогів ресурсів, які слід вилучити (Android)

@@ -67,6 +67,9 @@ Las claves permitidas para flags de compilación específicos de plataforma son:
 * `linkFlags` - Flags que se deben pasar al enlazador
 * `libs` - Librerías adicionales que se deben incluir al enlazar
 * `defines` - Defines que se deben definir al crear la build
+* `swiftFlags` - Flags que se pasan al compilador Swift (iOS y macOS). Solo se admiten los flags indicados en [Swift en extensiones nativas](/manuals/extensions-swift#compiler-options).
+* `additionalSwiftIncludePaths` - Carpetas de la extensión en las que el compilador Swift busca cabeceras y módulos (iOS y macOS). Consulta [Swift en extensiones nativas](/manuals/extensions-swift#compiler-options).
+* `additionalFrameworkSearchPaths` - Carpetas de la extensión en las que se buscan frameworks al compilar y enlazar la extensión (iOS y macOS). Consulta [Swift en extensiones nativas](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` - Nombre de paquete extra que se debe generar (Android)
 * `aaptExcludePackages` - Expresión regular (o nombres exactos) de paquetes que se deben excluir (Android)
 * `aaptExcludeResourceDirs` - Expresión regular (o nombres exactos) de directorios de recursos que se deben excluir (Android)

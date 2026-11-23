@@ -50,7 +50,7 @@ Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합
 : 익스텐션 폴더에는 *ext.manifest* 파일이 반드시 있어야 합니다. 이 파일은 단일 익스텐션을 빌드할 때 사용되는 flags와 defines가 들어 있는 설정 파일입니다. 파일 포멧 정의는 [Extension Manifest 매뉴얼](https://defold.com/manuals/extensions-ext-manifests/)에서 확인할 수 있습니다.
 
 *src*
-: 이 폴더에는 모든 소스 코드 파일이 들어갑니다.
+: 이 폴더에는 모든 소스 코드 파일이 들어갑니다. iOS 및 macOS용 Swift 파일(`.swift`)도 여기에 넣습니다. [네이티브 익스텐션에서 Swift 사용하기](/manuals/extensions-swift)를 참고하세요.
 
 *include*
 : 이 선택적 폴더에는 include 파일이 들어갑니다.

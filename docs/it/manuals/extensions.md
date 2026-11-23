@@ -50,7 +50,7 @@ Per creare una nuova estensione, crea una cartella nella radice del progetto. Qu
 : La cartella dell'estensione _deve_ contenere un file *ext.manifest*. Si tratta di un file di configurazione con flag e definizioni usati durante la build di una singola estensione. La definizione del formato del file si trova nel [manuale del manifest delle estensioni](https://defold.com/manuals/extensions-ext-manifests/).
 
 *src*
-: Questa cartella deve contenere tutti i file di codice sorgente.
+: Questa cartella deve contenere tutti i file di codice sorgente. Inserisci qui anche i file Swift (`.swift`) per iOS e macOS. Consulta il manuale [Swift nelle estensioni native](/manuals/extensions-swift).
 
 *include*
 : Questa cartella facoltativa contiene gli eventuali file di inclusione.

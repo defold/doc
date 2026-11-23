@@ -50,7 +50,7 @@ Um eine neue Erweiterung zu erstellen, lege einen Ordner im Stammverzeichnis des
 : Der Erweiterungsordner _muss_ eine Datei *ext.manifest* enthalten. Diese Konfigurationsdatei enthält Flags und Defines, die beim Erstellen eines Builds einer einzelnen Erweiterung verwendet werden. Die Definition des Dateiformats findest du im [Handbuch zum Erweiterungsmanifest](https://defold.com/manuals/extensions-ext-manifests/).
 
 *src*
-: Dieser Ordner sollte alle Quellcodedateien enthalten.
+: Dieser Ordner sollte alle Quellcodedateien enthalten. Lege hier auch die Swift-Dateien (`.swift`) für iOS und macOS ab. Mehr dazu findest du im Handbuch [Swift in nativen Erweiterungen](/manuals/extensions-swift).
 
 *include*
 : Dieser optionale Ordner enthält Include-Dateien.

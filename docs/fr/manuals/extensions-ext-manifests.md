@@ -67,6 +67,9 @@ Les clés autorisées pour les options de compilation propres à chaque platefor
 * `linkFlags` - Options à transmettre à l'éditeur de liens
 * `libs` - Bibliothèques supplémentaires à inclure lors de l'édition de liens
 * `defines` - Macros à définir lors de la compilation
+* `swiftFlags` - Options à transmettre au compilateur Swift (iOS et macOS). Seules les options répertoriées dans la section [Options du compilateur](/manuals/extensions-swift#compiler-options) sont autorisées.
+* `additionalSwiftIncludePaths` - Dossiers de l'extension dans lesquels le compilateur Swift recherche des en-têtes et des modules (iOS et macOS). Consultez la section [Options du compilateur](/manuals/extensions-swift#compiler-options).
+* `additionalFrameworkSearchPaths` - Dossiers de l'extension dans lesquels les frameworks sont recherchés lors de la compilation et de l'édition de liens de l'extension (iOS et macOS). Consultez la section [Options du compilateur](/manuals/extensions-swift#compiler-options).
 * `aaptExtraPackages` - Nom de paquet supplémentaire à générer (Android)
 * `aaptExcludePackages` - Expression régulière (ou noms exacts) des paquets à exclure (Android)
 * `aaptExcludeResourceDirs` - Expression régulière (ou noms exacts) des répertoires de ressources à exclure (Android)
