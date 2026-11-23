@@ -2079,6 +2079,10 @@
                         "name": "Swift Package Manager dependencies"
                     },
                     {
+                        "path": "/manuals/extensions-swift",
+                        "name": "Swift in native extensions"
+                    },
+                    {
                         "path": "/manuals/extensions-script-api",
                         "name": "Adding auto-complete definition"
                     },
