@@ -223,6 +223,7 @@ end
 Defold currently supports compute shaders in the following graphics adapters:
 
 - Vulkan
+- DirectX 12 (Windows)
 - Metal (via MoltenVK)
 - OpenGL 4.3+
 - OpenGL ES 3.1+
@@ -244,5 +245,15 @@ local compute_shaders_supported = has_context_feature(
     graphics.CONTEXT_FEATURE_COMPUTE_SHADER
 )
 ```
+
+If a shader also uses storage buffers, check `graphics.CONTEXT_FEATURE_STORAGE_BUFFER` separately with the same helper. Compute-shader support alone does not establish storage-buffer support:
+
+```lua
+local storage_buffers_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_STORAGE_BUFFER
+)
+```
+
+From Defold 1.14.2, the Windows DX12 adapter reports its storage-buffer support through this feature flag.
 
 Only supported features are included in the array; it is not a table keyed by the feature constants. Always perform this check before using compute shaders when the game can run with different graphics adapters or on devices with varying driver support. OpenGL and OpenGL ES support depends on the API version and driver. Vulkan and Metal via MoltenVK support compute shaders from version 1.0. Use an [application manifest](/manuals/app-manifest) to select Vulkan on platforms where it is not already the default graphics backend.
