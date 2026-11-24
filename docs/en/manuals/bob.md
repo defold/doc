@@ -253,3 +253,26 @@ Bob selects the default native extension build server from the release channel o
 Run `java -jar bob.jar --version` to display the release channel together with Bob's version and build information. The `--variant` option controls the engine build variant and does not change this release channel.
 
 Pass `--build-server <url>` to select a server explicitly, including a [self-hosted Extender server](/manuals/extender-local-setup/). This option overrides the default for every release channel.
+
+## HLSL output in custom shader compiler integrations
+
+From Defold 1.14.2, integrations that call Bob's shader compiler pipeline can select plaintext HLSL when a downstream compiler is responsible for producing the final shader binary. This is a compiler API option, not a Bob command-line option. The existing `--debug-output-hlsl` flag selects HLSL output for the build; it does not select plaintext source instead of binary output.
+
+Pass `ShaderCompilePipeline.Options` to the common compiler factory and set `hLSLOutputMode`:
+
+```java
+import com.dynamo.bob.Platform;
+import com.dynamo.bob.pipeline.Shaderc;
+import com.dynamo.bob.pipeline.ShaderCompilers;
+import com.dynamo.bob.pipeline.shader.ShaderCompilePipeline;
+
+ShaderCompilePipeline.Options options = new ShaderCompilePipeline.Options();
+options.hLSLOutputMode = Shaderc.HLSLOutputMode.HLSL_OUTPUT_MODE_SOURCE;
+var compiler = ShaderCompilers.GetCommonShaderCompiler(Platform.X86_64Win32, options);
+```
+
+Use the returned compiler through the normal shader build integration. `HLSL_OUTPUT_MODE_BINARY` is the default and retains the normal HLSL binary compilation path. `HLSL_OUTPUT_MODE_SOURCE` skips that binary stage and returns HLSL text for downstream compilation. It also skips binary root-signature generation in the common compiler while preserving vertex/fragment stage interface normalization. The option does not change GLSL, MSL, WGSL or SPIR-V output.
+
+For integrations using the lower-level APIs, set `Shaderc.ShaderCompilerOptions.hLSLOutputMode` in Java or `dmShaderc::ShaderCompilerOptions::m_HLSLOutputMode` in C++. These compiler APIs are part of the engine/build tooling, separate from the runtime extension SDK. Source output still needs downstream compilation before it can replace the binary expected by the DX12 runtime.
+
+See the [shader pipeline options](https://github.com/defold/defold/blob/6cdae55239d20fe3fe6918bf7ffb11aa0917fd4f/com.dynamo.cr/com.dynamo.cr.bob/src/com/dynamo/bob/pipeline/shader/ShaderCompilePipeline.java) and [native compiler options](https://github.com/defold/defold/blob/6cdae55239d20fe3fe6918bf7ffb11aa0917fd4f/engine/shaderc/src/shaderc.h) for the interfaces introduced by this change.
