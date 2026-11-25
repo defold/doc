@@ -38,6 +38,8 @@ Engine Arguments
 --graphics-adapter=vulkan
 ```
 
+From Defold 1.14.2, an explicit `--graphics-adapter` argument disables automatic fallback. The requested backend must be included in the engine and supported by the system; startup fails if it cannot initialize. Remove this argument to use automatic backend selection. Select the included backends in the [application manifest](/manuals/app-manifest/#graphics).
+
 
 ## Code
 

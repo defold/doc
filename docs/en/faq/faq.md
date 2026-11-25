@@ -109,13 +109,15 @@ A: The following platforms are supported:
   | System             | Version            | Architectures      |
   | ------------------ | ------------------ | ------------------ |
   | macOS              | 12.0 Monterey      | `x86-64`, `arm-64` |
-  | Windows            | Vista              | `x86-64`           |
+  | Windows (3)        | Vista              | `x86-64`           |
   | Linux (2)          | Any                | `x86-64`, `arm-64` |
   | iOS                | 15.0               | `arm-64`           |
   | Android            | 5.0 (API level 21) | `arm-32`, `arm-64`, `x86-64` |
   | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date, see below for more information on graphics APIs)
+
+  (3 From Defold 1.14.2, the default Windows engine uses DX12 and requires Windows 10 or later with a compatible graphics device and driver. To target earlier Windows versions, select **OpenGL** alone in the application's **Graphics (Windows)** manifest setting and rebundle. The Vista minimum applies to the OpenGL backend, not the DX12-only default. See [Windows graphics backends](/manuals/windows/#graphics-backends).)
 
 
 #### Q: What target platforms can I develop games for with Defold?
