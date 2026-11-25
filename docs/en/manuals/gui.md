@@ -420,6 +420,7 @@ The nodes can now be batched into two draw calls, instead of six. A major perfor
 
 Note that a child node with unset layer will implicitly inherit the layer setting of its parent node. Not setting a layer on a node implicitly adds it to the "null" layer, which is drawn before any other layer.
 
-sidenote
-The built-in font /builtins/fonts/debug/always_on_top.font is intended for debugging. Text nodes that use it are always drawn on top of other nodes, regardless of layers or node hierarchy. For regular UI, use a different font.
 
+::: sidenote
+The built-in font /builtins/fonts/debug/always_on_top.font is intended for debugging. Text nodes that use it are always drawn on top of other nodes, regardless of layers or node hierarchy. For regular UI, use a different font.
+:::
