@@ -444,7 +444,7 @@ There is currently no way of changing which texture a resource should point to, 
 
 ## Values captured by draw commands
 
-From Defold 1.14.2, a `render.draw()` command captures its supplied constant-buffer values and the selected camera values when the command is recorded. Changing those values later in the render script does not change an earlier recorded draw. This lets you reuse a constant buffer across passes:
+A `render.draw()` command captures its supplied constant-buffer values when the command is recorded. This behavior is already available in Defold 1.13.2. Changing the buffer later in the render script does not change an earlier recorded draw, so you can reuse a constant buffer across passes:
 
 ```lua
 -- self.scene_predicate was created with render.predicate() in init().
@@ -456,7 +456,7 @@ constants.tint = vmath.vector4(0, 0, 1, 1)
 render.draw(self.scene_predicate, { constants = constants })
 ```
 
-The first command uses the red tint and the second uses blue, provided the material uses a `tint` constant. Whether both passes are visible also depends on the depth and blending state. Likewise, changing a selected camera between draws affects subsequent draws, not the camera values captured by earlier ones.
+The first command uses the red tint and the second uses blue, provided the material uses a `tint` constant. Whether both passes are visible also depends on the depth and blending state. From Defold 1.14.2, draw commands also capture the selected camera values. Changing a selected camera between draws affects subsequent draws, not the camera values captured by earlier ones.
 
 This captures draw values, not copies of texture contents or other GPU resources. Keep normal resource-lifetime rules when replacing or deleting resources. Command recording does not enable multithreaded rendering: production rendering in 1.14.2 still runs inline.
 
