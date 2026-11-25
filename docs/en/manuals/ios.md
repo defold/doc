@@ -103,6 +103,19 @@ Press *Create Bundle* and you will then be prompted to specify where on your com
 
 You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
 
+### High refresh rates
+
+Enable **iOS → Use High Refresh Rate** in *game.project* to render above 60 Hz on supported displays, up to 120 Hz on ProMotion devices. Defold requests **Display → Update Frequency**. Set it to `0` to request the display maximum. iOS may use a nearby supported rate, such as 80 Hz for a 90 Hz request.
+
+Defold's default *Info.plist* sets the iPhone opt-in when the setting is enabled. If you supply a custom *Info.plist*, add the following inside its main dictionary:
+
+```xml
+<key>CADisableMinimumFrameDurationOnPhone</key>
+<true/>
+```
+
+The setting is disabled by default. Higher frame rates can increase power use.
+
 ### Home Indicator behavior
 
 You can choose *Home Indicator Mode* in the *iOS* section of *game.project*. The default, *Deferred*, protects all screen edges and requires two swipes to return Home. Choose *System* to use normal system gestures, including a single swipe to return Home.

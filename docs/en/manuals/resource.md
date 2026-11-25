@@ -60,8 +60,4 @@ For factories that are marked *Load Dynamically* you can call the [`factory.unlo
 
 ## Excluding resources from bundle
 
-With collection proxies, it is possible to leave out all the resources the component refers to from the bundling process. This is useful if you need to keep the bundle size to a minimum. For instance, when running games on the web as HTML5 the browser will download the whole bundle before executing the game.
-
-![Exclude](images/resource/exclude.png)
-
-By marking a collection proxy as *Exclude* the referenced resource will be left out of the game bundle. Instead, you can store excluded collections on selected cloud storage. The [Live update manual](/manuals/live-update/) explains how this feature works.
+Use [Live Update packages](/manuals/live-update/#archive-manifests) to distribute resources separately from the application. For example, place optional levels in named packages to reduce the initial HTML5 download, then mount the relevant package before loading its collection proxy. The [legacy workflow](/manuals/live-update/#legacy-live-update-settings) selects content through the proxy's *Exclude* property.

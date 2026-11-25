@@ -81,7 +81,7 @@ It is important that you match the correct engine with the callstack, otherwise 
 * iOS - the `dmengine.dSYM.zip` folder in `build/arm64-ios` contains the debug symbols for iOS builds.
 * macOS - the `dmengine.dSYM.zip` folder in `build/x86_64-macos` contains the debug symbols for macOS builds.
 * Android - the `projecttitle.apk.symbols/lib/` bundle output folder contains the debug symbols for the target architectures.
-* Linux - the executable contain the debug symbols.
+* Linux - the unstripped executable with symbols is saved alongside the application directory as `<title>.x86_64.debug` or `<title>.arm64.debug`. Keep this file for symbolication. The executable inside the application directory is stripped.
 * Windows - the `dmengine.pdb` file in `build/x86_64-win32` contains the debug symbols for Windows builds.
 * HTML5 - the `<project_name>_symbols` directory alongside the HTML5 bundle contains `<project_name>_wasm.js.symbols` and, when the `wasm_pthread-web` architecture is selected, `<project_name>_pthread_wasm.js.symbols`.
 

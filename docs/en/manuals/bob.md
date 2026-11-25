@@ -24,7 +24,9 @@ Bob is run from a shell or from the command line by invoking `java` (or `java.ex
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
- -a,--archive                            Build archive
+ -a,--archive                            DEPRECATED! Accepted and ignored
+    --all-packages                       Build or bundle Base and all
+                                         external packages
  -ar,--architectures <arg>               Comma separated list of
                                          architectures to include for the
                                          platform
@@ -44,6 +46,8 @@ usage: bob [options] [commands]
                                          report as HTML
  -brjson,--build-report-json <arg>       Filepath where to save a build
                                          report as JSON
+    --bundle-report-html <arg>           Filepath where to save a standalone
+                                         archive package report after bundling
     --build-artifacts <arg>              If left out, will default to
                                          build the engine. Choices:
                                          'engine', 'plugins', 'library'.
@@ -100,8 +104,8 @@ usage: bob [options] [commands]
                                          you want to use (Android)
  -ksp,--keystore-pass <arg>              Password of the deployment
                                          keystore (Android)
- -l,--liveupdate <arg>                   Yes if liveupdate content should
-                                         be published
+ -l,--liveupdate <arg>                   DEPRECATED! Use --all-packages or
+                                         --package instead
     --max-cpu-threads <arg>              Max count of threads that bob.jar
                                          can use
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
@@ -112,6 +116,8 @@ usage: bob [options] [commands]
     --ne-output-name <arg>               Specify a library target name
  -o,--output <arg>                       Output directory. Default is
                                          "build/default"
+    --package <arg>                      Build or bundle a named package.
+                                         May be repeated
  -p,--platform <arg>                     Platform (when building and
                                          bundling)
  -pk,--private-key <arg>                 DEPRECATED! Use --keystore
@@ -172,10 +178,10 @@ Available commands:
 : Delete all files in the build directory.
 
 `build`
-: Builds the dependency graph reachable from the selected build roots. By default the root is `game.project`; `--build-input` and `--build-input-file` can specify alternative roots. Files are not built merely because they exist under the project root. When `game.project` is a build root, add `--archive` to build the game data archive in the build directory.
+: Compiles resources reachable from the selected build roots and saves their dependency graph as `game.graph.json` in the build output directory. The default root is `game.project`. Use `--build-input` or `--build-input-file` for alternative roots. With an [archive manifest](/manuals/live-update/#archive-manifests), package rules can also select resources. The `build` command produces compiled resources for `bundle` to archive.
 
 `bundle`
-: Creates a platform specific application bundle. Bundling requires that a built archive is present (`build` with the `--archive` option) and that a target platform is specified (with the `--platform` option). Bob creates the bundle in the output directory unless a different directory is specified with the `--bundle-output` option. The bundle is named according to the project name setting in *game.project*. The `--variant` specifies which type of executable to build when bundling and it together with the `--strip-executable` option replaces the `--debug` option. If no `--variant` is specified you will get a release version of the engine (stripped of symbols on Android and iOS). Setting `--variant` to debug and omitting `--strip-executable` yields the same type of executable as `--debug` used to do.
+: Creates archives from compiled resources and produces a platform-specific application bundle. Specify the target with `--platform`. Bob names the application using the project title and places it in the build output directory, or in the directory given by `--bundle-output`. The engine variant defaults to `release`. Use `--variant debug` for a debug executable. Use `--exclude-archive` for a contentless application.
 
 `resolve`
 : Resolve all external library dependencies.
@@ -218,28 +224,40 @@ $ java -jar bob.jar
 $
 ```
 
-You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles a macOS application (named *My Game.app*):
+You can run several commands together. This example resolves libraries, clears the build output, compiles resources, and bundles the macOS application:
 
 ```sh
-$ java -jar bob.jar --archive --platform x86_64-macos resolve distclean build bundle
-100%
-$ ls -al build/default/
-total 70784
-drwxr-xr-x   13 sicher  staff       442  1 Dec 10:15 .
-drwxr-xr-x    3 sicher  staff       102  1 Dec 10:15 ..
-drwxr-xr-x    3 sicher  staff       102  1 Dec 10:15 My Game.app
-drwxr-xr-x    8 sicher  staff       272  1 Dec 10:15 builtins
--rw-r--r--    1 sicher  staff    140459  1 Dec 10:15 digest_cache
-drwxr-xr-x    4 sicher  staff       136  1 Dec 10:15 fonts
--rw-r--r--    1 sicher  staff  35956340  1 Dec 10:15 game.darc
--rw-r--r--    1 sicher  staff       735  1 Dec 10:15 game.projectc
-drwxr-xr-x  223 sicher  staff      7582  1 Dec 10:15 graphics
-drwxr-xr-x    3 sicher  staff       102  1 Dec 10:15 input
-drwxr-xr-x   20 sicher  staff       680  1 Dec 10:15 logic
-drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
--rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
-$
+java -jar bob.jar --platform x86_64-macos resolve distclean build bundle
 ```
+
+### Separate build and bundle stages
+
+Keep the build output directory, including `game.graph.json`, when running the commands in separate processes or CI stages. Use the same project, build output directory, platform, architectures, variant, and compiler settings for both commands. The bundle step reads the current archive manifest and uses the saved graph. Run `build` again when a rule selects resources absent from the graph or when source assets change.
+
+```sh
+java -jar bob.jar --platform x86_64-linux build
+java -jar bob.jar --platform x86_64-linux --bundle-output dist bundle
+```
+
+When using `--experimental-path-minification`, pass it to both commands and keep `minified_paths.json` with the build output. Bob validates the saved mapping and reports when a rebuild is required.
+
+### Selecting archive packages
+
+Use the same selection for `build` and `bundle` when running them separately. See [Live Update](/manuals/live-update/#archive-manifests) for how to define packages.
+
+| Selection | Bundle output |
+| --- | --- |
+| No selection flags | A self-contained application whose Base includes external-package content. |
+| `--all-packages` | An application with the split Base, plus every external package. |
+| `--package base` | An application with the split Base only. Startup-required resources stay in Base. |
+| `--package common --package halloween` | Only the named external packages. Add `--package base` if you also need the application. |
+
+`--all-packages` takes no value. Use it by itself or repeat `--package <name>` to select packages. `--package` is incompatible with `--all-packages`, `--build-input`, and `--build-input-file`. Selective builds keep other compiled results. Bundling recreates the selected packages and preserves the output of other packages.
+
+`--archive` (`-a`) is deprecated and ignored. `--liveupdate yes` selects all packages and `--liveupdate no` keeps the default selection. Both values emit a deprecation warning. Explicit package selection takes precedence. Projects using legacy Live Update settings can select their external content with `--package liveupdate`.
+
+Use `--bundle-report-html <file>` with `bundle` for the package contents and output sizes. `--build-report-html` and `--build-report-json` report on compiled resources during `build`. See [build and bundle reports](/manuals/profiling/#build-reports).
+
 
 ## Build server
 

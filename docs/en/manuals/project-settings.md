@@ -91,7 +91,7 @@ If running more than one instance from the editor the file will be named *instan
 Specify the minimum log level for the logging system. Only logs at or above this level will be shown.
 
 #### Compress Archive
-Enables compression of archives when bundling. Note that this currently applies to all platforms except Android where the apk already contains all data compressed.
+Enables archive compression in the legacy workflow. Projects using an [archive manifest](/manuals/live-update/#archive-manifests) set file compression on Base and each named package.
 
 #### Dependencies
 A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/manuals/libraries/) for more information.
@@ -126,6 +126,13 @@ File reference of the collection to use for starting the application, `/logic/ma
 
 #### Render
 Which render setup file to use, which defines the render pipeline, `/builtins/render/default.render` by default.
+
+---
+
+### Archive
+
+#### Manifest {#archive-manifest}
+Select an `.archivemanifest` source file to configure Base, named packages, compression, and the package output directory. Clear **Live Update → Settings** before assigning a manifest. See [archive manifests](/manuals/live-update/#archive-manifests).
 
 ---
 
@@ -603,6 +610,9 @@ Max number of game object factories. [(See information about component max count
 
 ### iOS
 
+#### Use High Refresh Rate
+`ios.use_high_refresh_rate` lets the game request refresh rates above 60 Hz on supported displays. It is disabled by default. The engine requests [Display → Update Frequency](#update-frequency), or the display maximum when that value is `0`. See [high refresh rates on iOS](/manuals/ios/#high-refresh-rates).
+
 #### Home Indicator Mode
 `ios.home_indicator_mode` controls system gestures at the screen edges and whether the game requests automatic hiding of the Home Indicator.
 
@@ -828,7 +838,7 @@ Check to automatically finish IAP transactions. If unchecked, you need to explic
 `liveupdate.enabled` enables the Live update system at runtime. Enabled by default. See the [Live update manual](/manuals/live-update/) for how to exclude, download, and mount resources.
 
 #### Settings
-Liveupdate settings resource file to use during bundling.
+Deprecated. Select a legacy Live Update settings file for content selected by collection proxy **Exclude** properties. Use [Archive → Manifest](#archive-manifest) to configure named packages. Assign only one of these settings.
 
 ---
 

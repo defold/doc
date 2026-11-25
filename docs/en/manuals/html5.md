@@ -118,6 +118,8 @@ With *High Dpi* disabled, the ratio stays at `1`, regardless of the limits. On H
 
 ## Download verification
 
+The loader reuses a locally persisted archive file only when its SHA-1 matches the hash from the bundle. If the bundle has no hash for that file, the loader downloads it again.
+
 The HTML5 loader checks the sizes of downloaded engine and archive files by default. Failed checks cause downloads to be retried before the loader reports an error:
 
 * Network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly download use the retry limit in `html5.retry_count`.

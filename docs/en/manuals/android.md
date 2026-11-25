@@ -114,6 +114,10 @@ For this feature to work, you will need *ADB* installed and *USB debugging* enab
 
 An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *`.apk`* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
+## System performance traces
+
+Use an Android debug build to [record a Perfetto system trace](/manuals/profiling/#android-perfetto-system-traces) and inspect CPU scheduling, graphics events, and supported GPU data.
+
 ## Display cutouts
 
 `window.get_reserved_areas()` reports display cutout rectangles on Android 9 (API level 28) and later. Use `window.get_safe_area()` when you need a safe layout rectangle. See [Reserved screen areas](/manuals/porting-guidelines/#reserved-screen-areas) for coordinate units, behavior on unsupported platforms, and how to refresh your layout when the reported areas change.
@@ -158,7 +162,7 @@ Enable **Generate debug symbols** in the Android bundle dialog, or pass `--with-
 
 ```sh
 java -jar bob.jar --platform arm64-android --variant release \
-  --archive --with-symbols --bundle-output build/android \
+  --with-symbols --bundle-output build/android \
   resolve build bundle
 ```
 

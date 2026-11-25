@@ -159,7 +159,6 @@ mkdir -p build/reports
 
 java -jar bob.jar \
   --root . \
-  --archive \
   --build-report-json build/reports/build-report.json \
   resolve build
 ```
@@ -172,7 +171,6 @@ java -jar bob.jar \
   --settings test/test.settings \
   --platform x86_64-linux \
   --variant headless \
-  --archive \
   --bundle-output build/test-bundle \
   resolve build bundle
 ```

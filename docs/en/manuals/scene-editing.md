@@ -84,6 +84,8 @@ The options in the toolbar numbered from left to right are:
 6. **Perspective camera** - switch between perspective and orthographic projection in 3D mode. Use the dropdown for camera settings.
 7. **Visibility filters** - show or hide component types and guides in the scene view.
 
+Hover over a toolbar button to see its keyboard shortcut, including any custom binding.
+
 ## Selecting and manipulating objects {#manipulating-objects}
 
 ### Selecting objects
@@ -156,6 +158,8 @@ Settings include:
   Sets the spacing between grid lines along each axis. Use smaller values for precise placement of small objects, or larger values for a broader overview.
 - **Active plane (X/Y/Z)**
   Selects which plane the grid is drawn on. In 2D workflows this is typically **Z** (the default X-Y plane). In 3D workflows, **Y** is common to represent a ground/floor plane.
+- **Align Plane to View**
+  Updates the grid plane when you click an axis on the 3D [axis gizmo](#axis-gizmo). Turn this off to keep the chosen plane when switching views.
 - **Grid color**
   Sets the color of the grid lines. Useful for contrast against different scene backgrounds.
 - **Grid opacity**

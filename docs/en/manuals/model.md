@@ -48,9 +48,11 @@ In addition to the properties above there will also be a field to assign a mater
 Depending on the material there will be one or more texture properties:
 
 *Texture*
-: This property should point to the texture image that you want applied to the object. It can be a separate project asset or an embedded image exposed under a glTF or GLB file in the *Assets* pane.
+: Select a standalone texture or an embedded image from a glTF or GLB file in the *Assets* pane. Standalone Radiance `.hdr` images can be assigned here. See [HDR source textures](/manuals/texture-profiles/#hdr-source-textures) for preview behavior and compatible profiles.
 
 Selecting a glTF or GLB *Scene*, or changing its *Mesh* selection, can offer to fill the material and texture bindings. <kbd>Auto Fill</kbd> replaces existing bindings with those from the source; <kbd>Keep Current</kbd> preserves your bindings while applying the new scene or mesh selection. See the [model import workflow](/manuals/importing-models/#using-a-model).
+
+Defold prepares model geometry at build time. Models with identical compiled geometry can share geometry buffers while retaining their own transforms, material bindings, and mesh selection.
 
 
 ## Editor manipulation

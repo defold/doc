@@ -19,11 +19,7 @@ Selecting any of the menu options will bring up the Bundle dialog for that speci
 
 ### Build reports
 
-When bundling your game there is an option to create a build report. This is very useful to get a grip on the size of all the assets that are part of your game bundle. Simply check the *Generate build report* checkbox when bundling the game.
-
-![build report](images/profiling/build_report.png)
-
-To learn more about build reports please refer to the [Profiling manual](/manuals/profiling/#build-reports).
+Enable **Generate bundle report** in the bundle dialog to inspect the resources and sizes of Base and any exported [Live Update packages](/manuals/live-update/). See [build and bundle reports](/manuals/profiling/#build-reports).
 
 ### Android
 
@@ -73,8 +69,8 @@ Apart from the executable files, our bundling process also collects the required
 Using the [bundle_resources](https://defold.com/manuals/project-settings/#bundle-resources) setting, you can configure assets that should be placed within the bundle as-is.
 You can control this per platform.
 
-The game assets are located in the `game.arcd` file, and they are individually compressed using LZ4 compression.
-Using the [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) setting, you can configure assets that should be placed (with compression) within the `game.arcd`.
+The Base archive stores game assets in `game.arcd`. File compression is controlled by the [archive manifest](/manuals/live-update/#package-output-and-compression) or the legacy [Compress Archive setting](/manuals/project-settings/#compress-archive).
+Use the [Custom Resources setting](/manuals/project-settings/#custom-resources) to include raw files in the archive.
 These assets can be accessed via the [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) function.
 
 ## Release vs Debug

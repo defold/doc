@@ -13,88 +13,54 @@ When bundling a game, Defold packs all the game resources into the resulting pla
 
 The Live update functionality expands the concept of the collection proxy with a mechanism allowing the runtime to fetch and store resources to the application bundle that were intentionally left out of the bundle at build time.
 
-It allows you to have your content split up into multiple archives:
+## Archive manifests
 
-* _Base Archive_
-* Level Common Files
-* Level Pack 1
-* Level Pack 2
-* ...
+An archive manifest splits game content into **Base**, which ships with the application, and named packages that you can distribute separately. For example, put optional episodes in their own packages and mount the relevant package before loading an episode.
 
-## Preparing content for Live update
+1. In the Assets pane, create an **Archive Manifest** (`.archivemanifest`) and select it under **Archive → Manifest** in *game.project*.
+2. Open the manifest. In the outline, add a named package and an **Add** rule. Select **Path** and enter a regular expression such as `/episodes/01/.*`. A path rule matches the entire source path, including its leading slash. Defold includes the compiled outputs and their runtime dependencies. Raw files such as JSON or text can also be selected directly and read with `sys.load_resource()` after mounting.
+3. Select the package in the outline to preview its contents. Use the preview's search to find resources and inspect which rules and dependencies brought them in. The preview also reflects unsaved edits. Use a [bundle report](/manuals/profiling/#build-reports) to inspect the output for the actual target.
+4. Choose <kbd>Project ▸ Bundle</kbd>, select the platform, and enable **Publish Live Update content**. The bundle gets the split Base and Defold exports the named packages. With publishing disabled, the application includes the package content in Base so it can run on its own. For selective exports, use [Bob's package options](/manuals/bob/#selecting-archive-packages).
+5. Distribute the generated packages with your delivery service. In the game, [download and mount the packages](/manuals/live-update-scripting/) before loading resources from them.
 
-Suppose we are making a game containing large, high resolution image resources. The game keeps these images in collections with a game object and a sprite with the image:
+Rules are applied from top to bottom. A rule can target a path or the final contents of another named package. To keep shared dependencies in a separate package, add the episode first, then use a **Remove** rule targeting the shared package. Mount both packages before loading the episode. Resources needed at startup always stay in Base. Use collection proxies for content you load later. The archive manifest controls package membership whenever it is selected in *game.project*.
 
-![Mona Lisa collection](images/live-update/mona-lisa.png)
+For a path rule that matches no sources, **No matches** controls whether to warn, fail the build, or ignore the empty match. Warn is the default.
 
-To have the engine load such a collection dynamically, we can simply add a collection proxy component and point it to *`monalisa.collection`*. Now the game can choose when to load the content in the collection from storage into memory by sending a `load` message to the collection proxy. However, we want to go further and control the loading of the resources contained in the collection ourselves.
+For example, this manifest places `/episodes/01/` in a package called `episode01`. With the default presets, publishing writes `build/packages/episode01.zip`.
 
-This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling Defold to leave any content in *`monalisa.collection`* out when creating an application bundle.
-
-::: important
-Any resources referenced by the base game package, will not be excluded.
-:::
-
-![Collection proxy excluded](images/live-update/proxy-excluded.png)
-
-## Live update settings
-
-When Defold creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which live-update settings file to use when bundling. This allows for using different live-update settings for different environments, for example live, QA, development etc.
-
-![Live update settings](images/live-update/05-liveupdate-settings-zip.png)
-
-There are currently three ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
-
-`Zip`
-: This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting and can be mounted at runtime using a `zip:` URI and `liveupdate.add_mount()`.
-
-`Folder`  
-: This option tells Defold to create a folder with all the excluded resources. It is useful when you need to post-process files before uploading or packaging them. A folder of individual compiled files laid out at their expected resource paths can be mounted at runtime using a `file:` URI.
-
-`Amazon`
-: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](/manuals/live-update-aws)
-
-## Bundling with Live update
-
-::: important
-Building and running from the editor (<kbd>Project ▸ Build</kbd>) does not support Live Update. In order to test Live Update you need to bundle the project.
-:::
-
-To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd> and then the platform you want to create an application bundle for. This opens the bundling dialog:
-
-![Bundle Live application](images/live-update/bundle-app.png)
-
-When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above). The published Live Update content still includes `liveupdate.game.dmanifest`, which contains the full resource list needed for remote delivery.
-
-When publishing Live Update content, Defold automatically removes Live Update-only entries from the bundled `game.dmanifest`, while the published `liveupdate.game.dmanifest` retains the complete resource list. This reduces bundle size and runtime memory usage. The former `liveupdate.exclude_entries_from_main_manifest` setting has been removed; any remaining project entry is ignored.
-
-In the archive-based workflow, `collectionproxy.get_resources()` returns `{}` until the relevant archive has been mounted. After mounting, it returns the resource hashes for that proxy.
-
-Click *Package* and select a location for the application bundle. Now you can start the application and check that everything works as expected.
-
-## The .zip archives
-
-A live update .zip file contains files that were excluded from the base game package.
-
-While our current pipeline only supports creating a single .zip file, it is in fact possible to split that zip file into smaller .zip files. This allows for smaller downloads for a game: level packs, seasonal content etc. Each .zip file also contains a manifest file that describes the meta data for each resource contained within the .zip file.
-
-## Splitting .zip archives
-
-It is often desirable to split the excluded content into several smaller archives for more granular control over resource usage. One such example is to split a level based game into multiple level packs. Another is to put different holiday themed UI decorations into separate archives and load and mount only the theme currently active in the calendar.
-
-The resource graph is stored in `build/default/game.graph.json` and it is automatically generated each time the project is bundled. The generated file contains a list of all resources in the project and the dependencies of each resource. Example entry:
-
-```json
-{
-  "path" : "/game/player.goc",
-  "hexDigest" : "caa342ec99794de45b63735b203e83ba60d7e5a1",
-  "children" : [ "/game/ship.spritec", "/game/player.scriptc" ]
+```protobuf
+packages {
+  name: "episode01"
+  rules {
+    name: "Episode 1"
+    path: "/episodes/01/.*"
+  }
 }
 ```
 
-Each entry has a `path` which represents the unique path of the resource within the project. The `hexDigest` represents the cryptographic fingerprint of the resource and it will be the filename used in the liveupdate .zip archive. Finally the `children` field is a list of other dependencies which this resource depends on. In the example above the `/game/player.goc` has a dependency to a sprite and a script component.
+### Package output and compression
 
-You can parse the `game.graph.json` file and use this information to identify groups of entries in the resource graph and store their corresponding resources in separate archives along with the original manifest file (the manifest file will be pruned at runtime so that it contains only the files in the archive).
+Select the manifest in the outline to set **Output Directory**. It defaults to `build/packages`. Relative paths resolve from the project root. Absolute paths and environment variables such as `${PACKAGE_OUTPUT}` are supported. Keep package outputs outside the application directory that bundling recreates.
+
+Under **Compression Types**, define presets for the package container and for individual files. Each named package selects one of each. Base selects only file compression, which supersedes `project.compress_archive` in manifest mode.
+
+| Preset group | Options |
+| --- | --- |
+| Container | **ZIP** writes `<name>.zip` and accepts levels from `-1` to `9`. **Folder** writes `<name>/`. A [Java package provider](https://github.com/defold/defold/blob/1.14.2-beta/com.dynamo.cr/com.dynamo.cr.bob/README.md#java-providers) can supply another output format. |
+| File | **LZ4** accepts levels from `1` to `12`. **None** leaves individual files uncompressed by the archive writer. |
+
+Mount a ZIP with a `zip:` URI or a folder of compiled files with a `file:` URI. The game is responsible for choosing which packages to download and the order in which to mount them.
+
+## Legacy Live Update settings
+
+Projects can still use a legacy `liveupdate.settings` file and the **Exclude** property of collection proxies. This workflow is deprecated. Select the settings file under **Live Update → Settings** in *game.project*. Clear that setting before selecting an archive manifest.
+
+1. Check **Exclude** on the collection proxies whose content you want to publish separately. Resources also required by Base stay in the application.
+2. Open <kbd>Project ▸ Live Update Settings...</kbd> and select **Zip** (the default) or **Folder**. Configure the export path in the settings file. For Amazon settings, see [migrating from built-in S3 publishing](/manuals/live-update-aws/).
+3. Enable **Publish Live Update content** in the bundle dialog. This exports one external package, which Bob can also select as `--package liveupdate`. The legacy published `liveupdate.game.dmanifest` retains the resource list needed for delivery. The application's manifest omits the entries exclusive to the external package.
+
+Bundle and launch the application to test package delivery. <kbd>Project ▸ Build</kbd> runs game content from the editor's build output.
 
 ## Live Update on Android
 

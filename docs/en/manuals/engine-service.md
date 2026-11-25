@@ -78,6 +78,18 @@ The `/post` route is used by development operations such as hot reload, reboot, 
 
 These routes are development infrastructure, and additional profiler and resource-inspection routes exist in the engine implementation.
 
+## Window metrics and resizing
+
+On debug engines with the window service, `GET /window` returns the client size, drawable size in pixels, and display scale. Check `/openapi.json` for availability. For a running application with a window, submit a size in client units with `POST /window/resize`:
+
+```sh
+curl -i "$ENGINE_URL/window/resize" \
+  -H 'Content-Type: application/json' \
+  -d '{"width":640,"height":360}'
+```
+
+The request preserves the design resolution from *game.project*. A `202 Accepted` response provides a receipt URL in the `Location` header. To track completion, first get `engine_instance_id` from `GET /state`, send it as `X-Engine-Instance` on the resize request, then poll the receipt URL with the same header. The header is optional when submitting a resize and required when reading a receipt. A receipt with `state: "complete"` confirms that the client dimensions match the request. An old instance ID returns `410` with code `stale_instance`.
+
 ## Recording endpoints
 
 Desktop debug engines also expose native MP4 recording through the following routes. They are omitted from release, headless, mobile and web builds, and when **Exclude Record** is enabled in the [App Manifest](/manuals/app-manifest/#exclude-record).
@@ -106,6 +118,10 @@ On macOS, debug engines expose `/profiler/gputrace` for capturing Metal GPU trac
 | `DELETE /profiler/gputrace` | Cancel a pending capture or finish an active capture after the current rendered frame; retain the trace on disk. |
 
 Accepted requests return HTTP 200 with `ok: true` and a `data` object. Capture progresses asynchronously: poll `GET` until `data.state` is `complete`, `canceled` or `failed`. Native startup failures are reported in `data.error`. The trace is written on the engine host. See the [Metal GPU trace capture guide](/manuals/profiling/#metal-gpu-trace-capture) for launch commands, support discovery, capture examples and opening the result in Xcode.
+
+## Android Perfetto endpoints
+
+Android debug engines expose `POST /profiler/perfetto` to prepare a system trace or trigger the prepared capture. The preparation response provides a configuration URL and the host ADB command. Use `GET /profiler/perfetto` to inspect the current plan and trigger status. Follow the [Perfetto capture workflow](/manuals/profiling/#android-perfetto-system-traces) to record and open a trace.
 
 ## Extension-defined runtime routes
 

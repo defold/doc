@@ -232,6 +232,8 @@ After update is downloaded the blue link will change to `Restart to Update`. Cli
 
 ![Restart to update](images/editor/restart_to_update.png)
 
+When a new beta is available, the editor offers a link to download it. You can also choose <kbd>Help ▸ Try the Beta Version…</kbd> to find the beta.
+
 ## Preferences
 
 You can modify the settings of the Editor in the `Preferences` window. To open it click `File ▸ Preferences…` or shortcut <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>,</kbd>
