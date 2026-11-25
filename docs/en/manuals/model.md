@@ -111,7 +111,7 @@ local cursor = go.get("#model", "cursor", { key = hash("upper_body") })
 go.set("#model", "playback_rate", 0.5, { key = hash("upper_body") })
 ```
 
-The layer must already be playing or holding a completed pose on this model. Property access uses the layer name rather than the handle returned by `model.animation_layer()`. See [Reading and changing layer playback](/manuals/model-animation#reading-and-changing-layer-playback).
+The layer must be attached to this model. This includes layers started with `go.PLAYBACK_NONE`, whose properties remain accessible even though playback does not advance automatically. Property access uses the layer name rather than the handle returned by `model.animation_layer()`. See [Reading and changing layer playback](/manuals/model-animation#reading-and-changing-layer-playback).
 
 
 ## Material
