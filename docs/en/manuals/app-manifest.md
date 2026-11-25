@@ -122,14 +122,18 @@ Windows and Linux use separate fields. The **DX12** option selects DirectX 12 on
 
 | Field | Platforms | Choices | Default |
 |---|---|---|---|
-| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
-| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | OpenGL |
+| **Graphics (Linux)** | Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL & Vulkan |
+| **Graphics (Windows)** | Windows | OpenGL, Vulkan, DX12, OpenGL & Vulkan, OpenGL & DX12, Vulkan & DX12, OpenGL & Vulkan & DX12 | DX12 |
 | **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Metal |
 | **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
 | **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
 | **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
 
-On Linux ARM64, the **OpenGL** choice uses the OpenGL ES backend. The Android combined default prefers Vulkan when available and falls back to OpenGL ES.
+The Linux and Windows defaults in this table apply from Defold 1.14.2. In 1.14.1, Linux defaults to OpenGL (OpenGL ES on ARM64), and Windows defaults to OpenGL. To keep using a specific backend when upgrading, select it explicitly in the application manifest.
+
+On Linux, the combined default prefers Vulkan and falls back to OpenGL on x86-64 or OpenGL ES on ARM64. The **OpenGL** choice on Linux ARM64 uses the OpenGL ES backend. The Android combined default also prefers Vulkan and falls back to OpenGL ES. Windows includes only DX12 by default; select a combined choice such as **OpenGL & DX12** to include a fallback.
+
+From Defold 1.14.2, automatic selection tries another included, supported backend if the preferred backend cannot open its window or create its graphics context. Fallback requires that the engine includes another backend. An explicit engine argument such as `--graphics-adapter=vulkan` requests only that backend and disables automatic fallback; it does not add a backend excluded by the manifest.
 
 macOS uses the native Metal backend by default. The **Vulkan** choice on macOS and iOS uses Vulkan through MoltenVK. The iOS simulator (`arm64_sim-ios`) always uses Metal, regardless of the **Graphics (iOS)** choice for devices.
 

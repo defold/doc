@@ -271,6 +271,20 @@ uniform PbrMaterial
 
 Omit unused feature members from the block. If the block or a feature's recognized fields are absent, the corresponding data is not supplied. Texture-presence flags describe the source material's texture references; a custom material still needs matching sampler declarations and texture bindings for the maps it samples.
 
+### Uniform buffers and custom layouts
+
+From Defold 1.14.2, compatible `PbrMaterial` blocks use persistent uniform buffers on graphics backends that support them. Imported material values can then be uploaded once and reused across draws. The built-in PBR layout and the complete feature declarations shown above are designed for this path.
+
+To retain the optimized layout in a custom shader, keep the four common `vec4` fields first, in the order shown above. Keep each included feature struct's recognized member names, types and order, and use its matching block member name, such as `pbrMetallicRoughness`. Whole feature structs may be omitted when unused. Put additional custom controls in a separate uniform block.
+
+Custom PBR layouts that do not match this layout continue to receive recognized values through named constants. The engine also uses that path when the graphics backend does not support uniform buffers. Existing custom shaders do not need a layout rewrite merely to remain compatible.
+
+If you change a PBR block's layout while hot reloading, rebuild and reload the material along with its shaders. A shader-only reload with an incompatible layout can cause the engine to skip its draw and log a request to rebuild the material.
+
+### Batching
+
+Sharing a Defold `.material` resource does not by itself guarantee that models batch together. Different imported glTF material values or material indices can split batches, even when meshes use the same shader. A draw uses one imported PBR material. The other [model instancing requirements](/manuals/material/#instancing), including matching textures and constants, still apply.
+
 ### Constants
 
 Feature fields use names such as `pbrMetallicRoughness.baseColorFactor`; common fields use names such as `pbrEmissiveFactorAndStrength`. The engine populates these constants from the imported material, or from a default material when the model has no material data. Setting defaults in the `.material` resource does not override the imported values.
