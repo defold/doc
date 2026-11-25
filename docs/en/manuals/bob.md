@@ -256,7 +256,7 @@ Pass `--build-server <url>` to select a server explicitly, including a [self-hos
 
 ## HLSL output in custom shader compiler integrations
 
-From Defold 1.14.2, integrations that call Bob's shader compiler pipeline can select plaintext HLSL when a downstream compiler is responsible for producing the final shader binary. This is a compiler API option, not a Bob command-line option. The existing `--debug-output-hlsl` flag selects HLSL output for the build; it does not select plaintext source instead of binary output.
+Integrations that call Bob's shader compiler pipeline can select plaintext HLSL when a downstream compiler is responsible for producing the final shader binary. This is a compiler API option, not a Bob command-line option. The existing `--debug-output-hlsl` flag selects HLSL output for the build; it does not select plaintext source instead of binary output.
 
 Pass `ShaderCompilePipeline.Options` to the common compiler factory and set `hLSLOutputMode`:
 
