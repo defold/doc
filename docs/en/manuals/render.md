@@ -228,7 +228,7 @@ end
 ```
 
 update()
-: The `update()` function is called once each frame. Its function is to perform the actual drawing by calling the underlying OpenGL ES APIs (OpenGL Embedded Systems API). To properly understand what's going on in the `update()` function, you need to understand how OpenGL works. There are many great resources on OpenGL ES available. The official site is a good starting place. You find it at https://www.khronos.org/opengles/
+: The `update()` function is called once each frame. It records rendering commands that the engine executes using the active graphics backend. Use it to select cameras, configure render state and draw predicates.
 
   This example contains the setup necessary to draw 3D models. The `init()` function defined a `self.predicates.model` predicate. Elsewhere a material with the tag "model" has been created. There are also some model components that use the material:
 
@@ -441,6 +441,24 @@ end
 ::: sidenote
 There is currently no way of changing which texture a resource should point to, you can only use raw handles like this in the render script.
 :::
+
+## Values captured by draw commands
+
+A `render.draw()` command captures its supplied constant-buffer values when the command is recorded. This behavior is already available in Defold 1.13.2. Changing the buffer later in the render script does not change an earlier recorded draw, so you can reuse a constant buffer across passes:
+
+```lua
+-- self.scene_predicate was created with render.predicate() in init().
+local constants = render.constant_buffer()
+constants.tint = vmath.vector4(1, 0, 0, 1)
+render.draw(self.scene_predicate, { constants = constants })
+
+constants.tint = vmath.vector4(0, 0, 1, 1)
+render.draw(self.scene_predicate, { constants = constants })
+```
+
+The first command uses the red tint and the second uses blue, provided the material uses a `tint` constant. Whether both passes are visible also depends on the depth and blending state. From Defold 1.14.2, draw commands also capture the selected camera values. Changing a selected camera between draws affects subsequent draws, not the camera values captured by earlier ones.
+
+This captures draw values, not copies of texture contents or other GPU resources. Keep normal resource-lifetime rules when replacing or deleting resources. Command recording does not enable multithreaded rendering: production rendering in 1.14.2 still runs inline.
 
 ## Supported graphics APIs
 The Defold render script API translates render operations into the following graphics APIs:
