@@ -5,7 +5,7 @@ brief: This manual explains how to extend editor using Lua
 
 # Editor scripts
 
-You can create custom menu items and editor lifecycle hooks using Lua files with special extension: `.editor_script`. Using this system, you can tweak editor to enhance your development workflow.
+You can create custom menu items, panes, and editor lifecycle hooks using Lua files with special extension: `.editor_script`. Using this system, you can tweak editor to enhance your development workflow.
 
 ## Editor script runtime
 
@@ -29,6 +29,10 @@ function M.get_commands()
   -- TODO - define editor commands
 end
 
+function M.get_panes()
+  -- TODO - define editor panes
+end
+
 function M.get_language_servers()
   -- TODO - define language servers
 end
@@ -39,7 +43,7 @@ end
 
 return M
 ```
-Editor then collects all editor scripts defined in project and libraries, loads them into single Lua VM and calls into them when needed (more on that in [commands](#commands) and [lifecycle hooks](#lifecycle-hooks) sections).
+Editor then collects all editor scripts defined in project and libraries, loads them into single Lua VM and calls into them when needed (more on that in [commands](#commands), [panes](#panes), and [lifecycle hooks](#lifecycle-hooks)).
 
 ## Editor API
 
@@ -79,6 +83,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.execute(cmd, [...args], [options])` — run a shell command, optionally capturing its output.
 - `editor.save()` — persist all unsaved changed to disk.
 - `editor.transact(txs)` — modify the editor in-memory state using 1 or more transaction steps created with `editor.tx.*` functions.
+- `editor.pane(options)` — define a [pane](#panes) that an editor script can add to the editor.
 - `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — functions for interacting with editor preferences, see [preferences](#preferences).
 
@@ -600,6 +605,50 @@ Since this command invokes shell program in a read-only way (and notifies the ed
 If you want to distribute your editor script as a library, you might want to bundle the binary program for editor platforms within the dependency. See [Editor scripts in libraries](#editor-scripts-in-libraries) for more details on how to do it.
 :::
 
+## Panes
+
+::: sidenote
+Editor script panes are available starting with Defold 1.14.3.
+:::
+
+Define `get_panes()` in an editor script module to add tabs alongside the editor's built-in panes. The editor calls this function when it loads or reloads editor scripts. Return an array of pane definitions created with `editor.pane()`.
+
+Save this example as `selected_asset.editor_script`, run **Project → Reload Editor Scripts**, and select a single file in **Assets**. The **Selected Asset** tab appears in the lower-left group and shows the selected file's project path.
+
+```lua
+local M = {}
+
+function M.get_panes()
+  return {
+    editor.pane({
+      id = "example.selected-asset",
+      title = "Selected Asset",
+      location = "left-bottom",
+      query = {
+        selection = {type = "resource", cardinality = "one"}
+      },
+      render = function(opts)
+        local path = editor.get(opts.selection, "path")
+        return editor.ui.vertical({
+          padding = editor.ui.PADDING.SMALL,
+          children = {editor.ui.label({text = path})}
+        })
+      end
+    })
+  }
+end
+
+return M
+```
+
+- `id` (required) — a stable string unique across built-in panes and all editor scripts. Use a prefix specific to your project or library. The editor reports conflicting IDs in the console and loads the other panes.
+- `title` (required) — the tab title, as a string or an editor message that can be translated.
+- `location` (required) — one of `"left-top"`, `"left-bottom"`, `"right-top"`, `"right-bottom"`, or `"bottom"`.
+- `query` (optional) — uses the `selection` and `active_view` clauses described in [Commands](#commands). The matching values are passed to `render` as `opts.selection` and `opts.active_view`. A resource selection can be a node ID or a project path. Left panes use the project-wide context, including the Assets selection. Right and bottom panes try the workbench context first, then the project-wide context. The tab disappears when the query stops matching. With no query, `render` receives an empty table.
+- `render` (required) — returns an [editor UI component](/manuals/editor-scripts-ui#components) or `nil` to hide the tab and discard its content and UI state. Keep this function fast, as it runs in [immediate mode](#execution-modes). To use hooks such as `editor.ui.use_state()`, return a component created with `editor.ui.component()`. If that component returns `nil`, the tab disappears and the component keeps its hook state while mounted.
+
+Users can show or hide individual tabs from **View → Panes**.
+
 ## Lifecycle hooks
 
 There is a specially treated editor script file: `hooks.editor_script`, located in a root of your project, in the same directory as *game.project*. This and only this editor script will receive lifecycle events from the editor. Example of such file:
@@ -790,6 +839,7 @@ The following functions are considered long-running and cannot be used in immedi
 
 The following code execution contexts use immediate mode:
 - Menu command's `active` callbacks: the editor needs a response from the script within the same UI frame.
+- Pane `get_panes()` and `render` functions: the editor needs the definitions or UI content immediately.
 - Top-level of editor scripts: we don't expect the act of reloading editor scripts to have any side effects.
 
 ## Actions

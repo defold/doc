@@ -206,6 +206,7 @@ HDR
 hercule
 hidpi
 Hiero
+HLSL
 homebrew
 HoRNDIS
 Hotspot
@@ -314,6 +315,7 @@ MonoBehaviours
 Monteiro
 movieclip
 MSAA
+MSL
 mutex
 Nakama
 namespace
@@ -412,6 +414,7 @@ reconfiguring
 redeclare
 reimported
 reindent
+reinitializing
 Remotery
 renderer
 Rendy
@@ -466,6 +469,7 @@ Stateful
 Steamworks
 STL
 struct
+struct's
 structs
 stylesheet
 stylesheets
@@ -583,6 +587,7 @@ WebSocket
 WebView
 WebViews
 wget
+WGSL
 whitespace
 Wi
 Wi-Fi
