@@ -642,10 +642,10 @@ return M
 ```
 
 - `id` (required) — a stable string unique across built-in panes and all editor scripts. Use a prefix specific to your project or library. The editor reports conflicting IDs in the console and loads the other panes.
-- `title` (required) — the tab title, as a string or a localizable editor message.
+- `title` (required) — the tab title, as a string or an editor message that can be translated.
 - `location` (required) — one of `"left-top"`, `"left-bottom"`, `"right-top"`, `"right-bottom"`, or `"bottom"`.
 - `query` (optional) — uses the `selection` and `active_view` clauses described in [Commands](#commands). The matching values are passed to `render` as `opts.selection` and `opts.active_view`. A resource selection can be a node ID or a project path. Left panes use the project-wide context, including the Assets selection. Right and bottom panes try the workbench context first, then the project-wide context. The tab disappears when the query stops matching. With no query, `render` receives an empty table.
-- `render` (required) — returns an [editor UI component](/manuals/editor-scripts-ui#components) or `nil` to hide the tab and unmount its content. Keep this function fast, as it runs in [immediate mode](#execution-modes). To use hooks such as `editor.ui.use_state()`, return a component created with `editor.ui.component()`. If that component returns `nil`, the tab disappears and the component keeps its hook state while mounted.
+- `render` (required) — returns an [editor UI component](/manuals/editor-scripts-ui#components) or `nil` to hide the tab and discard its content and UI state. Keep this function fast, as it runs in [immediate mode](#execution-modes). To use hooks such as `editor.ui.use_state()`, return a component created with `editor.ui.component()`. If that component returns `nil`, the tab disappears and the component keeps its hook state while mounted.
 
 Users can show or hide individual tabs from **View → Panes**.
 
