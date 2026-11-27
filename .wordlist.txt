@@ -208,6 +208,7 @@ HDR
 hercule
 hidpi
 Hiero
+HLSL
 homebrew
 HoRNDIS
 Hotspot
@@ -316,6 +317,7 @@ MonoBehaviours
 Monteiro
 movieclip
 MSAA
+MSL
 mutex
 Nakama
 namespace
@@ -586,6 +588,7 @@ WebSocket
 WebView
 WebViews
 wget
+WGSL
 whitespace
 Wi
 Wi-Fi

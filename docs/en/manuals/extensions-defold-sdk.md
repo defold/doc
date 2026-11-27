@@ -52,6 +52,6 @@ The results are:
 
 `InstallAdapter()` without arguments selects the highest-priority supported registered adapter. `InstallAdapter(family)` considers only the requested family and never falls back to another family. `ADAPTER_FAMILY_NONE` does not request automatic selection; use the no-argument overload instead.
 
-Installation checks adapter support but does not create a window or graphics context. A successful return therefore does not guarantee that subsequent context creation will succeed. The engine handles startup fallback separately. Delete an existing graphics context before changing adapters or calling `dmGraphics::Finalize()`; reinstalling the current adapter succeeds without reinitializing it.
+Installation checks adapter support but does not create a window or graphics context. A successful return therefore does not guarantee that subsequent context creation will succeed. The engine handles startup fallback separately. Delete an existing graphics context before changing adapters or calling `dmGraphics::Finalize()`. Reinstalling the current adapter returns success and skips initialization.
 
 See the [graphics SDK declarations](https://github.com/defold/defold/blob/62f039ae1fafc5a036563fd8f44edf269288254f/engine/graphics/src/dmsdk/graphics/graphics.h) for the API introduced by this change.
