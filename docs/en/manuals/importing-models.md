@@ -43,6 +43,8 @@ Export or optimize your glTF 2.0 asset using one of these extensions, then impor
 
 Defold decodes the compressed geometry during import and build. The resulting model uses Defold's normal runtime geometry representation. This support does not enable Draco or Meshopt compression in the running engine, and a smaller source file does not guarantee a smaller game bundle.
 
+If a glTF primitive has a clearcoat normal map but has no base normal map or authored tangents, Defold generates tangents from the clearcoat normal map's UV set. Rendering the clearcoat effect requires a [custom PBR shader](/manuals/physically-based-rendering/).
+
 ### Browsing the imported scene
 
 Expand a *.gltf* or *.glb* file in the *Assets* pane to browse its meshes, generated materials and embedded images. Opening the scene previews it with its defined materials and textures. You can also open an individual mesh for a preview.

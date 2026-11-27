@@ -200,6 +200,8 @@ These types of fonts provide no performance improvement from bitmap fonts genera
 Add the generated *`.fnt`* and *`.png`* files to your Defold project. These files should reside in the same folder. Create a new font file and set the *Font* property to the *`.fnt`* file. Defold uses the supplied bitmap and reads its size from the `.fnt` file. *Mode* and *Glyph Generation* are not shown for BMFont sources.
 
 ::: sidenote
+Defold accepts the negative size written by AngelCode BMFont when **Match char height** is enabled.
+
 To create a BMFont, you need to use a tool that can generate the appropriate files. Several options exist:
 
 * [Bitmap Font Generator](http://www.angelcode.com/products/bmfont/), a Windows only tool provided by AngelCode.

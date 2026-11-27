@@ -13,6 +13,8 @@ In Defold, each collection proxy creates its own separate physics world. Therefo
 
 This setup means that the listener for physics events must be set from within the context of the collection that the proxy represents. By doing so, you associate the listener directly with the relevant physics world, enabling it to process physics events accurately.
 
+With [Use Fixed Timestep](/manuals/project-settings/#use-fixed-timestep) enabled, the listener receives that world's event batch during each fixed physics step that produces events. A rendered frame can therefore deliver multiple batches. In Box2D 3, each shape contact is processed once and can still contribute multiple contact points. Avoid relying on event order.
+
 Here is an example of how to set a physics world listener within a collection proxy:
 
 ```lua

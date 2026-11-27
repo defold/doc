@@ -24,7 +24,10 @@ Text nodes have a set of special properties:
 : This property contains the text displayed.
 
 *Line Break*
-: Text alignment follows the pivot setting and setting this property allows the text to flow over several lines. The width of the node determines where the text will wrap.
+: Wraps the text over several lines. The available width comes from the node's size or the length of the active arc or curve.
+
+*Blend Mode*
+: Selects how the text blends with the background. Text nodes support **Alpha**, **Add**, **Multiply**, and **Screen**.
 
 ## Vector fonts and color emoji
 
@@ -65,6 +68,18 @@ By setting the node pivot you can change the alignment mode for the text.
 : If the pivot is set to any of the `East` modes, the text is right-aligned.
 
 ![Text alignment](images/gui-text/align.png)
+
+## Text on an arc or curve
+
+Set **Arc Radius** and **Arc Angle** on the text node in the editor, or set the properties from a GUI script:
+
+```lua
+local node = gui.get_node("text")
+gui.set(node, "arc_radius", 160)
+gui.set(node, "arc_angle", 90)
+```
+
+The node origin is the center of the circle. To use a custom path, call [`gui.set_curve(node, knots, options)`](/ref/gui/#gui.set_curve) with positions in node-local coordinates. The [Label manual](/manuals/label/#text-on-an-arc-or-curve) shows the knot format and explains wrapping and layout precedence. Call `gui.set_curve(node, nil)` to clear the path.
 
 ## Modifying text nodes in runtime
 

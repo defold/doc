@@ -275,7 +275,7 @@ Omit unused feature members from the block. If the block or a feature's recogniz
 
 From Defold 1.14.2, compatible `PbrMaterial` blocks use persistent uniform buffers on graphics backends that support them. Imported material values can then be uploaded once and reused across draws. The built-in PBR layout and the complete feature declarations shown above are designed for this path.
 
-To retain the optimized layout in a custom shader, keep the four common `vec4` fields first, in the order shown above. Keep each included feature struct's recognized member names, types and order, and use its matching block member name, such as `pbrMetallicRoughness`. Whole feature structs may be omitted when unused. Put additional custom controls in a separate uniform block.
+To retain the optimized layout in a custom shader, keep the four common `vec4` fields first, in the order shown above. For each feature struct you include, preserve the recognized member names, types and order. Use the matching block member name, such as `pbrMetallicRoughness`. Whole feature structs may be omitted when unused. Put additional custom controls in a separate uniform block.
 
 Custom PBR layouts that do not match this layout continue to receive recognized values through named constants. The engine also uses that path when the graphics backend does not support uniform buffers. Existing custom shaders do not need a layout rewrite merely to remain compatible.
 

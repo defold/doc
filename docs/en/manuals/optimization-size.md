@@ -24,7 +24,7 @@ Playable ads are usually limited to between 2 and 5 MB depending on the ad netwo
 ## Size optimization strategies
 You can optimize the application size in two ways; by reducing the size of the engine and/or by reducing the size of the game assets.
 
-To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
+To see what contributes to the size of your application, [generate a bundle report](/manuals/bundling/#build-reports). Sounds and graphics often make up most of the download.
 
 ::: important
 Defold will create a dependency tree when building and bundling your application. The build system will start from the bootstrap collection specified in the *game.project* file and inspect every referenced collection, game object and component to build a list of the assets that are in use. It is only these assets that will get included in the final application bundle. Anything not directly referenced will get excluded. While it is good to know that unused assets will not be included you as a developer still needs to consider what goes into the final application and the size of the individual assets and the total size of the application bundle. 
@@ -90,7 +90,7 @@ The size of your fonts will be smaller if you specify what symbols you are going
 ### Exclude content for download on demand
 Another way of reducing initial application size is to exclude parts of the game content from the application bundle and download it on demand. Defold provides a system called Live Update for excluding content for download on demand.
 
-Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. If your game has a lot of content, organize the loading process so that the bootstrap collection and the first level collection include the bare minimum resources required for that level. You achieve this by using collection proxies or factories with the "Exclude" checkbox enabled. Split resources according to the player's progress. This approach ensures efficient resource loading and keeps initial memory usage low. Learn more in the [Live Update manual](/manuals/live-update/).
+Use an [archive manifest](/manuals/live-update/#archive-manifests) to put optional levels, characters, or skins in named packages. Keep the resources needed to start the game in Base. Load later content through collection proxies after mounting the required packages.
 
 ## Android specific size optimizations
 

@@ -14,7 +14,7 @@ Here we describe how to debug a build using [Xcode](https://developer.apple.com/
 ```sh
 $ cd myproject
 $ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
-$ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+$ java -jar bob.jar --platform arm64-ios --with-symbols --variant debug --bundle-output build/ios --mobileprovisioning "MyApp.mobileprovision" --identity "iPhone Developer: Your Name (ID)" build bundle
 ```
 
 * Install the app, either with `Xcode`, `iTunes` or [ios-deploy](https://github.com/ios-control/ios-deploy)

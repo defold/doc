@@ -17,7 +17,7 @@ end
 
 This reports build-manifest metadata only. It does not mean that an archive is currently mounted or that a particular resource is available. Use `liveupdate.get_mounts()` to inspect active mounts and [`collectionproxy.get_resources()`](/ref/collectionproxy/#collectionproxy.get_resources) to inspect manifest-recorded resource hashes for a collection proxy.
 
-The recommended workflow is to download and mount a complete Zip archive using a `zip:` URI.
+Download and mount a complete ZIP archive using a `zip:` URI. For content built with an [archive manifest](/manuals/live-update/#archive-manifests), track which packages supply a level and its dependencies, and mount all of them before loading the level.
 
 ## Get mounts
 
@@ -63,7 +63,7 @@ In the archive-based workflow, you generally decide which archive or archives a 
 
 After a package is mounted, an excluded and unloaded proxy can also be redirected to a different compiled collection with `collectionproxy.set_collection()`. See [Changing an excluded proxy's collection](/manuals/collection-proxy/#changing-an-excluded-proxys-collection) for the restrictions and loading sequence.
 
-For an archive build that publishes Live Update content, the bundled main manifest omits excluded Live Update entries while the published package manifest retains them. `collectionproxy.get_resources()` reads manifest dependency metadata; it does not verify that every referenced data blob is available:
+In the legacy **Exclude** workflow, the bundled main manifest omits entries exclusive to the external package. `collectionproxy.get_resources()` reads manifest dependency metadata; it does not verify that every referenced data blob is available:
 
 * Before a package manifest containing the proxy's excluded entries is mounted, `collectionproxy.get_resources("#proxy")` returns an empty table `{}`.
 * After the relevant package is mounted, it returns a non-empty table of resource hashes for that proxy, for example:

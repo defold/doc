@@ -81,7 +81,10 @@ Note that the default material has shadow rendering disabled for performance rea
 : The blend mode to use when rendering the label.
 
 *Line Break*
-: Text alignment follows the pivot setting and setting the this property allows the text to flow over several lines. The width of the component determines where the text will wrap. Note that there has to be a space in the text for it to break.
+: Wraps the text over several lines. The available width comes from *Size* or from the length of the active [arc or curve](#text-on-an-arc-or-curve).
+
+*Arc Radius* and *Arc Angle*
+: Lay out text on a circular arc. A zero angle uses the ordinary text box.
 
 *Font*
 : The font resource to use for this label.
@@ -106,6 +109,29 @@ By setting the *Pivot* property you can change the alignment mode for the text.
 : If the pivot is set to any of the `East` modes, the text is right-aligned.
 
 ![Text alignment](images/label/align.png)
+
+## Text on an arc or curve
+
+Labels and [GUI text nodes](/manuals/gui-text/#text-on-an-arc-or-curve) can lay out text along a circle or a scripted 3D Bézier curve. Text shaping, rich text, and line breaks still apply.
+
+For a circle, set **Arc Radius** and **Arc Angle** in the editor or use the `arc_radius` and `arc_angle` properties at runtime. The label origin is the center of the circle, and the signed radius positions the first baseline in local units. The angle is in degrees from `0` (ordinary layout) to `360` (full circle). With **Line Break** enabled, the arc length controls wrapping. The active arc takes precedence over **Size**.
+
+```lua
+go.set("#label", "arc_radius", 160)
+go.set("#label", "arc_angle", 90)
+```
+
+For a custom path, pass at least two ordered knots to [`label.set_curve()`](/ref/label/#label.set_curve). Each knot has a local `position`. The optional `in_handle` and `out_handle` vectors are offsets from that knot. The first knot's `up` vector sets the initial text orientation. Knots can also specify `roll_degrees` and uniform `scale`.
+
+```lua
+local knots = {
+    { position = { 0, 0, 0 }, out_handle = { 60, 80, 0 }, up = { 0, 1, 0 } },
+    { position = { 200, 40, 0 }, in_handle = { -60, 0, 0 }, roll_degrees = 20 },
+}
+label.set_curve("#label", knots)
+```
+
+A curve takes precedence over the arc and **Size**. With **Line Break** enabled, the path length controls wrapping. Each line follows the same curve with its own baseline offset. Text extending past an open end follows the end tangent. Pass `{ closed = true }` as the third argument to close the curve. Use `label.set_curve("#label", nil)` to return to arc or text box layout.
 
 ## Runtime manipulation
 

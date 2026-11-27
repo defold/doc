@@ -9,6 +9,8 @@ Defold can make normal HTTP requests using the `http.request()` function.
 
 ### HTTP GET
 
+For native HTTP GET requests, keep the URL path and query to 3999 bytes or fewer. The engine reserves one byte in its 4000-byte path buffer. Count the path as sent, including percent-encoded characters.
+
 This is the most basic request to get some data from the server. Example:
 
 ```lua

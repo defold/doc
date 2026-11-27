@@ -202,11 +202,6 @@ static void LuaInit(lua_State* L)
     assert(top == lua_gettop(L));
 }
 
-dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
-{
-    return dmExtension::RESULT_OK;
-}
-
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
     // Init Lua
@@ -215,27 +210,16 @@ dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
     return dmExtension::RESULT_OK;
 }
 
-dmExtension::Result AppFinalizeMyExtension(dmExtension::AppParams* params)
+static dmExtension::Result RegisterMyExtension(dmExtension::HExtension extension)
 {
+    dmExtension::SetInitializeFn(extension, InitializeMyExtension);
     return dmExtension::RESULT_OK;
 }
 
-dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
-{
-    return dmExtension::RESULT_OK;
-}
-
-
-// Defold SDK uses a macro for setting up extension entry points:
-//
-// DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
-
-// MyExtension is the C++ symbol that holds all relevant extension data.
-// It must match the name field in the `ext.manifest`
-DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
+DM_DECLARE_EXTENSION(MyExtension, RegisterMyExtension, 0);
 ```
 
-Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any `update` or `on_event` entry points, so `0` is provided in those locations to the macro.
+The first argument to `DM_DECLARE_EXTENSION` must match the name in *ext.manifest*. The registration function sets the callbacks the extension needs. This example needs only an initialization callback, so `unregister_fn` is `0`.
 
 Now it is just a matter of building the project (<kbd>Project ▸ Build</kbd>). This will upload the extension to the extension builder which will produce a custom engine with the new extension included. If the builder encounters any errors, a dialog with the build errors will show.
 
@@ -252,11 +236,11 @@ And that's it! We have created a fully working native extension.
 
 ## Extension Lifecycle
 
-As we saw above the `DM_DECLARE_EXTENSION` macro is used to declare the various entry points into the extension code:
+Declare an extension with `DM_DECLARE_EXTENSION(name, register_fn, unregister_fn)`. The registration callback runs for each engine creation, before application initialization. Use it to set lifecycle callbacks and optional extension-owned user data. The optional `unregister_fn` callback runs after application finalization for each successfully registered extension and can free that data. Registration runs again on engine reboot.
 
-`DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
+The eight-argument declaration remains supported for existing extensions and emits a compiler deprecation warning. See the [Defold SDK manual](/manuals/extensions-defold-sdk/) for the C and C++ API references.
 
-The entry points will allow you to run code at various points in the lifecycle of an extension:
+Once registered, the callbacks run at these points:
 
 * Engine start
   * Engine systems are starting
@@ -268,7 +252,7 @@ The entry points will allow you to run code at various points in the lifecycle o
     * Extension `update`
     * Script update - The `update()` function of script files are called.
   * Engine events (window minimize/maximize etc)
-    * Extension `on_event`
+    * Extension event callback
 * Engine shutdown (or reboot)
   * Script final - The `final()` function of script files are called.
   * Extension `final`

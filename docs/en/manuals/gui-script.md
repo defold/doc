@@ -74,6 +74,12 @@ stack traceback:
    /main/my_gui.gui_script:2: in function </main/my_gui.gui_script:1>
 ```
 
+### Sizing and ordering nodes
+
+To set a node's size from a script, use manual size mode. Calling `gui.set_size()` on an auto-sized node leaves its size unchanged and logs the node identity, GUI component URL, and Lua source location.
+
+Use `gui.move_above()` or `gui.move_below()` to change node order. Moving a node relative to one of its descendants raises a Lua error and leaves the hierarchy unchanged.
+
 ## Message passing
 
 Any GUI component with a script attached is able to communicate with other objects in your game runtime environment through message passing, it will behave like any other script component.

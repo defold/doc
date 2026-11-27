@@ -15,11 +15,9 @@ Collection proxies differ from [collection factory components](/manuals/collecti
 
 1. Add a collection proxy component to a game object by <kbd>right-clicking</kbd> a game object and selecting <kbd>Add Component ▸ Collection Proxy</kbd> from the context menu.
 
-2. Set the *Collection* property to reference a collection that you wish to dynamically load into the runtime at a later point. This is a static build-time dependency: the referenced collection and its dependencies are compiled. Unless *Exclude* is checked, they are included in the main bundle. With *Exclude* checked, resources referenced only through excluded proxies can be omitted from the main bundle for Live Update, and the unloaded proxy can be redirected to another compiled collection at runtime as described below.
+2. Set the *Collection* property to reference a collection that you wish to load at runtime. The reference is a build-time dependency, so Defold compiles the collection and its dependencies. To distribute them separately, assign the collection to a package in an [archive manifest](/manuals/live-update/#archive-manifests), or check *Exclude* when using [legacy Live Update settings](/manuals/live-update/#legacy-live-update-settings).
 
 ![add proxy component](images/collection-proxy/create_proxy.png)
-
-(You can exclude the content in the build and download it with code instead by checking the *Exclude* box and using the [Live update feature](/manuals/live-update/).)
 
 ## Bootstrap
 

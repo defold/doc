@@ -361,6 +361,8 @@ Use the `#ifdef EDITOR` preprocessor directive to conditionally compile code tha
 #endif
 ```
 
+If a shader fails to compile or link in the Scene View, check the editor's **Console**. The message includes the material path and the editor graphics driver's error.
+
 ## The rendering process
 
 Before ending up on the screen, the data that you create for your game goes through a series of steps:

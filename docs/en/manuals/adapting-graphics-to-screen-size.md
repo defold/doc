@@ -121,8 +121,20 @@ You can learn more about these properties [in the GUI manual](/manuals/gui/#node
 Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design a GUI that can adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models. You can learn more about this system in the [GUI Layouts manual](/manuals/gui-layouts/)
 
 
+### Display density
+
+Use [`window.get_display_density()`](/ref/window/#window.get_display_density) for a platform-specific estimate in dots per inch. It returns `96` on platforms without an estimate. To scale a size designed for a reference density, use [`window.get_display_density_scale(reference_dpi)`](/ref/window/#window.get_display_density_scale). The reference must be positive. For example, to scale a size designed for Android's 160 dpi baseline:
+
+```lua
+local size = 48 * window.get_display_density_scale(160)
+```
+
+This estimate is intended for UI sizing. Use `window.get_display_scale()` for the ratio of framebuffer pixels to logical window pixels.
+
 ## Testing different screen sizes
 
 The *Debug* menu contains an option to simulate the resolution of either a certain device model resolution or a custom resolution. While the application is running you can select <kbd>Debug->Simulate Resolution</kbd> and pick one of the device models from the list. The running application window will resize and you'll be able to see how your game looks in a different resolution or with a different aspect ratio.
+
+Changing or rotating the simulated device resizes the window while preserving the design resolution from *game.project*. GUI layouts and stretch projection continue to use the original design dimensions. External tools can resize a debug window through the [engine service](/manuals/engine-service/#window-metrics-and-resizing).
 
 ![](images/screen_size/simulate-resolution.png)

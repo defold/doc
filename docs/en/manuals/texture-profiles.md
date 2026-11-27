@@ -67,7 +67,7 @@ While ASTC provides great results, it is not supported by all graphics cards. He
 
 ## Texture profiles
 
-Each project contains a specific *.texture_profiles* file that contains the configuration used when compressing textures. By default, this file is *builtins/graphics/default.texture_profiles* and it has a configuration matching every texture resource to a profile using RGBA with no hardware texture compression and using the default ZLib file compression.
+Each project selects a *.texture_profiles* file that controls texture encoding. The built-in *builtins/graphics/default.texture_profiles* maps HDR sources to uncompressed **RGBA32F** and other textures to **RGBA** without hardware texture compression.
 
 To add texture compression:
 
@@ -160,6 +160,16 @@ The *Formats* added to a profile each have the following properties:
 Note that the `uncompressed` compressor only has one preset called `uncompressed`, which means no compression will be applied to the textures.
 To see the list of available compressors, see [Compressors](#compressors)
 
+The editor flags invalid compressor and preset settings. Bob reports them as build errors on the texture profiles resource.
+
+## HDR source textures
+
+Use Radiance `.hdr` files as [model textures](/manuals/model/#model-properties). Opening an HDR image in the editor shows a tone-mapped preview. The compiled texture preserves the high dynamic range for use by your material.
+
+The built-in profiles match `**/*.hdr` before the catch-all rule. If you use custom profiles, add an HDR rule ahead of broader patterns and use the **Uncompressed** compressor with **RGBA16F** (16-bit floating point per channel) or **RGBA32F** (32-bit floating point per channel). The default is **RGBA32F**. Verify format support on your target graphics adapters.
+
+To compress HDR textures, use an ASTC format with the **ASTC** compressor and check that your target devices and graphics adapters support HDR ASTC. With texture compression disabled, an HDR ASTC profile produces uncompressed **RGBA32F**.
+
 ## KTX2 source textures
 
 Texture profiles apply to standalone *.ktx2* files and to KTX2 images embedded in glTF or GLB files. Path settings match the source image path, including virtual paths such as `/models/robot.glb/images/0.ktx2` for embedded images. Place a specific KTX2 path setting before broader matching patterns.
@@ -201,7 +211,7 @@ Since Basis Universal compression transcoding is dependent on the device's GPU c
 
 The Basis Universal transcoder supports many output formats, like `ASTC4x4`, `BCx`, `ETC2`, `ETC1` and `PVRTC1`.
 
-The following lossy compression formats are currently supported:
+The following uncompressed formats are supported:
 
 | Format                            | Compression | Details  |
 | --------------------------------- | ----------- | -------------------------------- |
@@ -211,6 +221,8 @@ The following lossy compression formats are currently supported:
 | `TEXTURE_FORMAT_RGBA_16BPP`       | none        | 3 channel color and full alpha. 4+4+4+4 bits. |
 | `TEXTURE_FORMAT_LUMINANCE`        | none        | 1 channel gray-scale, no alpha. RGB channels multiplied into one. Alpha is discarded. |
 | `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1 channel gray-scale and full alpha. RGB channels multiplied into one. |
+| `TEXTURE_FORMAT_RGBA16F`          | none        | RGBA with 16-bit floating point channels. |
+| `TEXTURE_FORMAT_RGBA32F`          | none        | RGBA with 32-bit floating point channels. |
 
 For ASTC, the number of channels will always be 4 (RGB + alpha), and the format itself defines the size of the block compression.
 Note that these formats are only compatible with an ASTC compressor - any other combination will produce a build error.

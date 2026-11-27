@@ -9,6 +9,7 @@ Defold includes profiling tools integrated with the engine and build pipeline. T
 
 * The basic profiler and in-game visual profiler are available on all platforms.
 * The [Remotery profiler](https://github.com/Celtoys/Remotery) and interactive web frame profiler are available on desktop and mobile platforms.
+* Android debug builds can record [Perfetto system traces](#android-perfetto-system-traces).
 * macOS debug builds using Metal can save [GPU traces](#metal-gpu-trace-capture) for inspection in Xcode.
 * HTML5 builds can publish Defold scopes to the browser's Web Performance API.
 
@@ -206,6 +207,32 @@ curl -fsS -X DELETE "$ENGINE_URL/profiler/gputrace" | jq
 
 A pending capture changes to `canceled`. For an active capture, `data.stop_requested` becomes `true`, and capture finishes after the current rendered frame is submitted. Continue polling `GET` until it reaches a terminal state. `DELETE` leaves any trace already written on disk. If no capture is pending or active, it returns HTTP 409 with `error.code: "gputrace_inactive"`.
 
+## Android Perfetto system traces
+
+Android debug builds can coordinate a Perfetto capture from the [engine service](/manuals/engine-service/#android-perfetto-endpoints). The trace can include CPU scheduling and frequency, Android graphics events, and GPU data exposed by the device and driver. Recording uses Android's built-in tools and writes the trace on the computer running [ADB](/manuals/android/#installing-an-apk).
+
+1. Start the debug game on the connected device. Set `ENGINE_URL` to the address and port of its engine service. Request a capture plan, for example for five seconds:
+
+   ```sh
+   curl -fsS "$ENGINE_URL/profiler/perfetto" \
+     -H 'Content-Type: application/json' \
+     -d '{"duration_ms":5000}'
+   ```
+
+2. Download the configuration from the returned `config_url` on the same engine service and save it locally as `config_filename`.
+3. Run the returned `record_command` from the directory containing the configuration. Use Command Prompt (`cmd.exe`) on Windows. If several devices are connected, add `-s <serial>` after `adb`.
+4. With the recorder still running, send a second request from another terminal. Replace `CAPTURE_ID` with the returned `capture_id`:
+
+   ```sh
+   curl -fsS "$ENGINE_URL/profiler/perfetto" \
+     -H 'Content-Type: application/json' \
+     -d '{"action":"trigger","capture_id":"CAPTURE_ID"}'
+   ```
+
+5. Wait for the recording command to exit successfully and confirm the output file contains data. Open the `.perfetto-trace` file in Android Studio or [Perfetto](https://ui.perfetto.dev/).
+
+The status `trigger_sent` confirms that Android's trigger helper ran. Use the recording command and the output file to confirm completion. If the recorder is still waiting and the output is empty, retry the trigger with the same capture ID after the status leaves `trigger_pending`. See the [Android trace guide](https://github.com/defold/defold/blob/1.14.2-beta/README_ANDROID.md#cpugpu-system-traces) for status and retry details.
+
 ## HTML5 browser performance timeline
 
 HTML5 uses the Web Performance API instead of Remotery for its browser timeline. To record Defold scopes:
@@ -218,21 +245,11 @@ HTML5 uses the Web Performance API instead of Remotery for its browser timeline.
 This browser timeline is separate from both the in-game visual profiler and the interactive Remotery web profiler.
 
 
-## Build reports
-When bundling your game there is an option to create a build report. This is very useful to get a grip on the size of all the assets that are part of your game bundle. Simply check the *Generate build report* checkbox when bundling the game.
+## Build and bundle reports {#build-reports}
 
-![build report](images/profiling/build_report.png)
+Enable **Generate bundle report** in the editor's bundle dialog to write `report.html` alongside the bundle. Open it in a browser to inspect Base and any exported packages. The report shows resource counts, compiled sizes, and the sizes of the generated package files or folders. Select a package or search resource and source paths across packages.
 
-The builder will produce a file called `report.html` alongside the game bundle. Open the file in a web browser to inspect the report:
-
-![build report](images/profiling/build_report_html.png)
-
-The *Overview* gives an over all visual breakdown of the project size based on resource type.
-
-*Resources* shows a detailed list of resources that you can sort based on size, compression ratio, encryption, type and directory name. Use the "search" field to filter the resource entries displayed.
-
-The *Structure* section shows sizes based on how resources are organized in the project file structure. Entries are color coded from green (light) to blue (heavy) according to the relative size of the file and directory content.
-
+With [Bob](/manuals/bob/), use `--bundle-report-html <file>` with `bundle` to generate the same report. Use `--build-report-html <file>` or `--build-report-json <file>` with `build` to inspect compiled resources before archive and container compression.
 
 ## External tools
 In addition to the built-in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
